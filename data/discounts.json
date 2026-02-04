@@ -1,7 +1,7 @@
 [
     {
         "_id": {
-            "$oid": "d000001"
+            "$oid": "c00000000000000000000001"
         },
         "name": "Popcorn -10%",
         "image": "/discounts/discount1.png",
@@ -9,7 +9,7 @@
     },
     {
         "_id": {
-            "$oid": "d000002"
+            "$oid": "c00000000000000000000002"
         },
         "name": "Nachos -20%",
         "image": "/discounts/discount2.png",
@@ -17,7 +17,7 @@
     },
     {
         "_id": {
-            "$oid": "d000003"
+            "$oid": "c00000000000000000000003"
         },
         "name": "Drink -50%",
         "image": "/discounts/discount3.png",
@@ -25,7 +25,7 @@
     },
     {
         "_id": {
-            "$oid": "d000004"
+            "$oid": "c00000000000000000000004"
         },
         "name": "Ticket -80%",
         "image": "/discounts/discount4.png",

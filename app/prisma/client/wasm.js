@@ -86,42 +86,101 @@ Prisma.NullTypes = {
 /**
  * Enums
  */
-exports.Prisma.UserScalarFieldEnum = {
+exports.Prisma.AdminScalarFieldEnum = {
   id: 'id',
   name: 'name',
   password_hash: 'password_hash'
 };
 
-exports.Prisma.WorkspaceScalarFieldEnum = {
+exports.Prisma.MovieScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  description: 'description',
-  limit: 'limit',
-  user_id: 'user_id'
+  director: 'director',
+  actors: 'actors',
+  playtime: 'playtime',
+  language: 'language',
+  trailer: 'trailer',
+  poster: 'poster',
+  onscreen: 'onscreen',
+  genre: 'genre',
+  review: 'review',
+  description: 'description'
 };
 
-exports.Prisma.API_TokenScalarFieldEnum = {
+exports.Prisma.ScreeningScalarFieldEnum = {
+  id: 'id',
+  hall_id: 'hall_id',
+  movie_id: 'movie_id',
+  start: 'start',
+  end: 'end',
+  screening_type_id: 'screening_type_id'
+};
+
+exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  token: 'token',
-  workspace_id: 'workspace_id',
-  createdAt: 'createdAt',
-  creation_date: 'creation_date',
-  revocation_date: 'revocation_date'
+  email: 'email',
+  password_hash: 'password_hash',
+  phone_number: 'phone_number',
+  points: 'points',
+  rank_id: 'rank_id'
 };
 
-exports.Prisma.Service_UsageScalarFieldEnum = {
+exports.Prisma.ChairScalarFieldEnum = {
   id: 'id',
-  service_id: 'service_id',
-  api_token_id: 'api_token_id',
-  usage_duration_ms: 'usage_duration_ms',
-  usage_started: 'usage_started'
+  state: 'state',
+  row: 'row',
+  column: 'column',
+  hall_id: 'hall_id'
 };
 
-exports.Prisma.ServiceScalarFieldEnum = {
+exports.Prisma.RankScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  cost_per_ms: 'cost_per_ms'
+  point_limit: 'point_limit',
+  discount_id: 'discount_id',
+  image: 'image'
+};
+
+exports.Prisma.DiscountScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  image: 'image',
+  percent: 'percent'
+};
+
+exports.Prisma.HallScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  row: 'row',
+  column: 'column'
+};
+
+exports.Prisma.ForumScalarFieldEnum = {
+  id: 'id',
+  review: 'review',
+  comment: 'comment',
+  user_id: 'user_id',
+  movie_id: 'movie_id'
+};
+
+exports.Prisma.TicketScalarFieldEnum = {
+  id: 'id',
+  ticket_type_id: 'ticket_type_id',
+  user_id: 'user_id',
+  screening_id: 'screening_id'
+};
+
+exports.Prisma.Ticket_typeScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  percent: 'percent'
+};
+
+exports.Prisma.Screening_typeScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  percent: 'percent'
 };
 
 exports.Prisma.SortOrder = {
@@ -136,11 +195,18 @@ exports.Prisma.QueryMode = {
 
 
 exports.Prisma.ModelName = {
+  Admin: 'Admin',
+  Movie: 'Movie',
+  Screening: 'Screening',
   User: 'User',
-  Workspace: 'Workspace',
-  API_Token: 'API_Token',
-  Service_Usage: 'Service_Usage',
-  Service: 'Service'
+  Chair: 'Chair',
+  Rank: 'Rank',
+  Discount: 'Discount',
+  Hall: 'Hall',
+  Forum: 'Forum',
+  Ticket: 'Ticket',
+  Ticket_type: 'Ticket_type',
+  Screening_type: 'Screening_type'
 };
 /**
  * Create the Client
@@ -153,7 +219,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\SULI\\13.osztály\\Nits\\loop\\app\\prisma\\client",
+      "value": "C:\\Users\\Brigita\\Desktop\\loop-1\\app\\prisma\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -171,7 +237,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\SULI\\13.osztály\\Nits\\loop\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\Brigita\\Desktop\\loop-1\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -194,13 +260,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "datasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../app/prisma/client\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\nmodel User {\n  id            String      @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name          String      @unique\n  password_hash String\n  workspaces    Workspace[]\n\n  @@map(\"users\")\n}\n\nmodel Workspace {\n  id          String  @id @default(auto()) @map(\"_id\") @db.ObjectId\n  title       String\n  description String?\n  limit       Int?\n  user_id     String  @db.ObjectId\n\n  user       User?       @relation(fields: [user_id], references: [id], onDelete: Cascade)\n  api_tokens API_Token[]\n\n  @@unique([title, user_id])\n  @@map(\"workspaces\")\n}\n\nmodel API_Token {\n  id             String          @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name           String\n  token          String\n  workspace_id   String          @db.ObjectId\n  createdAt      DateTime        @default(now())\n  service_usages Service_Usage[]\n\n  creation_date   DateTime  @default(now())\n  revocation_date DateTime?\n\n  workspace Workspace? @relation(fields: [workspace_id], references: [id], onDelete: Cascade)\n\n  @@unique([name, workspace_id])\n  @@map(\"api_tokens\")\n}\n\nmodel Service_Usage {\n  id                String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  service_id        String?  @db.ObjectId\n  api_token_id      String   @db.ObjectId\n  usage_duration_ms Float    @default(0)\n  usage_started     DateTime\n\n  service   Service?   @relation(fields: [service_id], references: [id], onDelete: Cascade)\n  api_token API_Token? @relation(fields: [api_token_id], references: [id], onDelete: Cascade)\n\n  @@map(\"service_usages\")\n}\n\nmodel Service {\n  id          String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name        String\n  cost_per_ms Float\n\n  service_usages Service_Usage[]\n\n  @@map(\"services\")\n}\n",
-  "inlineSchemaHash": "1f033533fbd808f5d7c1d589c7f2c6053412c95376cae7133a159dc5da27c997",
+  "inlineSchema": "datasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../app/prisma/client\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\nmodel Admin {\n  id            String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name          String\n  password_hash String\n\n  @@map(\"admins\")\n}\n\nmodel Movie {\n  id          String  @id @default(auto()) @map(\"_id\") @db.ObjectId\n  title       String\n  director    String\n  actors      String\n  playtime    Int\n  language    String\n  trailer     String\n  poster      String\n  onscreen    Boolean\n  genre       String\n  review      Float?\n  description String?\n\n  screenings Screening[]\n  forum      Forum[]\n\n  @@map(\"movies\")\n}\n\nmodel Screening {\n  id                String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  hall_id           String   @db.ObjectId\n  movie_id          String   @db.ObjectId\n  start             DateTime\n  end               DateTime\n  screening_type_id String   @db.ObjectId\n\n  movies          Movie?          @relation(fields: [movie_id], references: [id], onDelete: Cascade)\n  halls           Hall?           @relation(fields: [hall_id], references: [id], onDelete: Cascade)\n  screening_types Screening_type? @relation(fields: [screening_type_id], references: [id], onDelete: Cascade)\n\n  @@map(\"screenings\")\n}\n\nmodel User {\n  id            String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name          String\n  email         String @unique\n  password_hash String\n  phone_number  String @unique\n  points        Int\n  rank_id       String @db.ObjectId\n\n  ranks Rank? @relation(fields: [rank_id], references: [id], onDelete: Cascade)\n\n  tickets Ticket[]\n  forum   Forum[]\n\n  @@map(\"users\")\n}\n\nmodel Chair {\n  id      String  @id @default(auto()) @map(\"_id\") @db.ObjectId\n  state   Boolean @default(false)\n  row     Int\n  column  Int\n  hall_id String  @db.ObjectId\n\n  halls Hall? @relation(fields: [hall_id], references: [id], onDelete: Cascade)\n\n  @@map(\"chairs\")\n}\n\nmodel Rank {\n  id          String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name        String @unique\n  point_limit String\n  discount_id String @db.ObjectId\n  image       String\n\n  discount Discount? @relation(fields: [discount_id], references: [id], onDelete: Cascade)\n  users    User[]\n\n  @@map(\"ranks\")\n}\n\nmodel Discount {\n  id      String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name    String\n  image   String\n  percent Int\n\n  ranks Rank[]\n\n  @@map(\"discounts\")\n}\n\nmodel Hall {\n  id     String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name   String\n  row    Int\n  column Int\n\n  screenings Screening[]\n  chairs     Chair[]\n\n  @@map(\"halls\")\n}\n\nmodel Forum {\n  id       String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  review   Float\n  comment  String\n  user_id  String @db.ObjectId\n  movie_id String @db.ObjectId\n\n  users  User?  @relation(fields: [user_id], references: [id], onDelete: Cascade)\n  movies Movie? @relation(fields: [movie_id], references: [id], onDelete: Cascade)\n\n  @@map(\"forums\")\n}\n\nmodel Ticket {\n  id             String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  ticket_type_id String @db.ObjectId\n  user_id        String @db.ObjectId\n  screening_id   String @db.ObjectId\n\n  ticket_types    Ticket_type?    @relation(fields: [ticket_type_id], references: [id], onDelete: Cascade)\n  screening_types Screening_type? @relation(fields: [screening_id], references: [id], onDelete: Cascade)\n  users           User?           @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@map(\"tickets\")\n}\n\nmodel Ticket_type {\n  id      String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  type    String\n  percent Int\n\n  tickets Ticket[]\n\n  @@map(\"ticket_types\")\n}\n\nmodel Screening_type {\n  id      String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  type    String\n  percent Int\n\n  tickets    Ticket[]\n  screenings Screening[]\n\n  @@map(\"screening_types\")\n}\n",
+  "inlineSchemaHash": "bea57ec959ff1759e5a01181e65309579a7650257825dd9c81bd42a6cac342f6",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password_hash\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"workspaces\",\"kind\":\"object\",\"type\":\"Workspace\",\"relationName\":\"UserToWorkspace\"}],\"dbName\":\"users\"},\"Workspace\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"limit\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserToWorkspace\"},{\"name\":\"api_tokens\",\"kind\":\"object\",\"type\":\"API_Token\",\"relationName\":\"API_TokenToWorkspace\"}],\"dbName\":\"workspaces\"},\"API_Token\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"workspace_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"service_usages\",\"kind\":\"object\",\"type\":\"Service_Usage\",\"relationName\":\"API_TokenToService_Usage\"},{\"name\":\"creation_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"revocation_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"workspace\",\"kind\":\"object\",\"type\":\"Workspace\",\"relationName\":\"API_TokenToWorkspace\"}],\"dbName\":\"api_tokens\"},\"Service_Usage\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"service_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"api_token_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"usage_duration_ms\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"usage_started\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"service\",\"kind\":\"object\",\"type\":\"Service\",\"relationName\":\"ServiceToService_Usage\"},{\"name\":\"api_token\",\"kind\":\"object\",\"type\":\"API_Token\",\"relationName\":\"API_TokenToService_Usage\"}],\"dbName\":\"service_usages\"},\"Service\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cost_per_ms\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"service_usages\",\"kind\":\"object\",\"type\":\"Service_Usage\",\"relationName\":\"ServiceToService_Usage\"}],\"dbName\":\"services\"}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Admin\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password_hash\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"admins\"},\"Movie\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"director\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"actors\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"playtime\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"language\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"trailer\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"poster\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"onscreen\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"genre\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"review\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"screenings\",\"kind\":\"object\",\"type\":\"Screening\",\"relationName\":\"MovieToScreening\"},{\"name\":\"forum\",\"kind\":\"object\",\"type\":\"Forum\",\"relationName\":\"ForumToMovie\"}],\"dbName\":\"movies\"},\"Screening\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"hall_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"movie_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"start\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"end\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"screening_type_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"movies\",\"kind\":\"object\",\"type\":\"Movie\",\"relationName\":\"MovieToScreening\"},{\"name\":\"halls\",\"kind\":\"object\",\"type\":\"Hall\",\"relationName\":\"HallToScreening\"},{\"name\":\"screening_types\",\"kind\":\"object\",\"type\":\"Screening_type\",\"relationName\":\"ScreeningToScreening_type\"}],\"dbName\":\"screenings\"},\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password_hash\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone_number\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"points\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"rank_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ranks\",\"kind\":\"object\",\"type\":\"Rank\",\"relationName\":\"RankToUser\"},{\"name\":\"tickets\",\"kind\":\"object\",\"type\":\"Ticket\",\"relationName\":\"TicketToUser\"},{\"name\":\"forum\",\"kind\":\"object\",\"type\":\"Forum\",\"relationName\":\"ForumToUser\"}],\"dbName\":\"users\"},\"Chair\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"state\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"row\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"column\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"hall_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"halls\",\"kind\":\"object\",\"type\":\"Hall\",\"relationName\":\"ChairToHall\"}],\"dbName\":\"chairs\"},\"Rank\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"point_limit\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"discount_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"discount\",\"kind\":\"object\",\"type\":\"Discount\",\"relationName\":\"DiscountToRank\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"RankToUser\"}],\"dbName\":\"ranks\"},\"Discount\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"percent\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"ranks\",\"kind\":\"object\",\"type\":\"Rank\",\"relationName\":\"DiscountToRank\"}],\"dbName\":\"discounts\"},\"Hall\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"row\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"column\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"screenings\",\"kind\":\"object\",\"type\":\"Screening\",\"relationName\":\"HallToScreening\"},{\"name\":\"chairs\",\"kind\":\"object\",\"type\":\"Chair\",\"relationName\":\"ChairToHall\"}],\"dbName\":\"halls\"},\"Forum\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"review\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"comment\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"movie_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ForumToUser\"},{\"name\":\"movies\",\"kind\":\"object\",\"type\":\"Movie\",\"relationName\":\"ForumToMovie\"}],\"dbName\":\"forums\"},\"Ticket\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"ticket_type_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"screening_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ticket_types\",\"kind\":\"object\",\"type\":\"Ticket_type\",\"relationName\":\"TicketToTicket_type\"},{\"name\":\"screening_types\",\"kind\":\"object\",\"type\":\"Screening_type\",\"relationName\":\"Screening_typeToTicket\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"TicketToUser\"}],\"dbName\":\"tickets\"},\"Ticket_type\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"percent\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"tickets\",\"kind\":\"object\",\"type\":\"Ticket\",\"relationName\":\"TicketToTicket_type\"}],\"dbName\":\"ticket_types\"},\"Screening_type\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"percent\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"tickets\",\"kind\":\"object\",\"type\":\"Ticket\",\"relationName\":\"Screening_typeToTicket\"},{\"name\":\"screenings\",\"kind\":\"object\",\"type\":\"Screening\",\"relationName\":\"ScreeningToScreening_type\"}],\"dbName\":\"screening_types\"}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

@@ -8,8 +8,8 @@ import Link from "next/link";
 export default function LoginPage() {
   const router = useRouter();
 
-  const [name, setName] = useState("demo1");
-  const [password, setPassword] = useState("skills2023d1");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
@@ -21,19 +21,19 @@ export default function LoginPage() {
       const res = await fetch("/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.message || "Hiba a bejelentkezéskor");
+        setError(data.message || "Unknown error occurred during login");
         return;
       }
 
-      router.push("/workspaces");
-    } catch {
-      setError("Hálózati hiba");
+      router.push("/");
+    } catch (err) {
+      setError("Network error occurred during login");
     }
   };
 
@@ -78,15 +78,15 @@ export default function LoginPage() {
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <label className="block text-sm text-gray-500">
-                  Name
+                  Email
                 </label>
 
                 <input
-                  className="mt-1 w-full rounded border px-3 py-2 border-[#060b14]/90"
+                  className="mt-1 w-full text-black rounded border px-3 py-2 border-[#060b14]/90"
                   required
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
 
@@ -97,7 +97,7 @@ export default function LoginPage() {
 
                 <div className="relative mt-1">
                   <input
-                    className="w-full rounded border px-3 py-2 pr-10  border-[#060b14]/90"
+                    className="w-full rounded text-black border px-3 py-2 pr-10  border-[#060b14]/90"
                     required
                     type={showPassword ? "text" : "password"}
                     value={password}

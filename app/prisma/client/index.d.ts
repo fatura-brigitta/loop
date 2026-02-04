@@ -14,30 +14,65 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model Admin
+ * 
+ */
+export type Admin = $Result.DefaultSelection<Prisma.$AdminPayload>
+/**
+ * Model Movie
+ * 
+ */
+export type Movie = $Result.DefaultSelection<Prisma.$MoviePayload>
+/**
+ * Model Screening
+ * 
+ */
+export type Screening = $Result.DefaultSelection<Prisma.$ScreeningPayload>
+/**
  * Model User
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
- * Model Workspace
+ * Model Chair
  * 
  */
-export type Workspace = $Result.DefaultSelection<Prisma.$WorkspacePayload>
+export type Chair = $Result.DefaultSelection<Prisma.$ChairPayload>
 /**
- * Model API_Token
+ * Model Rank
  * 
  */
-export type API_Token = $Result.DefaultSelection<Prisma.$API_TokenPayload>
+export type Rank = $Result.DefaultSelection<Prisma.$RankPayload>
 /**
- * Model Service_Usage
+ * Model Discount
  * 
  */
-export type Service_Usage = $Result.DefaultSelection<Prisma.$Service_UsagePayload>
+export type Discount = $Result.DefaultSelection<Prisma.$DiscountPayload>
 /**
- * Model Service
+ * Model Hall
  * 
  */
-export type Service = $Result.DefaultSelection<Prisma.$ServicePayload>
+export type Hall = $Result.DefaultSelection<Prisma.$HallPayload>
+/**
+ * Model Forum
+ * 
+ */
+export type Forum = $Result.DefaultSelection<Prisma.$ForumPayload>
+/**
+ * Model Ticket
+ * 
+ */
+export type Ticket = $Result.DefaultSelection<Prisma.$TicketPayload>
+/**
+ * Model Ticket_type
+ * 
+ */
+export type Ticket_type = $Result.DefaultSelection<Prisma.$Ticket_typePayload>
+/**
+ * Model Screening_type
+ * 
+ */
+export type Screening_type = $Result.DefaultSelection<Prisma.$Screening_typePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -46,8 +81,8 @@ export type Service = $Result.DefaultSelection<Prisma.$ServicePayload>
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more Admins
+ * const admins = await prisma.admin.findMany()
  * ```
  *
  *
@@ -67,8 +102,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more Admins
+   * const admins = await prisma.admin.findMany()
    * ```
    *
    *
@@ -125,6 +160,36 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.admin`: Exposes CRUD operations for the **Admin** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Admins
+    * const admins = await prisma.admin.findMany()
+    * ```
+    */
+  get admin(): Prisma.AdminDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.movie`: Exposes CRUD operations for the **Movie** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Movies
+    * const movies = await prisma.movie.findMany()
+    * ```
+    */
+  get movie(): Prisma.MovieDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.screening`: Exposes CRUD operations for the **Screening** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Screenings
+    * const screenings = await prisma.screening.findMany()
+    * ```
+    */
+  get screening(): Prisma.ScreeningDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
     * Example usage:
     * ```ts
@@ -135,44 +200,84 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.workspace`: Exposes CRUD operations for the **Workspace** model.
+   * `prisma.chair`: Exposes CRUD operations for the **Chair** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Workspaces
-    * const workspaces = await prisma.workspace.findMany()
+    * // Fetch zero or more Chairs
+    * const chairs = await prisma.chair.findMany()
     * ```
     */
-  get workspace(): Prisma.WorkspaceDelegate<ExtArgs, ClientOptions>;
+  get chair(): Prisma.ChairDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.aPI_Token`: Exposes CRUD operations for the **API_Token** model.
+   * `prisma.rank`: Exposes CRUD operations for the **Rank** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more API_Tokens
-    * const aPI_Tokens = await prisma.aPI_Token.findMany()
+    * // Fetch zero or more Ranks
+    * const ranks = await prisma.rank.findMany()
     * ```
     */
-  get aPI_Token(): Prisma.API_TokenDelegate<ExtArgs, ClientOptions>;
+  get rank(): Prisma.RankDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.service_Usage`: Exposes CRUD operations for the **Service_Usage** model.
+   * `prisma.discount`: Exposes CRUD operations for the **Discount** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Service_Usages
-    * const service_Usages = await prisma.service_Usage.findMany()
+    * // Fetch zero or more Discounts
+    * const discounts = await prisma.discount.findMany()
     * ```
     */
-  get service_Usage(): Prisma.Service_UsageDelegate<ExtArgs, ClientOptions>;
+  get discount(): Prisma.DiscountDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.service`: Exposes CRUD operations for the **Service** model.
+   * `prisma.hall`: Exposes CRUD operations for the **Hall** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Services
-    * const services = await prisma.service.findMany()
+    * // Fetch zero or more Halls
+    * const halls = await prisma.hall.findMany()
     * ```
     */
-  get service(): Prisma.ServiceDelegate<ExtArgs, ClientOptions>;
+  get hall(): Prisma.HallDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.forum`: Exposes CRUD operations for the **Forum** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Forums
+    * const forums = await prisma.forum.findMany()
+    * ```
+    */
+  get forum(): Prisma.ForumDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.ticket`: Exposes CRUD operations for the **Ticket** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Tickets
+    * const tickets = await prisma.ticket.findMany()
+    * ```
+    */
+  get ticket(): Prisma.TicketDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.ticket_type`: Exposes CRUD operations for the **Ticket_type** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Ticket_types
+    * const ticket_types = await prisma.ticket_type.findMany()
+    * ```
+    */
+  get ticket_type(): Prisma.Ticket_typeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.screening_type`: Exposes CRUD operations for the **Screening_type** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Screening_types
+    * const screening_types = await prisma.screening_type.findMany()
+    * ```
+    */
+  get screening_type(): Prisma.Screening_typeDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -614,11 +719,18 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    Admin: 'Admin',
+    Movie: 'Movie',
+    Screening: 'Screening',
     User: 'User',
-    Workspace: 'Workspace',
-    API_Token: 'API_Token',
-    Service_Usage: 'Service_Usage',
-    Service: 'Service'
+    Chair: 'Chair',
+    Rank: 'Rank',
+    Discount: 'Discount',
+    Hall: 'Hall',
+    Forum: 'Forum',
+    Ticket: 'Ticket',
+    Ticket_type: 'Ticket_type',
+    Screening_type: 'Screening_type'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -637,10 +749,232 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "workspace" | "aPI_Token" | "service_Usage" | "service"
+      modelProps: "admin" | "movie" | "screening" | "user" | "chair" | "rank" | "discount" | "hall" | "forum" | "ticket" | "ticket_type" | "screening_type"
       txIsolationLevel: never
     }
     model: {
+      Admin: {
+        payload: Prisma.$AdminPayload<ExtArgs>
+        fields: Prisma.AdminFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AdminFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AdminFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          findFirst: {
+            args: Prisma.AdminFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AdminFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          findMany: {
+            args: Prisma.AdminFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>[]
+          }
+          create: {
+            args: Prisma.AdminCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          createMany: {
+            args: Prisma.AdminCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.AdminDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          update: {
+            args: Prisma.AdminUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          deleteMany: {
+            args: Prisma.AdminDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AdminUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AdminUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          aggregate: {
+            args: Prisma.AdminAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAdmin>
+          }
+          groupBy: {
+            args: Prisma.AdminGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AdminGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.AdminFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.AdminAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.AdminCountArgs<ExtArgs>
+            result: $Utils.Optional<AdminCountAggregateOutputType> | number
+          }
+        }
+      }
+      Movie: {
+        payload: Prisma.$MoviePayload<ExtArgs>
+        fields: Prisma.MovieFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MovieFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoviePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MovieFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoviePayload>
+          }
+          findFirst: {
+            args: Prisma.MovieFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoviePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MovieFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoviePayload>
+          }
+          findMany: {
+            args: Prisma.MovieFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoviePayload>[]
+          }
+          create: {
+            args: Prisma.MovieCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoviePayload>
+          }
+          createMany: {
+            args: Prisma.MovieCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.MovieDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoviePayload>
+          }
+          update: {
+            args: Prisma.MovieUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoviePayload>
+          }
+          deleteMany: {
+            args: Prisma.MovieDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MovieUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.MovieUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoviePayload>
+          }
+          aggregate: {
+            args: Prisma.MovieAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMovie>
+          }
+          groupBy: {
+            args: Prisma.MovieGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MovieGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.MovieFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.MovieAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.MovieCountArgs<ExtArgs>
+            result: $Utils.Optional<MovieCountAggregateOutputType> | number
+          }
+        }
+      }
+      Screening: {
+        payload: Prisma.$ScreeningPayload<ExtArgs>
+        fields: Prisma.ScreeningFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ScreeningFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreeningPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ScreeningFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreeningPayload>
+          }
+          findFirst: {
+            args: Prisma.ScreeningFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreeningPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ScreeningFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreeningPayload>
+          }
+          findMany: {
+            args: Prisma.ScreeningFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreeningPayload>[]
+          }
+          create: {
+            args: Prisma.ScreeningCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreeningPayload>
+          }
+          createMany: {
+            args: Prisma.ScreeningCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ScreeningDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreeningPayload>
+          }
+          update: {
+            args: Prisma.ScreeningUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreeningPayload>
+          }
+          deleteMany: {
+            args: Prisma.ScreeningDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ScreeningUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ScreeningUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreeningPayload>
+          }
+          aggregate: {
+            args: Prisma.ScreeningAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateScreening>
+          }
+          groupBy: {
+            args: Prisma.ScreeningGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ScreeningGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ScreeningFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ScreeningAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ScreeningCountArgs<ExtArgs>
+            result: $Utils.Optional<ScreeningCountAggregateOutputType> | number
+          }
+        }
+      }
       User: {
         payload: Prisma.$UserPayload<ExtArgs>
         fields: Prisma.UserFieldRefs
@@ -715,299 +1049,595 @@ export namespace Prisma {
           }
         }
       }
-      Workspace: {
-        payload: Prisma.$WorkspacePayload<ExtArgs>
-        fields: Prisma.WorkspaceFieldRefs
+      Chair: {
+        payload: Prisma.$ChairPayload<ExtArgs>
+        fields: Prisma.ChairFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.WorkspaceFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspacePayload> | null
+            args: Prisma.ChairFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChairPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.WorkspaceFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspacePayload>
+            args: Prisma.ChairFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChairPayload>
           }
           findFirst: {
-            args: Prisma.WorkspaceFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspacePayload> | null
+            args: Prisma.ChairFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChairPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.WorkspaceFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspacePayload>
+            args: Prisma.ChairFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChairPayload>
           }
           findMany: {
-            args: Prisma.WorkspaceFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspacePayload>[]
+            args: Prisma.ChairFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChairPayload>[]
           }
           create: {
-            args: Prisma.WorkspaceCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspacePayload>
+            args: Prisma.ChairCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChairPayload>
           }
           createMany: {
-            args: Prisma.WorkspaceCreateManyArgs<ExtArgs>
+            args: Prisma.ChairCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           delete: {
-            args: Prisma.WorkspaceDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspacePayload>
+            args: Prisma.ChairDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChairPayload>
           }
           update: {
-            args: Prisma.WorkspaceUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspacePayload>
+            args: Prisma.ChairUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChairPayload>
           }
           deleteMany: {
-            args: Prisma.WorkspaceDeleteManyArgs<ExtArgs>
+            args: Prisma.ChairDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.WorkspaceUpdateManyArgs<ExtArgs>
+            args: Prisma.ChairUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           upsert: {
-            args: Prisma.WorkspaceUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspacePayload>
+            args: Prisma.ChairUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChairPayload>
           }
           aggregate: {
-            args: Prisma.WorkspaceAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateWorkspace>
+            args: Prisma.ChairAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateChair>
           }
           groupBy: {
-            args: Prisma.WorkspaceGroupByArgs<ExtArgs>
-            result: $Utils.Optional<WorkspaceGroupByOutputType>[]
+            args: Prisma.ChairGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ChairGroupByOutputType>[]
           }
           findRaw: {
-            args: Prisma.WorkspaceFindRawArgs<ExtArgs>
+            args: Prisma.ChairFindRawArgs<ExtArgs>
             result: JsonObject
           }
           aggregateRaw: {
-            args: Prisma.WorkspaceAggregateRawArgs<ExtArgs>
+            args: Prisma.ChairAggregateRawArgs<ExtArgs>
             result: JsonObject
           }
           count: {
-            args: Prisma.WorkspaceCountArgs<ExtArgs>
-            result: $Utils.Optional<WorkspaceCountAggregateOutputType> | number
+            args: Prisma.ChairCountArgs<ExtArgs>
+            result: $Utils.Optional<ChairCountAggregateOutputType> | number
           }
         }
       }
-      API_Token: {
-        payload: Prisma.$API_TokenPayload<ExtArgs>
-        fields: Prisma.API_TokenFieldRefs
+      Rank: {
+        payload: Prisma.$RankPayload<ExtArgs>
+        fields: Prisma.RankFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.API_TokenFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$API_TokenPayload> | null
+            args: Prisma.RankFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RankPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.API_TokenFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$API_TokenPayload>
+            args: Prisma.RankFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RankPayload>
           }
           findFirst: {
-            args: Prisma.API_TokenFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$API_TokenPayload> | null
+            args: Prisma.RankFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RankPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.API_TokenFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$API_TokenPayload>
+            args: Prisma.RankFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RankPayload>
           }
           findMany: {
-            args: Prisma.API_TokenFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$API_TokenPayload>[]
+            args: Prisma.RankFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RankPayload>[]
           }
           create: {
-            args: Prisma.API_TokenCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$API_TokenPayload>
+            args: Prisma.RankCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RankPayload>
           }
           createMany: {
-            args: Prisma.API_TokenCreateManyArgs<ExtArgs>
+            args: Prisma.RankCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           delete: {
-            args: Prisma.API_TokenDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$API_TokenPayload>
+            args: Prisma.RankDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RankPayload>
           }
           update: {
-            args: Prisma.API_TokenUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$API_TokenPayload>
+            args: Prisma.RankUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RankPayload>
           }
           deleteMany: {
-            args: Prisma.API_TokenDeleteManyArgs<ExtArgs>
+            args: Prisma.RankDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.API_TokenUpdateManyArgs<ExtArgs>
+            args: Prisma.RankUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           upsert: {
-            args: Prisma.API_TokenUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$API_TokenPayload>
+            args: Prisma.RankUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RankPayload>
           }
           aggregate: {
-            args: Prisma.API_TokenAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateAPI_Token>
+            args: Prisma.RankAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRank>
           }
           groupBy: {
-            args: Prisma.API_TokenGroupByArgs<ExtArgs>
-            result: $Utils.Optional<API_TokenGroupByOutputType>[]
+            args: Prisma.RankGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RankGroupByOutputType>[]
           }
           findRaw: {
-            args: Prisma.API_TokenFindRawArgs<ExtArgs>
+            args: Prisma.RankFindRawArgs<ExtArgs>
             result: JsonObject
           }
           aggregateRaw: {
-            args: Prisma.API_TokenAggregateRawArgs<ExtArgs>
+            args: Prisma.RankAggregateRawArgs<ExtArgs>
             result: JsonObject
           }
           count: {
-            args: Prisma.API_TokenCountArgs<ExtArgs>
-            result: $Utils.Optional<API_TokenCountAggregateOutputType> | number
+            args: Prisma.RankCountArgs<ExtArgs>
+            result: $Utils.Optional<RankCountAggregateOutputType> | number
           }
         }
       }
-      Service_Usage: {
-        payload: Prisma.$Service_UsagePayload<ExtArgs>
-        fields: Prisma.Service_UsageFieldRefs
+      Discount: {
+        payload: Prisma.$DiscountPayload<ExtArgs>
+        fields: Prisma.DiscountFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.Service_UsageFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$Service_UsagePayload> | null
+            args: Prisma.DiscountFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiscountPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.Service_UsageFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$Service_UsagePayload>
+            args: Prisma.DiscountFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiscountPayload>
           }
           findFirst: {
-            args: Prisma.Service_UsageFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$Service_UsagePayload> | null
+            args: Prisma.DiscountFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiscountPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.Service_UsageFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$Service_UsagePayload>
+            args: Prisma.DiscountFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiscountPayload>
           }
           findMany: {
-            args: Prisma.Service_UsageFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$Service_UsagePayload>[]
+            args: Prisma.DiscountFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiscountPayload>[]
           }
           create: {
-            args: Prisma.Service_UsageCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$Service_UsagePayload>
+            args: Prisma.DiscountCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiscountPayload>
           }
           createMany: {
-            args: Prisma.Service_UsageCreateManyArgs<ExtArgs>
+            args: Prisma.DiscountCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           delete: {
-            args: Prisma.Service_UsageDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$Service_UsagePayload>
+            args: Prisma.DiscountDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiscountPayload>
           }
           update: {
-            args: Prisma.Service_UsageUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$Service_UsagePayload>
+            args: Prisma.DiscountUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiscountPayload>
           }
           deleteMany: {
-            args: Prisma.Service_UsageDeleteManyArgs<ExtArgs>
+            args: Prisma.DiscountDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.Service_UsageUpdateManyArgs<ExtArgs>
+            args: Prisma.DiscountUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           upsert: {
-            args: Prisma.Service_UsageUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$Service_UsagePayload>
+            args: Prisma.DiscountUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiscountPayload>
           }
           aggregate: {
-            args: Prisma.Service_UsageAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateService_Usage>
+            args: Prisma.DiscountAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDiscount>
           }
           groupBy: {
-            args: Prisma.Service_UsageGroupByArgs<ExtArgs>
-            result: $Utils.Optional<Service_UsageGroupByOutputType>[]
+            args: Prisma.DiscountGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DiscountGroupByOutputType>[]
           }
           findRaw: {
-            args: Prisma.Service_UsageFindRawArgs<ExtArgs>
+            args: Prisma.DiscountFindRawArgs<ExtArgs>
             result: JsonObject
           }
           aggregateRaw: {
-            args: Prisma.Service_UsageAggregateRawArgs<ExtArgs>
+            args: Prisma.DiscountAggregateRawArgs<ExtArgs>
             result: JsonObject
           }
           count: {
-            args: Prisma.Service_UsageCountArgs<ExtArgs>
-            result: $Utils.Optional<Service_UsageCountAggregateOutputType> | number
+            args: Prisma.DiscountCountArgs<ExtArgs>
+            result: $Utils.Optional<DiscountCountAggregateOutputType> | number
           }
         }
       }
-      Service: {
-        payload: Prisma.$ServicePayload<ExtArgs>
-        fields: Prisma.ServiceFieldRefs
+      Hall: {
+        payload: Prisma.$HallPayload<ExtArgs>
+        fields: Prisma.HallFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.ServiceFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicePayload> | null
+            args: Prisma.HallFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HallPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.ServiceFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
+            args: Prisma.HallFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HallPayload>
           }
           findFirst: {
-            args: Prisma.ServiceFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicePayload> | null
+            args: Prisma.HallFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HallPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.ServiceFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
+            args: Prisma.HallFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HallPayload>
           }
           findMany: {
-            args: Prisma.ServiceFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicePayload>[]
+            args: Prisma.HallFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HallPayload>[]
           }
           create: {
-            args: Prisma.ServiceCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
+            args: Prisma.HallCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HallPayload>
           }
           createMany: {
-            args: Prisma.ServiceCreateManyArgs<ExtArgs>
+            args: Prisma.HallCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           delete: {
-            args: Prisma.ServiceDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
+            args: Prisma.HallDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HallPayload>
           }
           update: {
-            args: Prisma.ServiceUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
+            args: Prisma.HallUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HallPayload>
           }
           deleteMany: {
-            args: Prisma.ServiceDeleteManyArgs<ExtArgs>
+            args: Prisma.HallDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.ServiceUpdateManyArgs<ExtArgs>
+            args: Prisma.HallUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           upsert: {
-            args: Prisma.ServiceUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
+            args: Prisma.HallUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HallPayload>
           }
           aggregate: {
-            args: Prisma.ServiceAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateService>
+            args: Prisma.HallAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHall>
           }
           groupBy: {
-            args: Prisma.ServiceGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ServiceGroupByOutputType>[]
+            args: Prisma.HallGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HallGroupByOutputType>[]
           }
           findRaw: {
-            args: Prisma.ServiceFindRawArgs<ExtArgs>
+            args: Prisma.HallFindRawArgs<ExtArgs>
             result: JsonObject
           }
           aggregateRaw: {
-            args: Prisma.ServiceAggregateRawArgs<ExtArgs>
+            args: Prisma.HallAggregateRawArgs<ExtArgs>
             result: JsonObject
           }
           count: {
-            args: Prisma.ServiceCountArgs<ExtArgs>
-            result: $Utils.Optional<ServiceCountAggregateOutputType> | number
+            args: Prisma.HallCountArgs<ExtArgs>
+            result: $Utils.Optional<HallCountAggregateOutputType> | number
+          }
+        }
+      }
+      Forum: {
+        payload: Prisma.$ForumPayload<ExtArgs>
+        fields: Prisma.ForumFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ForumFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ForumFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumPayload>
+          }
+          findFirst: {
+            args: Prisma.ForumFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ForumFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumPayload>
+          }
+          findMany: {
+            args: Prisma.ForumFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumPayload>[]
+          }
+          create: {
+            args: Prisma.ForumCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumPayload>
+          }
+          createMany: {
+            args: Prisma.ForumCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ForumDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumPayload>
+          }
+          update: {
+            args: Prisma.ForumUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumPayload>
+          }
+          deleteMany: {
+            args: Prisma.ForumDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ForumUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ForumUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumPayload>
+          }
+          aggregate: {
+            args: Prisma.ForumAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateForum>
+          }
+          groupBy: {
+            args: Prisma.ForumGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ForumGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ForumFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ForumAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ForumCountArgs<ExtArgs>
+            result: $Utils.Optional<ForumCountAggregateOutputType> | number
+          }
+        }
+      }
+      Ticket: {
+        payload: Prisma.$TicketPayload<ExtArgs>
+        fields: Prisma.TicketFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TicketFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TicketFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload>
+          }
+          findFirst: {
+            args: Prisma.TicketFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TicketFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload>
+          }
+          findMany: {
+            args: Prisma.TicketFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload>[]
+          }
+          create: {
+            args: Prisma.TicketCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload>
+          }
+          createMany: {
+            args: Prisma.TicketCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.TicketDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload>
+          }
+          update: {
+            args: Prisma.TicketUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload>
+          }
+          deleteMany: {
+            args: Prisma.TicketDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TicketUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TicketUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload>
+          }
+          aggregate: {
+            args: Prisma.TicketAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTicket>
+          }
+          groupBy: {
+            args: Prisma.TicketGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TicketGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.TicketFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.TicketAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.TicketCountArgs<ExtArgs>
+            result: $Utils.Optional<TicketCountAggregateOutputType> | number
+          }
+        }
+      }
+      Ticket_type: {
+        payload: Prisma.$Ticket_typePayload<ExtArgs>
+        fields: Prisma.Ticket_typeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.Ticket_typeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Ticket_typePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.Ticket_typeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Ticket_typePayload>
+          }
+          findFirst: {
+            args: Prisma.Ticket_typeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Ticket_typePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.Ticket_typeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Ticket_typePayload>
+          }
+          findMany: {
+            args: Prisma.Ticket_typeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Ticket_typePayload>[]
+          }
+          create: {
+            args: Prisma.Ticket_typeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Ticket_typePayload>
+          }
+          createMany: {
+            args: Prisma.Ticket_typeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.Ticket_typeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Ticket_typePayload>
+          }
+          update: {
+            args: Prisma.Ticket_typeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Ticket_typePayload>
+          }
+          deleteMany: {
+            args: Prisma.Ticket_typeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.Ticket_typeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.Ticket_typeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Ticket_typePayload>
+          }
+          aggregate: {
+            args: Prisma.Ticket_typeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTicket_type>
+          }
+          groupBy: {
+            args: Prisma.Ticket_typeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Ticket_typeGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.Ticket_typeFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.Ticket_typeAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.Ticket_typeCountArgs<ExtArgs>
+            result: $Utils.Optional<Ticket_typeCountAggregateOutputType> | number
+          }
+        }
+      }
+      Screening_type: {
+        payload: Prisma.$Screening_typePayload<ExtArgs>
+        fields: Prisma.Screening_typeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.Screening_typeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Screening_typePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.Screening_typeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Screening_typePayload>
+          }
+          findFirst: {
+            args: Prisma.Screening_typeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Screening_typePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.Screening_typeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Screening_typePayload>
+          }
+          findMany: {
+            args: Prisma.Screening_typeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Screening_typePayload>[]
+          }
+          create: {
+            args: Prisma.Screening_typeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Screening_typePayload>
+          }
+          createMany: {
+            args: Prisma.Screening_typeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.Screening_typeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Screening_typePayload>
+          }
+          update: {
+            args: Prisma.Screening_typeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Screening_typePayload>
+          }
+          deleteMany: {
+            args: Prisma.Screening_typeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.Screening_typeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.Screening_typeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Screening_typePayload>
+          }
+          aggregate: {
+            args: Prisma.Screening_typeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateScreening_type>
+          }
+          groupBy: {
+            args: Prisma.Screening_typeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Screening_typeGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.Screening_typeFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.Screening_typeAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.Screening_typeCountArgs<ExtArgs>
+            result: $Utils.Optional<Screening_typeCountAggregateOutputType> | number
           }
         }
       }
@@ -1090,11 +1720,18 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    admin?: AdminOmit
+    movie?: MovieOmit
+    screening?: ScreeningOmit
     user?: UserOmit
-    workspace?: WorkspaceOmit
-    aPI_Token?: API_TokenOmit
-    service_Usage?: Service_UsageOmit
-    service?: ServiceOmit
+    chair?: ChairOmit
+    rank?: RankOmit
+    discount?: DiscountOmit
+    hall?: HallOmit
+    forum?: ForumOmit
+    ticket?: TicketOmit
+    ticket_type?: Ticket_typeOmit
+    screening_type?: Screening_typeOmit
   }
 
   /* Types for Logging */
@@ -1171,15 +1808,57 @@ export namespace Prisma {
 
 
   /**
+   * Count Type MovieCountOutputType
+   */
+
+  export type MovieCountOutputType = {
+    screenings: number
+    forum: number
+  }
+
+  export type MovieCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    screenings?: boolean | MovieCountOutputTypeCountScreeningsArgs
+    forum?: boolean | MovieCountOutputTypeCountForumArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MovieCountOutputType without action
+   */
+  export type MovieCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovieCountOutputType
+     */
+    select?: MovieCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MovieCountOutputType without action
+   */
+  export type MovieCountOutputTypeCountScreeningsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScreeningWhereInput
+  }
+
+  /**
+   * MovieCountOutputType without action
+   */
+  export type MovieCountOutputTypeCountForumArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ForumWhereInput
+  }
+
+
+  /**
    * Count Type UserCountOutputType
    */
 
   export type UserCountOutputType = {
-    workspaces: number
+    tickets: number
+    forum: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    workspaces?: boolean | UserCountOutputTypeCountWorkspacesArgs
+    tickets?: boolean | UserCountOutputTypeCountTicketsArgs
+    forum?: boolean | UserCountOutputTypeCountForumArgs
   }
 
   // Custom InputTypes
@@ -1196,101 +1875,188 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountWorkspacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: WorkspaceWhereInput
+  export type UserCountOutputTypeCountTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TicketWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountForumArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ForumWhereInput
   }
 
 
   /**
-   * Count Type WorkspaceCountOutputType
+   * Count Type RankCountOutputType
    */
 
-  export type WorkspaceCountOutputType = {
-    api_tokens: number
+  export type RankCountOutputType = {
+    users: number
   }
 
-  export type WorkspaceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    api_tokens?: boolean | WorkspaceCountOutputTypeCountApi_tokensArgs
+  export type RankCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | RankCountOutputTypeCountUsersArgs
   }
 
   // Custom InputTypes
   /**
-   * WorkspaceCountOutputType without action
+   * RankCountOutputType without action
    */
-  export type WorkspaceCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RankCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the WorkspaceCountOutputType
+     * Select specific fields to fetch from the RankCountOutputType
      */
-    select?: WorkspaceCountOutputTypeSelect<ExtArgs> | null
+    select?: RankCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * WorkspaceCountOutputType without action
+   * RankCountOutputType without action
    */
-  export type WorkspaceCountOutputTypeCountApi_tokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: API_TokenWhereInput
+  export type RankCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
   }
 
 
   /**
-   * Count Type API_TokenCountOutputType
+   * Count Type DiscountCountOutputType
    */
 
-  export type API_TokenCountOutputType = {
-    service_usages: number
+  export type DiscountCountOutputType = {
+    ranks: number
   }
 
-  export type API_TokenCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    service_usages?: boolean | API_TokenCountOutputTypeCountService_usagesArgs
+  export type DiscountCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ranks?: boolean | DiscountCountOutputTypeCountRanksArgs
   }
 
   // Custom InputTypes
   /**
-   * API_TokenCountOutputType without action
+   * DiscountCountOutputType without action
    */
-  export type API_TokenCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DiscountCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the API_TokenCountOutputType
+     * Select specific fields to fetch from the DiscountCountOutputType
      */
-    select?: API_TokenCountOutputTypeSelect<ExtArgs> | null
+    select?: DiscountCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * API_TokenCountOutputType without action
+   * DiscountCountOutputType without action
    */
-  export type API_TokenCountOutputTypeCountService_usagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: Service_UsageWhereInput
+  export type DiscountCountOutputTypeCountRanksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RankWhereInput
   }
 
 
   /**
-   * Count Type ServiceCountOutputType
+   * Count Type HallCountOutputType
    */
 
-  export type ServiceCountOutputType = {
-    service_usages: number
+  export type HallCountOutputType = {
+    screenings: number
+    chairs: number
   }
 
-  export type ServiceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    service_usages?: boolean | ServiceCountOutputTypeCountService_usagesArgs
+  export type HallCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    screenings?: boolean | HallCountOutputTypeCountScreeningsArgs
+    chairs?: boolean | HallCountOutputTypeCountChairsArgs
   }
 
   // Custom InputTypes
   /**
-   * ServiceCountOutputType without action
+   * HallCountOutputType without action
    */
-  export type ServiceCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type HallCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ServiceCountOutputType
+     * Select specific fields to fetch from the HallCountOutputType
      */
-    select?: ServiceCountOutputTypeSelect<ExtArgs> | null
+    select?: HallCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * ServiceCountOutputType without action
+   * HallCountOutputType without action
    */
-  export type ServiceCountOutputTypeCountService_usagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: Service_UsageWhereInput
+  export type HallCountOutputTypeCountScreeningsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScreeningWhereInput
+  }
+
+  /**
+   * HallCountOutputType without action
+   */
+  export type HallCountOutputTypeCountChairsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChairWhereInput
+  }
+
+
+  /**
+   * Count Type Ticket_typeCountOutputType
+   */
+
+  export type Ticket_typeCountOutputType = {
+    tickets: number
+  }
+
+  export type Ticket_typeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tickets?: boolean | Ticket_typeCountOutputTypeCountTicketsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Ticket_typeCountOutputType without action
+   */
+  export type Ticket_typeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket_typeCountOutputType
+     */
+    select?: Ticket_typeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Ticket_typeCountOutputType without action
+   */
+  export type Ticket_typeCountOutputTypeCountTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TicketWhereInput
+  }
+
+
+  /**
+   * Count Type Screening_typeCountOutputType
+   */
+
+  export type Screening_typeCountOutputType = {
+    tickets: number
+    screenings: number
+  }
+
+  export type Screening_typeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tickets?: boolean | Screening_typeCountOutputTypeCountTicketsArgs
+    screenings?: boolean | Screening_typeCountOutputTypeCountScreeningsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Screening_typeCountOutputType without action
+   */
+  export type Screening_typeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Screening_typeCountOutputType
+     */
+    select?: Screening_typeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Screening_typeCountOutputType without action
+   */
+  export type Screening_typeCountOutputTypeCountTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TicketWhereInput
+  }
+
+  /**
+   * Screening_typeCountOutputType without action
+   */
+  export type Screening_typeCountOutputTypeCountScreeningsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScreeningWhereInput
   }
 
 
@@ -1299,28 +2065,28 @@ export namespace Prisma {
    */
 
   /**
-   * Model User
+   * Model Admin
    */
 
-  export type AggregateUser = {
-    _count: UserCountAggregateOutputType | null
-    _min: UserMinAggregateOutputType | null
-    _max: UserMaxAggregateOutputType | null
+  export type AggregateAdmin = {
+    _count: AdminCountAggregateOutputType | null
+    _min: AdminMinAggregateOutputType | null
+    _max: AdminMaxAggregateOutputType | null
   }
 
-  export type UserMinAggregateOutputType = {
+  export type AdminMinAggregateOutputType = {
     id: string | null
     name: string | null
     password_hash: string | null
   }
 
-  export type UserMaxAggregateOutputType = {
+  export type AdminMaxAggregateOutputType = {
     id: string | null
     name: string | null
     password_hash: string | null
   }
 
-  export type UserCountAggregateOutputType = {
+  export type AdminCountAggregateOutputType = {
     id: number
     name: number
     password_hash: number
@@ -1328,22 +2094,3177 @@ export namespace Prisma {
   }
 
 
-  export type UserMinAggregateInputType = {
+  export type AdminMinAggregateInputType = {
     id?: true
     name?: true
     password_hash?: true
+  }
+
+  export type AdminMaxAggregateInputType = {
+    id?: true
+    name?: true
+    password_hash?: true
+  }
+
+  export type AdminCountAggregateInputType = {
+    id?: true
+    name?: true
+    password_hash?: true
+    _all?: true
+  }
+
+  export type AdminAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Admin to aggregate.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Admins
+    **/
+    _count?: true | AdminCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AdminMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AdminMaxAggregateInputType
+  }
+
+  export type GetAdminAggregateType<T extends AdminAggregateArgs> = {
+        [P in keyof T & keyof AggregateAdmin]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAdmin[P]>
+      : GetScalarType<T[P], AggregateAdmin[P]>
+  }
+
+
+
+
+  export type AdminGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdminWhereInput
+    orderBy?: AdminOrderByWithAggregationInput | AdminOrderByWithAggregationInput[]
+    by: AdminScalarFieldEnum[] | AdminScalarFieldEnum
+    having?: AdminScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AdminCountAggregateInputType | true
+    _min?: AdminMinAggregateInputType
+    _max?: AdminMaxAggregateInputType
+  }
+
+  export type AdminGroupByOutputType = {
+    id: string
+    name: string
+    password_hash: string
+    _count: AdminCountAggregateOutputType | null
+    _min: AdminMinAggregateOutputType | null
+    _max: AdminMaxAggregateOutputType | null
+  }
+
+  type GetAdminGroupByPayload<T extends AdminGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AdminGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AdminGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AdminGroupByOutputType[P]>
+            : GetScalarType<T[P], AdminGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AdminSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    password_hash?: boolean
+  }, ExtArgs["result"]["admin"]>
+
+
+
+  export type AdminSelectScalar = {
+    id?: boolean
+    name?: boolean
+    password_hash?: boolean
+  }
+
+  export type AdminOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "password_hash", ExtArgs["result"]["admin"]>
+
+  export type $AdminPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Admin"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      password_hash: string
+    }, ExtArgs["result"]["admin"]>
+    composites: {}
+  }
+
+  type AdminGetPayload<S extends boolean | null | undefined | AdminDefaultArgs> = $Result.GetResult<Prisma.$AdminPayload, S>
+
+  type AdminCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AdminFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AdminCountAggregateInputType | true
+    }
+
+  export interface AdminDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Admin'], meta: { name: 'Admin' } }
+    /**
+     * Find zero or one Admin that matches the filter.
+     * @param {AdminFindUniqueArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AdminFindUniqueArgs>(args: SelectSubset<T, AdminFindUniqueArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Admin that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AdminFindUniqueOrThrowArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AdminFindUniqueOrThrowArgs>(args: SelectSubset<T, AdminFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Admin that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminFindFirstArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AdminFindFirstArgs>(args?: SelectSubset<T, AdminFindFirstArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Admin that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminFindFirstOrThrowArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AdminFindFirstOrThrowArgs>(args?: SelectSubset<T, AdminFindFirstOrThrowArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Admins that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Admins
+     * const admins = await prisma.admin.findMany()
+     * 
+     * // Get first 10 Admins
+     * const admins = await prisma.admin.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const adminWithIdOnly = await prisma.admin.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AdminFindManyArgs>(args?: SelectSubset<T, AdminFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Admin.
+     * @param {AdminCreateArgs} args - Arguments to create a Admin.
+     * @example
+     * // Create one Admin
+     * const Admin = await prisma.admin.create({
+     *   data: {
+     *     // ... data to create a Admin
+     *   }
+     * })
+     * 
+     */
+    create<T extends AdminCreateArgs>(args: SelectSubset<T, AdminCreateArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Admins.
+     * @param {AdminCreateManyArgs} args - Arguments to create many Admins.
+     * @example
+     * // Create many Admins
+     * const admin = await prisma.admin.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AdminCreateManyArgs>(args?: SelectSubset<T, AdminCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Admin.
+     * @param {AdminDeleteArgs} args - Arguments to delete one Admin.
+     * @example
+     * // Delete one Admin
+     * const Admin = await prisma.admin.delete({
+     *   where: {
+     *     // ... filter to delete one Admin
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AdminDeleteArgs>(args: SelectSubset<T, AdminDeleteArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Admin.
+     * @param {AdminUpdateArgs} args - Arguments to update one Admin.
+     * @example
+     * // Update one Admin
+     * const admin = await prisma.admin.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AdminUpdateArgs>(args: SelectSubset<T, AdminUpdateArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Admins.
+     * @param {AdminDeleteManyArgs} args - Arguments to filter Admins to delete.
+     * @example
+     * // Delete a few Admins
+     * const { count } = await prisma.admin.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AdminDeleteManyArgs>(args?: SelectSubset<T, AdminDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Admins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Admins
+     * const admin = await prisma.admin.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AdminUpdateManyArgs>(args: SelectSubset<T, AdminUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Admin.
+     * @param {AdminUpsertArgs} args - Arguments to update or create a Admin.
+     * @example
+     * // Update or create a Admin
+     * const admin = await prisma.admin.upsert({
+     *   create: {
+     *     // ... data to create a Admin
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Admin we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AdminUpsertArgs>(args: SelectSubset<T, AdminUpsertArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Admins that matches the filter.
+     * @param {AdminFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const admin = await prisma.admin.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: AdminFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Admin.
+     * @param {AdminAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const admin = await prisma.admin.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: AdminAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Admins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminCountArgs} args - Arguments to filter Admins to count.
+     * @example
+     * // Count the number of Admins
+     * const count = await prisma.admin.count({
+     *   where: {
+     *     // ... the filter for the Admins we want to count
+     *   }
+     * })
+    **/
+    count<T extends AdminCountArgs>(
+      args?: Subset<T, AdminCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AdminCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Admin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AdminAggregateArgs>(args: Subset<T, AdminAggregateArgs>): Prisma.PrismaPromise<GetAdminAggregateType<T>>
+
+    /**
+     * Group by Admin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AdminGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AdminGroupByArgs['orderBy'] }
+        : { orderBy?: AdminGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AdminGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAdminGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Admin model
+   */
+  readonly fields: AdminFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Admin.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AdminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Admin model
+   */
+  interface AdminFieldRefs {
+    readonly id: FieldRef<"Admin", 'String'>
+    readonly name: FieldRef<"Admin", 'String'>
+    readonly password_hash: FieldRef<"Admin", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Admin findUnique
+   */
+  export type AdminFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+  /**
+   * Admin findUniqueOrThrow
+   */
+  export type AdminFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+  /**
+   * Admin findFirst
+   */
+  export type AdminFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Admins.
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Admins.
+     */
+    distinct?: AdminScalarFieldEnum | AdminScalarFieldEnum[]
+  }
+
+  /**
+   * Admin findFirstOrThrow
+   */
+  export type AdminFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Admins.
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Admins.
+     */
+    distinct?: AdminScalarFieldEnum | AdminScalarFieldEnum[]
+  }
+
+  /**
+   * Admin findMany
+   */
+  export type AdminFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Filter, which Admins to fetch.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Admins.
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    distinct?: AdminScalarFieldEnum | AdminScalarFieldEnum[]
+  }
+
+  /**
+   * Admin create
+   */
+  export type AdminCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Admin.
+     */
+    data: XOR<AdminCreateInput, AdminUncheckedCreateInput>
+  }
+
+  /**
+   * Admin createMany
+   */
+  export type AdminCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Admins.
+     */
+    data: AdminCreateManyInput | AdminCreateManyInput[]
+  }
+
+  /**
+   * Admin update
+   */
+  export type AdminUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Admin.
+     */
+    data: XOR<AdminUpdateInput, AdminUncheckedUpdateInput>
+    /**
+     * Choose, which Admin to update.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+  /**
+   * Admin updateMany
+   */
+  export type AdminUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Admins.
+     */
+    data: XOR<AdminUpdateManyMutationInput, AdminUncheckedUpdateManyInput>
+    /**
+     * Filter which Admins to update
+     */
+    where?: AdminWhereInput
+    /**
+     * Limit how many Admins to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Admin upsert
+   */
+  export type AdminUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Admin to update in case it exists.
+     */
+    where: AdminWhereUniqueInput
+    /**
+     * In case the Admin found by the `where` argument doesn't exist, create a new Admin with this data.
+     */
+    create: XOR<AdminCreateInput, AdminUncheckedCreateInput>
+    /**
+     * In case the Admin was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AdminUpdateInput, AdminUncheckedUpdateInput>
+  }
+
+  /**
+   * Admin delete
+   */
+  export type AdminDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Filter which Admin to delete.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+  /**
+   * Admin deleteMany
+   */
+  export type AdminDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Admins to delete
+     */
+    where?: AdminWhereInput
+    /**
+     * Limit how many Admins to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Admin findRaw
+   */
+  export type AdminFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Admin aggregateRaw
+   */
+  export type AdminAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Admin without action
+   */
+  export type AdminDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Movie
+   */
+
+  export type AggregateMovie = {
+    _count: MovieCountAggregateOutputType | null
+    _avg: MovieAvgAggregateOutputType | null
+    _sum: MovieSumAggregateOutputType | null
+    _min: MovieMinAggregateOutputType | null
+    _max: MovieMaxAggregateOutputType | null
+  }
+
+  export type MovieAvgAggregateOutputType = {
+    playtime: number | null
+    review: number | null
+  }
+
+  export type MovieSumAggregateOutputType = {
+    playtime: number | null
+    review: number | null
+  }
+
+  export type MovieMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    director: string | null
+    actors: string | null
+    playtime: number | null
+    language: string | null
+    trailer: string | null
+    poster: string | null
+    onscreen: boolean | null
+    genre: string | null
+    review: number | null
+    description: string | null
+  }
+
+  export type MovieMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    director: string | null
+    actors: string | null
+    playtime: number | null
+    language: string | null
+    trailer: string | null
+    poster: string | null
+    onscreen: boolean | null
+    genre: string | null
+    review: number | null
+    description: string | null
+  }
+
+  export type MovieCountAggregateOutputType = {
+    id: number
+    title: number
+    director: number
+    actors: number
+    playtime: number
+    language: number
+    trailer: number
+    poster: number
+    onscreen: number
+    genre: number
+    review: number
+    description: number
+    _all: number
+  }
+
+
+  export type MovieAvgAggregateInputType = {
+    playtime?: true
+    review?: true
+  }
+
+  export type MovieSumAggregateInputType = {
+    playtime?: true
+    review?: true
+  }
+
+  export type MovieMinAggregateInputType = {
+    id?: true
+    title?: true
+    director?: true
+    actors?: true
+    playtime?: true
+    language?: true
+    trailer?: true
+    poster?: true
+    onscreen?: true
+    genre?: true
+    review?: true
+    description?: true
+  }
+
+  export type MovieMaxAggregateInputType = {
+    id?: true
+    title?: true
+    director?: true
+    actors?: true
+    playtime?: true
+    language?: true
+    trailer?: true
+    poster?: true
+    onscreen?: true
+    genre?: true
+    review?: true
+    description?: true
+  }
+
+  export type MovieCountAggregateInputType = {
+    id?: true
+    title?: true
+    director?: true
+    actors?: true
+    playtime?: true
+    language?: true
+    trailer?: true
+    poster?: true
+    onscreen?: true
+    genre?: true
+    review?: true
+    description?: true
+    _all?: true
+  }
+
+  export type MovieAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Movie to aggregate.
+     */
+    where?: MovieWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Movies to fetch.
+     */
+    orderBy?: MovieOrderByWithRelationInput | MovieOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MovieWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Movies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Movies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Movies
+    **/
+    _count?: true | MovieCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MovieAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MovieSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MovieMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MovieMaxAggregateInputType
+  }
+
+  export type GetMovieAggregateType<T extends MovieAggregateArgs> = {
+        [P in keyof T & keyof AggregateMovie]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMovie[P]>
+      : GetScalarType<T[P], AggregateMovie[P]>
+  }
+
+
+
+
+  export type MovieGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MovieWhereInput
+    orderBy?: MovieOrderByWithAggregationInput | MovieOrderByWithAggregationInput[]
+    by: MovieScalarFieldEnum[] | MovieScalarFieldEnum
+    having?: MovieScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MovieCountAggregateInputType | true
+    _avg?: MovieAvgAggregateInputType
+    _sum?: MovieSumAggregateInputType
+    _min?: MovieMinAggregateInputType
+    _max?: MovieMaxAggregateInputType
+  }
+
+  export type MovieGroupByOutputType = {
+    id: string
+    title: string
+    director: string
+    actors: string
+    playtime: number
+    language: string
+    trailer: string
+    poster: string
+    onscreen: boolean
+    genre: string
+    review: number | null
+    description: string | null
+    _count: MovieCountAggregateOutputType | null
+    _avg: MovieAvgAggregateOutputType | null
+    _sum: MovieSumAggregateOutputType | null
+    _min: MovieMinAggregateOutputType | null
+    _max: MovieMaxAggregateOutputType | null
+  }
+
+  type GetMovieGroupByPayload<T extends MovieGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MovieGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MovieGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MovieGroupByOutputType[P]>
+            : GetScalarType<T[P], MovieGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MovieSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    director?: boolean
+    actors?: boolean
+    playtime?: boolean
+    language?: boolean
+    trailer?: boolean
+    poster?: boolean
+    onscreen?: boolean
+    genre?: boolean
+    review?: boolean
+    description?: boolean
+    screenings?: boolean | Movie$screeningsArgs<ExtArgs>
+    forum?: boolean | Movie$forumArgs<ExtArgs>
+    _count?: boolean | MovieCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["movie"]>
+
+
+
+  export type MovieSelectScalar = {
+    id?: boolean
+    title?: boolean
+    director?: boolean
+    actors?: boolean
+    playtime?: boolean
+    language?: boolean
+    trailer?: boolean
+    poster?: boolean
+    onscreen?: boolean
+    genre?: boolean
+    review?: boolean
+    description?: boolean
+  }
+
+  export type MovieOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "director" | "actors" | "playtime" | "language" | "trailer" | "poster" | "onscreen" | "genre" | "review" | "description", ExtArgs["result"]["movie"]>
+  export type MovieInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    screenings?: boolean | Movie$screeningsArgs<ExtArgs>
+    forum?: boolean | Movie$forumArgs<ExtArgs>
+    _count?: boolean | MovieCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $MoviePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Movie"
+    objects: {
+      screenings: Prisma.$ScreeningPayload<ExtArgs>[]
+      forum: Prisma.$ForumPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      director: string
+      actors: string
+      playtime: number
+      language: string
+      trailer: string
+      poster: string
+      onscreen: boolean
+      genre: string
+      review: number | null
+      description: string | null
+    }, ExtArgs["result"]["movie"]>
+    composites: {}
+  }
+
+  type MovieGetPayload<S extends boolean | null | undefined | MovieDefaultArgs> = $Result.GetResult<Prisma.$MoviePayload, S>
+
+  type MovieCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MovieFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MovieCountAggregateInputType | true
+    }
+
+  export interface MovieDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Movie'], meta: { name: 'Movie' } }
+    /**
+     * Find zero or one Movie that matches the filter.
+     * @param {MovieFindUniqueArgs} args - Arguments to find a Movie
+     * @example
+     * // Get one Movie
+     * const movie = await prisma.movie.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MovieFindUniqueArgs>(args: SelectSubset<T, MovieFindUniqueArgs<ExtArgs>>): Prisma__MovieClient<$Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Movie that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MovieFindUniqueOrThrowArgs} args - Arguments to find a Movie
+     * @example
+     * // Get one Movie
+     * const movie = await prisma.movie.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MovieFindUniqueOrThrowArgs>(args: SelectSubset<T, MovieFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MovieClient<$Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Movie that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovieFindFirstArgs} args - Arguments to find a Movie
+     * @example
+     * // Get one Movie
+     * const movie = await prisma.movie.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MovieFindFirstArgs>(args?: SelectSubset<T, MovieFindFirstArgs<ExtArgs>>): Prisma__MovieClient<$Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Movie that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovieFindFirstOrThrowArgs} args - Arguments to find a Movie
+     * @example
+     * // Get one Movie
+     * const movie = await prisma.movie.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MovieFindFirstOrThrowArgs>(args?: SelectSubset<T, MovieFindFirstOrThrowArgs<ExtArgs>>): Prisma__MovieClient<$Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Movies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovieFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Movies
+     * const movies = await prisma.movie.findMany()
+     * 
+     * // Get first 10 Movies
+     * const movies = await prisma.movie.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const movieWithIdOnly = await prisma.movie.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MovieFindManyArgs>(args?: SelectSubset<T, MovieFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Movie.
+     * @param {MovieCreateArgs} args - Arguments to create a Movie.
+     * @example
+     * // Create one Movie
+     * const Movie = await prisma.movie.create({
+     *   data: {
+     *     // ... data to create a Movie
+     *   }
+     * })
+     * 
+     */
+    create<T extends MovieCreateArgs>(args: SelectSubset<T, MovieCreateArgs<ExtArgs>>): Prisma__MovieClient<$Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Movies.
+     * @param {MovieCreateManyArgs} args - Arguments to create many Movies.
+     * @example
+     * // Create many Movies
+     * const movie = await prisma.movie.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MovieCreateManyArgs>(args?: SelectSubset<T, MovieCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Movie.
+     * @param {MovieDeleteArgs} args - Arguments to delete one Movie.
+     * @example
+     * // Delete one Movie
+     * const Movie = await prisma.movie.delete({
+     *   where: {
+     *     // ... filter to delete one Movie
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MovieDeleteArgs>(args: SelectSubset<T, MovieDeleteArgs<ExtArgs>>): Prisma__MovieClient<$Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Movie.
+     * @param {MovieUpdateArgs} args - Arguments to update one Movie.
+     * @example
+     * // Update one Movie
+     * const movie = await prisma.movie.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MovieUpdateArgs>(args: SelectSubset<T, MovieUpdateArgs<ExtArgs>>): Prisma__MovieClient<$Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Movies.
+     * @param {MovieDeleteManyArgs} args - Arguments to filter Movies to delete.
+     * @example
+     * // Delete a few Movies
+     * const { count } = await prisma.movie.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MovieDeleteManyArgs>(args?: SelectSubset<T, MovieDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Movies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovieUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Movies
+     * const movie = await prisma.movie.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MovieUpdateManyArgs>(args: SelectSubset<T, MovieUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Movie.
+     * @param {MovieUpsertArgs} args - Arguments to update or create a Movie.
+     * @example
+     * // Update or create a Movie
+     * const movie = await prisma.movie.upsert({
+     *   create: {
+     *     // ... data to create a Movie
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Movie we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MovieUpsertArgs>(args: SelectSubset<T, MovieUpsertArgs<ExtArgs>>): Prisma__MovieClient<$Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Movies that matches the filter.
+     * @param {MovieFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const movie = await prisma.movie.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: MovieFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Movie.
+     * @param {MovieAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const movie = await prisma.movie.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: MovieAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Movies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovieCountArgs} args - Arguments to filter Movies to count.
+     * @example
+     * // Count the number of Movies
+     * const count = await prisma.movie.count({
+     *   where: {
+     *     // ... the filter for the Movies we want to count
+     *   }
+     * })
+    **/
+    count<T extends MovieCountArgs>(
+      args?: Subset<T, MovieCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MovieCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Movie.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovieAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MovieAggregateArgs>(args: Subset<T, MovieAggregateArgs>): Prisma.PrismaPromise<GetMovieAggregateType<T>>
+
+    /**
+     * Group by Movie.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovieGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MovieGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MovieGroupByArgs['orderBy'] }
+        : { orderBy?: MovieGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MovieGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMovieGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Movie model
+   */
+  readonly fields: MovieFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Movie.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MovieClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    screenings<T extends Movie$screeningsArgs<ExtArgs> = {}>(args?: Subset<T, Movie$screeningsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScreeningPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    forum<T extends Movie$forumArgs<ExtArgs> = {}>(args?: Subset<T, Movie$forumArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ForumPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Movie model
+   */
+  interface MovieFieldRefs {
+    readonly id: FieldRef<"Movie", 'String'>
+    readonly title: FieldRef<"Movie", 'String'>
+    readonly director: FieldRef<"Movie", 'String'>
+    readonly actors: FieldRef<"Movie", 'String'>
+    readonly playtime: FieldRef<"Movie", 'Int'>
+    readonly language: FieldRef<"Movie", 'String'>
+    readonly trailer: FieldRef<"Movie", 'String'>
+    readonly poster: FieldRef<"Movie", 'String'>
+    readonly onscreen: FieldRef<"Movie", 'Boolean'>
+    readonly genre: FieldRef<"Movie", 'String'>
+    readonly review: FieldRef<"Movie", 'Float'>
+    readonly description: FieldRef<"Movie", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Movie findUnique
+   */
+  export type MovieFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movie
+     */
+    select?: MovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movie
+     */
+    omit?: MovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovieInclude<ExtArgs> | null
+    /**
+     * Filter, which Movie to fetch.
+     */
+    where: MovieWhereUniqueInput
+  }
+
+  /**
+   * Movie findUniqueOrThrow
+   */
+  export type MovieFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movie
+     */
+    select?: MovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movie
+     */
+    omit?: MovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovieInclude<ExtArgs> | null
+    /**
+     * Filter, which Movie to fetch.
+     */
+    where: MovieWhereUniqueInput
+  }
+
+  /**
+   * Movie findFirst
+   */
+  export type MovieFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movie
+     */
+    select?: MovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movie
+     */
+    omit?: MovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovieInclude<ExtArgs> | null
+    /**
+     * Filter, which Movie to fetch.
+     */
+    where?: MovieWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Movies to fetch.
+     */
+    orderBy?: MovieOrderByWithRelationInput | MovieOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Movies.
+     */
+    cursor?: MovieWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Movies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Movies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Movies.
+     */
+    distinct?: MovieScalarFieldEnum | MovieScalarFieldEnum[]
+  }
+
+  /**
+   * Movie findFirstOrThrow
+   */
+  export type MovieFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movie
+     */
+    select?: MovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movie
+     */
+    omit?: MovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovieInclude<ExtArgs> | null
+    /**
+     * Filter, which Movie to fetch.
+     */
+    where?: MovieWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Movies to fetch.
+     */
+    orderBy?: MovieOrderByWithRelationInput | MovieOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Movies.
+     */
+    cursor?: MovieWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Movies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Movies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Movies.
+     */
+    distinct?: MovieScalarFieldEnum | MovieScalarFieldEnum[]
+  }
+
+  /**
+   * Movie findMany
+   */
+  export type MovieFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movie
+     */
+    select?: MovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movie
+     */
+    omit?: MovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovieInclude<ExtArgs> | null
+    /**
+     * Filter, which Movies to fetch.
+     */
+    where?: MovieWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Movies to fetch.
+     */
+    orderBy?: MovieOrderByWithRelationInput | MovieOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Movies.
+     */
+    cursor?: MovieWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Movies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Movies.
+     */
+    skip?: number
+    distinct?: MovieScalarFieldEnum | MovieScalarFieldEnum[]
+  }
+
+  /**
+   * Movie create
+   */
+  export type MovieCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movie
+     */
+    select?: MovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movie
+     */
+    omit?: MovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovieInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Movie.
+     */
+    data: XOR<MovieCreateInput, MovieUncheckedCreateInput>
+  }
+
+  /**
+   * Movie createMany
+   */
+  export type MovieCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Movies.
+     */
+    data: MovieCreateManyInput | MovieCreateManyInput[]
+  }
+
+  /**
+   * Movie update
+   */
+  export type MovieUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movie
+     */
+    select?: MovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movie
+     */
+    omit?: MovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovieInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Movie.
+     */
+    data: XOR<MovieUpdateInput, MovieUncheckedUpdateInput>
+    /**
+     * Choose, which Movie to update.
+     */
+    where: MovieWhereUniqueInput
+  }
+
+  /**
+   * Movie updateMany
+   */
+  export type MovieUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Movies.
+     */
+    data: XOR<MovieUpdateManyMutationInput, MovieUncheckedUpdateManyInput>
+    /**
+     * Filter which Movies to update
+     */
+    where?: MovieWhereInput
+    /**
+     * Limit how many Movies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Movie upsert
+   */
+  export type MovieUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movie
+     */
+    select?: MovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movie
+     */
+    omit?: MovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovieInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Movie to update in case it exists.
+     */
+    where: MovieWhereUniqueInput
+    /**
+     * In case the Movie found by the `where` argument doesn't exist, create a new Movie with this data.
+     */
+    create: XOR<MovieCreateInput, MovieUncheckedCreateInput>
+    /**
+     * In case the Movie was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MovieUpdateInput, MovieUncheckedUpdateInput>
+  }
+
+  /**
+   * Movie delete
+   */
+  export type MovieDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movie
+     */
+    select?: MovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movie
+     */
+    omit?: MovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovieInclude<ExtArgs> | null
+    /**
+     * Filter which Movie to delete.
+     */
+    where: MovieWhereUniqueInput
+  }
+
+  /**
+   * Movie deleteMany
+   */
+  export type MovieDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Movies to delete
+     */
+    where?: MovieWhereInput
+    /**
+     * Limit how many Movies to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Movie findRaw
+   */
+  export type MovieFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Movie aggregateRaw
+   */
+  export type MovieAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Movie.screenings
+   */
+  export type Movie$screeningsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Screening
+     */
+    select?: ScreeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Screening
+     */
+    omit?: ScreeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreeningInclude<ExtArgs> | null
+    where?: ScreeningWhereInput
+    orderBy?: ScreeningOrderByWithRelationInput | ScreeningOrderByWithRelationInput[]
+    cursor?: ScreeningWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ScreeningScalarFieldEnum | ScreeningScalarFieldEnum[]
+  }
+
+  /**
+   * Movie.forum
+   */
+  export type Movie$forumArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Forum
+     */
+    select?: ForumSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Forum
+     */
+    omit?: ForumOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumInclude<ExtArgs> | null
+    where?: ForumWhereInput
+    orderBy?: ForumOrderByWithRelationInput | ForumOrderByWithRelationInput[]
+    cursor?: ForumWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ForumScalarFieldEnum | ForumScalarFieldEnum[]
+  }
+
+  /**
+   * Movie without action
+   */
+  export type MovieDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movie
+     */
+    select?: MovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movie
+     */
+    omit?: MovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovieInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Screening
+   */
+
+  export type AggregateScreening = {
+    _count: ScreeningCountAggregateOutputType | null
+    _min: ScreeningMinAggregateOutputType | null
+    _max: ScreeningMaxAggregateOutputType | null
+  }
+
+  export type ScreeningMinAggregateOutputType = {
+    id: string | null
+    hall_id: string | null
+    movie_id: string | null
+    start: Date | null
+    end: Date | null
+    screening_type_id: string | null
+  }
+
+  export type ScreeningMaxAggregateOutputType = {
+    id: string | null
+    hall_id: string | null
+    movie_id: string | null
+    start: Date | null
+    end: Date | null
+    screening_type_id: string | null
+  }
+
+  export type ScreeningCountAggregateOutputType = {
+    id: number
+    hall_id: number
+    movie_id: number
+    start: number
+    end: number
+    screening_type_id: number
+    _all: number
+  }
+
+
+  export type ScreeningMinAggregateInputType = {
+    id?: true
+    hall_id?: true
+    movie_id?: true
+    start?: true
+    end?: true
+    screening_type_id?: true
+  }
+
+  export type ScreeningMaxAggregateInputType = {
+    id?: true
+    hall_id?: true
+    movie_id?: true
+    start?: true
+    end?: true
+    screening_type_id?: true
+  }
+
+  export type ScreeningCountAggregateInputType = {
+    id?: true
+    hall_id?: true
+    movie_id?: true
+    start?: true
+    end?: true
+    screening_type_id?: true
+    _all?: true
+  }
+
+  export type ScreeningAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Screening to aggregate.
+     */
+    where?: ScreeningWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Screenings to fetch.
+     */
+    orderBy?: ScreeningOrderByWithRelationInput | ScreeningOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ScreeningWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Screenings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Screenings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Screenings
+    **/
+    _count?: true | ScreeningCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ScreeningMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ScreeningMaxAggregateInputType
+  }
+
+  export type GetScreeningAggregateType<T extends ScreeningAggregateArgs> = {
+        [P in keyof T & keyof AggregateScreening]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateScreening[P]>
+      : GetScalarType<T[P], AggregateScreening[P]>
+  }
+
+
+
+
+  export type ScreeningGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScreeningWhereInput
+    orderBy?: ScreeningOrderByWithAggregationInput | ScreeningOrderByWithAggregationInput[]
+    by: ScreeningScalarFieldEnum[] | ScreeningScalarFieldEnum
+    having?: ScreeningScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ScreeningCountAggregateInputType | true
+    _min?: ScreeningMinAggregateInputType
+    _max?: ScreeningMaxAggregateInputType
+  }
+
+  export type ScreeningGroupByOutputType = {
+    id: string
+    hall_id: string
+    movie_id: string
+    start: Date
+    end: Date
+    screening_type_id: string
+    _count: ScreeningCountAggregateOutputType | null
+    _min: ScreeningMinAggregateOutputType | null
+    _max: ScreeningMaxAggregateOutputType | null
+  }
+
+  type GetScreeningGroupByPayload<T extends ScreeningGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ScreeningGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ScreeningGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ScreeningGroupByOutputType[P]>
+            : GetScalarType<T[P], ScreeningGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ScreeningSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hall_id?: boolean
+    movie_id?: boolean
+    start?: boolean
+    end?: boolean
+    screening_type_id?: boolean
+    movies?: boolean | Screening$moviesArgs<ExtArgs>
+    halls?: boolean | Screening$hallsArgs<ExtArgs>
+    screening_types?: boolean | Screening$screening_typesArgs<ExtArgs>
+  }, ExtArgs["result"]["screening"]>
+
+
+
+  export type ScreeningSelectScalar = {
+    id?: boolean
+    hall_id?: boolean
+    movie_id?: boolean
+    start?: boolean
+    end?: boolean
+    screening_type_id?: boolean
+  }
+
+  export type ScreeningOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hall_id" | "movie_id" | "start" | "end" | "screening_type_id", ExtArgs["result"]["screening"]>
+  export type ScreeningInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    movies?: boolean | Screening$moviesArgs<ExtArgs>
+    halls?: boolean | Screening$hallsArgs<ExtArgs>
+    screening_types?: boolean | Screening$screening_typesArgs<ExtArgs>
+  }
+
+  export type $ScreeningPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Screening"
+    objects: {
+      movies: Prisma.$MoviePayload<ExtArgs> | null
+      halls: Prisma.$HallPayload<ExtArgs> | null
+      screening_types: Prisma.$Screening_typePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hall_id: string
+      movie_id: string
+      start: Date
+      end: Date
+      screening_type_id: string
+    }, ExtArgs["result"]["screening"]>
+    composites: {}
+  }
+
+  type ScreeningGetPayload<S extends boolean | null | undefined | ScreeningDefaultArgs> = $Result.GetResult<Prisma.$ScreeningPayload, S>
+
+  type ScreeningCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ScreeningFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ScreeningCountAggregateInputType | true
+    }
+
+  export interface ScreeningDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Screening'], meta: { name: 'Screening' } }
+    /**
+     * Find zero or one Screening that matches the filter.
+     * @param {ScreeningFindUniqueArgs} args - Arguments to find a Screening
+     * @example
+     * // Get one Screening
+     * const screening = await prisma.screening.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ScreeningFindUniqueArgs>(args: SelectSubset<T, ScreeningFindUniqueArgs<ExtArgs>>): Prisma__ScreeningClient<$Result.GetResult<Prisma.$ScreeningPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Screening that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ScreeningFindUniqueOrThrowArgs} args - Arguments to find a Screening
+     * @example
+     * // Get one Screening
+     * const screening = await prisma.screening.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ScreeningFindUniqueOrThrowArgs>(args: SelectSubset<T, ScreeningFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ScreeningClient<$Result.GetResult<Prisma.$ScreeningPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Screening that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreeningFindFirstArgs} args - Arguments to find a Screening
+     * @example
+     * // Get one Screening
+     * const screening = await prisma.screening.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ScreeningFindFirstArgs>(args?: SelectSubset<T, ScreeningFindFirstArgs<ExtArgs>>): Prisma__ScreeningClient<$Result.GetResult<Prisma.$ScreeningPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Screening that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreeningFindFirstOrThrowArgs} args - Arguments to find a Screening
+     * @example
+     * // Get one Screening
+     * const screening = await prisma.screening.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ScreeningFindFirstOrThrowArgs>(args?: SelectSubset<T, ScreeningFindFirstOrThrowArgs<ExtArgs>>): Prisma__ScreeningClient<$Result.GetResult<Prisma.$ScreeningPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Screenings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreeningFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Screenings
+     * const screenings = await prisma.screening.findMany()
+     * 
+     * // Get first 10 Screenings
+     * const screenings = await prisma.screening.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const screeningWithIdOnly = await prisma.screening.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ScreeningFindManyArgs>(args?: SelectSubset<T, ScreeningFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScreeningPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Screening.
+     * @param {ScreeningCreateArgs} args - Arguments to create a Screening.
+     * @example
+     * // Create one Screening
+     * const Screening = await prisma.screening.create({
+     *   data: {
+     *     // ... data to create a Screening
+     *   }
+     * })
+     * 
+     */
+    create<T extends ScreeningCreateArgs>(args: SelectSubset<T, ScreeningCreateArgs<ExtArgs>>): Prisma__ScreeningClient<$Result.GetResult<Prisma.$ScreeningPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Screenings.
+     * @param {ScreeningCreateManyArgs} args - Arguments to create many Screenings.
+     * @example
+     * // Create many Screenings
+     * const screening = await prisma.screening.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ScreeningCreateManyArgs>(args?: SelectSubset<T, ScreeningCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Screening.
+     * @param {ScreeningDeleteArgs} args - Arguments to delete one Screening.
+     * @example
+     * // Delete one Screening
+     * const Screening = await prisma.screening.delete({
+     *   where: {
+     *     // ... filter to delete one Screening
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ScreeningDeleteArgs>(args: SelectSubset<T, ScreeningDeleteArgs<ExtArgs>>): Prisma__ScreeningClient<$Result.GetResult<Prisma.$ScreeningPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Screening.
+     * @param {ScreeningUpdateArgs} args - Arguments to update one Screening.
+     * @example
+     * // Update one Screening
+     * const screening = await prisma.screening.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ScreeningUpdateArgs>(args: SelectSubset<T, ScreeningUpdateArgs<ExtArgs>>): Prisma__ScreeningClient<$Result.GetResult<Prisma.$ScreeningPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Screenings.
+     * @param {ScreeningDeleteManyArgs} args - Arguments to filter Screenings to delete.
+     * @example
+     * // Delete a few Screenings
+     * const { count } = await prisma.screening.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ScreeningDeleteManyArgs>(args?: SelectSubset<T, ScreeningDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Screenings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreeningUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Screenings
+     * const screening = await prisma.screening.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ScreeningUpdateManyArgs>(args: SelectSubset<T, ScreeningUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Screening.
+     * @param {ScreeningUpsertArgs} args - Arguments to update or create a Screening.
+     * @example
+     * // Update or create a Screening
+     * const screening = await prisma.screening.upsert({
+     *   create: {
+     *     // ... data to create a Screening
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Screening we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ScreeningUpsertArgs>(args: SelectSubset<T, ScreeningUpsertArgs<ExtArgs>>): Prisma__ScreeningClient<$Result.GetResult<Prisma.$ScreeningPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Screenings that matches the filter.
+     * @param {ScreeningFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const screening = await prisma.screening.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ScreeningFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Screening.
+     * @param {ScreeningAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const screening = await prisma.screening.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ScreeningAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Screenings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreeningCountArgs} args - Arguments to filter Screenings to count.
+     * @example
+     * // Count the number of Screenings
+     * const count = await prisma.screening.count({
+     *   where: {
+     *     // ... the filter for the Screenings we want to count
+     *   }
+     * })
+    **/
+    count<T extends ScreeningCountArgs>(
+      args?: Subset<T, ScreeningCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ScreeningCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Screening.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreeningAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ScreeningAggregateArgs>(args: Subset<T, ScreeningAggregateArgs>): Prisma.PrismaPromise<GetScreeningAggregateType<T>>
+
+    /**
+     * Group by Screening.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreeningGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ScreeningGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ScreeningGroupByArgs['orderBy'] }
+        : { orderBy?: ScreeningGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ScreeningGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetScreeningGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Screening model
+   */
+  readonly fields: ScreeningFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Screening.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ScreeningClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    movies<T extends Screening$moviesArgs<ExtArgs> = {}>(args?: Subset<T, Screening$moviesArgs<ExtArgs>>): Prisma__MovieClient<$Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    halls<T extends Screening$hallsArgs<ExtArgs> = {}>(args?: Subset<T, Screening$hallsArgs<ExtArgs>>): Prisma__HallClient<$Result.GetResult<Prisma.$HallPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    screening_types<T extends Screening$screening_typesArgs<ExtArgs> = {}>(args?: Subset<T, Screening$screening_typesArgs<ExtArgs>>): Prisma__Screening_typeClient<$Result.GetResult<Prisma.$Screening_typePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Screening model
+   */
+  interface ScreeningFieldRefs {
+    readonly id: FieldRef<"Screening", 'String'>
+    readonly hall_id: FieldRef<"Screening", 'String'>
+    readonly movie_id: FieldRef<"Screening", 'String'>
+    readonly start: FieldRef<"Screening", 'DateTime'>
+    readonly end: FieldRef<"Screening", 'DateTime'>
+    readonly screening_type_id: FieldRef<"Screening", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Screening findUnique
+   */
+  export type ScreeningFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Screening
+     */
+    select?: ScreeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Screening
+     */
+    omit?: ScreeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreeningInclude<ExtArgs> | null
+    /**
+     * Filter, which Screening to fetch.
+     */
+    where: ScreeningWhereUniqueInput
+  }
+
+  /**
+   * Screening findUniqueOrThrow
+   */
+  export type ScreeningFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Screening
+     */
+    select?: ScreeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Screening
+     */
+    omit?: ScreeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreeningInclude<ExtArgs> | null
+    /**
+     * Filter, which Screening to fetch.
+     */
+    where: ScreeningWhereUniqueInput
+  }
+
+  /**
+   * Screening findFirst
+   */
+  export type ScreeningFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Screening
+     */
+    select?: ScreeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Screening
+     */
+    omit?: ScreeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreeningInclude<ExtArgs> | null
+    /**
+     * Filter, which Screening to fetch.
+     */
+    where?: ScreeningWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Screenings to fetch.
+     */
+    orderBy?: ScreeningOrderByWithRelationInput | ScreeningOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Screenings.
+     */
+    cursor?: ScreeningWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Screenings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Screenings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Screenings.
+     */
+    distinct?: ScreeningScalarFieldEnum | ScreeningScalarFieldEnum[]
+  }
+
+  /**
+   * Screening findFirstOrThrow
+   */
+  export type ScreeningFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Screening
+     */
+    select?: ScreeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Screening
+     */
+    omit?: ScreeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreeningInclude<ExtArgs> | null
+    /**
+     * Filter, which Screening to fetch.
+     */
+    where?: ScreeningWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Screenings to fetch.
+     */
+    orderBy?: ScreeningOrderByWithRelationInput | ScreeningOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Screenings.
+     */
+    cursor?: ScreeningWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Screenings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Screenings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Screenings.
+     */
+    distinct?: ScreeningScalarFieldEnum | ScreeningScalarFieldEnum[]
+  }
+
+  /**
+   * Screening findMany
+   */
+  export type ScreeningFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Screening
+     */
+    select?: ScreeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Screening
+     */
+    omit?: ScreeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreeningInclude<ExtArgs> | null
+    /**
+     * Filter, which Screenings to fetch.
+     */
+    where?: ScreeningWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Screenings to fetch.
+     */
+    orderBy?: ScreeningOrderByWithRelationInput | ScreeningOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Screenings.
+     */
+    cursor?: ScreeningWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Screenings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Screenings.
+     */
+    skip?: number
+    distinct?: ScreeningScalarFieldEnum | ScreeningScalarFieldEnum[]
+  }
+
+  /**
+   * Screening create
+   */
+  export type ScreeningCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Screening
+     */
+    select?: ScreeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Screening
+     */
+    omit?: ScreeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreeningInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Screening.
+     */
+    data: XOR<ScreeningCreateInput, ScreeningUncheckedCreateInput>
+  }
+
+  /**
+   * Screening createMany
+   */
+  export type ScreeningCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Screenings.
+     */
+    data: ScreeningCreateManyInput | ScreeningCreateManyInput[]
+  }
+
+  /**
+   * Screening update
+   */
+  export type ScreeningUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Screening
+     */
+    select?: ScreeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Screening
+     */
+    omit?: ScreeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreeningInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Screening.
+     */
+    data: XOR<ScreeningUpdateInput, ScreeningUncheckedUpdateInput>
+    /**
+     * Choose, which Screening to update.
+     */
+    where: ScreeningWhereUniqueInput
+  }
+
+  /**
+   * Screening updateMany
+   */
+  export type ScreeningUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Screenings.
+     */
+    data: XOR<ScreeningUpdateManyMutationInput, ScreeningUncheckedUpdateManyInput>
+    /**
+     * Filter which Screenings to update
+     */
+    where?: ScreeningWhereInput
+    /**
+     * Limit how many Screenings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Screening upsert
+   */
+  export type ScreeningUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Screening
+     */
+    select?: ScreeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Screening
+     */
+    omit?: ScreeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreeningInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Screening to update in case it exists.
+     */
+    where: ScreeningWhereUniqueInput
+    /**
+     * In case the Screening found by the `where` argument doesn't exist, create a new Screening with this data.
+     */
+    create: XOR<ScreeningCreateInput, ScreeningUncheckedCreateInput>
+    /**
+     * In case the Screening was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ScreeningUpdateInput, ScreeningUncheckedUpdateInput>
+  }
+
+  /**
+   * Screening delete
+   */
+  export type ScreeningDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Screening
+     */
+    select?: ScreeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Screening
+     */
+    omit?: ScreeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreeningInclude<ExtArgs> | null
+    /**
+     * Filter which Screening to delete.
+     */
+    where: ScreeningWhereUniqueInput
+  }
+
+  /**
+   * Screening deleteMany
+   */
+  export type ScreeningDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Screenings to delete
+     */
+    where?: ScreeningWhereInput
+    /**
+     * Limit how many Screenings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Screening findRaw
+   */
+  export type ScreeningFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Screening aggregateRaw
+   */
+  export type ScreeningAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Screening.movies
+   */
+  export type Screening$moviesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movie
+     */
+    select?: MovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movie
+     */
+    omit?: MovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovieInclude<ExtArgs> | null
+    where?: MovieWhereInput
+  }
+
+  /**
+   * Screening.halls
+   */
+  export type Screening$hallsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hall
+     */
+    select?: HallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hall
+     */
+    omit?: HallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HallInclude<ExtArgs> | null
+    where?: HallWhereInput
+  }
+
+  /**
+   * Screening.screening_types
+   */
+  export type Screening$screening_typesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Screening_type
+     */
+    select?: Screening_typeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Screening_type
+     */
+    omit?: Screening_typeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Screening_typeInclude<ExtArgs> | null
+    where?: Screening_typeWhereInput
+  }
+
+  /**
+   * Screening without action
+   */
+  export type ScreeningDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Screening
+     */
+    select?: ScreeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Screening
+     */
+    omit?: ScreeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreeningInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model User
+   */
+
+  export type AggregateUser = {
+    _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
+    _min: UserMinAggregateOutputType | null
+    _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    points: number | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    points: number | null
+  }
+
+  export type UserMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    email: string | null
+    password_hash: string | null
+    phone_number: string | null
+    points: number | null
+    rank_id: string | null
+  }
+
+  export type UserMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    email: string | null
+    password_hash: string | null
+    phone_number: string | null
+    points: number | null
+    rank_id: string | null
+  }
+
+  export type UserCountAggregateOutputType = {
+    id: number
+    name: number
+    email: number
+    password_hash: number
+    phone_number: number
+    points: number
+    rank_id: number
+    _all: number
+  }
+
+
+  export type UserAvgAggregateInputType = {
+    points?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    points?: true
+  }
+
+  export type UserMinAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    password_hash?: true
+    phone_number?: true
+    points?: true
+    rank_id?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
     name?: true
+    email?: true
     password_hash?: true
+    phone_number?: true
+    points?: true
+    rank_id?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
     name?: true
+    email?: true
     password_hash?: true
+    phone_number?: true
+    points?: true
+    rank_id?: true
     _all?: true
   }
 
@@ -1385,6 +5306,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -1415,6 +5348,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
@@ -1422,8 +5357,14 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: string
     name: string
+    email: string
     password_hash: string
+    phone_number: string
+    points: number
+    rank_id: string
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -1445,8 +5386,14 @@ export namespace Prisma {
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    email?: boolean
     password_hash?: boolean
-    workspaces?: boolean | User$workspacesArgs<ExtArgs>
+    phone_number?: boolean
+    points?: boolean
+    rank_id?: boolean
+    ranks?: boolean | User$ranksArgs<ExtArgs>
+    tickets?: boolean | User$ticketsArgs<ExtArgs>
+    forum?: boolean | User$forumArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1455,24 +5402,36 @@ export namespace Prisma {
   export type UserSelectScalar = {
     id?: boolean
     name?: boolean
+    email?: boolean
     password_hash?: boolean
+    phone_number?: boolean
+    points?: boolean
+    rank_id?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "password_hash", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password_hash" | "phone_number" | "points" | "rank_id", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    workspaces?: boolean | User$workspacesArgs<ExtArgs>
+    ranks?: boolean | User$ranksArgs<ExtArgs>
+    tickets?: boolean | User$ticketsArgs<ExtArgs>
+    forum?: boolean | User$forumArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      workspaces: Prisma.$WorkspacePayload<ExtArgs>[]
+      ranks: Prisma.$RankPayload<ExtArgs> | null
+      tickets: Prisma.$TicketPayload<ExtArgs>[]
+      forum: Prisma.$ForumPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
+      email: string
       password_hash: string
+      phone_number: string
+      points: number
+      rank_id: string
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1836,7 +5795,9 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    workspaces<T extends User$workspacesArgs<ExtArgs> = {}>(args?: Subset<T, User$workspacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    ranks<T extends User$ranksArgs<ExtArgs> = {}>(args?: Subset<T, User$ranksArgs<ExtArgs>>): Prisma__RankClient<$Result.GetResult<Prisma.$RankPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    tickets<T extends User$ticketsArgs<ExtArgs> = {}>(args?: Subset<T, User$ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    forum<T extends User$forumArgs<ExtArgs> = {}>(args?: Subset<T, User$forumArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ForumPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1868,7 +5829,11 @@ export namespace Prisma {
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
+    readonly email: FieldRef<"User", 'String'>
     readonly password_hash: FieldRef<"User", 'String'>
+    readonly phone_number: FieldRef<"User", 'String'>
+    readonly points: FieldRef<"User", 'Int'>
+    readonly rank_id: FieldRef<"User", 'String'>
   }
     
 
@@ -2239,27 +6204,70 @@ export namespace Prisma {
   }
 
   /**
-   * User.workspaces
+   * User.ranks
    */
-  export type User$workspacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$ranksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Workspace
+     * Select specific fields to fetch from the Rank
      */
-    select?: WorkspaceSelect<ExtArgs> | null
+    select?: RankSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Workspace
+     * Omit specific fields from the Rank
      */
-    omit?: WorkspaceOmit<ExtArgs> | null
+    omit?: RankOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: WorkspaceInclude<ExtArgs> | null
-    where?: WorkspaceWhereInput
-    orderBy?: WorkspaceOrderByWithRelationInput | WorkspaceOrderByWithRelationInput[]
-    cursor?: WorkspaceWhereUniqueInput
+    include?: RankInclude<ExtArgs> | null
+    where?: RankWhereInput
+  }
+
+  /**
+   * User.tickets
+   */
+  export type User$ticketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketInclude<ExtArgs> | null
+    where?: TicketWhereInput
+    orderBy?: TicketOrderByWithRelationInput | TicketOrderByWithRelationInput[]
+    cursor?: TicketWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: WorkspaceScalarFieldEnum | WorkspaceScalarFieldEnum[]
+    distinct?: TicketScalarFieldEnum | TicketScalarFieldEnum[]
+  }
+
+  /**
+   * User.forum
+   */
+  export type User$forumArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Forum
+     */
+    select?: ForumSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Forum
+     */
+    omit?: ForumOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumInclude<ExtArgs> | null
+    where?: ForumWhereInput
+    orderBy?: ForumOrderByWithRelationInput | ForumOrderByWithRelationInput[]
+    cursor?: ForumWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ForumScalarFieldEnum | ForumScalarFieldEnum[]
   }
 
   /**
@@ -2282,374 +6290,373 @@ export namespace Prisma {
 
 
   /**
-   * Model Workspace
+   * Model Chair
    */
 
-  export type AggregateWorkspace = {
-    _count: WorkspaceCountAggregateOutputType | null
-    _avg: WorkspaceAvgAggregateOutputType | null
-    _sum: WorkspaceSumAggregateOutputType | null
-    _min: WorkspaceMinAggregateOutputType | null
-    _max: WorkspaceMaxAggregateOutputType | null
+  export type AggregateChair = {
+    _count: ChairCountAggregateOutputType | null
+    _avg: ChairAvgAggregateOutputType | null
+    _sum: ChairSumAggregateOutputType | null
+    _min: ChairMinAggregateOutputType | null
+    _max: ChairMaxAggregateOutputType | null
   }
 
-  export type WorkspaceAvgAggregateOutputType = {
-    limit: number | null
+  export type ChairAvgAggregateOutputType = {
+    row: number | null
+    column: number | null
   }
 
-  export type WorkspaceSumAggregateOutputType = {
-    limit: number | null
+  export type ChairSumAggregateOutputType = {
+    row: number | null
+    column: number | null
   }
 
-  export type WorkspaceMinAggregateOutputType = {
+  export type ChairMinAggregateOutputType = {
     id: string | null
-    title: string | null
-    description: string | null
-    limit: number | null
-    user_id: string | null
+    state: boolean | null
+    row: number | null
+    column: number | null
+    hall_id: string | null
   }
 
-  export type WorkspaceMaxAggregateOutputType = {
+  export type ChairMaxAggregateOutputType = {
     id: string | null
-    title: string | null
-    description: string | null
-    limit: number | null
-    user_id: string | null
+    state: boolean | null
+    row: number | null
+    column: number | null
+    hall_id: string | null
   }
 
-  export type WorkspaceCountAggregateOutputType = {
+  export type ChairCountAggregateOutputType = {
     id: number
-    title: number
-    description: number
-    limit: number
-    user_id: number
+    state: number
+    row: number
+    column: number
+    hall_id: number
     _all: number
   }
 
 
-  export type WorkspaceAvgAggregateInputType = {
-    limit?: true
+  export type ChairAvgAggregateInputType = {
+    row?: true
+    column?: true
   }
 
-  export type WorkspaceSumAggregateInputType = {
-    limit?: true
+  export type ChairSumAggregateInputType = {
+    row?: true
+    column?: true
   }
 
-  export type WorkspaceMinAggregateInputType = {
+  export type ChairMinAggregateInputType = {
     id?: true
-    title?: true
-    description?: true
-    limit?: true
-    user_id?: true
+    state?: true
+    row?: true
+    column?: true
+    hall_id?: true
   }
 
-  export type WorkspaceMaxAggregateInputType = {
+  export type ChairMaxAggregateInputType = {
     id?: true
-    title?: true
-    description?: true
-    limit?: true
-    user_id?: true
+    state?: true
+    row?: true
+    column?: true
+    hall_id?: true
   }
 
-  export type WorkspaceCountAggregateInputType = {
+  export type ChairCountAggregateInputType = {
     id?: true
-    title?: true
-    description?: true
-    limit?: true
-    user_id?: true
+    state?: true
+    row?: true
+    column?: true
+    hall_id?: true
     _all?: true
   }
 
-  export type WorkspaceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ChairAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Workspace to aggregate.
+     * Filter which Chair to aggregate.
      */
-    where?: WorkspaceWhereInput
+    where?: ChairWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Workspaces to fetch.
+     * Determine the order of Chairs to fetch.
      */
-    orderBy?: WorkspaceOrderByWithRelationInput | WorkspaceOrderByWithRelationInput[]
+    orderBy?: ChairOrderByWithRelationInput | ChairOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: WorkspaceWhereUniqueInput
+    cursor?: ChairWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Workspaces from the position of the cursor.
+     * Take `±n` Chairs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Workspaces.
+     * Skip the first `n` Chairs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Workspaces
+     * Count returned Chairs
     **/
-    _count?: true | WorkspaceCountAggregateInputType
+    _count?: true | ChairCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: WorkspaceAvgAggregateInputType
+    _avg?: ChairAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: WorkspaceSumAggregateInputType
+    _sum?: ChairSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: WorkspaceMinAggregateInputType
+    _min?: ChairMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: WorkspaceMaxAggregateInputType
+    _max?: ChairMaxAggregateInputType
   }
 
-  export type GetWorkspaceAggregateType<T extends WorkspaceAggregateArgs> = {
-        [P in keyof T & keyof AggregateWorkspace]: P extends '_count' | 'count'
+  export type GetChairAggregateType<T extends ChairAggregateArgs> = {
+        [P in keyof T & keyof AggregateChair]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateWorkspace[P]>
-      : GetScalarType<T[P], AggregateWorkspace[P]>
+        : GetScalarType<T[P], AggregateChair[P]>
+      : GetScalarType<T[P], AggregateChair[P]>
   }
 
 
 
 
-  export type WorkspaceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: WorkspaceWhereInput
-    orderBy?: WorkspaceOrderByWithAggregationInput | WorkspaceOrderByWithAggregationInput[]
-    by: WorkspaceScalarFieldEnum[] | WorkspaceScalarFieldEnum
-    having?: WorkspaceScalarWhereWithAggregatesInput
+  export type ChairGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChairWhereInput
+    orderBy?: ChairOrderByWithAggregationInput | ChairOrderByWithAggregationInput[]
+    by: ChairScalarFieldEnum[] | ChairScalarFieldEnum
+    having?: ChairScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: WorkspaceCountAggregateInputType | true
-    _avg?: WorkspaceAvgAggregateInputType
-    _sum?: WorkspaceSumAggregateInputType
-    _min?: WorkspaceMinAggregateInputType
-    _max?: WorkspaceMaxAggregateInputType
+    _count?: ChairCountAggregateInputType | true
+    _avg?: ChairAvgAggregateInputType
+    _sum?: ChairSumAggregateInputType
+    _min?: ChairMinAggregateInputType
+    _max?: ChairMaxAggregateInputType
   }
 
-  export type WorkspaceGroupByOutputType = {
+  export type ChairGroupByOutputType = {
     id: string
-    title: string
-    description: string | null
-    limit: number | null
-    user_id: string
-    _count: WorkspaceCountAggregateOutputType | null
-    _avg: WorkspaceAvgAggregateOutputType | null
-    _sum: WorkspaceSumAggregateOutputType | null
-    _min: WorkspaceMinAggregateOutputType | null
-    _max: WorkspaceMaxAggregateOutputType | null
+    state: boolean
+    row: number
+    column: number
+    hall_id: string
+    _count: ChairCountAggregateOutputType | null
+    _avg: ChairAvgAggregateOutputType | null
+    _sum: ChairSumAggregateOutputType | null
+    _min: ChairMinAggregateOutputType | null
+    _max: ChairMaxAggregateOutputType | null
   }
 
-  type GetWorkspaceGroupByPayload<T extends WorkspaceGroupByArgs> = Prisma.PrismaPromise<
+  type GetChairGroupByPayload<T extends ChairGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<WorkspaceGroupByOutputType, T['by']> &
+      PickEnumerable<ChairGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof WorkspaceGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof ChairGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], WorkspaceGroupByOutputType[P]>
-            : GetScalarType<T[P], WorkspaceGroupByOutputType[P]>
+              : GetScalarType<T[P], ChairGroupByOutputType[P]>
+            : GetScalarType<T[P], ChairGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type WorkspaceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ChairSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    title?: boolean
-    description?: boolean
-    limit?: boolean
-    user_id?: boolean
-    user?: boolean | Workspace$userArgs<ExtArgs>
-    api_tokens?: boolean | Workspace$api_tokensArgs<ExtArgs>
-    _count?: boolean | WorkspaceCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["workspace"]>
+    state?: boolean
+    row?: boolean
+    column?: boolean
+    hall_id?: boolean
+    halls?: boolean | Chair$hallsArgs<ExtArgs>
+  }, ExtArgs["result"]["chair"]>
 
 
 
-  export type WorkspaceSelectScalar = {
+  export type ChairSelectScalar = {
     id?: boolean
-    title?: boolean
-    description?: boolean
-    limit?: boolean
-    user_id?: boolean
+    state?: boolean
+    row?: boolean
+    column?: boolean
+    hall_id?: boolean
   }
 
-  export type WorkspaceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "limit" | "user_id", ExtArgs["result"]["workspace"]>
-  export type WorkspaceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | Workspace$userArgs<ExtArgs>
-    api_tokens?: boolean | Workspace$api_tokensArgs<ExtArgs>
-    _count?: boolean | WorkspaceCountOutputTypeDefaultArgs<ExtArgs>
+  export type ChairOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "state" | "row" | "column" | "hall_id", ExtArgs["result"]["chair"]>
+  export type ChairInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    halls?: boolean | Chair$hallsArgs<ExtArgs>
   }
 
-  export type $WorkspacePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Workspace"
+  export type $ChairPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Chair"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs> | null
-      api_tokens: Prisma.$API_TokenPayload<ExtArgs>[]
+      halls: Prisma.$HallPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      title: string
-      description: string | null
-      limit: number | null
-      user_id: string
-    }, ExtArgs["result"]["workspace"]>
+      state: boolean
+      row: number
+      column: number
+      hall_id: string
+    }, ExtArgs["result"]["chair"]>
     composites: {}
   }
 
-  type WorkspaceGetPayload<S extends boolean | null | undefined | WorkspaceDefaultArgs> = $Result.GetResult<Prisma.$WorkspacePayload, S>
+  type ChairGetPayload<S extends boolean | null | undefined | ChairDefaultArgs> = $Result.GetResult<Prisma.$ChairPayload, S>
 
-  type WorkspaceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<WorkspaceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: WorkspaceCountAggregateInputType | true
+  type ChairCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ChairFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ChairCountAggregateInputType | true
     }
 
-  export interface WorkspaceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Workspace'], meta: { name: 'Workspace' } }
+  export interface ChairDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Chair'], meta: { name: 'Chair' } }
     /**
-     * Find zero or one Workspace that matches the filter.
-     * @param {WorkspaceFindUniqueArgs} args - Arguments to find a Workspace
+     * Find zero or one Chair that matches the filter.
+     * @param {ChairFindUniqueArgs} args - Arguments to find a Chair
      * @example
-     * // Get one Workspace
-     * const workspace = await prisma.workspace.findUnique({
+     * // Get one Chair
+     * const chair = await prisma.chair.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends WorkspaceFindUniqueArgs>(args: SelectSubset<T, WorkspaceFindUniqueArgs<ExtArgs>>): Prisma__WorkspaceClient<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends ChairFindUniqueArgs>(args: SelectSubset<T, ChairFindUniqueArgs<ExtArgs>>): Prisma__ChairClient<$Result.GetResult<Prisma.$ChairPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Workspace that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Chair that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {WorkspaceFindUniqueOrThrowArgs} args - Arguments to find a Workspace
+     * @param {ChairFindUniqueOrThrowArgs} args - Arguments to find a Chair
      * @example
-     * // Get one Workspace
-     * const workspace = await prisma.workspace.findUniqueOrThrow({
+     * // Get one Chair
+     * const chair = await prisma.chair.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends WorkspaceFindUniqueOrThrowArgs>(args: SelectSubset<T, WorkspaceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WorkspaceClient<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends ChairFindUniqueOrThrowArgs>(args: SelectSubset<T, ChairFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ChairClient<$Result.GetResult<Prisma.$ChairPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Workspace that matches the filter.
+     * Find the first Chair that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceFindFirstArgs} args - Arguments to find a Workspace
+     * @param {ChairFindFirstArgs} args - Arguments to find a Chair
      * @example
-     * // Get one Workspace
-     * const workspace = await prisma.workspace.findFirst({
+     * // Get one Chair
+     * const chair = await prisma.chair.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends WorkspaceFindFirstArgs>(args?: SelectSubset<T, WorkspaceFindFirstArgs<ExtArgs>>): Prisma__WorkspaceClient<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends ChairFindFirstArgs>(args?: SelectSubset<T, ChairFindFirstArgs<ExtArgs>>): Prisma__ChairClient<$Result.GetResult<Prisma.$ChairPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Workspace that matches the filter or
+     * Find the first Chair that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceFindFirstOrThrowArgs} args - Arguments to find a Workspace
+     * @param {ChairFindFirstOrThrowArgs} args - Arguments to find a Chair
      * @example
-     * // Get one Workspace
-     * const workspace = await prisma.workspace.findFirstOrThrow({
+     * // Get one Chair
+     * const chair = await prisma.chair.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends WorkspaceFindFirstOrThrowArgs>(args?: SelectSubset<T, WorkspaceFindFirstOrThrowArgs<ExtArgs>>): Prisma__WorkspaceClient<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends ChairFindFirstOrThrowArgs>(args?: SelectSubset<T, ChairFindFirstOrThrowArgs<ExtArgs>>): Prisma__ChairClient<$Result.GetResult<Prisma.$ChairPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Workspaces that matches the filter.
+     * Find zero or more Chairs that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {ChairFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Workspaces
-     * const workspaces = await prisma.workspace.findMany()
+     * // Get all Chairs
+     * const chairs = await prisma.chair.findMany()
      * 
-     * // Get first 10 Workspaces
-     * const workspaces = await prisma.workspace.findMany({ take: 10 })
+     * // Get first 10 Chairs
+     * const chairs = await prisma.chair.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const workspaceWithIdOnly = await prisma.workspace.findMany({ select: { id: true } })
+     * const chairWithIdOnly = await prisma.chair.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends WorkspaceFindManyArgs>(args?: SelectSubset<T, WorkspaceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends ChairFindManyArgs>(args?: SelectSubset<T, ChairFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChairPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Workspace.
-     * @param {WorkspaceCreateArgs} args - Arguments to create a Workspace.
+     * Create a Chair.
+     * @param {ChairCreateArgs} args - Arguments to create a Chair.
      * @example
-     * // Create one Workspace
-     * const Workspace = await prisma.workspace.create({
+     * // Create one Chair
+     * const Chair = await prisma.chair.create({
      *   data: {
-     *     // ... data to create a Workspace
+     *     // ... data to create a Chair
      *   }
      * })
      * 
      */
-    create<T extends WorkspaceCreateArgs>(args: SelectSubset<T, WorkspaceCreateArgs<ExtArgs>>): Prisma__WorkspaceClient<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends ChairCreateArgs>(args: SelectSubset<T, ChairCreateArgs<ExtArgs>>): Prisma__ChairClient<$Result.GetResult<Prisma.$ChairPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Workspaces.
-     * @param {WorkspaceCreateManyArgs} args - Arguments to create many Workspaces.
+     * Create many Chairs.
+     * @param {ChairCreateManyArgs} args - Arguments to create many Chairs.
      * @example
-     * // Create many Workspaces
-     * const workspace = await prisma.workspace.createMany({
+     * // Create many Chairs
+     * const chair = await prisma.chair.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends WorkspaceCreateManyArgs>(args?: SelectSubset<T, WorkspaceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends ChairCreateManyArgs>(args?: SelectSubset<T, ChairCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Delete a Workspace.
-     * @param {WorkspaceDeleteArgs} args - Arguments to delete one Workspace.
+     * Delete a Chair.
+     * @param {ChairDeleteArgs} args - Arguments to delete one Chair.
      * @example
-     * // Delete one Workspace
-     * const Workspace = await prisma.workspace.delete({
+     * // Delete one Chair
+     * const Chair = await prisma.chair.delete({
      *   where: {
-     *     // ... filter to delete one Workspace
+     *     // ... filter to delete one Chair
      *   }
      * })
      * 
      */
-    delete<T extends WorkspaceDeleteArgs>(args: SelectSubset<T, WorkspaceDeleteArgs<ExtArgs>>): Prisma__WorkspaceClient<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends ChairDeleteArgs>(args: SelectSubset<T, ChairDeleteArgs<ExtArgs>>): Prisma__ChairClient<$Result.GetResult<Prisma.$ChairPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Workspace.
-     * @param {WorkspaceUpdateArgs} args - Arguments to update one Workspace.
+     * Update one Chair.
+     * @param {ChairUpdateArgs} args - Arguments to update one Chair.
      * @example
-     * // Update one Workspace
-     * const workspace = await prisma.workspace.update({
+     * // Update one Chair
+     * const chair = await prisma.chair.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2659,30 +6666,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends WorkspaceUpdateArgs>(args: SelectSubset<T, WorkspaceUpdateArgs<ExtArgs>>): Prisma__WorkspaceClient<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends ChairUpdateArgs>(args: SelectSubset<T, ChairUpdateArgs<ExtArgs>>): Prisma__ChairClient<$Result.GetResult<Prisma.$ChairPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Workspaces.
-     * @param {WorkspaceDeleteManyArgs} args - Arguments to filter Workspaces to delete.
+     * Delete zero or more Chairs.
+     * @param {ChairDeleteManyArgs} args - Arguments to filter Chairs to delete.
      * @example
-     * // Delete a few Workspaces
-     * const { count } = await prisma.workspace.deleteMany({
+     * // Delete a few Chairs
+     * const { count } = await prisma.chair.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends WorkspaceDeleteManyArgs>(args?: SelectSubset<T, WorkspaceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends ChairDeleteManyArgs>(args?: SelectSubset<T, ChairDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Workspaces.
+     * Update zero or more Chairs.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {ChairUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Workspaces
-     * const workspace = await prisma.workspace.updateMany({
+     * // Update many Chairs
+     * const chair = await prisma.chair.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2692,79 +6699,79 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends WorkspaceUpdateManyArgs>(args: SelectSubset<T, WorkspaceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends ChairUpdateManyArgs>(args: SelectSubset<T, ChairUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one Workspace.
-     * @param {WorkspaceUpsertArgs} args - Arguments to update or create a Workspace.
+     * Create or update one Chair.
+     * @param {ChairUpsertArgs} args - Arguments to update or create a Chair.
      * @example
-     * // Update or create a Workspace
-     * const workspace = await prisma.workspace.upsert({
+     * // Update or create a Chair
+     * const chair = await prisma.chair.upsert({
      *   create: {
-     *     // ... data to create a Workspace
+     *     // ... data to create a Chair
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Workspace we want to update
+     *     // ... the filter for the Chair we want to update
      *   }
      * })
      */
-    upsert<T extends WorkspaceUpsertArgs>(args: SelectSubset<T, WorkspaceUpsertArgs<ExtArgs>>): Prisma__WorkspaceClient<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends ChairUpsertArgs>(args: SelectSubset<T, ChairUpsertArgs<ExtArgs>>): Prisma__ChairClient<$Result.GetResult<Prisma.$ChairPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Workspaces that matches the filter.
-     * @param {WorkspaceFindRawArgs} args - Select which filters you would like to apply.
+     * Find zero or more Chairs that matches the filter.
+     * @param {ChairFindRawArgs} args - Select which filters you would like to apply.
      * @example
-     * const workspace = await prisma.workspace.findRaw({
+     * const chair = await prisma.chair.findRaw({
      *   filter: { age: { $gt: 25 } }
      * })
      */
-    findRaw(args?: WorkspaceFindRawArgs): Prisma.PrismaPromise<JsonObject>
+    findRaw(args?: ChairFindRawArgs): Prisma.PrismaPromise<JsonObject>
 
     /**
-     * Perform aggregation operations on a Workspace.
-     * @param {WorkspaceAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * Perform aggregation operations on a Chair.
+     * @param {ChairAggregateRawArgs} args - Select which aggregations you would like to apply.
      * @example
-     * const workspace = await prisma.workspace.aggregateRaw({
+     * const chair = await prisma.chair.aggregateRaw({
      *   pipeline: [
      *     { $match: { status: "registered" } },
      *     { $group: { _id: "$country", total: { $sum: 1 } } }
      *   ]
      * })
      */
-    aggregateRaw(args?: WorkspaceAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+    aggregateRaw(args?: ChairAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
-     * Count the number of Workspaces.
+     * Count the number of Chairs.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceCountArgs} args - Arguments to filter Workspaces to count.
+     * @param {ChairCountArgs} args - Arguments to filter Chairs to count.
      * @example
-     * // Count the number of Workspaces
-     * const count = await prisma.workspace.count({
+     * // Count the number of Chairs
+     * const count = await prisma.chair.count({
      *   where: {
-     *     // ... the filter for the Workspaces we want to count
+     *     // ... the filter for the Chairs we want to count
      *   }
      * })
     **/
-    count<T extends WorkspaceCountArgs>(
-      args?: Subset<T, WorkspaceCountArgs>,
+    count<T extends ChairCountArgs>(
+      args?: Subset<T, ChairCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], WorkspaceCountAggregateOutputType>
+          : GetScalarType<T['select'], ChairCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Workspace.
+     * Allows you to perform aggregations operations on a Chair.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {ChairAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -2784,13 +6791,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends WorkspaceAggregateArgs>(args: Subset<T, WorkspaceAggregateArgs>): Prisma.PrismaPromise<GetWorkspaceAggregateType<T>>
+    aggregate<T extends ChairAggregateArgs>(args: Subset<T, ChairAggregateArgs>): Prisma.PrismaPromise<GetChairAggregateType<T>>
 
     /**
-     * Group by Workspace.
+     * Group by Chair.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceGroupByArgs} args - Group by arguments.
+     * @param {ChairGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -2805,14 +6812,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends WorkspaceGroupByArgs,
+      T extends ChairGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: WorkspaceGroupByArgs['orderBy'] }
-        : { orderBy?: WorkspaceGroupByArgs['orderBy'] },
+        ? { orderBy: ChairGroupByArgs['orderBy'] }
+        : { orderBy?: ChairGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -2861,23 +6868,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, WorkspaceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWorkspaceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, ChairGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChairGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Workspace model
+   * Fields of the Chair model
    */
-  readonly fields: WorkspaceFieldRefs;
+  readonly fields: ChairFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Workspace.
+   * The delegate class that acts as a "Promise-like" for Chair.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__WorkspaceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__ChairClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends Workspace$userArgs<ExtArgs> = {}>(args?: Subset<T, Workspace$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    api_tokens<T extends Workspace$api_tokensArgs<ExtArgs> = {}>(args?: Subset<T, Workspace$api_tokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$API_TokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    halls<T extends Chair$hallsArgs<ExtArgs> = {}>(args?: Subset<T, Chair$hallsArgs<ExtArgs>>): Prisma__HallClient<$Result.GetResult<Prisma.$HallPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2904,359 +6910,359 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Workspace model
+   * Fields of the Chair model
    */
-  interface WorkspaceFieldRefs {
-    readonly id: FieldRef<"Workspace", 'String'>
-    readonly title: FieldRef<"Workspace", 'String'>
-    readonly description: FieldRef<"Workspace", 'String'>
-    readonly limit: FieldRef<"Workspace", 'Int'>
-    readonly user_id: FieldRef<"Workspace", 'String'>
+  interface ChairFieldRefs {
+    readonly id: FieldRef<"Chair", 'String'>
+    readonly state: FieldRef<"Chair", 'Boolean'>
+    readonly row: FieldRef<"Chair", 'Int'>
+    readonly column: FieldRef<"Chair", 'Int'>
+    readonly hall_id: FieldRef<"Chair", 'String'>
   }
     
 
   // Custom InputTypes
   /**
-   * Workspace findUnique
+   * Chair findUnique
    */
-  export type WorkspaceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ChairFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Workspace
+     * Select specific fields to fetch from the Chair
      */
-    select?: WorkspaceSelect<ExtArgs> | null
+    select?: ChairSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Workspace
+     * Omit specific fields from the Chair
      */
-    omit?: WorkspaceOmit<ExtArgs> | null
+    omit?: ChairOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: WorkspaceInclude<ExtArgs> | null
+    include?: ChairInclude<ExtArgs> | null
     /**
-     * Filter, which Workspace to fetch.
+     * Filter, which Chair to fetch.
      */
-    where: WorkspaceWhereUniqueInput
+    where: ChairWhereUniqueInput
   }
 
   /**
-   * Workspace findUniqueOrThrow
+   * Chair findUniqueOrThrow
    */
-  export type WorkspaceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ChairFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Workspace
+     * Select specific fields to fetch from the Chair
      */
-    select?: WorkspaceSelect<ExtArgs> | null
+    select?: ChairSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Workspace
+     * Omit specific fields from the Chair
      */
-    omit?: WorkspaceOmit<ExtArgs> | null
+    omit?: ChairOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: WorkspaceInclude<ExtArgs> | null
+    include?: ChairInclude<ExtArgs> | null
     /**
-     * Filter, which Workspace to fetch.
+     * Filter, which Chair to fetch.
      */
-    where: WorkspaceWhereUniqueInput
+    where: ChairWhereUniqueInput
   }
 
   /**
-   * Workspace findFirst
+   * Chair findFirst
    */
-  export type WorkspaceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ChairFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Workspace
+     * Select specific fields to fetch from the Chair
      */
-    select?: WorkspaceSelect<ExtArgs> | null
+    select?: ChairSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Workspace
+     * Omit specific fields from the Chair
      */
-    omit?: WorkspaceOmit<ExtArgs> | null
+    omit?: ChairOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: WorkspaceInclude<ExtArgs> | null
+    include?: ChairInclude<ExtArgs> | null
     /**
-     * Filter, which Workspace to fetch.
+     * Filter, which Chair to fetch.
      */
-    where?: WorkspaceWhereInput
+    where?: ChairWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Workspaces to fetch.
+     * Determine the order of Chairs to fetch.
      */
-    orderBy?: WorkspaceOrderByWithRelationInput | WorkspaceOrderByWithRelationInput[]
+    orderBy?: ChairOrderByWithRelationInput | ChairOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Workspaces.
+     * Sets the position for searching for Chairs.
      */
-    cursor?: WorkspaceWhereUniqueInput
+    cursor?: ChairWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Workspaces from the position of the cursor.
+     * Take `±n` Chairs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Workspaces.
+     * Skip the first `n` Chairs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Workspaces.
+     * Filter by unique combinations of Chairs.
      */
-    distinct?: WorkspaceScalarFieldEnum | WorkspaceScalarFieldEnum[]
+    distinct?: ChairScalarFieldEnum | ChairScalarFieldEnum[]
   }
 
   /**
-   * Workspace findFirstOrThrow
+   * Chair findFirstOrThrow
    */
-  export type WorkspaceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ChairFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Workspace
+     * Select specific fields to fetch from the Chair
      */
-    select?: WorkspaceSelect<ExtArgs> | null
+    select?: ChairSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Workspace
+     * Omit specific fields from the Chair
      */
-    omit?: WorkspaceOmit<ExtArgs> | null
+    omit?: ChairOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: WorkspaceInclude<ExtArgs> | null
+    include?: ChairInclude<ExtArgs> | null
     /**
-     * Filter, which Workspace to fetch.
+     * Filter, which Chair to fetch.
      */
-    where?: WorkspaceWhereInput
+    where?: ChairWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Workspaces to fetch.
+     * Determine the order of Chairs to fetch.
      */
-    orderBy?: WorkspaceOrderByWithRelationInput | WorkspaceOrderByWithRelationInput[]
+    orderBy?: ChairOrderByWithRelationInput | ChairOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Workspaces.
+     * Sets the position for searching for Chairs.
      */
-    cursor?: WorkspaceWhereUniqueInput
+    cursor?: ChairWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Workspaces from the position of the cursor.
+     * Take `±n` Chairs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Workspaces.
+     * Skip the first `n` Chairs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Workspaces.
+     * Filter by unique combinations of Chairs.
      */
-    distinct?: WorkspaceScalarFieldEnum | WorkspaceScalarFieldEnum[]
+    distinct?: ChairScalarFieldEnum | ChairScalarFieldEnum[]
   }
 
   /**
-   * Workspace findMany
+   * Chair findMany
    */
-  export type WorkspaceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ChairFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Workspace
+     * Select specific fields to fetch from the Chair
      */
-    select?: WorkspaceSelect<ExtArgs> | null
+    select?: ChairSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Workspace
+     * Omit specific fields from the Chair
      */
-    omit?: WorkspaceOmit<ExtArgs> | null
+    omit?: ChairOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: WorkspaceInclude<ExtArgs> | null
+    include?: ChairInclude<ExtArgs> | null
     /**
-     * Filter, which Workspaces to fetch.
+     * Filter, which Chairs to fetch.
      */
-    where?: WorkspaceWhereInput
+    where?: ChairWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Workspaces to fetch.
+     * Determine the order of Chairs to fetch.
      */
-    orderBy?: WorkspaceOrderByWithRelationInput | WorkspaceOrderByWithRelationInput[]
+    orderBy?: ChairOrderByWithRelationInput | ChairOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Workspaces.
+     * Sets the position for listing Chairs.
      */
-    cursor?: WorkspaceWhereUniqueInput
+    cursor?: ChairWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Workspaces from the position of the cursor.
+     * Take `±n` Chairs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Workspaces.
+     * Skip the first `n` Chairs.
      */
     skip?: number
-    distinct?: WorkspaceScalarFieldEnum | WorkspaceScalarFieldEnum[]
+    distinct?: ChairScalarFieldEnum | ChairScalarFieldEnum[]
   }
 
   /**
-   * Workspace create
+   * Chair create
    */
-  export type WorkspaceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ChairCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Workspace
+     * Select specific fields to fetch from the Chair
      */
-    select?: WorkspaceSelect<ExtArgs> | null
+    select?: ChairSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Workspace
+     * Omit specific fields from the Chair
      */
-    omit?: WorkspaceOmit<ExtArgs> | null
+    omit?: ChairOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: WorkspaceInclude<ExtArgs> | null
+    include?: ChairInclude<ExtArgs> | null
     /**
-     * The data needed to create a Workspace.
+     * The data needed to create a Chair.
      */
-    data: XOR<WorkspaceCreateInput, WorkspaceUncheckedCreateInput>
+    data: XOR<ChairCreateInput, ChairUncheckedCreateInput>
   }
 
   /**
-   * Workspace createMany
+   * Chair createMany
    */
-  export type WorkspaceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ChairCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Workspaces.
+     * The data used to create many Chairs.
      */
-    data: WorkspaceCreateManyInput | WorkspaceCreateManyInput[]
+    data: ChairCreateManyInput | ChairCreateManyInput[]
   }
 
   /**
-   * Workspace update
+   * Chair update
    */
-  export type WorkspaceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ChairUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Workspace
+     * Select specific fields to fetch from the Chair
      */
-    select?: WorkspaceSelect<ExtArgs> | null
+    select?: ChairSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Workspace
+     * Omit specific fields from the Chair
      */
-    omit?: WorkspaceOmit<ExtArgs> | null
+    omit?: ChairOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: WorkspaceInclude<ExtArgs> | null
+    include?: ChairInclude<ExtArgs> | null
     /**
-     * The data needed to update a Workspace.
+     * The data needed to update a Chair.
      */
-    data: XOR<WorkspaceUpdateInput, WorkspaceUncheckedUpdateInput>
+    data: XOR<ChairUpdateInput, ChairUncheckedUpdateInput>
     /**
-     * Choose, which Workspace to update.
+     * Choose, which Chair to update.
      */
-    where: WorkspaceWhereUniqueInput
+    where: ChairWhereUniqueInput
   }
 
   /**
-   * Workspace updateMany
+   * Chair updateMany
    */
-  export type WorkspaceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ChairUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Workspaces.
+     * The data used to update Chairs.
      */
-    data: XOR<WorkspaceUpdateManyMutationInput, WorkspaceUncheckedUpdateManyInput>
+    data: XOR<ChairUpdateManyMutationInput, ChairUncheckedUpdateManyInput>
     /**
-     * Filter which Workspaces to update
+     * Filter which Chairs to update
      */
-    where?: WorkspaceWhereInput
+    where?: ChairWhereInput
     /**
-     * Limit how many Workspaces to update.
+     * Limit how many Chairs to update.
      */
     limit?: number
   }
 
   /**
-   * Workspace upsert
+   * Chair upsert
    */
-  export type WorkspaceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ChairUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Workspace
+     * Select specific fields to fetch from the Chair
      */
-    select?: WorkspaceSelect<ExtArgs> | null
+    select?: ChairSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Workspace
+     * Omit specific fields from the Chair
      */
-    omit?: WorkspaceOmit<ExtArgs> | null
+    omit?: ChairOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: WorkspaceInclude<ExtArgs> | null
+    include?: ChairInclude<ExtArgs> | null
     /**
-     * The filter to search for the Workspace to update in case it exists.
+     * The filter to search for the Chair to update in case it exists.
      */
-    where: WorkspaceWhereUniqueInput
+    where: ChairWhereUniqueInput
     /**
-     * In case the Workspace found by the `where` argument doesn't exist, create a new Workspace with this data.
+     * In case the Chair found by the `where` argument doesn't exist, create a new Chair with this data.
      */
-    create: XOR<WorkspaceCreateInput, WorkspaceUncheckedCreateInput>
+    create: XOR<ChairCreateInput, ChairUncheckedCreateInput>
     /**
-     * In case the Workspace was found with the provided `where` argument, update it with this data.
+     * In case the Chair was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<WorkspaceUpdateInput, WorkspaceUncheckedUpdateInput>
+    update: XOR<ChairUpdateInput, ChairUncheckedUpdateInput>
   }
 
   /**
-   * Workspace delete
+   * Chair delete
    */
-  export type WorkspaceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ChairDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Workspace
+     * Select specific fields to fetch from the Chair
      */
-    select?: WorkspaceSelect<ExtArgs> | null
+    select?: ChairSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Workspace
+     * Omit specific fields from the Chair
      */
-    omit?: WorkspaceOmit<ExtArgs> | null
+    omit?: ChairOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: WorkspaceInclude<ExtArgs> | null
+    include?: ChairInclude<ExtArgs> | null
     /**
-     * Filter which Workspace to delete.
+     * Filter which Chair to delete.
      */
-    where: WorkspaceWhereUniqueInput
+    where: ChairWhereUniqueInput
   }
 
   /**
-   * Workspace deleteMany
+   * Chair deleteMany
    */
-  export type WorkspaceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ChairDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Workspaces to delete
+     * Filter which Chairs to delete
      */
-    where?: WorkspaceWhereInput
+    where?: ChairWhereInput
     /**
-     * Limit how many Workspaces to delete.
+     * Limit how many Chairs to delete.
      */
     limit?: number
   }
 
   /**
-   * Workspace findRaw
+   * Chair findRaw
    */
-  export type WorkspaceFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ChairFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
      */
@@ -3268,9 +7274,9 @@ export namespace Prisma {
   }
 
   /**
-   * Workspace aggregateRaw
+   * Chair aggregateRaw
    */
-  export type WorkspaceAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ChairAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
      */
@@ -3282,9 +7288,4161 @@ export namespace Prisma {
   }
 
   /**
-   * Workspace.user
+   * Chair.halls
    */
-  export type Workspace$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Chair$hallsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hall
+     */
+    select?: HallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hall
+     */
+    omit?: HallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HallInclude<ExtArgs> | null
+    where?: HallWhereInput
+  }
+
+  /**
+   * Chair without action
+   */
+  export type ChairDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Chair
+     */
+    select?: ChairSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Chair
+     */
+    omit?: ChairOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChairInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Rank
+   */
+
+  export type AggregateRank = {
+    _count: RankCountAggregateOutputType | null
+    _min: RankMinAggregateOutputType | null
+    _max: RankMaxAggregateOutputType | null
+  }
+
+  export type RankMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    point_limit: string | null
+    discount_id: string | null
+    image: string | null
+  }
+
+  export type RankMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    point_limit: string | null
+    discount_id: string | null
+    image: string | null
+  }
+
+  export type RankCountAggregateOutputType = {
+    id: number
+    name: number
+    point_limit: number
+    discount_id: number
+    image: number
+    _all: number
+  }
+
+
+  export type RankMinAggregateInputType = {
+    id?: true
+    name?: true
+    point_limit?: true
+    discount_id?: true
+    image?: true
+  }
+
+  export type RankMaxAggregateInputType = {
+    id?: true
+    name?: true
+    point_limit?: true
+    discount_id?: true
+    image?: true
+  }
+
+  export type RankCountAggregateInputType = {
+    id?: true
+    name?: true
+    point_limit?: true
+    discount_id?: true
+    image?: true
+    _all?: true
+  }
+
+  export type RankAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Rank to aggregate.
+     */
+    where?: RankWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ranks to fetch.
+     */
+    orderBy?: RankOrderByWithRelationInput | RankOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RankWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ranks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ranks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Ranks
+    **/
+    _count?: true | RankCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RankMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RankMaxAggregateInputType
+  }
+
+  export type GetRankAggregateType<T extends RankAggregateArgs> = {
+        [P in keyof T & keyof AggregateRank]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRank[P]>
+      : GetScalarType<T[P], AggregateRank[P]>
+  }
+
+
+
+
+  export type RankGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RankWhereInput
+    orderBy?: RankOrderByWithAggregationInput | RankOrderByWithAggregationInput[]
+    by: RankScalarFieldEnum[] | RankScalarFieldEnum
+    having?: RankScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RankCountAggregateInputType | true
+    _min?: RankMinAggregateInputType
+    _max?: RankMaxAggregateInputType
+  }
+
+  export type RankGroupByOutputType = {
+    id: string
+    name: string
+    point_limit: string
+    discount_id: string
+    image: string
+    _count: RankCountAggregateOutputType | null
+    _min: RankMinAggregateOutputType | null
+    _max: RankMaxAggregateOutputType | null
+  }
+
+  type GetRankGroupByPayload<T extends RankGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RankGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RankGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RankGroupByOutputType[P]>
+            : GetScalarType<T[P], RankGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RankSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    point_limit?: boolean
+    discount_id?: boolean
+    image?: boolean
+    discount?: boolean | Rank$discountArgs<ExtArgs>
+    users?: boolean | Rank$usersArgs<ExtArgs>
+    _count?: boolean | RankCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rank"]>
+
+
+
+  export type RankSelectScalar = {
+    id?: boolean
+    name?: boolean
+    point_limit?: boolean
+    discount_id?: boolean
+    image?: boolean
+  }
+
+  export type RankOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "point_limit" | "discount_id" | "image", ExtArgs["result"]["rank"]>
+  export type RankInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    discount?: boolean | Rank$discountArgs<ExtArgs>
+    users?: boolean | Rank$usersArgs<ExtArgs>
+    _count?: boolean | RankCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $RankPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Rank"
+    objects: {
+      discount: Prisma.$DiscountPayload<ExtArgs> | null
+      users: Prisma.$UserPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      point_limit: string
+      discount_id: string
+      image: string
+    }, ExtArgs["result"]["rank"]>
+    composites: {}
+  }
+
+  type RankGetPayload<S extends boolean | null | undefined | RankDefaultArgs> = $Result.GetResult<Prisma.$RankPayload, S>
+
+  type RankCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RankFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RankCountAggregateInputType | true
+    }
+
+  export interface RankDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Rank'], meta: { name: 'Rank' } }
+    /**
+     * Find zero or one Rank that matches the filter.
+     * @param {RankFindUniqueArgs} args - Arguments to find a Rank
+     * @example
+     * // Get one Rank
+     * const rank = await prisma.rank.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RankFindUniqueArgs>(args: SelectSubset<T, RankFindUniqueArgs<ExtArgs>>): Prisma__RankClient<$Result.GetResult<Prisma.$RankPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Rank that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RankFindUniqueOrThrowArgs} args - Arguments to find a Rank
+     * @example
+     * // Get one Rank
+     * const rank = await prisma.rank.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RankFindUniqueOrThrowArgs>(args: SelectSubset<T, RankFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RankClient<$Result.GetResult<Prisma.$RankPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Rank that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RankFindFirstArgs} args - Arguments to find a Rank
+     * @example
+     * // Get one Rank
+     * const rank = await prisma.rank.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RankFindFirstArgs>(args?: SelectSubset<T, RankFindFirstArgs<ExtArgs>>): Prisma__RankClient<$Result.GetResult<Prisma.$RankPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Rank that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RankFindFirstOrThrowArgs} args - Arguments to find a Rank
+     * @example
+     * // Get one Rank
+     * const rank = await prisma.rank.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RankFindFirstOrThrowArgs>(args?: SelectSubset<T, RankFindFirstOrThrowArgs<ExtArgs>>): Prisma__RankClient<$Result.GetResult<Prisma.$RankPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Ranks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RankFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Ranks
+     * const ranks = await prisma.rank.findMany()
+     * 
+     * // Get first 10 Ranks
+     * const ranks = await prisma.rank.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rankWithIdOnly = await prisma.rank.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RankFindManyArgs>(args?: SelectSubset<T, RankFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RankPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Rank.
+     * @param {RankCreateArgs} args - Arguments to create a Rank.
+     * @example
+     * // Create one Rank
+     * const Rank = await prisma.rank.create({
+     *   data: {
+     *     // ... data to create a Rank
+     *   }
+     * })
+     * 
+     */
+    create<T extends RankCreateArgs>(args: SelectSubset<T, RankCreateArgs<ExtArgs>>): Prisma__RankClient<$Result.GetResult<Prisma.$RankPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Ranks.
+     * @param {RankCreateManyArgs} args - Arguments to create many Ranks.
+     * @example
+     * // Create many Ranks
+     * const rank = await prisma.rank.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RankCreateManyArgs>(args?: SelectSubset<T, RankCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Rank.
+     * @param {RankDeleteArgs} args - Arguments to delete one Rank.
+     * @example
+     * // Delete one Rank
+     * const Rank = await prisma.rank.delete({
+     *   where: {
+     *     // ... filter to delete one Rank
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RankDeleteArgs>(args: SelectSubset<T, RankDeleteArgs<ExtArgs>>): Prisma__RankClient<$Result.GetResult<Prisma.$RankPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Rank.
+     * @param {RankUpdateArgs} args - Arguments to update one Rank.
+     * @example
+     * // Update one Rank
+     * const rank = await prisma.rank.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RankUpdateArgs>(args: SelectSubset<T, RankUpdateArgs<ExtArgs>>): Prisma__RankClient<$Result.GetResult<Prisma.$RankPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Ranks.
+     * @param {RankDeleteManyArgs} args - Arguments to filter Ranks to delete.
+     * @example
+     * // Delete a few Ranks
+     * const { count } = await prisma.rank.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RankDeleteManyArgs>(args?: SelectSubset<T, RankDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Ranks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RankUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Ranks
+     * const rank = await prisma.rank.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RankUpdateManyArgs>(args: SelectSubset<T, RankUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Rank.
+     * @param {RankUpsertArgs} args - Arguments to update or create a Rank.
+     * @example
+     * // Update or create a Rank
+     * const rank = await prisma.rank.upsert({
+     *   create: {
+     *     // ... data to create a Rank
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Rank we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RankUpsertArgs>(args: SelectSubset<T, RankUpsertArgs<ExtArgs>>): Prisma__RankClient<$Result.GetResult<Prisma.$RankPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Ranks that matches the filter.
+     * @param {RankFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const rank = await prisma.rank.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: RankFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Rank.
+     * @param {RankAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const rank = await prisma.rank.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: RankAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Ranks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RankCountArgs} args - Arguments to filter Ranks to count.
+     * @example
+     * // Count the number of Ranks
+     * const count = await prisma.rank.count({
+     *   where: {
+     *     // ... the filter for the Ranks we want to count
+     *   }
+     * })
+    **/
+    count<T extends RankCountArgs>(
+      args?: Subset<T, RankCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RankCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Rank.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RankAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RankAggregateArgs>(args: Subset<T, RankAggregateArgs>): Prisma.PrismaPromise<GetRankAggregateType<T>>
+
+    /**
+     * Group by Rank.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RankGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RankGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RankGroupByArgs['orderBy'] }
+        : { orderBy?: RankGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RankGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRankGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Rank model
+   */
+  readonly fields: RankFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Rank.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RankClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    discount<T extends Rank$discountArgs<ExtArgs> = {}>(args?: Subset<T, Rank$discountArgs<ExtArgs>>): Prisma__DiscountClient<$Result.GetResult<Prisma.$DiscountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    users<T extends Rank$usersArgs<ExtArgs> = {}>(args?: Subset<T, Rank$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Rank model
+   */
+  interface RankFieldRefs {
+    readonly id: FieldRef<"Rank", 'String'>
+    readonly name: FieldRef<"Rank", 'String'>
+    readonly point_limit: FieldRef<"Rank", 'String'>
+    readonly discount_id: FieldRef<"Rank", 'String'>
+    readonly image: FieldRef<"Rank", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Rank findUnique
+   */
+  export type RankFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rank
+     */
+    select?: RankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rank
+     */
+    omit?: RankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RankInclude<ExtArgs> | null
+    /**
+     * Filter, which Rank to fetch.
+     */
+    where: RankWhereUniqueInput
+  }
+
+  /**
+   * Rank findUniqueOrThrow
+   */
+  export type RankFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rank
+     */
+    select?: RankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rank
+     */
+    omit?: RankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RankInclude<ExtArgs> | null
+    /**
+     * Filter, which Rank to fetch.
+     */
+    where: RankWhereUniqueInput
+  }
+
+  /**
+   * Rank findFirst
+   */
+  export type RankFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rank
+     */
+    select?: RankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rank
+     */
+    omit?: RankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RankInclude<ExtArgs> | null
+    /**
+     * Filter, which Rank to fetch.
+     */
+    where?: RankWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ranks to fetch.
+     */
+    orderBy?: RankOrderByWithRelationInput | RankOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Ranks.
+     */
+    cursor?: RankWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ranks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ranks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Ranks.
+     */
+    distinct?: RankScalarFieldEnum | RankScalarFieldEnum[]
+  }
+
+  /**
+   * Rank findFirstOrThrow
+   */
+  export type RankFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rank
+     */
+    select?: RankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rank
+     */
+    omit?: RankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RankInclude<ExtArgs> | null
+    /**
+     * Filter, which Rank to fetch.
+     */
+    where?: RankWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ranks to fetch.
+     */
+    orderBy?: RankOrderByWithRelationInput | RankOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Ranks.
+     */
+    cursor?: RankWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ranks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ranks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Ranks.
+     */
+    distinct?: RankScalarFieldEnum | RankScalarFieldEnum[]
+  }
+
+  /**
+   * Rank findMany
+   */
+  export type RankFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rank
+     */
+    select?: RankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rank
+     */
+    omit?: RankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RankInclude<ExtArgs> | null
+    /**
+     * Filter, which Ranks to fetch.
+     */
+    where?: RankWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ranks to fetch.
+     */
+    orderBy?: RankOrderByWithRelationInput | RankOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Ranks.
+     */
+    cursor?: RankWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ranks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ranks.
+     */
+    skip?: number
+    distinct?: RankScalarFieldEnum | RankScalarFieldEnum[]
+  }
+
+  /**
+   * Rank create
+   */
+  export type RankCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rank
+     */
+    select?: RankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rank
+     */
+    omit?: RankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RankInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Rank.
+     */
+    data: XOR<RankCreateInput, RankUncheckedCreateInput>
+  }
+
+  /**
+   * Rank createMany
+   */
+  export type RankCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Ranks.
+     */
+    data: RankCreateManyInput | RankCreateManyInput[]
+  }
+
+  /**
+   * Rank update
+   */
+  export type RankUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rank
+     */
+    select?: RankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rank
+     */
+    omit?: RankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RankInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Rank.
+     */
+    data: XOR<RankUpdateInput, RankUncheckedUpdateInput>
+    /**
+     * Choose, which Rank to update.
+     */
+    where: RankWhereUniqueInput
+  }
+
+  /**
+   * Rank updateMany
+   */
+  export type RankUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Ranks.
+     */
+    data: XOR<RankUpdateManyMutationInput, RankUncheckedUpdateManyInput>
+    /**
+     * Filter which Ranks to update
+     */
+    where?: RankWhereInput
+    /**
+     * Limit how many Ranks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Rank upsert
+   */
+  export type RankUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rank
+     */
+    select?: RankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rank
+     */
+    omit?: RankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RankInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Rank to update in case it exists.
+     */
+    where: RankWhereUniqueInput
+    /**
+     * In case the Rank found by the `where` argument doesn't exist, create a new Rank with this data.
+     */
+    create: XOR<RankCreateInput, RankUncheckedCreateInput>
+    /**
+     * In case the Rank was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RankUpdateInput, RankUncheckedUpdateInput>
+  }
+
+  /**
+   * Rank delete
+   */
+  export type RankDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rank
+     */
+    select?: RankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rank
+     */
+    omit?: RankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RankInclude<ExtArgs> | null
+    /**
+     * Filter which Rank to delete.
+     */
+    where: RankWhereUniqueInput
+  }
+
+  /**
+   * Rank deleteMany
+   */
+  export type RankDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Ranks to delete
+     */
+    where?: RankWhereInput
+    /**
+     * Limit how many Ranks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Rank findRaw
+   */
+  export type RankFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Rank aggregateRaw
+   */
+  export type RankAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Rank.discount
+   */
+  export type Rank$discountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Discount
+     */
+    select?: DiscountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Discount
+     */
+    omit?: DiscountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiscountInclude<ExtArgs> | null
+    where?: DiscountWhereInput
+  }
+
+  /**
+   * Rank.users
+   */
+  export type Rank$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * Rank without action
+   */
+  export type RankDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rank
+     */
+    select?: RankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rank
+     */
+    omit?: RankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RankInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Discount
+   */
+
+  export type AggregateDiscount = {
+    _count: DiscountCountAggregateOutputType | null
+    _avg: DiscountAvgAggregateOutputType | null
+    _sum: DiscountSumAggregateOutputType | null
+    _min: DiscountMinAggregateOutputType | null
+    _max: DiscountMaxAggregateOutputType | null
+  }
+
+  export type DiscountAvgAggregateOutputType = {
+    percent: number | null
+  }
+
+  export type DiscountSumAggregateOutputType = {
+    percent: number | null
+  }
+
+  export type DiscountMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    image: string | null
+    percent: number | null
+  }
+
+  export type DiscountMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    image: string | null
+    percent: number | null
+  }
+
+  export type DiscountCountAggregateOutputType = {
+    id: number
+    name: number
+    image: number
+    percent: number
+    _all: number
+  }
+
+
+  export type DiscountAvgAggregateInputType = {
+    percent?: true
+  }
+
+  export type DiscountSumAggregateInputType = {
+    percent?: true
+  }
+
+  export type DiscountMinAggregateInputType = {
+    id?: true
+    name?: true
+    image?: true
+    percent?: true
+  }
+
+  export type DiscountMaxAggregateInputType = {
+    id?: true
+    name?: true
+    image?: true
+    percent?: true
+  }
+
+  export type DiscountCountAggregateInputType = {
+    id?: true
+    name?: true
+    image?: true
+    percent?: true
+    _all?: true
+  }
+
+  export type DiscountAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Discount to aggregate.
+     */
+    where?: DiscountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Discounts to fetch.
+     */
+    orderBy?: DiscountOrderByWithRelationInput | DiscountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DiscountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Discounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Discounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Discounts
+    **/
+    _count?: true | DiscountCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DiscountAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DiscountSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DiscountMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DiscountMaxAggregateInputType
+  }
+
+  export type GetDiscountAggregateType<T extends DiscountAggregateArgs> = {
+        [P in keyof T & keyof AggregateDiscount]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDiscount[P]>
+      : GetScalarType<T[P], AggregateDiscount[P]>
+  }
+
+
+
+
+  export type DiscountGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DiscountWhereInput
+    orderBy?: DiscountOrderByWithAggregationInput | DiscountOrderByWithAggregationInput[]
+    by: DiscountScalarFieldEnum[] | DiscountScalarFieldEnum
+    having?: DiscountScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DiscountCountAggregateInputType | true
+    _avg?: DiscountAvgAggregateInputType
+    _sum?: DiscountSumAggregateInputType
+    _min?: DiscountMinAggregateInputType
+    _max?: DiscountMaxAggregateInputType
+  }
+
+  export type DiscountGroupByOutputType = {
+    id: string
+    name: string
+    image: string
+    percent: number
+    _count: DiscountCountAggregateOutputType | null
+    _avg: DiscountAvgAggregateOutputType | null
+    _sum: DiscountSumAggregateOutputType | null
+    _min: DiscountMinAggregateOutputType | null
+    _max: DiscountMaxAggregateOutputType | null
+  }
+
+  type GetDiscountGroupByPayload<T extends DiscountGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DiscountGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DiscountGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DiscountGroupByOutputType[P]>
+            : GetScalarType<T[P], DiscountGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DiscountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    image?: boolean
+    percent?: boolean
+    ranks?: boolean | Discount$ranksArgs<ExtArgs>
+    _count?: boolean | DiscountCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["discount"]>
+
+
+
+  export type DiscountSelectScalar = {
+    id?: boolean
+    name?: boolean
+    image?: boolean
+    percent?: boolean
+  }
+
+  export type DiscountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "image" | "percent", ExtArgs["result"]["discount"]>
+  export type DiscountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ranks?: boolean | Discount$ranksArgs<ExtArgs>
+    _count?: boolean | DiscountCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $DiscountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Discount"
+    objects: {
+      ranks: Prisma.$RankPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      image: string
+      percent: number
+    }, ExtArgs["result"]["discount"]>
+    composites: {}
+  }
+
+  type DiscountGetPayload<S extends boolean | null | undefined | DiscountDefaultArgs> = $Result.GetResult<Prisma.$DiscountPayload, S>
+
+  type DiscountCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DiscountFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DiscountCountAggregateInputType | true
+    }
+
+  export interface DiscountDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Discount'], meta: { name: 'Discount' } }
+    /**
+     * Find zero or one Discount that matches the filter.
+     * @param {DiscountFindUniqueArgs} args - Arguments to find a Discount
+     * @example
+     * // Get one Discount
+     * const discount = await prisma.discount.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DiscountFindUniqueArgs>(args: SelectSubset<T, DiscountFindUniqueArgs<ExtArgs>>): Prisma__DiscountClient<$Result.GetResult<Prisma.$DiscountPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Discount that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DiscountFindUniqueOrThrowArgs} args - Arguments to find a Discount
+     * @example
+     * // Get one Discount
+     * const discount = await prisma.discount.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DiscountFindUniqueOrThrowArgs>(args: SelectSubset<T, DiscountFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DiscountClient<$Result.GetResult<Prisma.$DiscountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Discount that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiscountFindFirstArgs} args - Arguments to find a Discount
+     * @example
+     * // Get one Discount
+     * const discount = await prisma.discount.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DiscountFindFirstArgs>(args?: SelectSubset<T, DiscountFindFirstArgs<ExtArgs>>): Prisma__DiscountClient<$Result.GetResult<Prisma.$DiscountPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Discount that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiscountFindFirstOrThrowArgs} args - Arguments to find a Discount
+     * @example
+     * // Get one Discount
+     * const discount = await prisma.discount.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DiscountFindFirstOrThrowArgs>(args?: SelectSubset<T, DiscountFindFirstOrThrowArgs<ExtArgs>>): Prisma__DiscountClient<$Result.GetResult<Prisma.$DiscountPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Discounts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiscountFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Discounts
+     * const discounts = await prisma.discount.findMany()
+     * 
+     * // Get first 10 Discounts
+     * const discounts = await prisma.discount.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const discountWithIdOnly = await prisma.discount.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DiscountFindManyArgs>(args?: SelectSubset<T, DiscountFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Discount.
+     * @param {DiscountCreateArgs} args - Arguments to create a Discount.
+     * @example
+     * // Create one Discount
+     * const Discount = await prisma.discount.create({
+     *   data: {
+     *     // ... data to create a Discount
+     *   }
+     * })
+     * 
+     */
+    create<T extends DiscountCreateArgs>(args: SelectSubset<T, DiscountCreateArgs<ExtArgs>>): Prisma__DiscountClient<$Result.GetResult<Prisma.$DiscountPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Discounts.
+     * @param {DiscountCreateManyArgs} args - Arguments to create many Discounts.
+     * @example
+     * // Create many Discounts
+     * const discount = await prisma.discount.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DiscountCreateManyArgs>(args?: SelectSubset<T, DiscountCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Discount.
+     * @param {DiscountDeleteArgs} args - Arguments to delete one Discount.
+     * @example
+     * // Delete one Discount
+     * const Discount = await prisma.discount.delete({
+     *   where: {
+     *     // ... filter to delete one Discount
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DiscountDeleteArgs>(args: SelectSubset<T, DiscountDeleteArgs<ExtArgs>>): Prisma__DiscountClient<$Result.GetResult<Prisma.$DiscountPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Discount.
+     * @param {DiscountUpdateArgs} args - Arguments to update one Discount.
+     * @example
+     * // Update one Discount
+     * const discount = await prisma.discount.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DiscountUpdateArgs>(args: SelectSubset<T, DiscountUpdateArgs<ExtArgs>>): Prisma__DiscountClient<$Result.GetResult<Prisma.$DiscountPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Discounts.
+     * @param {DiscountDeleteManyArgs} args - Arguments to filter Discounts to delete.
+     * @example
+     * // Delete a few Discounts
+     * const { count } = await prisma.discount.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DiscountDeleteManyArgs>(args?: SelectSubset<T, DiscountDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Discounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiscountUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Discounts
+     * const discount = await prisma.discount.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DiscountUpdateManyArgs>(args: SelectSubset<T, DiscountUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Discount.
+     * @param {DiscountUpsertArgs} args - Arguments to update or create a Discount.
+     * @example
+     * // Update or create a Discount
+     * const discount = await prisma.discount.upsert({
+     *   create: {
+     *     // ... data to create a Discount
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Discount we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DiscountUpsertArgs>(args: SelectSubset<T, DiscountUpsertArgs<ExtArgs>>): Prisma__DiscountClient<$Result.GetResult<Prisma.$DiscountPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Discounts that matches the filter.
+     * @param {DiscountFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const discount = await prisma.discount.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: DiscountFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Discount.
+     * @param {DiscountAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const discount = await prisma.discount.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: DiscountAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Discounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiscountCountArgs} args - Arguments to filter Discounts to count.
+     * @example
+     * // Count the number of Discounts
+     * const count = await prisma.discount.count({
+     *   where: {
+     *     // ... the filter for the Discounts we want to count
+     *   }
+     * })
+    **/
+    count<T extends DiscountCountArgs>(
+      args?: Subset<T, DiscountCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DiscountCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Discount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiscountAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DiscountAggregateArgs>(args: Subset<T, DiscountAggregateArgs>): Prisma.PrismaPromise<GetDiscountAggregateType<T>>
+
+    /**
+     * Group by Discount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiscountGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DiscountGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DiscountGroupByArgs['orderBy'] }
+        : { orderBy?: DiscountGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DiscountGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDiscountGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Discount model
+   */
+  readonly fields: DiscountFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Discount.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DiscountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    ranks<T extends Discount$ranksArgs<ExtArgs> = {}>(args?: Subset<T, Discount$ranksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RankPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Discount model
+   */
+  interface DiscountFieldRefs {
+    readonly id: FieldRef<"Discount", 'String'>
+    readonly name: FieldRef<"Discount", 'String'>
+    readonly image: FieldRef<"Discount", 'String'>
+    readonly percent: FieldRef<"Discount", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Discount findUnique
+   */
+  export type DiscountFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Discount
+     */
+    select?: DiscountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Discount
+     */
+    omit?: DiscountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiscountInclude<ExtArgs> | null
+    /**
+     * Filter, which Discount to fetch.
+     */
+    where: DiscountWhereUniqueInput
+  }
+
+  /**
+   * Discount findUniqueOrThrow
+   */
+  export type DiscountFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Discount
+     */
+    select?: DiscountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Discount
+     */
+    omit?: DiscountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiscountInclude<ExtArgs> | null
+    /**
+     * Filter, which Discount to fetch.
+     */
+    where: DiscountWhereUniqueInput
+  }
+
+  /**
+   * Discount findFirst
+   */
+  export type DiscountFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Discount
+     */
+    select?: DiscountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Discount
+     */
+    omit?: DiscountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiscountInclude<ExtArgs> | null
+    /**
+     * Filter, which Discount to fetch.
+     */
+    where?: DiscountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Discounts to fetch.
+     */
+    orderBy?: DiscountOrderByWithRelationInput | DiscountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Discounts.
+     */
+    cursor?: DiscountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Discounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Discounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Discounts.
+     */
+    distinct?: DiscountScalarFieldEnum | DiscountScalarFieldEnum[]
+  }
+
+  /**
+   * Discount findFirstOrThrow
+   */
+  export type DiscountFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Discount
+     */
+    select?: DiscountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Discount
+     */
+    omit?: DiscountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiscountInclude<ExtArgs> | null
+    /**
+     * Filter, which Discount to fetch.
+     */
+    where?: DiscountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Discounts to fetch.
+     */
+    orderBy?: DiscountOrderByWithRelationInput | DiscountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Discounts.
+     */
+    cursor?: DiscountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Discounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Discounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Discounts.
+     */
+    distinct?: DiscountScalarFieldEnum | DiscountScalarFieldEnum[]
+  }
+
+  /**
+   * Discount findMany
+   */
+  export type DiscountFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Discount
+     */
+    select?: DiscountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Discount
+     */
+    omit?: DiscountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiscountInclude<ExtArgs> | null
+    /**
+     * Filter, which Discounts to fetch.
+     */
+    where?: DiscountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Discounts to fetch.
+     */
+    orderBy?: DiscountOrderByWithRelationInput | DiscountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Discounts.
+     */
+    cursor?: DiscountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Discounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Discounts.
+     */
+    skip?: number
+    distinct?: DiscountScalarFieldEnum | DiscountScalarFieldEnum[]
+  }
+
+  /**
+   * Discount create
+   */
+  export type DiscountCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Discount
+     */
+    select?: DiscountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Discount
+     */
+    omit?: DiscountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiscountInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Discount.
+     */
+    data: XOR<DiscountCreateInput, DiscountUncheckedCreateInput>
+  }
+
+  /**
+   * Discount createMany
+   */
+  export type DiscountCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Discounts.
+     */
+    data: DiscountCreateManyInput | DiscountCreateManyInput[]
+  }
+
+  /**
+   * Discount update
+   */
+  export type DiscountUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Discount
+     */
+    select?: DiscountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Discount
+     */
+    omit?: DiscountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiscountInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Discount.
+     */
+    data: XOR<DiscountUpdateInput, DiscountUncheckedUpdateInput>
+    /**
+     * Choose, which Discount to update.
+     */
+    where: DiscountWhereUniqueInput
+  }
+
+  /**
+   * Discount updateMany
+   */
+  export type DiscountUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Discounts.
+     */
+    data: XOR<DiscountUpdateManyMutationInput, DiscountUncheckedUpdateManyInput>
+    /**
+     * Filter which Discounts to update
+     */
+    where?: DiscountWhereInput
+    /**
+     * Limit how many Discounts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Discount upsert
+   */
+  export type DiscountUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Discount
+     */
+    select?: DiscountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Discount
+     */
+    omit?: DiscountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiscountInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Discount to update in case it exists.
+     */
+    where: DiscountWhereUniqueInput
+    /**
+     * In case the Discount found by the `where` argument doesn't exist, create a new Discount with this data.
+     */
+    create: XOR<DiscountCreateInput, DiscountUncheckedCreateInput>
+    /**
+     * In case the Discount was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DiscountUpdateInput, DiscountUncheckedUpdateInput>
+  }
+
+  /**
+   * Discount delete
+   */
+  export type DiscountDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Discount
+     */
+    select?: DiscountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Discount
+     */
+    omit?: DiscountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiscountInclude<ExtArgs> | null
+    /**
+     * Filter which Discount to delete.
+     */
+    where: DiscountWhereUniqueInput
+  }
+
+  /**
+   * Discount deleteMany
+   */
+  export type DiscountDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Discounts to delete
+     */
+    where?: DiscountWhereInput
+    /**
+     * Limit how many Discounts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Discount findRaw
+   */
+  export type DiscountFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Discount aggregateRaw
+   */
+  export type DiscountAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Discount.ranks
+   */
+  export type Discount$ranksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rank
+     */
+    select?: RankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rank
+     */
+    omit?: RankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RankInclude<ExtArgs> | null
+    where?: RankWhereInput
+    orderBy?: RankOrderByWithRelationInput | RankOrderByWithRelationInput[]
+    cursor?: RankWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RankScalarFieldEnum | RankScalarFieldEnum[]
+  }
+
+  /**
+   * Discount without action
+   */
+  export type DiscountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Discount
+     */
+    select?: DiscountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Discount
+     */
+    omit?: DiscountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiscountInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Hall
+   */
+
+  export type AggregateHall = {
+    _count: HallCountAggregateOutputType | null
+    _avg: HallAvgAggregateOutputType | null
+    _sum: HallSumAggregateOutputType | null
+    _min: HallMinAggregateOutputType | null
+    _max: HallMaxAggregateOutputType | null
+  }
+
+  export type HallAvgAggregateOutputType = {
+    row: number | null
+    column: number | null
+  }
+
+  export type HallSumAggregateOutputType = {
+    row: number | null
+    column: number | null
+  }
+
+  export type HallMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    row: number | null
+    column: number | null
+  }
+
+  export type HallMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    row: number | null
+    column: number | null
+  }
+
+  export type HallCountAggregateOutputType = {
+    id: number
+    name: number
+    row: number
+    column: number
+    _all: number
+  }
+
+
+  export type HallAvgAggregateInputType = {
+    row?: true
+    column?: true
+  }
+
+  export type HallSumAggregateInputType = {
+    row?: true
+    column?: true
+  }
+
+  export type HallMinAggregateInputType = {
+    id?: true
+    name?: true
+    row?: true
+    column?: true
+  }
+
+  export type HallMaxAggregateInputType = {
+    id?: true
+    name?: true
+    row?: true
+    column?: true
+  }
+
+  export type HallCountAggregateInputType = {
+    id?: true
+    name?: true
+    row?: true
+    column?: true
+    _all?: true
+  }
+
+  export type HallAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Hall to aggregate.
+     */
+    where?: HallWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Halls to fetch.
+     */
+    orderBy?: HallOrderByWithRelationInput | HallOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HallWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Halls from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Halls.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Halls
+    **/
+    _count?: true | HallCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: HallAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: HallSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HallMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HallMaxAggregateInputType
+  }
+
+  export type GetHallAggregateType<T extends HallAggregateArgs> = {
+        [P in keyof T & keyof AggregateHall]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHall[P]>
+      : GetScalarType<T[P], AggregateHall[P]>
+  }
+
+
+
+
+  export type HallGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HallWhereInput
+    orderBy?: HallOrderByWithAggregationInput | HallOrderByWithAggregationInput[]
+    by: HallScalarFieldEnum[] | HallScalarFieldEnum
+    having?: HallScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HallCountAggregateInputType | true
+    _avg?: HallAvgAggregateInputType
+    _sum?: HallSumAggregateInputType
+    _min?: HallMinAggregateInputType
+    _max?: HallMaxAggregateInputType
+  }
+
+  export type HallGroupByOutputType = {
+    id: string
+    name: string
+    row: number
+    column: number
+    _count: HallCountAggregateOutputType | null
+    _avg: HallAvgAggregateOutputType | null
+    _sum: HallSumAggregateOutputType | null
+    _min: HallMinAggregateOutputType | null
+    _max: HallMaxAggregateOutputType | null
+  }
+
+  type GetHallGroupByPayload<T extends HallGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HallGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HallGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HallGroupByOutputType[P]>
+            : GetScalarType<T[P], HallGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HallSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    row?: boolean
+    column?: boolean
+    screenings?: boolean | Hall$screeningsArgs<ExtArgs>
+    chairs?: boolean | Hall$chairsArgs<ExtArgs>
+    _count?: boolean | HallCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["hall"]>
+
+
+
+  export type HallSelectScalar = {
+    id?: boolean
+    name?: boolean
+    row?: boolean
+    column?: boolean
+  }
+
+  export type HallOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "row" | "column", ExtArgs["result"]["hall"]>
+  export type HallInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    screenings?: boolean | Hall$screeningsArgs<ExtArgs>
+    chairs?: boolean | Hall$chairsArgs<ExtArgs>
+    _count?: boolean | HallCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $HallPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Hall"
+    objects: {
+      screenings: Prisma.$ScreeningPayload<ExtArgs>[]
+      chairs: Prisma.$ChairPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      row: number
+      column: number
+    }, ExtArgs["result"]["hall"]>
+    composites: {}
+  }
+
+  type HallGetPayload<S extends boolean | null | undefined | HallDefaultArgs> = $Result.GetResult<Prisma.$HallPayload, S>
+
+  type HallCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<HallFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: HallCountAggregateInputType | true
+    }
+
+  export interface HallDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Hall'], meta: { name: 'Hall' } }
+    /**
+     * Find zero or one Hall that matches the filter.
+     * @param {HallFindUniqueArgs} args - Arguments to find a Hall
+     * @example
+     * // Get one Hall
+     * const hall = await prisma.hall.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HallFindUniqueArgs>(args: SelectSubset<T, HallFindUniqueArgs<ExtArgs>>): Prisma__HallClient<$Result.GetResult<Prisma.$HallPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Hall that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {HallFindUniqueOrThrowArgs} args - Arguments to find a Hall
+     * @example
+     * // Get one Hall
+     * const hall = await prisma.hall.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HallFindUniqueOrThrowArgs>(args: SelectSubset<T, HallFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HallClient<$Result.GetResult<Prisma.$HallPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Hall that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HallFindFirstArgs} args - Arguments to find a Hall
+     * @example
+     * // Get one Hall
+     * const hall = await prisma.hall.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HallFindFirstArgs>(args?: SelectSubset<T, HallFindFirstArgs<ExtArgs>>): Prisma__HallClient<$Result.GetResult<Prisma.$HallPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Hall that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HallFindFirstOrThrowArgs} args - Arguments to find a Hall
+     * @example
+     * // Get one Hall
+     * const hall = await prisma.hall.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HallFindFirstOrThrowArgs>(args?: SelectSubset<T, HallFindFirstOrThrowArgs<ExtArgs>>): Prisma__HallClient<$Result.GetResult<Prisma.$HallPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Halls that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HallFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Halls
+     * const halls = await prisma.hall.findMany()
+     * 
+     * // Get first 10 Halls
+     * const halls = await prisma.hall.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const hallWithIdOnly = await prisma.hall.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HallFindManyArgs>(args?: SelectSubset<T, HallFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HallPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Hall.
+     * @param {HallCreateArgs} args - Arguments to create a Hall.
+     * @example
+     * // Create one Hall
+     * const Hall = await prisma.hall.create({
+     *   data: {
+     *     // ... data to create a Hall
+     *   }
+     * })
+     * 
+     */
+    create<T extends HallCreateArgs>(args: SelectSubset<T, HallCreateArgs<ExtArgs>>): Prisma__HallClient<$Result.GetResult<Prisma.$HallPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Halls.
+     * @param {HallCreateManyArgs} args - Arguments to create many Halls.
+     * @example
+     * // Create many Halls
+     * const hall = await prisma.hall.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HallCreateManyArgs>(args?: SelectSubset<T, HallCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Hall.
+     * @param {HallDeleteArgs} args - Arguments to delete one Hall.
+     * @example
+     * // Delete one Hall
+     * const Hall = await prisma.hall.delete({
+     *   where: {
+     *     // ... filter to delete one Hall
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HallDeleteArgs>(args: SelectSubset<T, HallDeleteArgs<ExtArgs>>): Prisma__HallClient<$Result.GetResult<Prisma.$HallPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Hall.
+     * @param {HallUpdateArgs} args - Arguments to update one Hall.
+     * @example
+     * // Update one Hall
+     * const hall = await prisma.hall.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HallUpdateArgs>(args: SelectSubset<T, HallUpdateArgs<ExtArgs>>): Prisma__HallClient<$Result.GetResult<Prisma.$HallPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Halls.
+     * @param {HallDeleteManyArgs} args - Arguments to filter Halls to delete.
+     * @example
+     * // Delete a few Halls
+     * const { count } = await prisma.hall.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HallDeleteManyArgs>(args?: SelectSubset<T, HallDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Halls.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HallUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Halls
+     * const hall = await prisma.hall.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HallUpdateManyArgs>(args: SelectSubset<T, HallUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Hall.
+     * @param {HallUpsertArgs} args - Arguments to update or create a Hall.
+     * @example
+     * // Update or create a Hall
+     * const hall = await prisma.hall.upsert({
+     *   create: {
+     *     // ... data to create a Hall
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Hall we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HallUpsertArgs>(args: SelectSubset<T, HallUpsertArgs<ExtArgs>>): Prisma__HallClient<$Result.GetResult<Prisma.$HallPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Halls that matches the filter.
+     * @param {HallFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const hall = await prisma.hall.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: HallFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Hall.
+     * @param {HallAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const hall = await prisma.hall.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: HallAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Halls.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HallCountArgs} args - Arguments to filter Halls to count.
+     * @example
+     * // Count the number of Halls
+     * const count = await prisma.hall.count({
+     *   where: {
+     *     // ... the filter for the Halls we want to count
+     *   }
+     * })
+    **/
+    count<T extends HallCountArgs>(
+      args?: Subset<T, HallCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HallCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Hall.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HallAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HallAggregateArgs>(args: Subset<T, HallAggregateArgs>): Prisma.PrismaPromise<GetHallAggregateType<T>>
+
+    /**
+     * Group by Hall.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HallGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HallGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HallGroupByArgs['orderBy'] }
+        : { orderBy?: HallGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HallGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHallGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Hall model
+   */
+  readonly fields: HallFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Hall.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HallClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    screenings<T extends Hall$screeningsArgs<ExtArgs> = {}>(args?: Subset<T, Hall$screeningsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScreeningPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    chairs<T extends Hall$chairsArgs<ExtArgs> = {}>(args?: Subset<T, Hall$chairsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChairPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Hall model
+   */
+  interface HallFieldRefs {
+    readonly id: FieldRef<"Hall", 'String'>
+    readonly name: FieldRef<"Hall", 'String'>
+    readonly row: FieldRef<"Hall", 'Int'>
+    readonly column: FieldRef<"Hall", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Hall findUnique
+   */
+  export type HallFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hall
+     */
+    select?: HallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hall
+     */
+    omit?: HallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HallInclude<ExtArgs> | null
+    /**
+     * Filter, which Hall to fetch.
+     */
+    where: HallWhereUniqueInput
+  }
+
+  /**
+   * Hall findUniqueOrThrow
+   */
+  export type HallFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hall
+     */
+    select?: HallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hall
+     */
+    omit?: HallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HallInclude<ExtArgs> | null
+    /**
+     * Filter, which Hall to fetch.
+     */
+    where: HallWhereUniqueInput
+  }
+
+  /**
+   * Hall findFirst
+   */
+  export type HallFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hall
+     */
+    select?: HallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hall
+     */
+    omit?: HallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HallInclude<ExtArgs> | null
+    /**
+     * Filter, which Hall to fetch.
+     */
+    where?: HallWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Halls to fetch.
+     */
+    orderBy?: HallOrderByWithRelationInput | HallOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Halls.
+     */
+    cursor?: HallWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Halls from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Halls.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Halls.
+     */
+    distinct?: HallScalarFieldEnum | HallScalarFieldEnum[]
+  }
+
+  /**
+   * Hall findFirstOrThrow
+   */
+  export type HallFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hall
+     */
+    select?: HallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hall
+     */
+    omit?: HallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HallInclude<ExtArgs> | null
+    /**
+     * Filter, which Hall to fetch.
+     */
+    where?: HallWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Halls to fetch.
+     */
+    orderBy?: HallOrderByWithRelationInput | HallOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Halls.
+     */
+    cursor?: HallWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Halls from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Halls.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Halls.
+     */
+    distinct?: HallScalarFieldEnum | HallScalarFieldEnum[]
+  }
+
+  /**
+   * Hall findMany
+   */
+  export type HallFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hall
+     */
+    select?: HallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hall
+     */
+    omit?: HallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HallInclude<ExtArgs> | null
+    /**
+     * Filter, which Halls to fetch.
+     */
+    where?: HallWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Halls to fetch.
+     */
+    orderBy?: HallOrderByWithRelationInput | HallOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Halls.
+     */
+    cursor?: HallWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Halls from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Halls.
+     */
+    skip?: number
+    distinct?: HallScalarFieldEnum | HallScalarFieldEnum[]
+  }
+
+  /**
+   * Hall create
+   */
+  export type HallCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hall
+     */
+    select?: HallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hall
+     */
+    omit?: HallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HallInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Hall.
+     */
+    data: XOR<HallCreateInput, HallUncheckedCreateInput>
+  }
+
+  /**
+   * Hall createMany
+   */
+  export type HallCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Halls.
+     */
+    data: HallCreateManyInput | HallCreateManyInput[]
+  }
+
+  /**
+   * Hall update
+   */
+  export type HallUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hall
+     */
+    select?: HallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hall
+     */
+    omit?: HallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HallInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Hall.
+     */
+    data: XOR<HallUpdateInput, HallUncheckedUpdateInput>
+    /**
+     * Choose, which Hall to update.
+     */
+    where: HallWhereUniqueInput
+  }
+
+  /**
+   * Hall updateMany
+   */
+  export type HallUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Halls.
+     */
+    data: XOR<HallUpdateManyMutationInput, HallUncheckedUpdateManyInput>
+    /**
+     * Filter which Halls to update
+     */
+    where?: HallWhereInput
+    /**
+     * Limit how many Halls to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Hall upsert
+   */
+  export type HallUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hall
+     */
+    select?: HallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hall
+     */
+    omit?: HallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HallInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Hall to update in case it exists.
+     */
+    where: HallWhereUniqueInput
+    /**
+     * In case the Hall found by the `where` argument doesn't exist, create a new Hall with this data.
+     */
+    create: XOR<HallCreateInput, HallUncheckedCreateInput>
+    /**
+     * In case the Hall was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HallUpdateInput, HallUncheckedUpdateInput>
+  }
+
+  /**
+   * Hall delete
+   */
+  export type HallDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hall
+     */
+    select?: HallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hall
+     */
+    omit?: HallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HallInclude<ExtArgs> | null
+    /**
+     * Filter which Hall to delete.
+     */
+    where: HallWhereUniqueInput
+  }
+
+  /**
+   * Hall deleteMany
+   */
+  export type HallDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Halls to delete
+     */
+    where?: HallWhereInput
+    /**
+     * Limit how many Halls to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Hall findRaw
+   */
+  export type HallFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Hall aggregateRaw
+   */
+  export type HallAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Hall.screenings
+   */
+  export type Hall$screeningsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Screening
+     */
+    select?: ScreeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Screening
+     */
+    omit?: ScreeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreeningInclude<ExtArgs> | null
+    where?: ScreeningWhereInput
+    orderBy?: ScreeningOrderByWithRelationInput | ScreeningOrderByWithRelationInput[]
+    cursor?: ScreeningWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ScreeningScalarFieldEnum | ScreeningScalarFieldEnum[]
+  }
+
+  /**
+   * Hall.chairs
+   */
+  export type Hall$chairsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Chair
+     */
+    select?: ChairSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Chair
+     */
+    omit?: ChairOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChairInclude<ExtArgs> | null
+    where?: ChairWhereInput
+    orderBy?: ChairOrderByWithRelationInput | ChairOrderByWithRelationInput[]
+    cursor?: ChairWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChairScalarFieldEnum | ChairScalarFieldEnum[]
+  }
+
+  /**
+   * Hall without action
+   */
+  export type HallDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hall
+     */
+    select?: HallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hall
+     */
+    omit?: HallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HallInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Forum
+   */
+
+  export type AggregateForum = {
+    _count: ForumCountAggregateOutputType | null
+    _avg: ForumAvgAggregateOutputType | null
+    _sum: ForumSumAggregateOutputType | null
+    _min: ForumMinAggregateOutputType | null
+    _max: ForumMaxAggregateOutputType | null
+  }
+
+  export type ForumAvgAggregateOutputType = {
+    review: number | null
+  }
+
+  export type ForumSumAggregateOutputType = {
+    review: number | null
+  }
+
+  export type ForumMinAggregateOutputType = {
+    id: string | null
+    review: number | null
+    comment: string | null
+    user_id: string | null
+    movie_id: string | null
+  }
+
+  export type ForumMaxAggregateOutputType = {
+    id: string | null
+    review: number | null
+    comment: string | null
+    user_id: string | null
+    movie_id: string | null
+  }
+
+  export type ForumCountAggregateOutputType = {
+    id: number
+    review: number
+    comment: number
+    user_id: number
+    movie_id: number
+    _all: number
+  }
+
+
+  export type ForumAvgAggregateInputType = {
+    review?: true
+  }
+
+  export type ForumSumAggregateInputType = {
+    review?: true
+  }
+
+  export type ForumMinAggregateInputType = {
+    id?: true
+    review?: true
+    comment?: true
+    user_id?: true
+    movie_id?: true
+  }
+
+  export type ForumMaxAggregateInputType = {
+    id?: true
+    review?: true
+    comment?: true
+    user_id?: true
+    movie_id?: true
+  }
+
+  export type ForumCountAggregateInputType = {
+    id?: true
+    review?: true
+    comment?: true
+    user_id?: true
+    movie_id?: true
+    _all?: true
+  }
+
+  export type ForumAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Forum to aggregate.
+     */
+    where?: ForumWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Forums to fetch.
+     */
+    orderBy?: ForumOrderByWithRelationInput | ForumOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ForumWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Forums from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Forums.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Forums
+    **/
+    _count?: true | ForumCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ForumAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ForumSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ForumMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ForumMaxAggregateInputType
+  }
+
+  export type GetForumAggregateType<T extends ForumAggregateArgs> = {
+        [P in keyof T & keyof AggregateForum]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateForum[P]>
+      : GetScalarType<T[P], AggregateForum[P]>
+  }
+
+
+
+
+  export type ForumGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ForumWhereInput
+    orderBy?: ForumOrderByWithAggregationInput | ForumOrderByWithAggregationInput[]
+    by: ForumScalarFieldEnum[] | ForumScalarFieldEnum
+    having?: ForumScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ForumCountAggregateInputType | true
+    _avg?: ForumAvgAggregateInputType
+    _sum?: ForumSumAggregateInputType
+    _min?: ForumMinAggregateInputType
+    _max?: ForumMaxAggregateInputType
+  }
+
+  export type ForumGroupByOutputType = {
+    id: string
+    review: number
+    comment: string
+    user_id: string
+    movie_id: string
+    _count: ForumCountAggregateOutputType | null
+    _avg: ForumAvgAggregateOutputType | null
+    _sum: ForumSumAggregateOutputType | null
+    _min: ForumMinAggregateOutputType | null
+    _max: ForumMaxAggregateOutputType | null
+  }
+
+  type GetForumGroupByPayload<T extends ForumGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ForumGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ForumGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ForumGroupByOutputType[P]>
+            : GetScalarType<T[P], ForumGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ForumSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    review?: boolean
+    comment?: boolean
+    user_id?: boolean
+    movie_id?: boolean
+    users?: boolean | Forum$usersArgs<ExtArgs>
+    movies?: boolean | Forum$moviesArgs<ExtArgs>
+  }, ExtArgs["result"]["forum"]>
+
+
+
+  export type ForumSelectScalar = {
+    id?: boolean
+    review?: boolean
+    comment?: boolean
+    user_id?: boolean
+    movie_id?: boolean
+  }
+
+  export type ForumOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "review" | "comment" | "user_id" | "movie_id", ExtArgs["result"]["forum"]>
+  export type ForumInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | Forum$usersArgs<ExtArgs>
+    movies?: boolean | Forum$moviesArgs<ExtArgs>
+  }
+
+  export type $ForumPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Forum"
+    objects: {
+      users: Prisma.$UserPayload<ExtArgs> | null
+      movies: Prisma.$MoviePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      review: number
+      comment: string
+      user_id: string
+      movie_id: string
+    }, ExtArgs["result"]["forum"]>
+    composites: {}
+  }
+
+  type ForumGetPayload<S extends boolean | null | undefined | ForumDefaultArgs> = $Result.GetResult<Prisma.$ForumPayload, S>
+
+  type ForumCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ForumFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ForumCountAggregateInputType | true
+    }
+
+  export interface ForumDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Forum'], meta: { name: 'Forum' } }
+    /**
+     * Find zero or one Forum that matches the filter.
+     * @param {ForumFindUniqueArgs} args - Arguments to find a Forum
+     * @example
+     * // Get one Forum
+     * const forum = await prisma.forum.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ForumFindUniqueArgs>(args: SelectSubset<T, ForumFindUniqueArgs<ExtArgs>>): Prisma__ForumClient<$Result.GetResult<Prisma.$ForumPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Forum that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ForumFindUniqueOrThrowArgs} args - Arguments to find a Forum
+     * @example
+     * // Get one Forum
+     * const forum = await prisma.forum.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ForumFindUniqueOrThrowArgs>(args: SelectSubset<T, ForumFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ForumClient<$Result.GetResult<Prisma.$ForumPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Forum that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumFindFirstArgs} args - Arguments to find a Forum
+     * @example
+     * // Get one Forum
+     * const forum = await prisma.forum.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ForumFindFirstArgs>(args?: SelectSubset<T, ForumFindFirstArgs<ExtArgs>>): Prisma__ForumClient<$Result.GetResult<Prisma.$ForumPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Forum that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumFindFirstOrThrowArgs} args - Arguments to find a Forum
+     * @example
+     * // Get one Forum
+     * const forum = await prisma.forum.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ForumFindFirstOrThrowArgs>(args?: SelectSubset<T, ForumFindFirstOrThrowArgs<ExtArgs>>): Prisma__ForumClient<$Result.GetResult<Prisma.$ForumPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Forums that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Forums
+     * const forums = await prisma.forum.findMany()
+     * 
+     * // Get first 10 Forums
+     * const forums = await prisma.forum.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const forumWithIdOnly = await prisma.forum.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ForumFindManyArgs>(args?: SelectSubset<T, ForumFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ForumPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Forum.
+     * @param {ForumCreateArgs} args - Arguments to create a Forum.
+     * @example
+     * // Create one Forum
+     * const Forum = await prisma.forum.create({
+     *   data: {
+     *     // ... data to create a Forum
+     *   }
+     * })
+     * 
+     */
+    create<T extends ForumCreateArgs>(args: SelectSubset<T, ForumCreateArgs<ExtArgs>>): Prisma__ForumClient<$Result.GetResult<Prisma.$ForumPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Forums.
+     * @param {ForumCreateManyArgs} args - Arguments to create many Forums.
+     * @example
+     * // Create many Forums
+     * const forum = await prisma.forum.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ForumCreateManyArgs>(args?: SelectSubset<T, ForumCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Forum.
+     * @param {ForumDeleteArgs} args - Arguments to delete one Forum.
+     * @example
+     * // Delete one Forum
+     * const Forum = await prisma.forum.delete({
+     *   where: {
+     *     // ... filter to delete one Forum
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ForumDeleteArgs>(args: SelectSubset<T, ForumDeleteArgs<ExtArgs>>): Prisma__ForumClient<$Result.GetResult<Prisma.$ForumPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Forum.
+     * @param {ForumUpdateArgs} args - Arguments to update one Forum.
+     * @example
+     * // Update one Forum
+     * const forum = await prisma.forum.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ForumUpdateArgs>(args: SelectSubset<T, ForumUpdateArgs<ExtArgs>>): Prisma__ForumClient<$Result.GetResult<Prisma.$ForumPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Forums.
+     * @param {ForumDeleteManyArgs} args - Arguments to filter Forums to delete.
+     * @example
+     * // Delete a few Forums
+     * const { count } = await prisma.forum.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ForumDeleteManyArgs>(args?: SelectSubset<T, ForumDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Forums.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Forums
+     * const forum = await prisma.forum.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ForumUpdateManyArgs>(args: SelectSubset<T, ForumUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Forum.
+     * @param {ForumUpsertArgs} args - Arguments to update or create a Forum.
+     * @example
+     * // Update or create a Forum
+     * const forum = await prisma.forum.upsert({
+     *   create: {
+     *     // ... data to create a Forum
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Forum we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ForumUpsertArgs>(args: SelectSubset<T, ForumUpsertArgs<ExtArgs>>): Prisma__ForumClient<$Result.GetResult<Prisma.$ForumPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Forums that matches the filter.
+     * @param {ForumFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const forum = await prisma.forum.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ForumFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Forum.
+     * @param {ForumAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const forum = await prisma.forum.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ForumAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Forums.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumCountArgs} args - Arguments to filter Forums to count.
+     * @example
+     * // Count the number of Forums
+     * const count = await prisma.forum.count({
+     *   where: {
+     *     // ... the filter for the Forums we want to count
+     *   }
+     * })
+    **/
+    count<T extends ForumCountArgs>(
+      args?: Subset<T, ForumCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ForumCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Forum.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ForumAggregateArgs>(args: Subset<T, ForumAggregateArgs>): Prisma.PrismaPromise<GetForumAggregateType<T>>
+
+    /**
+     * Group by Forum.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ForumGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ForumGroupByArgs['orderBy'] }
+        : { orderBy?: ForumGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ForumGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetForumGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Forum model
+   */
+  readonly fields: ForumFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Forum.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ForumClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    users<T extends Forum$usersArgs<ExtArgs> = {}>(args?: Subset<T, Forum$usersArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    movies<T extends Forum$moviesArgs<ExtArgs> = {}>(args?: Subset<T, Forum$moviesArgs<ExtArgs>>): Prisma__MovieClient<$Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Forum model
+   */
+  interface ForumFieldRefs {
+    readonly id: FieldRef<"Forum", 'String'>
+    readonly review: FieldRef<"Forum", 'Float'>
+    readonly comment: FieldRef<"Forum", 'String'>
+    readonly user_id: FieldRef<"Forum", 'String'>
+    readonly movie_id: FieldRef<"Forum", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Forum findUnique
+   */
+  export type ForumFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Forum
+     */
+    select?: ForumSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Forum
+     */
+    omit?: ForumOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumInclude<ExtArgs> | null
+    /**
+     * Filter, which Forum to fetch.
+     */
+    where: ForumWhereUniqueInput
+  }
+
+  /**
+   * Forum findUniqueOrThrow
+   */
+  export type ForumFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Forum
+     */
+    select?: ForumSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Forum
+     */
+    omit?: ForumOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumInclude<ExtArgs> | null
+    /**
+     * Filter, which Forum to fetch.
+     */
+    where: ForumWhereUniqueInput
+  }
+
+  /**
+   * Forum findFirst
+   */
+  export type ForumFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Forum
+     */
+    select?: ForumSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Forum
+     */
+    omit?: ForumOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumInclude<ExtArgs> | null
+    /**
+     * Filter, which Forum to fetch.
+     */
+    where?: ForumWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Forums to fetch.
+     */
+    orderBy?: ForumOrderByWithRelationInput | ForumOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Forums.
+     */
+    cursor?: ForumWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Forums from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Forums.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Forums.
+     */
+    distinct?: ForumScalarFieldEnum | ForumScalarFieldEnum[]
+  }
+
+  /**
+   * Forum findFirstOrThrow
+   */
+  export type ForumFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Forum
+     */
+    select?: ForumSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Forum
+     */
+    omit?: ForumOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumInclude<ExtArgs> | null
+    /**
+     * Filter, which Forum to fetch.
+     */
+    where?: ForumWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Forums to fetch.
+     */
+    orderBy?: ForumOrderByWithRelationInput | ForumOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Forums.
+     */
+    cursor?: ForumWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Forums from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Forums.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Forums.
+     */
+    distinct?: ForumScalarFieldEnum | ForumScalarFieldEnum[]
+  }
+
+  /**
+   * Forum findMany
+   */
+  export type ForumFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Forum
+     */
+    select?: ForumSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Forum
+     */
+    omit?: ForumOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumInclude<ExtArgs> | null
+    /**
+     * Filter, which Forums to fetch.
+     */
+    where?: ForumWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Forums to fetch.
+     */
+    orderBy?: ForumOrderByWithRelationInput | ForumOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Forums.
+     */
+    cursor?: ForumWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Forums from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Forums.
+     */
+    skip?: number
+    distinct?: ForumScalarFieldEnum | ForumScalarFieldEnum[]
+  }
+
+  /**
+   * Forum create
+   */
+  export type ForumCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Forum
+     */
+    select?: ForumSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Forum
+     */
+    omit?: ForumOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Forum.
+     */
+    data: XOR<ForumCreateInput, ForumUncheckedCreateInput>
+  }
+
+  /**
+   * Forum createMany
+   */
+  export type ForumCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Forums.
+     */
+    data: ForumCreateManyInput | ForumCreateManyInput[]
+  }
+
+  /**
+   * Forum update
+   */
+  export type ForumUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Forum
+     */
+    select?: ForumSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Forum
+     */
+    omit?: ForumOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Forum.
+     */
+    data: XOR<ForumUpdateInput, ForumUncheckedUpdateInput>
+    /**
+     * Choose, which Forum to update.
+     */
+    where: ForumWhereUniqueInput
+  }
+
+  /**
+   * Forum updateMany
+   */
+  export type ForumUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Forums.
+     */
+    data: XOR<ForumUpdateManyMutationInput, ForumUncheckedUpdateManyInput>
+    /**
+     * Filter which Forums to update
+     */
+    where?: ForumWhereInput
+    /**
+     * Limit how many Forums to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Forum upsert
+   */
+  export type ForumUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Forum
+     */
+    select?: ForumSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Forum
+     */
+    omit?: ForumOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Forum to update in case it exists.
+     */
+    where: ForumWhereUniqueInput
+    /**
+     * In case the Forum found by the `where` argument doesn't exist, create a new Forum with this data.
+     */
+    create: XOR<ForumCreateInput, ForumUncheckedCreateInput>
+    /**
+     * In case the Forum was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ForumUpdateInput, ForumUncheckedUpdateInput>
+  }
+
+  /**
+   * Forum delete
+   */
+  export type ForumDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Forum
+     */
+    select?: ForumSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Forum
+     */
+    omit?: ForumOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumInclude<ExtArgs> | null
+    /**
+     * Filter which Forum to delete.
+     */
+    where: ForumWhereUniqueInput
+  }
+
+  /**
+   * Forum deleteMany
+   */
+  export type ForumDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Forums to delete
+     */
+    where?: ForumWhereInput
+    /**
+     * Limit how many Forums to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Forum findRaw
+   */
+  export type ForumFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Forum aggregateRaw
+   */
+  export type ForumAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Forum.users
+   */
+  export type Forum$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -3301,403 +11459,369 @@ export namespace Prisma {
   }
 
   /**
-   * Workspace.api_tokens
+   * Forum.movies
    */
-  export type Workspace$api_tokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Forum$moviesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the API_Token
+     * Select specific fields to fetch from the Movie
      */
-    select?: API_TokenSelect<ExtArgs> | null
+    select?: MovieSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the API_Token
+     * Omit specific fields from the Movie
      */
-    omit?: API_TokenOmit<ExtArgs> | null
+    omit?: MovieOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: API_TokenInclude<ExtArgs> | null
-    where?: API_TokenWhereInput
-    orderBy?: API_TokenOrderByWithRelationInput | API_TokenOrderByWithRelationInput[]
-    cursor?: API_TokenWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: API_TokenScalarFieldEnum | API_TokenScalarFieldEnum[]
+    include?: MovieInclude<ExtArgs> | null
+    where?: MovieWhereInput
   }
 
   /**
-   * Workspace without action
+   * Forum without action
    */
-  export type WorkspaceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ForumDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Workspace
+     * Select specific fields to fetch from the Forum
      */
-    select?: WorkspaceSelect<ExtArgs> | null
+    select?: ForumSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Workspace
+     * Omit specific fields from the Forum
      */
-    omit?: WorkspaceOmit<ExtArgs> | null
+    omit?: ForumOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: WorkspaceInclude<ExtArgs> | null
+    include?: ForumInclude<ExtArgs> | null
   }
 
 
   /**
-   * Model API_Token
+   * Model Ticket
    */
 
-  export type AggregateAPI_Token = {
-    _count: API_TokenCountAggregateOutputType | null
-    _min: API_TokenMinAggregateOutputType | null
-    _max: API_TokenMaxAggregateOutputType | null
+  export type AggregateTicket = {
+    _count: TicketCountAggregateOutputType | null
+    _min: TicketMinAggregateOutputType | null
+    _max: TicketMaxAggregateOutputType | null
   }
 
-  export type API_TokenMinAggregateOutputType = {
+  export type TicketMinAggregateOutputType = {
     id: string | null
-    name: string | null
-    token: string | null
-    workspace_id: string | null
-    createdAt: Date | null
-    creation_date: Date | null
-    revocation_date: Date | null
+    ticket_type_id: string | null
+    user_id: string | null
+    screening_id: string | null
   }
 
-  export type API_TokenMaxAggregateOutputType = {
+  export type TicketMaxAggregateOutputType = {
     id: string | null
-    name: string | null
-    token: string | null
-    workspace_id: string | null
-    createdAt: Date | null
-    creation_date: Date | null
-    revocation_date: Date | null
+    ticket_type_id: string | null
+    user_id: string | null
+    screening_id: string | null
   }
 
-  export type API_TokenCountAggregateOutputType = {
+  export type TicketCountAggregateOutputType = {
     id: number
-    name: number
-    token: number
-    workspace_id: number
-    createdAt: number
-    creation_date: number
-    revocation_date: number
+    ticket_type_id: number
+    user_id: number
+    screening_id: number
     _all: number
   }
 
 
-  export type API_TokenMinAggregateInputType = {
+  export type TicketMinAggregateInputType = {
     id?: true
-    name?: true
-    token?: true
-    workspace_id?: true
-    createdAt?: true
-    creation_date?: true
-    revocation_date?: true
+    ticket_type_id?: true
+    user_id?: true
+    screening_id?: true
   }
 
-  export type API_TokenMaxAggregateInputType = {
+  export type TicketMaxAggregateInputType = {
     id?: true
-    name?: true
-    token?: true
-    workspace_id?: true
-    createdAt?: true
-    creation_date?: true
-    revocation_date?: true
+    ticket_type_id?: true
+    user_id?: true
+    screening_id?: true
   }
 
-  export type API_TokenCountAggregateInputType = {
+  export type TicketCountAggregateInputType = {
     id?: true
-    name?: true
-    token?: true
-    workspace_id?: true
-    createdAt?: true
-    creation_date?: true
-    revocation_date?: true
+    ticket_type_id?: true
+    user_id?: true
+    screening_id?: true
     _all?: true
   }
 
-  export type API_TokenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which API_Token to aggregate.
+     * Filter which Ticket to aggregate.
      */
-    where?: API_TokenWhereInput
+    where?: TicketWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of API_Tokens to fetch.
+     * Determine the order of Tickets to fetch.
      */
-    orderBy?: API_TokenOrderByWithRelationInput | API_TokenOrderByWithRelationInput[]
+    orderBy?: TicketOrderByWithRelationInput | TicketOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: API_TokenWhereUniqueInput
+    cursor?: TicketWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` API_Tokens from the position of the cursor.
+     * Take `±n` Tickets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` API_Tokens.
+     * Skip the first `n` Tickets.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned API_Tokens
+     * Count returned Tickets
     **/
-    _count?: true | API_TokenCountAggregateInputType
+    _count?: true | TicketCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: API_TokenMinAggregateInputType
+    _min?: TicketMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: API_TokenMaxAggregateInputType
+    _max?: TicketMaxAggregateInputType
   }
 
-  export type GetAPI_TokenAggregateType<T extends API_TokenAggregateArgs> = {
-        [P in keyof T & keyof AggregateAPI_Token]: P extends '_count' | 'count'
+  export type GetTicketAggregateType<T extends TicketAggregateArgs> = {
+        [P in keyof T & keyof AggregateTicket]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateAPI_Token[P]>
-      : GetScalarType<T[P], AggregateAPI_Token[P]>
+        : GetScalarType<T[P], AggregateTicket[P]>
+      : GetScalarType<T[P], AggregateTicket[P]>
   }
 
 
 
 
-  export type API_TokenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: API_TokenWhereInput
-    orderBy?: API_TokenOrderByWithAggregationInput | API_TokenOrderByWithAggregationInput[]
-    by: API_TokenScalarFieldEnum[] | API_TokenScalarFieldEnum
-    having?: API_TokenScalarWhereWithAggregatesInput
+  export type TicketGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TicketWhereInput
+    orderBy?: TicketOrderByWithAggregationInput | TicketOrderByWithAggregationInput[]
+    by: TicketScalarFieldEnum[] | TicketScalarFieldEnum
+    having?: TicketScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: API_TokenCountAggregateInputType | true
-    _min?: API_TokenMinAggregateInputType
-    _max?: API_TokenMaxAggregateInputType
+    _count?: TicketCountAggregateInputType | true
+    _min?: TicketMinAggregateInputType
+    _max?: TicketMaxAggregateInputType
   }
 
-  export type API_TokenGroupByOutputType = {
+  export type TicketGroupByOutputType = {
     id: string
-    name: string
-    token: string
-    workspace_id: string
-    createdAt: Date
-    creation_date: Date
-    revocation_date: Date | null
-    _count: API_TokenCountAggregateOutputType | null
-    _min: API_TokenMinAggregateOutputType | null
-    _max: API_TokenMaxAggregateOutputType | null
+    ticket_type_id: string
+    user_id: string
+    screening_id: string
+    _count: TicketCountAggregateOutputType | null
+    _min: TicketMinAggregateOutputType | null
+    _max: TicketMaxAggregateOutputType | null
   }
 
-  type GetAPI_TokenGroupByPayload<T extends API_TokenGroupByArgs> = Prisma.PrismaPromise<
+  type GetTicketGroupByPayload<T extends TicketGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<API_TokenGroupByOutputType, T['by']> &
+      PickEnumerable<TicketGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof API_TokenGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof TicketGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], API_TokenGroupByOutputType[P]>
-            : GetScalarType<T[P], API_TokenGroupByOutputType[P]>
+              : GetScalarType<T[P], TicketGroupByOutputType[P]>
+            : GetScalarType<T[P], TicketGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type API_TokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type TicketSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
-    token?: boolean
-    workspace_id?: boolean
-    createdAt?: boolean
-    creation_date?: boolean
-    revocation_date?: boolean
-    service_usages?: boolean | API_Token$service_usagesArgs<ExtArgs>
-    workspace?: boolean | API_Token$workspaceArgs<ExtArgs>
-    _count?: boolean | API_TokenCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["aPI_Token"]>
+    ticket_type_id?: boolean
+    user_id?: boolean
+    screening_id?: boolean
+    ticket_types?: boolean | Ticket$ticket_typesArgs<ExtArgs>
+    screening_types?: boolean | Ticket$screening_typesArgs<ExtArgs>
+    users?: boolean | Ticket$usersArgs<ExtArgs>
+  }, ExtArgs["result"]["ticket"]>
 
 
 
-  export type API_TokenSelectScalar = {
+  export type TicketSelectScalar = {
     id?: boolean
-    name?: boolean
-    token?: boolean
-    workspace_id?: boolean
-    createdAt?: boolean
-    creation_date?: boolean
-    revocation_date?: boolean
+    ticket_type_id?: boolean
+    user_id?: boolean
+    screening_id?: boolean
   }
 
-  export type API_TokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "token" | "workspace_id" | "createdAt" | "creation_date" | "revocation_date", ExtArgs["result"]["aPI_Token"]>
-  export type API_TokenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    service_usages?: boolean | API_Token$service_usagesArgs<ExtArgs>
-    workspace?: boolean | API_Token$workspaceArgs<ExtArgs>
-    _count?: boolean | API_TokenCountOutputTypeDefaultArgs<ExtArgs>
+  export type TicketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ticket_type_id" | "user_id" | "screening_id", ExtArgs["result"]["ticket"]>
+  export type TicketInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ticket_types?: boolean | Ticket$ticket_typesArgs<ExtArgs>
+    screening_types?: boolean | Ticket$screening_typesArgs<ExtArgs>
+    users?: boolean | Ticket$usersArgs<ExtArgs>
   }
 
-  export type $API_TokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "API_Token"
+  export type $TicketPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Ticket"
     objects: {
-      service_usages: Prisma.$Service_UsagePayload<ExtArgs>[]
-      workspace: Prisma.$WorkspacePayload<ExtArgs> | null
+      ticket_types: Prisma.$Ticket_typePayload<ExtArgs> | null
+      screening_types: Prisma.$Screening_typePayload<ExtArgs> | null
+      users: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      name: string
-      token: string
-      workspace_id: string
-      createdAt: Date
-      creation_date: Date
-      revocation_date: Date | null
-    }, ExtArgs["result"]["aPI_Token"]>
+      ticket_type_id: string
+      user_id: string
+      screening_id: string
+    }, ExtArgs["result"]["ticket"]>
     composites: {}
   }
 
-  type API_TokenGetPayload<S extends boolean | null | undefined | API_TokenDefaultArgs> = $Result.GetResult<Prisma.$API_TokenPayload, S>
+  type TicketGetPayload<S extends boolean | null | undefined | TicketDefaultArgs> = $Result.GetResult<Prisma.$TicketPayload, S>
 
-  type API_TokenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<API_TokenFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: API_TokenCountAggregateInputType | true
+  type TicketCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TicketFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TicketCountAggregateInputType | true
     }
 
-  export interface API_TokenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['API_Token'], meta: { name: 'API_Token' } }
+  export interface TicketDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Ticket'], meta: { name: 'Ticket' } }
     /**
-     * Find zero or one API_Token that matches the filter.
-     * @param {API_TokenFindUniqueArgs} args - Arguments to find a API_Token
+     * Find zero or one Ticket that matches the filter.
+     * @param {TicketFindUniqueArgs} args - Arguments to find a Ticket
      * @example
-     * // Get one API_Token
-     * const aPI_Token = await prisma.aPI_Token.findUnique({
+     * // Get one Ticket
+     * const ticket = await prisma.ticket.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends API_TokenFindUniqueArgs>(args: SelectSubset<T, API_TokenFindUniqueArgs<ExtArgs>>): Prisma__API_TokenClient<$Result.GetResult<Prisma.$API_TokenPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends TicketFindUniqueArgs>(args: SelectSubset<T, TicketFindUniqueArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one API_Token that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Ticket that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {API_TokenFindUniqueOrThrowArgs} args - Arguments to find a API_Token
+     * @param {TicketFindUniqueOrThrowArgs} args - Arguments to find a Ticket
      * @example
-     * // Get one API_Token
-     * const aPI_Token = await prisma.aPI_Token.findUniqueOrThrow({
+     * // Get one Ticket
+     * const ticket = await prisma.ticket.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends API_TokenFindUniqueOrThrowArgs>(args: SelectSubset<T, API_TokenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__API_TokenClient<$Result.GetResult<Prisma.$API_TokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends TicketFindUniqueOrThrowArgs>(args: SelectSubset<T, TicketFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first API_Token that matches the filter.
+     * Find the first Ticket that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {API_TokenFindFirstArgs} args - Arguments to find a API_Token
+     * @param {TicketFindFirstArgs} args - Arguments to find a Ticket
      * @example
-     * // Get one API_Token
-     * const aPI_Token = await prisma.aPI_Token.findFirst({
+     * // Get one Ticket
+     * const ticket = await prisma.ticket.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends API_TokenFindFirstArgs>(args?: SelectSubset<T, API_TokenFindFirstArgs<ExtArgs>>): Prisma__API_TokenClient<$Result.GetResult<Prisma.$API_TokenPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends TicketFindFirstArgs>(args?: SelectSubset<T, TicketFindFirstArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first API_Token that matches the filter or
+     * Find the first Ticket that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {API_TokenFindFirstOrThrowArgs} args - Arguments to find a API_Token
+     * @param {TicketFindFirstOrThrowArgs} args - Arguments to find a Ticket
      * @example
-     * // Get one API_Token
-     * const aPI_Token = await prisma.aPI_Token.findFirstOrThrow({
+     * // Get one Ticket
+     * const ticket = await prisma.ticket.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends API_TokenFindFirstOrThrowArgs>(args?: SelectSubset<T, API_TokenFindFirstOrThrowArgs<ExtArgs>>): Prisma__API_TokenClient<$Result.GetResult<Prisma.$API_TokenPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends TicketFindFirstOrThrowArgs>(args?: SelectSubset<T, TicketFindFirstOrThrowArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more API_Tokens that matches the filter.
+     * Find zero or more Tickets that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {API_TokenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {TicketFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all API_Tokens
-     * const aPI_Tokens = await prisma.aPI_Token.findMany()
+     * // Get all Tickets
+     * const tickets = await prisma.ticket.findMany()
      * 
-     * // Get first 10 API_Tokens
-     * const aPI_Tokens = await prisma.aPI_Token.findMany({ take: 10 })
+     * // Get first 10 Tickets
+     * const tickets = await prisma.ticket.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const aPI_TokenWithIdOnly = await prisma.aPI_Token.findMany({ select: { id: true } })
+     * const ticketWithIdOnly = await prisma.ticket.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends API_TokenFindManyArgs>(args?: SelectSubset<T, API_TokenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$API_TokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends TicketFindManyArgs>(args?: SelectSubset<T, TicketFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a API_Token.
-     * @param {API_TokenCreateArgs} args - Arguments to create a API_Token.
+     * Create a Ticket.
+     * @param {TicketCreateArgs} args - Arguments to create a Ticket.
      * @example
-     * // Create one API_Token
-     * const API_Token = await prisma.aPI_Token.create({
+     * // Create one Ticket
+     * const Ticket = await prisma.ticket.create({
      *   data: {
-     *     // ... data to create a API_Token
+     *     // ... data to create a Ticket
      *   }
      * })
      * 
      */
-    create<T extends API_TokenCreateArgs>(args: SelectSubset<T, API_TokenCreateArgs<ExtArgs>>): Prisma__API_TokenClient<$Result.GetResult<Prisma.$API_TokenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends TicketCreateArgs>(args: SelectSubset<T, TicketCreateArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many API_Tokens.
-     * @param {API_TokenCreateManyArgs} args - Arguments to create many API_Tokens.
+     * Create many Tickets.
+     * @param {TicketCreateManyArgs} args - Arguments to create many Tickets.
      * @example
-     * // Create many API_Tokens
-     * const aPI_Token = await prisma.aPI_Token.createMany({
+     * // Create many Tickets
+     * const ticket = await prisma.ticket.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends API_TokenCreateManyArgs>(args?: SelectSubset<T, API_TokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends TicketCreateManyArgs>(args?: SelectSubset<T, TicketCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Delete a API_Token.
-     * @param {API_TokenDeleteArgs} args - Arguments to delete one API_Token.
+     * Delete a Ticket.
+     * @param {TicketDeleteArgs} args - Arguments to delete one Ticket.
      * @example
-     * // Delete one API_Token
-     * const API_Token = await prisma.aPI_Token.delete({
+     * // Delete one Ticket
+     * const Ticket = await prisma.ticket.delete({
      *   where: {
-     *     // ... filter to delete one API_Token
+     *     // ... filter to delete one Ticket
      *   }
      * })
      * 
      */
-    delete<T extends API_TokenDeleteArgs>(args: SelectSubset<T, API_TokenDeleteArgs<ExtArgs>>): Prisma__API_TokenClient<$Result.GetResult<Prisma.$API_TokenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends TicketDeleteArgs>(args: SelectSubset<T, TicketDeleteArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one API_Token.
-     * @param {API_TokenUpdateArgs} args - Arguments to update one API_Token.
+     * Update one Ticket.
+     * @param {TicketUpdateArgs} args - Arguments to update one Ticket.
      * @example
-     * // Update one API_Token
-     * const aPI_Token = await prisma.aPI_Token.update({
+     * // Update one Ticket
+     * const ticket = await prisma.ticket.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3707,30 +11831,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends API_TokenUpdateArgs>(args: SelectSubset<T, API_TokenUpdateArgs<ExtArgs>>): Prisma__API_TokenClient<$Result.GetResult<Prisma.$API_TokenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends TicketUpdateArgs>(args: SelectSubset<T, TicketUpdateArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more API_Tokens.
-     * @param {API_TokenDeleteManyArgs} args - Arguments to filter API_Tokens to delete.
+     * Delete zero or more Tickets.
+     * @param {TicketDeleteManyArgs} args - Arguments to filter Tickets to delete.
      * @example
-     * // Delete a few API_Tokens
-     * const { count } = await prisma.aPI_Token.deleteMany({
+     * // Delete a few Tickets
+     * const { count } = await prisma.ticket.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends API_TokenDeleteManyArgs>(args?: SelectSubset<T, API_TokenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends TicketDeleteManyArgs>(args?: SelectSubset<T, TicketDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more API_Tokens.
+     * Update zero or more Tickets.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {API_TokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {TicketUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many API_Tokens
-     * const aPI_Token = await prisma.aPI_Token.updateMany({
+     * // Update many Tickets
+     * const ticket = await prisma.ticket.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3740,79 +11864,79 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends API_TokenUpdateManyArgs>(args: SelectSubset<T, API_TokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends TicketUpdateManyArgs>(args: SelectSubset<T, TicketUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one API_Token.
-     * @param {API_TokenUpsertArgs} args - Arguments to update or create a API_Token.
+     * Create or update one Ticket.
+     * @param {TicketUpsertArgs} args - Arguments to update or create a Ticket.
      * @example
-     * // Update or create a API_Token
-     * const aPI_Token = await prisma.aPI_Token.upsert({
+     * // Update or create a Ticket
+     * const ticket = await prisma.ticket.upsert({
      *   create: {
-     *     // ... data to create a API_Token
+     *     // ... data to create a Ticket
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the API_Token we want to update
+     *     // ... the filter for the Ticket we want to update
      *   }
      * })
      */
-    upsert<T extends API_TokenUpsertArgs>(args: SelectSubset<T, API_TokenUpsertArgs<ExtArgs>>): Prisma__API_TokenClient<$Result.GetResult<Prisma.$API_TokenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends TicketUpsertArgs>(args: SelectSubset<T, TicketUpsertArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more API_Tokens that matches the filter.
-     * @param {API_TokenFindRawArgs} args - Select which filters you would like to apply.
+     * Find zero or more Tickets that matches the filter.
+     * @param {TicketFindRawArgs} args - Select which filters you would like to apply.
      * @example
-     * const aPI_Token = await prisma.aPI_Token.findRaw({
+     * const ticket = await prisma.ticket.findRaw({
      *   filter: { age: { $gt: 25 } }
      * })
      */
-    findRaw(args?: API_TokenFindRawArgs): Prisma.PrismaPromise<JsonObject>
+    findRaw(args?: TicketFindRawArgs): Prisma.PrismaPromise<JsonObject>
 
     /**
-     * Perform aggregation operations on a API_Token.
-     * @param {API_TokenAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * Perform aggregation operations on a Ticket.
+     * @param {TicketAggregateRawArgs} args - Select which aggregations you would like to apply.
      * @example
-     * const aPI_Token = await prisma.aPI_Token.aggregateRaw({
+     * const ticket = await prisma.ticket.aggregateRaw({
      *   pipeline: [
      *     { $match: { status: "registered" } },
      *     { $group: { _id: "$country", total: { $sum: 1 } } }
      *   ]
      * })
      */
-    aggregateRaw(args?: API_TokenAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+    aggregateRaw(args?: TicketAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
-     * Count the number of API_Tokens.
+     * Count the number of Tickets.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {API_TokenCountArgs} args - Arguments to filter API_Tokens to count.
+     * @param {TicketCountArgs} args - Arguments to filter Tickets to count.
      * @example
-     * // Count the number of API_Tokens
-     * const count = await prisma.aPI_Token.count({
+     * // Count the number of Tickets
+     * const count = await prisma.ticket.count({
      *   where: {
-     *     // ... the filter for the API_Tokens we want to count
+     *     // ... the filter for the Tickets we want to count
      *   }
      * })
     **/
-    count<T extends API_TokenCountArgs>(
-      args?: Subset<T, API_TokenCountArgs>,
+    count<T extends TicketCountArgs>(
+      args?: Subset<T, TicketCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], API_TokenCountAggregateOutputType>
+          : GetScalarType<T['select'], TicketCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a API_Token.
+     * Allows you to perform aggregations operations on a Ticket.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {API_TokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {TicketAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -3832,13 +11956,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends API_TokenAggregateArgs>(args: Subset<T, API_TokenAggregateArgs>): Prisma.PrismaPromise<GetAPI_TokenAggregateType<T>>
+    aggregate<T extends TicketAggregateArgs>(args: Subset<T, TicketAggregateArgs>): Prisma.PrismaPromise<GetTicketAggregateType<T>>
 
     /**
-     * Group by API_Token.
+     * Group by Ticket.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {API_TokenGroupByArgs} args - Group by arguments.
+     * @param {TicketGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -3853,14 +11977,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends API_TokenGroupByArgs,
+      T extends TicketGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: API_TokenGroupByArgs['orderBy'] }
-        : { orderBy?: API_TokenGroupByArgs['orderBy'] },
+        ? { orderBy: TicketGroupByArgs['orderBy'] }
+        : { orderBy?: TicketGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -3909,23 +12033,24 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, API_TokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAPI_TokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, TicketGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTicketGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the API_Token model
+   * Fields of the Ticket model
    */
-  readonly fields: API_TokenFieldRefs;
+  readonly fields: TicketFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for API_Token.
+   * The delegate class that acts as a "Promise-like" for Ticket.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__API_TokenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__TicketClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    service_usages<T extends API_Token$service_usagesArgs<ExtArgs> = {}>(args?: Subset<T, API_Token$service_usagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Service_UsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    workspace<T extends API_Token$workspaceArgs<ExtArgs> = {}>(args?: Subset<T, API_Token$workspaceArgs<ExtArgs>>): Prisma__WorkspaceClient<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    ticket_types<T extends Ticket$ticket_typesArgs<ExtArgs> = {}>(args?: Subset<T, Ticket$ticket_typesArgs<ExtArgs>>): Prisma__Ticket_typeClient<$Result.GetResult<Prisma.$Ticket_typePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    screening_types<T extends Ticket$screening_typesArgs<ExtArgs> = {}>(args?: Subset<T, Ticket$screening_typesArgs<ExtArgs>>): Prisma__Screening_typeClient<$Result.GetResult<Prisma.$Screening_typePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    users<T extends Ticket$usersArgs<ExtArgs> = {}>(args?: Subset<T, Ticket$usersArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3952,361 +12077,358 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the API_Token model
+   * Fields of the Ticket model
    */
-  interface API_TokenFieldRefs {
-    readonly id: FieldRef<"API_Token", 'String'>
-    readonly name: FieldRef<"API_Token", 'String'>
-    readonly token: FieldRef<"API_Token", 'String'>
-    readonly workspace_id: FieldRef<"API_Token", 'String'>
-    readonly createdAt: FieldRef<"API_Token", 'DateTime'>
-    readonly creation_date: FieldRef<"API_Token", 'DateTime'>
-    readonly revocation_date: FieldRef<"API_Token", 'DateTime'>
+  interface TicketFieldRefs {
+    readonly id: FieldRef<"Ticket", 'String'>
+    readonly ticket_type_id: FieldRef<"Ticket", 'String'>
+    readonly user_id: FieldRef<"Ticket", 'String'>
+    readonly screening_id: FieldRef<"Ticket", 'String'>
   }
     
 
   // Custom InputTypes
   /**
-   * API_Token findUnique
+   * Ticket findUnique
    */
-  export type API_TokenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the API_Token
+     * Select specific fields to fetch from the Ticket
      */
-    select?: API_TokenSelect<ExtArgs> | null
+    select?: TicketSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the API_Token
+     * Omit specific fields from the Ticket
      */
-    omit?: API_TokenOmit<ExtArgs> | null
+    omit?: TicketOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: API_TokenInclude<ExtArgs> | null
+    include?: TicketInclude<ExtArgs> | null
     /**
-     * Filter, which API_Token to fetch.
+     * Filter, which Ticket to fetch.
      */
-    where: API_TokenWhereUniqueInput
+    where: TicketWhereUniqueInput
   }
 
   /**
-   * API_Token findUniqueOrThrow
+   * Ticket findUniqueOrThrow
    */
-  export type API_TokenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the API_Token
+     * Select specific fields to fetch from the Ticket
      */
-    select?: API_TokenSelect<ExtArgs> | null
+    select?: TicketSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the API_Token
+     * Omit specific fields from the Ticket
      */
-    omit?: API_TokenOmit<ExtArgs> | null
+    omit?: TicketOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: API_TokenInclude<ExtArgs> | null
+    include?: TicketInclude<ExtArgs> | null
     /**
-     * Filter, which API_Token to fetch.
+     * Filter, which Ticket to fetch.
      */
-    where: API_TokenWhereUniqueInput
+    where: TicketWhereUniqueInput
   }
 
   /**
-   * API_Token findFirst
+   * Ticket findFirst
    */
-  export type API_TokenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the API_Token
+     * Select specific fields to fetch from the Ticket
      */
-    select?: API_TokenSelect<ExtArgs> | null
+    select?: TicketSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the API_Token
+     * Omit specific fields from the Ticket
      */
-    omit?: API_TokenOmit<ExtArgs> | null
+    omit?: TicketOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: API_TokenInclude<ExtArgs> | null
+    include?: TicketInclude<ExtArgs> | null
     /**
-     * Filter, which API_Token to fetch.
+     * Filter, which Ticket to fetch.
      */
-    where?: API_TokenWhereInput
+    where?: TicketWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of API_Tokens to fetch.
+     * Determine the order of Tickets to fetch.
      */
-    orderBy?: API_TokenOrderByWithRelationInput | API_TokenOrderByWithRelationInput[]
+    orderBy?: TicketOrderByWithRelationInput | TicketOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for API_Tokens.
+     * Sets the position for searching for Tickets.
      */
-    cursor?: API_TokenWhereUniqueInput
+    cursor?: TicketWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` API_Tokens from the position of the cursor.
+     * Take `±n` Tickets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` API_Tokens.
+     * Skip the first `n` Tickets.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of API_Tokens.
+     * Filter by unique combinations of Tickets.
      */
-    distinct?: API_TokenScalarFieldEnum | API_TokenScalarFieldEnum[]
+    distinct?: TicketScalarFieldEnum | TicketScalarFieldEnum[]
   }
 
   /**
-   * API_Token findFirstOrThrow
+   * Ticket findFirstOrThrow
    */
-  export type API_TokenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the API_Token
+     * Select specific fields to fetch from the Ticket
      */
-    select?: API_TokenSelect<ExtArgs> | null
+    select?: TicketSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the API_Token
+     * Omit specific fields from the Ticket
      */
-    omit?: API_TokenOmit<ExtArgs> | null
+    omit?: TicketOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: API_TokenInclude<ExtArgs> | null
+    include?: TicketInclude<ExtArgs> | null
     /**
-     * Filter, which API_Token to fetch.
+     * Filter, which Ticket to fetch.
      */
-    where?: API_TokenWhereInput
+    where?: TicketWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of API_Tokens to fetch.
+     * Determine the order of Tickets to fetch.
      */
-    orderBy?: API_TokenOrderByWithRelationInput | API_TokenOrderByWithRelationInput[]
+    orderBy?: TicketOrderByWithRelationInput | TicketOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for API_Tokens.
+     * Sets the position for searching for Tickets.
      */
-    cursor?: API_TokenWhereUniqueInput
+    cursor?: TicketWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` API_Tokens from the position of the cursor.
+     * Take `±n` Tickets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` API_Tokens.
+     * Skip the first `n` Tickets.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of API_Tokens.
+     * Filter by unique combinations of Tickets.
      */
-    distinct?: API_TokenScalarFieldEnum | API_TokenScalarFieldEnum[]
+    distinct?: TicketScalarFieldEnum | TicketScalarFieldEnum[]
   }
 
   /**
-   * API_Token findMany
+   * Ticket findMany
    */
-  export type API_TokenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the API_Token
+     * Select specific fields to fetch from the Ticket
      */
-    select?: API_TokenSelect<ExtArgs> | null
+    select?: TicketSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the API_Token
+     * Omit specific fields from the Ticket
      */
-    omit?: API_TokenOmit<ExtArgs> | null
+    omit?: TicketOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: API_TokenInclude<ExtArgs> | null
+    include?: TicketInclude<ExtArgs> | null
     /**
-     * Filter, which API_Tokens to fetch.
+     * Filter, which Tickets to fetch.
      */
-    where?: API_TokenWhereInput
+    where?: TicketWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of API_Tokens to fetch.
+     * Determine the order of Tickets to fetch.
      */
-    orderBy?: API_TokenOrderByWithRelationInput | API_TokenOrderByWithRelationInput[]
+    orderBy?: TicketOrderByWithRelationInput | TicketOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing API_Tokens.
+     * Sets the position for listing Tickets.
      */
-    cursor?: API_TokenWhereUniqueInput
+    cursor?: TicketWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` API_Tokens from the position of the cursor.
+     * Take `±n` Tickets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` API_Tokens.
+     * Skip the first `n` Tickets.
      */
     skip?: number
-    distinct?: API_TokenScalarFieldEnum | API_TokenScalarFieldEnum[]
+    distinct?: TicketScalarFieldEnum | TicketScalarFieldEnum[]
   }
 
   /**
-   * API_Token create
+   * Ticket create
    */
-  export type API_TokenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the API_Token
+     * Select specific fields to fetch from the Ticket
      */
-    select?: API_TokenSelect<ExtArgs> | null
+    select?: TicketSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the API_Token
+     * Omit specific fields from the Ticket
      */
-    omit?: API_TokenOmit<ExtArgs> | null
+    omit?: TicketOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: API_TokenInclude<ExtArgs> | null
+    include?: TicketInclude<ExtArgs> | null
     /**
-     * The data needed to create a API_Token.
+     * The data needed to create a Ticket.
      */
-    data: XOR<API_TokenCreateInput, API_TokenUncheckedCreateInput>
+    data: XOR<TicketCreateInput, TicketUncheckedCreateInput>
   }
 
   /**
-   * API_Token createMany
+   * Ticket createMany
    */
-  export type API_TokenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many API_Tokens.
+     * The data used to create many Tickets.
      */
-    data: API_TokenCreateManyInput | API_TokenCreateManyInput[]
+    data: TicketCreateManyInput | TicketCreateManyInput[]
   }
 
   /**
-   * API_Token update
+   * Ticket update
    */
-  export type API_TokenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the API_Token
+     * Select specific fields to fetch from the Ticket
      */
-    select?: API_TokenSelect<ExtArgs> | null
+    select?: TicketSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the API_Token
+     * Omit specific fields from the Ticket
      */
-    omit?: API_TokenOmit<ExtArgs> | null
+    omit?: TicketOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: API_TokenInclude<ExtArgs> | null
+    include?: TicketInclude<ExtArgs> | null
     /**
-     * The data needed to update a API_Token.
+     * The data needed to update a Ticket.
      */
-    data: XOR<API_TokenUpdateInput, API_TokenUncheckedUpdateInput>
+    data: XOR<TicketUpdateInput, TicketUncheckedUpdateInput>
     /**
-     * Choose, which API_Token to update.
+     * Choose, which Ticket to update.
      */
-    where: API_TokenWhereUniqueInput
+    where: TicketWhereUniqueInput
   }
 
   /**
-   * API_Token updateMany
+   * Ticket updateMany
    */
-  export type API_TokenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update API_Tokens.
+     * The data used to update Tickets.
      */
-    data: XOR<API_TokenUpdateManyMutationInput, API_TokenUncheckedUpdateManyInput>
+    data: XOR<TicketUpdateManyMutationInput, TicketUncheckedUpdateManyInput>
     /**
-     * Filter which API_Tokens to update
+     * Filter which Tickets to update
      */
-    where?: API_TokenWhereInput
+    where?: TicketWhereInput
     /**
-     * Limit how many API_Tokens to update.
+     * Limit how many Tickets to update.
      */
     limit?: number
   }
 
   /**
-   * API_Token upsert
+   * Ticket upsert
    */
-  export type API_TokenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the API_Token
+     * Select specific fields to fetch from the Ticket
      */
-    select?: API_TokenSelect<ExtArgs> | null
+    select?: TicketSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the API_Token
+     * Omit specific fields from the Ticket
      */
-    omit?: API_TokenOmit<ExtArgs> | null
+    omit?: TicketOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: API_TokenInclude<ExtArgs> | null
+    include?: TicketInclude<ExtArgs> | null
     /**
-     * The filter to search for the API_Token to update in case it exists.
+     * The filter to search for the Ticket to update in case it exists.
      */
-    where: API_TokenWhereUniqueInput
+    where: TicketWhereUniqueInput
     /**
-     * In case the API_Token found by the `where` argument doesn't exist, create a new API_Token with this data.
+     * In case the Ticket found by the `where` argument doesn't exist, create a new Ticket with this data.
      */
-    create: XOR<API_TokenCreateInput, API_TokenUncheckedCreateInput>
+    create: XOR<TicketCreateInput, TicketUncheckedCreateInput>
     /**
-     * In case the API_Token was found with the provided `where` argument, update it with this data.
+     * In case the Ticket was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<API_TokenUpdateInput, API_TokenUncheckedUpdateInput>
+    update: XOR<TicketUpdateInput, TicketUncheckedUpdateInput>
   }
 
   /**
-   * API_Token delete
+   * Ticket delete
    */
-  export type API_TokenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the API_Token
+     * Select specific fields to fetch from the Ticket
      */
-    select?: API_TokenSelect<ExtArgs> | null
+    select?: TicketSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the API_Token
+     * Omit specific fields from the Ticket
      */
-    omit?: API_TokenOmit<ExtArgs> | null
+    omit?: TicketOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: API_TokenInclude<ExtArgs> | null
+    include?: TicketInclude<ExtArgs> | null
     /**
-     * Filter which API_Token to delete.
+     * Filter which Ticket to delete.
      */
-    where: API_TokenWhereUniqueInput
+    where: TicketWhereUniqueInput
   }
 
   /**
-   * API_Token deleteMany
+   * Ticket deleteMany
    */
-  export type API_TokenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which API_Tokens to delete
+     * Filter which Tickets to delete
      */
-    where?: API_TokenWhereInput
+    where?: TicketWhereInput
     /**
-     * Limit how many API_Tokens to delete.
+     * Limit how many Tickets to delete.
      */
     limit?: number
   }
 
   /**
-   * API_Token findRaw
+   * Ticket findRaw
    */
-  export type API_TokenFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
      */
@@ -4318,9 +12440,9 @@ export namespace Prisma {
   }
 
   /**
-   * API_Token aggregateRaw
+   * Ticket aggregateRaw
    */
-  export type API_TokenAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
      */
@@ -4332,434 +12454,427 @@ export namespace Prisma {
   }
 
   /**
-   * API_Token.service_usages
+   * Ticket.ticket_types
    */
-  export type API_Token$service_usagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket$ticket_typesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service_Usage
+     * Select specific fields to fetch from the Ticket_type
      */
-    select?: Service_UsageSelect<ExtArgs> | null
+    select?: Ticket_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service_Usage
+     * Omit specific fields from the Ticket_type
      */
-    omit?: Service_UsageOmit<ExtArgs> | null
+    omit?: Ticket_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: Service_UsageInclude<ExtArgs> | null
-    where?: Service_UsageWhereInput
-    orderBy?: Service_UsageOrderByWithRelationInput | Service_UsageOrderByWithRelationInput[]
-    cursor?: Service_UsageWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Service_UsageScalarFieldEnum | Service_UsageScalarFieldEnum[]
+    include?: Ticket_typeInclude<ExtArgs> | null
+    where?: Ticket_typeWhereInput
   }
 
   /**
-   * API_Token.workspace
+   * Ticket.screening_types
    */
-  export type API_Token$workspaceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket$screening_typesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Workspace
+     * Select specific fields to fetch from the Screening_type
      */
-    select?: WorkspaceSelect<ExtArgs> | null
+    select?: Screening_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Workspace
+     * Omit specific fields from the Screening_type
      */
-    omit?: WorkspaceOmit<ExtArgs> | null
+    omit?: Screening_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: WorkspaceInclude<ExtArgs> | null
-    where?: WorkspaceWhereInput
+    include?: Screening_typeInclude<ExtArgs> | null
+    where?: Screening_typeWhereInput
   }
 
   /**
-   * API_Token without action
+   * Ticket.users
    */
-  export type API_TokenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the API_Token
+     * Select specific fields to fetch from the User
      */
-    select?: API_TokenSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the API_Token
+     * Omit specific fields from the User
      */
-    omit?: API_TokenOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: API_TokenInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Ticket without action
+   */
+  export type TicketDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketInclude<ExtArgs> | null
   }
 
 
   /**
-   * Model Service_Usage
+   * Model Ticket_type
    */
 
-  export type AggregateService_Usage = {
-    _count: Service_UsageCountAggregateOutputType | null
-    _avg: Service_UsageAvgAggregateOutputType | null
-    _sum: Service_UsageSumAggregateOutputType | null
-    _min: Service_UsageMinAggregateOutputType | null
-    _max: Service_UsageMaxAggregateOutputType | null
+  export type AggregateTicket_type = {
+    _count: Ticket_typeCountAggregateOutputType | null
+    _avg: Ticket_typeAvgAggregateOutputType | null
+    _sum: Ticket_typeSumAggregateOutputType | null
+    _min: Ticket_typeMinAggregateOutputType | null
+    _max: Ticket_typeMaxAggregateOutputType | null
   }
 
-  export type Service_UsageAvgAggregateOutputType = {
-    usage_duration_ms: number | null
+  export type Ticket_typeAvgAggregateOutputType = {
+    percent: number | null
   }
 
-  export type Service_UsageSumAggregateOutputType = {
-    usage_duration_ms: number | null
+  export type Ticket_typeSumAggregateOutputType = {
+    percent: number | null
   }
 
-  export type Service_UsageMinAggregateOutputType = {
+  export type Ticket_typeMinAggregateOutputType = {
     id: string | null
-    service_id: string | null
-    api_token_id: string | null
-    usage_duration_ms: number | null
-    usage_started: Date | null
+    type: string | null
+    percent: number | null
   }
 
-  export type Service_UsageMaxAggregateOutputType = {
+  export type Ticket_typeMaxAggregateOutputType = {
     id: string | null
-    service_id: string | null
-    api_token_id: string | null
-    usage_duration_ms: number | null
-    usage_started: Date | null
+    type: string | null
+    percent: number | null
   }
 
-  export type Service_UsageCountAggregateOutputType = {
+  export type Ticket_typeCountAggregateOutputType = {
     id: number
-    service_id: number
-    api_token_id: number
-    usage_duration_ms: number
-    usage_started: number
+    type: number
+    percent: number
     _all: number
   }
 
 
-  export type Service_UsageAvgAggregateInputType = {
-    usage_duration_ms?: true
+  export type Ticket_typeAvgAggregateInputType = {
+    percent?: true
   }
 
-  export type Service_UsageSumAggregateInputType = {
-    usage_duration_ms?: true
+  export type Ticket_typeSumAggregateInputType = {
+    percent?: true
   }
 
-  export type Service_UsageMinAggregateInputType = {
+  export type Ticket_typeMinAggregateInputType = {
     id?: true
-    service_id?: true
-    api_token_id?: true
-    usage_duration_ms?: true
-    usage_started?: true
+    type?: true
+    percent?: true
   }
 
-  export type Service_UsageMaxAggregateInputType = {
+  export type Ticket_typeMaxAggregateInputType = {
     id?: true
-    service_id?: true
-    api_token_id?: true
-    usage_duration_ms?: true
-    usage_started?: true
+    type?: true
+    percent?: true
   }
 
-  export type Service_UsageCountAggregateInputType = {
+  export type Ticket_typeCountAggregateInputType = {
     id?: true
-    service_id?: true
-    api_token_id?: true
-    usage_duration_ms?: true
-    usage_started?: true
+    type?: true
+    percent?: true
     _all?: true
   }
 
-  export type Service_UsageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket_typeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Service_Usage to aggregate.
+     * Filter which Ticket_type to aggregate.
      */
-    where?: Service_UsageWhereInput
+    where?: Ticket_typeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Service_Usages to fetch.
+     * Determine the order of Ticket_types to fetch.
      */
-    orderBy?: Service_UsageOrderByWithRelationInput | Service_UsageOrderByWithRelationInput[]
+    orderBy?: Ticket_typeOrderByWithRelationInput | Ticket_typeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: Service_UsageWhereUniqueInput
+    cursor?: Ticket_typeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Service_Usages from the position of the cursor.
+     * Take `±n` Ticket_types from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Service_Usages.
+     * Skip the first `n` Ticket_types.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Service_Usages
+     * Count returned Ticket_types
     **/
-    _count?: true | Service_UsageCountAggregateInputType
+    _count?: true | Ticket_typeCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: Service_UsageAvgAggregateInputType
+    _avg?: Ticket_typeAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: Service_UsageSumAggregateInputType
+    _sum?: Ticket_typeSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: Service_UsageMinAggregateInputType
+    _min?: Ticket_typeMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: Service_UsageMaxAggregateInputType
+    _max?: Ticket_typeMaxAggregateInputType
   }
 
-  export type GetService_UsageAggregateType<T extends Service_UsageAggregateArgs> = {
-        [P in keyof T & keyof AggregateService_Usage]: P extends '_count' | 'count'
+  export type GetTicket_typeAggregateType<T extends Ticket_typeAggregateArgs> = {
+        [P in keyof T & keyof AggregateTicket_type]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateService_Usage[P]>
-      : GetScalarType<T[P], AggregateService_Usage[P]>
+        : GetScalarType<T[P], AggregateTicket_type[P]>
+      : GetScalarType<T[P], AggregateTicket_type[P]>
   }
 
 
 
 
-  export type Service_UsageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: Service_UsageWhereInput
-    orderBy?: Service_UsageOrderByWithAggregationInput | Service_UsageOrderByWithAggregationInput[]
-    by: Service_UsageScalarFieldEnum[] | Service_UsageScalarFieldEnum
-    having?: Service_UsageScalarWhereWithAggregatesInput
+  export type Ticket_typeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Ticket_typeWhereInput
+    orderBy?: Ticket_typeOrderByWithAggregationInput | Ticket_typeOrderByWithAggregationInput[]
+    by: Ticket_typeScalarFieldEnum[] | Ticket_typeScalarFieldEnum
+    having?: Ticket_typeScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: Service_UsageCountAggregateInputType | true
-    _avg?: Service_UsageAvgAggregateInputType
-    _sum?: Service_UsageSumAggregateInputType
-    _min?: Service_UsageMinAggregateInputType
-    _max?: Service_UsageMaxAggregateInputType
+    _count?: Ticket_typeCountAggregateInputType | true
+    _avg?: Ticket_typeAvgAggregateInputType
+    _sum?: Ticket_typeSumAggregateInputType
+    _min?: Ticket_typeMinAggregateInputType
+    _max?: Ticket_typeMaxAggregateInputType
   }
 
-  export type Service_UsageGroupByOutputType = {
+  export type Ticket_typeGroupByOutputType = {
     id: string
-    service_id: string | null
-    api_token_id: string
-    usage_duration_ms: number
-    usage_started: Date
-    _count: Service_UsageCountAggregateOutputType | null
-    _avg: Service_UsageAvgAggregateOutputType | null
-    _sum: Service_UsageSumAggregateOutputType | null
-    _min: Service_UsageMinAggregateOutputType | null
-    _max: Service_UsageMaxAggregateOutputType | null
+    type: string
+    percent: number
+    _count: Ticket_typeCountAggregateOutputType | null
+    _avg: Ticket_typeAvgAggregateOutputType | null
+    _sum: Ticket_typeSumAggregateOutputType | null
+    _min: Ticket_typeMinAggregateOutputType | null
+    _max: Ticket_typeMaxAggregateOutputType | null
   }
 
-  type GetService_UsageGroupByPayload<T extends Service_UsageGroupByArgs> = Prisma.PrismaPromise<
+  type GetTicket_typeGroupByPayload<T extends Ticket_typeGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<Service_UsageGroupByOutputType, T['by']> &
+      PickEnumerable<Ticket_typeGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof Service_UsageGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof Ticket_typeGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], Service_UsageGroupByOutputType[P]>
-            : GetScalarType<T[P], Service_UsageGroupByOutputType[P]>
+              : GetScalarType<T[P], Ticket_typeGroupByOutputType[P]>
+            : GetScalarType<T[P], Ticket_typeGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type Service_UsageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type Ticket_typeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    service_id?: boolean
-    api_token_id?: boolean
-    usage_duration_ms?: boolean
-    usage_started?: boolean
-    service?: boolean | Service_Usage$serviceArgs<ExtArgs>
-    api_token?: boolean | Service_Usage$api_tokenArgs<ExtArgs>
-  }, ExtArgs["result"]["service_Usage"]>
+    type?: boolean
+    percent?: boolean
+    tickets?: boolean | Ticket_type$ticketsArgs<ExtArgs>
+    _count?: boolean | Ticket_typeCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ticket_type"]>
 
 
 
-  export type Service_UsageSelectScalar = {
+  export type Ticket_typeSelectScalar = {
     id?: boolean
-    service_id?: boolean
-    api_token_id?: boolean
-    usage_duration_ms?: boolean
-    usage_started?: boolean
+    type?: boolean
+    percent?: boolean
   }
 
-  export type Service_UsageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "service_id" | "api_token_id" | "usage_duration_ms" | "usage_started", ExtArgs["result"]["service_Usage"]>
-  export type Service_UsageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    service?: boolean | Service_Usage$serviceArgs<ExtArgs>
-    api_token?: boolean | Service_Usage$api_tokenArgs<ExtArgs>
+  export type Ticket_typeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "percent", ExtArgs["result"]["ticket_type"]>
+  export type Ticket_typeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tickets?: boolean | Ticket_type$ticketsArgs<ExtArgs>
+    _count?: boolean | Ticket_typeCountOutputTypeDefaultArgs<ExtArgs>
   }
 
-  export type $Service_UsagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Service_Usage"
+  export type $Ticket_typePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Ticket_type"
     objects: {
-      service: Prisma.$ServicePayload<ExtArgs> | null
-      api_token: Prisma.$API_TokenPayload<ExtArgs> | null
+      tickets: Prisma.$TicketPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      service_id: string | null
-      api_token_id: string
-      usage_duration_ms: number
-      usage_started: Date
-    }, ExtArgs["result"]["service_Usage"]>
+      type: string
+      percent: number
+    }, ExtArgs["result"]["ticket_type"]>
     composites: {}
   }
 
-  type Service_UsageGetPayload<S extends boolean | null | undefined | Service_UsageDefaultArgs> = $Result.GetResult<Prisma.$Service_UsagePayload, S>
+  type Ticket_typeGetPayload<S extends boolean | null | undefined | Ticket_typeDefaultArgs> = $Result.GetResult<Prisma.$Ticket_typePayload, S>
 
-  type Service_UsageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<Service_UsageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: Service_UsageCountAggregateInputType | true
+  type Ticket_typeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<Ticket_typeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Ticket_typeCountAggregateInputType | true
     }
 
-  export interface Service_UsageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Service_Usage'], meta: { name: 'Service_Usage' } }
+  export interface Ticket_typeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Ticket_type'], meta: { name: 'Ticket_type' } }
     /**
-     * Find zero or one Service_Usage that matches the filter.
-     * @param {Service_UsageFindUniqueArgs} args - Arguments to find a Service_Usage
+     * Find zero or one Ticket_type that matches the filter.
+     * @param {Ticket_typeFindUniqueArgs} args - Arguments to find a Ticket_type
      * @example
-     * // Get one Service_Usage
-     * const service_Usage = await prisma.service_Usage.findUnique({
+     * // Get one Ticket_type
+     * const ticket_type = await prisma.ticket_type.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends Service_UsageFindUniqueArgs>(args: SelectSubset<T, Service_UsageFindUniqueArgs<ExtArgs>>): Prisma__Service_UsageClient<$Result.GetResult<Prisma.$Service_UsagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends Ticket_typeFindUniqueArgs>(args: SelectSubset<T, Ticket_typeFindUniqueArgs<ExtArgs>>): Prisma__Ticket_typeClient<$Result.GetResult<Prisma.$Ticket_typePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Service_Usage that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Ticket_type that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {Service_UsageFindUniqueOrThrowArgs} args - Arguments to find a Service_Usage
+     * @param {Ticket_typeFindUniqueOrThrowArgs} args - Arguments to find a Ticket_type
      * @example
-     * // Get one Service_Usage
-     * const service_Usage = await prisma.service_Usage.findUniqueOrThrow({
+     * // Get one Ticket_type
+     * const ticket_type = await prisma.ticket_type.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends Service_UsageFindUniqueOrThrowArgs>(args: SelectSubset<T, Service_UsageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__Service_UsageClient<$Result.GetResult<Prisma.$Service_UsagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends Ticket_typeFindUniqueOrThrowArgs>(args: SelectSubset<T, Ticket_typeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__Ticket_typeClient<$Result.GetResult<Prisma.$Ticket_typePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Service_Usage that matches the filter.
+     * Find the first Ticket_type that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {Service_UsageFindFirstArgs} args - Arguments to find a Service_Usage
+     * @param {Ticket_typeFindFirstArgs} args - Arguments to find a Ticket_type
      * @example
-     * // Get one Service_Usage
-     * const service_Usage = await prisma.service_Usage.findFirst({
+     * // Get one Ticket_type
+     * const ticket_type = await prisma.ticket_type.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends Service_UsageFindFirstArgs>(args?: SelectSubset<T, Service_UsageFindFirstArgs<ExtArgs>>): Prisma__Service_UsageClient<$Result.GetResult<Prisma.$Service_UsagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends Ticket_typeFindFirstArgs>(args?: SelectSubset<T, Ticket_typeFindFirstArgs<ExtArgs>>): Prisma__Ticket_typeClient<$Result.GetResult<Prisma.$Ticket_typePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Service_Usage that matches the filter or
+     * Find the first Ticket_type that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {Service_UsageFindFirstOrThrowArgs} args - Arguments to find a Service_Usage
+     * @param {Ticket_typeFindFirstOrThrowArgs} args - Arguments to find a Ticket_type
      * @example
-     * // Get one Service_Usage
-     * const service_Usage = await prisma.service_Usage.findFirstOrThrow({
+     * // Get one Ticket_type
+     * const ticket_type = await prisma.ticket_type.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends Service_UsageFindFirstOrThrowArgs>(args?: SelectSubset<T, Service_UsageFindFirstOrThrowArgs<ExtArgs>>): Prisma__Service_UsageClient<$Result.GetResult<Prisma.$Service_UsagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends Ticket_typeFindFirstOrThrowArgs>(args?: SelectSubset<T, Ticket_typeFindFirstOrThrowArgs<ExtArgs>>): Prisma__Ticket_typeClient<$Result.GetResult<Prisma.$Ticket_typePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Service_Usages that matches the filter.
+     * Find zero or more Ticket_types that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {Service_UsageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {Ticket_typeFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Service_Usages
-     * const service_Usages = await prisma.service_Usage.findMany()
+     * // Get all Ticket_types
+     * const ticket_types = await prisma.ticket_type.findMany()
      * 
-     * // Get first 10 Service_Usages
-     * const service_Usages = await prisma.service_Usage.findMany({ take: 10 })
+     * // Get first 10 Ticket_types
+     * const ticket_types = await prisma.ticket_type.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const service_UsageWithIdOnly = await prisma.service_Usage.findMany({ select: { id: true } })
+     * const ticket_typeWithIdOnly = await prisma.ticket_type.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends Service_UsageFindManyArgs>(args?: SelectSubset<T, Service_UsageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Service_UsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends Ticket_typeFindManyArgs>(args?: SelectSubset<T, Ticket_typeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Ticket_typePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Service_Usage.
-     * @param {Service_UsageCreateArgs} args - Arguments to create a Service_Usage.
+     * Create a Ticket_type.
+     * @param {Ticket_typeCreateArgs} args - Arguments to create a Ticket_type.
      * @example
-     * // Create one Service_Usage
-     * const Service_Usage = await prisma.service_Usage.create({
+     * // Create one Ticket_type
+     * const Ticket_type = await prisma.ticket_type.create({
      *   data: {
-     *     // ... data to create a Service_Usage
+     *     // ... data to create a Ticket_type
      *   }
      * })
      * 
      */
-    create<T extends Service_UsageCreateArgs>(args: SelectSubset<T, Service_UsageCreateArgs<ExtArgs>>): Prisma__Service_UsageClient<$Result.GetResult<Prisma.$Service_UsagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends Ticket_typeCreateArgs>(args: SelectSubset<T, Ticket_typeCreateArgs<ExtArgs>>): Prisma__Ticket_typeClient<$Result.GetResult<Prisma.$Ticket_typePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Service_Usages.
-     * @param {Service_UsageCreateManyArgs} args - Arguments to create many Service_Usages.
+     * Create many Ticket_types.
+     * @param {Ticket_typeCreateManyArgs} args - Arguments to create many Ticket_types.
      * @example
-     * // Create many Service_Usages
-     * const service_Usage = await prisma.service_Usage.createMany({
+     * // Create many Ticket_types
+     * const ticket_type = await prisma.ticket_type.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends Service_UsageCreateManyArgs>(args?: SelectSubset<T, Service_UsageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends Ticket_typeCreateManyArgs>(args?: SelectSubset<T, Ticket_typeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Delete a Service_Usage.
-     * @param {Service_UsageDeleteArgs} args - Arguments to delete one Service_Usage.
+     * Delete a Ticket_type.
+     * @param {Ticket_typeDeleteArgs} args - Arguments to delete one Ticket_type.
      * @example
-     * // Delete one Service_Usage
-     * const Service_Usage = await prisma.service_Usage.delete({
+     * // Delete one Ticket_type
+     * const Ticket_type = await prisma.ticket_type.delete({
      *   where: {
-     *     // ... filter to delete one Service_Usage
+     *     // ... filter to delete one Ticket_type
      *   }
      * })
      * 
      */
-    delete<T extends Service_UsageDeleteArgs>(args: SelectSubset<T, Service_UsageDeleteArgs<ExtArgs>>): Prisma__Service_UsageClient<$Result.GetResult<Prisma.$Service_UsagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends Ticket_typeDeleteArgs>(args: SelectSubset<T, Ticket_typeDeleteArgs<ExtArgs>>): Prisma__Ticket_typeClient<$Result.GetResult<Prisma.$Ticket_typePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Service_Usage.
-     * @param {Service_UsageUpdateArgs} args - Arguments to update one Service_Usage.
+     * Update one Ticket_type.
+     * @param {Ticket_typeUpdateArgs} args - Arguments to update one Ticket_type.
      * @example
-     * // Update one Service_Usage
-     * const service_Usage = await prisma.service_Usage.update({
+     * // Update one Ticket_type
+     * const ticket_type = await prisma.ticket_type.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -4769,30 +12884,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends Service_UsageUpdateArgs>(args: SelectSubset<T, Service_UsageUpdateArgs<ExtArgs>>): Prisma__Service_UsageClient<$Result.GetResult<Prisma.$Service_UsagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends Ticket_typeUpdateArgs>(args: SelectSubset<T, Ticket_typeUpdateArgs<ExtArgs>>): Prisma__Ticket_typeClient<$Result.GetResult<Prisma.$Ticket_typePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Service_Usages.
-     * @param {Service_UsageDeleteManyArgs} args - Arguments to filter Service_Usages to delete.
+     * Delete zero or more Ticket_types.
+     * @param {Ticket_typeDeleteManyArgs} args - Arguments to filter Ticket_types to delete.
      * @example
-     * // Delete a few Service_Usages
-     * const { count } = await prisma.service_Usage.deleteMany({
+     * // Delete a few Ticket_types
+     * const { count } = await prisma.ticket_type.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends Service_UsageDeleteManyArgs>(args?: SelectSubset<T, Service_UsageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends Ticket_typeDeleteManyArgs>(args?: SelectSubset<T, Ticket_typeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Service_Usages.
+     * Update zero or more Ticket_types.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {Service_UsageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {Ticket_typeUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Service_Usages
-     * const service_Usage = await prisma.service_Usage.updateMany({
+     * // Update many Ticket_types
+     * const ticket_type = await prisma.ticket_type.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -4802,79 +12917,79 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends Service_UsageUpdateManyArgs>(args: SelectSubset<T, Service_UsageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends Ticket_typeUpdateManyArgs>(args: SelectSubset<T, Ticket_typeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one Service_Usage.
-     * @param {Service_UsageUpsertArgs} args - Arguments to update or create a Service_Usage.
+     * Create or update one Ticket_type.
+     * @param {Ticket_typeUpsertArgs} args - Arguments to update or create a Ticket_type.
      * @example
-     * // Update or create a Service_Usage
-     * const service_Usage = await prisma.service_Usage.upsert({
+     * // Update or create a Ticket_type
+     * const ticket_type = await prisma.ticket_type.upsert({
      *   create: {
-     *     // ... data to create a Service_Usage
+     *     // ... data to create a Ticket_type
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Service_Usage we want to update
+     *     // ... the filter for the Ticket_type we want to update
      *   }
      * })
      */
-    upsert<T extends Service_UsageUpsertArgs>(args: SelectSubset<T, Service_UsageUpsertArgs<ExtArgs>>): Prisma__Service_UsageClient<$Result.GetResult<Prisma.$Service_UsagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends Ticket_typeUpsertArgs>(args: SelectSubset<T, Ticket_typeUpsertArgs<ExtArgs>>): Prisma__Ticket_typeClient<$Result.GetResult<Prisma.$Ticket_typePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Service_Usages that matches the filter.
-     * @param {Service_UsageFindRawArgs} args - Select which filters you would like to apply.
+     * Find zero or more Ticket_types that matches the filter.
+     * @param {Ticket_typeFindRawArgs} args - Select which filters you would like to apply.
      * @example
-     * const service_Usage = await prisma.service_Usage.findRaw({
+     * const ticket_type = await prisma.ticket_type.findRaw({
      *   filter: { age: { $gt: 25 } }
      * })
      */
-    findRaw(args?: Service_UsageFindRawArgs): Prisma.PrismaPromise<JsonObject>
+    findRaw(args?: Ticket_typeFindRawArgs): Prisma.PrismaPromise<JsonObject>
 
     /**
-     * Perform aggregation operations on a Service_Usage.
-     * @param {Service_UsageAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * Perform aggregation operations on a Ticket_type.
+     * @param {Ticket_typeAggregateRawArgs} args - Select which aggregations you would like to apply.
      * @example
-     * const service_Usage = await prisma.service_Usage.aggregateRaw({
+     * const ticket_type = await prisma.ticket_type.aggregateRaw({
      *   pipeline: [
      *     { $match: { status: "registered" } },
      *     { $group: { _id: "$country", total: { $sum: 1 } } }
      *   ]
      * })
      */
-    aggregateRaw(args?: Service_UsageAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+    aggregateRaw(args?: Ticket_typeAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
-     * Count the number of Service_Usages.
+     * Count the number of Ticket_types.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {Service_UsageCountArgs} args - Arguments to filter Service_Usages to count.
+     * @param {Ticket_typeCountArgs} args - Arguments to filter Ticket_types to count.
      * @example
-     * // Count the number of Service_Usages
-     * const count = await prisma.service_Usage.count({
+     * // Count the number of Ticket_types
+     * const count = await prisma.ticket_type.count({
      *   where: {
-     *     // ... the filter for the Service_Usages we want to count
+     *     // ... the filter for the Ticket_types we want to count
      *   }
      * })
     **/
-    count<T extends Service_UsageCountArgs>(
-      args?: Subset<T, Service_UsageCountArgs>,
+    count<T extends Ticket_typeCountArgs>(
+      args?: Subset<T, Ticket_typeCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], Service_UsageCountAggregateOutputType>
+          : GetScalarType<T['select'], Ticket_typeCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Service_Usage.
+     * Allows you to perform aggregations operations on a Ticket_type.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {Service_UsageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {Ticket_typeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -4894,13 +13009,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends Service_UsageAggregateArgs>(args: Subset<T, Service_UsageAggregateArgs>): Prisma.PrismaPromise<GetService_UsageAggregateType<T>>
+    aggregate<T extends Ticket_typeAggregateArgs>(args: Subset<T, Ticket_typeAggregateArgs>): Prisma.PrismaPromise<GetTicket_typeAggregateType<T>>
 
     /**
-     * Group by Service_Usage.
+     * Group by Ticket_type.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {Service_UsageGroupByArgs} args - Group by arguments.
+     * @param {Ticket_typeGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -4915,14 +13030,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends Service_UsageGroupByArgs,
+      T extends Ticket_typeGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: Service_UsageGroupByArgs['orderBy'] }
-        : { orderBy?: Service_UsageGroupByArgs['orderBy'] },
+        ? { orderBy: Ticket_typeGroupByArgs['orderBy'] }
+        : { orderBy?: Ticket_typeGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -4971,23 +13086,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, Service_UsageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetService_UsageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, Ticket_typeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTicket_typeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Service_Usage model
+   * Fields of the Ticket_type model
    */
-  readonly fields: Service_UsageFieldRefs;
+  readonly fields: Ticket_typeFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Service_Usage.
+   * The delegate class that acts as a "Promise-like" for Ticket_type.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__Service_UsageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__Ticket_typeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    service<T extends Service_Usage$serviceArgs<ExtArgs> = {}>(args?: Subset<T, Service_Usage$serviceArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    api_token<T extends Service_Usage$api_tokenArgs<ExtArgs> = {}>(args?: Subset<T, Service_Usage$api_tokenArgs<ExtArgs>>): Prisma__API_TokenClient<$Result.GetResult<Prisma.$API_TokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    tickets<T extends Ticket_type$ticketsArgs<ExtArgs> = {}>(args?: Subset<T, Ticket_type$ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5014,359 +13128,357 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Service_Usage model
+   * Fields of the Ticket_type model
    */
-  interface Service_UsageFieldRefs {
-    readonly id: FieldRef<"Service_Usage", 'String'>
-    readonly service_id: FieldRef<"Service_Usage", 'String'>
-    readonly api_token_id: FieldRef<"Service_Usage", 'String'>
-    readonly usage_duration_ms: FieldRef<"Service_Usage", 'Float'>
-    readonly usage_started: FieldRef<"Service_Usage", 'DateTime'>
+  interface Ticket_typeFieldRefs {
+    readonly id: FieldRef<"Ticket_type", 'String'>
+    readonly type: FieldRef<"Ticket_type", 'String'>
+    readonly percent: FieldRef<"Ticket_type", 'Int'>
   }
     
 
   // Custom InputTypes
   /**
-   * Service_Usage findUnique
+   * Ticket_type findUnique
    */
-  export type Service_UsageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket_typeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service_Usage
+     * Select specific fields to fetch from the Ticket_type
      */
-    select?: Service_UsageSelect<ExtArgs> | null
+    select?: Ticket_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service_Usage
+     * Omit specific fields from the Ticket_type
      */
-    omit?: Service_UsageOmit<ExtArgs> | null
+    omit?: Ticket_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: Service_UsageInclude<ExtArgs> | null
+    include?: Ticket_typeInclude<ExtArgs> | null
     /**
-     * Filter, which Service_Usage to fetch.
+     * Filter, which Ticket_type to fetch.
      */
-    where: Service_UsageWhereUniqueInput
+    where: Ticket_typeWhereUniqueInput
   }
 
   /**
-   * Service_Usage findUniqueOrThrow
+   * Ticket_type findUniqueOrThrow
    */
-  export type Service_UsageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket_typeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service_Usage
+     * Select specific fields to fetch from the Ticket_type
      */
-    select?: Service_UsageSelect<ExtArgs> | null
+    select?: Ticket_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service_Usage
+     * Omit specific fields from the Ticket_type
      */
-    omit?: Service_UsageOmit<ExtArgs> | null
+    omit?: Ticket_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: Service_UsageInclude<ExtArgs> | null
+    include?: Ticket_typeInclude<ExtArgs> | null
     /**
-     * Filter, which Service_Usage to fetch.
+     * Filter, which Ticket_type to fetch.
      */
-    where: Service_UsageWhereUniqueInput
+    where: Ticket_typeWhereUniqueInput
   }
 
   /**
-   * Service_Usage findFirst
+   * Ticket_type findFirst
    */
-  export type Service_UsageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket_typeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service_Usage
+     * Select specific fields to fetch from the Ticket_type
      */
-    select?: Service_UsageSelect<ExtArgs> | null
+    select?: Ticket_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service_Usage
+     * Omit specific fields from the Ticket_type
      */
-    omit?: Service_UsageOmit<ExtArgs> | null
+    omit?: Ticket_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: Service_UsageInclude<ExtArgs> | null
+    include?: Ticket_typeInclude<ExtArgs> | null
     /**
-     * Filter, which Service_Usage to fetch.
+     * Filter, which Ticket_type to fetch.
      */
-    where?: Service_UsageWhereInput
+    where?: Ticket_typeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Service_Usages to fetch.
+     * Determine the order of Ticket_types to fetch.
      */
-    orderBy?: Service_UsageOrderByWithRelationInput | Service_UsageOrderByWithRelationInput[]
+    orderBy?: Ticket_typeOrderByWithRelationInput | Ticket_typeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Service_Usages.
+     * Sets the position for searching for Ticket_types.
      */
-    cursor?: Service_UsageWhereUniqueInput
+    cursor?: Ticket_typeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Service_Usages from the position of the cursor.
+     * Take `±n` Ticket_types from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Service_Usages.
+     * Skip the first `n` Ticket_types.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Service_Usages.
+     * Filter by unique combinations of Ticket_types.
      */
-    distinct?: Service_UsageScalarFieldEnum | Service_UsageScalarFieldEnum[]
+    distinct?: Ticket_typeScalarFieldEnum | Ticket_typeScalarFieldEnum[]
   }
 
   /**
-   * Service_Usage findFirstOrThrow
+   * Ticket_type findFirstOrThrow
    */
-  export type Service_UsageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket_typeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service_Usage
+     * Select specific fields to fetch from the Ticket_type
      */
-    select?: Service_UsageSelect<ExtArgs> | null
+    select?: Ticket_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service_Usage
+     * Omit specific fields from the Ticket_type
      */
-    omit?: Service_UsageOmit<ExtArgs> | null
+    omit?: Ticket_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: Service_UsageInclude<ExtArgs> | null
+    include?: Ticket_typeInclude<ExtArgs> | null
     /**
-     * Filter, which Service_Usage to fetch.
+     * Filter, which Ticket_type to fetch.
      */
-    where?: Service_UsageWhereInput
+    where?: Ticket_typeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Service_Usages to fetch.
+     * Determine the order of Ticket_types to fetch.
      */
-    orderBy?: Service_UsageOrderByWithRelationInput | Service_UsageOrderByWithRelationInput[]
+    orderBy?: Ticket_typeOrderByWithRelationInput | Ticket_typeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Service_Usages.
+     * Sets the position for searching for Ticket_types.
      */
-    cursor?: Service_UsageWhereUniqueInput
+    cursor?: Ticket_typeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Service_Usages from the position of the cursor.
+     * Take `±n` Ticket_types from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Service_Usages.
+     * Skip the first `n` Ticket_types.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Service_Usages.
+     * Filter by unique combinations of Ticket_types.
      */
-    distinct?: Service_UsageScalarFieldEnum | Service_UsageScalarFieldEnum[]
+    distinct?: Ticket_typeScalarFieldEnum | Ticket_typeScalarFieldEnum[]
   }
 
   /**
-   * Service_Usage findMany
+   * Ticket_type findMany
    */
-  export type Service_UsageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket_typeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service_Usage
+     * Select specific fields to fetch from the Ticket_type
      */
-    select?: Service_UsageSelect<ExtArgs> | null
+    select?: Ticket_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service_Usage
+     * Omit specific fields from the Ticket_type
      */
-    omit?: Service_UsageOmit<ExtArgs> | null
+    omit?: Ticket_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: Service_UsageInclude<ExtArgs> | null
+    include?: Ticket_typeInclude<ExtArgs> | null
     /**
-     * Filter, which Service_Usages to fetch.
+     * Filter, which Ticket_types to fetch.
      */
-    where?: Service_UsageWhereInput
+    where?: Ticket_typeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Service_Usages to fetch.
+     * Determine the order of Ticket_types to fetch.
      */
-    orderBy?: Service_UsageOrderByWithRelationInput | Service_UsageOrderByWithRelationInput[]
+    orderBy?: Ticket_typeOrderByWithRelationInput | Ticket_typeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Service_Usages.
+     * Sets the position for listing Ticket_types.
      */
-    cursor?: Service_UsageWhereUniqueInput
+    cursor?: Ticket_typeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Service_Usages from the position of the cursor.
+     * Take `±n` Ticket_types from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Service_Usages.
+     * Skip the first `n` Ticket_types.
      */
     skip?: number
-    distinct?: Service_UsageScalarFieldEnum | Service_UsageScalarFieldEnum[]
+    distinct?: Ticket_typeScalarFieldEnum | Ticket_typeScalarFieldEnum[]
   }
 
   /**
-   * Service_Usage create
+   * Ticket_type create
    */
-  export type Service_UsageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket_typeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service_Usage
+     * Select specific fields to fetch from the Ticket_type
      */
-    select?: Service_UsageSelect<ExtArgs> | null
+    select?: Ticket_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service_Usage
+     * Omit specific fields from the Ticket_type
      */
-    omit?: Service_UsageOmit<ExtArgs> | null
+    omit?: Ticket_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: Service_UsageInclude<ExtArgs> | null
+    include?: Ticket_typeInclude<ExtArgs> | null
     /**
-     * The data needed to create a Service_Usage.
+     * The data needed to create a Ticket_type.
      */
-    data: XOR<Service_UsageCreateInput, Service_UsageUncheckedCreateInput>
+    data: XOR<Ticket_typeCreateInput, Ticket_typeUncheckedCreateInput>
   }
 
   /**
-   * Service_Usage createMany
+   * Ticket_type createMany
    */
-  export type Service_UsageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket_typeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Service_Usages.
+     * The data used to create many Ticket_types.
      */
-    data: Service_UsageCreateManyInput | Service_UsageCreateManyInput[]
+    data: Ticket_typeCreateManyInput | Ticket_typeCreateManyInput[]
   }
 
   /**
-   * Service_Usage update
+   * Ticket_type update
    */
-  export type Service_UsageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket_typeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service_Usage
+     * Select specific fields to fetch from the Ticket_type
      */
-    select?: Service_UsageSelect<ExtArgs> | null
+    select?: Ticket_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service_Usage
+     * Omit specific fields from the Ticket_type
      */
-    omit?: Service_UsageOmit<ExtArgs> | null
+    omit?: Ticket_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: Service_UsageInclude<ExtArgs> | null
+    include?: Ticket_typeInclude<ExtArgs> | null
     /**
-     * The data needed to update a Service_Usage.
+     * The data needed to update a Ticket_type.
      */
-    data: XOR<Service_UsageUpdateInput, Service_UsageUncheckedUpdateInput>
+    data: XOR<Ticket_typeUpdateInput, Ticket_typeUncheckedUpdateInput>
     /**
-     * Choose, which Service_Usage to update.
+     * Choose, which Ticket_type to update.
      */
-    where: Service_UsageWhereUniqueInput
+    where: Ticket_typeWhereUniqueInput
   }
 
   /**
-   * Service_Usage updateMany
+   * Ticket_type updateMany
    */
-  export type Service_UsageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket_typeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Service_Usages.
+     * The data used to update Ticket_types.
      */
-    data: XOR<Service_UsageUpdateManyMutationInput, Service_UsageUncheckedUpdateManyInput>
+    data: XOR<Ticket_typeUpdateManyMutationInput, Ticket_typeUncheckedUpdateManyInput>
     /**
-     * Filter which Service_Usages to update
+     * Filter which Ticket_types to update
      */
-    where?: Service_UsageWhereInput
+    where?: Ticket_typeWhereInput
     /**
-     * Limit how many Service_Usages to update.
+     * Limit how many Ticket_types to update.
      */
     limit?: number
   }
 
   /**
-   * Service_Usage upsert
+   * Ticket_type upsert
    */
-  export type Service_UsageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket_typeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service_Usage
+     * Select specific fields to fetch from the Ticket_type
      */
-    select?: Service_UsageSelect<ExtArgs> | null
+    select?: Ticket_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service_Usage
+     * Omit specific fields from the Ticket_type
      */
-    omit?: Service_UsageOmit<ExtArgs> | null
+    omit?: Ticket_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: Service_UsageInclude<ExtArgs> | null
+    include?: Ticket_typeInclude<ExtArgs> | null
     /**
-     * The filter to search for the Service_Usage to update in case it exists.
+     * The filter to search for the Ticket_type to update in case it exists.
      */
-    where: Service_UsageWhereUniqueInput
+    where: Ticket_typeWhereUniqueInput
     /**
-     * In case the Service_Usage found by the `where` argument doesn't exist, create a new Service_Usage with this data.
+     * In case the Ticket_type found by the `where` argument doesn't exist, create a new Ticket_type with this data.
      */
-    create: XOR<Service_UsageCreateInput, Service_UsageUncheckedCreateInput>
+    create: XOR<Ticket_typeCreateInput, Ticket_typeUncheckedCreateInput>
     /**
-     * In case the Service_Usage was found with the provided `where` argument, update it with this data.
+     * In case the Ticket_type was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<Service_UsageUpdateInput, Service_UsageUncheckedUpdateInput>
+    update: XOR<Ticket_typeUpdateInput, Ticket_typeUncheckedUpdateInput>
   }
 
   /**
-   * Service_Usage delete
+   * Ticket_type delete
    */
-  export type Service_UsageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket_typeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service_Usage
+     * Select specific fields to fetch from the Ticket_type
      */
-    select?: Service_UsageSelect<ExtArgs> | null
+    select?: Ticket_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service_Usage
+     * Omit specific fields from the Ticket_type
      */
-    omit?: Service_UsageOmit<ExtArgs> | null
+    omit?: Ticket_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: Service_UsageInclude<ExtArgs> | null
+    include?: Ticket_typeInclude<ExtArgs> | null
     /**
-     * Filter which Service_Usage to delete.
+     * Filter which Ticket_type to delete.
      */
-    where: Service_UsageWhereUniqueInput
+    where: Ticket_typeWhereUniqueInput
   }
 
   /**
-   * Service_Usage deleteMany
+   * Ticket_type deleteMany
    */
-  export type Service_UsageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket_typeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Service_Usages to delete
+     * Filter which Ticket_types to delete
      */
-    where?: Service_UsageWhereInput
+    where?: Ticket_typeWhereInput
     /**
-     * Limit how many Service_Usages to delete.
+     * Limit how many Ticket_types to delete.
      */
     limit?: number
   }
 
   /**
-   * Service_Usage findRaw
+   * Ticket_type findRaw
    */
-  export type Service_UsageFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket_typeFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
      */
@@ -5378,9 +13490,9 @@ export namespace Prisma {
   }
 
   /**
-   * Service_Usage aggregateRaw
+   * Ticket_type aggregateRaw
    */
-  export type Service_UsageAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket_typeAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
      */
@@ -5392,408 +13504,397 @@ export namespace Prisma {
   }
 
   /**
-   * Service_Usage.service
+   * Ticket_type.tickets
    */
-  export type Service_Usage$serviceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket_type$ticketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service
+     * Select specific fields to fetch from the Ticket
      */
-    select?: ServiceSelect<ExtArgs> | null
+    select?: TicketSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service
+     * Omit specific fields from the Ticket
      */
-    omit?: ServiceOmit<ExtArgs> | null
+    omit?: TicketOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceInclude<ExtArgs> | null
-    where?: ServiceWhereInput
+    include?: TicketInclude<ExtArgs> | null
+    where?: TicketWhereInput
+    orderBy?: TicketOrderByWithRelationInput | TicketOrderByWithRelationInput[]
+    cursor?: TicketWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TicketScalarFieldEnum | TicketScalarFieldEnum[]
   }
 
   /**
-   * Service_Usage.api_token
+   * Ticket_type without action
    */
-  export type Service_Usage$api_tokenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Ticket_typeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the API_Token
+     * Select specific fields to fetch from the Ticket_type
      */
-    select?: API_TokenSelect<ExtArgs> | null
+    select?: Ticket_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the API_Token
+     * Omit specific fields from the Ticket_type
      */
-    omit?: API_TokenOmit<ExtArgs> | null
+    omit?: Ticket_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: API_TokenInclude<ExtArgs> | null
-    where?: API_TokenWhereInput
-  }
-
-  /**
-   * Service_Usage without action
-   */
-  export type Service_UsageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Service_Usage
-     */
-    select?: Service_UsageSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Service_Usage
-     */
-    omit?: Service_UsageOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: Service_UsageInclude<ExtArgs> | null
+    include?: Ticket_typeInclude<ExtArgs> | null
   }
 
 
   /**
-   * Model Service
+   * Model Screening_type
    */
 
-  export type AggregateService = {
-    _count: ServiceCountAggregateOutputType | null
-    _avg: ServiceAvgAggregateOutputType | null
-    _sum: ServiceSumAggregateOutputType | null
-    _min: ServiceMinAggregateOutputType | null
-    _max: ServiceMaxAggregateOutputType | null
+  export type AggregateScreening_type = {
+    _count: Screening_typeCountAggregateOutputType | null
+    _avg: Screening_typeAvgAggregateOutputType | null
+    _sum: Screening_typeSumAggregateOutputType | null
+    _min: Screening_typeMinAggregateOutputType | null
+    _max: Screening_typeMaxAggregateOutputType | null
   }
 
-  export type ServiceAvgAggregateOutputType = {
-    cost_per_ms: number | null
+  export type Screening_typeAvgAggregateOutputType = {
+    percent: number | null
   }
 
-  export type ServiceSumAggregateOutputType = {
-    cost_per_ms: number | null
+  export type Screening_typeSumAggregateOutputType = {
+    percent: number | null
   }
 
-  export type ServiceMinAggregateOutputType = {
+  export type Screening_typeMinAggregateOutputType = {
     id: string | null
-    name: string | null
-    cost_per_ms: number | null
+    type: string | null
+    percent: number | null
   }
 
-  export type ServiceMaxAggregateOutputType = {
+  export type Screening_typeMaxAggregateOutputType = {
     id: string | null
-    name: string | null
-    cost_per_ms: number | null
+    type: string | null
+    percent: number | null
   }
 
-  export type ServiceCountAggregateOutputType = {
+  export type Screening_typeCountAggregateOutputType = {
     id: number
-    name: number
-    cost_per_ms: number
+    type: number
+    percent: number
     _all: number
   }
 
 
-  export type ServiceAvgAggregateInputType = {
-    cost_per_ms?: true
+  export type Screening_typeAvgAggregateInputType = {
+    percent?: true
   }
 
-  export type ServiceSumAggregateInputType = {
-    cost_per_ms?: true
+  export type Screening_typeSumAggregateInputType = {
+    percent?: true
   }
 
-  export type ServiceMinAggregateInputType = {
+  export type Screening_typeMinAggregateInputType = {
     id?: true
-    name?: true
-    cost_per_ms?: true
+    type?: true
+    percent?: true
   }
 
-  export type ServiceMaxAggregateInputType = {
+  export type Screening_typeMaxAggregateInputType = {
     id?: true
-    name?: true
-    cost_per_ms?: true
+    type?: true
+    percent?: true
   }
 
-  export type ServiceCountAggregateInputType = {
+  export type Screening_typeCountAggregateInputType = {
     id?: true
-    name?: true
-    cost_per_ms?: true
+    type?: true
+    percent?: true
     _all?: true
   }
 
-  export type ServiceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Screening_typeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Service to aggregate.
+     * Filter which Screening_type to aggregate.
      */
-    where?: ServiceWhereInput
+    where?: Screening_typeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Services to fetch.
+     * Determine the order of Screening_types to fetch.
      */
-    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
+    orderBy?: Screening_typeOrderByWithRelationInput | Screening_typeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: ServiceWhereUniqueInput
+    cursor?: Screening_typeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Services from the position of the cursor.
+     * Take `±n` Screening_types from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Services.
+     * Skip the first `n` Screening_types.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Services
+     * Count returned Screening_types
     **/
-    _count?: true | ServiceCountAggregateInputType
+    _count?: true | Screening_typeCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ServiceAvgAggregateInputType
+    _avg?: Screening_typeAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ServiceSumAggregateInputType
+    _sum?: Screening_typeSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ServiceMinAggregateInputType
+    _min?: Screening_typeMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ServiceMaxAggregateInputType
+    _max?: Screening_typeMaxAggregateInputType
   }
 
-  export type GetServiceAggregateType<T extends ServiceAggregateArgs> = {
-        [P in keyof T & keyof AggregateService]: P extends '_count' | 'count'
+  export type GetScreening_typeAggregateType<T extends Screening_typeAggregateArgs> = {
+        [P in keyof T & keyof AggregateScreening_type]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateService[P]>
-      : GetScalarType<T[P], AggregateService[P]>
+        : GetScalarType<T[P], AggregateScreening_type[P]>
+      : GetScalarType<T[P], AggregateScreening_type[P]>
   }
 
 
 
 
-  export type ServiceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ServiceWhereInput
-    orderBy?: ServiceOrderByWithAggregationInput | ServiceOrderByWithAggregationInput[]
-    by: ServiceScalarFieldEnum[] | ServiceScalarFieldEnum
-    having?: ServiceScalarWhereWithAggregatesInput
+  export type Screening_typeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Screening_typeWhereInput
+    orderBy?: Screening_typeOrderByWithAggregationInput | Screening_typeOrderByWithAggregationInput[]
+    by: Screening_typeScalarFieldEnum[] | Screening_typeScalarFieldEnum
+    having?: Screening_typeScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ServiceCountAggregateInputType | true
-    _avg?: ServiceAvgAggregateInputType
-    _sum?: ServiceSumAggregateInputType
-    _min?: ServiceMinAggregateInputType
-    _max?: ServiceMaxAggregateInputType
+    _count?: Screening_typeCountAggregateInputType | true
+    _avg?: Screening_typeAvgAggregateInputType
+    _sum?: Screening_typeSumAggregateInputType
+    _min?: Screening_typeMinAggregateInputType
+    _max?: Screening_typeMaxAggregateInputType
   }
 
-  export type ServiceGroupByOutputType = {
+  export type Screening_typeGroupByOutputType = {
     id: string
-    name: string
-    cost_per_ms: number
-    _count: ServiceCountAggregateOutputType | null
-    _avg: ServiceAvgAggregateOutputType | null
-    _sum: ServiceSumAggregateOutputType | null
-    _min: ServiceMinAggregateOutputType | null
-    _max: ServiceMaxAggregateOutputType | null
+    type: string
+    percent: number
+    _count: Screening_typeCountAggregateOutputType | null
+    _avg: Screening_typeAvgAggregateOutputType | null
+    _sum: Screening_typeSumAggregateOutputType | null
+    _min: Screening_typeMinAggregateOutputType | null
+    _max: Screening_typeMaxAggregateOutputType | null
   }
 
-  type GetServiceGroupByPayload<T extends ServiceGroupByArgs> = Prisma.PrismaPromise<
+  type GetScreening_typeGroupByPayload<T extends Screening_typeGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<ServiceGroupByOutputType, T['by']> &
+      PickEnumerable<Screening_typeGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ServiceGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof Screening_typeGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ServiceGroupByOutputType[P]>
-            : GetScalarType<T[P], ServiceGroupByOutputType[P]>
+              : GetScalarType<T[P], Screening_typeGroupByOutputType[P]>
+            : GetScalarType<T[P], Screening_typeGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ServiceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type Screening_typeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
-    cost_per_ms?: boolean
-    service_usages?: boolean | Service$service_usagesArgs<ExtArgs>
-    _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["service"]>
+    type?: boolean
+    percent?: boolean
+    tickets?: boolean | Screening_type$ticketsArgs<ExtArgs>
+    screenings?: boolean | Screening_type$screeningsArgs<ExtArgs>
+    _count?: boolean | Screening_typeCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["screening_type"]>
 
 
 
-  export type ServiceSelectScalar = {
+  export type Screening_typeSelectScalar = {
     id?: boolean
-    name?: boolean
-    cost_per_ms?: boolean
+    type?: boolean
+    percent?: boolean
   }
 
-  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "cost_per_ms", ExtArgs["result"]["service"]>
-  export type ServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    service_usages?: boolean | Service$service_usagesArgs<ExtArgs>
-    _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
+  export type Screening_typeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "percent", ExtArgs["result"]["screening_type"]>
+  export type Screening_typeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tickets?: boolean | Screening_type$ticketsArgs<ExtArgs>
+    screenings?: boolean | Screening_type$screeningsArgs<ExtArgs>
+    _count?: boolean | Screening_typeCountOutputTypeDefaultArgs<ExtArgs>
   }
 
-  export type $ServicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Service"
+  export type $Screening_typePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Screening_type"
     objects: {
-      service_usages: Prisma.$Service_UsagePayload<ExtArgs>[]
+      tickets: Prisma.$TicketPayload<ExtArgs>[]
+      screenings: Prisma.$ScreeningPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      name: string
-      cost_per_ms: number
-    }, ExtArgs["result"]["service"]>
+      type: string
+      percent: number
+    }, ExtArgs["result"]["screening_type"]>
     composites: {}
   }
 
-  type ServiceGetPayload<S extends boolean | null | undefined | ServiceDefaultArgs> = $Result.GetResult<Prisma.$ServicePayload, S>
+  type Screening_typeGetPayload<S extends boolean | null | undefined | Screening_typeDefaultArgs> = $Result.GetResult<Prisma.$Screening_typePayload, S>
 
-  type ServiceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ServiceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ServiceCountAggregateInputType | true
+  type Screening_typeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<Screening_typeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Screening_typeCountAggregateInputType | true
     }
 
-  export interface ServiceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Service'], meta: { name: 'Service' } }
+  export interface Screening_typeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Screening_type'], meta: { name: 'Screening_type' } }
     /**
-     * Find zero or one Service that matches the filter.
-     * @param {ServiceFindUniqueArgs} args - Arguments to find a Service
+     * Find zero or one Screening_type that matches the filter.
+     * @param {Screening_typeFindUniqueArgs} args - Arguments to find a Screening_type
      * @example
-     * // Get one Service
-     * const service = await prisma.service.findUnique({
+     * // Get one Screening_type
+     * const screening_type = await prisma.screening_type.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends ServiceFindUniqueArgs>(args: SelectSubset<T, ServiceFindUniqueArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends Screening_typeFindUniqueArgs>(args: SelectSubset<T, Screening_typeFindUniqueArgs<ExtArgs>>): Prisma__Screening_typeClient<$Result.GetResult<Prisma.$Screening_typePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Service that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Screening_type that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {ServiceFindUniqueOrThrowArgs} args - Arguments to find a Service
+     * @param {Screening_typeFindUniqueOrThrowArgs} args - Arguments to find a Screening_type
      * @example
-     * // Get one Service
-     * const service = await prisma.service.findUniqueOrThrow({
+     * // Get one Screening_type
+     * const screening_type = await prisma.screening_type.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends ServiceFindUniqueOrThrowArgs>(args: SelectSubset<T, ServiceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends Screening_typeFindUniqueOrThrowArgs>(args: SelectSubset<T, Screening_typeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__Screening_typeClient<$Result.GetResult<Prisma.$Screening_typePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Service that matches the filter.
+     * Find the first Screening_type that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServiceFindFirstArgs} args - Arguments to find a Service
+     * @param {Screening_typeFindFirstArgs} args - Arguments to find a Screening_type
      * @example
-     * // Get one Service
-     * const service = await prisma.service.findFirst({
+     * // Get one Screening_type
+     * const screening_type = await prisma.screening_type.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends ServiceFindFirstArgs>(args?: SelectSubset<T, ServiceFindFirstArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends Screening_typeFindFirstArgs>(args?: SelectSubset<T, Screening_typeFindFirstArgs<ExtArgs>>): Prisma__Screening_typeClient<$Result.GetResult<Prisma.$Screening_typePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Service that matches the filter or
+     * Find the first Screening_type that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServiceFindFirstOrThrowArgs} args - Arguments to find a Service
+     * @param {Screening_typeFindFirstOrThrowArgs} args - Arguments to find a Screening_type
      * @example
-     * // Get one Service
-     * const service = await prisma.service.findFirstOrThrow({
+     * // Get one Screening_type
+     * const screening_type = await prisma.screening_type.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends ServiceFindFirstOrThrowArgs>(args?: SelectSubset<T, ServiceFindFirstOrThrowArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends Screening_typeFindFirstOrThrowArgs>(args?: SelectSubset<T, Screening_typeFindFirstOrThrowArgs<ExtArgs>>): Prisma__Screening_typeClient<$Result.GetResult<Prisma.$Screening_typePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Services that matches the filter.
+     * Find zero or more Screening_types that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServiceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {Screening_typeFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Services
-     * const services = await prisma.service.findMany()
+     * // Get all Screening_types
+     * const screening_types = await prisma.screening_type.findMany()
      * 
-     * // Get first 10 Services
-     * const services = await prisma.service.findMany({ take: 10 })
+     * // Get first 10 Screening_types
+     * const screening_types = await prisma.screening_type.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const serviceWithIdOnly = await prisma.service.findMany({ select: { id: true } })
+     * const screening_typeWithIdOnly = await prisma.screening_type.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends ServiceFindManyArgs>(args?: SelectSubset<T, ServiceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends Screening_typeFindManyArgs>(args?: SelectSubset<T, Screening_typeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Screening_typePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Service.
-     * @param {ServiceCreateArgs} args - Arguments to create a Service.
+     * Create a Screening_type.
+     * @param {Screening_typeCreateArgs} args - Arguments to create a Screening_type.
      * @example
-     * // Create one Service
-     * const Service = await prisma.service.create({
+     * // Create one Screening_type
+     * const Screening_type = await prisma.screening_type.create({
      *   data: {
-     *     // ... data to create a Service
+     *     // ... data to create a Screening_type
      *   }
      * })
      * 
      */
-    create<T extends ServiceCreateArgs>(args: SelectSubset<T, ServiceCreateArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends Screening_typeCreateArgs>(args: SelectSubset<T, Screening_typeCreateArgs<ExtArgs>>): Prisma__Screening_typeClient<$Result.GetResult<Prisma.$Screening_typePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Services.
-     * @param {ServiceCreateManyArgs} args - Arguments to create many Services.
+     * Create many Screening_types.
+     * @param {Screening_typeCreateManyArgs} args - Arguments to create many Screening_types.
      * @example
-     * // Create many Services
-     * const service = await prisma.service.createMany({
+     * // Create many Screening_types
+     * const screening_type = await prisma.screening_type.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends ServiceCreateManyArgs>(args?: SelectSubset<T, ServiceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends Screening_typeCreateManyArgs>(args?: SelectSubset<T, Screening_typeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Delete a Service.
-     * @param {ServiceDeleteArgs} args - Arguments to delete one Service.
+     * Delete a Screening_type.
+     * @param {Screening_typeDeleteArgs} args - Arguments to delete one Screening_type.
      * @example
-     * // Delete one Service
-     * const Service = await prisma.service.delete({
+     * // Delete one Screening_type
+     * const Screening_type = await prisma.screening_type.delete({
      *   where: {
-     *     // ... filter to delete one Service
+     *     // ... filter to delete one Screening_type
      *   }
      * })
      * 
      */
-    delete<T extends ServiceDeleteArgs>(args: SelectSubset<T, ServiceDeleteArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends Screening_typeDeleteArgs>(args: SelectSubset<T, Screening_typeDeleteArgs<ExtArgs>>): Prisma__Screening_typeClient<$Result.GetResult<Prisma.$Screening_typePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Service.
-     * @param {ServiceUpdateArgs} args - Arguments to update one Service.
+     * Update one Screening_type.
+     * @param {Screening_typeUpdateArgs} args - Arguments to update one Screening_type.
      * @example
-     * // Update one Service
-     * const service = await prisma.service.update({
+     * // Update one Screening_type
+     * const screening_type = await prisma.screening_type.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5803,30 +13904,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends ServiceUpdateArgs>(args: SelectSubset<T, ServiceUpdateArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends Screening_typeUpdateArgs>(args: SelectSubset<T, Screening_typeUpdateArgs<ExtArgs>>): Prisma__Screening_typeClient<$Result.GetResult<Prisma.$Screening_typePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Services.
-     * @param {ServiceDeleteManyArgs} args - Arguments to filter Services to delete.
+     * Delete zero or more Screening_types.
+     * @param {Screening_typeDeleteManyArgs} args - Arguments to filter Screening_types to delete.
      * @example
-     * // Delete a few Services
-     * const { count } = await prisma.service.deleteMany({
+     * // Delete a few Screening_types
+     * const { count } = await prisma.screening_type.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends ServiceDeleteManyArgs>(args?: SelectSubset<T, ServiceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends Screening_typeDeleteManyArgs>(args?: SelectSubset<T, Screening_typeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Services.
+     * Update zero or more Screening_types.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServiceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {Screening_typeUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Services
-     * const service = await prisma.service.updateMany({
+     * // Update many Screening_types
+     * const screening_type = await prisma.screening_type.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5836,79 +13937,79 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends ServiceUpdateManyArgs>(args: SelectSubset<T, ServiceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends Screening_typeUpdateManyArgs>(args: SelectSubset<T, Screening_typeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one Service.
-     * @param {ServiceUpsertArgs} args - Arguments to update or create a Service.
+     * Create or update one Screening_type.
+     * @param {Screening_typeUpsertArgs} args - Arguments to update or create a Screening_type.
      * @example
-     * // Update or create a Service
-     * const service = await prisma.service.upsert({
+     * // Update or create a Screening_type
+     * const screening_type = await prisma.screening_type.upsert({
      *   create: {
-     *     // ... data to create a Service
+     *     // ... data to create a Screening_type
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Service we want to update
+     *     // ... the filter for the Screening_type we want to update
      *   }
      * })
      */
-    upsert<T extends ServiceUpsertArgs>(args: SelectSubset<T, ServiceUpsertArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends Screening_typeUpsertArgs>(args: SelectSubset<T, Screening_typeUpsertArgs<ExtArgs>>): Prisma__Screening_typeClient<$Result.GetResult<Prisma.$Screening_typePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Services that matches the filter.
-     * @param {ServiceFindRawArgs} args - Select which filters you would like to apply.
+     * Find zero or more Screening_types that matches the filter.
+     * @param {Screening_typeFindRawArgs} args - Select which filters you would like to apply.
      * @example
-     * const service = await prisma.service.findRaw({
+     * const screening_type = await prisma.screening_type.findRaw({
      *   filter: { age: { $gt: 25 } }
      * })
      */
-    findRaw(args?: ServiceFindRawArgs): Prisma.PrismaPromise<JsonObject>
+    findRaw(args?: Screening_typeFindRawArgs): Prisma.PrismaPromise<JsonObject>
 
     /**
-     * Perform aggregation operations on a Service.
-     * @param {ServiceAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * Perform aggregation operations on a Screening_type.
+     * @param {Screening_typeAggregateRawArgs} args - Select which aggregations you would like to apply.
      * @example
-     * const service = await prisma.service.aggregateRaw({
+     * const screening_type = await prisma.screening_type.aggregateRaw({
      *   pipeline: [
      *     { $match: { status: "registered" } },
      *     { $group: { _id: "$country", total: { $sum: 1 } } }
      *   ]
      * })
      */
-    aggregateRaw(args?: ServiceAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+    aggregateRaw(args?: Screening_typeAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
-     * Count the number of Services.
+     * Count the number of Screening_types.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServiceCountArgs} args - Arguments to filter Services to count.
+     * @param {Screening_typeCountArgs} args - Arguments to filter Screening_types to count.
      * @example
-     * // Count the number of Services
-     * const count = await prisma.service.count({
+     * // Count the number of Screening_types
+     * const count = await prisma.screening_type.count({
      *   where: {
-     *     // ... the filter for the Services we want to count
+     *     // ... the filter for the Screening_types we want to count
      *   }
      * })
     **/
-    count<T extends ServiceCountArgs>(
-      args?: Subset<T, ServiceCountArgs>,
+    count<T extends Screening_typeCountArgs>(
+      args?: Subset<T, Screening_typeCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ServiceCountAggregateOutputType>
+          : GetScalarType<T['select'], Screening_typeCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Service.
+     * Allows you to perform aggregations operations on a Screening_type.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServiceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {Screening_typeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -5928,13 +14029,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ServiceAggregateArgs>(args: Subset<T, ServiceAggregateArgs>): Prisma.PrismaPromise<GetServiceAggregateType<T>>
+    aggregate<T extends Screening_typeAggregateArgs>(args: Subset<T, Screening_typeAggregateArgs>): Prisma.PrismaPromise<GetScreening_typeAggregateType<T>>
 
     /**
-     * Group by Service.
+     * Group by Screening_type.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServiceGroupByArgs} args - Group by arguments.
+     * @param {Screening_typeGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -5949,14 +14050,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ServiceGroupByArgs,
+      T extends Screening_typeGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ServiceGroupByArgs['orderBy'] }
-        : { orderBy?: ServiceGroupByArgs['orderBy'] },
+        ? { orderBy: Screening_typeGroupByArgs['orderBy'] }
+        : { orderBy?: Screening_typeGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -6005,22 +14106,23 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ServiceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetServiceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, Screening_typeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetScreening_typeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Service model
+   * Fields of the Screening_type model
    */
-  readonly fields: ServiceFieldRefs;
+  readonly fields: Screening_typeFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Service.
+   * The delegate class that acts as a "Promise-like" for Screening_type.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__ServiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__Screening_typeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    service_usages<T extends Service$service_usagesArgs<ExtArgs> = {}>(args?: Subset<T, Service$service_usagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Service_UsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tickets<T extends Screening_type$ticketsArgs<ExtArgs> = {}>(args?: Subset<T, Screening_type$ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    screenings<T extends Screening_type$screeningsArgs<ExtArgs> = {}>(args?: Subset<T, Screening_type$screeningsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScreeningPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6047,357 +14149,357 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Service model
+   * Fields of the Screening_type model
    */
-  interface ServiceFieldRefs {
-    readonly id: FieldRef<"Service", 'String'>
-    readonly name: FieldRef<"Service", 'String'>
-    readonly cost_per_ms: FieldRef<"Service", 'Float'>
+  interface Screening_typeFieldRefs {
+    readonly id: FieldRef<"Screening_type", 'String'>
+    readonly type: FieldRef<"Screening_type", 'String'>
+    readonly percent: FieldRef<"Screening_type", 'Int'>
   }
     
 
   // Custom InputTypes
   /**
-   * Service findUnique
+   * Screening_type findUnique
    */
-  export type ServiceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Screening_typeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service
+     * Select specific fields to fetch from the Screening_type
      */
-    select?: ServiceSelect<ExtArgs> | null
+    select?: Screening_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service
+     * Omit specific fields from the Screening_type
      */
-    omit?: ServiceOmit<ExtArgs> | null
+    omit?: Screening_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceInclude<ExtArgs> | null
+    include?: Screening_typeInclude<ExtArgs> | null
     /**
-     * Filter, which Service to fetch.
+     * Filter, which Screening_type to fetch.
      */
-    where: ServiceWhereUniqueInput
+    where: Screening_typeWhereUniqueInput
   }
 
   /**
-   * Service findUniqueOrThrow
+   * Screening_type findUniqueOrThrow
    */
-  export type ServiceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Screening_typeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service
+     * Select specific fields to fetch from the Screening_type
      */
-    select?: ServiceSelect<ExtArgs> | null
+    select?: Screening_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service
+     * Omit specific fields from the Screening_type
      */
-    omit?: ServiceOmit<ExtArgs> | null
+    omit?: Screening_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceInclude<ExtArgs> | null
+    include?: Screening_typeInclude<ExtArgs> | null
     /**
-     * Filter, which Service to fetch.
+     * Filter, which Screening_type to fetch.
      */
-    where: ServiceWhereUniqueInput
+    where: Screening_typeWhereUniqueInput
   }
 
   /**
-   * Service findFirst
+   * Screening_type findFirst
    */
-  export type ServiceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Screening_typeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service
+     * Select specific fields to fetch from the Screening_type
      */
-    select?: ServiceSelect<ExtArgs> | null
+    select?: Screening_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service
+     * Omit specific fields from the Screening_type
      */
-    omit?: ServiceOmit<ExtArgs> | null
+    omit?: Screening_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceInclude<ExtArgs> | null
+    include?: Screening_typeInclude<ExtArgs> | null
     /**
-     * Filter, which Service to fetch.
+     * Filter, which Screening_type to fetch.
      */
-    where?: ServiceWhereInput
+    where?: Screening_typeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Services to fetch.
+     * Determine the order of Screening_types to fetch.
      */
-    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
+    orderBy?: Screening_typeOrderByWithRelationInput | Screening_typeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Services.
+     * Sets the position for searching for Screening_types.
      */
-    cursor?: ServiceWhereUniqueInput
+    cursor?: Screening_typeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Services from the position of the cursor.
+     * Take `±n` Screening_types from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Services.
+     * Skip the first `n` Screening_types.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Services.
+     * Filter by unique combinations of Screening_types.
      */
-    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
+    distinct?: Screening_typeScalarFieldEnum | Screening_typeScalarFieldEnum[]
   }
 
   /**
-   * Service findFirstOrThrow
+   * Screening_type findFirstOrThrow
    */
-  export type ServiceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Screening_typeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service
+     * Select specific fields to fetch from the Screening_type
      */
-    select?: ServiceSelect<ExtArgs> | null
+    select?: Screening_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service
+     * Omit specific fields from the Screening_type
      */
-    omit?: ServiceOmit<ExtArgs> | null
+    omit?: Screening_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceInclude<ExtArgs> | null
+    include?: Screening_typeInclude<ExtArgs> | null
     /**
-     * Filter, which Service to fetch.
+     * Filter, which Screening_type to fetch.
      */
-    where?: ServiceWhereInput
+    where?: Screening_typeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Services to fetch.
+     * Determine the order of Screening_types to fetch.
      */
-    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
+    orderBy?: Screening_typeOrderByWithRelationInput | Screening_typeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Services.
+     * Sets the position for searching for Screening_types.
      */
-    cursor?: ServiceWhereUniqueInput
+    cursor?: Screening_typeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Services from the position of the cursor.
+     * Take `±n` Screening_types from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Services.
+     * Skip the first `n` Screening_types.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Services.
+     * Filter by unique combinations of Screening_types.
      */
-    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
+    distinct?: Screening_typeScalarFieldEnum | Screening_typeScalarFieldEnum[]
   }
 
   /**
-   * Service findMany
+   * Screening_type findMany
    */
-  export type ServiceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Screening_typeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service
+     * Select specific fields to fetch from the Screening_type
      */
-    select?: ServiceSelect<ExtArgs> | null
+    select?: Screening_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service
+     * Omit specific fields from the Screening_type
      */
-    omit?: ServiceOmit<ExtArgs> | null
+    omit?: Screening_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceInclude<ExtArgs> | null
+    include?: Screening_typeInclude<ExtArgs> | null
     /**
-     * Filter, which Services to fetch.
+     * Filter, which Screening_types to fetch.
      */
-    where?: ServiceWhereInput
+    where?: Screening_typeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Services to fetch.
+     * Determine the order of Screening_types to fetch.
      */
-    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
+    orderBy?: Screening_typeOrderByWithRelationInput | Screening_typeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Services.
+     * Sets the position for listing Screening_types.
      */
-    cursor?: ServiceWhereUniqueInput
+    cursor?: Screening_typeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Services from the position of the cursor.
+     * Take `±n` Screening_types from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Services.
+     * Skip the first `n` Screening_types.
      */
     skip?: number
-    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
+    distinct?: Screening_typeScalarFieldEnum | Screening_typeScalarFieldEnum[]
   }
 
   /**
-   * Service create
+   * Screening_type create
    */
-  export type ServiceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Screening_typeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service
+     * Select specific fields to fetch from the Screening_type
      */
-    select?: ServiceSelect<ExtArgs> | null
+    select?: Screening_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service
+     * Omit specific fields from the Screening_type
      */
-    omit?: ServiceOmit<ExtArgs> | null
+    omit?: Screening_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceInclude<ExtArgs> | null
+    include?: Screening_typeInclude<ExtArgs> | null
     /**
-     * The data needed to create a Service.
+     * The data needed to create a Screening_type.
      */
-    data: XOR<ServiceCreateInput, ServiceUncheckedCreateInput>
+    data: XOR<Screening_typeCreateInput, Screening_typeUncheckedCreateInput>
   }
 
   /**
-   * Service createMany
+   * Screening_type createMany
    */
-  export type ServiceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Screening_typeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Services.
+     * The data used to create many Screening_types.
      */
-    data: ServiceCreateManyInput | ServiceCreateManyInput[]
+    data: Screening_typeCreateManyInput | Screening_typeCreateManyInput[]
   }
 
   /**
-   * Service update
+   * Screening_type update
    */
-  export type ServiceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Screening_typeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service
+     * Select specific fields to fetch from the Screening_type
      */
-    select?: ServiceSelect<ExtArgs> | null
+    select?: Screening_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service
+     * Omit specific fields from the Screening_type
      */
-    omit?: ServiceOmit<ExtArgs> | null
+    omit?: Screening_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceInclude<ExtArgs> | null
+    include?: Screening_typeInclude<ExtArgs> | null
     /**
-     * The data needed to update a Service.
+     * The data needed to update a Screening_type.
      */
-    data: XOR<ServiceUpdateInput, ServiceUncheckedUpdateInput>
+    data: XOR<Screening_typeUpdateInput, Screening_typeUncheckedUpdateInput>
     /**
-     * Choose, which Service to update.
+     * Choose, which Screening_type to update.
      */
-    where: ServiceWhereUniqueInput
+    where: Screening_typeWhereUniqueInput
   }
 
   /**
-   * Service updateMany
+   * Screening_type updateMany
    */
-  export type ServiceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Screening_typeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Services.
+     * The data used to update Screening_types.
      */
-    data: XOR<ServiceUpdateManyMutationInput, ServiceUncheckedUpdateManyInput>
+    data: XOR<Screening_typeUpdateManyMutationInput, Screening_typeUncheckedUpdateManyInput>
     /**
-     * Filter which Services to update
+     * Filter which Screening_types to update
      */
-    where?: ServiceWhereInput
+    where?: Screening_typeWhereInput
     /**
-     * Limit how many Services to update.
+     * Limit how many Screening_types to update.
      */
     limit?: number
   }
 
   /**
-   * Service upsert
+   * Screening_type upsert
    */
-  export type ServiceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Screening_typeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service
+     * Select specific fields to fetch from the Screening_type
      */
-    select?: ServiceSelect<ExtArgs> | null
+    select?: Screening_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service
+     * Omit specific fields from the Screening_type
      */
-    omit?: ServiceOmit<ExtArgs> | null
+    omit?: Screening_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceInclude<ExtArgs> | null
+    include?: Screening_typeInclude<ExtArgs> | null
     /**
-     * The filter to search for the Service to update in case it exists.
+     * The filter to search for the Screening_type to update in case it exists.
      */
-    where: ServiceWhereUniqueInput
+    where: Screening_typeWhereUniqueInput
     /**
-     * In case the Service found by the `where` argument doesn't exist, create a new Service with this data.
+     * In case the Screening_type found by the `where` argument doesn't exist, create a new Screening_type with this data.
      */
-    create: XOR<ServiceCreateInput, ServiceUncheckedCreateInput>
+    create: XOR<Screening_typeCreateInput, Screening_typeUncheckedCreateInput>
     /**
-     * In case the Service was found with the provided `where` argument, update it with this data.
+     * In case the Screening_type was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<ServiceUpdateInput, ServiceUncheckedUpdateInput>
+    update: XOR<Screening_typeUpdateInput, Screening_typeUncheckedUpdateInput>
   }
 
   /**
-   * Service delete
+   * Screening_type delete
    */
-  export type ServiceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Screening_typeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service
+     * Select specific fields to fetch from the Screening_type
      */
-    select?: ServiceSelect<ExtArgs> | null
+    select?: Screening_typeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service
+     * Omit specific fields from the Screening_type
      */
-    omit?: ServiceOmit<ExtArgs> | null
+    omit?: Screening_typeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceInclude<ExtArgs> | null
+    include?: Screening_typeInclude<ExtArgs> | null
     /**
-     * Filter which Service to delete.
+     * Filter which Screening_type to delete.
      */
-    where: ServiceWhereUniqueInput
+    where: Screening_typeWhereUniqueInput
   }
 
   /**
-   * Service deleteMany
+   * Screening_type deleteMany
    */
-  export type ServiceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Screening_typeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Services to delete
+     * Filter which Screening_types to delete
      */
-    where?: ServiceWhereInput
+    where?: Screening_typeWhereInput
     /**
-     * Limit how many Services to delete.
+     * Limit how many Screening_types to delete.
      */
     limit?: number
   }
 
   /**
-   * Service findRaw
+   * Screening_type findRaw
    */
-  export type ServiceFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Screening_typeFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
      */
@@ -6409,9 +14511,9 @@ export namespace Prisma {
   }
 
   /**
-   * Service aggregateRaw
+   * Screening_type aggregateRaw
    */
-  export type ServiceAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Screening_typeAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
      */
@@ -6423,45 +14525,69 @@ export namespace Prisma {
   }
 
   /**
-   * Service.service_usages
+   * Screening_type.tickets
    */
-  export type Service$service_usagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Screening_type$ticketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service_Usage
+     * Select specific fields to fetch from the Ticket
      */
-    select?: Service_UsageSelect<ExtArgs> | null
+    select?: TicketSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service_Usage
+     * Omit specific fields from the Ticket
      */
-    omit?: Service_UsageOmit<ExtArgs> | null
+    omit?: TicketOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: Service_UsageInclude<ExtArgs> | null
-    where?: Service_UsageWhereInput
-    orderBy?: Service_UsageOrderByWithRelationInput | Service_UsageOrderByWithRelationInput[]
-    cursor?: Service_UsageWhereUniqueInput
+    include?: TicketInclude<ExtArgs> | null
+    where?: TicketWhereInput
+    orderBy?: TicketOrderByWithRelationInput | TicketOrderByWithRelationInput[]
+    cursor?: TicketWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Service_UsageScalarFieldEnum | Service_UsageScalarFieldEnum[]
+    distinct?: TicketScalarFieldEnum | TicketScalarFieldEnum[]
   }
 
   /**
-   * Service without action
+   * Screening_type.screenings
    */
-  export type ServiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Screening_type$screeningsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Service
+     * Select specific fields to fetch from the Screening
      */
-    select?: ServiceSelect<ExtArgs> | null
+    select?: ScreeningSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Service
+     * Omit specific fields from the Screening
      */
-    omit?: ServiceOmit<ExtArgs> | null
+    omit?: ScreeningOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceInclude<ExtArgs> | null
+    include?: ScreeningInclude<ExtArgs> | null
+    where?: ScreeningWhereInput
+    orderBy?: ScreeningOrderByWithRelationInput | ScreeningOrderByWithRelationInput[]
+    cursor?: ScreeningWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ScreeningScalarFieldEnum | ScreeningScalarFieldEnum[]
+  }
+
+  /**
+   * Screening_type without action
+   */
+  export type Screening_typeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Screening_type
+     */
+    select?: Screening_typeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Screening_type
+     */
+    omit?: Screening_typeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Screening_typeInclude<ExtArgs> | null
   }
 
 
@@ -6469,57 +14595,137 @@ export namespace Prisma {
    * Enums
    */
 
-  export const UserScalarFieldEnum: {
+  export const AdminScalarFieldEnum: {
     id: 'id',
     name: 'name',
     password_hash: 'password_hash'
   };
 
+  export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
+
+
+  export const MovieScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    director: 'director',
+    actors: 'actors',
+    playtime: 'playtime',
+    language: 'language',
+    trailer: 'trailer',
+    poster: 'poster',
+    onscreen: 'onscreen',
+    genre: 'genre',
+    review: 'review',
+    description: 'description'
+  };
+
+  export type MovieScalarFieldEnum = (typeof MovieScalarFieldEnum)[keyof typeof MovieScalarFieldEnum]
+
+
+  export const ScreeningScalarFieldEnum: {
+    id: 'id',
+    hall_id: 'hall_id',
+    movie_id: 'movie_id',
+    start: 'start',
+    end: 'end',
+    screening_type_id: 'screening_type_id'
+  };
+
+  export type ScreeningScalarFieldEnum = (typeof ScreeningScalarFieldEnum)[keyof typeof ScreeningScalarFieldEnum]
+
+
+  export const UserScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    email: 'email',
+    password_hash: 'password_hash',
+    phone_number: 'phone_number',
+    points: 'points',
+    rank_id: 'rank_id'
+  };
+
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-  export const WorkspaceScalarFieldEnum: {
+  export const ChairScalarFieldEnum: {
     id: 'id',
-    title: 'title',
-    description: 'description',
-    limit: 'limit',
-    user_id: 'user_id'
+    state: 'state',
+    row: 'row',
+    column: 'column',
+    hall_id: 'hall_id'
   };
 
-  export type WorkspaceScalarFieldEnum = (typeof WorkspaceScalarFieldEnum)[keyof typeof WorkspaceScalarFieldEnum]
+  export type ChairScalarFieldEnum = (typeof ChairScalarFieldEnum)[keyof typeof ChairScalarFieldEnum]
 
 
-  export const API_TokenScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    token: 'token',
-    workspace_id: 'workspace_id',
-    createdAt: 'createdAt',
-    creation_date: 'creation_date',
-    revocation_date: 'revocation_date'
-  };
-
-  export type API_TokenScalarFieldEnum = (typeof API_TokenScalarFieldEnum)[keyof typeof API_TokenScalarFieldEnum]
-
-
-  export const Service_UsageScalarFieldEnum: {
-    id: 'id',
-    service_id: 'service_id',
-    api_token_id: 'api_token_id',
-    usage_duration_ms: 'usage_duration_ms',
-    usage_started: 'usage_started'
-  };
-
-  export type Service_UsageScalarFieldEnum = (typeof Service_UsageScalarFieldEnum)[keyof typeof Service_UsageScalarFieldEnum]
-
-
-  export const ServiceScalarFieldEnum: {
+  export const RankScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    cost_per_ms: 'cost_per_ms'
+    point_limit: 'point_limit',
+    discount_id: 'discount_id',
+    image: 'image'
   };
 
-  export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
+  export type RankScalarFieldEnum = (typeof RankScalarFieldEnum)[keyof typeof RankScalarFieldEnum]
+
+
+  export const DiscountScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    image: 'image',
+    percent: 'percent'
+  };
+
+  export type DiscountScalarFieldEnum = (typeof DiscountScalarFieldEnum)[keyof typeof DiscountScalarFieldEnum]
+
+
+  export const HallScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    row: 'row',
+    column: 'column'
+  };
+
+  export type HallScalarFieldEnum = (typeof HallScalarFieldEnum)[keyof typeof HallScalarFieldEnum]
+
+
+  export const ForumScalarFieldEnum: {
+    id: 'id',
+    review: 'review',
+    comment: 'comment',
+    user_id: 'user_id',
+    movie_id: 'movie_id'
+  };
+
+  export type ForumScalarFieldEnum = (typeof ForumScalarFieldEnum)[keyof typeof ForumScalarFieldEnum]
+
+
+  export const TicketScalarFieldEnum: {
+    id: 'id',
+    ticket_type_id: 'ticket_type_id',
+    user_id: 'user_id',
+    screening_id: 'screening_id'
+  };
+
+  export type TicketScalarFieldEnum = (typeof TicketScalarFieldEnum)[keyof typeof TicketScalarFieldEnum]
+
+
+  export const Ticket_typeScalarFieldEnum: {
+    id: 'id',
+    type: 'type',
+    percent: 'percent'
+  };
+
+  export type Ticket_typeScalarFieldEnum = (typeof Ticket_typeScalarFieldEnum)[keyof typeof Ticket_typeScalarFieldEnum]
+
+
+  export const Screening_typeScalarFieldEnum: {
+    id: 'id',
+    type: 'type',
+    percent: 'percent'
+  };
+
+  export type Screening_typeScalarFieldEnum = (typeof Screening_typeScalarFieldEnum)[keyof typeof Screening_typeScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -6572,16 +14778,9 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
+   * Reference to a field of type 'Boolean'
    */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-  /**
-   * Reference to a field of type 'DateTime[]'
-   */
-  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -6597,10 +14796,227 @@ export namespace Prisma {
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
   /**
    * Deep Input Types
    */
 
+
+  export type AdminWhereInput = {
+    AND?: AdminWhereInput | AdminWhereInput[]
+    OR?: AdminWhereInput[]
+    NOT?: AdminWhereInput | AdminWhereInput[]
+    id?: StringFilter<"Admin"> | string
+    name?: StringFilter<"Admin"> | string
+    password_hash?: StringFilter<"Admin"> | string
+  }
+
+  export type AdminOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    password_hash?: SortOrder
+  }
+
+  export type AdminWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AdminWhereInput | AdminWhereInput[]
+    OR?: AdminWhereInput[]
+    NOT?: AdminWhereInput | AdminWhereInput[]
+    name?: StringFilter<"Admin"> | string
+    password_hash?: StringFilter<"Admin"> | string
+  }, "id">
+
+  export type AdminOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    password_hash?: SortOrder
+    _count?: AdminCountOrderByAggregateInput
+    _max?: AdminMaxOrderByAggregateInput
+    _min?: AdminMinOrderByAggregateInput
+  }
+
+  export type AdminScalarWhereWithAggregatesInput = {
+    AND?: AdminScalarWhereWithAggregatesInput | AdminScalarWhereWithAggregatesInput[]
+    OR?: AdminScalarWhereWithAggregatesInput[]
+    NOT?: AdminScalarWhereWithAggregatesInput | AdminScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Admin"> | string
+    name?: StringWithAggregatesFilter<"Admin"> | string
+    password_hash?: StringWithAggregatesFilter<"Admin"> | string
+  }
+
+  export type MovieWhereInput = {
+    AND?: MovieWhereInput | MovieWhereInput[]
+    OR?: MovieWhereInput[]
+    NOT?: MovieWhereInput | MovieWhereInput[]
+    id?: StringFilter<"Movie"> | string
+    title?: StringFilter<"Movie"> | string
+    director?: StringFilter<"Movie"> | string
+    actors?: StringFilter<"Movie"> | string
+    playtime?: IntFilter<"Movie"> | number
+    language?: StringFilter<"Movie"> | string
+    trailer?: StringFilter<"Movie"> | string
+    poster?: StringFilter<"Movie"> | string
+    onscreen?: BoolFilter<"Movie"> | boolean
+    genre?: StringFilter<"Movie"> | string
+    review?: FloatNullableFilter<"Movie"> | number | null
+    description?: StringNullableFilter<"Movie"> | string | null
+    screenings?: ScreeningListRelationFilter
+    forum?: ForumListRelationFilter
+  }
+
+  export type MovieOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    director?: SortOrder
+    actors?: SortOrder
+    playtime?: SortOrder
+    language?: SortOrder
+    trailer?: SortOrder
+    poster?: SortOrder
+    onscreen?: SortOrder
+    genre?: SortOrder
+    review?: SortOrder
+    description?: SortOrder
+    screenings?: ScreeningOrderByRelationAggregateInput
+    forum?: ForumOrderByRelationAggregateInput
+  }
+
+  export type MovieWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MovieWhereInput | MovieWhereInput[]
+    OR?: MovieWhereInput[]
+    NOT?: MovieWhereInput | MovieWhereInput[]
+    title?: StringFilter<"Movie"> | string
+    director?: StringFilter<"Movie"> | string
+    actors?: StringFilter<"Movie"> | string
+    playtime?: IntFilter<"Movie"> | number
+    language?: StringFilter<"Movie"> | string
+    trailer?: StringFilter<"Movie"> | string
+    poster?: StringFilter<"Movie"> | string
+    onscreen?: BoolFilter<"Movie"> | boolean
+    genre?: StringFilter<"Movie"> | string
+    review?: FloatNullableFilter<"Movie"> | number | null
+    description?: StringNullableFilter<"Movie"> | string | null
+    screenings?: ScreeningListRelationFilter
+    forum?: ForumListRelationFilter
+  }, "id">
+
+  export type MovieOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    director?: SortOrder
+    actors?: SortOrder
+    playtime?: SortOrder
+    language?: SortOrder
+    trailer?: SortOrder
+    poster?: SortOrder
+    onscreen?: SortOrder
+    genre?: SortOrder
+    review?: SortOrder
+    description?: SortOrder
+    _count?: MovieCountOrderByAggregateInput
+    _avg?: MovieAvgOrderByAggregateInput
+    _max?: MovieMaxOrderByAggregateInput
+    _min?: MovieMinOrderByAggregateInput
+    _sum?: MovieSumOrderByAggregateInput
+  }
+
+  export type MovieScalarWhereWithAggregatesInput = {
+    AND?: MovieScalarWhereWithAggregatesInput | MovieScalarWhereWithAggregatesInput[]
+    OR?: MovieScalarWhereWithAggregatesInput[]
+    NOT?: MovieScalarWhereWithAggregatesInput | MovieScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Movie"> | string
+    title?: StringWithAggregatesFilter<"Movie"> | string
+    director?: StringWithAggregatesFilter<"Movie"> | string
+    actors?: StringWithAggregatesFilter<"Movie"> | string
+    playtime?: IntWithAggregatesFilter<"Movie"> | number
+    language?: StringWithAggregatesFilter<"Movie"> | string
+    trailer?: StringWithAggregatesFilter<"Movie"> | string
+    poster?: StringWithAggregatesFilter<"Movie"> | string
+    onscreen?: BoolWithAggregatesFilter<"Movie"> | boolean
+    genre?: StringWithAggregatesFilter<"Movie"> | string
+    review?: FloatNullableWithAggregatesFilter<"Movie"> | number | null
+    description?: StringNullableWithAggregatesFilter<"Movie"> | string | null
+  }
+
+  export type ScreeningWhereInput = {
+    AND?: ScreeningWhereInput | ScreeningWhereInput[]
+    OR?: ScreeningWhereInput[]
+    NOT?: ScreeningWhereInput | ScreeningWhereInput[]
+    id?: StringFilter<"Screening"> | string
+    hall_id?: StringFilter<"Screening"> | string
+    movie_id?: StringFilter<"Screening"> | string
+    start?: DateTimeFilter<"Screening"> | Date | string
+    end?: DateTimeFilter<"Screening"> | Date | string
+    screening_type_id?: StringFilter<"Screening"> | string
+    movies?: XOR<MovieNullableScalarRelationFilter, MovieWhereInput> | null
+    halls?: XOR<HallNullableScalarRelationFilter, HallWhereInput> | null
+    screening_types?: XOR<Screening_typeNullableScalarRelationFilter, Screening_typeWhereInput> | null
+  }
+
+  export type ScreeningOrderByWithRelationInput = {
+    id?: SortOrder
+    hall_id?: SortOrder
+    movie_id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
+    screening_type_id?: SortOrder
+    movies?: MovieOrderByWithRelationInput
+    halls?: HallOrderByWithRelationInput
+    screening_types?: Screening_typeOrderByWithRelationInput
+  }
+
+  export type ScreeningWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ScreeningWhereInput | ScreeningWhereInput[]
+    OR?: ScreeningWhereInput[]
+    NOT?: ScreeningWhereInput | ScreeningWhereInput[]
+    hall_id?: StringFilter<"Screening"> | string
+    movie_id?: StringFilter<"Screening"> | string
+    start?: DateTimeFilter<"Screening"> | Date | string
+    end?: DateTimeFilter<"Screening"> | Date | string
+    screening_type_id?: StringFilter<"Screening"> | string
+    movies?: XOR<MovieNullableScalarRelationFilter, MovieWhereInput> | null
+    halls?: XOR<HallNullableScalarRelationFilter, HallWhereInput> | null
+    screening_types?: XOR<Screening_typeNullableScalarRelationFilter, Screening_typeWhereInput> | null
+  }, "id">
+
+  export type ScreeningOrderByWithAggregationInput = {
+    id?: SortOrder
+    hall_id?: SortOrder
+    movie_id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
+    screening_type_id?: SortOrder
+    _count?: ScreeningCountOrderByAggregateInput
+    _max?: ScreeningMaxOrderByAggregateInput
+    _min?: ScreeningMinOrderByAggregateInput
+  }
+
+  export type ScreeningScalarWhereWithAggregatesInput = {
+    AND?: ScreeningScalarWhereWithAggregatesInput | ScreeningScalarWhereWithAggregatesInput[]
+    OR?: ScreeningScalarWhereWithAggregatesInput[]
+    NOT?: ScreeningScalarWhereWithAggregatesInput | ScreeningScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Screening"> | string
+    hall_id?: StringWithAggregatesFilter<"Screening"> | string
+    movie_id?: StringWithAggregatesFilter<"Screening"> | string
+    start?: DateTimeWithAggregatesFilter<"Screening"> | Date | string
+    end?: DateTimeWithAggregatesFilter<"Screening"> | Date | string
+    screening_type_id?: StringWithAggregatesFilter<"Screening"> | string
+  }
 
   export type UserWhereInput = {
     AND?: UserWhereInput | UserWhereInput[]
@@ -6608,34 +15024,58 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
+    email?: StringFilter<"User"> | string
     password_hash?: StringFilter<"User"> | string
-    workspaces?: WorkspaceListRelationFilter
+    phone_number?: StringFilter<"User"> | string
+    points?: IntFilter<"User"> | number
+    rank_id?: StringFilter<"User"> | string
+    ranks?: XOR<RankNullableScalarRelationFilter, RankWhereInput> | null
+    tickets?: TicketListRelationFilter
+    forum?: ForumListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    email?: SortOrder
     password_hash?: SortOrder
-    workspaces?: WorkspaceOrderByRelationAggregateInput
+    phone_number?: SortOrder
+    points?: SortOrder
+    rank_id?: SortOrder
+    ranks?: RankOrderByWithRelationInput
+    tickets?: TicketOrderByRelationAggregateInput
+    forum?: ForumOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    name?: string
+    email?: string
+    phone_number?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
+    name?: StringFilter<"User"> | string
     password_hash?: StringFilter<"User"> | string
-    workspaces?: WorkspaceListRelationFilter
-  }, "id" | "name">
+    points?: IntFilter<"User"> | number
+    rank_id?: StringFilter<"User"> | string
+    ranks?: XOR<RankNullableScalarRelationFilter, RankWhereInput> | null
+    tickets?: TicketListRelationFilter
+    forum?: ForumListRelationFilter
+  }, "id" | "email" | "phone_number">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    email?: SortOrder
     password_hash?: SortOrder
+    phone_number?: SortOrder
+    points?: SortOrder
+    rank_id?: SortOrder
     _count?: UserCountOrderByAggregateInput
+    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
+    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -6644,502 +15084,1111 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
+    email?: StringWithAggregatesFilter<"User"> | string
     password_hash?: StringWithAggregatesFilter<"User"> | string
+    phone_number?: StringWithAggregatesFilter<"User"> | string
+    points?: IntWithAggregatesFilter<"User"> | number
+    rank_id?: StringWithAggregatesFilter<"User"> | string
   }
 
-  export type WorkspaceWhereInput = {
-    AND?: WorkspaceWhereInput | WorkspaceWhereInput[]
-    OR?: WorkspaceWhereInput[]
-    NOT?: WorkspaceWhereInput | WorkspaceWhereInput[]
-    id?: StringFilter<"Workspace"> | string
-    title?: StringFilter<"Workspace"> | string
-    description?: StringNullableFilter<"Workspace"> | string | null
-    limit?: IntNullableFilter<"Workspace"> | number | null
-    user_id?: StringFilter<"Workspace"> | string
-    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    api_tokens?: API_TokenListRelationFilter
+  export type ChairWhereInput = {
+    AND?: ChairWhereInput | ChairWhereInput[]
+    OR?: ChairWhereInput[]
+    NOT?: ChairWhereInput | ChairWhereInput[]
+    id?: StringFilter<"Chair"> | string
+    state?: BoolFilter<"Chair"> | boolean
+    row?: IntFilter<"Chair"> | number
+    column?: IntFilter<"Chair"> | number
+    hall_id?: StringFilter<"Chair"> | string
+    halls?: XOR<HallNullableScalarRelationFilter, HallWhereInput> | null
   }
 
-  export type WorkspaceOrderByWithRelationInput = {
+  export type ChairOrderByWithRelationInput = {
     id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    limit?: SortOrder
-    user_id?: SortOrder
-    user?: UserOrderByWithRelationInput
-    api_tokens?: API_TokenOrderByRelationAggregateInput
+    state?: SortOrder
+    row?: SortOrder
+    column?: SortOrder
+    hall_id?: SortOrder
+    halls?: HallOrderByWithRelationInput
   }
 
-  export type WorkspaceWhereUniqueInput = Prisma.AtLeast<{
+  export type ChairWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    title_user_id?: WorkspaceTitleUser_idCompoundUniqueInput
-    AND?: WorkspaceWhereInput | WorkspaceWhereInput[]
-    OR?: WorkspaceWhereInput[]
-    NOT?: WorkspaceWhereInput | WorkspaceWhereInput[]
-    title?: StringFilter<"Workspace"> | string
-    description?: StringNullableFilter<"Workspace"> | string | null
-    limit?: IntNullableFilter<"Workspace"> | number | null
-    user_id?: StringFilter<"Workspace"> | string
-    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    api_tokens?: API_TokenListRelationFilter
-  }, "id" | "title_user_id">
-
-  export type WorkspaceOrderByWithAggregationInput = {
-    id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    limit?: SortOrder
-    user_id?: SortOrder
-    _count?: WorkspaceCountOrderByAggregateInput
-    _avg?: WorkspaceAvgOrderByAggregateInput
-    _max?: WorkspaceMaxOrderByAggregateInput
-    _min?: WorkspaceMinOrderByAggregateInput
-    _sum?: WorkspaceSumOrderByAggregateInput
-  }
-
-  export type WorkspaceScalarWhereWithAggregatesInput = {
-    AND?: WorkspaceScalarWhereWithAggregatesInput | WorkspaceScalarWhereWithAggregatesInput[]
-    OR?: WorkspaceScalarWhereWithAggregatesInput[]
-    NOT?: WorkspaceScalarWhereWithAggregatesInput | WorkspaceScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Workspace"> | string
-    title?: StringWithAggregatesFilter<"Workspace"> | string
-    description?: StringNullableWithAggregatesFilter<"Workspace"> | string | null
-    limit?: IntNullableWithAggregatesFilter<"Workspace"> | number | null
-    user_id?: StringWithAggregatesFilter<"Workspace"> | string
-  }
-
-  export type API_TokenWhereInput = {
-    AND?: API_TokenWhereInput | API_TokenWhereInput[]
-    OR?: API_TokenWhereInput[]
-    NOT?: API_TokenWhereInput | API_TokenWhereInput[]
-    id?: StringFilter<"API_Token"> | string
-    name?: StringFilter<"API_Token"> | string
-    token?: StringFilter<"API_Token"> | string
-    workspace_id?: StringFilter<"API_Token"> | string
-    createdAt?: DateTimeFilter<"API_Token"> | Date | string
-    creation_date?: DateTimeFilter<"API_Token"> | Date | string
-    revocation_date?: DateTimeNullableFilter<"API_Token"> | Date | string | null
-    service_usages?: Service_UsageListRelationFilter
-    workspace?: XOR<WorkspaceNullableScalarRelationFilter, WorkspaceWhereInput> | null
-  }
-
-  export type API_TokenOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    token?: SortOrder
-    workspace_id?: SortOrder
-    createdAt?: SortOrder
-    creation_date?: SortOrder
-    revocation_date?: SortOrder
-    service_usages?: Service_UsageOrderByRelationAggregateInput
-    workspace?: WorkspaceOrderByWithRelationInput
-  }
-
-  export type API_TokenWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    name_workspace_id?: API_TokenNameWorkspace_idCompoundUniqueInput
-    AND?: API_TokenWhereInput | API_TokenWhereInput[]
-    OR?: API_TokenWhereInput[]
-    NOT?: API_TokenWhereInput | API_TokenWhereInput[]
-    name?: StringFilter<"API_Token"> | string
-    token?: StringFilter<"API_Token"> | string
-    workspace_id?: StringFilter<"API_Token"> | string
-    createdAt?: DateTimeFilter<"API_Token"> | Date | string
-    creation_date?: DateTimeFilter<"API_Token"> | Date | string
-    revocation_date?: DateTimeNullableFilter<"API_Token"> | Date | string | null
-    service_usages?: Service_UsageListRelationFilter
-    workspace?: XOR<WorkspaceNullableScalarRelationFilter, WorkspaceWhereInput> | null
-  }, "id" | "name_workspace_id">
-
-  export type API_TokenOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    token?: SortOrder
-    workspace_id?: SortOrder
-    createdAt?: SortOrder
-    creation_date?: SortOrder
-    revocation_date?: SortOrder
-    _count?: API_TokenCountOrderByAggregateInput
-    _max?: API_TokenMaxOrderByAggregateInput
-    _min?: API_TokenMinOrderByAggregateInput
-  }
-
-  export type API_TokenScalarWhereWithAggregatesInput = {
-    AND?: API_TokenScalarWhereWithAggregatesInput | API_TokenScalarWhereWithAggregatesInput[]
-    OR?: API_TokenScalarWhereWithAggregatesInput[]
-    NOT?: API_TokenScalarWhereWithAggregatesInput | API_TokenScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"API_Token"> | string
-    name?: StringWithAggregatesFilter<"API_Token"> | string
-    token?: StringWithAggregatesFilter<"API_Token"> | string
-    workspace_id?: StringWithAggregatesFilter<"API_Token"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"API_Token"> | Date | string
-    creation_date?: DateTimeWithAggregatesFilter<"API_Token"> | Date | string
-    revocation_date?: DateTimeNullableWithAggregatesFilter<"API_Token"> | Date | string | null
-  }
-
-  export type Service_UsageWhereInput = {
-    AND?: Service_UsageWhereInput | Service_UsageWhereInput[]
-    OR?: Service_UsageWhereInput[]
-    NOT?: Service_UsageWhereInput | Service_UsageWhereInput[]
-    id?: StringFilter<"Service_Usage"> | string
-    service_id?: StringNullableFilter<"Service_Usage"> | string | null
-    api_token_id?: StringFilter<"Service_Usage"> | string
-    usage_duration_ms?: FloatFilter<"Service_Usage"> | number
-    usage_started?: DateTimeFilter<"Service_Usage"> | Date | string
-    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
-    api_token?: XOR<API_TokenNullableScalarRelationFilter, API_TokenWhereInput> | null
-  }
-
-  export type Service_UsageOrderByWithRelationInput = {
-    id?: SortOrder
-    service_id?: SortOrder
-    api_token_id?: SortOrder
-    usage_duration_ms?: SortOrder
-    usage_started?: SortOrder
-    service?: ServiceOrderByWithRelationInput
-    api_token?: API_TokenOrderByWithRelationInput
-  }
-
-  export type Service_UsageWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: Service_UsageWhereInput | Service_UsageWhereInput[]
-    OR?: Service_UsageWhereInput[]
-    NOT?: Service_UsageWhereInput | Service_UsageWhereInput[]
-    service_id?: StringNullableFilter<"Service_Usage"> | string | null
-    api_token_id?: StringFilter<"Service_Usage"> | string
-    usage_duration_ms?: FloatFilter<"Service_Usage"> | number
-    usage_started?: DateTimeFilter<"Service_Usage"> | Date | string
-    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
-    api_token?: XOR<API_TokenNullableScalarRelationFilter, API_TokenWhereInput> | null
+    AND?: ChairWhereInput | ChairWhereInput[]
+    OR?: ChairWhereInput[]
+    NOT?: ChairWhereInput | ChairWhereInput[]
+    state?: BoolFilter<"Chair"> | boolean
+    row?: IntFilter<"Chair"> | number
+    column?: IntFilter<"Chair"> | number
+    hall_id?: StringFilter<"Chair"> | string
+    halls?: XOR<HallNullableScalarRelationFilter, HallWhereInput> | null
   }, "id">
 
-  export type Service_UsageOrderByWithAggregationInput = {
+  export type ChairOrderByWithAggregationInput = {
     id?: SortOrder
-    service_id?: SortOrder
-    api_token_id?: SortOrder
-    usage_duration_ms?: SortOrder
-    usage_started?: SortOrder
-    _count?: Service_UsageCountOrderByAggregateInput
-    _avg?: Service_UsageAvgOrderByAggregateInput
-    _max?: Service_UsageMaxOrderByAggregateInput
-    _min?: Service_UsageMinOrderByAggregateInput
-    _sum?: Service_UsageSumOrderByAggregateInput
+    state?: SortOrder
+    row?: SortOrder
+    column?: SortOrder
+    hall_id?: SortOrder
+    _count?: ChairCountOrderByAggregateInput
+    _avg?: ChairAvgOrderByAggregateInput
+    _max?: ChairMaxOrderByAggregateInput
+    _min?: ChairMinOrderByAggregateInput
+    _sum?: ChairSumOrderByAggregateInput
   }
 
-  export type Service_UsageScalarWhereWithAggregatesInput = {
-    AND?: Service_UsageScalarWhereWithAggregatesInput | Service_UsageScalarWhereWithAggregatesInput[]
-    OR?: Service_UsageScalarWhereWithAggregatesInput[]
-    NOT?: Service_UsageScalarWhereWithAggregatesInput | Service_UsageScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Service_Usage"> | string
-    service_id?: StringNullableWithAggregatesFilter<"Service_Usage"> | string | null
-    api_token_id?: StringWithAggregatesFilter<"Service_Usage"> | string
-    usage_duration_ms?: FloatWithAggregatesFilter<"Service_Usage"> | number
-    usage_started?: DateTimeWithAggregatesFilter<"Service_Usage"> | Date | string
+  export type ChairScalarWhereWithAggregatesInput = {
+    AND?: ChairScalarWhereWithAggregatesInput | ChairScalarWhereWithAggregatesInput[]
+    OR?: ChairScalarWhereWithAggregatesInput[]
+    NOT?: ChairScalarWhereWithAggregatesInput | ChairScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Chair"> | string
+    state?: BoolWithAggregatesFilter<"Chair"> | boolean
+    row?: IntWithAggregatesFilter<"Chair"> | number
+    column?: IntWithAggregatesFilter<"Chair"> | number
+    hall_id?: StringWithAggregatesFilter<"Chair"> | string
   }
 
-  export type ServiceWhereInput = {
-    AND?: ServiceWhereInput | ServiceWhereInput[]
-    OR?: ServiceWhereInput[]
-    NOT?: ServiceWhereInput | ServiceWhereInput[]
-    id?: StringFilter<"Service"> | string
-    name?: StringFilter<"Service"> | string
-    cost_per_ms?: FloatFilter<"Service"> | number
-    service_usages?: Service_UsageListRelationFilter
+  export type RankWhereInput = {
+    AND?: RankWhereInput | RankWhereInput[]
+    OR?: RankWhereInput[]
+    NOT?: RankWhereInput | RankWhereInput[]
+    id?: StringFilter<"Rank"> | string
+    name?: StringFilter<"Rank"> | string
+    point_limit?: StringFilter<"Rank"> | string
+    discount_id?: StringFilter<"Rank"> | string
+    image?: StringFilter<"Rank"> | string
+    discount?: XOR<DiscountNullableScalarRelationFilter, DiscountWhereInput> | null
+    users?: UserListRelationFilter
   }
 
-  export type ServiceOrderByWithRelationInput = {
+  export type RankOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    cost_per_ms?: SortOrder
-    service_usages?: Service_UsageOrderByRelationAggregateInput
+    point_limit?: SortOrder
+    discount_id?: SortOrder
+    image?: SortOrder
+    discount?: DiscountOrderByWithRelationInput
+    users?: UserOrderByRelationAggregateInput
   }
 
-  export type ServiceWhereUniqueInput = Prisma.AtLeast<{
+  export type RankWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: ServiceWhereInput | ServiceWhereInput[]
-    OR?: ServiceWhereInput[]
-    NOT?: ServiceWhereInput | ServiceWhereInput[]
-    name?: StringFilter<"Service"> | string
-    cost_per_ms?: FloatFilter<"Service"> | number
-    service_usages?: Service_UsageListRelationFilter
+    name?: string
+    AND?: RankWhereInput | RankWhereInput[]
+    OR?: RankWhereInput[]
+    NOT?: RankWhereInput | RankWhereInput[]
+    point_limit?: StringFilter<"Rank"> | string
+    discount_id?: StringFilter<"Rank"> | string
+    image?: StringFilter<"Rank"> | string
+    discount?: XOR<DiscountNullableScalarRelationFilter, DiscountWhereInput> | null
+    users?: UserListRelationFilter
+  }, "id" | "name">
+
+  export type RankOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    point_limit?: SortOrder
+    discount_id?: SortOrder
+    image?: SortOrder
+    _count?: RankCountOrderByAggregateInput
+    _max?: RankMaxOrderByAggregateInput
+    _min?: RankMinOrderByAggregateInput
+  }
+
+  export type RankScalarWhereWithAggregatesInput = {
+    AND?: RankScalarWhereWithAggregatesInput | RankScalarWhereWithAggregatesInput[]
+    OR?: RankScalarWhereWithAggregatesInput[]
+    NOT?: RankScalarWhereWithAggregatesInput | RankScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Rank"> | string
+    name?: StringWithAggregatesFilter<"Rank"> | string
+    point_limit?: StringWithAggregatesFilter<"Rank"> | string
+    discount_id?: StringWithAggregatesFilter<"Rank"> | string
+    image?: StringWithAggregatesFilter<"Rank"> | string
+  }
+
+  export type DiscountWhereInput = {
+    AND?: DiscountWhereInput | DiscountWhereInput[]
+    OR?: DiscountWhereInput[]
+    NOT?: DiscountWhereInput | DiscountWhereInput[]
+    id?: StringFilter<"Discount"> | string
+    name?: StringFilter<"Discount"> | string
+    image?: StringFilter<"Discount"> | string
+    percent?: IntFilter<"Discount"> | number
+    ranks?: RankListRelationFilter
+  }
+
+  export type DiscountOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    image?: SortOrder
+    percent?: SortOrder
+    ranks?: RankOrderByRelationAggregateInput
+  }
+
+  export type DiscountWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DiscountWhereInput | DiscountWhereInput[]
+    OR?: DiscountWhereInput[]
+    NOT?: DiscountWhereInput | DiscountWhereInput[]
+    name?: StringFilter<"Discount"> | string
+    image?: StringFilter<"Discount"> | string
+    percent?: IntFilter<"Discount"> | number
+    ranks?: RankListRelationFilter
   }, "id">
 
-  export type ServiceOrderByWithAggregationInput = {
+  export type DiscountOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    cost_per_ms?: SortOrder
-    _count?: ServiceCountOrderByAggregateInput
-    _avg?: ServiceAvgOrderByAggregateInput
-    _max?: ServiceMaxOrderByAggregateInput
-    _min?: ServiceMinOrderByAggregateInput
-    _sum?: ServiceSumOrderByAggregateInput
+    image?: SortOrder
+    percent?: SortOrder
+    _count?: DiscountCountOrderByAggregateInput
+    _avg?: DiscountAvgOrderByAggregateInput
+    _max?: DiscountMaxOrderByAggregateInput
+    _min?: DiscountMinOrderByAggregateInput
+    _sum?: DiscountSumOrderByAggregateInput
   }
 
-  export type ServiceScalarWhereWithAggregatesInput = {
-    AND?: ServiceScalarWhereWithAggregatesInput | ServiceScalarWhereWithAggregatesInput[]
-    OR?: ServiceScalarWhereWithAggregatesInput[]
-    NOT?: ServiceScalarWhereWithAggregatesInput | ServiceScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Service"> | string
-    name?: StringWithAggregatesFilter<"Service"> | string
-    cost_per_ms?: FloatWithAggregatesFilter<"Service"> | number
+  export type DiscountScalarWhereWithAggregatesInput = {
+    AND?: DiscountScalarWhereWithAggregatesInput | DiscountScalarWhereWithAggregatesInput[]
+    OR?: DiscountScalarWhereWithAggregatesInput[]
+    NOT?: DiscountScalarWhereWithAggregatesInput | DiscountScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Discount"> | string
+    name?: StringWithAggregatesFilter<"Discount"> | string
+    image?: StringWithAggregatesFilter<"Discount"> | string
+    percent?: IntWithAggregatesFilter<"Discount"> | number
+  }
+
+  export type HallWhereInput = {
+    AND?: HallWhereInput | HallWhereInput[]
+    OR?: HallWhereInput[]
+    NOT?: HallWhereInput | HallWhereInput[]
+    id?: StringFilter<"Hall"> | string
+    name?: StringFilter<"Hall"> | string
+    row?: IntFilter<"Hall"> | number
+    column?: IntFilter<"Hall"> | number
+    screenings?: ScreeningListRelationFilter
+    chairs?: ChairListRelationFilter
+  }
+
+  export type HallOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    row?: SortOrder
+    column?: SortOrder
+    screenings?: ScreeningOrderByRelationAggregateInput
+    chairs?: ChairOrderByRelationAggregateInput
+  }
+
+  export type HallWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: HallWhereInput | HallWhereInput[]
+    OR?: HallWhereInput[]
+    NOT?: HallWhereInput | HallWhereInput[]
+    name?: StringFilter<"Hall"> | string
+    row?: IntFilter<"Hall"> | number
+    column?: IntFilter<"Hall"> | number
+    screenings?: ScreeningListRelationFilter
+    chairs?: ChairListRelationFilter
+  }, "id">
+
+  export type HallOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    row?: SortOrder
+    column?: SortOrder
+    _count?: HallCountOrderByAggregateInput
+    _avg?: HallAvgOrderByAggregateInput
+    _max?: HallMaxOrderByAggregateInput
+    _min?: HallMinOrderByAggregateInput
+    _sum?: HallSumOrderByAggregateInput
+  }
+
+  export type HallScalarWhereWithAggregatesInput = {
+    AND?: HallScalarWhereWithAggregatesInput | HallScalarWhereWithAggregatesInput[]
+    OR?: HallScalarWhereWithAggregatesInput[]
+    NOT?: HallScalarWhereWithAggregatesInput | HallScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Hall"> | string
+    name?: StringWithAggregatesFilter<"Hall"> | string
+    row?: IntWithAggregatesFilter<"Hall"> | number
+    column?: IntWithAggregatesFilter<"Hall"> | number
+  }
+
+  export type ForumWhereInput = {
+    AND?: ForumWhereInput | ForumWhereInput[]
+    OR?: ForumWhereInput[]
+    NOT?: ForumWhereInput | ForumWhereInput[]
+    id?: StringFilter<"Forum"> | string
+    review?: FloatFilter<"Forum"> | number
+    comment?: StringFilter<"Forum"> | string
+    user_id?: StringFilter<"Forum"> | string
+    movie_id?: StringFilter<"Forum"> | string
+    users?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    movies?: XOR<MovieNullableScalarRelationFilter, MovieWhereInput> | null
+  }
+
+  export type ForumOrderByWithRelationInput = {
+    id?: SortOrder
+    review?: SortOrder
+    comment?: SortOrder
+    user_id?: SortOrder
+    movie_id?: SortOrder
+    users?: UserOrderByWithRelationInput
+    movies?: MovieOrderByWithRelationInput
+  }
+
+  export type ForumWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ForumWhereInput | ForumWhereInput[]
+    OR?: ForumWhereInput[]
+    NOT?: ForumWhereInput | ForumWhereInput[]
+    review?: FloatFilter<"Forum"> | number
+    comment?: StringFilter<"Forum"> | string
+    user_id?: StringFilter<"Forum"> | string
+    movie_id?: StringFilter<"Forum"> | string
+    users?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    movies?: XOR<MovieNullableScalarRelationFilter, MovieWhereInput> | null
+  }, "id">
+
+  export type ForumOrderByWithAggregationInput = {
+    id?: SortOrder
+    review?: SortOrder
+    comment?: SortOrder
+    user_id?: SortOrder
+    movie_id?: SortOrder
+    _count?: ForumCountOrderByAggregateInput
+    _avg?: ForumAvgOrderByAggregateInput
+    _max?: ForumMaxOrderByAggregateInput
+    _min?: ForumMinOrderByAggregateInput
+    _sum?: ForumSumOrderByAggregateInput
+  }
+
+  export type ForumScalarWhereWithAggregatesInput = {
+    AND?: ForumScalarWhereWithAggregatesInput | ForumScalarWhereWithAggregatesInput[]
+    OR?: ForumScalarWhereWithAggregatesInput[]
+    NOT?: ForumScalarWhereWithAggregatesInput | ForumScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Forum"> | string
+    review?: FloatWithAggregatesFilter<"Forum"> | number
+    comment?: StringWithAggregatesFilter<"Forum"> | string
+    user_id?: StringWithAggregatesFilter<"Forum"> | string
+    movie_id?: StringWithAggregatesFilter<"Forum"> | string
+  }
+
+  export type TicketWhereInput = {
+    AND?: TicketWhereInput | TicketWhereInput[]
+    OR?: TicketWhereInput[]
+    NOT?: TicketWhereInput | TicketWhereInput[]
+    id?: StringFilter<"Ticket"> | string
+    ticket_type_id?: StringFilter<"Ticket"> | string
+    user_id?: StringFilter<"Ticket"> | string
+    screening_id?: StringFilter<"Ticket"> | string
+    ticket_types?: XOR<Ticket_typeNullableScalarRelationFilter, Ticket_typeWhereInput> | null
+    screening_types?: XOR<Screening_typeNullableScalarRelationFilter, Screening_typeWhereInput> | null
+    users?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type TicketOrderByWithRelationInput = {
+    id?: SortOrder
+    ticket_type_id?: SortOrder
+    user_id?: SortOrder
+    screening_id?: SortOrder
+    ticket_types?: Ticket_typeOrderByWithRelationInput
+    screening_types?: Screening_typeOrderByWithRelationInput
+    users?: UserOrderByWithRelationInput
+  }
+
+  export type TicketWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TicketWhereInput | TicketWhereInput[]
+    OR?: TicketWhereInput[]
+    NOT?: TicketWhereInput | TicketWhereInput[]
+    ticket_type_id?: StringFilter<"Ticket"> | string
+    user_id?: StringFilter<"Ticket"> | string
+    screening_id?: StringFilter<"Ticket"> | string
+    ticket_types?: XOR<Ticket_typeNullableScalarRelationFilter, Ticket_typeWhereInput> | null
+    screening_types?: XOR<Screening_typeNullableScalarRelationFilter, Screening_typeWhereInput> | null
+    users?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type TicketOrderByWithAggregationInput = {
+    id?: SortOrder
+    ticket_type_id?: SortOrder
+    user_id?: SortOrder
+    screening_id?: SortOrder
+    _count?: TicketCountOrderByAggregateInput
+    _max?: TicketMaxOrderByAggregateInput
+    _min?: TicketMinOrderByAggregateInput
+  }
+
+  export type TicketScalarWhereWithAggregatesInput = {
+    AND?: TicketScalarWhereWithAggregatesInput | TicketScalarWhereWithAggregatesInput[]
+    OR?: TicketScalarWhereWithAggregatesInput[]
+    NOT?: TicketScalarWhereWithAggregatesInput | TicketScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Ticket"> | string
+    ticket_type_id?: StringWithAggregatesFilter<"Ticket"> | string
+    user_id?: StringWithAggregatesFilter<"Ticket"> | string
+    screening_id?: StringWithAggregatesFilter<"Ticket"> | string
+  }
+
+  export type Ticket_typeWhereInput = {
+    AND?: Ticket_typeWhereInput | Ticket_typeWhereInput[]
+    OR?: Ticket_typeWhereInput[]
+    NOT?: Ticket_typeWhereInput | Ticket_typeWhereInput[]
+    id?: StringFilter<"Ticket_type"> | string
+    type?: StringFilter<"Ticket_type"> | string
+    percent?: IntFilter<"Ticket_type"> | number
+    tickets?: TicketListRelationFilter
+  }
+
+  export type Ticket_typeOrderByWithRelationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    percent?: SortOrder
+    tickets?: TicketOrderByRelationAggregateInput
+  }
+
+  export type Ticket_typeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: Ticket_typeWhereInput | Ticket_typeWhereInput[]
+    OR?: Ticket_typeWhereInput[]
+    NOT?: Ticket_typeWhereInput | Ticket_typeWhereInput[]
+    type?: StringFilter<"Ticket_type"> | string
+    percent?: IntFilter<"Ticket_type"> | number
+    tickets?: TicketListRelationFilter
+  }, "id">
+
+  export type Ticket_typeOrderByWithAggregationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    percent?: SortOrder
+    _count?: Ticket_typeCountOrderByAggregateInput
+    _avg?: Ticket_typeAvgOrderByAggregateInput
+    _max?: Ticket_typeMaxOrderByAggregateInput
+    _min?: Ticket_typeMinOrderByAggregateInput
+    _sum?: Ticket_typeSumOrderByAggregateInput
+  }
+
+  export type Ticket_typeScalarWhereWithAggregatesInput = {
+    AND?: Ticket_typeScalarWhereWithAggregatesInput | Ticket_typeScalarWhereWithAggregatesInput[]
+    OR?: Ticket_typeScalarWhereWithAggregatesInput[]
+    NOT?: Ticket_typeScalarWhereWithAggregatesInput | Ticket_typeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Ticket_type"> | string
+    type?: StringWithAggregatesFilter<"Ticket_type"> | string
+    percent?: IntWithAggregatesFilter<"Ticket_type"> | number
+  }
+
+  export type Screening_typeWhereInput = {
+    AND?: Screening_typeWhereInput | Screening_typeWhereInput[]
+    OR?: Screening_typeWhereInput[]
+    NOT?: Screening_typeWhereInput | Screening_typeWhereInput[]
+    id?: StringFilter<"Screening_type"> | string
+    type?: StringFilter<"Screening_type"> | string
+    percent?: IntFilter<"Screening_type"> | number
+    tickets?: TicketListRelationFilter
+    screenings?: ScreeningListRelationFilter
+  }
+
+  export type Screening_typeOrderByWithRelationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    percent?: SortOrder
+    tickets?: TicketOrderByRelationAggregateInput
+    screenings?: ScreeningOrderByRelationAggregateInput
+  }
+
+  export type Screening_typeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: Screening_typeWhereInput | Screening_typeWhereInput[]
+    OR?: Screening_typeWhereInput[]
+    NOT?: Screening_typeWhereInput | Screening_typeWhereInput[]
+    type?: StringFilter<"Screening_type"> | string
+    percent?: IntFilter<"Screening_type"> | number
+    tickets?: TicketListRelationFilter
+    screenings?: ScreeningListRelationFilter
+  }, "id">
+
+  export type Screening_typeOrderByWithAggregationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    percent?: SortOrder
+    _count?: Screening_typeCountOrderByAggregateInput
+    _avg?: Screening_typeAvgOrderByAggregateInput
+    _max?: Screening_typeMaxOrderByAggregateInput
+    _min?: Screening_typeMinOrderByAggregateInput
+    _sum?: Screening_typeSumOrderByAggregateInput
+  }
+
+  export type Screening_typeScalarWhereWithAggregatesInput = {
+    AND?: Screening_typeScalarWhereWithAggregatesInput | Screening_typeScalarWhereWithAggregatesInput[]
+    OR?: Screening_typeScalarWhereWithAggregatesInput[]
+    NOT?: Screening_typeScalarWhereWithAggregatesInput | Screening_typeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Screening_type"> | string
+    type?: StringWithAggregatesFilter<"Screening_type"> | string
+    percent?: IntWithAggregatesFilter<"Screening_type"> | number
+  }
+
+  export type AdminCreateInput = {
+    id?: string
+    name: string
+    password_hash: string
+  }
+
+  export type AdminUncheckedCreateInput = {
+    id?: string
+    name: string
+    password_hash: string
+  }
+
+  export type AdminUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdminUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdminCreateManyInput = {
+    id?: string
+    name: string
+    password_hash: string
+  }
+
+  export type AdminUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdminUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MovieCreateInput = {
+    id?: string
+    title: string
+    director: string
+    actors: string
+    playtime: number
+    language: string
+    trailer: string
+    poster: string
+    onscreen: boolean
+    genre: string
+    review?: number | null
+    description?: string | null
+    screenings?: ScreeningCreateNestedManyWithoutMoviesInput
+    forum?: ForumCreateNestedManyWithoutMoviesInput
+  }
+
+  export type MovieUncheckedCreateInput = {
+    id?: string
+    title: string
+    director: string
+    actors: string
+    playtime: number
+    language: string
+    trailer: string
+    poster: string
+    onscreen: boolean
+    genre: string
+    review?: number | null
+    description?: string | null
+    screenings?: ScreeningUncheckedCreateNestedManyWithoutMoviesInput
+    forum?: ForumUncheckedCreateNestedManyWithoutMoviesInput
+  }
+
+  export type MovieUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    director?: StringFieldUpdateOperationsInput | string
+    actors?: StringFieldUpdateOperationsInput | string
+    playtime?: IntFieldUpdateOperationsInput | number
+    language?: StringFieldUpdateOperationsInput | string
+    trailer?: StringFieldUpdateOperationsInput | string
+    poster?: StringFieldUpdateOperationsInput | string
+    onscreen?: BoolFieldUpdateOperationsInput | boolean
+    genre?: StringFieldUpdateOperationsInput | string
+    review?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    screenings?: ScreeningUpdateManyWithoutMoviesNestedInput
+    forum?: ForumUpdateManyWithoutMoviesNestedInput
+  }
+
+  export type MovieUncheckedUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    director?: StringFieldUpdateOperationsInput | string
+    actors?: StringFieldUpdateOperationsInput | string
+    playtime?: IntFieldUpdateOperationsInput | number
+    language?: StringFieldUpdateOperationsInput | string
+    trailer?: StringFieldUpdateOperationsInput | string
+    poster?: StringFieldUpdateOperationsInput | string
+    onscreen?: BoolFieldUpdateOperationsInput | boolean
+    genre?: StringFieldUpdateOperationsInput | string
+    review?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    screenings?: ScreeningUncheckedUpdateManyWithoutMoviesNestedInput
+    forum?: ForumUncheckedUpdateManyWithoutMoviesNestedInput
+  }
+
+  export type MovieCreateManyInput = {
+    id?: string
+    title: string
+    director: string
+    actors: string
+    playtime: number
+    language: string
+    trailer: string
+    poster: string
+    onscreen: boolean
+    genre: string
+    review?: number | null
+    description?: string | null
+  }
+
+  export type MovieUpdateManyMutationInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    director?: StringFieldUpdateOperationsInput | string
+    actors?: StringFieldUpdateOperationsInput | string
+    playtime?: IntFieldUpdateOperationsInput | number
+    language?: StringFieldUpdateOperationsInput | string
+    trailer?: StringFieldUpdateOperationsInput | string
+    poster?: StringFieldUpdateOperationsInput | string
+    onscreen?: BoolFieldUpdateOperationsInput | boolean
+    genre?: StringFieldUpdateOperationsInput | string
+    review?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MovieUncheckedUpdateManyInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    director?: StringFieldUpdateOperationsInput | string
+    actors?: StringFieldUpdateOperationsInput | string
+    playtime?: IntFieldUpdateOperationsInput | number
+    language?: StringFieldUpdateOperationsInput | string
+    trailer?: StringFieldUpdateOperationsInput | string
+    poster?: StringFieldUpdateOperationsInput | string
+    onscreen?: BoolFieldUpdateOperationsInput | boolean
+    genre?: StringFieldUpdateOperationsInput | string
+    review?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ScreeningCreateInput = {
+    id?: string
+    start: Date | string
+    end: Date | string
+    movies?: MovieCreateNestedOneWithoutScreeningsInput
+    halls?: HallCreateNestedOneWithoutScreeningsInput
+    screening_types?: Screening_typeCreateNestedOneWithoutScreeningsInput
+  }
+
+  export type ScreeningUncheckedCreateInput = {
+    id?: string
+    hall_id: string
+    movie_id: string
+    start: Date | string
+    end: Date | string
+    screening_type_id: string
+  }
+
+  export type ScreeningUpdateInput = {
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    movies?: MovieUpdateOneWithoutScreeningsNestedInput
+    halls?: HallUpdateOneWithoutScreeningsNestedInput
+    screening_types?: Screening_typeUpdateOneWithoutScreeningsNestedInput
+  }
+
+  export type ScreeningUncheckedUpdateInput = {
+    hall_id?: StringFieldUpdateOperationsInput | string
+    movie_id?: StringFieldUpdateOperationsInput | string
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    screening_type_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ScreeningCreateManyInput = {
+    id?: string
+    hall_id: string
+    movie_id: string
+    start: Date | string
+    end: Date | string
+    screening_type_id: string
+  }
+
+  export type ScreeningUpdateManyMutationInput = {
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScreeningUncheckedUpdateManyInput = {
+    hall_id?: StringFieldUpdateOperationsInput | string
+    movie_id?: StringFieldUpdateOperationsInput | string
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    screening_type_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserCreateInput = {
     id?: string
     name: string
+    email: string
     password_hash: string
-    workspaces?: WorkspaceCreateNestedManyWithoutUserInput
+    phone_number: string
+    points: number
+    ranks?: RankCreateNestedOneWithoutUsersInput
+    tickets?: TicketCreateNestedManyWithoutUsersInput
+    forum?: ForumCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
     name: string
+    email: string
     password_hash: string
-    workspaces?: WorkspaceUncheckedCreateNestedManyWithoutUserInput
+    phone_number: string
+    points: number
+    rank_id: string
+    tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
+    forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    workspaces?: WorkspaceUpdateManyWithoutUserNestedInput
+    phone_number?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    ranks?: RankUpdateOneWithoutUsersNestedInput
+    tickets?: TicketUpdateManyWithoutUsersNestedInput
+    forum?: ForumUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    workspaces?: WorkspaceUncheckedUpdateManyWithoutUserNestedInput
+    phone_number?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    rank_id?: StringFieldUpdateOperationsInput | string
+    tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
+    forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: string
     name: string
+    email: string
     password_hash: string
+    phone_number: string
+    points: number
+    rank_id: string
   }
 
   export type UserUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
   }
 
   export type UserUncheckedUpdateManyInput = {
     name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    rank_id?: StringFieldUpdateOperationsInput | string
   }
 
-  export type WorkspaceCreateInput = {
+  export type ChairCreateInput = {
     id?: string
-    title: string
-    description?: string | null
-    limit?: number | null
-    user?: UserCreateNestedOneWithoutWorkspacesInput
-    api_tokens?: API_TokenCreateNestedManyWithoutWorkspaceInput
+    state?: boolean
+    row: number
+    column: number
+    halls?: HallCreateNestedOneWithoutChairsInput
   }
 
-  export type WorkspaceUncheckedCreateInput = {
+  export type ChairUncheckedCreateInput = {
     id?: string
-    title: string
-    description?: string | null
-    limit?: number | null
+    state?: boolean
+    row: number
+    column: number
+    hall_id: string
+  }
+
+  export type ChairUpdateInput = {
+    state?: BoolFieldUpdateOperationsInput | boolean
+    row?: IntFieldUpdateOperationsInput | number
+    column?: IntFieldUpdateOperationsInput | number
+    halls?: HallUpdateOneWithoutChairsNestedInput
+  }
+
+  export type ChairUncheckedUpdateInput = {
+    state?: BoolFieldUpdateOperationsInput | boolean
+    row?: IntFieldUpdateOperationsInput | number
+    column?: IntFieldUpdateOperationsInput | number
+    hall_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ChairCreateManyInput = {
+    id?: string
+    state?: boolean
+    row: number
+    column: number
+    hall_id: string
+  }
+
+  export type ChairUpdateManyMutationInput = {
+    state?: BoolFieldUpdateOperationsInput | boolean
+    row?: IntFieldUpdateOperationsInput | number
+    column?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ChairUncheckedUpdateManyInput = {
+    state?: BoolFieldUpdateOperationsInput | boolean
+    row?: IntFieldUpdateOperationsInput | number
+    column?: IntFieldUpdateOperationsInput | number
+    hall_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type RankCreateInput = {
+    id?: string
+    name: string
+    point_limit: string
+    image: string
+    discount?: DiscountCreateNestedOneWithoutRanksInput
+    users?: UserCreateNestedManyWithoutRanksInput
+  }
+
+  export type RankUncheckedCreateInput = {
+    id?: string
+    name: string
+    point_limit: string
+    discount_id: string
+    image: string
+    users?: UserUncheckedCreateNestedManyWithoutRanksInput
+  }
+
+  export type RankUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    point_limit?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    discount?: DiscountUpdateOneWithoutRanksNestedInput
+    users?: UserUpdateManyWithoutRanksNestedInput
+  }
+
+  export type RankUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    point_limit?: StringFieldUpdateOperationsInput | string
+    discount_id?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    users?: UserUncheckedUpdateManyWithoutRanksNestedInput
+  }
+
+  export type RankCreateManyInput = {
+    id?: string
+    name: string
+    point_limit: string
+    discount_id: string
+    image: string
+  }
+
+  export type RankUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    point_limit?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type RankUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    point_limit?: StringFieldUpdateOperationsInput | string
+    discount_id?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DiscountCreateInput = {
+    id?: string
+    name: string
+    image: string
+    percent: number
+    ranks?: RankCreateNestedManyWithoutDiscountInput
+  }
+
+  export type DiscountUncheckedCreateInput = {
+    id?: string
+    name: string
+    image: string
+    percent: number
+    ranks?: RankUncheckedCreateNestedManyWithoutDiscountInput
+  }
+
+  export type DiscountUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+    ranks?: RankUpdateManyWithoutDiscountNestedInput
+  }
+
+  export type DiscountUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+    ranks?: RankUncheckedUpdateManyWithoutDiscountNestedInput
+  }
+
+  export type DiscountCreateManyInput = {
+    id?: string
+    name: string
+    image: string
+    percent: number
+  }
+
+  export type DiscountUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type DiscountUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type HallCreateInput = {
+    id?: string
+    name: string
+    row: number
+    column: number
+    screenings?: ScreeningCreateNestedManyWithoutHallsInput
+    chairs?: ChairCreateNestedManyWithoutHallsInput
+  }
+
+  export type HallUncheckedCreateInput = {
+    id?: string
+    name: string
+    row: number
+    column: number
+    screenings?: ScreeningUncheckedCreateNestedManyWithoutHallsInput
+    chairs?: ChairUncheckedCreateNestedManyWithoutHallsInput
+  }
+
+  export type HallUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    row?: IntFieldUpdateOperationsInput | number
+    column?: IntFieldUpdateOperationsInput | number
+    screenings?: ScreeningUpdateManyWithoutHallsNestedInput
+    chairs?: ChairUpdateManyWithoutHallsNestedInput
+  }
+
+  export type HallUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    row?: IntFieldUpdateOperationsInput | number
+    column?: IntFieldUpdateOperationsInput | number
+    screenings?: ScreeningUncheckedUpdateManyWithoutHallsNestedInput
+    chairs?: ChairUncheckedUpdateManyWithoutHallsNestedInput
+  }
+
+  export type HallCreateManyInput = {
+    id?: string
+    name: string
+    row: number
+    column: number
+  }
+
+  export type HallUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    row?: IntFieldUpdateOperationsInput | number
+    column?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type HallUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    row?: IntFieldUpdateOperationsInput | number
+    column?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ForumCreateInput = {
+    id?: string
+    review: number
+    comment: string
+    users?: UserCreateNestedOneWithoutForumInput
+    movies?: MovieCreateNestedOneWithoutForumInput
+  }
+
+  export type ForumUncheckedCreateInput = {
+    id?: string
+    review: number
+    comment: string
     user_id: string
-    api_tokens?: API_TokenUncheckedCreateNestedManyWithoutWorkspaceInput
+    movie_id: string
   }
 
-  export type WorkspaceUpdateInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    limit?: NullableIntFieldUpdateOperationsInput | number | null
-    user?: UserUpdateOneWithoutWorkspacesNestedInput
-    api_tokens?: API_TokenUpdateManyWithoutWorkspaceNestedInput
+  export type ForumUpdateInput = {
+    review?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    users?: UserUpdateOneWithoutForumNestedInput
+    movies?: MovieUpdateOneWithoutForumNestedInput
   }
 
-  export type WorkspaceUncheckedUpdateInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    limit?: NullableIntFieldUpdateOperationsInput | number | null
+  export type ForumUncheckedUpdateInput = {
+    review?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
-    api_tokens?: API_TokenUncheckedUpdateManyWithoutWorkspaceNestedInput
+    movie_id?: StringFieldUpdateOperationsInput | string
   }
 
-  export type WorkspaceCreateManyInput = {
+  export type ForumCreateManyInput = {
     id?: string
-    title: string
-    description?: string | null
-    limit?: number | null
+    review: number
+    comment: string
     user_id: string
+    movie_id: string
   }
 
-  export type WorkspaceUpdateManyMutationInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    limit?: NullableIntFieldUpdateOperationsInput | number | null
+  export type ForumUpdateManyMutationInput = {
+    review?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
   }
 
-  export type WorkspaceUncheckedUpdateManyInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    limit?: NullableIntFieldUpdateOperationsInput | number | null
+  export type ForumUncheckedUpdateManyInput = {
+    review?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
+    movie_id?: StringFieldUpdateOperationsInput | string
   }
 
-  export type API_TokenCreateInput = {
+  export type TicketCreateInput = {
     id?: string
-    name: string
-    token: string
-    createdAt?: Date | string
-    creation_date?: Date | string
-    revocation_date?: Date | string | null
-    service_usages?: Service_UsageCreateNestedManyWithoutApi_tokenInput
-    workspace?: WorkspaceCreateNestedOneWithoutApi_tokensInput
+    ticket_types?: Ticket_typeCreateNestedOneWithoutTicketsInput
+    screening_types?: Screening_typeCreateNestedOneWithoutTicketsInput
+    users?: UserCreateNestedOneWithoutTicketsInput
   }
 
-  export type API_TokenUncheckedCreateInput = {
+  export type TicketUncheckedCreateInput = {
     id?: string
-    name: string
-    token: string
-    workspace_id: string
-    createdAt?: Date | string
-    creation_date?: Date | string
-    revocation_date?: Date | string | null
-    service_usages?: Service_UsageUncheckedCreateNestedManyWithoutApi_tokenInput
+    ticket_type_id: string
+    user_id: string
+    screening_id: string
   }
 
-  export type API_TokenUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    creation_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    revocation_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    service_usages?: Service_UsageUpdateManyWithoutApi_tokenNestedInput
-    workspace?: WorkspaceUpdateOneWithoutApi_tokensNestedInput
+  export type TicketUpdateInput = {
+    ticket_types?: Ticket_typeUpdateOneWithoutTicketsNestedInput
+    screening_types?: Screening_typeUpdateOneWithoutTicketsNestedInput
+    users?: UserUpdateOneWithoutTicketsNestedInput
   }
 
-  export type API_TokenUncheckedUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    workspace_id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    creation_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    revocation_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    service_usages?: Service_UsageUncheckedUpdateManyWithoutApi_tokenNestedInput
+  export type TicketUncheckedUpdateInput = {
+    ticket_type_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    screening_id?: StringFieldUpdateOperationsInput | string
   }
 
-  export type API_TokenCreateManyInput = {
+  export type TicketCreateManyInput = {
     id?: string
-    name: string
-    token: string
-    workspace_id: string
-    createdAt?: Date | string
-    creation_date?: Date | string
-    revocation_date?: Date | string | null
+    ticket_type_id: string
+    user_id: string
+    screening_id: string
   }
 
-  export type API_TokenUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    creation_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    revocation_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  export type TicketUpdateManyMutationInput = {
+
   }
 
-  export type API_TokenUncheckedUpdateManyInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    workspace_id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    creation_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    revocation_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  export type TicketUncheckedUpdateManyInput = {
+    ticket_type_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    screening_id?: StringFieldUpdateOperationsInput | string
   }
 
-  export type Service_UsageCreateInput = {
+  export type Ticket_typeCreateInput = {
     id?: string
-    usage_duration_ms?: number
-    usage_started: Date | string
-    service?: ServiceCreateNestedOneWithoutService_usagesInput
-    api_token?: API_TokenCreateNestedOneWithoutService_usagesInput
+    type: string
+    percent: number
+    tickets?: TicketCreateNestedManyWithoutTicket_typesInput
   }
 
-  export type Service_UsageUncheckedCreateInput = {
+  export type Ticket_typeUncheckedCreateInput = {
     id?: string
-    service_id?: string | null
-    api_token_id: string
-    usage_duration_ms?: number
-    usage_started: Date | string
+    type: string
+    percent: number
+    tickets?: TicketUncheckedCreateNestedManyWithoutTicket_typesInput
   }
 
-  export type Service_UsageUpdateInput = {
-    usage_duration_ms?: FloatFieldUpdateOperationsInput | number
-    usage_started?: DateTimeFieldUpdateOperationsInput | Date | string
-    service?: ServiceUpdateOneWithoutService_usagesNestedInput
-    api_token?: API_TokenUpdateOneWithoutService_usagesNestedInput
+  export type Ticket_typeUpdateInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+    tickets?: TicketUpdateManyWithoutTicket_typesNestedInput
   }
 
-  export type Service_UsageUncheckedUpdateInput = {
-    service_id?: NullableStringFieldUpdateOperationsInput | string | null
-    api_token_id?: StringFieldUpdateOperationsInput | string
-    usage_duration_ms?: FloatFieldUpdateOperationsInput | number
-    usage_started?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type Ticket_typeUncheckedUpdateInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+    tickets?: TicketUncheckedUpdateManyWithoutTicket_typesNestedInput
   }
 
-  export type Service_UsageCreateManyInput = {
+  export type Ticket_typeCreateManyInput = {
     id?: string
-    service_id?: string | null
-    api_token_id: string
-    usage_duration_ms?: number
-    usage_started: Date | string
+    type: string
+    percent: number
   }
 
-  export type Service_UsageUpdateManyMutationInput = {
-    usage_duration_ms?: FloatFieldUpdateOperationsInput | number
-    usage_started?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type Ticket_typeUpdateManyMutationInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
   }
 
-  export type Service_UsageUncheckedUpdateManyInput = {
-    service_id?: NullableStringFieldUpdateOperationsInput | string | null
-    api_token_id?: StringFieldUpdateOperationsInput | string
-    usage_duration_ms?: FloatFieldUpdateOperationsInput | number
-    usage_started?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type Ticket_typeUncheckedUpdateManyInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ServiceCreateInput = {
+  export type Screening_typeCreateInput = {
     id?: string
-    name: string
-    cost_per_ms: number
-    service_usages?: Service_UsageCreateNestedManyWithoutServiceInput
+    type: string
+    percent: number
+    tickets?: TicketCreateNestedManyWithoutScreening_typesInput
+    screenings?: ScreeningCreateNestedManyWithoutScreening_typesInput
   }
 
-  export type ServiceUncheckedCreateInput = {
+  export type Screening_typeUncheckedCreateInput = {
     id?: string
-    name: string
-    cost_per_ms: number
-    service_usages?: Service_UsageUncheckedCreateNestedManyWithoutServiceInput
+    type: string
+    percent: number
+    tickets?: TicketUncheckedCreateNestedManyWithoutScreening_typesInput
+    screenings?: ScreeningUncheckedCreateNestedManyWithoutScreening_typesInput
   }
 
-  export type ServiceUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    cost_per_ms?: FloatFieldUpdateOperationsInput | number
-    service_usages?: Service_UsageUpdateManyWithoutServiceNestedInput
+  export type Screening_typeUpdateInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+    tickets?: TicketUpdateManyWithoutScreening_typesNestedInput
+    screenings?: ScreeningUpdateManyWithoutScreening_typesNestedInput
   }
 
-  export type ServiceUncheckedUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    cost_per_ms?: FloatFieldUpdateOperationsInput | number
-    service_usages?: Service_UsageUncheckedUpdateManyWithoutServiceNestedInput
+  export type Screening_typeUncheckedUpdateInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+    tickets?: TicketUncheckedUpdateManyWithoutScreening_typesNestedInput
+    screenings?: ScreeningUncheckedUpdateManyWithoutScreening_typesNestedInput
   }
 
-  export type ServiceCreateManyInput = {
+  export type Screening_typeCreateManyInput = {
     id?: string
-    name: string
-    cost_per_ms: number
+    type: string
+    percent: number
   }
 
-  export type ServiceUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    cost_per_ms?: FloatFieldUpdateOperationsInput | number
+  export type Screening_typeUpdateManyMutationInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ServiceUncheckedUpdateManyInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    cost_per_ms?: FloatFieldUpdateOperationsInput | number
+  export type Screening_typeUncheckedUpdateManyInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -7157,29 +16206,19 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type WorkspaceListRelationFilter = {
-    every?: WorkspaceWhereInput
-    some?: WorkspaceWhereInput
-    none?: WorkspaceWhereInput
-  }
-
-  export type WorkspaceOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type UserCountOrderByAggregateInput = {
+  export type AdminCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     password_hash?: SortOrder
   }
 
-  export type UserMaxOrderByAggregateInput = {
+  export type AdminMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     password_hash?: SortOrder
   }
 
-  export type UserMinOrderByAggregateInput = {
+  export type AdminMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     password_hash?: SortOrder
@@ -7203,6 +16242,34 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -7219,68 +16286,120 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+  export type ScreeningListRelationFilter = {
+    every?: ScreeningWhereInput
+    some?: ScreeningWhereInput
+    none?: ScreeningWhereInput
+  }
+
+  export type ForumListRelationFilter = {
+    every?: ForumWhereInput
+    some?: ForumWhereInput
+    none?: ForumWhereInput
+  }
+
+  export type ScreeningOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ForumOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MovieCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    director?: SortOrder
+    actors?: SortOrder
+    playtime?: SortOrder
+    language?: SortOrder
+    trailer?: SortOrder
+    poster?: SortOrder
+    onscreen?: SortOrder
+    genre?: SortOrder
+    review?: SortOrder
+    description?: SortOrder
+  }
+
+  export type MovieAvgOrderByAggregateInput = {
+    playtime?: SortOrder
+    review?: SortOrder
+  }
+
+  export type MovieMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    director?: SortOrder
+    actors?: SortOrder
+    playtime?: SortOrder
+    language?: SortOrder
+    trailer?: SortOrder
+    poster?: SortOrder
+    onscreen?: SortOrder
+    genre?: SortOrder
+    review?: SortOrder
+    description?: SortOrder
+  }
+
+  export type MovieMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    director?: SortOrder
+    actors?: SortOrder
+    playtime?: SortOrder
+    language?: SortOrder
+    trailer?: SortOrder
+    poster?: SortOrder
+    onscreen?: SortOrder
+    genre?: SortOrder
+    review?: SortOrder
+    description?: SortOrder
+  }
+
+  export type MovieSumOrderByAggregateInput = {
+    playtime?: SortOrder
+    review?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
     isSet?: boolean
-  }
-
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
-  }
-
-  export type API_TokenListRelationFilter = {
-    every?: API_TokenWhereInput
-    some?: API_TokenWhereInput
-    none?: API_TokenWhereInput
-  }
-
-  export type API_TokenOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type WorkspaceTitleUser_idCompoundUniqueInput = {
-    title: string
-    user_id: string
-  }
-
-  export type WorkspaceCountOrderByAggregateInput = {
-    id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    limit?: SortOrder
-    user_id?: SortOrder
-  }
-
-  export type WorkspaceAvgOrderByAggregateInput = {
-    limit?: SortOrder
-  }
-
-  export type WorkspaceMaxOrderByAggregateInput = {
-    id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    limit?: SortOrder
-    user_id?: SortOrder
-  }
-
-  export type WorkspaceMinOrderByAggregateInput = {
-    id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    limit?: SortOrder
-    user_id?: SortOrder
-  }
-
-  export type WorkspaceSumOrderByAggregateInput = {
-    limit?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7302,23 +16421,6 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-    isSet?: boolean
-  }
-
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -7330,66 +16432,46 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-    isSet?: boolean
+  export type MovieNullableScalarRelationFilter = {
+    is?: MovieWhereInput | null
+    isNot?: MovieWhereInput | null
   }
 
-  export type Service_UsageListRelationFilter = {
-    every?: Service_UsageWhereInput
-    some?: Service_UsageWhereInput
-    none?: Service_UsageWhereInput
+  export type HallNullableScalarRelationFilter = {
+    is?: HallWhereInput | null
+    isNot?: HallWhereInput | null
   }
 
-  export type WorkspaceNullableScalarRelationFilter = {
-    is?: WorkspaceWhereInput | null
-    isNot?: WorkspaceWhereInput | null
+  export type Screening_typeNullableScalarRelationFilter = {
+    is?: Screening_typeWhereInput | null
+    isNot?: Screening_typeWhereInput | null
   }
 
-  export type Service_UsageOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type API_TokenNameWorkspace_idCompoundUniqueInput = {
-    name: string
-    workspace_id: string
-  }
-
-  export type API_TokenCountOrderByAggregateInput = {
+  export type ScreeningCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    token?: SortOrder
-    workspace_id?: SortOrder
-    createdAt?: SortOrder
-    creation_date?: SortOrder
-    revocation_date?: SortOrder
+    hall_id?: SortOrder
+    movie_id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
+    screening_type_id?: SortOrder
   }
 
-  export type API_TokenMaxOrderByAggregateInput = {
+  export type ScreeningMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    token?: SortOrder
-    workspace_id?: SortOrder
-    createdAt?: SortOrder
-    creation_date?: SortOrder
-    revocation_date?: SortOrder
+    hall_id?: SortOrder
+    movie_id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
+    screening_type_id?: SortOrder
   }
 
-  export type API_TokenMinOrderByAggregateInput = {
+  export type ScreeningMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    token?: SortOrder
-    workspace_id?: SortOrder
-    createdAt?: SortOrder
-    creation_date?: SortOrder
-    revocation_date?: SortOrder
+    hall_id?: SortOrder
+    movie_id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
+    screening_type_id?: SortOrder
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -7406,19 +16488,210 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-    isSet?: boolean
+  export type RankNullableScalarRelationFilter = {
+    is?: RankWhereInput | null
+    isNot?: RankWhereInput | null
+  }
+
+  export type TicketListRelationFilter = {
+    every?: TicketWhereInput
+    some?: TicketWhereInput
+    none?: TicketWhereInput
+  }
+
+  export type TicketOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    password_hash?: SortOrder
+    phone_number?: SortOrder
+    points?: SortOrder
+    rank_id?: SortOrder
+  }
+
+  export type UserAvgOrderByAggregateInput = {
+    points?: SortOrder
+  }
+
+  export type UserMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    password_hash?: SortOrder
+    phone_number?: SortOrder
+    points?: SortOrder
+    rank_id?: SortOrder
+  }
+
+  export type UserMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    password_hash?: SortOrder
+    phone_number?: SortOrder
+    points?: SortOrder
+    rank_id?: SortOrder
+  }
+
+  export type UserSumOrderByAggregateInput = {
+    points?: SortOrder
+  }
+
+  export type ChairCountOrderByAggregateInput = {
+    id?: SortOrder
+    state?: SortOrder
+    row?: SortOrder
+    column?: SortOrder
+    hall_id?: SortOrder
+  }
+
+  export type ChairAvgOrderByAggregateInput = {
+    row?: SortOrder
+    column?: SortOrder
+  }
+
+  export type ChairMaxOrderByAggregateInput = {
+    id?: SortOrder
+    state?: SortOrder
+    row?: SortOrder
+    column?: SortOrder
+    hall_id?: SortOrder
+  }
+
+  export type ChairMinOrderByAggregateInput = {
+    id?: SortOrder
+    state?: SortOrder
+    row?: SortOrder
+    column?: SortOrder
+    hall_id?: SortOrder
+  }
+
+  export type ChairSumOrderByAggregateInput = {
+    row?: SortOrder
+    column?: SortOrder
+  }
+
+  export type DiscountNullableScalarRelationFilter = {
+    is?: DiscountWhereInput | null
+    isNot?: DiscountWhereInput | null
+  }
+
+  export type UserListRelationFilter = {
+    every?: UserWhereInput
+    some?: UserWhereInput
+    none?: UserWhereInput
+  }
+
+  export type UserOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RankCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    point_limit?: SortOrder
+    discount_id?: SortOrder
+    image?: SortOrder
+  }
+
+  export type RankMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    point_limit?: SortOrder
+    discount_id?: SortOrder
+    image?: SortOrder
+  }
+
+  export type RankMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    point_limit?: SortOrder
+    discount_id?: SortOrder
+    image?: SortOrder
+  }
+
+  export type RankListRelationFilter = {
+    every?: RankWhereInput
+    some?: RankWhereInput
+    none?: RankWhereInput
+  }
+
+  export type RankOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DiscountCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    image?: SortOrder
+    percent?: SortOrder
+  }
+
+  export type DiscountAvgOrderByAggregateInput = {
+    percent?: SortOrder
+  }
+
+  export type DiscountMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    image?: SortOrder
+    percent?: SortOrder
+  }
+
+  export type DiscountMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    image?: SortOrder
+    percent?: SortOrder
+  }
+
+  export type DiscountSumOrderByAggregateInput = {
+    percent?: SortOrder
+  }
+
+  export type ChairListRelationFilter = {
+    every?: ChairWhereInput
+    some?: ChairWhereInput
+    none?: ChairWhereInput
+  }
+
+  export type ChairOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type HallCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    row?: SortOrder
+    column?: SortOrder
+  }
+
+  export type HallAvgOrderByAggregateInput = {
+    row?: SortOrder
+    column?: SortOrder
+  }
+
+  export type HallMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    row?: SortOrder
+    column?: SortOrder
+  }
+
+  export type HallMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    row?: SortOrder
+    column?: SortOrder
+  }
+
+  export type HallSumOrderByAggregateInput = {
+    row?: SortOrder
+    column?: SortOrder
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -7432,46 +16705,41 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type ServiceNullableScalarRelationFilter = {
-    is?: ServiceWhereInput | null
-    isNot?: ServiceWhereInput | null
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
   }
 
-  export type API_TokenNullableScalarRelationFilter = {
-    is?: API_TokenWhereInput | null
-    isNot?: API_TokenWhereInput | null
-  }
-
-  export type Service_UsageCountOrderByAggregateInput = {
+  export type ForumCountOrderByAggregateInput = {
     id?: SortOrder
-    service_id?: SortOrder
-    api_token_id?: SortOrder
-    usage_duration_ms?: SortOrder
-    usage_started?: SortOrder
+    review?: SortOrder
+    comment?: SortOrder
+    user_id?: SortOrder
+    movie_id?: SortOrder
   }
 
-  export type Service_UsageAvgOrderByAggregateInput = {
-    usage_duration_ms?: SortOrder
+  export type ForumAvgOrderByAggregateInput = {
+    review?: SortOrder
   }
 
-  export type Service_UsageMaxOrderByAggregateInput = {
+  export type ForumMaxOrderByAggregateInput = {
     id?: SortOrder
-    service_id?: SortOrder
-    api_token_id?: SortOrder
-    usage_duration_ms?: SortOrder
-    usage_started?: SortOrder
+    review?: SortOrder
+    comment?: SortOrder
+    user_id?: SortOrder
+    movie_id?: SortOrder
   }
 
-  export type Service_UsageMinOrderByAggregateInput = {
+  export type ForumMinOrderByAggregateInput = {
     id?: SortOrder
-    service_id?: SortOrder
-    api_token_id?: SortOrder
-    usage_duration_ms?: SortOrder
-    usage_started?: SortOrder
+    review?: SortOrder
+    comment?: SortOrder
+    user_id?: SortOrder
+    movie_id?: SortOrder
   }
 
-  export type Service_UsageSumOrderByAggregateInput = {
-    usage_duration_ms?: SortOrder
+  export type ForumSumOrderByAggregateInput = {
+    review?: SortOrder
   }
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -7490,104 +16758,129 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type ServiceCountOrderByAggregateInput = {
+  export type Ticket_typeNullableScalarRelationFilter = {
+    is?: Ticket_typeWhereInput | null
+    isNot?: Ticket_typeWhereInput | null
+  }
+
+  export type TicketCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    cost_per_ms?: SortOrder
+    ticket_type_id?: SortOrder
+    user_id?: SortOrder
+    screening_id?: SortOrder
   }
 
-  export type ServiceAvgOrderByAggregateInput = {
-    cost_per_ms?: SortOrder
-  }
-
-  export type ServiceMaxOrderByAggregateInput = {
+  export type TicketMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    cost_per_ms?: SortOrder
+    ticket_type_id?: SortOrder
+    user_id?: SortOrder
+    screening_id?: SortOrder
   }
 
-  export type ServiceMinOrderByAggregateInput = {
+  export type TicketMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    cost_per_ms?: SortOrder
+    ticket_type_id?: SortOrder
+    user_id?: SortOrder
+    screening_id?: SortOrder
   }
 
-  export type ServiceSumOrderByAggregateInput = {
-    cost_per_ms?: SortOrder
+  export type Ticket_typeCountOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    percent?: SortOrder
   }
 
-  export type WorkspaceCreateNestedManyWithoutUserInput = {
-    create?: XOR<WorkspaceCreateWithoutUserInput, WorkspaceUncheckedCreateWithoutUserInput> | WorkspaceCreateWithoutUserInput[] | WorkspaceUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: WorkspaceCreateOrConnectWithoutUserInput | WorkspaceCreateOrConnectWithoutUserInput[]
-    createMany?: WorkspaceCreateManyUserInputEnvelope
-    connect?: WorkspaceWhereUniqueInput | WorkspaceWhereUniqueInput[]
+  export type Ticket_typeAvgOrderByAggregateInput = {
+    percent?: SortOrder
   }
 
-  export type WorkspaceUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<WorkspaceCreateWithoutUserInput, WorkspaceUncheckedCreateWithoutUserInput> | WorkspaceCreateWithoutUserInput[] | WorkspaceUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: WorkspaceCreateOrConnectWithoutUserInput | WorkspaceCreateOrConnectWithoutUserInput[]
-    createMany?: WorkspaceCreateManyUserInputEnvelope
-    connect?: WorkspaceWhereUniqueInput | WorkspaceWhereUniqueInput[]
+  export type Ticket_typeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    percent?: SortOrder
+  }
+
+  export type Ticket_typeMinOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    percent?: SortOrder
+  }
+
+  export type Ticket_typeSumOrderByAggregateInput = {
+    percent?: SortOrder
+  }
+
+  export type Screening_typeCountOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    percent?: SortOrder
+  }
+
+  export type Screening_typeAvgOrderByAggregateInput = {
+    percent?: SortOrder
+  }
+
+  export type Screening_typeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    percent?: SortOrder
+  }
+
+  export type Screening_typeMinOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    percent?: SortOrder
+  }
+
+  export type Screening_typeSumOrderByAggregateInput = {
+    percent?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
-  export type WorkspaceUpdateManyWithoutUserNestedInput = {
-    create?: XOR<WorkspaceCreateWithoutUserInput, WorkspaceUncheckedCreateWithoutUserInput> | WorkspaceCreateWithoutUserInput[] | WorkspaceUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: WorkspaceCreateOrConnectWithoutUserInput | WorkspaceCreateOrConnectWithoutUserInput[]
-    upsert?: WorkspaceUpsertWithWhereUniqueWithoutUserInput | WorkspaceUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: WorkspaceCreateManyUserInputEnvelope
-    set?: WorkspaceWhereUniqueInput | WorkspaceWhereUniqueInput[]
-    disconnect?: WorkspaceWhereUniqueInput | WorkspaceWhereUniqueInput[]
-    delete?: WorkspaceWhereUniqueInput | WorkspaceWhereUniqueInput[]
-    connect?: WorkspaceWhereUniqueInput | WorkspaceWhereUniqueInput[]
-    update?: WorkspaceUpdateWithWhereUniqueWithoutUserInput | WorkspaceUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: WorkspaceUpdateManyWithWhereWithoutUserInput | WorkspaceUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: WorkspaceScalarWhereInput | WorkspaceScalarWhereInput[]
+  export type ScreeningCreateNestedManyWithoutMoviesInput = {
+    create?: XOR<ScreeningCreateWithoutMoviesInput, ScreeningUncheckedCreateWithoutMoviesInput> | ScreeningCreateWithoutMoviesInput[] | ScreeningUncheckedCreateWithoutMoviesInput[]
+    connectOrCreate?: ScreeningCreateOrConnectWithoutMoviesInput | ScreeningCreateOrConnectWithoutMoviesInput[]
+    createMany?: ScreeningCreateManyMoviesInputEnvelope
+    connect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
   }
 
-  export type WorkspaceUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<WorkspaceCreateWithoutUserInput, WorkspaceUncheckedCreateWithoutUserInput> | WorkspaceCreateWithoutUserInput[] | WorkspaceUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: WorkspaceCreateOrConnectWithoutUserInput | WorkspaceCreateOrConnectWithoutUserInput[]
-    upsert?: WorkspaceUpsertWithWhereUniqueWithoutUserInput | WorkspaceUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: WorkspaceCreateManyUserInputEnvelope
-    set?: WorkspaceWhereUniqueInput | WorkspaceWhereUniqueInput[]
-    disconnect?: WorkspaceWhereUniqueInput | WorkspaceWhereUniqueInput[]
-    delete?: WorkspaceWhereUniqueInput | WorkspaceWhereUniqueInput[]
-    connect?: WorkspaceWhereUniqueInput | WorkspaceWhereUniqueInput[]
-    update?: WorkspaceUpdateWithWhereUniqueWithoutUserInput | WorkspaceUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: WorkspaceUpdateManyWithWhereWithoutUserInput | WorkspaceUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: WorkspaceScalarWhereInput | WorkspaceScalarWhereInput[]
+  export type ForumCreateNestedManyWithoutMoviesInput = {
+    create?: XOR<ForumCreateWithoutMoviesInput, ForumUncheckedCreateWithoutMoviesInput> | ForumCreateWithoutMoviesInput[] | ForumUncheckedCreateWithoutMoviesInput[]
+    connectOrCreate?: ForumCreateOrConnectWithoutMoviesInput | ForumCreateOrConnectWithoutMoviesInput[]
+    createMany?: ForumCreateManyMoviesInputEnvelope
+    connect?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
   }
 
-  export type UserCreateNestedOneWithoutWorkspacesInput = {
-    create?: XOR<UserCreateWithoutWorkspacesInput, UserUncheckedCreateWithoutWorkspacesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutWorkspacesInput
-    connect?: UserWhereUniqueInput
+  export type ScreeningUncheckedCreateNestedManyWithoutMoviesInput = {
+    create?: XOR<ScreeningCreateWithoutMoviesInput, ScreeningUncheckedCreateWithoutMoviesInput> | ScreeningCreateWithoutMoviesInput[] | ScreeningUncheckedCreateWithoutMoviesInput[]
+    connectOrCreate?: ScreeningCreateOrConnectWithoutMoviesInput | ScreeningCreateOrConnectWithoutMoviesInput[]
+    createMany?: ScreeningCreateManyMoviesInputEnvelope
+    connect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
   }
 
-  export type API_TokenCreateNestedManyWithoutWorkspaceInput = {
-    create?: XOR<API_TokenCreateWithoutWorkspaceInput, API_TokenUncheckedCreateWithoutWorkspaceInput> | API_TokenCreateWithoutWorkspaceInput[] | API_TokenUncheckedCreateWithoutWorkspaceInput[]
-    connectOrCreate?: API_TokenCreateOrConnectWithoutWorkspaceInput | API_TokenCreateOrConnectWithoutWorkspaceInput[]
-    createMany?: API_TokenCreateManyWorkspaceInputEnvelope
-    connect?: API_TokenWhereUniqueInput | API_TokenWhereUniqueInput[]
+  export type ForumUncheckedCreateNestedManyWithoutMoviesInput = {
+    create?: XOR<ForumCreateWithoutMoviesInput, ForumUncheckedCreateWithoutMoviesInput> | ForumCreateWithoutMoviesInput[] | ForumUncheckedCreateWithoutMoviesInput[]
+    connectOrCreate?: ForumCreateOrConnectWithoutMoviesInput | ForumCreateOrConnectWithoutMoviesInput[]
+    createMany?: ForumCreateManyMoviesInputEnvelope
+    connect?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
   }
 
-  export type API_TokenUncheckedCreateNestedManyWithoutWorkspaceInput = {
-    create?: XOR<API_TokenCreateWithoutWorkspaceInput, API_TokenUncheckedCreateWithoutWorkspaceInput> | API_TokenCreateWithoutWorkspaceInput[] | API_TokenUncheckedCreateWithoutWorkspaceInput[]
-    connectOrCreate?: API_TokenCreateOrConnectWithoutWorkspaceInput | API_TokenCreateOrConnectWithoutWorkspaceInput[]
-    createMany?: API_TokenCreateManyWorkspaceInputEnvelope
-    connect?: API_TokenWhereUniqueInput | API_TokenWhereUniqueInput[]
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-    unset?: boolean
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
+  export type NullableFloatFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
     decrement?: number
@@ -7596,121 +16889,429 @@ export namespace Prisma {
     unset?: boolean
   }
 
-  export type UserUpdateOneWithoutWorkspacesNestedInput = {
-    create?: XOR<UserCreateWithoutWorkspacesInput, UserUncheckedCreateWithoutWorkspacesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutWorkspacesInput
-    upsert?: UserUpsertWithoutWorkspacesInput
-    disconnect?: boolean
-    delete?: UserWhereInput | boolean
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWorkspacesInput, UserUpdateWithoutWorkspacesInput>, UserUncheckedUpdateWithoutWorkspacesInput>
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+    unset?: boolean
   }
 
-  export type API_TokenUpdateManyWithoutWorkspaceNestedInput = {
-    create?: XOR<API_TokenCreateWithoutWorkspaceInput, API_TokenUncheckedCreateWithoutWorkspaceInput> | API_TokenCreateWithoutWorkspaceInput[] | API_TokenUncheckedCreateWithoutWorkspaceInput[]
-    connectOrCreate?: API_TokenCreateOrConnectWithoutWorkspaceInput | API_TokenCreateOrConnectWithoutWorkspaceInput[]
-    upsert?: API_TokenUpsertWithWhereUniqueWithoutWorkspaceInput | API_TokenUpsertWithWhereUniqueWithoutWorkspaceInput[]
-    createMany?: API_TokenCreateManyWorkspaceInputEnvelope
-    set?: API_TokenWhereUniqueInput | API_TokenWhereUniqueInput[]
-    disconnect?: API_TokenWhereUniqueInput | API_TokenWhereUniqueInput[]
-    delete?: API_TokenWhereUniqueInput | API_TokenWhereUniqueInput[]
-    connect?: API_TokenWhereUniqueInput | API_TokenWhereUniqueInput[]
-    update?: API_TokenUpdateWithWhereUniqueWithoutWorkspaceInput | API_TokenUpdateWithWhereUniqueWithoutWorkspaceInput[]
-    updateMany?: API_TokenUpdateManyWithWhereWithoutWorkspaceInput | API_TokenUpdateManyWithWhereWithoutWorkspaceInput[]
-    deleteMany?: API_TokenScalarWhereInput | API_TokenScalarWhereInput[]
+  export type ScreeningUpdateManyWithoutMoviesNestedInput = {
+    create?: XOR<ScreeningCreateWithoutMoviesInput, ScreeningUncheckedCreateWithoutMoviesInput> | ScreeningCreateWithoutMoviesInput[] | ScreeningUncheckedCreateWithoutMoviesInput[]
+    connectOrCreate?: ScreeningCreateOrConnectWithoutMoviesInput | ScreeningCreateOrConnectWithoutMoviesInput[]
+    upsert?: ScreeningUpsertWithWhereUniqueWithoutMoviesInput | ScreeningUpsertWithWhereUniqueWithoutMoviesInput[]
+    createMany?: ScreeningCreateManyMoviesInputEnvelope
+    set?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    disconnect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    delete?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    connect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    update?: ScreeningUpdateWithWhereUniqueWithoutMoviesInput | ScreeningUpdateWithWhereUniqueWithoutMoviesInput[]
+    updateMany?: ScreeningUpdateManyWithWhereWithoutMoviesInput | ScreeningUpdateManyWithWhereWithoutMoviesInput[]
+    deleteMany?: ScreeningScalarWhereInput | ScreeningScalarWhereInput[]
   }
 
-  export type API_TokenUncheckedUpdateManyWithoutWorkspaceNestedInput = {
-    create?: XOR<API_TokenCreateWithoutWorkspaceInput, API_TokenUncheckedCreateWithoutWorkspaceInput> | API_TokenCreateWithoutWorkspaceInput[] | API_TokenUncheckedCreateWithoutWorkspaceInput[]
-    connectOrCreate?: API_TokenCreateOrConnectWithoutWorkspaceInput | API_TokenCreateOrConnectWithoutWorkspaceInput[]
-    upsert?: API_TokenUpsertWithWhereUniqueWithoutWorkspaceInput | API_TokenUpsertWithWhereUniqueWithoutWorkspaceInput[]
-    createMany?: API_TokenCreateManyWorkspaceInputEnvelope
-    set?: API_TokenWhereUniqueInput | API_TokenWhereUniqueInput[]
-    disconnect?: API_TokenWhereUniqueInput | API_TokenWhereUniqueInput[]
-    delete?: API_TokenWhereUniqueInput | API_TokenWhereUniqueInput[]
-    connect?: API_TokenWhereUniqueInput | API_TokenWhereUniqueInput[]
-    update?: API_TokenUpdateWithWhereUniqueWithoutWorkspaceInput | API_TokenUpdateWithWhereUniqueWithoutWorkspaceInput[]
-    updateMany?: API_TokenUpdateManyWithWhereWithoutWorkspaceInput | API_TokenUpdateManyWithWhereWithoutWorkspaceInput[]
-    deleteMany?: API_TokenScalarWhereInput | API_TokenScalarWhereInput[]
+  export type ForumUpdateManyWithoutMoviesNestedInput = {
+    create?: XOR<ForumCreateWithoutMoviesInput, ForumUncheckedCreateWithoutMoviesInput> | ForumCreateWithoutMoviesInput[] | ForumUncheckedCreateWithoutMoviesInput[]
+    connectOrCreate?: ForumCreateOrConnectWithoutMoviesInput | ForumCreateOrConnectWithoutMoviesInput[]
+    upsert?: ForumUpsertWithWhereUniqueWithoutMoviesInput | ForumUpsertWithWhereUniqueWithoutMoviesInput[]
+    createMany?: ForumCreateManyMoviesInputEnvelope
+    set?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+    disconnect?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+    delete?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+    connect?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+    update?: ForumUpdateWithWhereUniqueWithoutMoviesInput | ForumUpdateWithWhereUniqueWithoutMoviesInput[]
+    updateMany?: ForumUpdateManyWithWhereWithoutMoviesInput | ForumUpdateManyWithWhereWithoutMoviesInput[]
+    deleteMany?: ForumScalarWhereInput | ForumScalarWhereInput[]
   }
 
-  export type Service_UsageCreateNestedManyWithoutApi_tokenInput = {
-    create?: XOR<Service_UsageCreateWithoutApi_tokenInput, Service_UsageUncheckedCreateWithoutApi_tokenInput> | Service_UsageCreateWithoutApi_tokenInput[] | Service_UsageUncheckedCreateWithoutApi_tokenInput[]
-    connectOrCreate?: Service_UsageCreateOrConnectWithoutApi_tokenInput | Service_UsageCreateOrConnectWithoutApi_tokenInput[]
-    createMany?: Service_UsageCreateManyApi_tokenInputEnvelope
-    connect?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
+  export type ScreeningUncheckedUpdateManyWithoutMoviesNestedInput = {
+    create?: XOR<ScreeningCreateWithoutMoviesInput, ScreeningUncheckedCreateWithoutMoviesInput> | ScreeningCreateWithoutMoviesInput[] | ScreeningUncheckedCreateWithoutMoviesInput[]
+    connectOrCreate?: ScreeningCreateOrConnectWithoutMoviesInput | ScreeningCreateOrConnectWithoutMoviesInput[]
+    upsert?: ScreeningUpsertWithWhereUniqueWithoutMoviesInput | ScreeningUpsertWithWhereUniqueWithoutMoviesInput[]
+    createMany?: ScreeningCreateManyMoviesInputEnvelope
+    set?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    disconnect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    delete?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    connect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    update?: ScreeningUpdateWithWhereUniqueWithoutMoviesInput | ScreeningUpdateWithWhereUniqueWithoutMoviesInput[]
+    updateMany?: ScreeningUpdateManyWithWhereWithoutMoviesInput | ScreeningUpdateManyWithWhereWithoutMoviesInput[]
+    deleteMany?: ScreeningScalarWhereInput | ScreeningScalarWhereInput[]
   }
 
-  export type WorkspaceCreateNestedOneWithoutApi_tokensInput = {
-    create?: XOR<WorkspaceCreateWithoutApi_tokensInput, WorkspaceUncheckedCreateWithoutApi_tokensInput>
-    connectOrCreate?: WorkspaceCreateOrConnectWithoutApi_tokensInput
-    connect?: WorkspaceWhereUniqueInput
+  export type ForumUncheckedUpdateManyWithoutMoviesNestedInput = {
+    create?: XOR<ForumCreateWithoutMoviesInput, ForumUncheckedCreateWithoutMoviesInput> | ForumCreateWithoutMoviesInput[] | ForumUncheckedCreateWithoutMoviesInput[]
+    connectOrCreate?: ForumCreateOrConnectWithoutMoviesInput | ForumCreateOrConnectWithoutMoviesInput[]
+    upsert?: ForumUpsertWithWhereUniqueWithoutMoviesInput | ForumUpsertWithWhereUniqueWithoutMoviesInput[]
+    createMany?: ForumCreateManyMoviesInputEnvelope
+    set?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+    disconnect?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+    delete?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+    connect?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+    update?: ForumUpdateWithWhereUniqueWithoutMoviesInput | ForumUpdateWithWhereUniqueWithoutMoviesInput[]
+    updateMany?: ForumUpdateManyWithWhereWithoutMoviesInput | ForumUpdateManyWithWhereWithoutMoviesInput[]
+    deleteMany?: ForumScalarWhereInput | ForumScalarWhereInput[]
   }
 
-  export type Service_UsageUncheckedCreateNestedManyWithoutApi_tokenInput = {
-    create?: XOR<Service_UsageCreateWithoutApi_tokenInput, Service_UsageUncheckedCreateWithoutApi_tokenInput> | Service_UsageCreateWithoutApi_tokenInput[] | Service_UsageUncheckedCreateWithoutApi_tokenInput[]
-    connectOrCreate?: Service_UsageCreateOrConnectWithoutApi_tokenInput | Service_UsageCreateOrConnectWithoutApi_tokenInput[]
-    createMany?: Service_UsageCreateManyApi_tokenInputEnvelope
-    connect?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
+  export type MovieCreateNestedOneWithoutScreeningsInput = {
+    create?: XOR<MovieCreateWithoutScreeningsInput, MovieUncheckedCreateWithoutScreeningsInput>
+    connectOrCreate?: MovieCreateOrConnectWithoutScreeningsInput
+    connect?: MovieWhereUniqueInput
+  }
+
+  export type HallCreateNestedOneWithoutScreeningsInput = {
+    create?: XOR<HallCreateWithoutScreeningsInput, HallUncheckedCreateWithoutScreeningsInput>
+    connectOrCreate?: HallCreateOrConnectWithoutScreeningsInput
+    connect?: HallWhereUniqueInput
+  }
+
+  export type Screening_typeCreateNestedOneWithoutScreeningsInput = {
+    create?: XOR<Screening_typeCreateWithoutScreeningsInput, Screening_typeUncheckedCreateWithoutScreeningsInput>
+    connectOrCreate?: Screening_typeCreateOrConnectWithoutScreeningsInput
+    connect?: Screening_typeWhereUniqueInput
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
-    unset?: boolean
-  }
-
-  export type Service_UsageUpdateManyWithoutApi_tokenNestedInput = {
-    create?: XOR<Service_UsageCreateWithoutApi_tokenInput, Service_UsageUncheckedCreateWithoutApi_tokenInput> | Service_UsageCreateWithoutApi_tokenInput[] | Service_UsageUncheckedCreateWithoutApi_tokenInput[]
-    connectOrCreate?: Service_UsageCreateOrConnectWithoutApi_tokenInput | Service_UsageCreateOrConnectWithoutApi_tokenInput[]
-    upsert?: Service_UsageUpsertWithWhereUniqueWithoutApi_tokenInput | Service_UsageUpsertWithWhereUniqueWithoutApi_tokenInput[]
-    createMany?: Service_UsageCreateManyApi_tokenInputEnvelope
-    set?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
-    disconnect?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
-    delete?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
-    connect?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
-    update?: Service_UsageUpdateWithWhereUniqueWithoutApi_tokenInput | Service_UsageUpdateWithWhereUniqueWithoutApi_tokenInput[]
-    updateMany?: Service_UsageUpdateManyWithWhereWithoutApi_tokenInput | Service_UsageUpdateManyWithWhereWithoutApi_tokenInput[]
-    deleteMany?: Service_UsageScalarWhereInput | Service_UsageScalarWhereInput[]
-  }
-
-  export type WorkspaceUpdateOneWithoutApi_tokensNestedInput = {
-    create?: XOR<WorkspaceCreateWithoutApi_tokensInput, WorkspaceUncheckedCreateWithoutApi_tokensInput>
-    connectOrCreate?: WorkspaceCreateOrConnectWithoutApi_tokensInput
-    upsert?: WorkspaceUpsertWithoutApi_tokensInput
+  export type MovieUpdateOneWithoutScreeningsNestedInput = {
+    create?: XOR<MovieCreateWithoutScreeningsInput, MovieUncheckedCreateWithoutScreeningsInput>
+    connectOrCreate?: MovieCreateOrConnectWithoutScreeningsInput
+    upsert?: MovieUpsertWithoutScreeningsInput
     disconnect?: boolean
-    delete?: WorkspaceWhereInput | boolean
-    connect?: WorkspaceWhereUniqueInput
-    update?: XOR<XOR<WorkspaceUpdateToOneWithWhereWithoutApi_tokensInput, WorkspaceUpdateWithoutApi_tokensInput>, WorkspaceUncheckedUpdateWithoutApi_tokensInput>
+    delete?: MovieWhereInput | boolean
+    connect?: MovieWhereUniqueInput
+    update?: XOR<XOR<MovieUpdateToOneWithWhereWithoutScreeningsInput, MovieUpdateWithoutScreeningsInput>, MovieUncheckedUpdateWithoutScreeningsInput>
   }
 
-  export type Service_UsageUncheckedUpdateManyWithoutApi_tokenNestedInput = {
-    create?: XOR<Service_UsageCreateWithoutApi_tokenInput, Service_UsageUncheckedCreateWithoutApi_tokenInput> | Service_UsageCreateWithoutApi_tokenInput[] | Service_UsageUncheckedCreateWithoutApi_tokenInput[]
-    connectOrCreate?: Service_UsageCreateOrConnectWithoutApi_tokenInput | Service_UsageCreateOrConnectWithoutApi_tokenInput[]
-    upsert?: Service_UsageUpsertWithWhereUniqueWithoutApi_tokenInput | Service_UsageUpsertWithWhereUniqueWithoutApi_tokenInput[]
-    createMany?: Service_UsageCreateManyApi_tokenInputEnvelope
-    set?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
-    disconnect?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
-    delete?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
-    connect?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
-    update?: Service_UsageUpdateWithWhereUniqueWithoutApi_tokenInput | Service_UsageUpdateWithWhereUniqueWithoutApi_tokenInput[]
-    updateMany?: Service_UsageUpdateManyWithWhereWithoutApi_tokenInput | Service_UsageUpdateManyWithWhereWithoutApi_tokenInput[]
-    deleteMany?: Service_UsageScalarWhereInput | Service_UsageScalarWhereInput[]
+  export type HallUpdateOneWithoutScreeningsNestedInput = {
+    create?: XOR<HallCreateWithoutScreeningsInput, HallUncheckedCreateWithoutScreeningsInput>
+    connectOrCreate?: HallCreateOrConnectWithoutScreeningsInput
+    upsert?: HallUpsertWithoutScreeningsInput
+    disconnect?: boolean
+    delete?: HallWhereInput | boolean
+    connect?: HallWhereUniqueInput
+    update?: XOR<XOR<HallUpdateToOneWithWhereWithoutScreeningsInput, HallUpdateWithoutScreeningsInput>, HallUncheckedUpdateWithoutScreeningsInput>
   }
 
-  export type ServiceCreateNestedOneWithoutService_usagesInput = {
-    create?: XOR<ServiceCreateWithoutService_usagesInput, ServiceUncheckedCreateWithoutService_usagesInput>
-    connectOrCreate?: ServiceCreateOrConnectWithoutService_usagesInput
-    connect?: ServiceWhereUniqueInput
+  export type Screening_typeUpdateOneWithoutScreeningsNestedInput = {
+    create?: XOR<Screening_typeCreateWithoutScreeningsInput, Screening_typeUncheckedCreateWithoutScreeningsInput>
+    connectOrCreate?: Screening_typeCreateOrConnectWithoutScreeningsInput
+    upsert?: Screening_typeUpsertWithoutScreeningsInput
+    disconnect?: boolean
+    delete?: Screening_typeWhereInput | boolean
+    connect?: Screening_typeWhereUniqueInput
+    update?: XOR<XOR<Screening_typeUpdateToOneWithWhereWithoutScreeningsInput, Screening_typeUpdateWithoutScreeningsInput>, Screening_typeUncheckedUpdateWithoutScreeningsInput>
   }
 
-  export type API_TokenCreateNestedOneWithoutService_usagesInput = {
-    create?: XOR<API_TokenCreateWithoutService_usagesInput, API_TokenUncheckedCreateWithoutService_usagesInput>
-    connectOrCreate?: API_TokenCreateOrConnectWithoutService_usagesInput
-    connect?: API_TokenWhereUniqueInput
+  export type RankCreateNestedOneWithoutUsersInput = {
+    create?: XOR<RankCreateWithoutUsersInput, RankUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: RankCreateOrConnectWithoutUsersInput
+    connect?: RankWhereUniqueInput
+  }
+
+  export type TicketCreateNestedManyWithoutUsersInput = {
+    create?: XOR<TicketCreateWithoutUsersInput, TicketUncheckedCreateWithoutUsersInput> | TicketCreateWithoutUsersInput[] | TicketUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutUsersInput | TicketCreateOrConnectWithoutUsersInput[]
+    createMany?: TicketCreateManyUsersInputEnvelope
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+  }
+
+  export type ForumCreateNestedManyWithoutUsersInput = {
+    create?: XOR<ForumCreateWithoutUsersInput, ForumUncheckedCreateWithoutUsersInput> | ForumCreateWithoutUsersInput[] | ForumUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: ForumCreateOrConnectWithoutUsersInput | ForumCreateOrConnectWithoutUsersInput[]
+    createMany?: ForumCreateManyUsersInputEnvelope
+    connect?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+  }
+
+  export type TicketUncheckedCreateNestedManyWithoutUsersInput = {
+    create?: XOR<TicketCreateWithoutUsersInput, TicketUncheckedCreateWithoutUsersInput> | TicketCreateWithoutUsersInput[] | TicketUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutUsersInput | TicketCreateOrConnectWithoutUsersInput[]
+    createMany?: TicketCreateManyUsersInputEnvelope
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+  }
+
+  export type ForumUncheckedCreateNestedManyWithoutUsersInput = {
+    create?: XOR<ForumCreateWithoutUsersInput, ForumUncheckedCreateWithoutUsersInput> | ForumCreateWithoutUsersInput[] | ForumUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: ForumCreateOrConnectWithoutUsersInput | ForumCreateOrConnectWithoutUsersInput[]
+    createMany?: ForumCreateManyUsersInputEnvelope
+    connect?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+  }
+
+  export type RankUpdateOneWithoutUsersNestedInput = {
+    create?: XOR<RankCreateWithoutUsersInput, RankUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: RankCreateOrConnectWithoutUsersInput
+    upsert?: RankUpsertWithoutUsersInput
+    disconnect?: boolean
+    delete?: RankWhereInput | boolean
+    connect?: RankWhereUniqueInput
+    update?: XOR<XOR<RankUpdateToOneWithWhereWithoutUsersInput, RankUpdateWithoutUsersInput>, RankUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type TicketUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<TicketCreateWithoutUsersInput, TicketUncheckedCreateWithoutUsersInput> | TicketCreateWithoutUsersInput[] | TicketUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutUsersInput | TicketCreateOrConnectWithoutUsersInput[]
+    upsert?: TicketUpsertWithWhereUniqueWithoutUsersInput | TicketUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: TicketCreateManyUsersInputEnvelope
+    set?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    disconnect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    delete?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    update?: TicketUpdateWithWhereUniqueWithoutUsersInput | TicketUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: TicketUpdateManyWithWhereWithoutUsersInput | TicketUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
+  }
+
+  export type ForumUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<ForumCreateWithoutUsersInput, ForumUncheckedCreateWithoutUsersInput> | ForumCreateWithoutUsersInput[] | ForumUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: ForumCreateOrConnectWithoutUsersInput | ForumCreateOrConnectWithoutUsersInput[]
+    upsert?: ForumUpsertWithWhereUniqueWithoutUsersInput | ForumUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: ForumCreateManyUsersInputEnvelope
+    set?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+    disconnect?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+    delete?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+    connect?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+    update?: ForumUpdateWithWhereUniqueWithoutUsersInput | ForumUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: ForumUpdateManyWithWhereWithoutUsersInput | ForumUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: ForumScalarWhereInput | ForumScalarWhereInput[]
+  }
+
+  export type TicketUncheckedUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<TicketCreateWithoutUsersInput, TicketUncheckedCreateWithoutUsersInput> | TicketCreateWithoutUsersInput[] | TicketUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutUsersInput | TicketCreateOrConnectWithoutUsersInput[]
+    upsert?: TicketUpsertWithWhereUniqueWithoutUsersInput | TicketUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: TicketCreateManyUsersInputEnvelope
+    set?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    disconnect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    delete?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    update?: TicketUpdateWithWhereUniqueWithoutUsersInput | TicketUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: TicketUpdateManyWithWhereWithoutUsersInput | TicketUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
+  }
+
+  export type ForumUncheckedUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<ForumCreateWithoutUsersInput, ForumUncheckedCreateWithoutUsersInput> | ForumCreateWithoutUsersInput[] | ForumUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: ForumCreateOrConnectWithoutUsersInput | ForumCreateOrConnectWithoutUsersInput[]
+    upsert?: ForumUpsertWithWhereUniqueWithoutUsersInput | ForumUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: ForumCreateManyUsersInputEnvelope
+    set?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+    disconnect?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+    delete?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+    connect?: ForumWhereUniqueInput | ForumWhereUniqueInput[]
+    update?: ForumUpdateWithWhereUniqueWithoutUsersInput | ForumUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: ForumUpdateManyWithWhereWithoutUsersInput | ForumUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: ForumScalarWhereInput | ForumScalarWhereInput[]
+  }
+
+  export type HallCreateNestedOneWithoutChairsInput = {
+    create?: XOR<HallCreateWithoutChairsInput, HallUncheckedCreateWithoutChairsInput>
+    connectOrCreate?: HallCreateOrConnectWithoutChairsInput
+    connect?: HallWhereUniqueInput
+  }
+
+  export type HallUpdateOneWithoutChairsNestedInput = {
+    create?: XOR<HallCreateWithoutChairsInput, HallUncheckedCreateWithoutChairsInput>
+    connectOrCreate?: HallCreateOrConnectWithoutChairsInput
+    upsert?: HallUpsertWithoutChairsInput
+    disconnect?: boolean
+    delete?: HallWhereInput | boolean
+    connect?: HallWhereUniqueInput
+    update?: XOR<XOR<HallUpdateToOneWithWhereWithoutChairsInput, HallUpdateWithoutChairsInput>, HallUncheckedUpdateWithoutChairsInput>
+  }
+
+  export type DiscountCreateNestedOneWithoutRanksInput = {
+    create?: XOR<DiscountCreateWithoutRanksInput, DiscountUncheckedCreateWithoutRanksInput>
+    connectOrCreate?: DiscountCreateOrConnectWithoutRanksInput
+    connect?: DiscountWhereUniqueInput
+  }
+
+  export type UserCreateNestedManyWithoutRanksInput = {
+    create?: XOR<UserCreateWithoutRanksInput, UserUncheckedCreateWithoutRanksInput> | UserCreateWithoutRanksInput[] | UserUncheckedCreateWithoutRanksInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutRanksInput | UserCreateOrConnectWithoutRanksInput[]
+    createMany?: UserCreateManyRanksInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutRanksInput = {
+    create?: XOR<UserCreateWithoutRanksInput, UserUncheckedCreateWithoutRanksInput> | UserCreateWithoutRanksInput[] | UserUncheckedCreateWithoutRanksInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutRanksInput | UserCreateOrConnectWithoutRanksInput[]
+    createMany?: UserCreateManyRanksInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type DiscountUpdateOneWithoutRanksNestedInput = {
+    create?: XOR<DiscountCreateWithoutRanksInput, DiscountUncheckedCreateWithoutRanksInput>
+    connectOrCreate?: DiscountCreateOrConnectWithoutRanksInput
+    upsert?: DiscountUpsertWithoutRanksInput
+    disconnect?: boolean
+    delete?: DiscountWhereInput | boolean
+    connect?: DiscountWhereUniqueInput
+    update?: XOR<XOR<DiscountUpdateToOneWithWhereWithoutRanksInput, DiscountUpdateWithoutRanksInput>, DiscountUncheckedUpdateWithoutRanksInput>
+  }
+
+  export type UserUpdateManyWithoutRanksNestedInput = {
+    create?: XOR<UserCreateWithoutRanksInput, UserUncheckedCreateWithoutRanksInput> | UserCreateWithoutRanksInput[] | UserUncheckedCreateWithoutRanksInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutRanksInput | UserCreateOrConnectWithoutRanksInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutRanksInput | UserUpsertWithWhereUniqueWithoutRanksInput[]
+    createMany?: UserCreateManyRanksInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutRanksInput | UserUpdateWithWhereUniqueWithoutRanksInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutRanksInput | UserUpdateManyWithWhereWithoutRanksInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutRanksNestedInput = {
+    create?: XOR<UserCreateWithoutRanksInput, UserUncheckedCreateWithoutRanksInput> | UserCreateWithoutRanksInput[] | UserUncheckedCreateWithoutRanksInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutRanksInput | UserCreateOrConnectWithoutRanksInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutRanksInput | UserUpsertWithWhereUniqueWithoutRanksInput[]
+    createMany?: UserCreateManyRanksInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutRanksInput | UserUpdateWithWhereUniqueWithoutRanksInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutRanksInput | UserUpdateManyWithWhereWithoutRanksInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type RankCreateNestedManyWithoutDiscountInput = {
+    create?: XOR<RankCreateWithoutDiscountInput, RankUncheckedCreateWithoutDiscountInput> | RankCreateWithoutDiscountInput[] | RankUncheckedCreateWithoutDiscountInput[]
+    connectOrCreate?: RankCreateOrConnectWithoutDiscountInput | RankCreateOrConnectWithoutDiscountInput[]
+    createMany?: RankCreateManyDiscountInputEnvelope
+    connect?: RankWhereUniqueInput | RankWhereUniqueInput[]
+  }
+
+  export type RankUncheckedCreateNestedManyWithoutDiscountInput = {
+    create?: XOR<RankCreateWithoutDiscountInput, RankUncheckedCreateWithoutDiscountInput> | RankCreateWithoutDiscountInput[] | RankUncheckedCreateWithoutDiscountInput[]
+    connectOrCreate?: RankCreateOrConnectWithoutDiscountInput | RankCreateOrConnectWithoutDiscountInput[]
+    createMany?: RankCreateManyDiscountInputEnvelope
+    connect?: RankWhereUniqueInput | RankWhereUniqueInput[]
+  }
+
+  export type RankUpdateManyWithoutDiscountNestedInput = {
+    create?: XOR<RankCreateWithoutDiscountInput, RankUncheckedCreateWithoutDiscountInput> | RankCreateWithoutDiscountInput[] | RankUncheckedCreateWithoutDiscountInput[]
+    connectOrCreate?: RankCreateOrConnectWithoutDiscountInput | RankCreateOrConnectWithoutDiscountInput[]
+    upsert?: RankUpsertWithWhereUniqueWithoutDiscountInput | RankUpsertWithWhereUniqueWithoutDiscountInput[]
+    createMany?: RankCreateManyDiscountInputEnvelope
+    set?: RankWhereUniqueInput | RankWhereUniqueInput[]
+    disconnect?: RankWhereUniqueInput | RankWhereUniqueInput[]
+    delete?: RankWhereUniqueInput | RankWhereUniqueInput[]
+    connect?: RankWhereUniqueInput | RankWhereUniqueInput[]
+    update?: RankUpdateWithWhereUniqueWithoutDiscountInput | RankUpdateWithWhereUniqueWithoutDiscountInput[]
+    updateMany?: RankUpdateManyWithWhereWithoutDiscountInput | RankUpdateManyWithWhereWithoutDiscountInput[]
+    deleteMany?: RankScalarWhereInput | RankScalarWhereInput[]
+  }
+
+  export type RankUncheckedUpdateManyWithoutDiscountNestedInput = {
+    create?: XOR<RankCreateWithoutDiscountInput, RankUncheckedCreateWithoutDiscountInput> | RankCreateWithoutDiscountInput[] | RankUncheckedCreateWithoutDiscountInput[]
+    connectOrCreate?: RankCreateOrConnectWithoutDiscountInput | RankCreateOrConnectWithoutDiscountInput[]
+    upsert?: RankUpsertWithWhereUniqueWithoutDiscountInput | RankUpsertWithWhereUniqueWithoutDiscountInput[]
+    createMany?: RankCreateManyDiscountInputEnvelope
+    set?: RankWhereUniqueInput | RankWhereUniqueInput[]
+    disconnect?: RankWhereUniqueInput | RankWhereUniqueInput[]
+    delete?: RankWhereUniqueInput | RankWhereUniqueInput[]
+    connect?: RankWhereUniqueInput | RankWhereUniqueInput[]
+    update?: RankUpdateWithWhereUniqueWithoutDiscountInput | RankUpdateWithWhereUniqueWithoutDiscountInput[]
+    updateMany?: RankUpdateManyWithWhereWithoutDiscountInput | RankUpdateManyWithWhereWithoutDiscountInput[]
+    deleteMany?: RankScalarWhereInput | RankScalarWhereInput[]
+  }
+
+  export type ScreeningCreateNestedManyWithoutHallsInput = {
+    create?: XOR<ScreeningCreateWithoutHallsInput, ScreeningUncheckedCreateWithoutHallsInput> | ScreeningCreateWithoutHallsInput[] | ScreeningUncheckedCreateWithoutHallsInput[]
+    connectOrCreate?: ScreeningCreateOrConnectWithoutHallsInput | ScreeningCreateOrConnectWithoutHallsInput[]
+    createMany?: ScreeningCreateManyHallsInputEnvelope
+    connect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+  }
+
+  export type ChairCreateNestedManyWithoutHallsInput = {
+    create?: XOR<ChairCreateWithoutHallsInput, ChairUncheckedCreateWithoutHallsInput> | ChairCreateWithoutHallsInput[] | ChairUncheckedCreateWithoutHallsInput[]
+    connectOrCreate?: ChairCreateOrConnectWithoutHallsInput | ChairCreateOrConnectWithoutHallsInput[]
+    createMany?: ChairCreateManyHallsInputEnvelope
+    connect?: ChairWhereUniqueInput | ChairWhereUniqueInput[]
+  }
+
+  export type ScreeningUncheckedCreateNestedManyWithoutHallsInput = {
+    create?: XOR<ScreeningCreateWithoutHallsInput, ScreeningUncheckedCreateWithoutHallsInput> | ScreeningCreateWithoutHallsInput[] | ScreeningUncheckedCreateWithoutHallsInput[]
+    connectOrCreate?: ScreeningCreateOrConnectWithoutHallsInput | ScreeningCreateOrConnectWithoutHallsInput[]
+    createMany?: ScreeningCreateManyHallsInputEnvelope
+    connect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+  }
+
+  export type ChairUncheckedCreateNestedManyWithoutHallsInput = {
+    create?: XOR<ChairCreateWithoutHallsInput, ChairUncheckedCreateWithoutHallsInput> | ChairCreateWithoutHallsInput[] | ChairUncheckedCreateWithoutHallsInput[]
+    connectOrCreate?: ChairCreateOrConnectWithoutHallsInput | ChairCreateOrConnectWithoutHallsInput[]
+    createMany?: ChairCreateManyHallsInputEnvelope
+    connect?: ChairWhereUniqueInput | ChairWhereUniqueInput[]
+  }
+
+  export type ScreeningUpdateManyWithoutHallsNestedInput = {
+    create?: XOR<ScreeningCreateWithoutHallsInput, ScreeningUncheckedCreateWithoutHallsInput> | ScreeningCreateWithoutHallsInput[] | ScreeningUncheckedCreateWithoutHallsInput[]
+    connectOrCreate?: ScreeningCreateOrConnectWithoutHallsInput | ScreeningCreateOrConnectWithoutHallsInput[]
+    upsert?: ScreeningUpsertWithWhereUniqueWithoutHallsInput | ScreeningUpsertWithWhereUniqueWithoutHallsInput[]
+    createMany?: ScreeningCreateManyHallsInputEnvelope
+    set?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    disconnect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    delete?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    connect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    update?: ScreeningUpdateWithWhereUniqueWithoutHallsInput | ScreeningUpdateWithWhereUniqueWithoutHallsInput[]
+    updateMany?: ScreeningUpdateManyWithWhereWithoutHallsInput | ScreeningUpdateManyWithWhereWithoutHallsInput[]
+    deleteMany?: ScreeningScalarWhereInput | ScreeningScalarWhereInput[]
+  }
+
+  export type ChairUpdateManyWithoutHallsNestedInput = {
+    create?: XOR<ChairCreateWithoutHallsInput, ChairUncheckedCreateWithoutHallsInput> | ChairCreateWithoutHallsInput[] | ChairUncheckedCreateWithoutHallsInput[]
+    connectOrCreate?: ChairCreateOrConnectWithoutHallsInput | ChairCreateOrConnectWithoutHallsInput[]
+    upsert?: ChairUpsertWithWhereUniqueWithoutHallsInput | ChairUpsertWithWhereUniqueWithoutHallsInput[]
+    createMany?: ChairCreateManyHallsInputEnvelope
+    set?: ChairWhereUniqueInput | ChairWhereUniqueInput[]
+    disconnect?: ChairWhereUniqueInput | ChairWhereUniqueInput[]
+    delete?: ChairWhereUniqueInput | ChairWhereUniqueInput[]
+    connect?: ChairWhereUniqueInput | ChairWhereUniqueInput[]
+    update?: ChairUpdateWithWhereUniqueWithoutHallsInput | ChairUpdateWithWhereUniqueWithoutHallsInput[]
+    updateMany?: ChairUpdateManyWithWhereWithoutHallsInput | ChairUpdateManyWithWhereWithoutHallsInput[]
+    deleteMany?: ChairScalarWhereInput | ChairScalarWhereInput[]
+  }
+
+  export type ScreeningUncheckedUpdateManyWithoutHallsNestedInput = {
+    create?: XOR<ScreeningCreateWithoutHallsInput, ScreeningUncheckedCreateWithoutHallsInput> | ScreeningCreateWithoutHallsInput[] | ScreeningUncheckedCreateWithoutHallsInput[]
+    connectOrCreate?: ScreeningCreateOrConnectWithoutHallsInput | ScreeningCreateOrConnectWithoutHallsInput[]
+    upsert?: ScreeningUpsertWithWhereUniqueWithoutHallsInput | ScreeningUpsertWithWhereUniqueWithoutHallsInput[]
+    createMany?: ScreeningCreateManyHallsInputEnvelope
+    set?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    disconnect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    delete?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    connect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    update?: ScreeningUpdateWithWhereUniqueWithoutHallsInput | ScreeningUpdateWithWhereUniqueWithoutHallsInput[]
+    updateMany?: ScreeningUpdateManyWithWhereWithoutHallsInput | ScreeningUpdateManyWithWhereWithoutHallsInput[]
+    deleteMany?: ScreeningScalarWhereInput | ScreeningScalarWhereInput[]
+  }
+
+  export type ChairUncheckedUpdateManyWithoutHallsNestedInput = {
+    create?: XOR<ChairCreateWithoutHallsInput, ChairUncheckedCreateWithoutHallsInput> | ChairCreateWithoutHallsInput[] | ChairUncheckedCreateWithoutHallsInput[]
+    connectOrCreate?: ChairCreateOrConnectWithoutHallsInput | ChairCreateOrConnectWithoutHallsInput[]
+    upsert?: ChairUpsertWithWhereUniqueWithoutHallsInput | ChairUpsertWithWhereUniqueWithoutHallsInput[]
+    createMany?: ChairCreateManyHallsInputEnvelope
+    set?: ChairWhereUniqueInput | ChairWhereUniqueInput[]
+    disconnect?: ChairWhereUniqueInput | ChairWhereUniqueInput[]
+    delete?: ChairWhereUniqueInput | ChairWhereUniqueInput[]
+    connect?: ChairWhereUniqueInput | ChairWhereUniqueInput[]
+    update?: ChairUpdateWithWhereUniqueWithoutHallsInput | ChairUpdateWithWhereUniqueWithoutHallsInput[]
+    updateMany?: ChairUpdateManyWithWhereWithoutHallsInput | ChairUpdateManyWithWhereWithoutHallsInput[]
+    deleteMany?: ChairScalarWhereInput | ChairScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutForumInput = {
+    create?: XOR<UserCreateWithoutForumInput, UserUncheckedCreateWithoutForumInput>
+    connectOrCreate?: UserCreateOrConnectWithoutForumInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type MovieCreateNestedOneWithoutForumInput = {
+    create?: XOR<MovieCreateWithoutForumInput, MovieUncheckedCreateWithoutForumInput>
+    connectOrCreate?: MovieCreateOrConnectWithoutForumInput
+    connect?: MovieWhereUniqueInput
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -7721,66 +17322,198 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type ServiceUpdateOneWithoutService_usagesNestedInput = {
-    create?: XOR<ServiceCreateWithoutService_usagesInput, ServiceUncheckedCreateWithoutService_usagesInput>
-    connectOrCreate?: ServiceCreateOrConnectWithoutService_usagesInput
-    upsert?: ServiceUpsertWithoutService_usagesInput
+  export type UserUpdateOneWithoutForumNestedInput = {
+    create?: XOR<UserCreateWithoutForumInput, UserUncheckedCreateWithoutForumInput>
+    connectOrCreate?: UserCreateOrConnectWithoutForumInput
+    upsert?: UserUpsertWithoutForumInput
     disconnect?: boolean
-    delete?: ServiceWhereInput | boolean
-    connect?: ServiceWhereUniqueInput
-    update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutService_usagesInput, ServiceUpdateWithoutService_usagesInput>, ServiceUncheckedUpdateWithoutService_usagesInput>
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutForumInput, UserUpdateWithoutForumInput>, UserUncheckedUpdateWithoutForumInput>
   }
 
-  export type API_TokenUpdateOneWithoutService_usagesNestedInput = {
-    create?: XOR<API_TokenCreateWithoutService_usagesInput, API_TokenUncheckedCreateWithoutService_usagesInput>
-    connectOrCreate?: API_TokenCreateOrConnectWithoutService_usagesInput
-    upsert?: API_TokenUpsertWithoutService_usagesInput
+  export type MovieUpdateOneWithoutForumNestedInput = {
+    create?: XOR<MovieCreateWithoutForumInput, MovieUncheckedCreateWithoutForumInput>
+    connectOrCreate?: MovieCreateOrConnectWithoutForumInput
+    upsert?: MovieUpsertWithoutForumInput
     disconnect?: boolean
-    delete?: API_TokenWhereInput | boolean
-    connect?: API_TokenWhereUniqueInput
-    update?: XOR<XOR<API_TokenUpdateToOneWithWhereWithoutService_usagesInput, API_TokenUpdateWithoutService_usagesInput>, API_TokenUncheckedUpdateWithoutService_usagesInput>
+    delete?: MovieWhereInput | boolean
+    connect?: MovieWhereUniqueInput
+    update?: XOR<XOR<MovieUpdateToOneWithWhereWithoutForumInput, MovieUpdateWithoutForumInput>, MovieUncheckedUpdateWithoutForumInput>
   }
 
-  export type Service_UsageCreateNestedManyWithoutServiceInput = {
-    create?: XOR<Service_UsageCreateWithoutServiceInput, Service_UsageUncheckedCreateWithoutServiceInput> | Service_UsageCreateWithoutServiceInput[] | Service_UsageUncheckedCreateWithoutServiceInput[]
-    connectOrCreate?: Service_UsageCreateOrConnectWithoutServiceInput | Service_UsageCreateOrConnectWithoutServiceInput[]
-    createMany?: Service_UsageCreateManyServiceInputEnvelope
-    connect?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
+  export type Ticket_typeCreateNestedOneWithoutTicketsInput = {
+    create?: XOR<Ticket_typeCreateWithoutTicketsInput, Ticket_typeUncheckedCreateWithoutTicketsInput>
+    connectOrCreate?: Ticket_typeCreateOrConnectWithoutTicketsInput
+    connect?: Ticket_typeWhereUniqueInput
   }
 
-  export type Service_UsageUncheckedCreateNestedManyWithoutServiceInput = {
-    create?: XOR<Service_UsageCreateWithoutServiceInput, Service_UsageUncheckedCreateWithoutServiceInput> | Service_UsageCreateWithoutServiceInput[] | Service_UsageUncheckedCreateWithoutServiceInput[]
-    connectOrCreate?: Service_UsageCreateOrConnectWithoutServiceInput | Service_UsageCreateOrConnectWithoutServiceInput[]
-    createMany?: Service_UsageCreateManyServiceInputEnvelope
-    connect?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
+  export type Screening_typeCreateNestedOneWithoutTicketsInput = {
+    create?: XOR<Screening_typeCreateWithoutTicketsInput, Screening_typeUncheckedCreateWithoutTicketsInput>
+    connectOrCreate?: Screening_typeCreateOrConnectWithoutTicketsInput
+    connect?: Screening_typeWhereUniqueInput
   }
 
-  export type Service_UsageUpdateManyWithoutServiceNestedInput = {
-    create?: XOR<Service_UsageCreateWithoutServiceInput, Service_UsageUncheckedCreateWithoutServiceInput> | Service_UsageCreateWithoutServiceInput[] | Service_UsageUncheckedCreateWithoutServiceInput[]
-    connectOrCreate?: Service_UsageCreateOrConnectWithoutServiceInput | Service_UsageCreateOrConnectWithoutServiceInput[]
-    upsert?: Service_UsageUpsertWithWhereUniqueWithoutServiceInput | Service_UsageUpsertWithWhereUniqueWithoutServiceInput[]
-    createMany?: Service_UsageCreateManyServiceInputEnvelope
-    set?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
-    disconnect?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
-    delete?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
-    connect?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
-    update?: Service_UsageUpdateWithWhereUniqueWithoutServiceInput | Service_UsageUpdateWithWhereUniqueWithoutServiceInput[]
-    updateMany?: Service_UsageUpdateManyWithWhereWithoutServiceInput | Service_UsageUpdateManyWithWhereWithoutServiceInput[]
-    deleteMany?: Service_UsageScalarWhereInput | Service_UsageScalarWhereInput[]
+  export type UserCreateNestedOneWithoutTicketsInput = {
+    create?: XOR<UserCreateWithoutTicketsInput, UserUncheckedCreateWithoutTicketsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTicketsInput
+    connect?: UserWhereUniqueInput
   }
 
-  export type Service_UsageUncheckedUpdateManyWithoutServiceNestedInput = {
-    create?: XOR<Service_UsageCreateWithoutServiceInput, Service_UsageUncheckedCreateWithoutServiceInput> | Service_UsageCreateWithoutServiceInput[] | Service_UsageUncheckedCreateWithoutServiceInput[]
-    connectOrCreate?: Service_UsageCreateOrConnectWithoutServiceInput | Service_UsageCreateOrConnectWithoutServiceInput[]
-    upsert?: Service_UsageUpsertWithWhereUniqueWithoutServiceInput | Service_UsageUpsertWithWhereUniqueWithoutServiceInput[]
-    createMany?: Service_UsageCreateManyServiceInputEnvelope
-    set?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
-    disconnect?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
-    delete?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
-    connect?: Service_UsageWhereUniqueInput | Service_UsageWhereUniqueInput[]
-    update?: Service_UsageUpdateWithWhereUniqueWithoutServiceInput | Service_UsageUpdateWithWhereUniqueWithoutServiceInput[]
-    updateMany?: Service_UsageUpdateManyWithWhereWithoutServiceInput | Service_UsageUpdateManyWithWhereWithoutServiceInput[]
-    deleteMany?: Service_UsageScalarWhereInput | Service_UsageScalarWhereInput[]
+  export type Ticket_typeUpdateOneWithoutTicketsNestedInput = {
+    create?: XOR<Ticket_typeCreateWithoutTicketsInput, Ticket_typeUncheckedCreateWithoutTicketsInput>
+    connectOrCreate?: Ticket_typeCreateOrConnectWithoutTicketsInput
+    upsert?: Ticket_typeUpsertWithoutTicketsInput
+    disconnect?: boolean
+    delete?: Ticket_typeWhereInput | boolean
+    connect?: Ticket_typeWhereUniqueInput
+    update?: XOR<XOR<Ticket_typeUpdateToOneWithWhereWithoutTicketsInput, Ticket_typeUpdateWithoutTicketsInput>, Ticket_typeUncheckedUpdateWithoutTicketsInput>
+  }
+
+  export type Screening_typeUpdateOneWithoutTicketsNestedInput = {
+    create?: XOR<Screening_typeCreateWithoutTicketsInput, Screening_typeUncheckedCreateWithoutTicketsInput>
+    connectOrCreate?: Screening_typeCreateOrConnectWithoutTicketsInput
+    upsert?: Screening_typeUpsertWithoutTicketsInput
+    disconnect?: boolean
+    delete?: Screening_typeWhereInput | boolean
+    connect?: Screening_typeWhereUniqueInput
+    update?: XOR<XOR<Screening_typeUpdateToOneWithWhereWithoutTicketsInput, Screening_typeUpdateWithoutTicketsInput>, Screening_typeUncheckedUpdateWithoutTicketsInput>
+  }
+
+  export type UserUpdateOneWithoutTicketsNestedInput = {
+    create?: XOR<UserCreateWithoutTicketsInput, UserUncheckedCreateWithoutTicketsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTicketsInput
+    upsert?: UserUpsertWithoutTicketsInput
+    disconnect?: boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTicketsInput, UserUpdateWithoutTicketsInput>, UserUncheckedUpdateWithoutTicketsInput>
+  }
+
+  export type TicketCreateNestedManyWithoutTicket_typesInput = {
+    create?: XOR<TicketCreateWithoutTicket_typesInput, TicketUncheckedCreateWithoutTicket_typesInput> | TicketCreateWithoutTicket_typesInput[] | TicketUncheckedCreateWithoutTicket_typesInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutTicket_typesInput | TicketCreateOrConnectWithoutTicket_typesInput[]
+    createMany?: TicketCreateManyTicket_typesInputEnvelope
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+  }
+
+  export type TicketUncheckedCreateNestedManyWithoutTicket_typesInput = {
+    create?: XOR<TicketCreateWithoutTicket_typesInput, TicketUncheckedCreateWithoutTicket_typesInput> | TicketCreateWithoutTicket_typesInput[] | TicketUncheckedCreateWithoutTicket_typesInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutTicket_typesInput | TicketCreateOrConnectWithoutTicket_typesInput[]
+    createMany?: TicketCreateManyTicket_typesInputEnvelope
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+  }
+
+  export type TicketUpdateManyWithoutTicket_typesNestedInput = {
+    create?: XOR<TicketCreateWithoutTicket_typesInput, TicketUncheckedCreateWithoutTicket_typesInput> | TicketCreateWithoutTicket_typesInput[] | TicketUncheckedCreateWithoutTicket_typesInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutTicket_typesInput | TicketCreateOrConnectWithoutTicket_typesInput[]
+    upsert?: TicketUpsertWithWhereUniqueWithoutTicket_typesInput | TicketUpsertWithWhereUniqueWithoutTicket_typesInput[]
+    createMany?: TicketCreateManyTicket_typesInputEnvelope
+    set?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    disconnect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    delete?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    update?: TicketUpdateWithWhereUniqueWithoutTicket_typesInput | TicketUpdateWithWhereUniqueWithoutTicket_typesInput[]
+    updateMany?: TicketUpdateManyWithWhereWithoutTicket_typesInput | TicketUpdateManyWithWhereWithoutTicket_typesInput[]
+    deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
+  }
+
+  export type TicketUncheckedUpdateManyWithoutTicket_typesNestedInput = {
+    create?: XOR<TicketCreateWithoutTicket_typesInput, TicketUncheckedCreateWithoutTicket_typesInput> | TicketCreateWithoutTicket_typesInput[] | TicketUncheckedCreateWithoutTicket_typesInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutTicket_typesInput | TicketCreateOrConnectWithoutTicket_typesInput[]
+    upsert?: TicketUpsertWithWhereUniqueWithoutTicket_typesInput | TicketUpsertWithWhereUniqueWithoutTicket_typesInput[]
+    createMany?: TicketCreateManyTicket_typesInputEnvelope
+    set?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    disconnect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    delete?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    update?: TicketUpdateWithWhereUniqueWithoutTicket_typesInput | TicketUpdateWithWhereUniqueWithoutTicket_typesInput[]
+    updateMany?: TicketUpdateManyWithWhereWithoutTicket_typesInput | TicketUpdateManyWithWhereWithoutTicket_typesInput[]
+    deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
+  }
+
+  export type TicketCreateNestedManyWithoutScreening_typesInput = {
+    create?: XOR<TicketCreateWithoutScreening_typesInput, TicketUncheckedCreateWithoutScreening_typesInput> | TicketCreateWithoutScreening_typesInput[] | TicketUncheckedCreateWithoutScreening_typesInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutScreening_typesInput | TicketCreateOrConnectWithoutScreening_typesInput[]
+    createMany?: TicketCreateManyScreening_typesInputEnvelope
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+  }
+
+  export type ScreeningCreateNestedManyWithoutScreening_typesInput = {
+    create?: XOR<ScreeningCreateWithoutScreening_typesInput, ScreeningUncheckedCreateWithoutScreening_typesInput> | ScreeningCreateWithoutScreening_typesInput[] | ScreeningUncheckedCreateWithoutScreening_typesInput[]
+    connectOrCreate?: ScreeningCreateOrConnectWithoutScreening_typesInput | ScreeningCreateOrConnectWithoutScreening_typesInput[]
+    createMany?: ScreeningCreateManyScreening_typesInputEnvelope
+    connect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+  }
+
+  export type TicketUncheckedCreateNestedManyWithoutScreening_typesInput = {
+    create?: XOR<TicketCreateWithoutScreening_typesInput, TicketUncheckedCreateWithoutScreening_typesInput> | TicketCreateWithoutScreening_typesInput[] | TicketUncheckedCreateWithoutScreening_typesInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutScreening_typesInput | TicketCreateOrConnectWithoutScreening_typesInput[]
+    createMany?: TicketCreateManyScreening_typesInputEnvelope
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+  }
+
+  export type ScreeningUncheckedCreateNestedManyWithoutScreening_typesInput = {
+    create?: XOR<ScreeningCreateWithoutScreening_typesInput, ScreeningUncheckedCreateWithoutScreening_typesInput> | ScreeningCreateWithoutScreening_typesInput[] | ScreeningUncheckedCreateWithoutScreening_typesInput[]
+    connectOrCreate?: ScreeningCreateOrConnectWithoutScreening_typesInput | ScreeningCreateOrConnectWithoutScreening_typesInput[]
+    createMany?: ScreeningCreateManyScreening_typesInputEnvelope
+    connect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+  }
+
+  export type TicketUpdateManyWithoutScreening_typesNestedInput = {
+    create?: XOR<TicketCreateWithoutScreening_typesInput, TicketUncheckedCreateWithoutScreening_typesInput> | TicketCreateWithoutScreening_typesInput[] | TicketUncheckedCreateWithoutScreening_typesInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutScreening_typesInput | TicketCreateOrConnectWithoutScreening_typesInput[]
+    upsert?: TicketUpsertWithWhereUniqueWithoutScreening_typesInput | TicketUpsertWithWhereUniqueWithoutScreening_typesInput[]
+    createMany?: TicketCreateManyScreening_typesInputEnvelope
+    set?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    disconnect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    delete?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    update?: TicketUpdateWithWhereUniqueWithoutScreening_typesInput | TicketUpdateWithWhereUniqueWithoutScreening_typesInput[]
+    updateMany?: TicketUpdateManyWithWhereWithoutScreening_typesInput | TicketUpdateManyWithWhereWithoutScreening_typesInput[]
+    deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
+  }
+
+  export type ScreeningUpdateManyWithoutScreening_typesNestedInput = {
+    create?: XOR<ScreeningCreateWithoutScreening_typesInput, ScreeningUncheckedCreateWithoutScreening_typesInput> | ScreeningCreateWithoutScreening_typesInput[] | ScreeningUncheckedCreateWithoutScreening_typesInput[]
+    connectOrCreate?: ScreeningCreateOrConnectWithoutScreening_typesInput | ScreeningCreateOrConnectWithoutScreening_typesInput[]
+    upsert?: ScreeningUpsertWithWhereUniqueWithoutScreening_typesInput | ScreeningUpsertWithWhereUniqueWithoutScreening_typesInput[]
+    createMany?: ScreeningCreateManyScreening_typesInputEnvelope
+    set?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    disconnect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    delete?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    connect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    update?: ScreeningUpdateWithWhereUniqueWithoutScreening_typesInput | ScreeningUpdateWithWhereUniqueWithoutScreening_typesInput[]
+    updateMany?: ScreeningUpdateManyWithWhereWithoutScreening_typesInput | ScreeningUpdateManyWithWhereWithoutScreening_typesInput[]
+    deleteMany?: ScreeningScalarWhereInput | ScreeningScalarWhereInput[]
+  }
+
+  export type TicketUncheckedUpdateManyWithoutScreening_typesNestedInput = {
+    create?: XOR<TicketCreateWithoutScreening_typesInput, TicketUncheckedCreateWithoutScreening_typesInput> | TicketCreateWithoutScreening_typesInput[] | TicketUncheckedCreateWithoutScreening_typesInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutScreening_typesInput | TicketCreateOrConnectWithoutScreening_typesInput[]
+    upsert?: TicketUpsertWithWhereUniqueWithoutScreening_typesInput | TicketUpsertWithWhereUniqueWithoutScreening_typesInput[]
+    createMany?: TicketCreateManyScreening_typesInputEnvelope
+    set?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    disconnect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    delete?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    update?: TicketUpdateWithWhereUniqueWithoutScreening_typesInput | TicketUpdateWithWhereUniqueWithoutScreening_typesInput[]
+    updateMany?: TicketUpdateManyWithWhereWithoutScreening_typesInput | TicketUpdateManyWithWhereWithoutScreening_typesInput[]
+    deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
+  }
+
+  export type ScreeningUncheckedUpdateManyWithoutScreening_typesNestedInput = {
+    create?: XOR<ScreeningCreateWithoutScreening_typesInput, ScreeningUncheckedCreateWithoutScreening_typesInput> | ScreeningCreateWithoutScreening_typesInput[] | ScreeningUncheckedCreateWithoutScreening_typesInput[]
+    connectOrCreate?: ScreeningCreateOrConnectWithoutScreening_typesInput | ScreeningCreateOrConnectWithoutScreening_typesInput[]
+    upsert?: ScreeningUpsertWithWhereUniqueWithoutScreening_typesInput | ScreeningUpsertWithWhereUniqueWithoutScreening_typesInput[]
+    createMany?: ScreeningCreateManyScreening_typesInputEnvelope
+    set?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    disconnect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    delete?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    connect?: ScreeningWhereUniqueInput | ScreeningWhereUniqueInput[]
+    update?: ScreeningUpdateWithWhereUniqueWithoutScreening_typesInput | ScreeningUpdateWithWhereUniqueWithoutScreening_typesInput[]
+    updateMany?: ScreeningUpdateManyWithWhereWithoutScreening_typesInput | ScreeningUpdateManyWithWhereWithoutScreening_typesInput[]
+    deleteMany?: ScreeningScalarWhereInput | ScreeningScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -7825,6 +17558,23 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -7837,6 +17587,58 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    isSet?: boolean
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
     isSet?: boolean
   }
 
@@ -7870,35 +17672,6 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-    isSet?: boolean
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-    isSet?: boolean
-  }
-
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -7908,18 +17681,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-    isSet?: boolean
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -7934,32 +17695,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-    isSet?: boolean
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -7978,491 +17713,1374 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type WorkspaceCreateWithoutUserInput = {
+  export type ScreeningCreateWithoutMoviesInput = {
     id?: string
-    title: string
-    description?: string | null
-    limit?: number | null
-    api_tokens?: API_TokenCreateNestedManyWithoutWorkspaceInput
+    start: Date | string
+    end: Date | string
+    halls?: HallCreateNestedOneWithoutScreeningsInput
+    screening_types?: Screening_typeCreateNestedOneWithoutScreeningsInput
   }
 
-  export type WorkspaceUncheckedCreateWithoutUserInput = {
+  export type ScreeningUncheckedCreateWithoutMoviesInput = {
     id?: string
-    title: string
-    description?: string | null
-    limit?: number | null
-    api_tokens?: API_TokenUncheckedCreateNestedManyWithoutWorkspaceInput
+    hall_id: string
+    start: Date | string
+    end: Date | string
+    screening_type_id: string
   }
 
-  export type WorkspaceCreateOrConnectWithoutUserInput = {
-    where: WorkspaceWhereUniqueInput
-    create: XOR<WorkspaceCreateWithoutUserInput, WorkspaceUncheckedCreateWithoutUserInput>
+  export type ScreeningCreateOrConnectWithoutMoviesInput = {
+    where: ScreeningWhereUniqueInput
+    create: XOR<ScreeningCreateWithoutMoviesInput, ScreeningUncheckedCreateWithoutMoviesInput>
   }
 
-  export type WorkspaceCreateManyUserInputEnvelope = {
-    data: WorkspaceCreateManyUserInput | WorkspaceCreateManyUserInput[]
+  export type ScreeningCreateManyMoviesInputEnvelope = {
+    data: ScreeningCreateManyMoviesInput | ScreeningCreateManyMoviesInput[]
   }
 
-  export type WorkspaceUpsertWithWhereUniqueWithoutUserInput = {
-    where: WorkspaceWhereUniqueInput
-    update: XOR<WorkspaceUpdateWithoutUserInput, WorkspaceUncheckedUpdateWithoutUserInput>
-    create: XOR<WorkspaceCreateWithoutUserInput, WorkspaceUncheckedCreateWithoutUserInput>
-  }
-
-  export type WorkspaceUpdateWithWhereUniqueWithoutUserInput = {
-    where: WorkspaceWhereUniqueInput
-    data: XOR<WorkspaceUpdateWithoutUserInput, WorkspaceUncheckedUpdateWithoutUserInput>
-  }
-
-  export type WorkspaceUpdateManyWithWhereWithoutUserInput = {
-    where: WorkspaceScalarWhereInput
-    data: XOR<WorkspaceUpdateManyMutationInput, WorkspaceUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type WorkspaceScalarWhereInput = {
-    AND?: WorkspaceScalarWhereInput | WorkspaceScalarWhereInput[]
-    OR?: WorkspaceScalarWhereInput[]
-    NOT?: WorkspaceScalarWhereInput | WorkspaceScalarWhereInput[]
-    id?: StringFilter<"Workspace"> | string
-    title?: StringFilter<"Workspace"> | string
-    description?: StringNullableFilter<"Workspace"> | string | null
-    limit?: IntNullableFilter<"Workspace"> | number | null
-    user_id?: StringFilter<"Workspace"> | string
-  }
-
-  export type UserCreateWithoutWorkspacesInput = {
+  export type ForumCreateWithoutMoviesInput = {
     id?: string
-    name: string
-    password_hash: string
+    review: number
+    comment: string
+    users?: UserCreateNestedOneWithoutForumInput
   }
 
-  export type UserUncheckedCreateWithoutWorkspacesInput = {
+  export type ForumUncheckedCreateWithoutMoviesInput = {
     id?: string
-    name: string
-    password_hash: string
-  }
-
-  export type UserCreateOrConnectWithoutWorkspacesInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutWorkspacesInput, UserUncheckedCreateWithoutWorkspacesInput>
-  }
-
-  export type API_TokenCreateWithoutWorkspaceInput = {
-    id?: string
-    name: string
-    token: string
-    createdAt?: Date | string
-    creation_date?: Date | string
-    revocation_date?: Date | string | null
-    service_usages?: Service_UsageCreateNestedManyWithoutApi_tokenInput
-  }
-
-  export type API_TokenUncheckedCreateWithoutWorkspaceInput = {
-    id?: string
-    name: string
-    token: string
-    createdAt?: Date | string
-    creation_date?: Date | string
-    revocation_date?: Date | string | null
-    service_usages?: Service_UsageUncheckedCreateNestedManyWithoutApi_tokenInput
-  }
-
-  export type API_TokenCreateOrConnectWithoutWorkspaceInput = {
-    where: API_TokenWhereUniqueInput
-    create: XOR<API_TokenCreateWithoutWorkspaceInput, API_TokenUncheckedCreateWithoutWorkspaceInput>
-  }
-
-  export type API_TokenCreateManyWorkspaceInputEnvelope = {
-    data: API_TokenCreateManyWorkspaceInput | API_TokenCreateManyWorkspaceInput[]
-  }
-
-  export type UserUpsertWithoutWorkspacesInput = {
-    update: XOR<UserUpdateWithoutWorkspacesInput, UserUncheckedUpdateWithoutWorkspacesInput>
-    create: XOR<UserCreateWithoutWorkspacesInput, UserUncheckedCreateWithoutWorkspacesInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutWorkspacesInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutWorkspacesInput, UserUncheckedUpdateWithoutWorkspacesInput>
-  }
-
-  export type UserUpdateWithoutWorkspacesInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    password_hash?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type UserUncheckedUpdateWithoutWorkspacesInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    password_hash?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type API_TokenUpsertWithWhereUniqueWithoutWorkspaceInput = {
-    where: API_TokenWhereUniqueInput
-    update: XOR<API_TokenUpdateWithoutWorkspaceInput, API_TokenUncheckedUpdateWithoutWorkspaceInput>
-    create: XOR<API_TokenCreateWithoutWorkspaceInput, API_TokenUncheckedCreateWithoutWorkspaceInput>
-  }
-
-  export type API_TokenUpdateWithWhereUniqueWithoutWorkspaceInput = {
-    where: API_TokenWhereUniqueInput
-    data: XOR<API_TokenUpdateWithoutWorkspaceInput, API_TokenUncheckedUpdateWithoutWorkspaceInput>
-  }
-
-  export type API_TokenUpdateManyWithWhereWithoutWorkspaceInput = {
-    where: API_TokenScalarWhereInput
-    data: XOR<API_TokenUpdateManyMutationInput, API_TokenUncheckedUpdateManyWithoutWorkspaceInput>
-  }
-
-  export type API_TokenScalarWhereInput = {
-    AND?: API_TokenScalarWhereInput | API_TokenScalarWhereInput[]
-    OR?: API_TokenScalarWhereInput[]
-    NOT?: API_TokenScalarWhereInput | API_TokenScalarWhereInput[]
-    id?: StringFilter<"API_Token"> | string
-    name?: StringFilter<"API_Token"> | string
-    token?: StringFilter<"API_Token"> | string
-    workspace_id?: StringFilter<"API_Token"> | string
-    createdAt?: DateTimeFilter<"API_Token"> | Date | string
-    creation_date?: DateTimeFilter<"API_Token"> | Date | string
-    revocation_date?: DateTimeNullableFilter<"API_Token"> | Date | string | null
-  }
-
-  export type Service_UsageCreateWithoutApi_tokenInput = {
-    id?: string
-    usage_duration_ms?: number
-    usage_started: Date | string
-    service?: ServiceCreateNestedOneWithoutService_usagesInput
-  }
-
-  export type Service_UsageUncheckedCreateWithoutApi_tokenInput = {
-    id?: string
-    service_id?: string | null
-    usage_duration_ms?: number
-    usage_started: Date | string
-  }
-
-  export type Service_UsageCreateOrConnectWithoutApi_tokenInput = {
-    where: Service_UsageWhereUniqueInput
-    create: XOR<Service_UsageCreateWithoutApi_tokenInput, Service_UsageUncheckedCreateWithoutApi_tokenInput>
-  }
-
-  export type Service_UsageCreateManyApi_tokenInputEnvelope = {
-    data: Service_UsageCreateManyApi_tokenInput | Service_UsageCreateManyApi_tokenInput[]
-  }
-
-  export type WorkspaceCreateWithoutApi_tokensInput = {
-    id?: string
-    title: string
-    description?: string | null
-    limit?: number | null
-    user?: UserCreateNestedOneWithoutWorkspacesInput
-  }
-
-  export type WorkspaceUncheckedCreateWithoutApi_tokensInput = {
-    id?: string
-    title: string
-    description?: string | null
-    limit?: number | null
+    review: number
+    comment: string
     user_id: string
   }
 
-  export type WorkspaceCreateOrConnectWithoutApi_tokensInput = {
-    where: WorkspaceWhereUniqueInput
-    create: XOR<WorkspaceCreateWithoutApi_tokensInput, WorkspaceUncheckedCreateWithoutApi_tokensInput>
+  export type ForumCreateOrConnectWithoutMoviesInput = {
+    where: ForumWhereUniqueInput
+    create: XOR<ForumCreateWithoutMoviesInput, ForumUncheckedCreateWithoutMoviesInput>
   }
 
-  export type Service_UsageUpsertWithWhereUniqueWithoutApi_tokenInput = {
-    where: Service_UsageWhereUniqueInput
-    update: XOR<Service_UsageUpdateWithoutApi_tokenInput, Service_UsageUncheckedUpdateWithoutApi_tokenInput>
-    create: XOR<Service_UsageCreateWithoutApi_tokenInput, Service_UsageUncheckedCreateWithoutApi_tokenInput>
+  export type ForumCreateManyMoviesInputEnvelope = {
+    data: ForumCreateManyMoviesInput | ForumCreateManyMoviesInput[]
   }
 
-  export type Service_UsageUpdateWithWhereUniqueWithoutApi_tokenInput = {
-    where: Service_UsageWhereUniqueInput
-    data: XOR<Service_UsageUpdateWithoutApi_tokenInput, Service_UsageUncheckedUpdateWithoutApi_tokenInput>
+  export type ScreeningUpsertWithWhereUniqueWithoutMoviesInput = {
+    where: ScreeningWhereUniqueInput
+    update: XOR<ScreeningUpdateWithoutMoviesInput, ScreeningUncheckedUpdateWithoutMoviesInput>
+    create: XOR<ScreeningCreateWithoutMoviesInput, ScreeningUncheckedCreateWithoutMoviesInput>
   }
 
-  export type Service_UsageUpdateManyWithWhereWithoutApi_tokenInput = {
-    where: Service_UsageScalarWhereInput
-    data: XOR<Service_UsageUpdateManyMutationInput, Service_UsageUncheckedUpdateManyWithoutApi_tokenInput>
+  export type ScreeningUpdateWithWhereUniqueWithoutMoviesInput = {
+    where: ScreeningWhereUniqueInput
+    data: XOR<ScreeningUpdateWithoutMoviesInput, ScreeningUncheckedUpdateWithoutMoviesInput>
   }
 
-  export type Service_UsageScalarWhereInput = {
-    AND?: Service_UsageScalarWhereInput | Service_UsageScalarWhereInput[]
-    OR?: Service_UsageScalarWhereInput[]
-    NOT?: Service_UsageScalarWhereInput | Service_UsageScalarWhereInput[]
-    id?: StringFilter<"Service_Usage"> | string
-    service_id?: StringNullableFilter<"Service_Usage"> | string | null
-    api_token_id?: StringFilter<"Service_Usage"> | string
-    usage_duration_ms?: FloatFilter<"Service_Usage"> | number
-    usage_started?: DateTimeFilter<"Service_Usage"> | Date | string
+  export type ScreeningUpdateManyWithWhereWithoutMoviesInput = {
+    where: ScreeningScalarWhereInput
+    data: XOR<ScreeningUpdateManyMutationInput, ScreeningUncheckedUpdateManyWithoutMoviesInput>
   }
 
-  export type WorkspaceUpsertWithoutApi_tokensInput = {
-    update: XOR<WorkspaceUpdateWithoutApi_tokensInput, WorkspaceUncheckedUpdateWithoutApi_tokensInput>
-    create: XOR<WorkspaceCreateWithoutApi_tokensInput, WorkspaceUncheckedCreateWithoutApi_tokensInput>
-    where?: WorkspaceWhereInput
+  export type ScreeningScalarWhereInput = {
+    AND?: ScreeningScalarWhereInput | ScreeningScalarWhereInput[]
+    OR?: ScreeningScalarWhereInput[]
+    NOT?: ScreeningScalarWhereInput | ScreeningScalarWhereInput[]
+    id?: StringFilter<"Screening"> | string
+    hall_id?: StringFilter<"Screening"> | string
+    movie_id?: StringFilter<"Screening"> | string
+    start?: DateTimeFilter<"Screening"> | Date | string
+    end?: DateTimeFilter<"Screening"> | Date | string
+    screening_type_id?: StringFilter<"Screening"> | string
   }
 
-  export type WorkspaceUpdateToOneWithWhereWithoutApi_tokensInput = {
-    where?: WorkspaceWhereInput
-    data: XOR<WorkspaceUpdateWithoutApi_tokensInput, WorkspaceUncheckedUpdateWithoutApi_tokensInput>
+  export type ForumUpsertWithWhereUniqueWithoutMoviesInput = {
+    where: ForumWhereUniqueInput
+    update: XOR<ForumUpdateWithoutMoviesInput, ForumUncheckedUpdateWithoutMoviesInput>
+    create: XOR<ForumCreateWithoutMoviesInput, ForumUncheckedCreateWithoutMoviesInput>
   }
 
-  export type WorkspaceUpdateWithoutApi_tokensInput = {
+  export type ForumUpdateWithWhereUniqueWithoutMoviesInput = {
+    where: ForumWhereUniqueInput
+    data: XOR<ForumUpdateWithoutMoviesInput, ForumUncheckedUpdateWithoutMoviesInput>
+  }
+
+  export type ForumUpdateManyWithWhereWithoutMoviesInput = {
+    where: ForumScalarWhereInput
+    data: XOR<ForumUpdateManyMutationInput, ForumUncheckedUpdateManyWithoutMoviesInput>
+  }
+
+  export type ForumScalarWhereInput = {
+    AND?: ForumScalarWhereInput | ForumScalarWhereInput[]
+    OR?: ForumScalarWhereInput[]
+    NOT?: ForumScalarWhereInput | ForumScalarWhereInput[]
+    id?: StringFilter<"Forum"> | string
+    review?: FloatFilter<"Forum"> | number
+    comment?: StringFilter<"Forum"> | string
+    user_id?: StringFilter<"Forum"> | string
+    movie_id?: StringFilter<"Forum"> | string
+  }
+
+  export type MovieCreateWithoutScreeningsInput = {
+    id?: string
+    title: string
+    director: string
+    actors: string
+    playtime: number
+    language: string
+    trailer: string
+    poster: string
+    onscreen: boolean
+    genre: string
+    review?: number | null
+    description?: string | null
+    forum?: ForumCreateNestedManyWithoutMoviesInput
+  }
+
+  export type MovieUncheckedCreateWithoutScreeningsInput = {
+    id?: string
+    title: string
+    director: string
+    actors: string
+    playtime: number
+    language: string
+    trailer: string
+    poster: string
+    onscreen: boolean
+    genre: string
+    review?: number | null
+    description?: string | null
+    forum?: ForumUncheckedCreateNestedManyWithoutMoviesInput
+  }
+
+  export type MovieCreateOrConnectWithoutScreeningsInput = {
+    where: MovieWhereUniqueInput
+    create: XOR<MovieCreateWithoutScreeningsInput, MovieUncheckedCreateWithoutScreeningsInput>
+  }
+
+  export type HallCreateWithoutScreeningsInput = {
+    id?: string
+    name: string
+    row: number
+    column: number
+    chairs?: ChairCreateNestedManyWithoutHallsInput
+  }
+
+  export type HallUncheckedCreateWithoutScreeningsInput = {
+    id?: string
+    name: string
+    row: number
+    column: number
+    chairs?: ChairUncheckedCreateNestedManyWithoutHallsInput
+  }
+
+  export type HallCreateOrConnectWithoutScreeningsInput = {
+    where: HallWhereUniqueInput
+    create: XOR<HallCreateWithoutScreeningsInput, HallUncheckedCreateWithoutScreeningsInput>
+  }
+
+  export type Screening_typeCreateWithoutScreeningsInput = {
+    id?: string
+    type: string
+    percent: number
+    tickets?: TicketCreateNestedManyWithoutScreening_typesInput
+  }
+
+  export type Screening_typeUncheckedCreateWithoutScreeningsInput = {
+    id?: string
+    type: string
+    percent: number
+    tickets?: TicketUncheckedCreateNestedManyWithoutScreening_typesInput
+  }
+
+  export type Screening_typeCreateOrConnectWithoutScreeningsInput = {
+    where: Screening_typeWhereUniqueInput
+    create: XOR<Screening_typeCreateWithoutScreeningsInput, Screening_typeUncheckedCreateWithoutScreeningsInput>
+  }
+
+  export type MovieUpsertWithoutScreeningsInput = {
+    update: XOR<MovieUpdateWithoutScreeningsInput, MovieUncheckedUpdateWithoutScreeningsInput>
+    create: XOR<MovieCreateWithoutScreeningsInput, MovieUncheckedCreateWithoutScreeningsInput>
+    where?: MovieWhereInput
+  }
+
+  export type MovieUpdateToOneWithWhereWithoutScreeningsInput = {
+    where?: MovieWhereInput
+    data: XOR<MovieUpdateWithoutScreeningsInput, MovieUncheckedUpdateWithoutScreeningsInput>
+  }
+
+  export type MovieUpdateWithoutScreeningsInput = {
     title?: StringFieldUpdateOperationsInput | string
+    director?: StringFieldUpdateOperationsInput | string
+    actors?: StringFieldUpdateOperationsInput | string
+    playtime?: IntFieldUpdateOperationsInput | number
+    language?: StringFieldUpdateOperationsInput | string
+    trailer?: StringFieldUpdateOperationsInput | string
+    poster?: StringFieldUpdateOperationsInput | string
+    onscreen?: BoolFieldUpdateOperationsInput | boolean
+    genre?: StringFieldUpdateOperationsInput | string
+    review?: NullableFloatFieldUpdateOperationsInput | number | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    limit?: NullableIntFieldUpdateOperationsInput | number | null
-    user?: UserUpdateOneWithoutWorkspacesNestedInput
+    forum?: ForumUpdateManyWithoutMoviesNestedInput
   }
 
-  export type WorkspaceUncheckedUpdateWithoutApi_tokensInput = {
+  export type MovieUncheckedUpdateWithoutScreeningsInput = {
     title?: StringFieldUpdateOperationsInput | string
+    director?: StringFieldUpdateOperationsInput | string
+    actors?: StringFieldUpdateOperationsInput | string
+    playtime?: IntFieldUpdateOperationsInput | number
+    language?: StringFieldUpdateOperationsInput | string
+    trailer?: StringFieldUpdateOperationsInput | string
+    poster?: StringFieldUpdateOperationsInput | string
+    onscreen?: BoolFieldUpdateOperationsInput | boolean
+    genre?: StringFieldUpdateOperationsInput | string
+    review?: NullableFloatFieldUpdateOperationsInput | number | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    limit?: NullableIntFieldUpdateOperationsInput | number | null
+    forum?: ForumUncheckedUpdateManyWithoutMoviesNestedInput
+  }
+
+  export type HallUpsertWithoutScreeningsInput = {
+    update: XOR<HallUpdateWithoutScreeningsInput, HallUncheckedUpdateWithoutScreeningsInput>
+    create: XOR<HallCreateWithoutScreeningsInput, HallUncheckedCreateWithoutScreeningsInput>
+    where?: HallWhereInput
+  }
+
+  export type HallUpdateToOneWithWhereWithoutScreeningsInput = {
+    where?: HallWhereInput
+    data: XOR<HallUpdateWithoutScreeningsInput, HallUncheckedUpdateWithoutScreeningsInput>
+  }
+
+  export type HallUpdateWithoutScreeningsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    row?: IntFieldUpdateOperationsInput | number
+    column?: IntFieldUpdateOperationsInput | number
+    chairs?: ChairUpdateManyWithoutHallsNestedInput
+  }
+
+  export type HallUncheckedUpdateWithoutScreeningsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    row?: IntFieldUpdateOperationsInput | number
+    column?: IntFieldUpdateOperationsInput | number
+    chairs?: ChairUncheckedUpdateManyWithoutHallsNestedInput
+  }
+
+  export type Screening_typeUpsertWithoutScreeningsInput = {
+    update: XOR<Screening_typeUpdateWithoutScreeningsInput, Screening_typeUncheckedUpdateWithoutScreeningsInput>
+    create: XOR<Screening_typeCreateWithoutScreeningsInput, Screening_typeUncheckedCreateWithoutScreeningsInput>
+    where?: Screening_typeWhereInput
+  }
+
+  export type Screening_typeUpdateToOneWithWhereWithoutScreeningsInput = {
+    where?: Screening_typeWhereInput
+    data: XOR<Screening_typeUpdateWithoutScreeningsInput, Screening_typeUncheckedUpdateWithoutScreeningsInput>
+  }
+
+  export type Screening_typeUpdateWithoutScreeningsInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+    tickets?: TicketUpdateManyWithoutScreening_typesNestedInput
+  }
+
+  export type Screening_typeUncheckedUpdateWithoutScreeningsInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+    tickets?: TicketUncheckedUpdateManyWithoutScreening_typesNestedInput
+  }
+
+  export type RankCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    point_limit: string
+    image: string
+    discount?: DiscountCreateNestedOneWithoutRanksInput
+  }
+
+  export type RankUncheckedCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    point_limit: string
+    discount_id: string
+    image: string
+  }
+
+  export type RankCreateOrConnectWithoutUsersInput = {
+    where: RankWhereUniqueInput
+    create: XOR<RankCreateWithoutUsersInput, RankUncheckedCreateWithoutUsersInput>
+  }
+
+  export type TicketCreateWithoutUsersInput = {
+    id?: string
+    ticket_types?: Ticket_typeCreateNestedOneWithoutTicketsInput
+    screening_types?: Screening_typeCreateNestedOneWithoutTicketsInput
+  }
+
+  export type TicketUncheckedCreateWithoutUsersInput = {
+    id?: string
+    ticket_type_id: string
+    screening_id: string
+  }
+
+  export type TicketCreateOrConnectWithoutUsersInput = {
+    where: TicketWhereUniqueInput
+    create: XOR<TicketCreateWithoutUsersInput, TicketUncheckedCreateWithoutUsersInput>
+  }
+
+  export type TicketCreateManyUsersInputEnvelope = {
+    data: TicketCreateManyUsersInput | TicketCreateManyUsersInput[]
+  }
+
+  export type ForumCreateWithoutUsersInput = {
+    id?: string
+    review: number
+    comment: string
+    movies?: MovieCreateNestedOneWithoutForumInput
+  }
+
+  export type ForumUncheckedCreateWithoutUsersInput = {
+    id?: string
+    review: number
+    comment: string
+    movie_id: string
+  }
+
+  export type ForumCreateOrConnectWithoutUsersInput = {
+    where: ForumWhereUniqueInput
+    create: XOR<ForumCreateWithoutUsersInput, ForumUncheckedCreateWithoutUsersInput>
+  }
+
+  export type ForumCreateManyUsersInputEnvelope = {
+    data: ForumCreateManyUsersInput | ForumCreateManyUsersInput[]
+  }
+
+  export type RankUpsertWithoutUsersInput = {
+    update: XOR<RankUpdateWithoutUsersInput, RankUncheckedUpdateWithoutUsersInput>
+    create: XOR<RankCreateWithoutUsersInput, RankUncheckedCreateWithoutUsersInput>
+    where?: RankWhereInput
+  }
+
+  export type RankUpdateToOneWithWhereWithoutUsersInput = {
+    where?: RankWhereInput
+    data: XOR<RankUpdateWithoutUsersInput, RankUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type RankUpdateWithoutUsersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    point_limit?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    discount?: DiscountUpdateOneWithoutRanksNestedInput
+  }
+
+  export type RankUncheckedUpdateWithoutUsersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    point_limit?: StringFieldUpdateOperationsInput | string
+    discount_id?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TicketUpsertWithWhereUniqueWithoutUsersInput = {
+    where: TicketWhereUniqueInput
+    update: XOR<TicketUpdateWithoutUsersInput, TicketUncheckedUpdateWithoutUsersInput>
+    create: XOR<TicketCreateWithoutUsersInput, TicketUncheckedCreateWithoutUsersInput>
+  }
+
+  export type TicketUpdateWithWhereUniqueWithoutUsersInput = {
+    where: TicketWhereUniqueInput
+    data: XOR<TicketUpdateWithoutUsersInput, TicketUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type TicketUpdateManyWithWhereWithoutUsersInput = {
+    where: TicketScalarWhereInput
+    data: XOR<TicketUpdateManyMutationInput, TicketUncheckedUpdateManyWithoutUsersInput>
+  }
+
+  export type TicketScalarWhereInput = {
+    AND?: TicketScalarWhereInput | TicketScalarWhereInput[]
+    OR?: TicketScalarWhereInput[]
+    NOT?: TicketScalarWhereInput | TicketScalarWhereInput[]
+    id?: StringFilter<"Ticket"> | string
+    ticket_type_id?: StringFilter<"Ticket"> | string
+    user_id?: StringFilter<"Ticket"> | string
+    screening_id?: StringFilter<"Ticket"> | string
+  }
+
+  export type ForumUpsertWithWhereUniqueWithoutUsersInput = {
+    where: ForumWhereUniqueInput
+    update: XOR<ForumUpdateWithoutUsersInput, ForumUncheckedUpdateWithoutUsersInput>
+    create: XOR<ForumCreateWithoutUsersInput, ForumUncheckedCreateWithoutUsersInput>
+  }
+
+  export type ForumUpdateWithWhereUniqueWithoutUsersInput = {
+    where: ForumWhereUniqueInput
+    data: XOR<ForumUpdateWithoutUsersInput, ForumUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type ForumUpdateManyWithWhereWithoutUsersInput = {
+    where: ForumScalarWhereInput
+    data: XOR<ForumUpdateManyMutationInput, ForumUncheckedUpdateManyWithoutUsersInput>
+  }
+
+  export type HallCreateWithoutChairsInput = {
+    id?: string
+    name: string
+    row: number
+    column: number
+    screenings?: ScreeningCreateNestedManyWithoutHallsInput
+  }
+
+  export type HallUncheckedCreateWithoutChairsInput = {
+    id?: string
+    name: string
+    row: number
+    column: number
+    screenings?: ScreeningUncheckedCreateNestedManyWithoutHallsInput
+  }
+
+  export type HallCreateOrConnectWithoutChairsInput = {
+    where: HallWhereUniqueInput
+    create: XOR<HallCreateWithoutChairsInput, HallUncheckedCreateWithoutChairsInput>
+  }
+
+  export type HallUpsertWithoutChairsInput = {
+    update: XOR<HallUpdateWithoutChairsInput, HallUncheckedUpdateWithoutChairsInput>
+    create: XOR<HallCreateWithoutChairsInput, HallUncheckedCreateWithoutChairsInput>
+    where?: HallWhereInput
+  }
+
+  export type HallUpdateToOneWithWhereWithoutChairsInput = {
+    where?: HallWhereInput
+    data: XOR<HallUpdateWithoutChairsInput, HallUncheckedUpdateWithoutChairsInput>
+  }
+
+  export type HallUpdateWithoutChairsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    row?: IntFieldUpdateOperationsInput | number
+    column?: IntFieldUpdateOperationsInput | number
+    screenings?: ScreeningUpdateManyWithoutHallsNestedInput
+  }
+
+  export type HallUncheckedUpdateWithoutChairsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    row?: IntFieldUpdateOperationsInput | number
+    column?: IntFieldUpdateOperationsInput | number
+    screenings?: ScreeningUncheckedUpdateManyWithoutHallsNestedInput
+  }
+
+  export type DiscountCreateWithoutRanksInput = {
+    id?: string
+    name: string
+    image: string
+    percent: number
+  }
+
+  export type DiscountUncheckedCreateWithoutRanksInput = {
+    id?: string
+    name: string
+    image: string
+    percent: number
+  }
+
+  export type DiscountCreateOrConnectWithoutRanksInput = {
+    where: DiscountWhereUniqueInput
+    create: XOR<DiscountCreateWithoutRanksInput, DiscountUncheckedCreateWithoutRanksInput>
+  }
+
+  export type UserCreateWithoutRanksInput = {
+    id?: string
+    name: string
+    email: string
+    password_hash: string
+    phone_number: string
+    points: number
+    tickets?: TicketCreateNestedManyWithoutUsersInput
+    forum?: ForumCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutRanksInput = {
+    id?: string
+    name: string
+    email: string
+    password_hash: string
+    phone_number: string
+    points: number
+    tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
+    forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserCreateOrConnectWithoutRanksInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRanksInput, UserUncheckedCreateWithoutRanksInput>
+  }
+
+  export type UserCreateManyRanksInputEnvelope = {
+    data: UserCreateManyRanksInput | UserCreateManyRanksInput[]
+  }
+
+  export type DiscountUpsertWithoutRanksInput = {
+    update: XOR<DiscountUpdateWithoutRanksInput, DiscountUncheckedUpdateWithoutRanksInput>
+    create: XOR<DiscountCreateWithoutRanksInput, DiscountUncheckedCreateWithoutRanksInput>
+    where?: DiscountWhereInput
+  }
+
+  export type DiscountUpdateToOneWithWhereWithoutRanksInput = {
+    where?: DiscountWhereInput
+    data: XOR<DiscountUpdateWithoutRanksInput, DiscountUncheckedUpdateWithoutRanksInput>
+  }
+
+  export type DiscountUpdateWithoutRanksInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type DiscountUncheckedUpdateWithoutRanksInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutRanksInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutRanksInput, UserUncheckedUpdateWithoutRanksInput>
+    create: XOR<UserCreateWithoutRanksInput, UserUncheckedCreateWithoutRanksInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutRanksInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutRanksInput, UserUncheckedUpdateWithoutRanksInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutRanksInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutRanksInput>
+  }
+
+  export type UserScalarWhereInput = {
+    AND?: UserScalarWhereInput | UserScalarWhereInput[]
+    OR?: UserScalarWhereInput[]
+    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
+    id?: StringFilter<"User"> | string
+    name?: StringFilter<"User"> | string
+    email?: StringFilter<"User"> | string
+    password_hash?: StringFilter<"User"> | string
+    phone_number?: StringFilter<"User"> | string
+    points?: IntFilter<"User"> | number
+    rank_id?: StringFilter<"User"> | string
+  }
+
+  export type RankCreateWithoutDiscountInput = {
+    id?: string
+    name: string
+    point_limit: string
+    image: string
+    users?: UserCreateNestedManyWithoutRanksInput
+  }
+
+  export type RankUncheckedCreateWithoutDiscountInput = {
+    id?: string
+    name: string
+    point_limit: string
+    image: string
+    users?: UserUncheckedCreateNestedManyWithoutRanksInput
+  }
+
+  export type RankCreateOrConnectWithoutDiscountInput = {
+    where: RankWhereUniqueInput
+    create: XOR<RankCreateWithoutDiscountInput, RankUncheckedCreateWithoutDiscountInput>
+  }
+
+  export type RankCreateManyDiscountInputEnvelope = {
+    data: RankCreateManyDiscountInput | RankCreateManyDiscountInput[]
+  }
+
+  export type RankUpsertWithWhereUniqueWithoutDiscountInput = {
+    where: RankWhereUniqueInput
+    update: XOR<RankUpdateWithoutDiscountInput, RankUncheckedUpdateWithoutDiscountInput>
+    create: XOR<RankCreateWithoutDiscountInput, RankUncheckedCreateWithoutDiscountInput>
+  }
+
+  export type RankUpdateWithWhereUniqueWithoutDiscountInput = {
+    where: RankWhereUniqueInput
+    data: XOR<RankUpdateWithoutDiscountInput, RankUncheckedUpdateWithoutDiscountInput>
+  }
+
+  export type RankUpdateManyWithWhereWithoutDiscountInput = {
+    where: RankScalarWhereInput
+    data: XOR<RankUpdateManyMutationInput, RankUncheckedUpdateManyWithoutDiscountInput>
+  }
+
+  export type RankScalarWhereInput = {
+    AND?: RankScalarWhereInput | RankScalarWhereInput[]
+    OR?: RankScalarWhereInput[]
+    NOT?: RankScalarWhereInput | RankScalarWhereInput[]
+    id?: StringFilter<"Rank"> | string
+    name?: StringFilter<"Rank"> | string
+    point_limit?: StringFilter<"Rank"> | string
+    discount_id?: StringFilter<"Rank"> | string
+    image?: StringFilter<"Rank"> | string
+  }
+
+  export type ScreeningCreateWithoutHallsInput = {
+    id?: string
+    start: Date | string
+    end: Date | string
+    movies?: MovieCreateNestedOneWithoutScreeningsInput
+    screening_types?: Screening_typeCreateNestedOneWithoutScreeningsInput
+  }
+
+  export type ScreeningUncheckedCreateWithoutHallsInput = {
+    id?: string
+    movie_id: string
+    start: Date | string
+    end: Date | string
+    screening_type_id: string
+  }
+
+  export type ScreeningCreateOrConnectWithoutHallsInput = {
+    where: ScreeningWhereUniqueInput
+    create: XOR<ScreeningCreateWithoutHallsInput, ScreeningUncheckedCreateWithoutHallsInput>
+  }
+
+  export type ScreeningCreateManyHallsInputEnvelope = {
+    data: ScreeningCreateManyHallsInput | ScreeningCreateManyHallsInput[]
+  }
+
+  export type ChairCreateWithoutHallsInput = {
+    id?: string
+    state?: boolean
+    row: number
+    column: number
+  }
+
+  export type ChairUncheckedCreateWithoutHallsInput = {
+    id?: string
+    state?: boolean
+    row: number
+    column: number
+  }
+
+  export type ChairCreateOrConnectWithoutHallsInput = {
+    where: ChairWhereUniqueInput
+    create: XOR<ChairCreateWithoutHallsInput, ChairUncheckedCreateWithoutHallsInput>
+  }
+
+  export type ChairCreateManyHallsInputEnvelope = {
+    data: ChairCreateManyHallsInput | ChairCreateManyHallsInput[]
+  }
+
+  export type ScreeningUpsertWithWhereUniqueWithoutHallsInput = {
+    where: ScreeningWhereUniqueInput
+    update: XOR<ScreeningUpdateWithoutHallsInput, ScreeningUncheckedUpdateWithoutHallsInput>
+    create: XOR<ScreeningCreateWithoutHallsInput, ScreeningUncheckedCreateWithoutHallsInput>
+  }
+
+  export type ScreeningUpdateWithWhereUniqueWithoutHallsInput = {
+    where: ScreeningWhereUniqueInput
+    data: XOR<ScreeningUpdateWithoutHallsInput, ScreeningUncheckedUpdateWithoutHallsInput>
+  }
+
+  export type ScreeningUpdateManyWithWhereWithoutHallsInput = {
+    where: ScreeningScalarWhereInput
+    data: XOR<ScreeningUpdateManyMutationInput, ScreeningUncheckedUpdateManyWithoutHallsInput>
+  }
+
+  export type ChairUpsertWithWhereUniqueWithoutHallsInput = {
+    where: ChairWhereUniqueInput
+    update: XOR<ChairUpdateWithoutHallsInput, ChairUncheckedUpdateWithoutHallsInput>
+    create: XOR<ChairCreateWithoutHallsInput, ChairUncheckedCreateWithoutHallsInput>
+  }
+
+  export type ChairUpdateWithWhereUniqueWithoutHallsInput = {
+    where: ChairWhereUniqueInput
+    data: XOR<ChairUpdateWithoutHallsInput, ChairUncheckedUpdateWithoutHallsInput>
+  }
+
+  export type ChairUpdateManyWithWhereWithoutHallsInput = {
+    where: ChairScalarWhereInput
+    data: XOR<ChairUpdateManyMutationInput, ChairUncheckedUpdateManyWithoutHallsInput>
+  }
+
+  export type ChairScalarWhereInput = {
+    AND?: ChairScalarWhereInput | ChairScalarWhereInput[]
+    OR?: ChairScalarWhereInput[]
+    NOT?: ChairScalarWhereInput | ChairScalarWhereInput[]
+    id?: StringFilter<"Chair"> | string
+    state?: BoolFilter<"Chair"> | boolean
+    row?: IntFilter<"Chair"> | number
+    column?: IntFilter<"Chair"> | number
+    hall_id?: StringFilter<"Chair"> | string
+  }
+
+  export type UserCreateWithoutForumInput = {
+    id?: string
+    name: string
+    email: string
+    password_hash: string
+    phone_number: string
+    points: number
+    ranks?: RankCreateNestedOneWithoutUsersInput
+    tickets?: TicketCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutForumInput = {
+    id?: string
+    name: string
+    email: string
+    password_hash: string
+    phone_number: string
+    points: number
+    rank_id: string
+    tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserCreateOrConnectWithoutForumInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutForumInput, UserUncheckedCreateWithoutForumInput>
+  }
+
+  export type MovieCreateWithoutForumInput = {
+    id?: string
+    title: string
+    director: string
+    actors: string
+    playtime: number
+    language: string
+    trailer: string
+    poster: string
+    onscreen: boolean
+    genre: string
+    review?: number | null
+    description?: string | null
+    screenings?: ScreeningCreateNestedManyWithoutMoviesInput
+  }
+
+  export type MovieUncheckedCreateWithoutForumInput = {
+    id?: string
+    title: string
+    director: string
+    actors: string
+    playtime: number
+    language: string
+    trailer: string
+    poster: string
+    onscreen: boolean
+    genre: string
+    review?: number | null
+    description?: string | null
+    screenings?: ScreeningUncheckedCreateNestedManyWithoutMoviesInput
+  }
+
+  export type MovieCreateOrConnectWithoutForumInput = {
+    where: MovieWhereUniqueInput
+    create: XOR<MovieCreateWithoutForumInput, MovieUncheckedCreateWithoutForumInput>
+  }
+
+  export type UserUpsertWithoutForumInput = {
+    update: XOR<UserUpdateWithoutForumInput, UserUncheckedUpdateWithoutForumInput>
+    create: XOR<UserCreateWithoutForumInput, UserUncheckedCreateWithoutForumInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutForumInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutForumInput, UserUncheckedUpdateWithoutForumInput>
+  }
+
+  export type UserUpdateWithoutForumInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    ranks?: RankUpdateOneWithoutUsersNestedInput
+    tickets?: TicketUpdateManyWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutForumInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    rank_id?: StringFieldUpdateOperationsInput | string
+    tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type MovieUpsertWithoutForumInput = {
+    update: XOR<MovieUpdateWithoutForumInput, MovieUncheckedUpdateWithoutForumInput>
+    create: XOR<MovieCreateWithoutForumInput, MovieUncheckedCreateWithoutForumInput>
+    where?: MovieWhereInput
+  }
+
+  export type MovieUpdateToOneWithWhereWithoutForumInput = {
+    where?: MovieWhereInput
+    data: XOR<MovieUpdateWithoutForumInput, MovieUncheckedUpdateWithoutForumInput>
+  }
+
+  export type MovieUpdateWithoutForumInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    director?: StringFieldUpdateOperationsInput | string
+    actors?: StringFieldUpdateOperationsInput | string
+    playtime?: IntFieldUpdateOperationsInput | number
+    language?: StringFieldUpdateOperationsInput | string
+    trailer?: StringFieldUpdateOperationsInput | string
+    poster?: StringFieldUpdateOperationsInput | string
+    onscreen?: BoolFieldUpdateOperationsInput | boolean
+    genre?: StringFieldUpdateOperationsInput | string
+    review?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    screenings?: ScreeningUpdateManyWithoutMoviesNestedInput
+  }
+
+  export type MovieUncheckedUpdateWithoutForumInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    director?: StringFieldUpdateOperationsInput | string
+    actors?: StringFieldUpdateOperationsInput | string
+    playtime?: IntFieldUpdateOperationsInput | number
+    language?: StringFieldUpdateOperationsInput | string
+    trailer?: StringFieldUpdateOperationsInput | string
+    poster?: StringFieldUpdateOperationsInput | string
+    onscreen?: BoolFieldUpdateOperationsInput | boolean
+    genre?: StringFieldUpdateOperationsInput | string
+    review?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    screenings?: ScreeningUncheckedUpdateManyWithoutMoviesNestedInput
+  }
+
+  export type Ticket_typeCreateWithoutTicketsInput = {
+    id?: string
+    type: string
+    percent: number
+  }
+
+  export type Ticket_typeUncheckedCreateWithoutTicketsInput = {
+    id?: string
+    type: string
+    percent: number
+  }
+
+  export type Ticket_typeCreateOrConnectWithoutTicketsInput = {
+    where: Ticket_typeWhereUniqueInput
+    create: XOR<Ticket_typeCreateWithoutTicketsInput, Ticket_typeUncheckedCreateWithoutTicketsInput>
+  }
+
+  export type Screening_typeCreateWithoutTicketsInput = {
+    id?: string
+    type: string
+    percent: number
+    screenings?: ScreeningCreateNestedManyWithoutScreening_typesInput
+  }
+
+  export type Screening_typeUncheckedCreateWithoutTicketsInput = {
+    id?: string
+    type: string
+    percent: number
+    screenings?: ScreeningUncheckedCreateNestedManyWithoutScreening_typesInput
+  }
+
+  export type Screening_typeCreateOrConnectWithoutTicketsInput = {
+    where: Screening_typeWhereUniqueInput
+    create: XOR<Screening_typeCreateWithoutTicketsInput, Screening_typeUncheckedCreateWithoutTicketsInput>
+  }
+
+  export type UserCreateWithoutTicketsInput = {
+    id?: string
+    name: string
+    email: string
+    password_hash: string
+    phone_number: string
+    points: number
+    ranks?: RankCreateNestedOneWithoutUsersInput
+    forum?: ForumCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutTicketsInput = {
+    id?: string
+    name: string
+    email: string
+    password_hash: string
+    phone_number: string
+    points: number
+    rank_id: string
+    forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserCreateOrConnectWithoutTicketsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTicketsInput, UserUncheckedCreateWithoutTicketsInput>
+  }
+
+  export type Ticket_typeUpsertWithoutTicketsInput = {
+    update: XOR<Ticket_typeUpdateWithoutTicketsInput, Ticket_typeUncheckedUpdateWithoutTicketsInput>
+    create: XOR<Ticket_typeCreateWithoutTicketsInput, Ticket_typeUncheckedCreateWithoutTicketsInput>
+    where?: Ticket_typeWhereInput
+  }
+
+  export type Ticket_typeUpdateToOneWithWhereWithoutTicketsInput = {
+    where?: Ticket_typeWhereInput
+    data: XOR<Ticket_typeUpdateWithoutTicketsInput, Ticket_typeUncheckedUpdateWithoutTicketsInput>
+  }
+
+  export type Ticket_typeUpdateWithoutTicketsInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type Ticket_typeUncheckedUpdateWithoutTicketsInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type Screening_typeUpsertWithoutTicketsInput = {
+    update: XOR<Screening_typeUpdateWithoutTicketsInput, Screening_typeUncheckedUpdateWithoutTicketsInput>
+    create: XOR<Screening_typeCreateWithoutTicketsInput, Screening_typeUncheckedCreateWithoutTicketsInput>
+    where?: Screening_typeWhereInput
+  }
+
+  export type Screening_typeUpdateToOneWithWhereWithoutTicketsInput = {
+    where?: Screening_typeWhereInput
+    data: XOR<Screening_typeUpdateWithoutTicketsInput, Screening_typeUncheckedUpdateWithoutTicketsInput>
+  }
+
+  export type Screening_typeUpdateWithoutTicketsInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+    screenings?: ScreeningUpdateManyWithoutScreening_typesNestedInput
+  }
+
+  export type Screening_typeUncheckedUpdateWithoutTicketsInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+    screenings?: ScreeningUncheckedUpdateManyWithoutScreening_typesNestedInput
+  }
+
+  export type UserUpsertWithoutTicketsInput = {
+    update: XOR<UserUpdateWithoutTicketsInput, UserUncheckedUpdateWithoutTicketsInput>
+    create: XOR<UserCreateWithoutTicketsInput, UserUncheckedCreateWithoutTicketsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTicketsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTicketsInput, UserUncheckedUpdateWithoutTicketsInput>
+  }
+
+  export type UserUpdateWithoutTicketsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    ranks?: RankUpdateOneWithoutUsersNestedInput
+    forum?: ForumUpdateManyWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTicketsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    rank_id?: StringFieldUpdateOperationsInput | string
+    forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type TicketCreateWithoutTicket_typesInput = {
+    id?: string
+    screening_types?: Screening_typeCreateNestedOneWithoutTicketsInput
+    users?: UserCreateNestedOneWithoutTicketsInput
+  }
+
+  export type TicketUncheckedCreateWithoutTicket_typesInput = {
+    id?: string
+    user_id: string
+    screening_id: string
+  }
+
+  export type TicketCreateOrConnectWithoutTicket_typesInput = {
+    where: TicketWhereUniqueInput
+    create: XOR<TicketCreateWithoutTicket_typesInput, TicketUncheckedCreateWithoutTicket_typesInput>
+  }
+
+  export type TicketCreateManyTicket_typesInputEnvelope = {
+    data: TicketCreateManyTicket_typesInput | TicketCreateManyTicket_typesInput[]
+  }
+
+  export type TicketUpsertWithWhereUniqueWithoutTicket_typesInput = {
+    where: TicketWhereUniqueInput
+    update: XOR<TicketUpdateWithoutTicket_typesInput, TicketUncheckedUpdateWithoutTicket_typesInput>
+    create: XOR<TicketCreateWithoutTicket_typesInput, TicketUncheckedCreateWithoutTicket_typesInput>
+  }
+
+  export type TicketUpdateWithWhereUniqueWithoutTicket_typesInput = {
+    where: TicketWhereUniqueInput
+    data: XOR<TicketUpdateWithoutTicket_typesInput, TicketUncheckedUpdateWithoutTicket_typesInput>
+  }
+
+  export type TicketUpdateManyWithWhereWithoutTicket_typesInput = {
+    where: TicketScalarWhereInput
+    data: XOR<TicketUpdateManyMutationInput, TicketUncheckedUpdateManyWithoutTicket_typesInput>
+  }
+
+  export type TicketCreateWithoutScreening_typesInput = {
+    id?: string
+    ticket_types?: Ticket_typeCreateNestedOneWithoutTicketsInput
+    users?: UserCreateNestedOneWithoutTicketsInput
+  }
+
+  export type TicketUncheckedCreateWithoutScreening_typesInput = {
+    id?: string
+    ticket_type_id: string
+    user_id: string
+  }
+
+  export type TicketCreateOrConnectWithoutScreening_typesInput = {
+    where: TicketWhereUniqueInput
+    create: XOR<TicketCreateWithoutScreening_typesInput, TicketUncheckedCreateWithoutScreening_typesInput>
+  }
+
+  export type TicketCreateManyScreening_typesInputEnvelope = {
+    data: TicketCreateManyScreening_typesInput | TicketCreateManyScreening_typesInput[]
+  }
+
+  export type ScreeningCreateWithoutScreening_typesInput = {
+    id?: string
+    start: Date | string
+    end: Date | string
+    movies?: MovieCreateNestedOneWithoutScreeningsInput
+    halls?: HallCreateNestedOneWithoutScreeningsInput
+  }
+
+  export type ScreeningUncheckedCreateWithoutScreening_typesInput = {
+    id?: string
+    hall_id: string
+    movie_id: string
+    start: Date | string
+    end: Date | string
+  }
+
+  export type ScreeningCreateOrConnectWithoutScreening_typesInput = {
+    where: ScreeningWhereUniqueInput
+    create: XOR<ScreeningCreateWithoutScreening_typesInput, ScreeningUncheckedCreateWithoutScreening_typesInput>
+  }
+
+  export type ScreeningCreateManyScreening_typesInputEnvelope = {
+    data: ScreeningCreateManyScreening_typesInput | ScreeningCreateManyScreening_typesInput[]
+  }
+
+  export type TicketUpsertWithWhereUniqueWithoutScreening_typesInput = {
+    where: TicketWhereUniqueInput
+    update: XOR<TicketUpdateWithoutScreening_typesInput, TicketUncheckedUpdateWithoutScreening_typesInput>
+    create: XOR<TicketCreateWithoutScreening_typesInput, TicketUncheckedCreateWithoutScreening_typesInput>
+  }
+
+  export type TicketUpdateWithWhereUniqueWithoutScreening_typesInput = {
+    where: TicketWhereUniqueInput
+    data: XOR<TicketUpdateWithoutScreening_typesInput, TicketUncheckedUpdateWithoutScreening_typesInput>
+  }
+
+  export type TicketUpdateManyWithWhereWithoutScreening_typesInput = {
+    where: TicketScalarWhereInput
+    data: XOR<TicketUpdateManyMutationInput, TicketUncheckedUpdateManyWithoutScreening_typesInput>
+  }
+
+  export type ScreeningUpsertWithWhereUniqueWithoutScreening_typesInput = {
+    where: ScreeningWhereUniqueInput
+    update: XOR<ScreeningUpdateWithoutScreening_typesInput, ScreeningUncheckedUpdateWithoutScreening_typesInput>
+    create: XOR<ScreeningCreateWithoutScreening_typesInput, ScreeningUncheckedCreateWithoutScreening_typesInput>
+  }
+
+  export type ScreeningUpdateWithWhereUniqueWithoutScreening_typesInput = {
+    where: ScreeningWhereUniqueInput
+    data: XOR<ScreeningUpdateWithoutScreening_typesInput, ScreeningUncheckedUpdateWithoutScreening_typesInput>
+  }
+
+  export type ScreeningUpdateManyWithWhereWithoutScreening_typesInput = {
+    where: ScreeningScalarWhereInput
+    data: XOR<ScreeningUpdateManyMutationInput, ScreeningUncheckedUpdateManyWithoutScreening_typesInput>
+  }
+
+  export type ScreeningCreateManyMoviesInput = {
+    id?: string
+    hall_id: string
+    start: Date | string
+    end: Date | string
+    screening_type_id: string
+  }
+
+  export type ForumCreateManyMoviesInput = {
+    id?: string
+    review: number
+    comment: string
+    user_id: string
+  }
+
+  export type ScreeningUpdateWithoutMoviesInput = {
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    halls?: HallUpdateOneWithoutScreeningsNestedInput
+    screening_types?: Screening_typeUpdateOneWithoutScreeningsNestedInput
+  }
+
+  export type ScreeningUncheckedUpdateWithoutMoviesInput = {
+    hall_id?: StringFieldUpdateOperationsInput | string
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    screening_type_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ScreeningUncheckedUpdateManyWithoutMoviesInput = {
+    hall_id?: StringFieldUpdateOperationsInput | string
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    screening_type_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ForumUpdateWithoutMoviesInput = {
+    review?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    users?: UserUpdateOneWithoutForumNestedInput
+  }
+
+  export type ForumUncheckedUpdateWithoutMoviesInput = {
+    review?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ServiceCreateWithoutService_usagesInput = {
+  export type ForumUncheckedUpdateManyWithoutMoviesInput = {
+    review?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TicketCreateManyUsersInput = {
+    id?: string
+    ticket_type_id: string
+    screening_id: string
+  }
+
+  export type ForumCreateManyUsersInput = {
+    id?: string
+    review: number
+    comment: string
+    movie_id: string
+  }
+
+  export type TicketUpdateWithoutUsersInput = {
+    ticket_types?: Ticket_typeUpdateOneWithoutTicketsNestedInput
+    screening_types?: Screening_typeUpdateOneWithoutTicketsNestedInput
+  }
+
+  export type TicketUncheckedUpdateWithoutUsersInput = {
+    ticket_type_id?: StringFieldUpdateOperationsInput | string
+    screening_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TicketUncheckedUpdateManyWithoutUsersInput = {
+    ticket_type_id?: StringFieldUpdateOperationsInput | string
+    screening_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ForumUpdateWithoutUsersInput = {
+    review?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    movies?: MovieUpdateOneWithoutForumNestedInput
+  }
+
+  export type ForumUncheckedUpdateWithoutUsersInput = {
+    review?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    movie_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ForumUncheckedUpdateManyWithoutUsersInput = {
+    review?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    movie_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserCreateManyRanksInput = {
     id?: string
     name: string
-    cost_per_ms: number
+    email: string
+    password_hash: string
+    phone_number: string
+    points: number
   }
 
-  export type ServiceUncheckedCreateWithoutService_usagesInput = {
+  export type UserUpdateWithoutRanksInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    tickets?: TicketUpdateManyWithoutUsersNestedInput
+    forum?: ForumUpdateManyWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRanksInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
+    forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutRanksInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type RankCreateManyDiscountInput = {
     id?: string
     name: string
-    cost_per_ms: number
+    point_limit: string
+    image: string
   }
 
-  export type ServiceCreateOrConnectWithoutService_usagesInput = {
-    where: ServiceWhereUniqueInput
-    create: XOR<ServiceCreateWithoutService_usagesInput, ServiceUncheckedCreateWithoutService_usagesInput>
-  }
-
-  export type API_TokenCreateWithoutService_usagesInput = {
-    id?: string
-    name: string
-    token: string
-    createdAt?: Date | string
-    creation_date?: Date | string
-    revocation_date?: Date | string | null
-    workspace?: WorkspaceCreateNestedOneWithoutApi_tokensInput
-  }
-
-  export type API_TokenUncheckedCreateWithoutService_usagesInput = {
-    id?: string
-    name: string
-    token: string
-    workspace_id: string
-    createdAt?: Date | string
-    creation_date?: Date | string
-    revocation_date?: Date | string | null
-  }
-
-  export type API_TokenCreateOrConnectWithoutService_usagesInput = {
-    where: API_TokenWhereUniqueInput
-    create: XOR<API_TokenCreateWithoutService_usagesInput, API_TokenUncheckedCreateWithoutService_usagesInput>
-  }
-
-  export type ServiceUpsertWithoutService_usagesInput = {
-    update: XOR<ServiceUpdateWithoutService_usagesInput, ServiceUncheckedUpdateWithoutService_usagesInput>
-    create: XOR<ServiceCreateWithoutService_usagesInput, ServiceUncheckedCreateWithoutService_usagesInput>
-    where?: ServiceWhereInput
-  }
-
-  export type ServiceUpdateToOneWithWhereWithoutService_usagesInput = {
-    where?: ServiceWhereInput
-    data: XOR<ServiceUpdateWithoutService_usagesInput, ServiceUncheckedUpdateWithoutService_usagesInput>
-  }
-
-  export type ServiceUpdateWithoutService_usagesInput = {
+  export type RankUpdateWithoutDiscountInput = {
     name?: StringFieldUpdateOperationsInput | string
-    cost_per_ms?: FloatFieldUpdateOperationsInput | number
+    point_limit?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    users?: UserUpdateManyWithoutRanksNestedInput
   }
 
-  export type ServiceUncheckedUpdateWithoutService_usagesInput = {
+  export type RankUncheckedUpdateWithoutDiscountInput = {
     name?: StringFieldUpdateOperationsInput | string
-    cost_per_ms?: FloatFieldUpdateOperationsInput | number
+    point_limit?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    users?: UserUncheckedUpdateManyWithoutRanksNestedInput
   }
 
-  export type API_TokenUpsertWithoutService_usagesInput = {
-    update: XOR<API_TokenUpdateWithoutService_usagesInput, API_TokenUncheckedUpdateWithoutService_usagesInput>
-    create: XOR<API_TokenCreateWithoutService_usagesInput, API_TokenUncheckedCreateWithoutService_usagesInput>
-    where?: API_TokenWhereInput
-  }
-
-  export type API_TokenUpdateToOneWithWhereWithoutService_usagesInput = {
-    where?: API_TokenWhereInput
-    data: XOR<API_TokenUpdateWithoutService_usagesInput, API_TokenUncheckedUpdateWithoutService_usagesInput>
-  }
-
-  export type API_TokenUpdateWithoutService_usagesInput = {
+  export type RankUncheckedUpdateManyWithoutDiscountInput = {
     name?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    creation_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    revocation_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    workspace?: WorkspaceUpdateOneWithoutApi_tokensNestedInput
+    point_limit?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
   }
 
-  export type API_TokenUncheckedUpdateWithoutService_usagesInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    workspace_id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    creation_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    revocation_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type Service_UsageCreateWithoutServiceInput = {
+  export type ScreeningCreateManyHallsInput = {
     id?: string
-    usage_duration_ms?: number
-    usage_started: Date | string
-    api_token?: API_TokenCreateNestedOneWithoutService_usagesInput
+    movie_id: string
+    start: Date | string
+    end: Date | string
+    screening_type_id: string
   }
 
-  export type Service_UsageUncheckedCreateWithoutServiceInput = {
+  export type ChairCreateManyHallsInput = {
     id?: string
-    api_token_id: string
-    usage_duration_ms?: number
-    usage_started: Date | string
+    state?: boolean
+    row: number
+    column: number
   }
 
-  export type Service_UsageCreateOrConnectWithoutServiceInput = {
-    where: Service_UsageWhereUniqueInput
-    create: XOR<Service_UsageCreateWithoutServiceInput, Service_UsageUncheckedCreateWithoutServiceInput>
+  export type ScreeningUpdateWithoutHallsInput = {
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    movies?: MovieUpdateOneWithoutScreeningsNestedInput
+    screening_types?: Screening_typeUpdateOneWithoutScreeningsNestedInput
   }
 
-  export type Service_UsageCreateManyServiceInputEnvelope = {
-    data: Service_UsageCreateManyServiceInput | Service_UsageCreateManyServiceInput[]
+  export type ScreeningUncheckedUpdateWithoutHallsInput = {
+    movie_id?: StringFieldUpdateOperationsInput | string
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    screening_type_id?: StringFieldUpdateOperationsInput | string
   }
 
-  export type Service_UsageUpsertWithWhereUniqueWithoutServiceInput = {
-    where: Service_UsageWhereUniqueInput
-    update: XOR<Service_UsageUpdateWithoutServiceInput, Service_UsageUncheckedUpdateWithoutServiceInput>
-    create: XOR<Service_UsageCreateWithoutServiceInput, Service_UsageUncheckedCreateWithoutServiceInput>
+  export type ScreeningUncheckedUpdateManyWithoutHallsInput = {
+    movie_id?: StringFieldUpdateOperationsInput | string
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    screening_type_id?: StringFieldUpdateOperationsInput | string
   }
 
-  export type Service_UsageUpdateWithWhereUniqueWithoutServiceInput = {
-    where: Service_UsageWhereUniqueInput
-    data: XOR<Service_UsageUpdateWithoutServiceInput, Service_UsageUncheckedUpdateWithoutServiceInput>
+  export type ChairUpdateWithoutHallsInput = {
+    state?: BoolFieldUpdateOperationsInput | boolean
+    row?: IntFieldUpdateOperationsInput | number
+    column?: IntFieldUpdateOperationsInput | number
   }
 
-  export type Service_UsageUpdateManyWithWhereWithoutServiceInput = {
-    where: Service_UsageScalarWhereInput
-    data: XOR<Service_UsageUpdateManyMutationInput, Service_UsageUncheckedUpdateManyWithoutServiceInput>
+  export type ChairUncheckedUpdateWithoutHallsInput = {
+    state?: BoolFieldUpdateOperationsInput | boolean
+    row?: IntFieldUpdateOperationsInput | number
+    column?: IntFieldUpdateOperationsInput | number
   }
 
-  export type WorkspaceCreateManyUserInput = {
+  export type ChairUncheckedUpdateManyWithoutHallsInput = {
+    state?: BoolFieldUpdateOperationsInput | boolean
+    row?: IntFieldUpdateOperationsInput | number
+    column?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type TicketCreateManyTicket_typesInput = {
     id?: string
-    title: string
-    description?: string | null
-    limit?: number | null
+    user_id: string
+    screening_id: string
   }
 
-  export type WorkspaceUpdateWithoutUserInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    limit?: NullableIntFieldUpdateOperationsInput | number | null
-    api_tokens?: API_TokenUpdateManyWithoutWorkspaceNestedInput
+  export type TicketUpdateWithoutTicket_typesInput = {
+    screening_types?: Screening_typeUpdateOneWithoutTicketsNestedInput
+    users?: UserUpdateOneWithoutTicketsNestedInput
   }
 
-  export type WorkspaceUncheckedUpdateWithoutUserInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    limit?: NullableIntFieldUpdateOperationsInput | number | null
-    api_tokens?: API_TokenUncheckedUpdateManyWithoutWorkspaceNestedInput
+  export type TicketUncheckedUpdateWithoutTicket_typesInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    screening_id?: StringFieldUpdateOperationsInput | string
   }
 
-  export type WorkspaceUncheckedUpdateManyWithoutUserInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    limit?: NullableIntFieldUpdateOperationsInput | number | null
+  export type TicketUncheckedUpdateManyWithoutTicket_typesInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    screening_id?: StringFieldUpdateOperationsInput | string
   }
 
-  export type API_TokenCreateManyWorkspaceInput = {
+  export type TicketCreateManyScreening_typesInput = {
     id?: string
-    name: string
-    token: string
-    createdAt?: Date | string
-    creation_date?: Date | string
-    revocation_date?: Date | string | null
+    ticket_type_id: string
+    user_id: string
   }
 
-  export type API_TokenUpdateWithoutWorkspaceInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    creation_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    revocation_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    service_usages?: Service_UsageUpdateManyWithoutApi_tokenNestedInput
-  }
-
-  export type API_TokenUncheckedUpdateWithoutWorkspaceInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    creation_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    revocation_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    service_usages?: Service_UsageUncheckedUpdateManyWithoutApi_tokenNestedInput
-  }
-
-  export type API_TokenUncheckedUpdateManyWithoutWorkspaceInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    creation_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    revocation_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type Service_UsageCreateManyApi_tokenInput = {
+  export type ScreeningCreateManyScreening_typesInput = {
     id?: string
-    service_id?: string | null
-    usage_duration_ms?: number
-    usage_started: Date | string
+    hall_id: string
+    movie_id: string
+    start: Date | string
+    end: Date | string
   }
 
-  export type Service_UsageUpdateWithoutApi_tokenInput = {
-    usage_duration_ms?: FloatFieldUpdateOperationsInput | number
-    usage_started?: DateTimeFieldUpdateOperationsInput | Date | string
-    service?: ServiceUpdateOneWithoutService_usagesNestedInput
+  export type TicketUpdateWithoutScreening_typesInput = {
+    ticket_types?: Ticket_typeUpdateOneWithoutTicketsNestedInput
+    users?: UserUpdateOneWithoutTicketsNestedInput
   }
 
-  export type Service_UsageUncheckedUpdateWithoutApi_tokenInput = {
-    service_id?: NullableStringFieldUpdateOperationsInput | string | null
-    usage_duration_ms?: FloatFieldUpdateOperationsInput | number
-    usage_started?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type TicketUncheckedUpdateWithoutScreening_typesInput = {
+    ticket_type_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
   }
 
-  export type Service_UsageUncheckedUpdateManyWithoutApi_tokenInput = {
-    service_id?: NullableStringFieldUpdateOperationsInput | string | null
-    usage_duration_ms?: FloatFieldUpdateOperationsInput | number
-    usage_started?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type TicketUncheckedUpdateManyWithoutScreening_typesInput = {
+    ticket_type_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
   }
 
-  export type Service_UsageCreateManyServiceInput = {
-    id?: string
-    api_token_id: string
-    usage_duration_ms?: number
-    usage_started: Date | string
+  export type ScreeningUpdateWithoutScreening_typesInput = {
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    movies?: MovieUpdateOneWithoutScreeningsNestedInput
+    halls?: HallUpdateOneWithoutScreeningsNestedInput
   }
 
-  export type Service_UsageUpdateWithoutServiceInput = {
-    usage_duration_ms?: FloatFieldUpdateOperationsInput | number
-    usage_started?: DateTimeFieldUpdateOperationsInput | Date | string
-    api_token?: API_TokenUpdateOneWithoutService_usagesNestedInput
+  export type ScreeningUncheckedUpdateWithoutScreening_typesInput = {
+    hall_id?: StringFieldUpdateOperationsInput | string
+    movie_id?: StringFieldUpdateOperationsInput | string
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type Service_UsageUncheckedUpdateWithoutServiceInput = {
-    api_token_id?: StringFieldUpdateOperationsInput | string
-    usage_duration_ms?: FloatFieldUpdateOperationsInput | number
-    usage_started?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type Service_UsageUncheckedUpdateManyWithoutServiceInput = {
-    api_token_id?: StringFieldUpdateOperationsInput | string
-    usage_duration_ms?: FloatFieldUpdateOperationsInput | number
-    usage_started?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type ScreeningUncheckedUpdateManyWithoutScreening_typesInput = {
+    hall_id?: StringFieldUpdateOperationsInput | string
+    movie_id?: StringFieldUpdateOperationsInput | string
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

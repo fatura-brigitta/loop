@@ -114,42 +114,101 @@ Prisma.NullTypes = {
  * Enums
  */
 
-exports.Prisma.UserScalarFieldEnum = {
+exports.Prisma.AdminScalarFieldEnum = {
   id: 'id',
   name: 'name',
   password_hash: 'password_hash'
 };
 
-exports.Prisma.WorkspaceScalarFieldEnum = {
+exports.Prisma.MovieScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  description: 'description',
-  limit: 'limit',
-  user_id: 'user_id'
+  director: 'director',
+  actors: 'actors',
+  playtime: 'playtime',
+  language: 'language',
+  trailer: 'trailer',
+  poster: 'poster',
+  onscreen: 'onscreen',
+  genre: 'genre',
+  review: 'review',
+  description: 'description'
 };
 
-exports.Prisma.API_TokenScalarFieldEnum = {
+exports.Prisma.ScreeningScalarFieldEnum = {
+  id: 'id',
+  hall_id: 'hall_id',
+  movie_id: 'movie_id',
+  start: 'start',
+  end: 'end',
+  screening_type_id: 'screening_type_id'
+};
+
+exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  token: 'token',
-  workspace_id: 'workspace_id',
-  createdAt: 'createdAt',
-  creation_date: 'creation_date',
-  revocation_date: 'revocation_date'
+  email: 'email',
+  password_hash: 'password_hash',
+  phone_number: 'phone_number',
+  points: 'points',
+  rank_id: 'rank_id'
 };
 
-exports.Prisma.Service_UsageScalarFieldEnum = {
+exports.Prisma.ChairScalarFieldEnum = {
   id: 'id',
-  service_id: 'service_id',
-  api_token_id: 'api_token_id',
-  usage_duration_ms: 'usage_duration_ms',
-  usage_started: 'usage_started'
+  state: 'state',
+  row: 'row',
+  column: 'column',
+  hall_id: 'hall_id'
 };
 
-exports.Prisma.ServiceScalarFieldEnum = {
+exports.Prisma.RankScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  cost_per_ms: 'cost_per_ms'
+  point_limit: 'point_limit',
+  discount_id: 'discount_id',
+  image: 'image'
+};
+
+exports.Prisma.DiscountScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  image: 'image',
+  percent: 'percent'
+};
+
+exports.Prisma.HallScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  row: 'row',
+  column: 'column'
+};
+
+exports.Prisma.ForumScalarFieldEnum = {
+  id: 'id',
+  review: 'review',
+  comment: 'comment',
+  user_id: 'user_id',
+  movie_id: 'movie_id'
+};
+
+exports.Prisma.TicketScalarFieldEnum = {
+  id: 'id',
+  ticket_type_id: 'ticket_type_id',
+  user_id: 'user_id',
+  screening_id: 'screening_id'
+};
+
+exports.Prisma.Ticket_typeScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  percent: 'percent'
+};
+
+exports.Prisma.Screening_typeScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  percent: 'percent'
 };
 
 exports.Prisma.SortOrder = {
@@ -164,11 +223,18 @@ exports.Prisma.QueryMode = {
 
 
 exports.Prisma.ModelName = {
+  Admin: 'Admin',
+  Movie: 'Movie',
+  Screening: 'Screening',
   User: 'User',
-  Workspace: 'Workspace',
-  API_Token: 'API_Token',
-  Service_Usage: 'Service_Usage',
-  Service: 'Service'
+  Chair: 'Chair',
+  Rank: 'Rank',
+  Discount: 'Discount',
+  Hall: 'Hall',
+  Forum: 'Forum',
+  Ticket: 'Ticket',
+  Ticket_type: 'Ticket_type',
+  Screening_type: 'Screening_type'
 };
 
 /**

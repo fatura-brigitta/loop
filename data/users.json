@@ -1,7 +1,7 @@
 [
     {
         "_id": {
-            "$oid": "u00000000000000000000001"
+            "$oid": "ff0000000000000000000001"
         },
         "name": "John Doe",
         "email": "john.doe@example.com",
@@ -9,12 +9,12 @@
         "phone_number": "123-456-7890",
         "points": 150,
         "rank_id": {
-            "$oid": "r1"
+            "$oid": "aa0000000000000000000002"
         }
     },
     {
         "_id": {
-            "$oid": "u00000000000000000000002"
+            "$oid": "ff0000000000000000000002"
         },
         "name": "Jane Smith",
         "email": "jane.smith@example.com",
@@ -22,7 +22,7 @@
         "phone_number": "098-765-4321",
         "points": 200,
         "rank_id": {
-            "$oid": "r2"
+            "$oid": "aa0000000000000000000002"
         }
     }
 ]

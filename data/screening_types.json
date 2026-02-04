@@ -1,0 +1,37 @@
+[
+    {
+        "_id": {
+            "$oid": "st000001"
+        },
+        "type": "2D",
+        "percent": 100
+    },
+    {
+        "_id": {
+            "$oid": "st000002"
+        },
+        "type": "3D",
+        "percent": 120
+    },
+    {
+        "_id": {
+            "$oid": "st000003"
+        },
+        "type": "IMAX",
+        "percent": 150
+    },
+    {
+        "_id": {
+            "$oid": "st000004"
+        },
+        "type": "4DX",
+        "percent": 180
+    },
+    {
+        "_id": {
+            "$oid": "st000005"
+        },
+        "type": "VIP",
+        "percent": 200
+    }
+]

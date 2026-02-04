@@ -1,0 +1,18 @@
+[
+    {
+        "_id": {
+            "$oid": "h0000001"
+        },
+        "name": "VIP Hall",
+        "row": 2,
+        "column": 3
+    },
+    {
+        "_id": {
+            "$oid": "h0000002"
+        },
+        "name": "Normal Hall",
+        "row": 1,
+        "column": 2
+    }
+]

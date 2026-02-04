@@ -1,0 +1,61 @@
+[
+    {
+        "_id": {
+            "$oid": "r1"
+        },
+        "name":"Bronze",
+        "point_limit":0,
+        "discount_ids": [],
+        "image":"/ranks/bronze.png"
+    },
+    {
+        "_id": {
+            "$oid": "r2"
+        },
+        "name":"Silver",
+        "point_limit":200,
+        "discount_ids": [
+            {"oid": "d000001"}
+        ],
+        "image":"/ranks/silver.png"
+    },
+    {
+        "_id": {
+            "$oid": "r3"
+        },
+        "name":"Gold",
+        "point_limit":400,
+        "discount_ids": [
+            {"oid": "d000001"}, 
+            {"oid": "d000002"}
+        ],
+        "image":"/ranks/gold.png"
+    },
+    {
+        "_id": {
+            "$oid": "r4"
+        },
+        "name":"Platinum",
+        "point_limit":600,
+        "discount_ids": [
+            {"oid": "d000001"}, 
+            {"oid": "d000002"}, 
+            {"oid": "d000003"}
+        ],
+        "image":"/ranks/platinum.png"
+    },
+    {
+        "_id": {
+            "$oid": "r5"
+        },
+        "name":"Diamond",
+        "point_limit":800,
+        "discount_ids": [
+            {"oid": "d000001"}, 
+            {"oid": "d000002"}, 
+            {"oid": "d000003"}, 
+            {"oid": "d000004"}
+        ],
+        "image":"/ranks/diamond.png"
+    }
+]

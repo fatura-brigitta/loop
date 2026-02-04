@@ -1,0 +1,28 @@
+[
+    {
+        "_id": {
+            "$oid": "u00000000000000000000001"
+        },
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "password_hash": "$2y$10$e0NRz1G5Q9KJH1JH1JH1J.H1JH1JH1JH1JH1JH1JH1JH1JH1JH1J",
+        "phone_number": "123-456-7890",
+        "points": 150,
+        "rank_id": {
+            "$oid": "r1"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "u00000000000000000000002"
+        },
+        "name": "Jane Smith",
+        "email": "jane.smith@example.com",
+        "password_hash": "$2y$10$e0NRz1G5Q9KJH1JH1JH1J.H1JH1JH1JH1JH1JH1JH1JH1JH1JH2",
+        "phone_number": "098-765-4321",
+        "points": 200,
+        "rank_id": {
+            "$oid": "r2"
+        }
+    }
+]

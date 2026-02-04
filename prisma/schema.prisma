@@ -10,66 +10,146 @@ generator client {
   binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
+model Admin {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  password_hash String
+
+  @@map("admins")
+}
+
+model Movie {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  director      String
+  actors        String
+  playtime      Int
+  language      String
+  trailer       String
+  poster        String
+  onscreen      Boolean
+  genre         String
+  review        Float?
+  description   String?
+
+  screenings    Screening[]
+  forum         Forum[]
+  @@map("movies")
+}
+
+model Screening {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  hall_id           String @db.ObjectId
+  movie_id          String @db.ObjectId
+  start             DateTime
+  end               DateTime
+  screening_type_id String @db.ObjectId
+
+  movies            Movie?   @relation(fields: [movie_id], references: [id], onDelete: Cascade)
+  halls             Hall?   @relation(fields: [hall_id], references: [id], onDelete: Cascade)
+  screening_types   Screening_type?   @relation(fields: [screening_type_id], references: [id], onDelete: Cascade)
+  @@map("screenings")
+}
+
 model User {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
-  name          String @unique
+  name          String
+  email         String @unique
   password_hash String
-  workspaces Workspace[] 
+  phone_number  String @unique
+  points        Int
+  rank_id       String @db.ObjectId
 
+  ranks         Rank?         @relation(fields: [rank_id], references: [id], onDelete: Cascade)
+
+  tickets       Ticket[]
+  forum         Forum[]
   @@map("users")
 }
 
-model Workspace {
-  id            String @id @default(auto()) @map("_id") @db.ObjectId
-  title         String 
-  description   String?
-  limit         Int?
-  user_id       String @db.ObjectId
-
-  user            User?         @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  api_tokens API_Token[]
-
-  @@unique([title, user_id]) 
-  @@map("workspaces")
-}
-
-
-model API_Token {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  name          String 
-  token         String 
-  workspace_id  String   @db.ObjectId
-  createdAt    DateTime @default(now())
-  service_usages Service_Usage[]
-
-  creation_date DateTime @default(now())
-  revocation_date DateTime?
-
-  workspace     Workspace? @relation(fields: [workspace_id], references: [id], onDelete: Cascade)
-
-  @@unique([name, workspace_id])
-  @@map("api_tokens")
-}
-
-model Service_Usage {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  service_id   String? @db.ObjectId
-  api_token_id  String   @db.ObjectId
-  usage_duration_ms Float @default(0)
-  usage_started DateTime
-
-  service       Service?   @relation(fields: [service_id], references: [id], onDelete: Cascade)
-  api_token     API_Token? @relation(fields: [api_token_id], references: [id], onDelete: Cascade)
-
-  @@map("service_usages")
-}
-
-model Service {
+model Chair {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  cost_per_ms Float
+  state       Boolean @default(false)
+  row         Int
+  column      Int
+  hall_id     String @db.ObjectId
 
-  service_usages Service_Usage[]
+  halls       Hall?   @relation(fields: [hall_id], references: [id], onDelete: Cascade)
+  @@map("chairs")
+}
 
-  @@map("services")
+model Rank {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  name          String @unique
+  point_limit   String
+  discount_id   String @db.ObjectId
+  image         String
+
+  discount      Discount?  @relation(fields: [discount_id], references: [id], onDelete: Cascade)
+  users User[]
+  @@map("ranks")
+}
+
+model Discount {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  name          String 
+  image         String
+  percent       Int
+
+  ranks Rank[]
+  @@map("discounts")
+}
+
+model Hall {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  row           Int
+  column        Int
+
+  screenings    Screening[]
+  chairs        Chair[]
+  @@map("halls")
+}
+
+model Forum {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  review        Float
+  comment       String
+  user_id       String @db.ObjectId
+  movie_id      String @db.ObjectId
+
+  users         User?   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  movies        Movie?   @relation(fields: [movie_id], references: [id], onDelete: Cascade)
+  @@map("forums")
+}
+
+model Ticket {
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  ticket_type_id String @db.ObjectId
+  user_id        String @db.ObjectId
+  screening_id   String @db.ObjectId
+
+  ticket_types    Ticket_type?  @relation(fields: [ticket_type_id], references: [id], onDelete: Cascade)
+  screening_types Screening_type?  @relation(fields: [screening_id], references: [id], onDelete: Cascade)
+  users User?  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  @@map("tickets")
+}
+
+model Ticket_type {
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  type           String
+  percent        Int
+
+  tickets Ticket[]
+  @@map("ticket_types")
+}
+
+model Screening_type {
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  type           String
+  percent        Int
+
+  tickets Ticket[]
+  screenings Screening[]
+  @@map("screening_types")
 }

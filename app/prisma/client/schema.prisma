@@ -1,0 +1,73 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../app/prisma/client"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+model User {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  name          String      @unique
+  password_hash String
+  workspaces    Workspace[]
+
+  @@map("users")
+}
+
+model Workspace {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String?
+  limit       Int?
+  user_id     String  @db.ObjectId
+
+  user       User?       @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  api_tokens API_Token[]
+
+  @@unique([title, user_id])
+  @@map("workspaces")
+}
+
+model API_Token {
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  token          String
+  workspace_id   String          @db.ObjectId
+  createdAt      DateTime        @default(now())
+  service_usages Service_Usage[]
+
+  creation_date   DateTime  @default(now())
+  revocation_date DateTime?
+
+  workspace Workspace? @relation(fields: [workspace_id], references: [id], onDelete: Cascade)
+
+  @@unique([name, workspace_id])
+  @@map("api_tokens")
+}
+
+model Service_Usage {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  service_id        String?  @db.ObjectId
+  api_token_id      String   @db.ObjectId
+  usage_duration_ms Float    @default(0)
+  usage_started     DateTime
+
+  service   Service?   @relation(fields: [service_id], references: [id], onDelete: Cascade)
+  api_token API_Token? @relation(fields: [api_token_id], references: [id], onDelete: Cascade)
+
+  @@map("service_usages")
+}
+
+model Service {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  cost_per_ms Float
+
+  service_usages Service_Usage[]
+
+  @@map("services")
+}

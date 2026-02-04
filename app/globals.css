@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+html {
+  data-scroll-behavior: smooth;
+}

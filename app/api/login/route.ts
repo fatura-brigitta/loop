@@ -13,7 +13,6 @@ export async function POST(req: Request) {
     where: { name },
   });
 
-
   if (!user) {
     return NextResponse.json({ message: "Invalid username or password" }, { status: 404 });
   }

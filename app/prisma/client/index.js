@@ -154,7 +154,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\FaturaBrigi\\Mits-Gdansk2023B-13A-F\\app\\prisma\\client",
+      "value": "D:\\SULI\\13.osztály\\Nits\\loop\\app\\prisma\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -172,7 +172,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\FaturaBrigi\\Mits-Gdansk2023B-13A-F\\prisma\\schema.prisma",
+    "sourceFilePath": "D:\\SULI\\13.osztály\\Nits\\loop\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

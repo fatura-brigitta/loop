@@ -8,6 +8,8 @@ export default function RegisterPage() {
   const router = useRouter();
 
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone_number, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -20,19 +22,19 @@ export default function RegisterPage() {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, password }),
+        body: JSON.stringify({ name, email, phone_number, password }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.message || "Hiba történt");
+        setError(data.message || "Unknown error occurred");
         return;
       }
 
       router.push("/login");
-    } catch {
-      setError("Hálózati hiba");
+    } catch (err) {
+      setError("Network error occurred");
     }
   };
 
@@ -47,7 +49,7 @@ export default function RegisterPage() {
 
         <form className="space-y-4" onSubmit={handleSubmit}>
 
-          {/* felhasználónév */}
+          {/* Username */}
           <div>
             <label className="block text-sm text-gray-500">
               Name
@@ -59,6 +61,39 @@ export default function RegisterPage() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              placeholder="John Doe"
+            />
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="block text-sm text-gray-500">
+              Email
+            </label>
+
+            <input
+              className="mt-1 w-full rounded border px-3 py-2"
+              required
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="johndoe@gmail.com"
+            />
+          </div>
+
+          {/* Phone number */}
+          <div>
+            <label className="block text-sm text-gray-500">
+              Phone number
+            </label>
+
+            <input
+              className="mt-1 w-full rounded border px-3 py-2"
+              required
+              type="text"
+              value={phone_number}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              placeholder="123-456-7890"
             />
           </div>
 
@@ -75,6 +110,7 @@ export default function RegisterPage() {
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                placeholder="Your password"
               />
 
               <button

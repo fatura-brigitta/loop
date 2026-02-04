@@ -1,0 +1,30 @@
+[
+    {
+        "_id": {
+            "$oid": "tt000001"
+        },
+        "type": "normal",
+        "percent": 0
+    },
+    {
+        "_id": {
+            "$oid": "tt000002"
+        },
+        "type": "student",
+        "percent": 20
+    },
+    {
+        "_id": {
+            "$oid": "tt000003"
+        },
+        "type": "senior",
+        "percent": 30
+    },
+    {
+        "_id": {
+            "$oid": "tt000004"
+        },
+        "type": "child",
+        "percent": 50
+    }
+]

@@ -1,0 +1,28 @@
+[
+    {
+        "_id": {
+            "$oid": "f000000000001"
+        },
+        "review": 5.2,
+        "comment": "Great experience!",
+        "user_id": {
+            "$oid": "u000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "m00000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "f000000000002"
+        },
+        "review": 3.8,
+        "comment": "Good, but could be better.",
+        "user_id": {
+            "$oid": "u000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "m00000000000002"
+        }
+    }
+]

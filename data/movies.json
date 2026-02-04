@@ -1,0 +1,164 @@
+[
+    {
+        "_id": {
+            "$oid": "m00000000000001"
+        },
+        "title":"Inception",
+        "director":"Christopher Nolan",
+        "actors":"Leonardo DiCaprio, Joseph Gordon-Levitt",
+        "playtime":148,
+        "language":"English",
+        "trailer":"https://youtube.com/inception",
+        "poster":"/posters/inception.jpg",
+        "onscreen":false,
+        "genre":"Sci-Fi",
+        "review":8.8,
+        "description":"A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O."
+    },
+    {
+        "_id": {
+            "$oid": "m00000000000002"
+        },
+        "title":"Interstellar",
+        "director":"Christopher Nolan",
+        "actors":"Matthew McConaughey, Anne Hathaway",
+        "playtime":169,
+        "language":"English",
+        "trailer":"https://youtube.com/interstellar",
+        "poster":"/posters/interstellar.jpg",
+        "onscreen":false,
+        "genre":"Sci-Fi",
+        "review":8.6,
+        "description":"A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival."
+    },
+    {
+        "_id": {
+            "$oid": "m00000000000003"
+        },
+        "title":"The Dark Knight",
+        "director":"Christopher Nolan",
+        "actors":"Christian Bale, Heath Ledger",
+        "playtime":152,
+        "language":"English",
+        "trailer":"https://youtube.com/darkknight",
+        "poster":"/posters/darkknight.jpg",
+        "onscreen":false,
+        "genre":"Action",
+        "review":9.0,
+        "description":"When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham. The Dark Knight must accept one of the greatest psychological and physical tests of his ability to fight injustice."
+    },
+    {
+        "_id": {
+            "$oid": "m00000000000004"
+        },
+        "title":"Fight Club",
+        "director":"David Fincher",
+        "actors":"Brad Pitt, Edward Norton",
+        "playtime":139,
+        "language":"English",
+        "trailer":"https://youtube.com/fightclub",
+        "poster":"/posters/fightclub.jpg",
+        "onscreen":false,
+        "genre":"Drama",
+        "review":8.8,
+        "description":"An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into something much, much more."
+    },
+    {
+        "_id": {
+            "$oid": "m00000000000005"
+        },
+        "title":"Pulp Fiction",
+        "director":"Quentin Tarantino",
+        "actors":"John Travolta, Samuel L. Jackson",
+        "playtime":154,
+        "language":"English",
+        "trailer":"https://youtube.com/pulpfiction",
+        "poster":"/posters/pulpfiction.jpg",
+        "onscreen":false,
+        "genre":"Crime",
+        "review":8.9,
+        "description":"The lives of two mob hitmen, a boxer, a gangster's wife, and a pair of diner bandits intertwine in four tales of violence and redemption."
+    },
+
+    {
+        "_id": {    
+            "$oid": "m00000000000006"
+        },
+        "title":"Forrest Gump",
+        "director":"Robert Zemeckis",
+        "actors":"Tom Hanks, Robin Wright",
+        "playtime":142,
+        "language":"English",
+        "trailer":"https://youtube.com/forrestgump",
+        "poster":"/posters/forrestgump.jpg",
+        "onscreen":false,
+        "genre":"Drama",
+        "review":8.8,
+        "description":"The presidencies of Kennedy and Johnson, the Vietnam War, the Watergate scandal and other historical events unfold from the perspective of an Alabama man with an IQ of 75, whose only desire is to be reunited with his childhood sweetheart."
+    },
+    {
+        "_id": {
+            "$oid": "m00000000000007"
+        },
+        "title":"The Matrix",
+        "director":"Lana Wachowski",
+        "actors":"Keanu Reeves, Laurence Fishburne",
+        "playtime":136,
+        "language":"English",
+        "trailer":"https://youtube.com/matrix",
+        "poster":"/posters/matrix.jpg",
+        "onscreen":false,
+        "genre":"Sci-Fi",
+        "review":8.7,
+        "description":"A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers."
+    },
+    {
+        "_id": {
+            "$oid": "m00000000000008"
+        },
+        "title":"Gladiator",
+        "director":"Ridley Scott",
+        "actors":"Russell Crowe, Joaquin Phoenix",
+        "playtime":155,
+        "language":"English",
+        "trailer":"https://youtube.com/gladiator",
+        "poster":"/posters/gladiator.jpg",
+        "onscreen":false,
+        "genre":"Action",
+        "review":8.5,
+        "description":"A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery."
+    },
+    {
+        "_id": {
+            "$oid": "m00000000000009"
+        },
+        "title":"Whiplash",
+        "director":"Damien Chazelle",
+        "actors":"Miles Teller, J.K. Simmons",
+        "playtime":107,
+        "language":"English",
+        "trailer":"https://youtube.com/whiplash",
+        "poster":"/posters/whiplash.jpg",
+        "onscreen":false,
+        "genre":"Drama",
+        "review":8.5,
+        "description":"A promising young drummer enrolls at a cut-throat music conservatory where his dreams of greatness are mentored by an instructor who will stop at nothing to realize a student's potential."
+    },
+    {
+        "_id": {
+            "$oid": "m00000000000010"
+        },
+        "title":"Parasite",
+        "director":"Bong Joon-ho",
+        "actors":"Song Kang-ho, Lee Sun-kyun",
+        "playtime":132,
+        "language":"Korean",
+        "trailer":"https://youtube.com/parasite",
+        "poster":"/posters/parasite.jpg",
+        "onscreen":false,
+        "genre":"Thriller",
+        "review":8.5,
+        "description":"Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park family and the destitute Kim clan."
+    }
+]
+

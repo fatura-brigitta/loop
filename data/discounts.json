@@ -1,0 +1,34 @@
+[
+    {
+        "_id": {
+            "$oid": "d000001"
+        },
+        "name": "Popcorn -10%",
+        "image": "/discounts/discount1.png",
+        "percent": 10
+    },
+    {
+        "_id": {
+            "$oid": "d000002"
+        },
+        "name": "Nachos -20%",
+        "image": "/discounts/discount2.png",
+        "percent": 20
+    },
+    {
+        "_id": {
+            "$oid": "d000003"
+        },
+        "name": "Drink -50%",
+        "image": "/discounts/discount3.png",
+        "percent": 50
+    },
+    {
+        "_id": {
+            "$oid": "d000004"
+        },
+        "name": "Ticket -80%",
+        "image": "/discounts/discount4.png",
+        "percent": 80
+    }
+]

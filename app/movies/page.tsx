@@ -62,10 +62,6 @@ export default function MoviesPage() {
         .then(setMovies);
     }, []);
 
-    const redirectToScreenings = () => {
-      router.push("/screenings");
-    }
-
   return (
     <div className="min-h-screen bg-[#060b14] text-slate-100">
         <header className="sticky top-0 z-50 h-14 border-b border-white/10 bg-[#060b14]/90 backdrop-blur">
@@ -92,7 +88,9 @@ export default function MoviesPage() {
             <a className="text-slate-200/90 hover:text-white transition" href="/movies">
               Movies
             </a>
-            <a className="text-slate-200/90 hover:text-white transition" href="/screenings">
+            <a className="text-slate-200/90 hover:text-white transition" href="/screenings" onClick={async () => {
+                await fetch("/api/clearSelectedMovie", { method: "POST" });
+              }}>
               Screenings
             </a>
             <a className="text-slate-200/90 hover:text-white transition" href="/forum">
@@ -171,7 +169,16 @@ export default function MoviesPage() {
                         Trailer
                     </button>
 
-                    <button className="rounded bg-blue-500 px-3 py-1 text-xs text-white hover:bg-blue-600  w-30 h-8 cursor-pointer" onClick={redirectToScreenings}>
+                    <button className="rounded bg-blue-500 px-3 py-1 text-xs text-white hover:bg-blue-600  w-30 h-8 cursor-pointer" onClick={async () => {
+                      await fetch("/api/setSelectedMovie", {
+                        method: "POST",
+                        body: JSON.stringify({ movieId: movie.id }),
+                      });
+
+                      sessionStorage.setItem("selectedMovie", JSON.stringify(movie));
+
+                      router.push("/screenings");
+                    }}>
                         Screening date
                     </button>
                     </div>

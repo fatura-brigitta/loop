@@ -68,7 +68,9 @@ export default function HomePage() {
             <a className="text-slate-200/90 hover:text-white transition" href="/movies">
               Movies
             </a>
-            <a className="text-slate-200/90 hover:text-white transition" href="/screenings">
+            <a className="text-slate-200/90 hover:text-white transition" href="/screenings" onClick={async () => {
+                await fetch("/api/clearSelectedMovie", { method: "POST" });
+              }}>
               Screenings
             </a>
             <a className="text-slate-200/90 hover:text-white transition" href="/forum">

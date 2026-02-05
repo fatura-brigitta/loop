@@ -219,7 +219,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\loop\\app\\prisma\\client",
+      "value": "D:\\fatura\\loop\\app\\prisma\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -237,7 +237,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\loop\\prisma\\schema.prisma",
+    "sourceFilePath": "D:\\fatura\\loop\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

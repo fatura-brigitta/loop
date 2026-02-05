@@ -220,7 +220,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Brigita\\Desktop\\loop-1\\app\\prisma\\client",
+      "value": "D:\\fatura\\loop\\app\\prisma\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -238,7 +238,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\Brigita\\Desktop\\loop-1\\prisma\\schema.prisma",
+    "sourceFilePath": "D:\\fatura\\loop\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -252,6 +252,7 @@ const config = {
     "db"
   ],
   "activeProvider": "mongodb",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {

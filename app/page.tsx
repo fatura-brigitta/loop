@@ -48,15 +48,15 @@ export default function HomePage() {
           <div >
             
             <Link
-              href="/"
               className="tracking-wide items-center justify-center flex gap-2"
+              href="/"
             >
               <Image
-                src="/favicon.ico"
                 alt="Logo"
-                width={28}
-                height={28}
                 className="object-contain"
+                height={28}
+                src="/favicon.ico"
+                width={28}
               />
 
               <span className="text-lg font-extrabold tracking-wide text-cyan-300 flex gap-2">
@@ -76,7 +76,7 @@ export default function HomePage() {
             </a>
             {showLogin ? (
               <div>
-                <a className="text-slate-200/90 text-white" href="/profile">
+                <a className="text-slate-200/90" href="/profile">
                   Hello, {name} !
                 </a>
                 <span> </span>

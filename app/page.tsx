@@ -31,7 +31,7 @@ export default function HomePage() {
 }, []);
 
 
-  const handleLogout = async () => {
+const handleLogout = async () => {
   await fetch("/api/logout", { method: "POST" });
 
   setUserName("");
@@ -39,7 +39,6 @@ export default function HomePage() {
 
   router.refresh();
 };
-
 
   return (
     <div className="min-h-screen bg-[#060b14] text-slate-100">
@@ -77,12 +76,12 @@ export default function HomePage() {
               Forum
             </a>
             {showLogin ? (
-              <div>
+              <div className="flex items-center gap-2">
                 <a className="text-slate-200/90" href="/profile">
                   Hello, {name} !
                 </a>
                 <span> </span>
-                <a className="text-slate-200/90 hover:text-white transition" onClick={handleLogout}>
+                <a className="text-slate-200/90 hover:text-white transition cursor-pointer" onClick={handleLogout}>
                 <LogOut size={25}/>
                 </a>
               </div>

@@ -97,12 +97,12 @@ export default function MoviesPage() {
               Forum
             </a>
             {showLogin ? (
-              <div>
+              <div className="flex items-center gap-2">
                 <a className="text-slate-200/90" href="/profile">
                   Hello, {name} !
                 </a>
                 <span> </span>
-                <a className="text-slate-200/90 hover:text-white transition" onClick={handleLogout}>
+                <a className="text-slate-200/90 hover:text-white transition cursor-pointer" onClick={handleLogout}>
                 <LogOut size={25}/>
                 </a>
               </div>

@@ -59,7 +59,6 @@ export default function ScreeningsPage() {
     router.refresh();
   };
 
-  // Fetch screenings (backend cookie szűr)
   useEffect(() => {
     fetch("/api/screenings", { cache: "no-store" })
       .then((res) => res.json())
@@ -83,9 +82,17 @@ export default function ScreeningsPage() {
               Movies
             </Link>
 
-            <Link className="text-slate-200/90 hover:text-white" href="/screenings">
+            <button
+              onClick={async () => {
+                await fetch("/api/clearSelectedMovie", { method: "POST" });
+
+                // kényszerített újratöltés
+                window.location.href = "/screenings";
+              }}
+              className="text-slate-200/90 hover:text-white transition cursor-pointer"
+            >
               Screenings
-            </Link>
+            </button>
 
             <Link className="text-slate-200/90 hover:text-white" href="/forum">
               Forum
@@ -97,7 +104,7 @@ export default function ScreeningsPage() {
                   Hello, {name} !
                 </Link>
 
-                <button onClick={handleLogout}>
+                <button onClick={handleLogout} className="cursor-pointer">
                   <LogOut size={22} />
                 </button>
               </div>

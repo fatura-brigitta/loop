@@ -171,13 +171,10 @@ export default function MoviesPage() {
 
                     <button className="rounded bg-blue-500 px-3 py-1 text-xs text-white hover:bg-blue-600  w-30 h-8 cursor-pointer" onClick={async () => {
                       await fetch("/api/setSelectedMovie", {
-                        method: "POST",
-                        body: JSON.stringify({ movieId: movie.id }),
-                      });
-
-                      sessionStorage.setItem("selectedMovie", JSON.stringify(movie));
-
-                      router.push("/screenings");
+                          method: "POST",
+                          body: JSON.stringify({ movieId: movie.id }),
+                        });
+                        router.push("/screenings");
                     }}>
                         Screening date
                     </button>

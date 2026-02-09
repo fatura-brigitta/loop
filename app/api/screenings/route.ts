@@ -1,14 +1,13 @@
-import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   const cookieStore = cookies();
-  const raw = (await cookieStore).get("selectedMovieId")?.value;
-  const movieId = raw && raw.length > 0 ? raw : null;
+  const movieId = (await cookieStore).get("selectedMovieId")?.value;
 
   const screenings = await prisma.screening.findMany({
-    where: movieId ? { movie_id: movieId } : undefined,
+    where: movieId ? { movie_id: movieId } : {},
     orderBy: { start: "asc" },
     include: {
       movies: true,

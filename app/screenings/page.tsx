@@ -42,16 +42,20 @@ export default function ScreeningsPage() {
 
   // Auth
   useEffect(() => {
-    fetch("/api/activeUser", { cache: "no-store" })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((user) => {
-        if (user) {
-          setUserName(user.name);
-          setShowLogin(true);
-        } else {
-          setShowLogin(false);
-        }
-      });
+    const load = async () => {
+      const userRes = await fetch("/api/activeUser", { cache: "no-store" });
+
+      if (userRes.status === 200) {
+        const user = await userRes.json();
+        setUserName(user.name);
+        setShowLogin(true);
+      } else {
+        setUserName("");
+        setShowLogin(false);
+      }
+    };
+
+    load();
   }, []);
 
   // Logout
@@ -64,8 +68,15 @@ export default function ScreeningsPage() {
 
   // Screenings
   useEffect(() => {
-    fetch("/api/screenings", { cache: "no-store" })
-      .then((res) => res.json())
+    const params = new URLSearchParams(window.location.search);
+    const movieId = params.get("movieId");
+
+    const url = movieId
+      ? `/api/screenings?movieId=${movieId}`
+      : "/api/screenings";
+
+    fetch(url, { cache: "no-store" })
+      .then(res => res.json())
       .then(setScreenings);
   }, []);
 
@@ -82,18 +93,19 @@ export default function ScreeningsPage() {
           </Link>
 
           <nav className="flex items-center gap-5 text-sm">
-            <Link href="/movies" className="text-slate-200/90 hover:text-white">
+            <Link className="text-slate-200/90 hover:text-white" href="/movies">
               Movies
             </Link>
 
-            <button
-              onClick={() => (window.location.href = "/screenings")}
-              className="text-slate-200/90 hover:text-white"
+            <button className="text-slate-200/90 hover:text-white transition cursor-pointer" onClick={async () => {
+                await fetch("/api/clearSelectedMovie", { method: "POST" });
+                window.location.href = "/screenings";
+              }}
             >
               Screenings
             </button>
 
-            <Link href="/forum" className="text-slate-200/90 hover:text-white">
+            <Link className="text-slate-200/90 hover:text-white" href="/forum">
               Forum
             </Link>
 
@@ -109,7 +121,7 @@ export default function ScreeningsPage() {
             ) : (
               <Link
                 href="/login"
-                className="rounded-full bg-blue-500 px-4 py-2 text-white"
+                className="ml-2 rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
               >
                 Login
               </Link>
@@ -120,16 +132,16 @@ export default function ScreeningsPage() {
 
       {/* CONTENT */}
       <div className="mx-auto max-w-6xl p-4">
-        <h1 className="mb-6 text-2xl font-bold">Now on screen</h1>
+        <h1 className="mb-6 text-2xl font-bold text-white">Now on screen</h1>
 
         <div className="flex flex-col gap-6">
           {screenings.map((s, i) => (
             <div
               key={i}
-              className="flex w-full flex-col gap-6 rounded-lg border border-white/10 bg-white/5 p-4 lg:flex-row"
+              className="flex w-full gap-6 rounded-lg border border-white/10 bg-white/5 p-4"
             >
               {/* POSTER */}
-              <div className="flex justify-center lg:items-center">
+              <div className="flex shrink-0 items-center">
                 <Image
                   src={s.movies.poster}
                   alt={s.movies.title}
@@ -141,7 +153,9 @@ export default function ScreeningsPage() {
 
               {/* DETAILS */}
               <div className="flex flex-1 flex-col">
-                <h2 className="text-lg font-semibold">{s.movies.title}</h2>
+                <h2 className="text-lg font-semibold text-white">
+                  {s.movies.title}
+                </h2>
 
                 <p className="text-xs text-slate-400">
                   {s.movies.genre} • {s.movies.playtime} min •{" "}
@@ -169,22 +183,23 @@ export default function ScreeningsPage() {
                       minute: "2-digit",
                     })}
                   </span>
+
                   <span className="rounded bg-blue-500/30 px-2 py-1 text-xs">
                     {s.screening_types.type}
                   </span>
                 </div>
               </div>
 
-              {/* ⭐ + TRAILER */}
+              {/* RATING + TRAILER */}
               {s.movies.trailer && (
-                <div className="flex w-full flex-col gap-2 lg:w-[340px]">
-                  {/* RATING */}
-                  <div className="flex gap-1 text-blue-300 self-center lg:self-end">
+                <div className="flex w-[340px] flex-col gap-2">
+                  {/* RATING – JOBBRA ZÁRVA */}
+                  <div className="flex gap-1 text-blue-300 self-end">
                     <span className="text-yellow-400">⭐</span>
                     <span className="font-medium">{s.movies.review}</span>
                   </div>
 
-                  {/* TRAILER */}
+                  {/* TRAILER – MARAD AHOGY VAN */}
                   {openTrailer === s.movies.trailer ? (
                     <div className="aspect-video w-full">
                       <iframe
@@ -199,15 +214,15 @@ export default function ScreeningsPage() {
                   ) : (
                     <button
                       onClick={() => setOpenTrailer(s.movies.trailer)}
-                      className="relative w-full max-w-sm self-center lg:max-w-none"
+                      className="relative w-full"
                     >
                       <Image
                         src={`https://img.youtube.com/vi/${getYoutubeId(
                           s.movies.trailer
                         )}/hqdefault.jpg`}
                         alt="Trailer"
-                        width={340}
-                        height={190}
+                        width={320}
+                        height={100}
                         className="rounded-lg brightness-75 hover:brightness-90"
                       />
 

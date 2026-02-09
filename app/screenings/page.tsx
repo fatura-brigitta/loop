@@ -13,6 +13,7 @@ type Movie = {
   playtime: number;
   language: string;
   poster: string;
+  trailer: string;
   genre: string;
   review: number;
   description: string;
@@ -26,29 +27,31 @@ type Screening = {
   };
 };
 
+const getYoutubeId = (url: string) => {
+  const match = url.match(/(?:v=|youtu\.be\/)([^&]+)/);
+  return match ? match[1] : null;
+};
+
 export default function ScreeningsPage() {
   const router = useRouter();
 
   const [name, setUserName] = useState("");
   const [showLogin, setShowLogin] = useState(true);
   const [screenings, setScreenings] = useState<Screening[]>([]);
+  const [openTrailer, setOpenTrailer] = useState<string | null>(null);
 
   // Auth
   useEffect(() => {
-    const load = async () => {
-      const userRes = await fetch("/api/activeUser", { cache: "no-store" });
-
-      if (userRes.status === 200) {
-        const user = await userRes.json();
-        setUserName(user.name);
-        setShowLogin(true);
-      } else {
-        setUserName("");
-        setShowLogin(false);
-      }
-    };
-
-    load();
+    fetch("/api/activeUser", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((user) => {
+        if (user) {
+          setUserName(user.name);
+          setShowLogin(true);
+        } else {
+          setShowLogin(false);
+        }
+      });
   }, []);
 
   // Logout
@@ -59,6 +62,7 @@ export default function ScreeningsPage() {
     router.refresh();
   };
 
+  // Screenings
   useEffect(() => {
     fetch("/api/screenings", { cache: "no-store" })
       .then((res) => res.json())
@@ -78,23 +82,18 @@ export default function ScreeningsPage() {
           </Link>
 
           <nav className="flex items-center gap-5 text-sm">
-            <Link className="text-slate-200/90 hover:text-white" href="/movies">
+            <Link href="/movies" className="text-slate-200/90 hover:text-white">
               Movies
             </Link>
 
             <button
-              onClick={async () => {
-                await fetch("/api/clearSelectedMovie", { method: "POST" });
-
-                // kényszerített újratöltés
-                window.location.href = "/screenings";
-              }}
-              className="text-slate-200/90 hover:text-white transition cursor-pointer"
+              onClick={() => (window.location.href = "/screenings")}
+              className="text-slate-200/90 hover:text-white"
             >
               Screenings
             </button>
 
-            <Link className="text-slate-200/90 hover:text-white" href="/forum">
+            <Link href="/forum" className="text-slate-200/90 hover:text-white">
               Forum
             </Link>
 
@@ -103,15 +102,14 @@ export default function ScreeningsPage() {
                 <Link href="/profile" className="text-slate-200/90">
                   Hello, {name} !
                 </Link>
-
-                <button onClick={handleLogout} className="cursor-pointer">
+                <button onClick={handleLogout}>
                   <LogOut size={22} />
                 </button>
               </div>
             ) : (
               <Link
                 href="/login"
-                className="ml-2 rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
+                className="rounded-full bg-blue-500 px-4 py-2 text-white"
               >
                 Login
               </Link>
@@ -122,31 +120,28 @@ export default function ScreeningsPage() {
 
       {/* CONTENT */}
       <div className="mx-auto max-w-6xl p-4">
-        <h1 className="mb-6 text-2xl font-bold text-white">Now on screen</h1>
+        <h1 className="mb-6 text-2xl font-bold">Now on screen</h1>
 
-        <div className="flex flex-col gap-4">
-          {/* NORMAL SCREENINGS */}
+        <div className="flex flex-col gap-6">
           {screenings.map((s, i) => (
             <div
               key={i}
-              className="flex w-full rounded-lg border border-white/10 bg-white/5"
+              className="flex w-full flex-col gap-6 rounded-lg border border-white/10 bg-white/5 p-4 lg:flex-row"
             >
-              <Image
-                src={s.movies.poster}
-                alt={s.movies.title}
-                width={200}
-                height={300}
-                className="shrink-0 object-cover"
-              />
+              {/* POSTER */}
+              <div className="flex justify-center lg:items-center">
+                <Image
+                  src={s.movies.poster}
+                  alt={s.movies.title}
+                  width={200}
+                  height={300}
+                  className="object-cover"
+                />
+              </div>
 
-              <div className="flex flex-1 flex-col px-4 py-3">
-                <div className="flex justify-between">
-                  <h2 className="text-base font-semibold text-white">
-                    {s.movies.title}
-                  </h2>
-
-                  <span className="text-blue-300">⭐ {s.movies.review}</span>
-                </div>
+              {/* DETAILS */}
+              <div className="flex flex-1 flex-col">
+                <h2 className="text-lg font-semibold">{s.movies.title}</h2>
 
                 <p className="text-xs text-slate-400">
                   {s.movies.genre} • {s.movies.playtime} min •{" "}
@@ -161,11 +156,11 @@ export default function ScreeningsPage() {
                   Actors: {s.movies.actors}
                 </p>
 
-                <p className="mt-2 line-clamp-2 text-sm text-slate-300">
+                <p className="mt-2 line-clamp-3 text-sm text-slate-300">
                   {s.movies.description}
                 </p>
 
-                <div className="mt-3 flex items-center gap-2">
+                <div className="mt-3 flex gap-2">
                   <span className="rounded bg-white/10 px-2 py-1 text-xs">
                     {new Date(s.start).toLocaleString("hu-HU", {
                       month: "2-digit",
@@ -174,12 +169,57 @@ export default function ScreeningsPage() {
                       minute: "2-digit",
                     })}
                   </span>
-
                   <span className="rounded bg-blue-500/30 px-2 py-1 text-xs">
                     {s.screening_types.type}
                   </span>
                 </div>
               </div>
+
+              {/* ⭐ + TRAILER */}
+              {s.movies.trailer && (
+                <div className="flex w-full flex-col gap-2 lg:w-[340px]">
+                  {/* RATING */}
+                  <div className="flex gap-1 text-blue-300 self-center lg:self-end">
+                    <span className="text-yellow-400">⭐</span>
+                    <span className="font-medium">{s.movies.review}</span>
+                  </div>
+
+                  {/* TRAILER */}
+                  {openTrailer === s.movies.trailer ? (
+                    <div className="aspect-video w-full">
+                      <iframe
+                        src={`https://www.youtube.com/embed/${getYoutubeId(
+                          s.movies.trailer
+                        )}?autoplay=1`}
+                        className="h-full w-full rounded-lg"
+                        allow="autoplay; encrypted-media"
+                        allowFullScreen
+                      />
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => setOpenTrailer(s.movies.trailer)}
+                      className="relative w-full max-w-sm self-center lg:max-w-none"
+                    >
+                      <Image
+                        src={`https://img.youtube.com/vi/${getYoutubeId(
+                          s.movies.trailer
+                        )}/hqdefault.jpg`}
+                        alt="Trailer"
+                        width={340}
+                        height={190}
+                        className="rounded-lg brightness-75 hover:brightness-90"
+                      />
+
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="rounded-full bg-black/60 px-4 py-2 text-white">
+                          ▶ Trailer
+                        </div>
+                      </div>
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           ))}
         </div>

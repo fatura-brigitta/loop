@@ -28,21 +28,21 @@ export default function MoviesPage() {
       const [showLogin, setShowLogin] = useState(true);
     
       useEffect(() => {
-      const load = async () => {
-        const userRes = await fetch("/api/activeUser", { cache: "no-store" });
-    
-        if (userRes.status === 200) {
-          const user = await userRes.json();
-          setUserName(user.name);
-          setShowLogin(true);
-        } else {
-          setUserName("");
-          setShowLogin(false);
-        }
-      };
-    
-      load();
-    }, []);
+        const load = async () => {
+          const userRes = await fetch("/api/activeUser", { cache: "no-store" });
+      
+          if (userRes.status === 200) {
+            const user = await userRes.json();
+            setUserName(user.name);
+            setShowLogin(true);
+          } else {
+            setUserName("");
+            setShowLogin(false);
+          }
+        };
+      
+        load();
+      }, []);
     
     
       const handleLogout = async () => {

@@ -3,8 +3,8 @@ import { cookies } from "next/headers";
 import prisma from "@/lib/prisma";
 
 export async function GET() {
-  const cookieStore = await cookies();
-  const screeningId = cookieStore.get("screeningId")?.value;
+  const cookieStore = cookies();
+  const screeningId = (await cookieStore).get("screeningId")?.value;
 
   if (!screeningId) {
     return NextResponse.json({ message: "Missing screening" }, { status: 400 });
@@ -15,13 +15,24 @@ export async function GET() {
   });
 
   if (!screening) {
-    return NextResponse.json({ message: "Not found" }, { status: 404 });
+    return NextResponse.json({ message: "Screening not found" }, { status: 404 });
+  }
+
+  const hall = await prisma.hall.findUnique({
+    where: { id: screening.hall_id },
+  });
+
+  if (!hall) {
+    return NextResponse.json({ message: "Hall not found" }, { status: 404 });
   }
 
   const chairs = await prisma.chair.findMany({
-    where: { hall_id: screening.hall_id },
+    where: { hall_id: hall.id },
     orderBy: [{ row: "asc" }, { column: "asc" }],
   });
 
-  return NextResponse.json({ chairs });
+  return NextResponse.json({
+    hall,
+    chairs,
+  });
 }

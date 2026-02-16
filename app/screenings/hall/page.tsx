@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LogOut } from "lucide-react";
 import Image from "next/image";
 
@@ -55,9 +55,9 @@ function SeatGrid({
             let color = "bg-slate-700/40"; // nincs szék
 
             if (chair) {
-              if (chair.state) color = "bg-gray-400 cursor-not-allowed";
+              if (chair.state) color = "bg-gray-400";
               else if (selectedSeats.includes(chair.id))
-                color = "bg-orange-500";
+                color = "bg-cyan-300";
               else color = "bg-green-500 hover:bg-green-400";
             }
 
@@ -65,7 +65,7 @@ function SeatGrid({
               <div
                 key={c}
                 onClick={() => onSeatClick(chair)}
-                title={`Sor ${r + 1}, Szék ${c + 1}`}
+                title={`Row ${r + 1}, Seat ${c + 1}`}
                 className={`h-8 w-8 rounded transition-all duration-150
                 ${color}
                 ${chair && !chair.state ? "cursor-pointer hover:scale-110" : ""}
@@ -93,11 +93,20 @@ export default function HallPage() {
   const [name, setUserName] = useState("");
   const [showLogin, setShowLogin] = useState(false);
 
-  const [hall, setHall] = useState<Hall | null>(null);
-  const [chairs, setChairs] = useState<Chair[]>([]);
+  const [seats, setSeats] = useState<Chair[]>([]);
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
+  const MAX_SEATS = 5;
+  
+  const [hall, setHall] = useState<Hall | null>(null);
   const [loadingHall, setLoadingHall] = useState(false);
+
   const [error, setError] = useState<string>("");
+  const [seatError, setSeatError] = useState("");
+
+  const errorTimerRef = useRef<number | null>(null);
+  const successTimerRef = useRef<number | null>(null);
+
+  const [successMessage, setSuccessMsg] = useState("");
 
   useEffect(() => {
     const loadUser = async () => {
@@ -121,7 +130,7 @@ export default function HallPage() {
     setUserName("");
     setShowLogin(false);
     setHall(null);
-    setChairs([]);
+    setSeats([]);
     setError("");
     router.refresh();
   };
@@ -130,7 +139,7 @@ export default function HallPage() {
     // ha nincs login, reseteljük a terem állapotot
     if (!showLogin) {
       setHall(null);
-      setChairs([]);
+      setSeats([]);
       setError("");
       setLoadingHall(false);
       return;
@@ -146,7 +155,7 @@ export default function HallPage() {
       });
 
       if (!res.ok) {
-        let msg = "Nem sikerült betölteni a termet";
+        let msg = "Failed to load the hall";
         try {
           const body = await res.json();
           if (body?.message) msg = body.message;
@@ -159,28 +168,126 @@ export default function HallPage() {
       const data: HallResponse = await res.json();
 
       if (!data?.hall?.id) {
-        setError("Hibás terem adat (hiányzik a hall)");
+        setError("Invalid hall data (missing hall id)");
         setLoadingHall(false);
         return;
       }
 
       setHall(data.hall);
-      setChairs(Array.isArray(data.chairs) ? data.chairs : []);
+      setSeats(Array.isArray(data.chairs) ? data.chairs : []);
       setLoadingHall(false);
     };
 
     loadHall();
   }, [showLogin]);
 
+  useEffect(() => {
+  return () => {
+    if (errorTimerRef.current) {
+      window.clearTimeout(errorTimerRef.current);
+    }
+  };
+}, []);
+
+  //több szék foglalva mint a maximum
+  const showSeatError = (msg: string) => {
+    setSeatError(msg);
+
+    if (errorTimerRef.current) {
+      window.clearTimeout(errorTimerRef.current);
+    }
+
+    errorTimerRef.current = window.setTimeout(() => {
+      setSeatError("");
+      errorTimerRef.current = null;
+    }, 5000);
+  };
+
+  //sikeres foglalás
+  const showSuccess = (msg: string) => {
+    setSuccessMsg(msg);
+
+    if (successTimerRef.current) {
+      window.clearTimeout(successTimerRef.current);
+    }
+
+    successTimerRef.current = window.setTimeout(() => {
+      setSuccessMsg("");
+      successTimerRef.current = null;
+    }, 4000);
+  };
+
+  // székre való kattintás(állapot jelzése)
   const toggleSeat = (chair: Chair | undefined) => {
     if (!chair) return;
-    if (chair.state) return; // foglalt széket nem lehet
+    if (chair.state) return;
 
-    setSelectedSeats((prev) =>
-      prev.includes(chair.id)
-        ? prev.filter((id) => id !== chair.id)
-        : [...prev, chair.id]
-    );
+    if (errorTimerRef.current) {
+      window.clearTimeout(errorTimerRef.current);
+      errorTimerRef.current = null;
+    }
+    setSeatError("");
+
+    setSelectedSeats((prev) => {
+      if (prev.includes(chair.id)) {
+        return prev.filter((id) => id !== chair.id);
+      }
+
+      if (prev.length >= MAX_SEATS) {
+        showSeatError("You can reserve a maximum of 5 seats at a time.");
+        return prev;
+      }
+
+      return [...prev, chair.id];
+    });
+  };
+
+  const selectedChairs = seats.filter((c) => selectedSeats.includes(c.id));
+
+  const groupedSeats: Record<number, number[]> = {};
+
+  // székek csoportosítva összegezve
+  selectedChairs.forEach((chair) => {
+    if (!groupedSeats[chair.row]) {
+      groupedSeats[chair.row] = [];
+    }
+    groupedSeats[chair.row].push(chair.column);
+  });
+
+  Object.keys(groupedSeats).forEach((row) => {
+    groupedSeats[Number(row)].sort((a, b) => a - b);
+  });
+
+  // szék foglalása
+  const reserveSeats = async () => {
+    if (selectedSeats.length === 0) return;
+
+    const res = await fetch("/api/chairs", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        seatIds: selectedSeats,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      showSeatError(data.message || "Reservation failed");
+      return;
+    }
+
+    setSelectedSeats([]);
+    showSuccess("The seat reservation was successful!");
+    
+    const hallRes = await fetch("/api/screenings/hall", {
+      cache: "no-store",
+      credentials: "include",
+    });
+
+    const hallData: HallResponse = await hallRes.json();
+    setSeats(hallData.chairs);
   };
 
   return (
@@ -231,13 +338,13 @@ export default function HallPage() {
 
       {!showLogin && (
         <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
-          A jegyvásárláshoz kérjük jelentkezzen be
+          To view the hall, please log in.
         </div>
       )}
 
       {showLogin && loadingHall && (
         <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
-          Betöltés...
+          Loading...
         </div>
       )}
 
@@ -248,14 +355,14 @@ export default function HallPage() {
       )}
 
       {showLogin && !loadingHall && !error && hall && (
-        <div className="mx-auto max-w-6xl px-4 py-8 text-center">
+        <div className="mx-auto max-w-6xl px-4 py-8 pb-40 text-center">
           <h1 className="mb-6 text-center text-2xl font-bold">
-            {hallNumberFromId(hall.id)}. terem – {hall.name}
+            {hallNumberFromId(hall.id)}. hall – {hall.name}
           </h1>
 
           <CinemaScreen />
 
-          <SeatGrid chairs={chairs} rows={hall.row} columns={hall.column} selectedSeats={selectedSeats} onSeatClick={toggleSeat}/>
+          <SeatGrid chairs={seats} rows={hall.row} columns={hall.column} selectedSeats={selectedSeats} onSeatClick={toggleSeat}/>
 
           <div className="mt-10 flex flex-col items-center gap-4 text-sm text-white/80">
 
@@ -267,7 +374,7 @@ export default function HallPage() {
               </div>
 
               <div className="flex items-center gap-2">
-                <div className="h-4 w-4 rounded bg-orange-500" />
+                <div className="h-4 w-4 rounded bg-cyan-300" />
                 <span>Selected</span>
               </div>
 
@@ -275,6 +382,59 @@ export default function HallPage() {
                 <div className="h-4 w-4 rounded bg-gray-400" />
                 <span>Occupied</span>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {seatError && (
+        <div className="fixed bottom-28 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-red-600 px-6 py-3 text-white shadow-2xl animate-pulse">
+          {seatError}
+        </div>
+      )}
+
+      {successMessage && (
+        <div className="fixed bottom-44 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-6 py-3 text-white shadow-2xl">
+          {successMessage}
+        </div>
+      )}
+
+      {selectedChairs.length > 0 && (
+        <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 bg-[#020617]/95 backdrop-blur">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 text-white">
+
+            <div className="flex flex-col text-left">
+              <span className="text-sm text-white/60">Selected seats</span>
+
+              <div className="mt-1 text-sm font-medium">
+                {Object.entries(groupedSeats)
+                  .sort((a, b) => Number(a[0]) - Number(b[0]))
+                  .map(([row, cols]) => {
+                    const seatWord = cols.length === 1 ? "SEAT" : "SEATS";
+
+                    return (
+                      <div key={row}>
+                        ROW: {row} {seatWord}:{" "}
+                        <span className="text-cyan-300">{cols.join(", ")}</span>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+
+            <div className="text-right flex flex-col items-end gap-2">
+
+              <div className="text-orange-400 text-2xl font-bold">
+                🎟 {selectedChairs.length}
+              </div>
+
+              <button
+                onClick={reserveSeats}
+                className="rounded-lg bg-blue-500 px-5 py-2 font-semibold text-white transition hover:bg-blue-600"
+              >
+                Reserve tickets
+              </button>
+
             </div>
           </div>
         </div>

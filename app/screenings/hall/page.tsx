@@ -20,6 +20,7 @@ type Hall = {
   column: number;
 };
 
+
 type HallResponse = {
   hall: Hall;
   chairs: Chair[];

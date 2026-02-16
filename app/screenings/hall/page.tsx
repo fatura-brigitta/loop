@@ -432,7 +432,7 @@ export default function HallPage() {
                 onClick={reserveSeats}
                 className="rounded-lg bg-blue-500 px-5 py-2 font-semibold text-white transition hover:bg-blue-600"
               >
-                Reserve tickets
+                Reserve seats
               </button>
 
             </div>

@@ -12,6 +12,7 @@ export async function POST(req: Request) {
   res.cookies.set("screeningId", id, {
     httpOnly: true,
     sameSite: "lax",
+    secure: false,
     path: "/",
   });
 

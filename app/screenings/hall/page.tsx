@@ -203,20 +203,6 @@ export default function HallPage() {
     }, 5000);
   };
 
-  //sikeres foglalás
-  const showSuccess = (msg: string) => {
-    setSuccessMsg(msg);
-
-    if (successTimerRef.current) {
-      window.clearTimeout(successTimerRef.current);
-    }
-
-    successTimerRef.current = window.setTimeout(() => {
-      setSuccessMsg("");
-      successTimerRef.current = null;
-    }, 4000);
-  };
-
   // székre való kattintás(állapot jelzése)
   const toggleSeat = (chair: Chair | undefined) => {
     if (!chair) return;
@@ -259,35 +245,25 @@ export default function HallPage() {
   });
 
   // szék foglalása
-  const reserveSeats = async () => {
+    const reserveSeats = async () => {
     if (selectedSeats.length === 0) return;
 
-    const res = await fetch("/api/chairs", {
+    const res = await fetch("/api/payment/create", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
       credentials: "include",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         seatIds: selectedSeats,
       }),
     });
 
-    const data = await res.json();
-
     if (!res.ok) {
-      showSeatError(data.message || "Reservation failed");
+      showSeatError("Could not start payment");
       return;
     }
 
-    setSelectedSeats([]);
-    showSuccess("The seat reservation was successful!");
-    
-    const hallRes = await fetch("/api/screenings/hall", {
-      cache: "no-store",
-      credentials: "include",
-    });
-
-    const hallData: HallResponse = await hallRes.json();
-    setSeats(hallData.chairs);
+    // 👇 EZ A LÉNYEG
+    router.push("/payment");
   };
 
   return (

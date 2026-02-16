@@ -6,14 +6,32 @@ import { useEffect, useState } from "react";
 import { LogOut } from "lucide-react";
 import Image from "next/image";
 
-export default function ProfilePage() {
+type Ticket = {
+  id: string;
+  price: number;
+  screenings: {
+    start: string;
+    movies: { title: string };
+    halls: { name: string };
+    screening_types: { type: string };
+  };
+  chairs: {
+    row: number;
+    column: number;
+  };
+  ticket_types: {
+    type: string;
+  };
+};
 
+export default function ProfilePage() {
   const router = useRouter();
 
   const [name, setUserName] = useState("");
   const [showLogin, setShowLogin] = useState(false);
 
   const [user, setUser] = useState<any>(null);
+  const [tickets, setTickets] = useState<Ticket[]>([]);
 
   const [newName, setNewName] = useState("");
   const [oldPassword, setOldPassword] = useState("");
@@ -37,12 +55,20 @@ export default function ProfilePage() {
       setUserName(active.name);
       setShowLogin(true);
 
-      // betöltjük a profile adatokat
       const profileRes = await fetch("/api/profile", { cache: "no-store" });
       const profile = await profileRes.json();
-
       setUser(profile);
       setNewName(profile.name);
+
+      const ticketRes = await fetch("/api/profile/tickets", {
+        credentials: "include",
+        cache: "no-store",
+      });
+
+      if (ticketRes.ok) {
+        const ticketData = await ticketRes.json();
+        setTickets(ticketData);
+      }
     };
 
     loadUser();
@@ -52,9 +78,9 @@ export default function ProfilePage() {
     if (!message && !error) return;
 
     const timer = setTimeout(() => {
-        setMessage("");
-        setError("");
-    }, 4000);
+      setMessage("");
+      setError("");
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, [message, error]);
@@ -94,8 +120,8 @@ export default function ProfilePage() {
     }
 
     if (oldPassword === newPassword) {
-        setError("The new password cannot be the same as the old password.");
-        return;
+      setError("The new password cannot be the same as the old password.");
+      return;
     }
 
     if (newPassword.length < 5) {
@@ -146,44 +172,21 @@ export default function ProfilePage() {
           </Link>
 
           <nav className="flex items-center gap-5 text-sm">
-            <a className="text-slate-200/90 hover:text-white transition" href="/movies">
-              Movies
-            </a>
+            <a className="text-slate-200/90 hover:text-white transition" href="/movies">Movies</a>
+            <a className="text-slate-200/90 hover:text-white transition" href="/screenings">Screenings</a>
+            <a className="text-slate-200/90 hover:text-white transition" href="/forum">Forum</a>
 
-            <a
-              className="text-slate-200/90 hover:text-white transition"
-              href="/screenings"
-              onClick={async () => {
-                await fetch("/api/clearSelectedMovie", { method: "POST" });
-              }}
-            >
-              Screenings
-            </a>
-
-            <a className="text-slate-200/90 hover:text-white transition" href="/forum">
-              Forum
-            </a>
-
-            {showLogin ? (
-              <div className="flex items-center gap-2">
-                <a className="text-slate-200/90" href="/profile">
-                  Hello, {name} !
-                </a>
-                <button
-                  className="text-slate-200/90 hover:text-white transition cursor-pointer"
-                  onClick={handleLogout}
-                >
-                  <LogOut size={25} />
-                </button>
-              </div>
-            ) : (
-              <a
-                className="ml-2 rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
-                href="/login"
-              >
-                Login
+            <div className="flex items-center gap-2">
+              <a className="text-slate-200/90" href="/profile">
+                Hello, {name} !
               </a>
-            )}
+              <button
+                className="text-slate-200/90 hover:text-white transition cursor-pointer"
+                onClick={handleLogout}
+              >
+                <LogOut size={25} />
+              </button>
+            </div>
           </nav>
         </div>
       </header>
@@ -198,7 +201,7 @@ export default function ProfilePage() {
           <div className="mb-6">
             <label className="text-sm text-white/60">Email</label>
             <input
-              className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white outline-none"
+              className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
               value={user.email}
               disabled
             />
@@ -207,7 +210,7 @@ export default function ProfilePage() {
           <div className="mb-6">
             <label className="text-sm text-white/60">Name</label>
             <input
-              className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white outline-none focus:border-cyan-400"
+              className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
             />
@@ -215,65 +218,72 @@ export default function ProfilePage() {
               onClick={updateName}
               className="mt-3 rounded-lg bg-cyan-600 px-4 py-2 font-semibold hover:bg-cyan-400 text-white"
             >
-               Update name
+              Update name
             </button>
           </div>
 
           <div className="border-t border-white/10 pt-6">
-
             <h2 className="mb-4 text-xl font-semibold text-cyan-300">
               Change password
             </h2>
 
-            <label className="text-sm text-white/60">Password</label>
-            <input
-              type="password"
-              placeholder="Old password"
-              className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
-              value={oldPassword}
-              onChange={(e) => setOldPassword(e.target.value)}
-            />
+            <input type="password" placeholder="Old password" className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} />
+            <input type="password" placeholder="New password" className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+            <input type="password" placeholder="New password again" className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white" value={newPassword2} onChange={(e) => setNewPassword2(e.target.value)} />
 
-            <label className="text-sm text-white/60">New password</label>
-            <input
-              type="password"
-              placeholder="New password"
-              className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-            />
-
-            <label className="text-sm text-white/60">Confirm new password</label>
-            <input
-              type="password"
-              placeholder="New password again"
-              className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
-              value={newPassword2}
-              onChange={(e) => setNewPassword2(e.target.value)}
-            />
-
-            <button
-              onClick={changePassword}
-              className="mt-2 rounded-lg  bg-cyan-600 px-4 py-2 font-semibold hover:bg-cyan-400 text-white"
-            >
+            <button onClick={changePassword} className="mt-2 rounded-lg bg-cyan-600 px-4 py-2 font-semibold hover:bg-cyan-400 text-white">
               Change password
             </button>
-
           </div>
 
           <div className="mt-6 h-6 text-center">
-            {error && (
-                <div className="text-red-400 animate-fadeIn">
-                {error}
-                </div>
-            )}
-
-            {message && (
-                <div className="text-green-400 animate-fadeIn">
-                {message}
-                </div>
-            )}
+            {error && <div className="text-red-400">{error}</div>}
+            {message && <div className="text-green-400">{message}</div>}
           </div>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-5xl pb-20 px-4">
+        <h2 className="text-2xl font-bold text-cyan-300 mb-6">
+          My Tickets
+        </h2>
+
+        {tickets.length === 0 && (
+          <div className="text-white/60">
+            You have no purchased tickets yet.
+          </div>
+        )}
+
+        <div className="grid gap-6">
+          {tickets.map((ticket) => (
+            <div key={ticket.id} className="rounded-xl bg-[#0b1220] border border-white/10 p-6 shadow-lg">
+              <div className="flex justify-between">
+                <div>
+                  <h3 className="text-lg font-semibold text-cyan-300">
+                    {ticket.screenings.movies.title}
+                  </h3>
+
+                  <div className="text-white/70 text-sm mt-1">
+                    {new Date(ticket.screenings.start).toLocaleString()}
+                  </div>
+
+                  <div className="mt-3 text-sm space-y-1">
+                    <div>Hall: {ticket.screenings.halls.name}</div>
+                    <div>Type: {ticket.screenings.screening_types.type}</div>
+                    <div>Seat: Row {ticket.chairs.row} Seat {ticket.chairs.column}</div>
+                    <div>Ticket: {ticket.ticket_types.type}</div>
+                  </div>
+                </div>
+
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-green-400">
+                    {ticket.price} Ft
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

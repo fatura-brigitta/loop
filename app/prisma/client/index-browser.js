@@ -150,6 +150,7 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   password_hash: 'password_hash',
   phone_number: 'phone_number',
+  birth_date: 'birth_date',
   points: 'points',
   rank_id: 'rank_id'
 };
@@ -196,7 +197,10 @@ exports.Prisma.TicketScalarFieldEnum = {
   id: 'id',
   ticket_type_id: 'ticket_type_id',
   user_id: 'user_id',
-  screening_id: 'screening_id'
+  screening_type_id: 'screening_type_id',
+  screening_id: 'screening_id',
+  chair_id: 'chair_id',
+  price: 'price'
 };
 
 exports.Prisma.Ticket_typeScalarFieldEnum = {
@@ -209,6 +213,15 @@ exports.Prisma.Screening_typeScalarFieldEnum = {
   id: 'id',
   type: 'type',
   percent: 'percent'
+};
+
+exports.Prisma.Payment_sessionScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  screening_id: 'screening_id',
+  chair_ids: 'chair_ids',
+  status: 'status',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -234,7 +247,8 @@ exports.Prisma.ModelName = {
   Forum: 'Forum',
   Ticket: 'Ticket',
   Ticket_type: 'Ticket_type',
-  Screening_type: 'Screening_type'
+  Screening_type: 'Screening_type',
+  Payment_session: 'Payment_session'
 };
 
 /**

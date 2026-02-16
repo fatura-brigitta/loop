@@ -45,6 +45,9 @@ model Screening {
   end               DateTime
   screening_type_id String @db.ObjectId
 
+  payment_sessions Payment_session[]
+  tickets         Ticket[]
+
   movies            Movie?   @relation(fields: [movie_id], references: [id], onDelete: Cascade)
   halls             Hall?   @relation(fields: [hall_id], references: [id], onDelete: Cascade)
   screening_types   Screening_type?   @relation(fields: [screening_type_id], references: [id], onDelete: Cascade)
@@ -57,6 +60,7 @@ model User {
   email         String @unique
   password_hash String
   phone_number  String @unique
+  birth_date    DateTime
   points        Int
   rank_id       String @db.ObjectId
 
@@ -64,6 +68,7 @@ model User {
 
   tickets       Ticket[]
   forum         Forum[]
+  payment_sessions Payment_session[]
   @@map("users")
 }
 
@@ -73,6 +78,8 @@ model Chair {
   row         Int
   column      Int
   hall_id     String @db.ObjectId
+
+  tickets     Ticket[]
 
   halls       Hall?   @relation(fields: [hall_id], references: [id], onDelete: Cascade)
   @@map("chairs")
@@ -127,11 +134,16 @@ model Ticket {
   id             String @id @default(auto()) @map("_id") @db.ObjectId
   ticket_type_id String @db.ObjectId
   user_id        String @db.ObjectId
-  screening_id   String @db.ObjectId
+  screening_type_id   String @db.ObjectId
+  screening_id    String @db.ObjectId
+  chair_id       String @db.ObjectId
+  price          Int
 
   ticket_types    Ticket_type?  @relation(fields: [ticket_type_id], references: [id], onDelete: Cascade)
-  screening_types Screening_type?  @relation(fields: [screening_id], references: [id], onDelete: Cascade)
+  screening_types Screening_type?  @relation(fields: [screening_type_id], references: [id], onDelete: Cascade)
+  screenings      Screening?  @relation(fields: [screening_id], references: [id], onDelete: Cascade)
   users User?  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  chairs Chair?  @relation(fields: [chair_id], references: [id], onDelete: Cascade)
   @@map("tickets")
 }
 
@@ -152,4 +164,17 @@ model Screening_type {
   tickets Ticket[]
   screenings Screening[]
   @@map("screening_types")
+}
+
+model Payment_session {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  user_id       String @db.ObjectId
+  screening_id  String @db.ObjectId
+  chair_ids     Json
+  status        String
+  createdAt     DateTime @default(now())
+
+  users      User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  screenings Screening @relation(fields: [screening_id], references: [id], onDelete: Cascade)
+  @@map("payment_sessions")
 }

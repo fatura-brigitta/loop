@@ -4,9 +4,9 @@ import prisma from "@/lib/prisma";
 
 export async function POST(req: Request) {
   try {
-    const body: { name?: string; email?: string; phone_number?: string; password?: string } = await req.json();
+    const body: { name?: string; email?: string; phone_number?: string; birth_date?: string; password?: string } = await req.json();
 
-    if (!body.name || !body.email || !body.phone_number || !body.password) {
+    if (!body.name || !body.email || !body.phone_number || !body.birth_date || !body.password) {
       return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
     }
 
@@ -26,6 +26,7 @@ export async function POST(req: Request) {
         name: body.name,
         email: body.email,
         phone_number: body.phone_number,
+        birth_date: new Date(body.birth_date || "1970-01-01"), 
         points: 0,
         password_hash,
         rank_id: "aa0000000000000000000001" // alapértelmezett rang

@@ -10,6 +10,7 @@ export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone_number, setPhoneNumber] = useState("");
+  const [birth_date, setBirthDate] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -22,7 +23,7 @@ export default function RegisterPage() {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone_number, password }),
+        body: JSON.stringify({ name, email, phone_number, birth_date, password }),
       });
 
       const data = await res.json();
@@ -94,6 +95,22 @@ export default function RegisterPage() {
               value={phone_number}
               onChange={(e) => setPhoneNumber(e.target.value)}
               placeholder="123-456-7890"
+            />
+          </div>
+
+          {/* Születési dátum */}
+          <div>
+            <label className="block text-sm text-gray-500">
+              Birth Date
+            </label>
+
+            <input
+              className="mt-1 w-full rounded border px-3 py-2"
+              required
+              type="date"
+              value={birth_date}
+              onChange={(e) => setBirthDate(e.target.value)}
+              placeholder="1990-01-01"
             />
           </div>
 

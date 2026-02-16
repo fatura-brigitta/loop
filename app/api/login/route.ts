@@ -26,6 +26,7 @@ export async function POST(req: Request) {
 
   res.cookies.set("userId", user.id, {
     httpOnly: true,
+    secure: false,
     sameSite: "lax",
     path: "/",
   });

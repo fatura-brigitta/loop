@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOut } from "lucide-react";
+import { LogOut, Play } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -41,7 +41,6 @@ export default function ScreeningsPage() {
   const [screenings, setScreenings] = useState<Screening[]>([]);
   const [openTrailer, setOpenTrailer] = useState<string | null>(null);
 
-  // Auth
   useEffect(() => {
     const load = async () => {
       const userRes = await fetch("/api/activeUser", { cache: "no-store" });
@@ -59,7 +58,6 @@ export default function ScreeningsPage() {
     load();
   }, []);
 
-  // Logout
   const handleLogout = async () => {
     await fetch("/api/logout", { method: "POST" });
     setUserName("");
@@ -67,7 +65,6 @@ export default function ScreeningsPage() {
     router.refresh();
   };
 
-  // Screenings
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const movieId = params.get("movieId");
@@ -79,12 +76,8 @@ export default function ScreeningsPage() {
       .then(setScreenings);
   }, []);
 
-  //Hall selection
   const openScreening = async (id?: string) => {
-    if (!id) {
-      console.error("Missing screening id");
-      return;
-    }
+    if (!id) return;
 
     await fetch("/api/screenings/selectHall", {
       method: "POST",
@@ -96,10 +89,8 @@ export default function ScreeningsPage() {
     router.push("/screenings/hall");
   };
 
-
   return (
     <div className="min-h-screen bg-[#060b14] text-slate-100">
-      {/* header sáv */}
       <header className="sticky top-0 z-50 h-14 border-b border-white/10 bg-[#060b14]/90 backdrop-blur">
         <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
           <Link className="flex items-center gap-2" href="/">
@@ -113,7 +104,7 @@ export default function ScreeningsPage() {
             </Link>
 
             <button
-              className="cursor-pointer text-slate-200/90 transition hover:text-white"
+              className="cursor-pointer text-slate-200/90 hover:text-white"
               onClick={async () => {
                 await fetch("/api/clearSelectedMovie", { method: "POST" });
                 window.location.href = "/screenings";
@@ -129,9 +120,9 @@ export default function ScreeningsPage() {
             {showLogin ? (
               <div className="flex items-center gap-2">
                 <Link className="text-slate-200/90" href="/profile">
-                  Hello, {name} !
+                  Hello, {name}!
                 </Link>
-                <button className="cursor-pointer" onClick={handleLogout}>
+                <button onClick={handleLogout}>
                   <LogOut size={22} />
                 </button>
               </div>
@@ -153,23 +144,21 @@ export default function ScreeningsPage() {
         <div className="flex flex-col gap-6">
           {screenings.map((s, i) => (
             <div
-              className="flex w-full gap-6 rounded-lg border border-white/10 bg-white/5 p-4"
+              className="flex w-full gap-6 rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur"
               key={i}
             >
-              {/* poster */}
-              <div className="flex shrink-0 items-center">
+              <div className="shrink-0">
                 <Image
                   alt={s.movies.title}
-                  className="object-cover"
+                  className="rounded-lg object-cover"
                   height={300}
                   src={s.movies.poster}
                   width={200}
                 />
               </div>
 
-              {/* details */}
               <div className="flex flex-1 flex-col">
-                <h2 className="text-lg font-semibold text-white">{s.movies.title}</h2>
+                <h2 className="text-xl font-semibold text-white">{s.movies.title}</h2>
 
                 <p className="text-xs text-slate-400">
                   {s.movies.genre} • {s.movies.playtime} min • {s.movies.language}
@@ -181,10 +170,10 @@ export default function ScreeningsPage() {
 
                 <p className="mt-2 line-clamp-3 text-sm text-slate-300">{s.movies.description}</p>
 
-                <div className="mt-3 flex gap-2">
+                <div className="mt-4 flex gap-2">
                   <button
-                    className="rounded bg-white/10 px-2 py-1 text-xs transition hover:bg-blue-500/30 cursor-pointer"
-                    onClick={() => openScreening((s).id)}
+                    className="rounded bg-white/10 px-3 py-1 text-xs transition hover:bg-blue-500/30"
+                    onClick={() => openScreening(s.id)}
                   >
                     {new Date(s.start).toLocaleString("hu-HU", {
                       month: "2-digit",
@@ -193,7 +182,7 @@ export default function ScreeningsPage() {
                       minute: "2-digit",
                     })}
                   </button>
-                    
+
                   <span className="rounded bg-blue-500/30 px-2 py-1 text-xs">
                     {s.screening_types.type}
                   </span>
@@ -201,45 +190,47 @@ export default function ScreeningsPage() {
               </div>
 
               {s.movies.trailer && (
-                <div className="flex w-340px flex-col gap-2">
-                  <div className="flex gap-1 self-end text-blue-300">
-                    <span className="text-yellow-400">⭐</span>
+                <div className="w-[340px] shrink-0">
+                  <div className="mb-2 flex justify-end text-blue-300">
+                    <span className="mr-1 text-yellow-400">⭐</span>
                     <span className="font-medium">{s.movies.review}</span>
                   </div>
 
-                  {openTrailer === s.movies.trailer ? (
-                    <div className="aspect-video w-full">
+                  <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
+                    {openTrailer === s.movies.trailer ? (
                       <iframe
                         allow="autoplay; encrypted-media"
                         allowFullScreen
-                        className="h-full w-full rounded-lg"
+                        className="absolute inset-0 h-full w-full"
+                        loading="lazy"
                         src={`https://www.youtube.com/embed/${getYoutubeId(
                           s.movies.trailer,
-                        )}?autoplay=1`}
+                        )}?autoplay=1&rel=0&modestbranding=1`}
                       />
-                    </div>
-                  ) : (
-                    <button
-                      className="relative w-full"
-                      onClick={() => setOpenTrailer(s.movies.trailer)}
-                    >
-                      <Image
-                        alt="Trailer"
-                        className="rounded-lg brightness-75 hover:brightness-90"
-                        height={100}
-                        src={`https://img.youtube.com/vi/${getYoutubeId(
-                          s.movies.trailer,
-                        )}/hqdefault.jpg`}
-                        width={320}
-                      />
+                    ) : (
+                      <button
+                        className="absolute inset-0"
+                        onClick={() => setOpenTrailer(s.movies.trailer)}
+                      >
+                        <Image
+                          alt="Trailer"
+                          className="object-cover brightness-75 transition hover:brightness-90"
+                          fill
+                          sizes="340px"
+                          src={`https://img.youtube.com/vi/${getYoutubeId(
+                            s.movies.trailer,
+                          )}/hqdefault.jpg`}
+                        />
 
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="rounded-full bg-black/60 px-4 py-2 text-white cursor-pointer">
-                          ▶ Trailer
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="flex items-center gap-2 rounded-full bg-black/70 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:scale-105">
+                            <Play className="fill-white" size={18} />
+                            Watch trailer
+                          </div>
                         </div>
-                      </div>
-                    </button>
-                  )}
+                      </button>
+                    )}
+                  </div>
                 </div>
               )}
             </div>

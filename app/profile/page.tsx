@@ -1,10 +1,10 @@
 "use client";
 
+import { LogOut } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { LogOut } from "lucide-react";
-import Image from "next/image";
 
 type Ticket = {
   id: string;
@@ -28,7 +28,6 @@ export default function ProfilePage() {
   const router = useRouter();
 
   const [name, setUserName] = useState("");
-  const [showLogin, setShowLogin] = useState(false);
 
   const [user, setUser] = useState<any>(null);
   const [tickets, setTickets] = useState<Ticket[]>([]);
@@ -46,14 +45,12 @@ export default function ProfilePage() {
       const userRes = await fetch("/api/activeUser", { cache: "no-store" });
 
       if (userRes.status !== 200) {
-        setShowLogin(false);
         router.push("/login");
         return;
       }
 
       const active = await userRes.json();
       setUserName(active.name);
-      setShowLogin(true);
 
       const profileRes = await fetch("/api/profile", { cache: "no-store" });
       const profile = await profileRes.json();
@@ -87,7 +84,6 @@ export default function ProfilePage() {
 
   const handleLogout = async () => {
     await fetch("/api/logout", { method: "POST" });
-    setShowLogin(false);
     setUser(null);
     router.push("/login");
   };
@@ -114,6 +110,20 @@ export default function ProfilePage() {
     setError("");
     setMessage("");
 
+    if (!oldPassword || !newPassword || !newPassword2) {
+      setError("Please fill in all password fields!");
+      return;
+    }
+
+    if (
+      oldPassword.trim() === "" ||
+      newPassword.trim() === "" ||
+      newPassword2.trim() === ""
+    ) {
+      setError("Password fields cannot be empty!");
+      return;
+    }
+
     if (newPassword !== newPassword2) {
       setError("The new passwords do not match!");
       return;
@@ -129,8 +139,16 @@ export default function ProfilePage() {
       return;
     }
 
+    if (oldPassword.length < 5) {
+      setError("The password must be at least 5 characters long!");
+      return;
+    }
+
     const res = await fetch("/api/profile/password", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         oldPassword,
         newPassword,
@@ -161,27 +179,30 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-[#060b14] text-slate-100">
-
       <header className="sticky top-0 z-50 h-14 border-b border-white/10 bg-[#060b14]/90 backdrop-blur">
         <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
           <Link className="flex items-center gap-2" href="/">
             <Image alt="Logo" height={28} src="/favicon.ico" width={28} />
-            <span className="text-lg font-extrabold tracking-wide text-cyan-300">
-              Loop
-            </span>
+            <span className="text-lg font-extrabold tracking-wide text-cyan-300">Loop</span>
           </Link>
 
           <nav className="flex items-center gap-5 text-sm">
-            <a className="text-slate-200/90 hover:text-white transition" href="/movies">Movies</a>
-            <a className="text-slate-200/90 hover:text-white transition" href="/screenings">Screenings</a>
-            <a className="text-slate-200/90 hover:text-white transition" href="/forum">Forum</a>
+            <a className="text-slate-200/90 transition hover:text-white" href="/movies">
+              Movies
+            </a>
+            <a className="text-slate-200/90 transition hover:text-white" href="/screenings">
+              Screenings
+            </a>
+            <a className="text-slate-200/90 transition hover:text-white" href="/forum">
+              Forum
+            </a>
 
             <div className="flex items-center gap-2">
               <a className="text-slate-200/90" href="/profile">
                 Hello, {name} !
               </a>
               <button
-                className="text-slate-200/90 hover:text-white transition cursor-pointer"
+                className="cursor-pointer text-slate-200/90 transition hover:text-white"
                 onClick={handleLogout}
               >
                 <LogOut size={25} />
@@ -193,17 +214,14 @@ export default function ProfilePage() {
 
       <div className="flex items-center justify-center py-16">
         <div className="w-full max-w-xl rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur">
-
-          <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">
-            Profile
-          </h1>
+          <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Profile</h1>
 
           <div className="mb-6">
             <label className="text-sm text-white/60">Email</label>
             <input
               className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
-              value={user.email}
               disabled
+              value={user.email}
             />
           </div>
 
@@ -215,23 +233,42 @@ export default function ProfilePage() {
               onChange={(e) => setNewName(e.target.value)}
             />
             <button
+              className="mt-3 rounded-lg bg-cyan-600 px-4 py-2 font-semibold text-white hover:bg-cyan-400 cursor-pointer"
               onClick={updateName}
-              className="mt-3 rounded-lg bg-cyan-600 px-4 py-2 font-semibold hover:bg-cyan-400 text-white"
             >
               Update name
             </button>
           </div>
 
           <div className="border-t border-white/10 pt-6">
-            <h2 className="mb-4 text-xl font-semibold text-cyan-300">
-              Change password
-            </h2>
+            <h2 className="mb-4 text-xl font-semibold text-cyan-300">Change password</h2>
 
-            <input type="password" placeholder="Old password" className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} />
-            <input type="password" placeholder="New password" className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-            <input type="password" placeholder="New password again" className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white" value={newPassword2} onChange={(e) => setNewPassword2(e.target.value)} />
+            <input
+              className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+              placeholder="Old password"
+              type="password"
+              value={oldPassword}
+              onChange={(e) => setOldPassword(e.target.value)}
+            />
+            <input
+              className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+              placeholder="New password"
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <input
+              className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+              placeholder="New password again"
+              type="password"
+              value={newPassword2}
+              onChange={(e) => setNewPassword2(e.target.value)}
+            />
 
-            <button onClick={changePassword} className="mt-2 rounded-lg bg-cyan-600 px-4 py-2 font-semibold hover:bg-cyan-400 text-white">
+            <button
+              className="mt-2 rounded-lg bg-cyan-600 px-4 py-2 font-semibold text-white hover:bg-cyan-400 cursor-pointer"
+              onClick={changePassword}
+            >
               Change password
             </button>
           </div>
@@ -243,44 +280,42 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-5xl pb-20 px-4">
-        <h2 className="text-2xl font-bold text-cyan-300 mb-6">
-          My Tickets
-        </h2>
+      <div className="mx-auto max-w-5xl px-4 pb-20">
+        <h2 className="mb-6 text-2xl font-bold text-cyan-300">My Tickets</h2>
 
         {tickets.length === 0 && (
-          <div className="text-white/60">
-            You have no purchased tickets yet.
-          </div>
+          <div className="text-white/60">You have no purchased tickets yet.</div>
         )}
 
         <div className="grid gap-6">
           {tickets.map((ticket) => (
-            <div key={ticket.id} className="rounded-xl bg-[#0b1220] border border-white/10 p-6 shadow-lg">
+            <div
+              className="rounded-xl border border-white/10 bg-[#0b1220] p-6 shadow-lg"
+              key={ticket.id}
+            >
               <div className="flex justify-between">
                 <div>
                   <h3 className="text-lg font-semibold text-cyan-300">
                     {ticket.screenings.movies.title}
                   </h3>
 
-                  <div className="text-white/70 text-sm mt-1">
+                  <div className="mt-1 text-sm text-white/70">
                     {new Date(ticket.screenings.start).toLocaleString()}
                   </div>
 
-                  <div className="mt-3 text-sm space-y-1">
+                  <div className="mt-3 space-y-1 text-sm">
                     <div>Hall: {ticket.screenings.halls.name}</div>
                     <div>Type: {ticket.screenings.screening_types.type}</div>
-                    <div>Seat: Row {ticket.chairs.row} Seat {ticket.chairs.column}</div>
+                    <div>
+                      Seat: Row {ticket.chairs.row} Seat {ticket.chairs.column}
+                    </div>
                     <div>Ticket: {ticket.ticket_types.type}</div>
                   </div>
                 </div>
 
                 <div className="text-right">
-                  <div className="text-2xl font-bold text-green-400">
-                    {ticket.price} Ft
-                  </div>
+                  <div className="text-2xl font-bold text-green-400">{ticket.price} Ft</div>
                 </div>
-
               </div>
             </div>
           ))}

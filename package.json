@@ -21,6 +21,7 @@
     "lucide-react": "^0.563.0",
     "mongoose": "^9.1.2",
     "next": "^16.1.6",
+    "nodemailer": "^8.0.1",
     "react": "19.2.3",
     "react-dom": "^19.2.3"
   },
@@ -29,6 +30,7 @@
     "@trivago/prettier-plugin-sort-imports": "^6.0.0",
     "@types/bcrypt": "^6.0.0",
     "@types/node": "^22",
+    "@types/nodemailer": "^7.0.10",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "daisyui": "^5.5.8",

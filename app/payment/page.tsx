@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 type PaymentData = {
   sessionId: string;
@@ -20,7 +20,6 @@ export default function PaymentPage() {
   const [paying, setPaying] = useState(false);
   const [error, setError] = useState("");
 
-  // 🔹 Aktív payment session lekérése (cookie alapján)
   useEffect(() => {
     const load = async () => {
       try {
@@ -47,13 +46,11 @@ export default function PaymentPage() {
     load();
   }, []);
 
-  // 🔹 Fizetés szimuláció (fake bank)
   const simulatePayment = async () => {
     if (!data) return;
 
     setPaying(true);
 
-    // 2 másodperces "banki feldolgozás"
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     const res = await fetch("/api/payment/confirm", {
@@ -74,8 +71,6 @@ export default function PaymentPage() {
     router.push("/profile");
   };
 
-  /* ================= UI STATES ================= */
-
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
@@ -94,18 +89,12 @@ export default function PaymentPage() {
 
   if (!data) return null;
 
-  /* ================= MAIN PAGE ================= */
-
   return (
-    <div className="min-h-screen bg-[#060b14] text-white flex items-center justify-center">
+    <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
       <div className="w-full max-w-xl rounded-xl bg-[#0b1220] p-8 shadow-2xl">
-
-        <h1 className="text-2xl font-bold mb-6 text-center text-cyan-300">
-          Payment
-        </h1>
+        <h1 className="mb-6 text-center text-2xl font-bold text-cyan-300">Payment</h1>
 
         <div className="space-y-3 text-sm">
-
           <div className="flex justify-between">
             <span>Movie</span>
             <span className="font-semibold">{data.movieTitle}</span>
@@ -122,7 +111,7 @@ export default function PaymentPage() {
           </div>
 
           <div>
-            <span className="block mb-1">Seats</span>
+            <span className="mb-1 block">Seats</span>
             <div className="text-cyan-300">
               {data.seats.map((s, i) => (
                 <div key={i}>
@@ -132,22 +121,19 @@ export default function PaymentPage() {
             </div>
           </div>
 
-          <div className="flex justify-between text-lg mt-4 border-t border-white/10 pt-4">
+          <div className="mt-4 flex justify-between border-t border-white/10 pt-4 text-lg">
             <span>Total</span>
-            <span className="text-green-400 font-bold">
-              {data.totalPrice} Ft
-            </span>
+            <span className="font-bold text-green-400">{data.totalPrice} Ft</span>
           </div>
         </div>
 
         <button
-          onClick={simulatePayment}
+          className="mt-6 w-full rounded-lg bg-green-500 py-3 font-bold transition hover:bg-green-600 disabled:opacity-50"
           disabled={paying}
-          className="mt-6 w-full rounded-lg bg-green-500 py-3 font-bold hover:bg-green-600 transition disabled:opacity-50"
+          onClick={simulatePayment}
         >
           {paying ? "Processing payment..." : "Pay now"}
         </button>
-
       </div>
     </div>
   );

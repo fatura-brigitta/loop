@@ -127,13 +127,12 @@ export default function MoviesPage() {
                     <Image
                     alt={movie.title}
                     className="object-cover"
-                    height={300}    // csak fallback
+                    height={300} 
                     src={movie.poster}
-                    width={200}     // csak fallback
+                    width={200} 
                     />
                 </div>
 
-                {/* INFO */}
                 <div className="flex flex-1 flex-col justify-between px-4 py-3">
                     <div>
                     <div className="flex items-center justify-between">
@@ -163,11 +162,7 @@ export default function MoviesPage() {
                     </p>
                     </div>
 
-                    {/* ACTIONS */}
                     <div className="flex justify-end gap-2">
-                    <button className="rounded border border-white/10 px-3 py-1 text-xs text-slate-300 hover:bg-white/5 w-20 h-8 cursor-pointer">
-                        Trailer
-                    </button>
 
                     <button className="rounded bg-blue-500 px-3 py-1 text-xs text-white hover:bg-blue-600  w-30 h-8 cursor-pointer" onClick={async () => {
                       await fetch("/api/setSelectedMovie", {

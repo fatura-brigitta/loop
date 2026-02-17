@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import prisma from "@/lib/prisma";
 import { calculateAge, getTicketTypeByAge, calculateTicketPrice } from "@/lib/price";
+import { sendTicketEmail } from "@/lib/sendTicketEmail";
 
 export async function POST() {
   try {
@@ -89,11 +90,37 @@ export async function POST() {
           price: price,
         },
       });
+
     }
 
     await prisma.payment_session.update({
       where: { id: paymentId },
       data: { status: "paid" },
+    });
+
+    const tickets = await prisma.ticket.findMany({
+      where: {
+        user_id: session.user_id,
+        screening_id: session.screening_id,
+        chair_id: { in: chairIds },
+      },
+      include: {
+        screenings: {
+          include: {
+            movies: true,
+            halls: true,
+            screening_types: true,
+          },
+        },
+        chairs: true,
+        ticket_types: true,
+      },
+    });
+
+    await sendTicketEmail({
+      to: user.email,
+      name: user.name,
+      tickets,
     });
 
     const res = NextResponse.json({ ok: true });

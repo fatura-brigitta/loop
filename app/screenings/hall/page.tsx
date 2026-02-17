@@ -1,10 +1,10 @@
 "use client";
 
+import { LogOut } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { LogOut } from "lucide-react";
-import Image from "next/image";
 
 type Chair = {
   id: string;
@@ -19,7 +19,6 @@ type Hall = {
   row: number;
   column: number;
 };
-
 
 type HallResponse = {
   hall: Hall;
@@ -49,28 +48,22 @@ function SeatGrid({
       {Array.from({ length: rows }).map((_, r) => (
         <div className="flex gap-2" key={r}>
           {Array.from({ length: columns }).map((_, c) => {
-            const chair = chairs.find(
-              (ch) => ch.row === r + 1 && ch.column === c + 1
-            );
+            const chair = chairs.find((ch) => ch.row === r + 1 && ch.column === c + 1);
 
             let color = "bg-slate-700/40"; // nincs szék
 
             if (chair) {
               if (chair.state) color = "bg-gray-400";
-              else if (selectedSeats.includes(chair.id))
-                color = "bg-cyan-300";
+              else if (selectedSeats.includes(chair.id)) color = "bg-cyan-300";
               else color = "bg-green-500 hover:bg-green-400";
             }
 
             return (
               <div
+                className={`h-8 w-8 rounded transition-all duration-150 ${color} ${chair && !chair.state ? "cursor-pointer hover:scale-110" : ""} `}
                 key={c}
-                onClick={() => onSeatClick(chair)}
                 title={`Row ${r + 1}, Seat ${c + 1}`}
-                className={`h-8 w-8 rounded transition-all duration-150
-                ${color}
-                ${chair && !chair.state ? "cursor-pointer hover:scale-110" : ""}
-              `}
+                onClick={() => onSeatClick(chair)}
               />
             );
           })}
@@ -97,7 +90,7 @@ export default function HallPage() {
   const [seats, setSeats] = useState<Chair[]>([]);
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const MAX_SEATS = 5;
-  
+
   const [hall, setHall] = useState<Hall | null>(null);
   const [loadingHall, setLoadingHall] = useState(false);
 
@@ -105,7 +98,6 @@ export default function HallPage() {
   const [seatError, setSeatError] = useState("");
 
   const errorTimerRef = useRef<number | null>(null);
-  const successTimerRef = useRef<number | null>(null);
 
   const [successMessage, setSuccessMsg] = useState("");
 
@@ -137,45 +129,43 @@ export default function HallPage() {
   };
 
   useEffect(() => {
-    // ha nincs login, reseteljük a terem állapotot
-    if (!showLogin) {
-      setHall(null);
-      setSeats([]);
-      setError("");
-      setLoadingHall(false);
-      return;
-    }
+    if (!showLogin) return;
 
     const loadHall = async () => {
       setLoadingHall(true);
       setError("");
 
-      const res = await fetch("/api/screenings/hall", {
-        cache: "no-store",
-        credentials: "include",
-      });
+      try {
+        const res = await fetch("/api/screenings/hall", {
+          cache: "no-store",
+          credentials: "include",
+        });
 
-      if (!res.ok) {
-        let msg = "Failed to load the hall";
-        try {
-          const body = await res.json();
-          if (body?.message) msg = body.message;
-        } catch {}
-        setError(msg);
-        setLoadingHall(false);
-        return;
+        if (!res.ok) {
+          let msg = "Failed to load the hall";
+          try {
+            const body = await res.json();
+            if (body?.message) msg = body.message;
+          } catch {}
+          setError(msg);
+          setLoadingHall(false);
+          return;
+        }
+
+        const data: HallResponse = await res.json();
+
+        if (!data?.hall?.id) {
+          setError("Invalid hall data");
+          setLoadingHall(false);
+          return;
+        }
+
+        setHall(data.hall);
+        setSeats(data.chairs ?? []);
+      } catch {
+        setError("Network error while loading hall");
       }
 
-      const data: HallResponse = await res.json();
-
-      if (!data?.hall?.id) {
-        setError("Invalid hall data (missing hall id)");
-        setLoadingHall(false);
-        return;
-      }
-
-      setHall(data.hall);
-      setSeats(Array.isArray(data.chairs) ? data.chairs : []);
       setLoadingHall(false);
     };
 
@@ -183,12 +173,12 @@ export default function HallPage() {
   }, [showLogin]);
 
   useEffect(() => {
-  return () => {
-    if (errorTimerRef.current) {
-      window.clearTimeout(errorTimerRef.current);
-    }
-  };
-}, []);
+    return () => {
+      if (errorTimerRef.current) {
+        window.clearTimeout(errorTimerRef.current);
+      }
+    };
+  }, []);
 
   //több szék foglalva mint a maximum
   const showSeatError = (msg: string) => {
@@ -246,7 +236,7 @@ export default function HallPage() {
   });
 
   // szék foglalása
-    const reserveSeats = async () => {
+  const reserveSeats = async () => {
     if (selectedSeats.length === 0) return;
 
     const res = await fetch("/api/payment/create", {
@@ -271,21 +261,27 @@ export default function HallPage() {
     <div className="min-h-screen bg-gradient-to-b from-[#020617] via-[#060b14] to-black text-slate-100">
       <header className="sticky top-0 z-50 h-14 border-b border-white/10 bg-[#060b14]/90 backdrop-blur">
         <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
-          <Link className="tracking-wide items-center justify-center flex gap-2" href="/">
-            <Image alt="Logo" className="object-contain" height={28} src="/favicon.ico" width={28} />
-            <span className="text-lg font-extrabold tracking-wide text-cyan-300 flex gap-2">
+          <Link className="flex items-center justify-center gap-2 tracking-wide" href="/">
+            <Image
+              alt="Logo"
+              className="object-contain"
+              height={28}
+              src="/favicon.ico"
+              width={28}
+            />
+            <span className="flex gap-2 text-lg font-extrabold tracking-wide text-cyan-300">
               Loop
             </span>
           </Link>
 
           <nav className="flex items-center gap-5 text-sm">
-            <a className="text-slate-200/90 hover:text-white transition" href="/movies">
+            <a className="text-slate-200/90 transition hover:text-white" href="/movies">
               Movies
             </a>
-            <a className="text-slate-200/90 hover:text-white transition" href="/screenings">
+            <a className="text-slate-200/90 transition hover:text-white" href="/screenings">
               Screenings
             </a>
-            <a className="text-slate-200/90 hover:text-white transition" href="/forum">
+            <a className="text-slate-200/90 transition hover:text-white" href="/forum">
               Forum
             </a>
 
@@ -295,7 +291,7 @@ export default function HallPage() {
                   Hello, {name} !
                 </a>
                 <a
-                  className="text-slate-200/90 hover:text-white transition cursor-pointer"
+                  className="cursor-pointer text-slate-200/90 transition hover:text-white"
                   onClick={handleLogout}
                 >
                   <LogOut size={25} />
@@ -339,12 +335,16 @@ export default function HallPage() {
 
           <CinemaScreen />
 
-          <SeatGrid chairs={seats} rows={hall.row} columns={hall.column} selectedSeats={selectedSeats} onSeatClick={toggleSeat}/>
+          <SeatGrid
+            chairs={seats}
+            columns={hall.column}
+            rows={hall.row}
+            selectedSeats={selectedSeats}
+            onSeatClick={toggleSeat}
+          />
 
           <div className="mt-10 flex flex-col items-center gap-4 text-sm text-white/80">
-
             <div className="flex items-center gap-8">
-
               <div className="flex items-center gap-2">
                 <div className="h-4 w-4 rounded bg-green-500" />
                 <span>Szabad hely</span>
@@ -365,7 +365,7 @@ export default function HallPage() {
       )}
 
       {seatError && (
-        <div className="fixed bottom-28 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-red-600 px-6 py-3 text-white shadow-2xl animate-pulse">
+        <div className="fixed bottom-28 left-1/2 z-50 -translate-x-1/2 animate-pulse rounded-lg bg-red-600 px-6 py-3 text-white shadow-2xl">
           {seatError}
         </div>
       )}
@@ -377,9 +377,8 @@ export default function HallPage() {
       )}
 
       {selectedChairs.length > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 bg-[#020617]/95 backdrop-blur">
+        <div className="fixed right-0 bottom-0 left-0 z-40 border-t border-white/10 bg-[#020617]/95 backdrop-blur">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 text-white">
-
             <div className="flex flex-col text-left">
               <span className="text-sm text-white/60">Selected seats</span>
 
@@ -399,19 +398,15 @@ export default function HallPage() {
               </div>
             </div>
 
-            <div className="text-right flex flex-col items-end gap-2">
-
-              <div className="text-orange-400 text-2xl font-bold">
-                🎟 {selectedChairs.length}
-              </div>
+            <div className="flex flex-col items-end gap-2 text-right">
+              <div className="text-2xl font-bold text-orange-400">🎟 {selectedChairs.length}</div>
 
               <button
-                onClick={reserveSeats}
                 className="rounded-lg bg-blue-500 px-5 py-2 font-semibold text-white transition hover:bg-blue-600"
+                onClick={reserveSeats}
               >
                 Reserve seats
               </button>
-
             </div>
           </div>
         </div>

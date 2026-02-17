@@ -200,7 +200,9 @@ exports.Prisma.TicketScalarFieldEnum = {
   screening_type_id: 'screening_type_id',
   screening_id: 'screening_id',
   chair_id: 'chair_id',
-  price: 'price'
+  price: 'price',
+  qr_token: 'qr_token',
+  used_at: 'used_at'
 };
 
 exports.Prisma.Ticket_typeScalarFieldEnum = {

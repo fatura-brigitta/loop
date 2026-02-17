@@ -8,6 +8,8 @@ type PaymentData = {
   movieTitle: string;
   hallName: string;
   start: string;
+  screeningType: string;
+  ticketType: string; 
   seats: { row: number; column: number }[];
   totalPrice: number;
 };
@@ -106,7 +108,14 @@ export default function PaymentPage() {
           </div>
 
           <div className="flex justify-between">
-            <span>Date</span>
+            <span>Screening</span>
+            <span className="text-white font-semibold">
+              {data.screeningType}
+            </span>
+          </div>
+
+          <div className="flex justify-between">
+            <span>Start</span>
             <span>{new Date(data.start).toLocaleString()}</span>
           </div>
 
@@ -118,6 +127,13 @@ export default function PaymentPage() {
                   Row {s.row} Seat {s.column}
                 </div>
               ))}
+            </div>
+
+            <div className="flex justify-between">
+              <span>Ticket type</span>
+              <span className="text-white font-semibold">
+                {data.ticketType}
+              </span>
             </div>
           </div>
 

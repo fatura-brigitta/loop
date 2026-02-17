@@ -142,7 +142,7 @@ export default function RegisterPage() {
               <label className="text-sm text-white/60">Email</label>
               <input
                 className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white transition outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
-                placeholder="you@example.com"
+                placeholder="johndoe@example.com"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

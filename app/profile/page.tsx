@@ -15,6 +15,7 @@ type Ticket = {
     halls: { name: string };
     screening_types: { type: string };
   };
+  qr_token: string;
   chairs: {
     row: number;
     column: number;
@@ -117,11 +118,7 @@ export default function ProfilePage() {
       return;
     }
 
-    if (
-      oldPassword.trim() === "" ||
-      newPassword.trim() === "" ||
-      newPassword2.trim() === ""
-    ) {
+    if (oldPassword.trim() === "" || newPassword.trim() === "" || newPassword2.trim() === "") {
       setError("Password fields cannot be empty!");
       return;
     }
@@ -235,7 +232,7 @@ export default function ProfilePage() {
               onChange={(e) => setNewName(e.target.value)}
             />
             <button
-              className="mt-3 rounded-lg bg-cyan-600 px-4 py-2 font-semibold text-white hover:bg-cyan-400 cursor-pointer"
+              className="mt-3 cursor-pointer rounded-lg bg-cyan-600 px-4 py-2 font-semibold text-white hover:bg-cyan-400"
               onClick={updateName}
             >
               Update name
@@ -268,7 +265,7 @@ export default function ProfilePage() {
             />
 
             <button
-              className="mt-2 rounded-lg bg-cyan-600 px-4 py-2 font-semibold text-white hover:bg-cyan-400 cursor-pointer"
+              className="mt-2 cursor-pointer rounded-lg bg-cyan-600 px-4 py-2 font-semibold text-white hover:bg-cyan-400"
               onClick={changePassword}
             >
               Change password
@@ -318,6 +315,13 @@ export default function ProfilePage() {
                 <div className="text-right">
                   <div className="text-2xl font-bold text-green-400">{ticket.price} Ft</div>
                 </div>
+
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  alt="qr"
+                  className="mt-4 w-32 rounded-lg bg-white p-2"
+                  src={`/api/qr/${ticket.qr_token}`}
+                />
               </div>
             </div>
           ))}

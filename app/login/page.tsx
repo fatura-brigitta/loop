@@ -95,7 +95,7 @@ export default function LoginPage() {
               <label className="text-sm text-white/60">Email</label>
               <input
                 className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white transition outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
-                placeholder="you@example.com"
+                placeholder="johndoe@example.com"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -108,7 +108,7 @@ export default function LoginPage() {
               <div className="relative mt-2">
                 <input
                   className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 pr-11 text-white transition outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
-                  placeholder="Your password"
+                  placeholder="JohnDoe123"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

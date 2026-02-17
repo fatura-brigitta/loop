@@ -11822,6 +11822,8 @@ export namespace Prisma {
     screening_id: string | null
     chair_id: string | null
     price: number | null
+    qr_token: string | null
+    used_at: Date | null
   }
 
   export type TicketMaxAggregateOutputType = {
@@ -11832,6 +11834,8 @@ export namespace Prisma {
     screening_id: string | null
     chair_id: string | null
     price: number | null
+    qr_token: string | null
+    used_at: Date | null
   }
 
   export type TicketCountAggregateOutputType = {
@@ -11842,6 +11846,8 @@ export namespace Prisma {
     screening_id: number
     chair_id: number
     price: number
+    qr_token: number
+    used_at: number
     _all: number
   }
 
@@ -11862,6 +11868,8 @@ export namespace Prisma {
     screening_id?: true
     chair_id?: true
     price?: true
+    qr_token?: true
+    used_at?: true
   }
 
   export type TicketMaxAggregateInputType = {
@@ -11872,6 +11880,8 @@ export namespace Prisma {
     screening_id?: true
     chair_id?: true
     price?: true
+    qr_token?: true
+    used_at?: true
   }
 
   export type TicketCountAggregateInputType = {
@@ -11882,6 +11892,8 @@ export namespace Prisma {
     screening_id?: true
     chair_id?: true
     price?: true
+    qr_token?: true
+    used_at?: true
     _all?: true
   }
 
@@ -11979,6 +11991,8 @@ export namespace Prisma {
     screening_id: string
     chair_id: string
     price: number
+    qr_token: string
+    used_at: Date | null
     _count: TicketCountAggregateOutputType | null
     _avg: TicketAvgAggregateOutputType | null
     _sum: TicketSumAggregateOutputType | null
@@ -12008,6 +12022,8 @@ export namespace Prisma {
     screening_id?: boolean
     chair_id?: boolean
     price?: boolean
+    qr_token?: boolean
+    used_at?: boolean
     ticket_types?: boolean | Ticket$ticket_typesArgs<ExtArgs>
     screening_types?: boolean | Ticket$screening_typesArgs<ExtArgs>
     screenings?: boolean | Ticket$screeningsArgs<ExtArgs>
@@ -12025,9 +12041,11 @@ export namespace Prisma {
     screening_id?: boolean
     chair_id?: boolean
     price?: boolean
+    qr_token?: boolean
+    used_at?: boolean
   }
 
-  export type TicketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ticket_type_id" | "user_id" | "screening_type_id" | "screening_id" | "chair_id" | "price", ExtArgs["result"]["ticket"]>
+  export type TicketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ticket_type_id" | "user_id" | "screening_type_id" | "screening_id" | "chair_id" | "price" | "qr_token" | "used_at", ExtArgs["result"]["ticket"]>
   export type TicketInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ticket_types?: boolean | Ticket$ticket_typesArgs<ExtArgs>
     screening_types?: boolean | Ticket$screening_typesArgs<ExtArgs>
@@ -12053,6 +12071,8 @@ export namespace Prisma {
       screening_id: string
       chair_id: string
       price: number
+      qr_token: string
+      used_at: Date | null
     }, ExtArgs["result"]["ticket"]>
     composites: {}
   }
@@ -12457,6 +12477,8 @@ export namespace Prisma {
     readonly screening_id: FieldRef<"Ticket", 'String'>
     readonly chair_id: FieldRef<"Ticket", 'String'>
     readonly price: FieldRef<"Ticket", 'Int'>
+    readonly qr_token: FieldRef<"Ticket", 'String'>
+    readonly used_at: FieldRef<"Ticket", 'DateTime'>
   }
     
 
@@ -16109,7 +16131,9 @@ export namespace Prisma {
     screening_type_id: 'screening_type_id',
     screening_id: 'screening_id',
     chair_id: 'chair_id',
-    price: 'price'
+    price: 'price',
+    qr_token: 'qr_token',
+    used_at: 'used_at'
   };
 
   export type TicketScalarFieldEnum = (typeof TicketScalarFieldEnum)[keyof typeof TicketScalarFieldEnum]
@@ -16825,6 +16849,8 @@ export namespace Prisma {
     screening_id?: StringFilter<"Ticket"> | string
     chair_id?: StringFilter<"Ticket"> | string
     price?: IntFilter<"Ticket"> | number
+    qr_token?: StringFilter<"Ticket"> | string
+    used_at?: DateTimeNullableFilter<"Ticket"> | Date | string | null
     ticket_types?: XOR<Ticket_typeNullableScalarRelationFilter, Ticket_typeWhereInput> | null
     screening_types?: XOR<Screening_typeNullableScalarRelationFilter, Screening_typeWhereInput> | null
     screenings?: XOR<ScreeningNullableScalarRelationFilter, ScreeningWhereInput> | null
@@ -16840,6 +16866,8 @@ export namespace Prisma {
     screening_id?: SortOrder
     chair_id?: SortOrder
     price?: SortOrder
+    qr_token?: SortOrder
+    used_at?: SortOrder
     ticket_types?: Ticket_typeOrderByWithRelationInput
     screening_types?: Screening_typeOrderByWithRelationInput
     screenings?: ScreeningOrderByWithRelationInput
@@ -16849,6 +16877,7 @@ export namespace Prisma {
 
   export type TicketWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    qr_token?: string
     AND?: TicketWhereInput | TicketWhereInput[]
     OR?: TicketWhereInput[]
     NOT?: TicketWhereInput | TicketWhereInput[]
@@ -16858,12 +16887,13 @@ export namespace Prisma {
     screening_id?: StringFilter<"Ticket"> | string
     chair_id?: StringFilter<"Ticket"> | string
     price?: IntFilter<"Ticket"> | number
+    used_at?: DateTimeNullableFilter<"Ticket"> | Date | string | null
     ticket_types?: XOR<Ticket_typeNullableScalarRelationFilter, Ticket_typeWhereInput> | null
     screening_types?: XOR<Screening_typeNullableScalarRelationFilter, Screening_typeWhereInput> | null
     screenings?: XOR<ScreeningNullableScalarRelationFilter, ScreeningWhereInput> | null
     users?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     chairs?: XOR<ChairNullableScalarRelationFilter, ChairWhereInput> | null
-  }, "id">
+  }, "id" | "qr_token">
 
   export type TicketOrderByWithAggregationInput = {
     id?: SortOrder
@@ -16873,6 +16903,8 @@ export namespace Prisma {
     screening_id?: SortOrder
     chair_id?: SortOrder
     price?: SortOrder
+    qr_token?: SortOrder
+    used_at?: SortOrder
     _count?: TicketCountOrderByAggregateInput
     _avg?: TicketAvgOrderByAggregateInput
     _max?: TicketMaxOrderByAggregateInput
@@ -16891,6 +16923,8 @@ export namespace Prisma {
     screening_id?: StringWithAggregatesFilter<"Ticket"> | string
     chair_id?: StringWithAggregatesFilter<"Ticket"> | string
     price?: IntWithAggregatesFilter<"Ticket"> | number
+    qr_token?: StringWithAggregatesFilter<"Ticket"> | string
+    used_at?: DateTimeNullableWithAggregatesFilter<"Ticket"> | Date | string | null
   }
 
   export type Ticket_typeWhereInput = {
@@ -17613,6 +17647,8 @@ export namespace Prisma {
   export type TicketCreateInput = {
     id?: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
     ticket_types?: Ticket_typeCreateNestedOneWithoutTicketsInput
     screening_types?: Screening_typeCreateNestedOneWithoutTicketsInput
     screenings?: ScreeningCreateNestedOneWithoutTicketsInput
@@ -17628,10 +17664,14 @@ export namespace Prisma {
     screening_id: string
     chair_id: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
   }
 
   export type TicketUpdateInput = {
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ticket_types?: Ticket_typeUpdateOneWithoutTicketsNestedInput
     screening_types?: Screening_typeUpdateOneWithoutTicketsNestedInput
     screenings?: ScreeningUpdateOneWithoutTicketsNestedInput
@@ -17646,6 +17686,8 @@ export namespace Prisma {
     screening_id?: StringFieldUpdateOperationsInput | string
     chair_id?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TicketCreateManyInput = {
@@ -17656,10 +17698,14 @@ export namespace Prisma {
     screening_id: string
     chair_id: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
   }
 
   export type TicketUpdateManyMutationInput = {
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TicketUncheckedUpdateManyInput = {
@@ -17669,6 +17715,8 @@ export namespace Prisma {
     screening_id?: StringFieldUpdateOperationsInput | string
     chair_id?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type Ticket_typeCreateInput = {
@@ -18396,6 +18444,18 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+    isSet?: boolean
+  }
+
   export type Ticket_typeNullableScalarRelationFilter = {
     is?: Ticket_typeWhereInput | null
     isNot?: Ticket_typeWhereInput | null
@@ -18419,6 +18479,8 @@ export namespace Prisma {
     screening_id?: SortOrder
     chair_id?: SortOrder
     price?: SortOrder
+    qr_token?: SortOrder
+    used_at?: SortOrder
   }
 
   export type TicketAvgOrderByAggregateInput = {
@@ -18433,6 +18495,8 @@ export namespace Prisma {
     screening_id?: SortOrder
     chair_id?: SortOrder
     price?: SortOrder
+    qr_token?: SortOrder
+    used_at?: SortOrder
   }
 
   export type TicketMinOrderByAggregateInput = {
@@ -18443,10 +18507,27 @@ export namespace Prisma {
     screening_id?: SortOrder
     chair_id?: SortOrder
     price?: SortOrder
+    qr_token?: SortOrder
+    used_at?: SortOrder
   }
 
   export type TicketSumOrderByAggregateInput = {
     price?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type Ticket_typeCountOrderByAggregateInput = {
@@ -19265,6 +19346,11 @@ export namespace Prisma {
     connect?: ChairWhereUniqueInput
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+    unset?: boolean
+  }
+
   export type Ticket_typeUpdateOneWithoutTicketsNestedInput = {
     create?: XOR<Ticket_typeCreateWithoutTicketsInput, Ticket_typeUncheckedCreateWithoutTicketsInput>
     connectOrCreate?: Ticket_typeCreateOrConnectWithoutTicketsInput
@@ -19665,6 +19751,33 @@ export namespace Prisma {
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
   }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+    isSet?: boolean
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -19812,6 +19925,8 @@ export namespace Prisma {
   export type TicketCreateWithoutScreeningsInput = {
     id?: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
     ticket_types?: Ticket_typeCreateNestedOneWithoutTicketsInput
     screening_types?: Screening_typeCreateNestedOneWithoutTicketsInput
     users?: UserCreateNestedOneWithoutTicketsInput
@@ -19825,6 +19940,8 @@ export namespace Prisma {
     screening_type_id: string
     chair_id: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
   }
 
   export type TicketCreateOrConnectWithoutScreeningsInput = {
@@ -19968,6 +20085,8 @@ export namespace Prisma {
     screening_id?: StringFilter<"Ticket"> | string
     chair_id?: StringFilter<"Ticket"> | string
     price?: IntFilter<"Ticket"> | number
+    qr_token?: StringFilter<"Ticket"> | string
+    used_at?: DateTimeNullableFilter<"Ticket"> | Date | string | null
   }
 
   export type MovieUpsertWithoutScreeningsInput = {
@@ -20083,6 +20202,8 @@ export namespace Prisma {
   export type TicketCreateWithoutUsersInput = {
     id?: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
     ticket_types?: Ticket_typeCreateNestedOneWithoutTicketsInput
     screening_types?: Screening_typeCreateNestedOneWithoutTicketsInput
     screenings?: ScreeningCreateNestedOneWithoutTicketsInput
@@ -20096,6 +20217,8 @@ export namespace Prisma {
     screening_id: string
     chair_id: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
   }
 
   export type TicketCreateOrConnectWithoutUsersInput = {
@@ -20231,6 +20354,8 @@ export namespace Prisma {
   export type TicketCreateWithoutChairsInput = {
     id?: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
     ticket_types?: Ticket_typeCreateNestedOneWithoutTicketsInput
     screening_types?: Screening_typeCreateNestedOneWithoutTicketsInput
     screenings?: ScreeningCreateNestedOneWithoutTicketsInput
@@ -20244,6 +20369,8 @@ export namespace Prisma {
     screening_type_id: string
     screening_id: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
   }
 
   export type TicketCreateOrConnectWithoutChairsInput = {
@@ -20966,6 +21093,8 @@ export namespace Prisma {
   export type TicketCreateWithoutTicket_typesInput = {
     id?: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
     screening_types?: Screening_typeCreateNestedOneWithoutTicketsInput
     screenings?: ScreeningCreateNestedOneWithoutTicketsInput
     users?: UserCreateNestedOneWithoutTicketsInput
@@ -20979,6 +21108,8 @@ export namespace Prisma {
     screening_id: string
     chair_id: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
   }
 
   export type TicketCreateOrConnectWithoutTicket_typesInput = {
@@ -21009,6 +21140,8 @@ export namespace Prisma {
   export type TicketCreateWithoutScreening_typesInput = {
     id?: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
     ticket_types?: Ticket_typeCreateNestedOneWithoutTicketsInput
     screenings?: ScreeningCreateNestedOneWithoutTicketsInput
     users?: UserCreateNestedOneWithoutTicketsInput
@@ -21022,6 +21155,8 @@ export namespace Prisma {
     screening_id: string
     chair_id: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
   }
 
   export type TicketCreateOrConnectWithoutScreening_typesInput = {
@@ -21287,6 +21422,8 @@ export namespace Prisma {
     screening_type_id: string
     chair_id: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
   }
 
   export type Payment_sessionUpdateWithoutScreeningsInput = {
@@ -21312,6 +21449,8 @@ export namespace Prisma {
 
   export type TicketUpdateWithoutScreeningsInput = {
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ticket_types?: Ticket_typeUpdateOneWithoutTicketsNestedInput
     screening_types?: Screening_typeUpdateOneWithoutTicketsNestedInput
     users?: UserUpdateOneWithoutTicketsNestedInput
@@ -21324,6 +21463,8 @@ export namespace Prisma {
     screening_type_id?: StringFieldUpdateOperationsInput | string
     chair_id?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TicketUncheckedUpdateManyWithoutScreeningsInput = {
@@ -21332,6 +21473,8 @@ export namespace Prisma {
     screening_type_id?: StringFieldUpdateOperationsInput | string
     chair_id?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TicketCreateManyUsersInput = {
@@ -21341,6 +21484,8 @@ export namespace Prisma {
     screening_id: string
     chair_id: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
   }
 
   export type ForumCreateManyUsersInput = {
@@ -21360,6 +21505,8 @@ export namespace Prisma {
 
   export type TicketUpdateWithoutUsersInput = {
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ticket_types?: Ticket_typeUpdateOneWithoutTicketsNestedInput
     screening_types?: Screening_typeUpdateOneWithoutTicketsNestedInput
     screenings?: ScreeningUpdateOneWithoutTicketsNestedInput
@@ -21372,6 +21519,8 @@ export namespace Prisma {
     screening_id?: StringFieldUpdateOperationsInput | string
     chair_id?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TicketUncheckedUpdateManyWithoutUsersInput = {
@@ -21380,6 +21529,8 @@ export namespace Prisma {
     screening_id?: StringFieldUpdateOperationsInput | string
     chair_id?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ForumUpdateWithoutUsersInput = {
@@ -21428,10 +21579,14 @@ export namespace Prisma {
     screening_type_id: string
     screening_id: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
   }
 
   export type TicketUpdateWithoutChairsInput = {
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ticket_types?: Ticket_typeUpdateOneWithoutTicketsNestedInput
     screening_types?: Screening_typeUpdateOneWithoutTicketsNestedInput
     screenings?: ScreeningUpdateOneWithoutTicketsNestedInput
@@ -21444,6 +21599,8 @@ export namespace Prisma {
     screening_type_id?: StringFieldUpdateOperationsInput | string
     screening_id?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TicketUncheckedUpdateManyWithoutChairsInput = {
@@ -21452,6 +21609,8 @@ export namespace Prisma {
     screening_type_id?: StringFieldUpdateOperationsInput | string
     screening_id?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserCreateManyRanksInput = {
@@ -21591,10 +21750,14 @@ export namespace Prisma {
     screening_id: string
     chair_id: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
   }
 
   export type TicketUpdateWithoutTicket_typesInput = {
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     screening_types?: Screening_typeUpdateOneWithoutTicketsNestedInput
     screenings?: ScreeningUpdateOneWithoutTicketsNestedInput
     users?: UserUpdateOneWithoutTicketsNestedInput
@@ -21607,6 +21770,8 @@ export namespace Prisma {
     screening_id?: StringFieldUpdateOperationsInput | string
     chair_id?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TicketUncheckedUpdateManyWithoutTicket_typesInput = {
@@ -21615,6 +21780,8 @@ export namespace Prisma {
     screening_id?: StringFieldUpdateOperationsInput | string
     chair_id?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TicketCreateManyScreening_typesInput = {
@@ -21624,6 +21791,8 @@ export namespace Prisma {
     screening_id: string
     chair_id: string
     price: number
+    qr_token: string
+    used_at?: Date | string | null
   }
 
   export type ScreeningCreateManyScreening_typesInput = {
@@ -21636,6 +21805,8 @@ export namespace Prisma {
 
   export type TicketUpdateWithoutScreening_typesInput = {
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ticket_types?: Ticket_typeUpdateOneWithoutTicketsNestedInput
     screenings?: ScreeningUpdateOneWithoutTicketsNestedInput
     users?: UserUpdateOneWithoutTicketsNestedInput
@@ -21648,6 +21819,8 @@ export namespace Prisma {
     screening_id?: StringFieldUpdateOperationsInput | string
     chair_id?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TicketUncheckedUpdateManyWithoutScreening_typesInput = {
@@ -21656,6 +21829,8 @@ export namespace Prisma {
     screening_id?: StringFieldUpdateOperationsInput | string
     chair_id?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
+    qr_token?: StringFieldUpdateOperationsInput | string
+    used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ScreeningUpdateWithoutScreening_typesInput = {

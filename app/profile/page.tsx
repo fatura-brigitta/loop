@@ -42,7 +42,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const loadUser = async () => {
-      const userRes = await fetch("/api/activeUser", { cache: "no-store" });
+      const userRes = await fetch("/api/auth", { cache: "no-store" });
 
       if (userRes.status !== 200) {
         router.push("/login");
@@ -57,7 +57,8 @@ export default function ProfilePage() {
       setUser(profile);
       setNewName(profile.name);
 
-      const ticketRes = await fetch("/api/profile/tickets", {
+      const ticketRes = await fetch("/api/profile", {
+        method: "POST",
         credentials: "include",
         cache: "no-store",
       });
@@ -83,7 +84,7 @@ export default function ProfilePage() {
   }, [message, error]);
 
   const handleLogout = async () => {
-    await fetch("/api/logout", { method: "POST" });
+    await fetch("/api/auth", { method: "DELETE" });
     setUser(null);
     router.push("/login");
   };
@@ -92,8 +93,9 @@ export default function ProfilePage() {
     setError("");
     setMessage("");
 
-    const res = await fetch("/api/profile/update", {
-      method: "POST",
+    const res = await fetch("/api/profile", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: newName }),
     });
 
@@ -144,8 +146,8 @@ export default function ProfilePage() {
       return;
     }
 
-    const res = await fetch("/api/profile/password", {
-      method: "POST",
+    const res = await fetch("/api/profile", {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },

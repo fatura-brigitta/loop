@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
+/* =========================================================
+   GET  → filmek lekérése (régi: /api/movies)
+========================================================= */
 export async function GET() {
   try {
     const movies = await prisma.movie.findMany({
@@ -22,7 +25,55 @@ export async function GET() {
     });
 
     return NextResponse.json(movies);
-  } catch {
+  } catch (err) {
+    console.error("MOVIES ERROR:", err);
     return NextResponse.json({ error: "Failed" }, { status: 500 });
+  }
+}
+
+/* =========================================================
+   POST → kiválasztott film mentése
+   (régi: /api/setSelectedMovie)
+========================================================= */
+export async function POST(req: Request) {
+  try {
+    const { movieId } = await req.json();
+
+    if (!movieId) {
+      return NextResponse.json({ message: "Missing movieId" }, { status: 400 });
+    }
+
+    const res = NextResponse.json({ ok: true });
+
+    res.cookies.set("selectedMovieId", movieId, {
+      path: "/",
+      httpOnly: false,
+      sameSite: "lax",
+    });
+
+    return res;
+  } catch (err) {
+    console.error("SET MOVIE ERROR:", err);
+    return NextResponse.json({ message: "Server error" }, { status: 500 });
+  }
+}
+
+/* =========================================================
+   DELETE → kiválasztott film törlése
+   (régi: /api/clearSelectedMovie)
+========================================================= */
+export async function DELETE() {
+  try {
+    const res = NextResponse.json({ ok: true });
+
+    res.cookies.set("selectedMovieId", "", {
+      path: "/",
+      maxAge: 0,
+    });
+
+    return res;
+  } catch (err) {
+    console.error("CLEAR MOVIE ERROR:", err);
+    return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 }

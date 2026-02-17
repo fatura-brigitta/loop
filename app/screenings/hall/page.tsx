@@ -103,7 +103,7 @@ export default function HallPage() {
 
   useEffect(() => {
     const loadUser = async () => {
-      const userRes = await fetch("/api/activeUser", { cache: "no-store" });
+      const userRes = await fetch("/api/auth", { cache: "no-store" });
 
       if (userRes.status === 200) {
         const user = await userRes.json();
@@ -119,7 +119,7 @@ export default function HallPage() {
   }, []);
 
   const handleLogout = async () => {
-    await fetch("/api/logout", { method: "POST" });
+    await fetch("/api/auth", { method: "DELETE" });
     setUserName("");
     setShowLogin(false);
     setHall(null);
@@ -136,7 +136,8 @@ export default function HallPage() {
       setError("");
 
       try {
-        const res = await fetch("/api/screenings/hall", {
+        const res = await fetch("/api/screenings", {
+          method: "PUT",
           cache: "no-store",
           credentials: "include",
         });
@@ -239,7 +240,7 @@ export default function HallPage() {
   const reserveSeats = async () => {
     if (selectedSeats.length === 0) return;
 
-    const res = await fetch("/api/payment/create", {
+    const res = await fetch("/api/payment?action=create", {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },

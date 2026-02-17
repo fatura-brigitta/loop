@@ -43,7 +43,7 @@ export default function ScreeningsPage() {
 
   useEffect(() => {
     const load = async () => {
-      const userRes = await fetch("/api/activeUser", { cache: "no-store" });
+      const userRes = await fetch("/api/auth", { cache: "no-store" });
 
       if (userRes.status === 200) {
         const user = await userRes.json();
@@ -59,7 +59,7 @@ export default function ScreeningsPage() {
   }, []);
 
   const handleLogout = async () => {
-    await fetch("/api/logout", { method: "POST" });
+    await fetch("/api/auth", { method: "DELETE" });
     setUserName("");
     setShowLogin(false);
     router.refresh();
@@ -79,7 +79,7 @@ export default function ScreeningsPage() {
   const openScreening = async (id?: string) => {
     if (!id) return;
 
-    await fetch("/api/screenings/selectHall", {
+    await fetch("/api/screenings/", {
       method: "POST",
       body: JSON.stringify({ id }),
       headers: { "Content-Type": "application/json" },
@@ -106,7 +106,7 @@ export default function ScreeningsPage() {
             <button
               className="cursor-pointer text-slate-200/90 hover:text-white"
               onClick={async () => {
-                await fetch("/api/clearSelectedMovie", { method: "POST" });
+                await fetch("/api/movies", { method: "DELETE" });
                 window.location.href = "/screenings";
               }}
             >
@@ -122,7 +122,7 @@ export default function ScreeningsPage() {
                 <Link className="text-slate-200/90" href="/profile">
                   Hello, {name}!
                 </Link>
-                <button onClick={handleLogout}>
+                <button className="cursor-pointer" onClick={handleLogout}>
                   <LogOut size={22} />
                 </button>
               </div>
@@ -172,7 +172,7 @@ export default function ScreeningsPage() {
 
                 <div className="mt-4 flex gap-2">
                   <button
-                    className="rounded bg-white/10 px-3 py-1 text-xs transition hover:bg-blue-500/30"
+                    className="rounded bg-white/10 px-3 py-1 text-xs transition hover:bg-blue-500/30 cursor-pointer"
                     onClick={() => openScreening(s.id)}
                   >
                     {new Date(s.start).toLocaleString("hu-HU", {
@@ -223,7 +223,7 @@ export default function ScreeningsPage() {
                         />
 
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="flex items-center gap-2 rounded-full bg-black/70 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:scale-105">
+                          <div className="flex items-center gap-2 rounded-full bg-black/70 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:scale-105 cursor-pointer">
                             <Play className="fill-white" size={18} />
                             Watch trailer
                           </div>

@@ -29,7 +29,7 @@ export default function MoviesPage() {
     
       useEffect(() => {
         const load = async () => {
-          const userRes = await fetch("/api/activeUser", { cache: "no-store" });
+          const userRes = await fetch("/api/auth", { cache: "no-store" });
       
           if (userRes.status === 200) {
             const user = await userRes.json();
@@ -46,7 +46,7 @@ export default function MoviesPage() {
     
     
       const handleLogout = async () => {
-      await fetch("/api/logout", { method: "POST" });
+      await fetch("/api/auth", { method: "DELETE" });
     
       setUserName("");
       setShowLogin(false);
@@ -57,7 +57,7 @@ export default function MoviesPage() {
     const [movies, setMovies] = useState<Movie[]>([]);
 
     useEffect(() => {
-        fetch("/api/movies", { cache: "no-store" })
+        fetch("/api/movies")
         .then((res) => res.json())
         .then(setMovies);
     }, []);
@@ -89,7 +89,7 @@ export default function MoviesPage() {
               Movies
             </a>
             <a className="text-slate-200/90 hover:text-white transition" href="/screenings" onClick={async () => {
-                await fetch("/api/clearSelectedMovie", { method: "POST" });
+                await fetch("/api/movies", { method: "DELETE" });
               }}>
               Screenings
             </a>
@@ -165,8 +165,9 @@ export default function MoviesPage() {
                     <div className="flex justify-end gap-2">
 
                     <button className="rounded bg-blue-500 px-3 py-1 text-xs text-white hover:bg-blue-600  w-30 h-8 cursor-pointer" onClick={async () => {
-                      await fetch("/api/setSelectedMovie", {
+                      await fetch("/api/movies", {
                           method: "POST",
+                          headers: { "Content-Type": "application/json" },
                           body: JSON.stringify({ movieId: movie.id }),
                         });
                         router.push("/screenings");

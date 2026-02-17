@@ -13,7 +13,6 @@ export async function sendTicketEmail(data: TicketEmailData) {
 
   if (!tickets || tickets.length === 0) return;
 
-  // ⭐⭐ EZ A LÉNYEG ⭐⭐
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,

@@ -15,7 +15,7 @@ export default function HomePage() {
 
   useEffect(() => {
   const load = async () => {
-    const userRes = await fetch("/api/activeUser", { cache: "no-store" });
+    const userRes = await fetch("/api/auth", { cache: "no-store" });
 
     if (userRes.status === 200) {
       const user = await userRes.json();
@@ -32,7 +32,7 @@ export default function HomePage() {
 
 
 const handleLogout = async () => {
-  await fetch("/api/logout", { method: "POST" });
+  await fetch("/api/auth", { method: "DELETE" });
 
   setUserName("");
   setShowLogin(false);
@@ -68,7 +68,7 @@ const handleLogout = async () => {
               Movies
             </a>
             <a className="text-slate-200/90 hover:text-white transition" href="/screenings" onClick={async () => {
-                await fetch("/api/clearSelectedMovie", { method: "POST" });
+                await fetch("/api/movies", { method: "DELETE" });
               }}>
               Screenings
             </a>

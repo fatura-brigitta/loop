@@ -23,7 +23,7 @@ export default function PaymentPage() {
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await fetch("/api/payment/session", {
+        const res = await fetch("/api/payment?action=session", {
           credentials: "include",
           cache: "no-store",
         });
@@ -53,7 +53,7 @@ export default function PaymentPage() {
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    const res = await fetch("/api/payment/confirm", {
+    const res = await fetch("/api/payment?action=confirm", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

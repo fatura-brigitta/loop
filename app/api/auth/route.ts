@@ -1,12 +1,15 @@
 export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
+import { generate4DigitCode, codeExpiry } from "@/lib/emailVerification";
+import { sendVerificationEmail } from "@/lib/sendVerificationEmail";
 
 /**
  * GET /api/auth
- * -> active user (cookie: userId)
+ * -> aktív felhasználó (cookie: userId)
  */
 export async function GET() {
   try {
@@ -14,7 +17,10 @@ export async function GET() {
     const userId = cookieStore.get("userId")?.value;
 
     if (!userId) {
-      return NextResponse.json({ message: "Nem vagy bejelentkezve" }, { status: 401 });
+      return NextResponse.json(
+        { message: "Nem vagy bejelentkezve" },
+        { status: 401 }
+      );
     }
 
     const user = await prisma.user.findUnique({
@@ -23,7 +29,10 @@ export async function GET() {
     });
 
     if (!user) {
-      return NextResponse.json({ message: "Érvénytelen felhasználói azonosító" }, { status: 401 });
+      return NextResponse.json(
+        { message: "Érvénytelen felhasználói azonosító" },
+        { status: 401 }
+      );
     }
 
     return NextResponse.json(user);
@@ -35,7 +44,7 @@ export async function GET() {
 
 /**
  * POST /api/auth
- * -> login
+ * -> LOGIN
  */
 export async function POST(req: NextRequest) {
   try {
@@ -50,7 +59,12 @@ export async function POST(req: NextRequest) {
 
     const user = await prisma.user.findUnique({
       where: { email },
-      select: { id: true, name: true, password_hash: true },
+      select: {
+        id: true,
+        name: true,
+        password_hash: true,
+        email_verified: true,
+      },
     });
 
     if (!user) {
@@ -60,7 +74,19 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    if (!user.email_verified) {
+      return NextResponse.json(
+        {
+          message: "Az email címed még nincs megerősítve!",
+          needsVerification: true,
+          email,
+        },
+        { status: 403 }
+      );
+    }
+
     const ok = await bcrypt.compare(password, user.password_hash);
+
     if (!ok) {
       return NextResponse.json(
         { message: "Érvénytelen email vagy jelszó" },
@@ -85,15 +111,23 @@ export async function POST(req: NextRequest) {
 
 /**
  * PUT /api/auth
- * -> register
+ * -> REGISZTRÁCIÓ + EMAIL KÓD KÜLDÉS
  */
 export async function PUT(req: NextRequest) {
   try {
-    const { name, email, phone_number, birth_date, password } = await req.json();
+    const { name, email, password } = await req.json();
 
-    if (!name || !email || !phone_number || !birth_date || !password) {
+    if (!name || !email || !password) {
       return NextResponse.json(
         { message: "Hiányzó kötelező mezők" },
+        { status: 400 }
+      );
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { message: "Érvénytelen email formátum" },
         { status: 400 }
       );
     }
@@ -103,36 +137,89 @@ export async function PUT(req: NextRequest) {
     });
 
     if (exists) {
+      if (!exists.email_verified) {
+        const code = generate4DigitCode();
+
+        await prisma.user.update({
+          where: { id: exists.id },
+          data: {
+            email_code: code,
+            email_code_exp: codeExpiry(10),
+          },
+        });
+
+        await sendVerificationEmail(exists.email, exists.name, code);
+
+        return NextResponse.json({
+          ok: true,
+          needsVerification: true,
+          email: exists.email,
+        });
+      }
+
       return NextResponse.json(
-        { message: "A felhasználó már létezik" },
+        { message: "Ezzel az email címmel már van fiók. Jelentkezz be!" },
         { status: 409 }
+      );
+    }
+
+    if (password.length < 5) {
+      return NextResponse.json(
+        { message: "A jelszó túl rövid" },
+        { status: 400 }
       );
     }
 
     const password_hash = await bcrypt.hash(password, 10);
 
-    await prisma.user.create({
+    const newUser = await prisma.user.create({
       data: {
         name,
         email,
-        phone_number,
-        birth_date: new Date(birth_date),
         password_hash,
         points: 0,
         rank_id: "aa0000000000000000000001",
+        email_verified: false,
       },
     });
 
-    return NextResponse.json({ ok: true }, { status: 201 });
-  } catch (err) {
+    const code = generate4DigitCode();
+
+    await prisma.user.update({
+      where: { id: newUser.id },
+      data: {
+        email_code: code,
+        email_code_exp: codeExpiry(10),
+      },
+    });
+
+    await sendVerificationEmail(newUser.email, newUser.name, code);
+
+    return NextResponse.json(
+      {
+        ok: true,
+        needsVerification: true,
+        email: newUser.email,
+      },
+      { status: 201 }
+    );
+  } catch (err: any) {
     console.error("AUTH PUT (REGISTER) ERROR:", err);
+
+    if (err.code === "P2002") {
+      return NextResponse.json(
+        { message: "Ez az email cím már regisztrálva van!" },
+        { status: 409 }
+      );
+    }
+
     return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
   }
 }
 
 /**
  * DELETE /api/auth
- * -> logout
+ * -> LOGOUT
  */
 export async function DELETE() {
   try {

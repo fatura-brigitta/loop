@@ -56,14 +56,19 @@ model Screening {
 }
 
 model User {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
   name          String
-  email         String   @unique
+  email         String @unique
   password_hash String
-  phone_number  String   @unique
-  birth_date    DateTime
   points        Int
-  rank_id       String   @db.ObjectId
+
+  email_verified Boolean   @default(false)
+  email_code     String?
+  email_code_exp DateTime?
+
+  password_reset_token String?
+  password_reset_exp   DateTime?
+  rank_id              String    @db.ObjectId
 
   ranks Rank? @relation(fields: [rank_id], references: [id], onDelete: Cascade)
 

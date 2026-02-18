@@ -5440,9 +5440,12 @@ export namespace Prisma {
     name: string | null
     email: string | null
     password_hash: string | null
-    phone_number: string | null
-    birth_date: Date | null
     points: number | null
+    email_verified: boolean | null
+    email_code: string | null
+    email_code_exp: Date | null
+    password_reset_token: string | null
+    password_reset_exp: Date | null
     rank_id: string | null
   }
 
@@ -5451,9 +5454,12 @@ export namespace Prisma {
     name: string | null
     email: string | null
     password_hash: string | null
-    phone_number: string | null
-    birth_date: Date | null
     points: number | null
+    email_verified: boolean | null
+    email_code: string | null
+    email_code_exp: Date | null
+    password_reset_token: string | null
+    password_reset_exp: Date | null
     rank_id: string | null
   }
 
@@ -5462,9 +5468,12 @@ export namespace Prisma {
     name: number
     email: number
     password_hash: number
-    phone_number: number
-    birth_date: number
     points: number
+    email_verified: number
+    email_code: number
+    email_code_exp: number
+    password_reset_token: number
+    password_reset_exp: number
     rank_id: number
     _all: number
   }
@@ -5483,9 +5492,12 @@ export namespace Prisma {
     name?: true
     email?: true
     password_hash?: true
-    phone_number?: true
-    birth_date?: true
     points?: true
+    email_verified?: true
+    email_code?: true
+    email_code_exp?: true
+    password_reset_token?: true
+    password_reset_exp?: true
     rank_id?: true
   }
 
@@ -5494,9 +5506,12 @@ export namespace Prisma {
     name?: true
     email?: true
     password_hash?: true
-    phone_number?: true
-    birth_date?: true
     points?: true
+    email_verified?: true
+    email_code?: true
+    email_code_exp?: true
+    password_reset_token?: true
+    password_reset_exp?: true
     rank_id?: true
   }
 
@@ -5505,9 +5520,12 @@ export namespace Prisma {
     name?: true
     email?: true
     password_hash?: true
-    phone_number?: true
-    birth_date?: true
     points?: true
+    email_verified?: true
+    email_code?: true
+    email_code_exp?: true
+    password_reset_token?: true
+    password_reset_exp?: true
     rank_id?: true
     _all?: true
   }
@@ -5603,9 +5621,12 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    phone_number: string
-    birth_date: Date
     points: number
+    email_verified: boolean
+    email_code: string | null
+    email_code_exp: Date | null
+    password_reset_token: string | null
+    password_reset_exp: Date | null
     rank_id: string
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
@@ -5633,9 +5654,12 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     password_hash?: boolean
-    phone_number?: boolean
-    birth_date?: boolean
     points?: boolean
+    email_verified?: boolean
+    email_code?: boolean
+    email_code_exp?: boolean
+    password_reset_token?: boolean
+    password_reset_exp?: boolean
     rank_id?: boolean
     ranks?: boolean | User$ranksArgs<ExtArgs>
     tickets?: boolean | User$ticketsArgs<ExtArgs>
@@ -5651,13 +5675,16 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     password_hash?: boolean
-    phone_number?: boolean
-    birth_date?: boolean
     points?: boolean
+    email_verified?: boolean
+    email_code?: boolean
+    email_code_exp?: boolean
+    password_reset_token?: boolean
+    password_reset_exp?: boolean
     rank_id?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password_hash" | "phone_number" | "birth_date" | "points" | "rank_id", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password_hash" | "points" | "email_verified" | "email_code" | "email_code_exp" | "password_reset_token" | "password_reset_exp" | "rank_id", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ranks?: boolean | User$ranksArgs<ExtArgs>
     tickets?: boolean | User$ticketsArgs<ExtArgs>
@@ -5679,9 +5706,12 @@ export namespace Prisma {
       name: string
       email: string
       password_hash: string
-      phone_number: string
-      birth_date: Date
       points: number
+      email_verified: boolean
+      email_code: string | null
+      email_code_exp: Date | null
+      password_reset_token: string | null
+      password_reset_exp: Date | null
       rank_id: string
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -6083,9 +6113,12 @@ export namespace Prisma {
     readonly name: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly password_hash: FieldRef<"User", 'String'>
-    readonly phone_number: FieldRef<"User", 'String'>
-    readonly birth_date: FieldRef<"User", 'DateTime'>
     readonly points: FieldRef<"User", 'Int'>
+    readonly email_verified: FieldRef<"User", 'Boolean'>
+    readonly email_code: FieldRef<"User", 'String'>
+    readonly email_code_exp: FieldRef<"User", 'DateTime'>
+    readonly password_reset_token: FieldRef<"User", 'String'>
+    readonly password_reset_exp: FieldRef<"User", 'DateTime'>
     readonly rank_id: FieldRef<"User", 'String'>
   }
     
@@ -16133,9 +16166,12 @@ export namespace Prisma {
     name: 'name',
     email: 'email',
     password_hash: 'password_hash',
-    phone_number: 'phone_number',
-    birth_date: 'birth_date',
     points: 'points',
+    email_verified: 'email_verified',
+    email_code: 'email_code',
+    email_code_exp: 'email_code_exp',
+    password_reset_token: 'password_reset_token',
+    password_reset_exp: 'password_reset_exp',
     rank_id: 'rank_id'
   };
 
@@ -16552,9 +16588,12 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     password_hash?: StringFilter<"User"> | string
-    phone_number?: StringFilter<"User"> | string
-    birth_date?: DateTimeFilter<"User"> | Date | string
     points?: IntFilter<"User"> | number
+    email_verified?: BoolFilter<"User"> | boolean
+    email_code?: StringNullableFilter<"User"> | string | null
+    email_code_exp?: DateTimeNullableFilter<"User"> | Date | string | null
+    password_reset_token?: StringNullableFilter<"User"> | string | null
+    password_reset_exp?: DateTimeNullableFilter<"User"> | Date | string | null
     rank_id?: StringFilter<"User"> | string
     ranks?: XOR<RankNullableScalarRelationFilter, RankWhereInput> | null
     tickets?: TicketListRelationFilter
@@ -16567,9 +16606,12 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password_hash?: SortOrder
-    phone_number?: SortOrder
-    birth_date?: SortOrder
     points?: SortOrder
+    email_verified?: SortOrder
+    email_code?: SortOrder
+    email_code_exp?: SortOrder
+    password_reset_token?: SortOrder
+    password_reset_exp?: SortOrder
     rank_id?: SortOrder
     ranks?: RankOrderByWithRelationInput
     tickets?: TicketOrderByRelationAggregateInput
@@ -16580,29 +16622,35 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
-    phone_number?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
     password_hash?: StringFilter<"User"> | string
-    birth_date?: DateTimeFilter<"User"> | Date | string
     points?: IntFilter<"User"> | number
+    email_verified?: BoolFilter<"User"> | boolean
+    email_code?: StringNullableFilter<"User"> | string | null
+    email_code_exp?: DateTimeNullableFilter<"User"> | Date | string | null
+    password_reset_token?: StringNullableFilter<"User"> | string | null
+    password_reset_exp?: DateTimeNullableFilter<"User"> | Date | string | null
     rank_id?: StringFilter<"User"> | string
     ranks?: XOR<RankNullableScalarRelationFilter, RankWhereInput> | null
     tickets?: TicketListRelationFilter
     forum?: ForumListRelationFilter
     payment_sessions?: Payment_sessionListRelationFilter
-  }, "id" | "email" | "phone_number">
+  }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
     password_hash?: SortOrder
-    phone_number?: SortOrder
-    birth_date?: SortOrder
     points?: SortOrder
+    email_verified?: SortOrder
+    email_code?: SortOrder
+    email_code_exp?: SortOrder
+    password_reset_token?: SortOrder
+    password_reset_exp?: SortOrder
     rank_id?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
@@ -16619,9 +16667,12 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     password_hash?: StringWithAggregatesFilter<"User"> | string
-    phone_number?: StringWithAggregatesFilter<"User"> | string
-    birth_date?: DateTimeWithAggregatesFilter<"User"> | Date | string
     points?: IntWithAggregatesFilter<"User"> | number
+    email_verified?: BoolWithAggregatesFilter<"User"> | boolean
+    email_code?: StringNullableWithAggregatesFilter<"User"> | string | null
+    email_code_exp?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    password_reset_token?: StringNullableWithAggregatesFilter<"User"> | string | null
+    password_reset_exp?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     rank_id?: StringWithAggregatesFilter<"User"> | string
   }
 
@@ -17386,9 +17437,12 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    phone_number: string
-    birth_date: Date | string
     points: number
+    email_verified?: boolean
+    email_code?: string | null
+    email_code_exp?: Date | string | null
+    password_reset_token?: string | null
+    password_reset_exp?: Date | string | null
     ranks?: RankCreateNestedOneWithoutUsersInput
     tickets?: TicketCreateNestedManyWithoutUsersInput
     forum?: ForumCreateNestedManyWithoutUsersInput
@@ -17400,9 +17454,12 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    phone_number: string
-    birth_date: Date | string
     points: number
+    email_verified?: boolean
+    email_code?: string | null
+    email_code_exp?: Date | string | null
+    password_reset_token?: string | null
+    password_reset_exp?: Date | string | null
     rank_id: string
     tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
     forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
@@ -17413,9 +17470,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    phone_number?: StringFieldUpdateOperationsInput | string
-    birth_date?: DateTimeFieldUpdateOperationsInput | Date | string
     points?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    email_code?: NullableStringFieldUpdateOperationsInput | string | null
+    email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ranks?: RankUpdateOneWithoutUsersNestedInput
     tickets?: TicketUpdateManyWithoutUsersNestedInput
     forum?: ForumUpdateManyWithoutUsersNestedInput
@@ -17426,9 +17486,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    phone_number?: StringFieldUpdateOperationsInput | string
-    birth_date?: DateTimeFieldUpdateOperationsInput | Date | string
     points?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    email_code?: NullableStringFieldUpdateOperationsInput | string | null
+    email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     rank_id?: StringFieldUpdateOperationsInput | string
     tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
     forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
@@ -17440,9 +17503,12 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    phone_number: string
-    birth_date: Date | string
     points: number
+    email_verified?: boolean
+    email_code?: string | null
+    email_code_exp?: Date | string | null
+    password_reset_token?: string | null
+    password_reset_exp?: Date | string | null
     rank_id: string
   }
 
@@ -17450,18 +17516,24 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    phone_number?: StringFieldUpdateOperationsInput | string
-    birth_date?: DateTimeFieldUpdateOperationsInput | Date | string
     points?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    email_code?: NullableStringFieldUpdateOperationsInput | string | null
+    email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    phone_number?: StringFieldUpdateOperationsInput | string
-    birth_date?: DateTimeFieldUpdateOperationsInput | Date | string
     points?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    email_code?: NullableStringFieldUpdateOperationsInput | string | null
+    email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     rank_id?: StringFieldUpdateOperationsInput | string
   }
 
@@ -18274,6 +18346,18 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+    isSet?: boolean
+  }
+
   export type RankNullableScalarRelationFilter = {
     is?: RankWhereInput | null
     isNot?: RankWhereInput | null
@@ -18284,9 +18368,12 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password_hash?: SortOrder
-    phone_number?: SortOrder
-    birth_date?: SortOrder
     points?: SortOrder
+    email_verified?: SortOrder
+    email_code?: SortOrder
+    email_code_exp?: SortOrder
+    password_reset_token?: SortOrder
+    password_reset_exp?: SortOrder
     rank_id?: SortOrder
   }
 
@@ -18299,9 +18386,12 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password_hash?: SortOrder
-    phone_number?: SortOrder
-    birth_date?: SortOrder
     points?: SortOrder
+    email_verified?: SortOrder
+    email_code?: SortOrder
+    email_code_exp?: SortOrder
+    password_reset_token?: SortOrder
+    password_reset_exp?: SortOrder
     rank_id?: SortOrder
   }
 
@@ -18310,14 +18400,32 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password_hash?: SortOrder
-    phone_number?: SortOrder
-    birth_date?: SortOrder
     points?: SortOrder
+    email_verified?: SortOrder
+    email_code?: SortOrder
+    email_code_exp?: SortOrder
+    password_reset_token?: SortOrder
+    password_reset_exp?: SortOrder
     rank_id?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
     points?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type ChairCountOrderByAggregateInput = {
@@ -18537,18 +18645,6 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-    isSet?: boolean
-  }
-
   export type Ticket_typeNullableScalarRelationFilter = {
     is?: Ticket_typeWhereInput | null
     isNot?: Ticket_typeWhereInput | null
@@ -18606,21 +18702,6 @@ export namespace Prisma {
 
   export type TicketSumOrderByAggregateInput = {
     price?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-    isSet?: boolean
   }
 
   export type Ticket_typeCountOrderByAggregateInput = {
@@ -19036,6 +19117,11 @@ export namespace Prisma {
     connect?: Payment_sessionWhereUniqueInput | Payment_sessionWhereUniqueInput[]
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+    unset?: boolean
+  }
+
   export type RankUpdateOneWithoutUsersNestedInput = {
     create?: XOR<RankCreateWithoutUsersInput, RankUncheckedCreateWithoutUsersInput>
     connectOrCreate?: RankCreateOrConnectWithoutUsersInput
@@ -19440,11 +19526,6 @@ export namespace Prisma {
     create?: XOR<ChairCreateWithoutTicketsInput, ChairUncheckedCreateWithoutTicketsInput>
     connectOrCreate?: ChairCreateOrConnectWithoutTicketsInput
     connect?: ChairWhereUniqueInput
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
-    unset?: boolean
   }
 
   export type Ticket_typeUpdateOneWithoutTicketsNestedInput = {
@@ -19890,22 +19971,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
-  }
-
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -19931,6 +19996,22 @@ export namespace Prisma {
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
     isSet?: boolean
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -20627,9 +20708,12 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    phone_number: string
-    birth_date: Date | string
     points: number
+    email_verified?: boolean
+    email_code?: string | null
+    email_code_exp?: Date | string | null
+    password_reset_token?: string | null
+    password_reset_exp?: Date | string | null
     tickets?: TicketCreateNestedManyWithoutUsersInput
     forum?: ForumCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionCreateNestedManyWithoutUsersInput
@@ -20640,9 +20724,12 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    phone_number: string
-    birth_date: Date | string
     points: number
+    email_verified?: boolean
+    email_code?: string | null
+    email_code_exp?: Date | string | null
+    password_reset_token?: string | null
+    password_reset_exp?: Date | string | null
     tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
     forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionUncheckedCreateNestedManyWithoutUsersInput
@@ -20704,9 +20791,12 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     password_hash?: StringFilter<"User"> | string
-    phone_number?: StringFilter<"User"> | string
-    birth_date?: DateTimeFilter<"User"> | Date | string
     points?: IntFilter<"User"> | number
+    email_verified?: BoolFilter<"User"> | boolean
+    email_code?: StringNullableFilter<"User"> | string | null
+    email_code_exp?: DateTimeNullableFilter<"User"> | Date | string | null
+    password_reset_token?: StringNullableFilter<"User"> | string | null
+    password_reset_exp?: DateTimeNullableFilter<"User"> | Date | string | null
     rank_id?: StringFilter<"User"> | string
   }
 
@@ -20864,9 +20954,12 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    phone_number: string
-    birth_date: Date | string
     points: number
+    email_verified?: boolean
+    email_code?: string | null
+    email_code_exp?: Date | string | null
+    password_reset_token?: string | null
+    password_reset_exp?: Date | string | null
     ranks?: RankCreateNestedOneWithoutUsersInput
     tickets?: TicketCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionCreateNestedManyWithoutUsersInput
@@ -20877,9 +20970,12 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    phone_number: string
-    birth_date: Date | string
     points: number
+    email_verified?: boolean
+    email_code?: string | null
+    email_code_exp?: Date | string | null
+    password_reset_token?: string | null
+    password_reset_exp?: Date | string | null
     rank_id: string
     tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionUncheckedCreateNestedManyWithoutUsersInput
@@ -20942,9 +21038,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    phone_number?: StringFieldUpdateOperationsInput | string
-    birth_date?: DateTimeFieldUpdateOperationsInput | Date | string
     points?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    email_code?: NullableStringFieldUpdateOperationsInput | string | null
+    email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ranks?: RankUpdateOneWithoutUsersNestedInput
     tickets?: TicketUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUpdateManyWithoutUsersNestedInput
@@ -20954,9 +21053,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    phone_number?: StringFieldUpdateOperationsInput | string
-    birth_date?: DateTimeFieldUpdateOperationsInput | Date | string
     points?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    email_code?: NullableStringFieldUpdateOperationsInput | string | null
+    email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     rank_id?: StringFieldUpdateOperationsInput | string
     tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUncheckedUpdateManyWithoutUsersNestedInput
@@ -21071,9 +21173,12 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    phone_number: string
-    birth_date: Date | string
     points: number
+    email_verified?: boolean
+    email_code?: string | null
+    email_code_exp?: Date | string | null
+    password_reset_token?: string | null
+    password_reset_exp?: Date | string | null
     ranks?: RankCreateNestedOneWithoutUsersInput
     forum?: ForumCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionCreateNestedManyWithoutUsersInput
@@ -21084,9 +21189,12 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    phone_number: string
-    birth_date: Date | string
     points: number
+    email_verified?: boolean
+    email_code?: string | null
+    email_code_exp?: Date | string | null
+    password_reset_token?: string | null
+    password_reset_exp?: Date | string | null
     rank_id: string
     forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionUncheckedCreateNestedManyWithoutUsersInput
@@ -21208,9 +21316,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    phone_number?: StringFieldUpdateOperationsInput | string
-    birth_date?: DateTimeFieldUpdateOperationsInput | Date | string
     points?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    email_code?: NullableStringFieldUpdateOperationsInput | string | null
+    email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ranks?: RankUpdateOneWithoutUsersNestedInput
     forum?: ForumUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUpdateManyWithoutUsersNestedInput
@@ -21220,9 +21331,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    phone_number?: StringFieldUpdateOperationsInput | string
-    birth_date?: DateTimeFieldUpdateOperationsInput | Date | string
     points?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    email_code?: NullableStringFieldUpdateOperationsInput | string | null
+    email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     rank_id?: StringFieldUpdateOperationsInput | string
     forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUncheckedUpdateManyWithoutUsersNestedInput
@@ -21459,9 +21573,12 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    phone_number: string
-    birth_date: Date | string
     points: number
+    email_verified?: boolean
+    email_code?: string | null
+    email_code_exp?: Date | string | null
+    password_reset_token?: string | null
+    password_reset_exp?: Date | string | null
     ranks?: RankCreateNestedOneWithoutUsersInput
     tickets?: TicketCreateNestedManyWithoutUsersInput
     forum?: ForumCreateNestedManyWithoutUsersInput
@@ -21472,9 +21589,12 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    phone_number: string
-    birth_date: Date | string
     points: number
+    email_verified?: boolean
+    email_code?: string | null
+    email_code_exp?: Date | string | null
+    password_reset_token?: string | null
+    password_reset_exp?: Date | string | null
     rank_id: string
     tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
     forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
@@ -21548,9 +21668,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    phone_number?: StringFieldUpdateOperationsInput | string
-    birth_date?: DateTimeFieldUpdateOperationsInput | Date | string
     points?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    email_code?: NullableStringFieldUpdateOperationsInput | string | null
+    email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ranks?: RankUpdateOneWithoutUsersNestedInput
     tickets?: TicketUpdateManyWithoutUsersNestedInput
     forum?: ForumUpdateManyWithoutUsersNestedInput
@@ -21560,9 +21683,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    phone_number?: StringFieldUpdateOperationsInput | string
-    birth_date?: DateTimeFieldUpdateOperationsInput | Date | string
     points?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    email_code?: NullableStringFieldUpdateOperationsInput | string | null
+    email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     rank_id?: StringFieldUpdateOperationsInput | string
     tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
     forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
@@ -21874,18 +22000,24 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    phone_number: string
-    birth_date: Date | string
     points: number
+    email_verified?: boolean
+    email_code?: string | null
+    email_code_exp?: Date | string | null
+    password_reset_token?: string | null
+    password_reset_exp?: Date | string | null
   }
 
   export type UserUpdateWithoutRanksInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    phone_number?: StringFieldUpdateOperationsInput | string
-    birth_date?: DateTimeFieldUpdateOperationsInput | Date | string
     points?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    email_code?: NullableStringFieldUpdateOperationsInput | string | null
+    email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tickets?: TicketUpdateManyWithoutUsersNestedInput
     forum?: ForumUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUpdateManyWithoutUsersNestedInput
@@ -21895,9 +22027,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    phone_number?: StringFieldUpdateOperationsInput | string
-    birth_date?: DateTimeFieldUpdateOperationsInput | Date | string
     points?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    email_code?: NullableStringFieldUpdateOperationsInput | string | null
+    email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
     forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUncheckedUpdateManyWithoutUsersNestedInput
@@ -21907,9 +22042,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    phone_number?: StringFieldUpdateOperationsInput | string
-    birth_date?: DateTimeFieldUpdateOperationsInput | Date | string
     points?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    email_code?: NullableStringFieldUpdateOperationsInput | string | null
+    email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type RankCreateManyDiscountInput = {

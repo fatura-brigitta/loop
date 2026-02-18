@@ -11,15 +11,12 @@ export default function RegisterPage() {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone_number, setPhoneNumber] = useState("");
-  const [birth_date, setBirthDate] = useState("");
   const [password, setPassword] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  /* hiba eltűnik 5 mp után */
   useEffect(() => {
     if (!error) return;
     const t = setTimeout(() => setError(""), 5000);
@@ -27,22 +24,12 @@ export default function RegisterPage() {
   }, [error]);
 
   const validate = () => {
-    if (!name || !email || !phone_number || !birth_date || !password) {
+    if (!name || !email || !password) {
       return "Kérjük töltse ki az összes mezőt!";
     }
 
     if (password.length < 5) {
       return "A jelszónak legalább 5 karakter hosszúnak kell lennie!";
-    }
-
-    const age = new Date().getFullYear() - new Date(birth_date).getFullYear();
-
-    if (age < 3) {
-      return "Biztos vagy a születési dátumodban? 🤔";
-    }
-
-    if(age > 150){
-      return "Biztos vagy a születési dátumodban? 🤔";
     }
 
     if (!email.includes("@")) {
@@ -71,8 +58,6 @@ export default function RegisterPage() {
         body: JSON.stringify({
           name,
           email,
-          phone_number,
-          birth_date,
           password,
         }),
       });
@@ -80,14 +65,21 @@ export default function RegisterPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.message || "Registration failed");
+        setError(data.message || "Hiba történt a regisztráció során");
         setLoading(false);
         return;
       }
 
+      if (data.needsVerification) {
+        router.push(`/verify-email?email=${encodeURIComponent(data.email)}`);
+        return;
+      }
+
+      router.push("/login");
+
       router.push("/login");
     } catch {
-      setError("Network error occurred");
+      setError("Szerver hiba, próbáld újra később!");
       setLoading(false);
     }
   };
@@ -146,27 +138,6 @@ export default function RegisterPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <label className="text-sm text-white/60">Telefonszám</label>
-              <input
-                className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white transition outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
-                placeholder="+36 30 123 4567"
-                type="text"
-                value={phone_number}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <label className="text-sm text-white/60">Születési dátum</label>
-              <input
-                className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white transition outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
-                type="date"
-                value={birth_date}
-                onChange={(e) => setBirthDate(e.target.value)}
               />
             </div>
 

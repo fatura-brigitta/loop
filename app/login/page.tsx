@@ -37,12 +37,21 @@ export default function LoginPage() {
       const res = await fetch("/api/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({
+          email: email.trim().toLowerCase(),
+          password,
+        }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
+
+        if (data.needsVerification) {
+          router.push(`/verify-email?email=${encodeURIComponent(data.email)}`);
+          return;
+        }
+
         setError(data.message || "Érvénytelen email vagy jelszó");
         setLoading(false);
         return;
@@ -50,6 +59,7 @@ export default function LoginPage() {
 
       router.push("/");
       router.refresh();
+
     } catch {
       setError("Hiba történt a bejelentkezés során. Kérem próbálja újra.");
       setLoading(false);
@@ -62,7 +72,9 @@ export default function LoginPage() {
         <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
           <Link className="flex items-center gap-2" href="/">
             <Image alt="Logo" height={28} src="/favicon.ico" width={28} />
-            <span className="text-lg font-extrabold tracking-wide text-cyan-300">Loop</span>
+            <span className="text-lg font-extrabold tracking-wide text-cyan-300">
+              Loop
+            </span>
           </Link>
 
           <nav className="flex items-center gap-5 text-sm">
@@ -78,9 +90,9 @@ export default function LoginPage() {
 
             <Link
               className="ml-2 rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
-              href="/login"
+              href="/register"
             >
-              Bejelentkezés
+              Regisztráció
             </Link>
           </nav>
         </div>
@@ -88,14 +100,17 @@ export default function LoginPage() {
 
       <div className="flex items-center justify-center py-20">
         <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur">
-          <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Bejelentkezés</h1>
+
+          <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">
+            Bejelentkezés
+          </h1>
 
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
               <label className="text-sm text-white/60">Email</label>
               <input
                 className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white transition outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
-                placeholder="johndoe@example.com"
+                placeholder="email@valami.hu"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -108,7 +123,7 @@ export default function LoginPage() {
               <div className="relative mt-2">
                 <input
                   className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 pr-11 text-white transition outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
-                  placeholder="JohnDoe123"
+                  placeholder="••••••••"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -122,6 +137,15 @@ export default function LoginPage() {
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
+
+              <div className="mt-2 text-right text-sm">
+                <Link
+                  href="/forgot-password"
+                  className="text-cyan-300 hover:underline"
+                >
+                  Elfelejtetted a jelszavad?
+                </Link>
+              </div>
             </div>
 
             {error && (
@@ -131,12 +155,12 @@ export default function LoginPage() {
             )}
 
             <button
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-white transition hover:bg-cyan-500 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+              className="flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-white transition hover:bg-cyan-500 disabled:opacity-50"
               disabled={loading}
               type="submit"
             >
               <LogIn size={18} />
-              {loading ? "Bejelentkezés folyamatban..." : "Bejelentkezés"}
+              {loading ? "Bejelentkezés..." : "Bejelentkezés"}
             </button>
           </form>
 

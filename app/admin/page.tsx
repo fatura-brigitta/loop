@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import Timeline from "./Timeline";
 import { LogOut, Film, Calendar, MessageSquare, Building2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
@@ -76,18 +77,8 @@ export default function AdminPage() {
 
   const [err, setErr] = useState<string>("");
 
-  // forms
-  const [mTitle, setMTitle] = useState("");
-  const [mPlaytime, setMPlaytime] = useState<number>(120);
-  const [mOnscreen, setMOnscreen] = useState<boolean>(true);
-
-  const [hName, setHName] = useState("");
-  const [hRow, setHRow] = useState<number>(5);
-  const [hCol, setHCol] = useState<number>(8);
-
   const [sMovieId, setSMovieId] = useState<string>("");
   const [sHallId, setSHallId] = useState<string>("");
-  const [sStartLocal, setSStartLocal] = useState<string>("");
 
   const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -95,12 +86,12 @@ export default function AdminPage() {
     title: "",
     director: "",
     actors: "",
-    playtime: 0,
+    playtime: "",
     language: "",
     trailer: "",
     poster: "",
     genre: "",
-    review: 0,
+    review: "",
     description: "",
     onscreen: false,
   });
@@ -111,12 +102,12 @@ export default function AdminPage() {
       title: "",
       director: "",
       actors: "",
-      playtime: 0,
+      playtime: "",
       language: "",
       trailer: "",
       poster: "",
       genre: "",
-      review: 0,
+      review: "",
       description: "",
       onscreen: false,
     });
@@ -130,16 +121,16 @@ export default function AdminPage() {
   const [hallEditingId, setHallEditingId] = useState<string | null>(null);
   const [hallForm, setHallForm] = useState({
     name: "",
-    row: 0,
-    column: 0,
+    row: "",
+    column: "",
   });
 
   function resetHallForm() {
     setHallEditingId(null);
     setHallForm({
       name: "",
-      row: 0,
-      column: 0,
+      row: "",
+      column: "",
     });
   }
 
@@ -147,8 +138,42 @@ export default function AdminPage() {
     movie_id: "",
     hall_id: "",
     screening_type_id: "",
-    start: "",
+    startTime: "",
   });
+
+
+  const [selectedDate, setSelectedDate] = useState(
+    new Date().toISOString().slice(0, 10)
+  );
+
+  const [dayHallScreenings, setDayHallScreenings] = useState<Screening[]>([]);
+
+  async function loadScheduleDay() {
+  if (!selectedDate || !screeningForm.hall_id) {
+    setDayHallScreenings([]);
+    return;
+  }
+
+  try {
+      const res = await fetch(`/api/adminSchedule?date=${selectedDate}`);
+      const data = await res.json();
+
+      const hallOnly = (data.screenings as Screening[]).filter(
+        (s) => s.halls?.id === screeningForm.hall_id
+      );
+
+      setDayHallScreenings(hallOnly);
+    } catch (e: any) {
+      // timeline ne ölje meg az oldalt
+      setDayHallScreenings([]);
+    }
+  }
+
+  useEffect(() => {
+    loadScheduleDay();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedDate, screeningForm.hall_id, tab]);
+
 
   const handleLogout = async () => {
     await fetch("/api/adminLogout", { method: "POST" });
@@ -183,16 +208,6 @@ export default function AdminPage() {
     if (!sMovieId && movies.length) setSMovieId(movies[0].id);
     if (!sHallId && halls.length) setSHallId(halls[0].id);
   }, [movies, halls, sMovieId, sHallId]);
-
-  const selectedMovie = useMemo(
-    () => movies.find(m => m.id === sMovieId),
-    [movies, sMovieId]
-  );
-
-  const formatDt = (iso: string) => {
-    const d = new Date(iso);
-    return d.toLocaleString();
-  };
 
   // NOTE: datetime-local -> Date
   // A böngésző helyi időt ad, JS Date ezt helyi időnek veszi -> ISO-ra alakítjuk küldés előtt.
@@ -323,7 +338,7 @@ export default function AdminPage() {
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Hossz (perc)</label>
                   <input type="number" value={movieForm.playtime}
-                    onChange={(e)=>setMovieForm({...movieForm,playtime:Number(e.target.value)})}
+                    onChange={(e)=>setMovieForm({...movieForm,playtime:e.target.value})}
                     className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
                 </div>
               </div>
@@ -356,7 +371,7 @@ export default function AdminPage() {
                   <label className="block text-sm text-slate-300 mb-1">Értékelés</label>
                   <input type="number" step="0.1"
                     value={movieForm.review ?? ""}
-                    onChange={(e)=>setMovieForm({...movieForm,review:Number(e.target.value)})}
+                    onChange={(e)=>setMovieForm({...movieForm,review:e.target.value})}
                     className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
                 </div>
               </div>
@@ -403,27 +418,37 @@ export default function AdminPage() {
                   ];
 
                   for (const key of requiredFields) {
-                    if (!movieForm[key as keyof typeof movieForm]) {
+                    const value = movieForm[key as keyof typeof movieForm];
+
+                    if (value === null || value === undefined || value === "") {
                       setErr("Az összes mező kitöltése kötelező.");
                       return;
                     }
                   }
 
                   try {
+                    const payload = {
+                      ...movieForm,
+                      playtime: Number(movieForm.playtime),
+                      review: Number(movieForm.review),
+                    };
+
                     if (editingId) {
                       await api("movies", "PUT", {
                         id: editingId,
-                        ...movieForm,
+                        ...payload,
                       });
                     } else {
-                      await api("movies", "POST", movieForm);
+                      await api("movies", "POST", payload);
                     }
 
                     resetForm();
                     await loadAll();
+
                   } catch (e: any) {
                     setErr(e.message);
                   }
+
                 }}
                 className="w-full px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30 hover:bg-emerald-500/25 transition cursor-pointer"
               >
@@ -475,12 +500,12 @@ export default function AdminPage() {
                             title: m.title ?? "",
                             director: m.director ?? "",
                             actors: m.actors ?? "",
-                            playtime: m.playtime ?? 0,
+                            playtime: String(m.playtime ?? ""),
                             language: m.language ?? "",
                             trailer: m.trailer ?? "",
                             poster: m.poster ?? "",
                             genre: m.genre ?? "",
-                            review: m.review ?? 0,
+                            review: String(m.review ?? ""),
                             description: m.description ?? "",
                             onscreen: m.onscreen ?? false,
                           });
@@ -543,7 +568,7 @@ export default function AdminPage() {
                   value={hallForm.row}
                   min={1}
                   onChange={(e) =>
-                    setHallForm({ ...hallForm, row: Number(e.target.value) })
+                    setHallForm({ ...hallForm, row: e.target.value })
                   }
                   className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20"
                 />
@@ -559,7 +584,7 @@ export default function AdminPage() {
                   value={hallForm.column}
                   min={1}
                   onChange={(e) =>
-                    setHallForm({ ...hallForm, column: Number(e.target.value) })
+                    setHallForm({ ...hallForm, column: e.target.value })
                   }
                   className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20"
                 />
@@ -572,19 +597,29 @@ export default function AdminPage() {
                 onClick={async () => {
                   setErr("");
 
-                  if (!hallForm.name || hallForm.row <= 0 || hallForm.column <= 0) {
-                    setErr("Minde mező kitöltése kötelező és érvényes értéknek kell lennie.");
+                  if (
+                    hallForm.name === "" ||
+                    hallForm.row === "" ||
+                    hallForm.column === ""
+                  ) {
+                    setErr("Minden mező kitöltése kötelező.");
                     return;
                   }
 
                   try {
+                    const payload = {
+                      name: hallForm.name,
+                      row: Number(hallForm.row),
+                      column: Number(hallForm.column),
+                    };
+
                     if (hallEditingId) {
                       await api("halls", "PUT", {
                         id: hallEditingId,
-                        ...hallForm,
+                        ...payload,
                       });
                     } else {
-                      await api("halls", "POST", hallForm);
+                      await api("halls", "POST", payload);
                     }
 
                     resetHallForm();
@@ -634,8 +669,8 @@ export default function AdminPage() {
                           setHallEditingId(h.id);
                           setHallForm({
                             name: h.name ?? "",
-                            row: h.row ?? 0,
-                            column: h.column ?? 0,
+                            row: String(h.row ?? 0),
+                            column: String(h.column ?? 0),
                           });
                         }}
                         className="px-3 py-2 rounded-lg bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500/25 transition text-sm cursor-pointer"
@@ -673,6 +708,38 @@ export default function AdminPage() {
 
               <h2 className="font-semibold mb-4">Vetítés létrehozása</h2>
 
+              {/* DAY */}
+              <div className="mb-3">
+                <label className="block text-sm text-slate-300 mb-1">Nap</label>
+                <input
+                  type="date"
+                  value={selectedDate}
+                  onChange={(e) => setSelectedDate(e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
+                />
+              </div>
+
+
+
+              {/* HALL */}
+              <div className="mb-3">
+                <label className="block text-sm text-slate-300 mb-1">
+                  Terem
+                </label>
+                <select
+                  value={screeningForm.hall_id}
+                  onChange={(e)=>setScreeningForm({...screeningForm,hall_id:e.target.value})}
+                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
+                >
+                  <option value="">...</option>
+                  {halls.map(h=>(
+                    <option key={h.id} value={h.id}>
+                      {h.name} ({h.row*h.column} seats)
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               {/* MOVIE */}
               <div className="mb-3">
                 <label className="block text-sm text-slate-300 mb-1">
@@ -690,25 +757,6 @@ export default function AdminPage() {
                       <option key={m.id} value={m.id}>
                         {m.title} ({m.playtime} min)
                       </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* HALL */}
-              <div className="mb-3">
-                <label className="block text-sm text-slate-300 mb-1">
-                  Terem
-                </label>
-                <select
-                  value={screeningForm.hall_id}
-                  onChange={(e)=>setScreeningForm({...screeningForm,hall_id:e.target.value})}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
-                >
-                  <option value="">...</option>
-                  {halls.map(h=>(
-                    <option key={h.id} value={h.id}>
-                      {h.name} ({h.row*h.column} seats)
-                    </option>
                   ))}
                 </select>
               </div>
@@ -745,11 +793,84 @@ export default function AdminPage() {
                   Vetítés kezdete
                 </label>
                 <input
-                  type="datetime-local"
-                  value={screeningForm.start}
-                  onChange={(e)=>setScreeningForm({...screeningForm,start:e.target.value})}
+                  type="time"
+                  step="900"
+                  min="10:00"
+                  max="21:45"
+                  value={screeningForm.startTime}
+                  onChange={(e)=>
+                    setScreeningForm({...screeningForm,startTime:e.target.value})
+                  }
                   className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
                 />
+
+                {/* TIMELINE */}
+                <div className="mt-5">
+                  <div className="text-sm text-slate-300 mb-2">
+                    Idővonal (a kiválasztott teremhez) — kattints egy pontra a kezdés beállításához
+                  </div>
+
+                  <Timeline
+                    date={selectedDate}
+                    screenings={dayHallScreenings}
+                    onPickStart={(localISO) =>
+                      setScreeningForm((prev) => ({ ...prev, start: localISO }))
+                    }
+                    movie={movies.find((m) => m.id === screeningForm.movie_id) || null}
+                  />
+                </div>
+
+                {(() => {
+                  const movie = movies.find((m) => m.id === screeningForm.movie_id);
+                  if (!movie || !screeningForm.startTime) return null;
+
+                  // idő összerakása nap + óra
+                  const [hour, minute] = screeningForm.startTime.split(":").map(Number);
+                  const start = new Date(selectedDate);
+                  start.setHours(hour, minute, 0, 0);
+
+                  const CLEANING = 15;
+                  const end = new Date(start.getTime() + (movie.playtime + CLEANING) * 60000);
+
+                  // mozi nyitvatartás
+                  const open = new Date(selectedDate);
+                  open.setHours(10, 0, 0, 0);
+
+                  const close = new Date(selectedDate);
+                  close.setHours(22, 0, 0, 0);
+
+                  const outsideOpening = start < open || end > close;
+
+                  // terem ütközés
+                  const conflict = dayHallScreenings.some((s) => {
+                    const sStart = new Date(s.start);
+                    const sEnd = new Date(s.end);
+                    return start < sEnd && end > sStart;
+                  });
+
+                  let text = "";
+                  let style = "";
+
+                  if (outsideOpening) {
+                    text = "A vetítés kilóg a mozi nyitvatartásából.";
+                    style = "bg-red-500/15 border-red-500/30 text-red-200";
+                  } else if (conflict) {
+                    text = "Nem fér be ide (ütközik egy meglévő vetítéssel vagy takarítással).";
+                    style = "bg-red-500/15 border-red-500/30 text-red-200";
+                  } else {
+                    text = "Be fog férni ide (film + 15 perc takarítás).";
+                    style = "bg-emerald-500/15 border-emerald-500/30 text-emerald-200";
+                  }
+
+                  return (
+                    <div className={`mt-3 text-sm rounded-lg p-2 border ${style}`}>
+                      {text}
+                    </div>
+                  );
+                })()}
+
+
+
               </div>
 
               {/* SAVE */}
@@ -761,7 +882,7 @@ export default function AdminPage() {
                     !screeningForm.movie_id ||
                     !screeningForm.hall_id ||
                     !screeningForm.screening_type_id ||
-                    !screeningForm.start
+                    !screeningForm.startTime
                   )
 
                   {
@@ -770,18 +891,24 @@ export default function AdminPage() {
                   }
 
                   try{
+                    const [hour, minute] = screeningForm.startTime.split(":").map(Number);
+
+                    const startDate = new Date(selectedDate);
+                    startDate.setHours(hour, minute, 0, 0);
+
                     await api("screenings","POST",{
                       movie_id: screeningForm.movie_id,
                       hall_id: screeningForm.hall_id,
                       screening_type_id: screeningForm.screening_type_id,
-                      start: new Date(screeningForm.start).toISOString()
+                      start: startDate.toISOString()
                     });
+
 
                     setScreeningForm({
                       movie_id:"",
                       hall_id:"",
                       screening_type_id:"",
-                      start:""
+                      startTime:""
                     });
                     await loadAll();
 
@@ -801,7 +928,24 @@ export default function AdminPage() {
 
               <div className="space-y-2 max-h-[520px] overflow-y-auto pr-2">
 
-                {screenings.map((s) => {
+                {screenings
+                  .filter(s => {
+
+                    // nap szűrés
+                    if(selectedDate){
+                      const d = new Date(s.start).toISOString().slice(0,10);
+                      if(d !== selectedDate) return false;
+                    }
+
+                    // terem szűrés
+                    if(screeningForm.hall_id){
+                      if(s.hall_id !== screeningForm.hall_id) return false;
+                    }
+
+                    return true;
+                  })
+                  .map((s) => {
+
                   const start = new Date(s.start);
 
                   return (

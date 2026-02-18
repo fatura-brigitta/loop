@@ -78,6 +78,63 @@ export async function GET(req: Request) {
 }
 
 //
+// ================= PUT =================
+//
+export async function PUT(req: Request) {
+  try {
+    const entity = getEntity(req);
+    if (!entity) return jsonError("Hiányzó vagy érvénytelen bemenet");
+
+    const body = await req.json();
+    if (!body.id) return jsonError("Hiányzó azonosító");
+
+    const id = parseId(body.id);
+
+    // ---------- MOVIES ----------
+    if (entity === "movies") {
+      const updated = await prisma.movie.update({
+        where: { id },
+        data: {
+          title: body.title,
+          director: opt(body.director),
+          actors: opt(body.actors),
+          playtime: Number(body.playtime),
+          language: opt(body.language),
+          trailer: opt(body.trailer),
+          poster: opt(body.poster),
+          onscreen: Boolean(body.onscreen),
+          genre: opt(body.genre),
+          review: body.review !== undefined ? Number(body.review) : undefined,
+          description: opt(body.description),
+        },
+      });
+
+      return NextResponse.json(updated);
+    }
+
+    // ---------- HALLS ----------
+    if (entity === "halls") {
+      const updated = await prisma.hall.update({
+        where: { id },
+        data: {
+          name: body.name,
+          row: Number(body.row),
+          column: Number(body.column),
+        },
+      });
+
+      return NextResponse.json(updated);
+    }
+
+    return jsonError("Nem támogatott PUT entitás");
+  } catch (e) {
+    console.error(e);
+    return jsonError("Szerver hiba történt", 500);
+  }
+}
+
+
+//
 // ================= POST =================
 //
 export async function POST(req: Request) {
@@ -166,7 +223,28 @@ export async function POST(req: Request) {
       const startDate = new Date(body.start);
       if (isNaN(startDate.getTime())) return jsonError("Érvénytelen vetítési idő");
 
-      const endDate = new Date(startDate.getTime() + movie.playtime * 60000);
+      const OPEN_HOUR = 10;
+      const CLOSE_HOUR = 22;
+
+      const open = new Date(startDate);
+      open.setHours(OPEN_HOUR,0,0,0);
+
+      const close = new Date(startDate);
+      close.setHours(CLOSE_HOUR,0,0,0);
+
+      const CLEANING_MINUTES = 15;
+
+      // film vége
+      const movieEnd = new Date(startDate.getTime() + movie.playtime * 60000);
+
+      // terem foglalás vége (film + takarítás)
+      const endDate = new Date(movieEnd.getTime() + CLEANING_MINUTES * 60000);
+
+      if(startDate < open)
+        return jsonError("A mozi még nincs nyitva ebben az időpontban");
+
+      if(endDate > close)
+        return jsonError("A vetítés a zárás után érne véget");
 
       // overlap check
       const conflict = await prisma.screening.findFirst({

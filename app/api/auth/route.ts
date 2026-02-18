@@ -14,7 +14,7 @@ export async function GET() {
     const userId = cookieStore.get("userId")?.value;
 
     if (!userId) {
-      return NextResponse.json({ message: "Not logged in" }, { status: 401 });
+      return NextResponse.json({ message: "Nem vagy bejelentkezve" }, { status: 401 });
     }
 
     const user = await prisma.user.findUnique({
@@ -23,13 +23,13 @@ export async function GET() {
     });
 
     if (!user) {
-      return NextResponse.json({ message: "Invalid session" }, { status: 401 });
+      return NextResponse.json({ message: "Érvénytelen felhasználói azonosító" }, { status: 401 });
     }
 
     return NextResponse.json(user);
   } catch (err) {
     console.error("AUTH GET ERROR:", err);
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
   }
 }
 
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
 
     if (!email || !password) {
       return NextResponse.json(
-        { message: "Missing email or password" },
+        { message: "Hiányzó email vagy jelszó" },
         { status: 400 }
       );
     }
@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
 
     if (!user) {
       return NextResponse.json(
-        { message: "Invalid email or password" },
+        { message: "Érvénytelen email vagy jelszó" },
         { status: 401 }
       );
     }
@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
     const ok = await bcrypt.compare(password, user.password_hash);
     if (!ok) {
       return NextResponse.json(
-        { message: "Invalid email or password" },
+        { message: "Érvénytelen email vagy jelszó" },
         { status: 401 }
       );
     }
@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
     return res;
   } catch (err) {
     console.error("AUTH POST (LOGIN) ERROR:", err);
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
   }
 }
 
@@ -93,7 +93,7 @@ export async function PUT(req: NextRequest) {
 
     if (!name || !email || !phone_number || !birth_date || !password) {
       return NextResponse.json(
-        { message: "Missing required fields" },
+        { message: "Hiányzó kötelező mezők" },
         { status: 400 }
       );
     }
@@ -104,7 +104,7 @@ export async function PUT(req: NextRequest) {
 
     if (exists) {
       return NextResponse.json(
-        { message: "User already exists" },
+        { message: "A felhasználó már létezik" },
         { status: 409 }
       );
     }
@@ -126,7 +126,7 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ ok: true }, { status: 201 });
   } catch (err) {
     console.error("AUTH PUT (REGISTER) ERROR:", err);
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
   }
 }
 
@@ -146,6 +146,6 @@ export async function DELETE() {
     return res;
   } catch (err) {
     console.error("AUTH DELETE (LOGOUT) ERROR:", err);
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
   }
 }

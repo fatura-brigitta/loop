@@ -101,11 +101,11 @@ export default function ProfilePage() {
     });
 
     if (!res.ok) {
-      setError("Failed to update name");
+      setError("Hiba a név frissítése közben!");
       return;
     }
 
-    setMessage("Name successfully updated!");
+    setMessage("Név sikeresen frissítve!");
     setUserName(newName);
   };
 
@@ -114,32 +114,32 @@ export default function ProfilePage() {
     setMessage("");
 
     if (!oldPassword || !newPassword || !newPassword2) {
-      setError("Please fill in all password fields!");
+      setError("Kérlek töltse ki az összes jelszó mezőt!");
       return;
     }
 
     if (oldPassword.trim() === "" || newPassword.trim() === "" || newPassword2.trim() === "") {
-      setError("Password fields cannot be empty!");
+      setError("Jelszó mezők nem lehetnek üresek!");
       return;
     }
 
     if (newPassword !== newPassword2) {
-      setError("The new passwords do not match!");
+      setError("A két új jelszó nem egyezik meg!");
       return;
     }
 
     if (oldPassword === newPassword) {
-      setError("The new password cannot be the same as the old password.");
+      setError("Az új jelszó nem lehet ugyanaz, mint a régi jelszó.");
       return;
     }
 
     if (newPassword.length < 5) {
-      setError("The password must be at least 5 characters long!");
+      setError("A jelszónak legalább 5 karakter hosszúnak kell lennie!");
       return;
     }
 
     if (oldPassword.length < 5) {
-      setError("The password must be at least 5 characters long!");
+      setError("A jelszónak legalább 5 karakter hosszúnak kell lennie!");
       return;
     }
 
@@ -157,7 +157,7 @@ export default function ProfilePage() {
     const data = await res.json();
 
     if (!res.ok) {
-      setError(data.message || "Error occurred while changing password");
+      setError(data.message || "Hiba történt a jelszó módosítása során");
       return;
     }
 
@@ -165,13 +165,13 @@ export default function ProfilePage() {
     setNewPassword("");
     setNewPassword2("");
 
-    setMessage("Password successfully changed!");
+    setMessage("Jelszó sikeresen megváltoztatva!");
   };
 
   if (!user) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
-        Loading...
+        Betöltés...
       </div>
     );
   }
@@ -187,18 +187,18 @@ export default function ProfilePage() {
 
           <nav className="flex items-center gap-5 text-sm">
             <a className="text-slate-200/90 transition hover:text-white" href="/movies">
-              Movies
+              Filmek
             </a>
             <a className="text-slate-200/90 transition hover:text-white" href="/screenings">
-              Screenings
+              Vetítések
             </a>
             <a className="text-slate-200/90 transition hover:text-white" href="/forum">
-              Forum
+              Fórum
             </a>
 
             <div className="flex items-center gap-2">
               <a className="text-slate-200/90" href="/profile">
-                Hello, {name} !
+                Szia, {name} !
               </a>
               <button
                 className="cursor-pointer text-slate-200/90 transition hover:text-white"
@@ -213,7 +213,7 @@ export default function ProfilePage() {
 
       <div className="flex items-center justify-center py-16">
         <div className="w-full max-w-xl rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur">
-          <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Profile</h1>
+          <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Profil</h1>
 
           <div className="mb-6">
             <label className="text-sm text-white/60">Email</label>
@@ -225,7 +225,7 @@ export default function ProfilePage() {
           </div>
 
           <div className="mb-6">
-            <label className="text-sm text-white/60">Name</label>
+            <label className="text-sm text-white/60">Név</label>
             <input
               className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
               value={newName}
@@ -235,30 +235,30 @@ export default function ProfilePage() {
               className="mt-3 cursor-pointer rounded-lg bg-cyan-600 px-4 py-2 font-semibold text-white hover:bg-cyan-400"
               onClick={updateName}
             >
-              Update name
+              Név frissítése
             </button>
           </div>
 
           <div className="border-t border-white/10 pt-6">
-            <h2 className="mb-4 text-xl font-semibold text-cyan-300">Change password</h2>
+            <h2 className="mb-4 text-xl font-semibold text-cyan-300">Jelszó módosítása</h2>
 
             <input
               className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
-              placeholder="Old password"
+              placeholder="Régi jelszó"
               type="password"
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
             />
             <input
               className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
-              placeholder="New password"
+              placeholder="Új jelszó"
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
             />
             <input
               className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
-              placeholder="New password again"
+              placeholder="Új jelszó megerősítése"
               type="password"
               value={newPassword2}
               onChange={(e) => setNewPassword2(e.target.value)}
@@ -268,7 +268,7 @@ export default function ProfilePage() {
               className="mt-2 cursor-pointer rounded-lg bg-cyan-600 px-4 py-2 font-semibold text-white hover:bg-cyan-400"
               onClick={changePassword}
             >
-              Change password
+              Jelszó módosítása
             </button>
           </div>
 
@@ -280,10 +280,10 @@ export default function ProfilePage() {
       </div>
 
       <div className="mx-auto max-w-5xl px-4 pb-20">
-        <h2 className="mb-6 text-2xl font-bold text-cyan-300">My Tickets</h2>
+        <h2 className="mb-6 text-2xl font-bold text-cyan-300">Jegyeim</h2>
 
         {tickets.length === 0 && (
-          <div className="text-white/60">You have no purchased tickets yet.</div>
+          <div className="text-white/60">Még nem vásároltál jegyet.</div>
         )}
 
         <div className="grid gap-6">
@@ -303,12 +303,12 @@ export default function ProfilePage() {
                   </div>
 
                   <div className="mt-3 space-y-1 text-sm">
-                    <div>Hall: {ticket.screenings.halls.name}</div>
-                    <div>Type: {ticket.screenings.screening_types.type}</div>
+                    <div>Terem: {ticket.screenings.halls.name}</div>
+                    <div>Típus: {ticket.screenings.screening_types.type}</div>
                     <div>
-                      Seat: Row {ticket.chairs.row} Seat {ticket.chairs.column}
+                      Szék: Sor {ticket.chairs.row} Szék {ticket.chairs.column}
                     </div>
-                    <div>Ticket: {ticket.ticket_types.type}</div>
+                    <div>Jegy típusa: {ticket.ticket_types.type}</div>
                   </div>
                 </div>
 

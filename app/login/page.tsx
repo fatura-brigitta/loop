@@ -27,7 +27,7 @@ export default function LoginPage() {
     setError("");
 
     if (!email || !password) {
-      setError("Please fill in all fields!");
+      setError("Kérjük töltse ki az összes mezőt");
       return;
     }
 
@@ -43,7 +43,7 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.message || "Invalid email or password");
+        setError(data.message || "Érvénytelen email vagy jelszó");
         setLoading(false);
         return;
       }
@@ -51,7 +51,7 @@ export default function LoginPage() {
       router.push("/");
       router.refresh();
     } catch {
-      setError("Network error occurred during login");
+      setError("Hiba történt a bejelentkezés során. Kérem próbálja újra.");
       setLoading(false);
     }
   };
@@ -67,20 +67,20 @@ export default function LoginPage() {
 
           <nav className="flex items-center gap-5 text-sm">
             <a className="text-slate-200/90 transition hover:text-white" href="/movies">
-              Movies
+              Filmek
             </a>
             <a className="text-slate-200/90 transition hover:text-white" href="/screenings">
-              Screenings
+              Vetítések
             </a>
             <a className="text-slate-200/90 transition hover:text-white" href="/forum">
-              Forum
+              Fórum
             </a>
 
             <Link
               className="ml-2 rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
               href="/login"
             >
-              Login
+              Bejelentkezés
             </Link>
           </nav>
         </div>
@@ -88,7 +88,7 @@ export default function LoginPage() {
 
       <div className="flex items-center justify-center py-20">
         <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur">
-          <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Sign in</h1>
+          <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Bejelentkezés</h1>
 
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
@@ -103,7 +103,7 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <label className="text-sm text-white/60">Password</label>
+              <label className="text-sm text-white/60">Jelszó</label>
 
               <div className="relative mt-2">
                 <input
@@ -136,14 +136,14 @@ export default function LoginPage() {
               type="submit"
             >
               <LogIn size={18} />
-              {loading ? "Signing in..." : "Login"}
+              {loading ? "Bejelentkezés folyamatban..." : "Bejelentkezés"}
             </button>
           </form>
 
           <p className="mt-6 text-center text-sm text-white/60">
-            Don’t have an account?{" "}
+            Nincs még fiókod?{" "}
             <Link className="text-cyan-300 hover:underline" href="/register">
-              Register
+              Regisztráció
             </Link>
           </p>
         </div>

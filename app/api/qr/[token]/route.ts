@@ -5,24 +5,20 @@ export async function GET(
   req: NextRequest,
   context: { params: Promise<{ token: string }> }
 ) {
-  // Next.js 16 dynamic params
   const { token } = await context.params;
 
   if (!token) {
-    return NextResponse.json({ error: "Missing token" }, { status: 400 });
+    return NextResponse.json({ error: "Hiányzó token" }, { status: 400 });
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-  const url = `${baseUrl}/ticket/${token}`;
+  const qrContent = `LOOP-TICKET:${token}`;
 
-  const pngBuffer = await QRCode.toBuffer(url);
+  const pngBuffer = await QRCode.toBuffer(qrContent);
 
-  const body = new Uint8Array(pngBuffer);
-
-  return new NextResponse(body, {
+  return new NextResponse(new Uint8Array(pngBuffer), {
     headers: {
       "Content-Type": "image/png",
-      "Cache-Control": "no-store, no-cache, must-revalidate",
+      "Cache-Control": "no-store",
     },
   });
 }

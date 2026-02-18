@@ -40,9 +40,9 @@ export async function sendTicketEmail(data: TicketEmailData) {
 
   for (const t of tickets) {
 
-    const checkinUrl = `${process.env.NEXT_PUBLIC_APP_URL}/ticket/${t.qr_token}`;
-
-    const qrBuffer = await QRCode.toBuffer(checkinUrl);
+    const qrContent = `LOOP-TICKET:${t.qr_token}`;
+    const qrUint8 = await QRCode.toBuffer(qrContent);
+    const qrBuffer = Buffer.from(qrUint8);
 
     const cid = `qr${index}@loop`;
 
@@ -50,6 +50,7 @@ export async function sendTicketEmail(data: TicketEmailData) {
       filename: `ticket-${index}.png`,
       content: qrBuffer,
       cid: cid,
+      contentType: "image/png",
     });
 
     seatsHtml += `
@@ -67,7 +68,7 @@ export async function sendTicketEmail(data: TicketEmailData) {
             Ár: <b>${t.price} Ft</b>
           </div>
 
-          <img src="cid:${cid}" width="180" style="display:block;margin:auto;" />
+          <img src="cid:${cid}" width="220" style="display:block;margin:10px auto;" />
         </td>
       </tr>
     `;

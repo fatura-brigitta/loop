@@ -21,6 +21,8 @@ export default function PaymentPage() {
   const [loading, setLoading] = useState(true);
   const [paying, setPaying] = useState(false);
   const [error, setError] = useState("");
+  const [ticketType, setTicketType] = useState("Normál");
+  const [price, setPrice] = useState<number | null>(null);
 
   useEffect(() => {
     const load = async () => {
@@ -31,7 +33,7 @@ export default function PaymentPage() {
         });
 
         if (!res.ok) {
-          setError("No active payment session");
+          setError("Nincs fizetési adat");
           setLoading(false);
           return;
         }
@@ -40,7 +42,7 @@ export default function PaymentPage() {
         setData(json);
         setLoading(false);
       } catch {
-        setError("Payment page error");
+        setError("Fizetési adatok betöltése sikertelen");
         setLoading(false);
       }
     };
@@ -60,11 +62,14 @@ export default function PaymentPage() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ paymentId: data.sessionId }),
+      body: JSON.stringify({
+        paymentId: data.sessionId,
+        ticketType,
+      }),
     });
 
     if (!res.ok) {
-      setError("Payment failed");
+      setError("Fizetés sikertelen");
       setPaying(false);
       return;
     }
@@ -76,7 +81,7 @@ export default function PaymentPage() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
-        Payment loading...
+        Fizetési adatok betöltése...
       </div>
     );
   }
@@ -94,52 +99,74 @@ export default function PaymentPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
       <div className="w-full max-w-xl rounded-xl bg-[#0b1220] p-8 shadow-2xl">
-        <h1 className="mb-6 text-center text-2xl font-bold text-cyan-300">Payment</h1>
+        <h1 className="mb-6 text-center text-2xl font-bold text-cyan-300">Fizetés</h1>
 
         <div className="space-y-3 text-sm">
           <div className="flex justify-between">
-            <span>Movie</span>
+            <span>Film</span>
             <span className="font-semibold">{data.movieTitle}</span>
           </div>
 
           <div className="flex justify-between">
-            <span>Hall</span>
+            <span>Terem</span>
             <span>{data.hallName}</span>
           </div>
 
           <div className="flex justify-between">
-            <span>Screening</span>
+            <span>Vetítés típusa</span>
             <span className="text-white font-semibold">
               {data.screeningType}
             </span>
           </div>
 
           <div className="flex justify-between">
-            <span>Start</span>
+            <span>Kezdés</span>
             <span>{new Date(data.start).toLocaleString()}</span>
           </div>
 
           <div>
-            <span className="mb-1 block">Seats</span>
+            <span className="mb-1 block">Székek</span>
             <div className="text-cyan-300">
               {data.seats.map((s, i) => (
                 <div key={i}>
-                  Row {s.row} Seat {s.column}
+                  Sor {s.row} Szék {s.column}
                 </div>
               ))}
             </div>
 
-            <div className="flex justify-between">
-              <span>Ticket type</span>
-              <span className="text-white font-semibold">
-                {data.ticketType}
-              </span>
+            <div className="mt-4">
+              <span className="block mb-2">Jegytípus</span>
+
+              <select
+                className="w-full rounded-lg bg-[#060b14] border border-white/20 p-2"
+                value={ticketType}
+                onChange={async (e) => {
+                  const newType = e.target.value;
+                  setTicketType(newType);
+
+                  const res = await fetch("/api/payment?action=price", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ ticketType: newType }),
+                  });
+
+                  const json = await res.json();
+                  if (res.ok) setPrice(json.totalPrice);
+                }}
+              >
+                <option value="Normál">Normál</option>
+                <option value="Diák">Diák</option>
+                <option value="Senior">Senior</option>
+                <option value="Gyerek">Gyerek</option>
+              </select>
             </div>
           </div>
 
           <div className="mt-4 flex justify-between border-t border-white/10 pt-4 text-lg">
-            <span>Total</span>
-            <span className="font-bold text-green-400">{data.totalPrice} Ft</span>
+            <span>Összesen</span>
+            <span className="font-bold text-green-400">{(price ?? data.totalPrice)} Ft</span>
           </div>
         </div>
 

@@ -85,20 +85,20 @@ export default function MoviesPage() {
           </div>
           <nav className="flex items-center gap-5 text-sm">
             <a className="text-slate-200/90 hover:text-white transition" href="/movies">
-              Movies
+              Filmek
             </a>
             <a className="text-slate-200/90 hover:text-white transition" href="/screenings" onClick={async () => {
                 await fetch("/api/movies", { method: "DELETE" });
               }}>
-              Screenings
+              Vetítések
             </a>
             <a className="text-slate-200/90 hover:text-white transition" href="/forum">
-              Forum
+              Fórum
             </a>
             {showLogin ? (
               <div className="flex items-center gap-2">
                 <a className="text-slate-200/90" href="/profile">
-                  Hello, {name} !
+                  Szia, {name} !
                 </a>
                 <span> </span>
                 <a className="text-slate-200/90 hover:text-white transition cursor-pointer" onClick={handleLogout}>
@@ -109,12 +109,12 @@ export default function MoviesPage() {
               <a
               className="ml-2 rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
               href="/login"
-            >Login</a>)}
+            >Bejelentkezés</a>)}
           </nav>
         </div>
       </header>
       <div className="mx-auto h-full max-w-6xl items-center p-4">
-        <h1 className="mb-6 text-2xl font-bold text-white">Now on screen</h1>
+        <h1 className="mb-6 text-2xl font-bold text-white">Műsoron</h1>
         <div className="grid gap-5 sm:grid-cols-1 lg:grid-cols-2">
             {movies.map((movie) => (
             <div
@@ -145,15 +145,15 @@ export default function MoviesPage() {
                     </div>
 
                     <p className="mt-1 text-xs text-slate-400">
-                        {movie.genre} • {movie.playtime} min • {movie.language}
+                        {movie.genre} • {movie.playtime} perc • {movie.language}
                     </p>
 
                     <p className="mt-2 line-clamp-2 text-sm text-slate-300">
-                        Director: {movie.director}
+                        Rendező: {movie.director}
                     </p>
 
                     <p className="mt-2 line-clamp-2 text-sm text-slate-300">
-                        Actors: {movie.actors}
+                        Szereplők: {movie.actors}
                     </p>
 
                     <p className="mt-2 line-clamp-2 text-sm text-slate-300">
@@ -171,7 +171,7 @@ export default function MoviesPage() {
                         });
                         router.push("/screenings");
                     }}>
-                        Screening date
+                        Vetítés dátuma
                     </button>
                     </div>
                 </div>

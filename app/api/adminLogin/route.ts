@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   const { name, password } = await req.json();
 
   if (!name || !password) {
-    return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
+    return NextResponse.json({ message: "Hiányzó vagy érvénytelen adatok" }, { status: 400 });
   }
 
   const adminUser = await prisma.admin.findFirst({
@@ -15,12 +15,12 @@ export async function POST(req: Request) {
   });
 
   if (!adminUser) {
-    return NextResponse.json({ message: "Invalid username or password" }, { status: 404 });
+    return NextResponse.json({ message: "Érvénytelen felhasználónév vagy jelszó" }, { status: 404 });
   }
 
   const valid = await bcrypt.compare(password, adminUser.password_hash);
   if (!valid) {
-    return NextResponse.json({ message: "Invalid username or password" }, { status: 401 });
+    return NextResponse.json({ message: "Érvénytelen felhasználónév vagy jelszó" }, { status: 401 });
   }
 
   const res = NextResponse.json({ ok: true });

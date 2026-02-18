@@ -67,20 +67,20 @@ const handleLogout = async () => {
           </div>
           <nav className="flex items-center gap-5 text-sm">
             <a className="text-slate-200/90 hover:text-white transition" href="/movies">
-              Movies
+              Filmek
             </a>
             <a className="text-slate-200/90 hover:text-white transition" href="/screenings" onClick={async () => {
                 await fetch("/api/movies", { method: "DELETE" });
               }}>
-              Screenings
+              Vetítések
             </a>
             <a className="text-slate-200/90 hover:text-white transition" href="/forum">
-              Forum
+              Fórum
             </a>
             {showLogin ? (
               <div className="flex items-center gap-2">
                 <a className="text-slate-200/90" href="/profile">
-                  Hello, {name} !
+                  Szia, {name} !
                 </a>
                 <span> </span>
                 <a className="text-slate-200/90 hover:text-white transition cursor-pointer" onClick={handleLogout}>
@@ -91,7 +91,7 @@ const handleLogout = async () => {
               <a
               className="ml-2 rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
               href="/login"
-            >Login</a>)}
+            >Bejelentkezés</a>)}
           </nav>
         </div>
       </header>

@@ -2166,10 +2166,12 @@ export namespace Prisma {
 
   export type Ticket_typeCountOutputType = {
     tickets: number
+    payment_sessions: number
   }
 
   export type Ticket_typeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tickets?: boolean | Ticket_typeCountOutputTypeCountTicketsArgs
+    payment_sessions?: boolean | Ticket_typeCountOutputTypeCountPayment_sessionsArgs
   }
 
   // Custom InputTypes
@@ -2188,6 +2190,13 @@ export namespace Prisma {
    */
   export type Ticket_typeCountOutputTypeCountTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TicketWhereInput
+  }
+
+  /**
+   * Ticket_typeCountOutputType without action
+   */
+  export type Ticket_typeCountOutputTypeCountPayment_sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Payment_sessionWhereInput
   }
 
 
@@ -13145,6 +13154,7 @@ export namespace Prisma {
     type?: boolean
     percent?: boolean
     tickets?: boolean | Ticket_type$ticketsArgs<ExtArgs>
+    payment_sessions?: boolean | Ticket_type$payment_sessionsArgs<ExtArgs>
     _count?: boolean | Ticket_typeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ticket_type"]>
 
@@ -13159,6 +13169,7 @@ export namespace Prisma {
   export type Ticket_typeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "percent", ExtArgs["result"]["ticket_type"]>
   export type Ticket_typeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tickets?: boolean | Ticket_type$ticketsArgs<ExtArgs>
+    payment_sessions?: boolean | Ticket_type$payment_sessionsArgs<ExtArgs>
     _count?: boolean | Ticket_typeCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -13166,6 +13177,7 @@ export namespace Prisma {
     name: "Ticket_type"
     objects: {
       tickets: Prisma.$TicketPayload<ExtArgs>[]
+      payment_sessions: Prisma.$Payment_sessionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -13535,6 +13547,7 @@ export namespace Prisma {
   export interface Prisma__Ticket_typeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tickets<T extends Ticket_type$ticketsArgs<ExtArgs> = {}>(args?: Subset<T, Ticket_type$ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    payment_sessions<T extends Ticket_type$payment_sessionsArgs<ExtArgs> = {}>(args?: Subset<T, Ticket_type$payment_sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Payment_sessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13958,6 +13971,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TicketScalarFieldEnum | TicketScalarFieldEnum[]
+  }
+
+  /**
+   * Ticket_type.payment_sessions
+   */
+  export type Ticket_type$payment_sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Payment_session
+     */
+    select?: Payment_sessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Payment_session
+     */
+    omit?: Payment_sessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Payment_sessionInclude<ExtArgs> | null
+    where?: Payment_sessionWhereInput
+    orderBy?: Payment_sessionOrderByWithRelationInput | Payment_sessionOrderByWithRelationInput[]
+    cursor?: Payment_sessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Payment_sessionScalarFieldEnum | Payment_sessionScalarFieldEnum[]
   }
 
   /**
@@ -15040,6 +15077,7 @@ export namespace Prisma {
     screening_id: string | null
     status: string | null
     createdAt: Date | null
+    ticket_type_id: string | null
   }
 
   export type Payment_sessionMaxAggregateOutputType = {
@@ -15048,6 +15086,7 @@ export namespace Prisma {
     screening_id: string | null
     status: string | null
     createdAt: Date | null
+    ticket_type_id: string | null
   }
 
   export type Payment_sessionCountAggregateOutputType = {
@@ -15057,6 +15096,7 @@ export namespace Prisma {
     chair_ids: number
     status: number
     createdAt: number
+    ticket_type_id: number
     _all: number
   }
 
@@ -15067,6 +15107,7 @@ export namespace Prisma {
     screening_id?: true
     status?: true
     createdAt?: true
+    ticket_type_id?: true
   }
 
   export type Payment_sessionMaxAggregateInputType = {
@@ -15075,6 +15116,7 @@ export namespace Prisma {
     screening_id?: true
     status?: true
     createdAt?: true
+    ticket_type_id?: true
   }
 
   export type Payment_sessionCountAggregateInputType = {
@@ -15084,6 +15126,7 @@ export namespace Prisma {
     chair_ids?: true
     status?: true
     createdAt?: true
+    ticket_type_id?: true
     _all?: true
   }
 
@@ -15166,6 +15209,7 @@ export namespace Prisma {
     chair_ids: JsonValue
     status: string
     createdAt: Date
+    ticket_type_id: string | null
     _count: Payment_sessionCountAggregateOutputType | null
     _min: Payment_sessionMinAggregateOutputType | null
     _max: Payment_sessionMaxAggregateOutputType | null
@@ -15192,6 +15236,8 @@ export namespace Prisma {
     chair_ids?: boolean
     status?: boolean
     createdAt?: boolean
+    ticket_type_id?: boolean
+    ticket_types?: boolean | Payment_session$ticket_typesArgs<ExtArgs>
     users?: boolean | UserDefaultArgs<ExtArgs>
     screenings?: boolean | ScreeningDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payment_session"]>
@@ -15205,10 +15251,12 @@ export namespace Prisma {
     chair_ids?: boolean
     status?: boolean
     createdAt?: boolean
+    ticket_type_id?: boolean
   }
 
-  export type Payment_sessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "screening_id" | "chair_ids" | "status" | "createdAt", ExtArgs["result"]["payment_session"]>
+  export type Payment_sessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "screening_id" | "chair_ids" | "status" | "createdAt" | "ticket_type_id", ExtArgs["result"]["payment_session"]>
   export type Payment_sessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ticket_types?: boolean | Payment_session$ticket_typesArgs<ExtArgs>
     users?: boolean | UserDefaultArgs<ExtArgs>
     screenings?: boolean | ScreeningDefaultArgs<ExtArgs>
   }
@@ -15216,6 +15264,7 @@ export namespace Prisma {
   export type $Payment_sessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Payment_session"
     objects: {
+      ticket_types: Prisma.$Ticket_typePayload<ExtArgs> | null
       users: Prisma.$UserPayload<ExtArgs>
       screenings: Prisma.$ScreeningPayload<ExtArgs>
     }
@@ -15226,6 +15275,7 @@ export namespace Prisma {
       chair_ids: Prisma.JsonValue
       status: string
       createdAt: Date
+      ticket_type_id: string | null
     }, ExtArgs["result"]["payment_session"]>
     composites: {}
   }
@@ -15589,6 +15639,7 @@ export namespace Prisma {
    */
   export interface Prisma__Payment_sessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    ticket_types<T extends Payment_session$ticket_typesArgs<ExtArgs> = {}>(args?: Subset<T, Payment_session$ticket_typesArgs<ExtArgs>>): Prisma__Ticket_typeClient<$Result.GetResult<Prisma.$Ticket_typePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     users<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     screenings<T extends ScreeningDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ScreeningDefaultArgs<ExtArgs>>): Prisma__ScreeningClient<$Result.GetResult<Prisma.$ScreeningPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -15626,6 +15677,7 @@ export namespace Prisma {
     readonly chair_ids: FieldRef<"Payment_session", 'Json'>
     readonly status: FieldRef<"Payment_session", 'String'>
     readonly createdAt: FieldRef<"Payment_session", 'DateTime'>
+    readonly ticket_type_id: FieldRef<"Payment_session", 'String'>
   }
     
 
@@ -15996,6 +16048,25 @@ export namespace Prisma {
   }
 
   /**
+   * Payment_session.ticket_types
+   */
+  export type Payment_session$ticket_typesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket_type
+     */
+    select?: Ticket_typeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket_type
+     */
+    omit?: Ticket_typeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Ticket_typeInclude<ExtArgs> | null
+    where?: Ticket_typeWhereInput
+  }
+
+  /**
    * Payment_session without action
    */
   export type Payment_sessionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16163,7 +16234,8 @@ export namespace Prisma {
     screening_id: 'screening_id',
     chair_ids: 'chair_ids',
     status: 'status',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    ticket_type_id: 'ticket_type_id'
   };
 
   export type Payment_sessionScalarFieldEnum = (typeof Payment_sessionScalarFieldEnum)[keyof typeof Payment_sessionScalarFieldEnum]
@@ -16935,6 +17007,7 @@ export namespace Prisma {
     type?: StringFilter<"Ticket_type"> | string
     percent?: IntFilter<"Ticket_type"> | number
     tickets?: TicketListRelationFilter
+    payment_sessions?: Payment_sessionListRelationFilter
   }
 
   export type Ticket_typeOrderByWithRelationInput = {
@@ -16942,6 +17015,7 @@ export namespace Prisma {
     type?: SortOrder
     percent?: SortOrder
     tickets?: TicketOrderByRelationAggregateInput
+    payment_sessions?: Payment_sessionOrderByRelationAggregateInput
   }
 
   export type Ticket_typeWhereUniqueInput = Prisma.AtLeast<{
@@ -16952,6 +17026,7 @@ export namespace Prisma {
     type?: StringFilter<"Ticket_type"> | string
     percent?: IntFilter<"Ticket_type"> | number
     tickets?: TicketListRelationFilter
+    payment_sessions?: Payment_sessionListRelationFilter
   }, "id">
 
   export type Ticket_typeOrderByWithAggregationInput = {
@@ -17034,6 +17109,8 @@ export namespace Prisma {
     chair_ids?: JsonFilter<"Payment_session">
     status?: StringFilter<"Payment_session"> | string
     createdAt?: DateTimeFilter<"Payment_session"> | Date | string
+    ticket_type_id?: StringNullableFilter<"Payment_session"> | string | null
+    ticket_types?: XOR<Ticket_typeNullableScalarRelationFilter, Ticket_typeWhereInput> | null
     users?: XOR<UserScalarRelationFilter, UserWhereInput>
     screenings?: XOR<ScreeningScalarRelationFilter, ScreeningWhereInput>
   }
@@ -17045,6 +17122,8 @@ export namespace Prisma {
     chair_ids?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    ticket_type_id?: SortOrder
+    ticket_types?: Ticket_typeOrderByWithRelationInput
     users?: UserOrderByWithRelationInput
     screenings?: ScreeningOrderByWithRelationInput
   }
@@ -17059,6 +17138,8 @@ export namespace Prisma {
     chair_ids?: JsonFilter<"Payment_session">
     status?: StringFilter<"Payment_session"> | string
     createdAt?: DateTimeFilter<"Payment_session"> | Date | string
+    ticket_type_id?: StringNullableFilter<"Payment_session"> | string | null
+    ticket_types?: XOR<Ticket_typeNullableScalarRelationFilter, Ticket_typeWhereInput> | null
     users?: XOR<UserScalarRelationFilter, UserWhereInput>
     screenings?: XOR<ScreeningScalarRelationFilter, ScreeningWhereInput>
   }, "id">
@@ -17070,6 +17151,7 @@ export namespace Prisma {
     chair_ids?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    ticket_type_id?: SortOrder
     _count?: Payment_sessionCountOrderByAggregateInput
     _max?: Payment_sessionMaxOrderByAggregateInput
     _min?: Payment_sessionMinOrderByAggregateInput
@@ -17085,6 +17167,7 @@ export namespace Prisma {
     chair_ids?: JsonWithAggregatesFilter<"Payment_session">
     status?: StringWithAggregatesFilter<"Payment_session"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Payment_session"> | Date | string
+    ticket_type_id?: StringNullableWithAggregatesFilter<"Payment_session"> | string | null
   }
 
   export type AdminCreateInput = {
@@ -17724,6 +17807,7 @@ export namespace Prisma {
     type: string
     percent: number
     tickets?: TicketCreateNestedManyWithoutTicket_typesInput
+    payment_sessions?: Payment_sessionCreateNestedManyWithoutTicket_typesInput
   }
 
   export type Ticket_typeUncheckedCreateInput = {
@@ -17731,18 +17815,21 @@ export namespace Prisma {
     type: string
     percent: number
     tickets?: TicketUncheckedCreateNestedManyWithoutTicket_typesInput
+    payment_sessions?: Payment_sessionUncheckedCreateNestedManyWithoutTicket_typesInput
   }
 
   export type Ticket_typeUpdateInput = {
     type?: StringFieldUpdateOperationsInput | string
     percent?: IntFieldUpdateOperationsInput | number
     tickets?: TicketUpdateManyWithoutTicket_typesNestedInput
+    payment_sessions?: Payment_sessionUpdateManyWithoutTicket_typesNestedInput
   }
 
   export type Ticket_typeUncheckedUpdateInput = {
     type?: StringFieldUpdateOperationsInput | string
     percent?: IntFieldUpdateOperationsInput | number
     tickets?: TicketUncheckedUpdateManyWithoutTicket_typesNestedInput
+    payment_sessions?: Payment_sessionUncheckedUpdateManyWithoutTicket_typesNestedInput
   }
 
   export type Ticket_typeCreateManyInput = {
@@ -17812,6 +17899,7 @@ export namespace Prisma {
     chair_ids: InputJsonValue
     status: string
     createdAt?: Date | string
+    ticket_types?: Ticket_typeCreateNestedOneWithoutPayment_sessionsInput
     users: UserCreateNestedOneWithoutPayment_sessionsInput
     screenings: ScreeningCreateNestedOneWithoutPayment_sessionsInput
   }
@@ -17823,12 +17911,14 @@ export namespace Prisma {
     chair_ids: InputJsonValue
     status: string
     createdAt?: Date | string
+    ticket_type_id?: string | null
   }
 
   export type Payment_sessionUpdateInput = {
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ticket_types?: Ticket_typeUpdateOneWithoutPayment_sessionsNestedInput
     users?: UserUpdateOneRequiredWithoutPayment_sessionsNestedInput
     screenings?: ScreeningUpdateOneRequiredWithoutPayment_sessionsNestedInput
   }
@@ -17839,6 +17929,7 @@ export namespace Prisma {
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ticket_type_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type Payment_sessionCreateManyInput = {
@@ -17848,6 +17939,7 @@ export namespace Prisma {
     chair_ids: InputJsonValue
     status: string
     createdAt?: Date | string
+    ticket_type_id?: string | null
   }
 
   export type Payment_sessionUpdateManyMutationInput = {
@@ -17862,6 +17954,7 @@ export namespace Prisma {
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ticket_type_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -18610,6 +18703,7 @@ export namespace Prisma {
     chair_ids?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    ticket_type_id?: SortOrder
   }
 
   export type Payment_sessionMaxOrderByAggregateInput = {
@@ -18618,6 +18712,7 @@ export namespace Prisma {
     screening_id?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    ticket_type_id?: SortOrder
   }
 
   export type Payment_sessionMinOrderByAggregateInput = {
@@ -18626,6 +18721,7 @@ export namespace Prisma {
     screening_id?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    ticket_type_id?: SortOrder
   }
   export type JsonWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -19408,11 +19504,25 @@ export namespace Prisma {
     connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
   }
 
+  export type Payment_sessionCreateNestedManyWithoutTicket_typesInput = {
+    create?: XOR<Payment_sessionCreateWithoutTicket_typesInput, Payment_sessionUncheckedCreateWithoutTicket_typesInput> | Payment_sessionCreateWithoutTicket_typesInput[] | Payment_sessionUncheckedCreateWithoutTicket_typesInput[]
+    connectOrCreate?: Payment_sessionCreateOrConnectWithoutTicket_typesInput | Payment_sessionCreateOrConnectWithoutTicket_typesInput[]
+    createMany?: Payment_sessionCreateManyTicket_typesInputEnvelope
+    connect?: Payment_sessionWhereUniqueInput | Payment_sessionWhereUniqueInput[]
+  }
+
   export type TicketUncheckedCreateNestedManyWithoutTicket_typesInput = {
     create?: XOR<TicketCreateWithoutTicket_typesInput, TicketUncheckedCreateWithoutTicket_typesInput> | TicketCreateWithoutTicket_typesInput[] | TicketUncheckedCreateWithoutTicket_typesInput[]
     connectOrCreate?: TicketCreateOrConnectWithoutTicket_typesInput | TicketCreateOrConnectWithoutTicket_typesInput[]
     createMany?: TicketCreateManyTicket_typesInputEnvelope
     connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+  }
+
+  export type Payment_sessionUncheckedCreateNestedManyWithoutTicket_typesInput = {
+    create?: XOR<Payment_sessionCreateWithoutTicket_typesInput, Payment_sessionUncheckedCreateWithoutTicket_typesInput> | Payment_sessionCreateWithoutTicket_typesInput[] | Payment_sessionUncheckedCreateWithoutTicket_typesInput[]
+    connectOrCreate?: Payment_sessionCreateOrConnectWithoutTicket_typesInput | Payment_sessionCreateOrConnectWithoutTicket_typesInput[]
+    createMany?: Payment_sessionCreateManyTicket_typesInputEnvelope
+    connect?: Payment_sessionWhereUniqueInput | Payment_sessionWhereUniqueInput[]
   }
 
   export type TicketUpdateManyWithoutTicket_typesNestedInput = {
@@ -19429,6 +19539,20 @@ export namespace Prisma {
     deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
   }
 
+  export type Payment_sessionUpdateManyWithoutTicket_typesNestedInput = {
+    create?: XOR<Payment_sessionCreateWithoutTicket_typesInput, Payment_sessionUncheckedCreateWithoutTicket_typesInput> | Payment_sessionCreateWithoutTicket_typesInput[] | Payment_sessionUncheckedCreateWithoutTicket_typesInput[]
+    connectOrCreate?: Payment_sessionCreateOrConnectWithoutTicket_typesInput | Payment_sessionCreateOrConnectWithoutTicket_typesInput[]
+    upsert?: Payment_sessionUpsertWithWhereUniqueWithoutTicket_typesInput | Payment_sessionUpsertWithWhereUniqueWithoutTicket_typesInput[]
+    createMany?: Payment_sessionCreateManyTicket_typesInputEnvelope
+    set?: Payment_sessionWhereUniqueInput | Payment_sessionWhereUniqueInput[]
+    disconnect?: Payment_sessionWhereUniqueInput | Payment_sessionWhereUniqueInput[]
+    delete?: Payment_sessionWhereUniqueInput | Payment_sessionWhereUniqueInput[]
+    connect?: Payment_sessionWhereUniqueInput | Payment_sessionWhereUniqueInput[]
+    update?: Payment_sessionUpdateWithWhereUniqueWithoutTicket_typesInput | Payment_sessionUpdateWithWhereUniqueWithoutTicket_typesInput[]
+    updateMany?: Payment_sessionUpdateManyWithWhereWithoutTicket_typesInput | Payment_sessionUpdateManyWithWhereWithoutTicket_typesInput[]
+    deleteMany?: Payment_sessionScalarWhereInput | Payment_sessionScalarWhereInput[]
+  }
+
   export type TicketUncheckedUpdateManyWithoutTicket_typesNestedInput = {
     create?: XOR<TicketCreateWithoutTicket_typesInput, TicketUncheckedCreateWithoutTicket_typesInput> | TicketCreateWithoutTicket_typesInput[] | TicketUncheckedCreateWithoutTicket_typesInput[]
     connectOrCreate?: TicketCreateOrConnectWithoutTicket_typesInput | TicketCreateOrConnectWithoutTicket_typesInput[]
@@ -19441,6 +19565,20 @@ export namespace Prisma {
     update?: TicketUpdateWithWhereUniqueWithoutTicket_typesInput | TicketUpdateWithWhereUniqueWithoutTicket_typesInput[]
     updateMany?: TicketUpdateManyWithWhereWithoutTicket_typesInput | TicketUpdateManyWithWhereWithoutTicket_typesInput[]
     deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
+  }
+
+  export type Payment_sessionUncheckedUpdateManyWithoutTicket_typesNestedInput = {
+    create?: XOR<Payment_sessionCreateWithoutTicket_typesInput, Payment_sessionUncheckedCreateWithoutTicket_typesInput> | Payment_sessionCreateWithoutTicket_typesInput[] | Payment_sessionUncheckedCreateWithoutTicket_typesInput[]
+    connectOrCreate?: Payment_sessionCreateOrConnectWithoutTicket_typesInput | Payment_sessionCreateOrConnectWithoutTicket_typesInput[]
+    upsert?: Payment_sessionUpsertWithWhereUniqueWithoutTicket_typesInput | Payment_sessionUpsertWithWhereUniqueWithoutTicket_typesInput[]
+    createMany?: Payment_sessionCreateManyTicket_typesInputEnvelope
+    set?: Payment_sessionWhereUniqueInput | Payment_sessionWhereUniqueInput[]
+    disconnect?: Payment_sessionWhereUniqueInput | Payment_sessionWhereUniqueInput[]
+    delete?: Payment_sessionWhereUniqueInput | Payment_sessionWhereUniqueInput[]
+    connect?: Payment_sessionWhereUniqueInput | Payment_sessionWhereUniqueInput[]
+    update?: Payment_sessionUpdateWithWhereUniqueWithoutTicket_typesInput | Payment_sessionUpdateWithWhereUniqueWithoutTicket_typesInput[]
+    updateMany?: Payment_sessionUpdateManyWithWhereWithoutTicket_typesInput | Payment_sessionUpdateManyWithWhereWithoutTicket_typesInput[]
+    deleteMany?: Payment_sessionScalarWhereInput | Payment_sessionScalarWhereInput[]
   }
 
   export type TicketCreateNestedManyWithoutScreening_typesInput = {
@@ -19527,6 +19665,12 @@ export namespace Prisma {
     deleteMany?: ScreeningScalarWhereInput | ScreeningScalarWhereInput[]
   }
 
+  export type Ticket_typeCreateNestedOneWithoutPayment_sessionsInput = {
+    create?: XOR<Ticket_typeCreateWithoutPayment_sessionsInput, Ticket_typeUncheckedCreateWithoutPayment_sessionsInput>
+    connectOrCreate?: Ticket_typeCreateOrConnectWithoutPayment_sessionsInput
+    connect?: Ticket_typeWhereUniqueInput
+  }
+
   export type UserCreateNestedOneWithoutPayment_sessionsInput = {
     create?: XOR<UserCreateWithoutPayment_sessionsInput, UserUncheckedCreateWithoutPayment_sessionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutPayment_sessionsInput
@@ -19537,6 +19681,16 @@ export namespace Prisma {
     create?: XOR<ScreeningCreateWithoutPayment_sessionsInput, ScreeningUncheckedCreateWithoutPayment_sessionsInput>
     connectOrCreate?: ScreeningCreateOrConnectWithoutPayment_sessionsInput
     connect?: ScreeningWhereUniqueInput
+  }
+
+  export type Ticket_typeUpdateOneWithoutPayment_sessionsNestedInput = {
+    create?: XOR<Ticket_typeCreateWithoutPayment_sessionsInput, Ticket_typeUncheckedCreateWithoutPayment_sessionsInput>
+    connectOrCreate?: Ticket_typeCreateOrConnectWithoutPayment_sessionsInput
+    upsert?: Ticket_typeUpsertWithoutPayment_sessionsInput
+    disconnect?: boolean
+    delete?: Ticket_typeWhereInput | boolean
+    connect?: Ticket_typeWhereUniqueInput
+    update?: XOR<XOR<Ticket_typeUpdateToOneWithWhereWithoutPayment_sessionsInput, Ticket_typeUpdateWithoutPayment_sessionsInput>, Ticket_typeUncheckedUpdateWithoutPayment_sessionsInput>
   }
 
   export type UserUpdateOneRequiredWithoutPayment_sessionsNestedInput = {
@@ -19902,6 +20056,7 @@ export namespace Prisma {
     chair_ids: InputJsonValue
     status: string
     createdAt?: Date | string
+    ticket_types?: Ticket_typeCreateNestedOneWithoutPayment_sessionsInput
     users: UserCreateNestedOneWithoutPayment_sessionsInput
   }
 
@@ -19911,6 +20066,7 @@ export namespace Prisma {
     chair_ids: InputJsonValue
     status: string
     createdAt?: Date | string
+    ticket_type_id?: string | null
   }
 
   export type Payment_sessionCreateOrConnectWithoutScreeningsInput = {
@@ -20056,6 +20212,7 @@ export namespace Prisma {
     chair_ids?: JsonFilter<"Payment_session">
     status?: StringFilter<"Payment_session"> | string
     createdAt?: DateTimeFilter<"Payment_session"> | Date | string
+    ticket_type_id?: StringNullableFilter<"Payment_session"> | string | null
   }
 
   export type TicketUpsertWithWhereUniqueWithoutScreeningsInput = {
@@ -20258,6 +20415,7 @@ export namespace Prisma {
     chair_ids: InputJsonValue
     status: string
     createdAt?: Date | string
+    ticket_types?: Ticket_typeCreateNestedOneWithoutPayment_sessionsInput
     screenings: ScreeningCreateNestedOneWithoutPayment_sessionsInput
   }
 
@@ -20267,6 +20425,7 @@ export namespace Prisma {
     chair_ids: InputJsonValue
     status: string
     createdAt?: Date | string
+    ticket_type_id?: string | null
   }
 
   export type Payment_sessionCreateOrConnectWithoutUsersInput = {
@@ -20848,12 +21007,14 @@ export namespace Prisma {
     id?: string
     type: string
     percent: number
+    payment_sessions?: Payment_sessionCreateNestedManyWithoutTicket_typesInput
   }
 
   export type Ticket_typeUncheckedCreateWithoutTicketsInput = {
     id?: string
     type: string
     percent: number
+    payment_sessions?: Payment_sessionUncheckedCreateNestedManyWithoutTicket_typesInput
   }
 
   export type Ticket_typeCreateOrConnectWithoutTicketsInput = {
@@ -20971,11 +21132,13 @@ export namespace Prisma {
   export type Ticket_typeUpdateWithoutTicketsInput = {
     type?: StringFieldUpdateOperationsInput | string
     percent?: IntFieldUpdateOperationsInput | number
+    payment_sessions?: Payment_sessionUpdateManyWithoutTicket_typesNestedInput
   }
 
   export type Ticket_typeUncheckedUpdateWithoutTicketsInput = {
     type?: StringFieldUpdateOperationsInput | string
     percent?: IntFieldUpdateOperationsInput | number
+    payment_sessions?: Payment_sessionUncheckedUpdateManyWithoutTicket_typesNestedInput
   }
 
   export type Screening_typeUpsertWithoutTicketsInput = {
@@ -21121,6 +21284,33 @@ export namespace Prisma {
     data: TicketCreateManyTicket_typesInput | TicketCreateManyTicket_typesInput[]
   }
 
+  export type Payment_sessionCreateWithoutTicket_typesInput = {
+    id?: string
+    chair_ids: InputJsonValue
+    status: string
+    createdAt?: Date | string
+    users: UserCreateNestedOneWithoutPayment_sessionsInput
+    screenings: ScreeningCreateNestedOneWithoutPayment_sessionsInput
+  }
+
+  export type Payment_sessionUncheckedCreateWithoutTicket_typesInput = {
+    id?: string
+    user_id: string
+    screening_id: string
+    chair_ids: InputJsonValue
+    status: string
+    createdAt?: Date | string
+  }
+
+  export type Payment_sessionCreateOrConnectWithoutTicket_typesInput = {
+    where: Payment_sessionWhereUniqueInput
+    create: XOR<Payment_sessionCreateWithoutTicket_typesInput, Payment_sessionUncheckedCreateWithoutTicket_typesInput>
+  }
+
+  export type Payment_sessionCreateManyTicket_typesInputEnvelope = {
+    data: Payment_sessionCreateManyTicket_typesInput | Payment_sessionCreateManyTicket_typesInput[]
+  }
+
   export type TicketUpsertWithWhereUniqueWithoutTicket_typesInput = {
     where: TicketWhereUniqueInput
     update: XOR<TicketUpdateWithoutTicket_typesInput, TicketUncheckedUpdateWithoutTicket_typesInput>
@@ -21135,6 +21325,22 @@ export namespace Prisma {
   export type TicketUpdateManyWithWhereWithoutTicket_typesInput = {
     where: TicketScalarWhereInput
     data: XOR<TicketUpdateManyMutationInput, TicketUncheckedUpdateManyWithoutTicket_typesInput>
+  }
+
+  export type Payment_sessionUpsertWithWhereUniqueWithoutTicket_typesInput = {
+    where: Payment_sessionWhereUniqueInput
+    update: XOR<Payment_sessionUpdateWithoutTicket_typesInput, Payment_sessionUncheckedUpdateWithoutTicket_typesInput>
+    create: XOR<Payment_sessionCreateWithoutTicket_typesInput, Payment_sessionUncheckedCreateWithoutTicket_typesInput>
+  }
+
+  export type Payment_sessionUpdateWithWhereUniqueWithoutTicket_typesInput = {
+    where: Payment_sessionWhereUniqueInput
+    data: XOR<Payment_sessionUpdateWithoutTicket_typesInput, Payment_sessionUncheckedUpdateWithoutTicket_typesInput>
+  }
+
+  export type Payment_sessionUpdateManyWithWhereWithoutTicket_typesInput = {
+    where: Payment_sessionScalarWhereInput
+    data: XOR<Payment_sessionUpdateManyMutationInput, Payment_sessionUncheckedUpdateManyWithoutTicket_typesInput>
   }
 
   export type TicketCreateWithoutScreening_typesInput = {
@@ -21229,6 +21435,25 @@ export namespace Prisma {
     data: XOR<ScreeningUpdateManyMutationInput, ScreeningUncheckedUpdateManyWithoutScreening_typesInput>
   }
 
+  export type Ticket_typeCreateWithoutPayment_sessionsInput = {
+    id?: string
+    type: string
+    percent: number
+    tickets?: TicketCreateNestedManyWithoutTicket_typesInput
+  }
+
+  export type Ticket_typeUncheckedCreateWithoutPayment_sessionsInput = {
+    id?: string
+    type: string
+    percent: number
+    tickets?: TicketUncheckedCreateNestedManyWithoutTicket_typesInput
+  }
+
+  export type Ticket_typeCreateOrConnectWithoutPayment_sessionsInput = {
+    where: Ticket_typeWhereUniqueInput
+    create: XOR<Ticket_typeCreateWithoutPayment_sessionsInput, Ticket_typeUncheckedCreateWithoutPayment_sessionsInput>
+  }
+
   export type UserCreateWithoutPayment_sessionsInput = {
     id?: string
     name: string
@@ -21283,6 +21508,29 @@ export namespace Prisma {
   export type ScreeningCreateOrConnectWithoutPayment_sessionsInput = {
     where: ScreeningWhereUniqueInput
     create: XOR<ScreeningCreateWithoutPayment_sessionsInput, ScreeningUncheckedCreateWithoutPayment_sessionsInput>
+  }
+
+  export type Ticket_typeUpsertWithoutPayment_sessionsInput = {
+    update: XOR<Ticket_typeUpdateWithoutPayment_sessionsInput, Ticket_typeUncheckedUpdateWithoutPayment_sessionsInput>
+    create: XOR<Ticket_typeCreateWithoutPayment_sessionsInput, Ticket_typeUncheckedCreateWithoutPayment_sessionsInput>
+    where?: Ticket_typeWhereInput
+  }
+
+  export type Ticket_typeUpdateToOneWithWhereWithoutPayment_sessionsInput = {
+    where?: Ticket_typeWhereInput
+    data: XOR<Ticket_typeUpdateWithoutPayment_sessionsInput, Ticket_typeUncheckedUpdateWithoutPayment_sessionsInput>
+  }
+
+  export type Ticket_typeUpdateWithoutPayment_sessionsInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+    tickets?: TicketUpdateManyWithoutTicket_typesNestedInput
+  }
+
+  export type Ticket_typeUncheckedUpdateWithoutPayment_sessionsInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    percent?: IntFieldUpdateOperationsInput | number
+    tickets?: TicketUncheckedUpdateManyWithoutTicket_typesNestedInput
   }
 
   export type UserUpsertWithoutPayment_sessionsInput = {
@@ -21413,6 +21661,7 @@ export namespace Prisma {
     chair_ids: InputJsonValue
     status: string
     createdAt?: Date | string
+    ticket_type_id?: string | null
   }
 
   export type TicketCreateManyScreeningsInput = {
@@ -21430,6 +21679,7 @@ export namespace Prisma {
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ticket_types?: Ticket_typeUpdateOneWithoutPayment_sessionsNestedInput
     users?: UserUpdateOneRequiredWithoutPayment_sessionsNestedInput
   }
 
@@ -21438,6 +21688,7 @@ export namespace Prisma {
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ticket_type_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type Payment_sessionUncheckedUpdateManyWithoutScreeningsInput = {
@@ -21445,6 +21696,7 @@ export namespace Prisma {
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ticket_type_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TicketUpdateWithoutScreeningsInput = {
@@ -21501,6 +21753,7 @@ export namespace Prisma {
     chair_ids: InputJsonValue
     status: string
     createdAt?: Date | string
+    ticket_type_id?: string | null
   }
 
   export type TicketUpdateWithoutUsersInput = {
@@ -21555,6 +21808,7 @@ export namespace Prisma {
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ticket_types?: Ticket_typeUpdateOneWithoutPayment_sessionsNestedInput
     screenings?: ScreeningUpdateOneRequiredWithoutPayment_sessionsNestedInput
   }
 
@@ -21563,6 +21817,7 @@ export namespace Prisma {
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ticket_type_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type Payment_sessionUncheckedUpdateManyWithoutUsersInput = {
@@ -21570,6 +21825,7 @@ export namespace Prisma {
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ticket_type_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TicketCreateManyChairsInput = {
@@ -21754,6 +22010,15 @@ export namespace Prisma {
     used_at?: Date | string | null
   }
 
+  export type Payment_sessionCreateManyTicket_typesInput = {
+    id?: string
+    user_id: string
+    screening_id: string
+    chair_ids: InputJsonValue
+    status: string
+    createdAt?: Date | string
+  }
+
   export type TicketUpdateWithoutTicket_typesInput = {
     price?: IntFieldUpdateOperationsInput | number
     qr_token?: StringFieldUpdateOperationsInput | string
@@ -21782,6 +22047,30 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     qr_token?: StringFieldUpdateOperationsInput | string
     used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type Payment_sessionUpdateWithoutTicket_typesInput = {
+    chair_ids?: InputJsonValue | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateOneRequiredWithoutPayment_sessionsNestedInput
+    screenings?: ScreeningUpdateOneRequiredWithoutPayment_sessionsNestedInput
+  }
+
+  export type Payment_sessionUncheckedUpdateWithoutTicket_typesInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    screening_id?: StringFieldUpdateOperationsInput | string
+    chair_ids?: InputJsonValue | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type Payment_sessionUncheckedUpdateManyWithoutTicket_typesInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    screening_id?: StringFieldUpdateOperationsInput | string
+    chair_ids?: InputJsonValue | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TicketCreateManyScreening_typesInput = {

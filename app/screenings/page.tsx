@@ -100,7 +100,7 @@ export default function ScreeningsPage() {
 
           <nav className="flex items-center gap-5 text-sm">
             <Link className="text-slate-200/90 hover:text-white" href="/movies">
-              Movies
+              Filmek
             </Link>
 
             <button
@@ -110,17 +110,17 @@ export default function ScreeningsPage() {
                 window.location.href = "/screenings";
               }}
             >
-              Screenings
+              Vetítések
             </button>
 
             <Link className="text-slate-200/90 hover:text-white" href="/forum">
-              Forum
+              Fórum
             </Link>
 
             {showLogin ? (
               <div className="flex items-center gap-2">
                 <Link className="text-slate-200/90" href="/profile">
-                  Hello, {name}!
+                  Szia, {name}!
                 </Link>
                 <button className="cursor-pointer" onClick={handleLogout}>
                   <LogOut size={22} />
@@ -131,7 +131,7 @@ export default function ScreeningsPage() {
                 className="ml-2 rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
                 href="/login"
               >
-                Login
+                Bejelentkezés
               </Link>
             )}
           </nav>
@@ -139,7 +139,7 @@ export default function ScreeningsPage() {
       </header>
 
       <div className="mx-auto max-w-6xl p-4">
-        <h1 className="mb-6 text-2xl font-bold text-white">Now on screen</h1>
+        <h1 className="mb-6 text-2xl font-bold text-white">Műsoron</h1>
 
         <div className="flex flex-col gap-6">
           {screenings.map((s, i) => (
@@ -161,12 +161,12 @@ export default function ScreeningsPage() {
                 <h2 className="text-xl font-semibold text-white">{s.movies.title}</h2>
 
                 <p className="text-xs text-slate-400">
-                  {s.movies.genre} • {s.movies.playtime} min • {s.movies.language}
+                  {s.movies.genre} • {s.movies.playtime} perc • {s.movies.language}
                 </p>
 
-                <p className="mt-1 text-sm text-slate-300">Director: {s.movies.director}</p>
+                <p className="mt-1 text-sm text-slate-300">Rendező: {s.movies.director}</p>
 
-                <p className="text-sm text-slate-300">Actors: {s.movies.actors}</p>
+                <p className="text-sm text-slate-300">Szereplők: {s.movies.actors}</p>
 
                 <p className="mt-2 line-clamp-3 text-sm text-slate-300">{s.movies.description}</p>
 
@@ -225,7 +225,7 @@ export default function ScreeningsPage() {
                         <div className="absolute inset-0 flex items-center justify-center">
                           <div className="flex items-center gap-2 rounded-full bg-black/70 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:scale-105 cursor-pointer">
                             <Play className="fill-white" size={18} />
-                            Watch trailer
+                            Trailer megtekintése
                           </div>
                         </div>
                       </button>

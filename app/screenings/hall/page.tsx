@@ -25,11 +25,6 @@ type HallResponse = {
   chairs: Chair[];
 };
 
-function hallNumberFromId(id: string): number {
-  const match = id.match(/\d+$/);
-  return match ? Number(match[0]) : 0;
-}
-
 function SeatGrid({
   chairs,
   rows,
@@ -62,7 +57,7 @@ function SeatGrid({
               <div
                 className={`h-8 w-8 rounded transition-all duration-150 ${color} ${chair && !chair.state ? "cursor-pointer hover:scale-110" : ""} `}
                 key={c}
-                title={`Row ${r + 1}, Seat ${c + 1}`}
+                title={`Sor ${r + 1}, Szék ${c + 1}`}
                 onClick={() => onSeatClick(chair)}
               />
             );
@@ -89,7 +84,7 @@ export default function HallPage() {
 
   const [seats, setSeats] = useState<Chair[]>([]);
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
-  const MAX_SEATS = 5;
+  const MAX_SEATS = 10;
 
   const [hall, setHall] = useState<Hall | null>(null);
   const [loadingHall, setLoadingHall] = useState(false);
@@ -143,7 +138,7 @@ export default function HallPage() {
         });
 
         if (!res.ok) {
-          let msg = "Failed to load the hall";
+          let msg = "Hiba a terem betöltésekor!";
           try {
             const body = await res.json();
             if (body?.message) msg = body.message;
@@ -156,7 +151,7 @@ export default function HallPage() {
         const data: HallResponse = await res.json();
 
         if (!data?.hall?.id) {
-          setError("Invalid hall data");
+          setError("Érvénytelen terem adatok!");
           setLoadingHall(false);
           return;
         }
@@ -164,7 +159,7 @@ export default function HallPage() {
         setHall(data.hall);
         setSeats(data.chairs ?? []);
       } catch {
-        setError("Network error while loading hall");
+        setError("Hálózati hiba a terem betöltése során!");
       }
 
       setLoadingHall(false);
@@ -212,7 +207,7 @@ export default function HallPage() {
       }
 
       if (prev.length >= MAX_SEATS) {
-        showSeatError("You can reserve a maximum of 5 seats at a time.");
+        showSeatError("Maximum 10 széket foglalhatsz egyszerre.");
         return prev;
       }
 
@@ -254,7 +249,6 @@ export default function HallPage() {
       return;
     }
 
-    // 👇 EZ A LÉNYEG
     router.push("/payment");
   };
 
@@ -277,19 +271,19 @@ export default function HallPage() {
 
           <nav className="flex items-center gap-5 text-sm">
             <a className="text-slate-200/90 transition hover:text-white" href="/movies">
-              Movies
+              Filmek
             </a>
             <a className="text-slate-200/90 transition hover:text-white" href="/screenings">
-              Screenings
+              Vetítések
             </a>
             <a className="text-slate-200/90 transition hover:text-white" href="/forum">
-              Forum
+              Fórum
             </a>
 
             {showLogin ? (
               <div className="flex items-center gap-2">
                 <a className="text-slate-200/90" href="/profile">
-                  Hello, {name} !
+                  Szia, {name} !
                 </a>
                 <a
                   className="cursor-pointer text-slate-200/90 transition hover:text-white"
@@ -303,7 +297,7 @@ export default function HallPage() {
                 className="ml-2 rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
                 href="/login"
               >
-                Login
+                Bejelentkezés
               </a>
             )}
           </nav>
@@ -312,13 +306,13 @@ export default function HallPage() {
 
       {!showLogin && (
         <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
-          To view the hall, please log in.
+          A terem megtekintéséhez kérjük jelentkezzen be.
         </div>
       )}
 
       {showLogin && loadingHall && (
         <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
-          Loading...
+          Betöltés...
         </div>
       )}
 
@@ -331,7 +325,7 @@ export default function HallPage() {
       {showLogin && !loadingHall && !error && hall && (
         <div className="mx-auto max-w-6xl px-4 py-8 pb-40 text-center">
           <h1 className="mb-6 text-center text-2xl font-bold">
-            {hallNumberFromId(hall.id)}. hall – {hall.name}
+            {hall.name}
           </h1>
 
           <CinemaScreen />
@@ -353,12 +347,12 @@ export default function HallPage() {
 
               <div className="flex items-center gap-2">
                 <div className="h-4 w-4 rounded bg-cyan-300" />
-                <span>Selected</span>
+                <span>Kiválasztott</span>
               </div>
 
               <div className="flex items-center gap-2">
                 <div className="h-4 w-4 rounded bg-gray-400" />
-                <span>Occupied</span>
+                <span>Foglalt</span>
               </div>
             </div>
           </div>
@@ -381,17 +375,17 @@ export default function HallPage() {
         <div className="fixed right-0 bottom-0 left-0 z-40 border-t border-white/10 bg-[#020617]/95 backdrop-blur">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 text-white">
             <div className="flex flex-col text-left">
-              <span className="text-sm text-white/60">Selected seats</span>
+              <span className="text-sm text-white/60">Kiválasztott székek</span>
 
               <div className="mt-1 text-sm font-medium">
                 {Object.entries(groupedSeats)
                   .sort((a, b) => Number(a[0]) - Number(b[0]))
                   .map(([row, cols]) => {
-                    const seatWord = cols.length === 1 ? "SEAT" : "SEATS";
+                    const seatWord = cols.length === 1 ? "SZÉK" : "SZÉKEK";
 
                     return (
                       <div key={row}>
-                        ROW: {row} {seatWord}:{" "}
+                        SOR: {row} {seatWord}:{" "}
                         <span className="text-cyan-300">{cols.join(", ")}</span>
                       </div>
                     );
@@ -406,7 +400,7 @@ export default function HallPage() {
                 className="rounded-lg bg-blue-500 px-5 py-2 font-semibold text-white transition hover:bg-blue-600"
                 onClick={reserveSeats}
               >
-                Reserve seats
+                Székek foglalása
               </button>
             </div>
           </div>

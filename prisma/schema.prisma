@@ -163,6 +163,7 @@ model Ticket_type {
   percent Int
 
   tickets Ticket[]
+  payment_sessions Payment_session[]
 
   @@map("ticket_types")
 }
@@ -185,7 +186,9 @@ model Payment_session {
   chair_ids    Json
   status       String
   createdAt    DateTime @default(now())
+  ticket_type_id String? @db.ObjectId
 
+  ticket_types Ticket_type? @relation(fields: [ticket_type_id], references: [id])
   users      User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
   screenings Screening @relation(fields: [screening_id], references: [id], onDelete: Cascade)
 

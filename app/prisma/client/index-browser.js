@@ -223,7 +223,8 @@ exports.Prisma.Payment_sessionScalarFieldEnum = {
   screening_id: 'screening_id',
   chair_ids: 'chair_ids',
   status: 'status',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  ticket_type_id: 'ticket_type_id'
 };
 
 exports.Prisma.SortOrder = {

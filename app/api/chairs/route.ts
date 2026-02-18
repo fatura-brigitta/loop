@@ -6,17 +6,16 @@ export async function POST(req: Request) {
   const { seatIds } = await req.json();
 
   if (!seatIds || seatIds.length === 0) {
-    return NextResponse.json({ message: "No seats selected" }, { status: 400 });
+    return NextResponse.json({ message: "Nincs kiválasztott szék" }, { status: 400 });
   }
 
   const cookieStore = cookies();
   const userId = (await cookieStore).get("userId")?.value;
 
   if (!userId) {
-    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ message: "Nem vagy bejelentkezve" }, { status: 401 });
   }
 
-  // 1️⃣ Ellenőrizzük nem foglalta-e már le valaki
   const alreadyReserved = await prisma.chair.findMany({
     where: {
       id: { in: seatIds },
@@ -31,7 +30,6 @@ export async function POST(req: Request) {
     );
   }
 
-  // 2️⃣ Foglalás
   await prisma.chair.updateMany({
     where: {
       id: { in: seatIds },

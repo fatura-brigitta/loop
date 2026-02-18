@@ -13,11 +13,11 @@ export function calculateAge(birthDate: Date): number {
   return age;
 }
 
-export function getTicketTypeByAge(age: number): "child" | "student" | "normal" | "senior" {
-  if (age <= 13) return "child";
-  if (age <= 25) return "student";
-  if (age >= 65) return "senior";
-  return "normal";
+export function getTicketTypeByAge(age: number): "Gyerek" | "Diák" | "Normál" | "Senior" {
+  if (age <= 13) return "Gyerek";
+  if (age <= 25) return "Diák";
+  if (age >= 65) return "Senior";
+  return "Normál";
 }
 
 /**

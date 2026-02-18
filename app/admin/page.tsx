@@ -87,7 +87,7 @@ export default function AdminPage() {
 
   const [sMovieId, setSMovieId] = useState<string>("");
   const [sHallId, setSHallId] = useState<string>("");
-  const [sStartLocal, setSStartLocal] = useState<string>(""); // datetime-local
+  const [sStartLocal, setSStartLocal] = useState<string>("");
 
   const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -211,48 +211,47 @@ export default function AdminPage() {
         <nav className="flex flex-col gap-2 text-sm flex-1">
           <button
             onClick={() => setTab("movies")}
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition ${
-              tab === "movies" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white"
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
+              tab === "movies" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white "
             }`}
           >
             <Film size={18} />
-            Movies
+            Filmek
           </button>
 
           <button
             onClick={() => setTab("halls")}
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition ${
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
               tab === "halls" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white"
             }`}
           >
             <Building2 size={18} />
-            Halls
+            Termek
           </button>
 
           <button
             onClick={() => setTab("screenings")}
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition ${
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
               tab === "screenings" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white"
             }`}
           >
             <Calendar size={18} />
-            Screenings
+            Vetítések
           </button>
 
-          {/* ha kell még, meghagyom a linkeket is */}
           <Link
             href="/forum"
-            className="mt-4 flex items-center gap-3 text-slate-300 hover:text-white transition px-3 py-2"
+            className="mt-4 flex items-center gap-3 text-slate-300 hover:text-white transition px-3 py-2 cursor-pointer"
           >
             <MessageSquare size={18} />
-            Forum
+            Fórum
           </Link>
         </nav>
 
         <div className="border-t border-white/10 pt-4 text-slate-300 text-sm flex flex-col items-end">
-          <button onClick={handleLogout} className="flex items-center gap-2 hover:text-white transition">
+          <button onClick={handleLogout} className="flex items-center gap-2 hover:text-white transition cursor-pointer">
             <LogOut size={18} />
-            Logout
+            Kijelentkezés
           </button>
         </div>
       </aside>
@@ -261,16 +260,16 @@ export default function AdminPage() {
       <main className="ml-64 p-8">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold">
-            {tab === "movies" && "Handling movies"}
-            {tab === "halls" && "Handling halls"}
-            {tab === "screenings" && "Handling screenings"}
+            {tab === "movies" && "Filmek kezelése"}
+            {tab === "halls" && "Termek kezelése"}
+            {tab === "screenings" && "Vetítések kezelése"}
           </h1>
 
           <button
             onClick={loadAll}
-            className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 transition text-sm"
+            className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 transition text-sm cursor-pointer"
           >
-            Refresh
+            Frissítés
           </button>
         </div>
 
@@ -286,7 +285,7 @@ export default function AdminPage() {
             {/* FORM */}
             <section className="lg:col-span-1 p-5 rounded-xl bg-white/5 border border-white/10">
               <h2 className="font-semibold mb-4">
-                {editingId ? "Edit Movie" : "Create Movie"}
+                {editingId ? "Film szerkesztése" : "Új film létrehozása"}
               </h2>
 
               <div className="grid grid-cols-2 gap-4">
@@ -294,35 +293,35 @@ export default function AdminPage() {
               {/* LEFT COLUMN */}
               <div className="space-y-3">
                 <div>
-                  <label className="block text-sm text-slate-300 mb-1">Title</label>
+                  <label className="block text-sm text-slate-300 mb-1">Cím</label>
                   <input value={movieForm.title}
                     onChange={(e)=>setMovieForm({...movieForm,title:e.target.value})}
                     className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-300 mb-1">Director</label>
+                  <label className="block text-sm text-slate-300 mb-1">Rendező</label>
                   <input value={movieForm.director}
                     onChange={(e)=>setMovieForm({...movieForm,director:e.target.value})}
                     className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-300 mb-1">Actors</label>
+                  <label className="block text-sm text-slate-300 mb-1">Színészek</label>
                   <input value={movieForm.actors}
                     onChange={(e)=>setMovieForm({...movieForm,actors:e.target.value})}
                     className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-300 mb-1">Language</label>
+                  <label className="block text-sm text-slate-300 mb-1">Nyelv</label>
                   <input value={movieForm.language}
                     onChange={(e)=>setMovieForm({...movieForm,language:e.target.value})}
                     className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-300 mb-1">Playtime</label>
+                  <label className="block text-sm text-slate-300 mb-1">Hossz (perc)</label>
                   <input type="number" value={movieForm.playtime}
                     onChange={(e)=>setMovieForm({...movieForm,playtime:Number(e.target.value)})}
                     className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
@@ -333,47 +332,39 @@ export default function AdminPage() {
               <div className="space-y-3">
 
                 <div>
-                  <label className="block text-sm text-slate-300 mb-1">Genre</label>
+                  <label className="block text-sm text-slate-300 mb-1">Műfaj</label>
                   <input value={movieForm.genre}
                     onChange={(e)=>setMovieForm({...movieForm,genre:e.target.value})}
                     className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-300 mb-1">Poster URL</label>
+                  <label className="block text-sm text-slate-300 mb-1">Poszter URL</label>
                   <input value={movieForm.poster}
                     onChange={(e)=>setMovieForm({...movieForm,poster:e.target.value})}
                     className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-300 mb-1">Trailer URL</label>
+                  <label className="block text-sm text-slate-300 mb-1">Előzetes URL</label>
                   <input value={movieForm.trailer}
                     onChange={(e)=>setMovieForm({...movieForm,trailer:e.target.value})}
                     className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-300 mb-1">Rating</label>
+                  <label className="block text-sm text-slate-300 mb-1">Értékelés</label>
                   <input type="number" step="0.1"
                     value={movieForm.review ?? ""}
                     onChange={(e)=>setMovieForm({...movieForm,review:Number(e.target.value)})}
                     className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
                 </div>
-
-                <label className="flex items-center gap-2 mt-6">
-                  <input type="checkbox"
-                    checked={movieForm.onscreen}
-                    onChange={(e)=>setMovieForm({...movieForm,onscreen:e.target.checked})}/>
-                  On Screen
-                </label>
-
               </div>
             </div>
 
             {/* DESCRIPTION FULL WIDTH */}
             <div className="mt-4">
-              <label className="block text-sm text-slate-300 mb-1">Description</label>
+              <label className="block text-sm text-slate-300 mb-1">Leírás</label>
               <textarea
                 rows={4}
                 value={movieForm.description}
@@ -391,7 +382,7 @@ export default function AdminPage() {
                     setMovieForm({ ...movieForm, onscreen: e.target.checked })
                   }
                 />
-                On Screen
+                Műsoron
               </label>
 
               <button
@@ -413,7 +404,7 @@ export default function AdminPage() {
 
                   for (const key of requiredFields) {
                     if (!movieForm[key as keyof typeof movieForm]) {
-                      setErr("All fields are required.");
+                      setErr("Az összes mező kitöltése kötelező.");
                       return;
                     }
                   }
@@ -434,17 +425,17 @@ export default function AdminPage() {
                     setErr(e.message);
                   }
                 }}
-                className="w-full px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30 hover:bg-emerald-500/25 transition"
+                className="w-full px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30 hover:bg-emerald-500/25 transition cursor-pointer"
               >
-                {editingId ? "Save Changes" : "Create Movie"}
+                {editingId ? "Mentés" : "Új film létrehozása"}
               </button>
 
               {editingId && (
                 <button
                   onClick={() => resetForm()}
-                  className="w-full mt-2 px-4 py-2 rounded-lg bg-red-500/15 border border-red-500/30 hover:bg-red-500/25 transition"
+                  className="w-full mt-2 px-4 py-2 rounded-lg bg-red-500/15 border border-red-500/30 hover:bg-red-500/25 transition cursor-pointer"
                 >
-                  Cancel Edit
+                  Mégse
                 </button>
               )}
             </section>
@@ -452,10 +443,10 @@ export default function AdminPage() {
             {/* LIST */}
             <section className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10">
               <div className="flex items-center justify-between mb-4 gap-3">
-                <h2 className="font-semibold">Movies</h2>
+                <h2 className="font-semibold">Filmek</h2>
                 <input
                   type="text"
-                  placeholder="Search by title..."
+                  placeholder="Keresés cím szerint..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className="px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none text-sm w-60"
@@ -472,7 +463,7 @@ export default function AdminPage() {
                     <div>
                       <div className="font-medium">{m.title}</div>
                       <div className="text-xs text-slate-300">
-                        {m.playtime} min • {m.onscreen ? "On Screen" : "Not On Screen"}
+                        {m.playtime} perc • {m.onscreen ? "Műsoron" : "Nincs műsoron"}
                       </div>
                     </div>
 
@@ -495,9 +486,9 @@ export default function AdminPage() {
                           });
 
                         }}
-                        className="px-3 py-2 rounded-lg bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500/25 transition text-sm"
+                        className="px-3 py-2 rounded-lg bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500/25 transition text-sm cursor-pointer"
                       >
-                        Edit
+                        Szerkesztés
                       </button>
 
                       <button
@@ -505,9 +496,9 @@ export default function AdminPage() {
                           await api("movies", "DELETE", { id: m.id });
                           await loadAll();
                         }}
-                        className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm"
+                        className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
                       >
-                        Delete
+                        Törlés
                       </button>
                     </div>
                   </div>
@@ -525,13 +516,13 @@ export default function AdminPage() {
             {/* CREATE / EDIT FORM */}
             <section>
               <h2 className="font-semibold mb-4">
-                {hallEditingId ? "Edit Hall" : "Create Hall"}
+                {hallEditingId ? "Terem szerkesztése" : "Új terem létrehozása"}
               </h2>
 
               {/* NAME */}
               <div className="mb-3">
                 <label className="block text-sm text-slate-300 mb-1">
-                  Hall Name
+                  Terem neve
                 </label>
                 <input
                   value={hallForm.name}
@@ -545,7 +536,7 @@ export default function AdminPage() {
               {/* ROWS */}
               <div className="mb-3">
                 <label className="block text-sm text-slate-300 mb-1">
-                  Rows
+                  Sorok száma
                 </label>
                 <input
                   type="number"
@@ -561,7 +552,7 @@ export default function AdminPage() {
               {/* COLUMNS */}
               <div className="mb-4">
                 <label className="block text-sm text-slate-300 mb-1">
-                  Columns (seats per row)
+                  Oszlopok száma (soronkénti ülőhelyek)
                 </label>
                 <input
                   type="number"
@@ -577,12 +568,12 @@ export default function AdminPage() {
 
               {/* SAVE BUTTON */}
               <button
-                className="w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition"
+                className="w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
                 onClick={async () => {
                   setErr("");
 
                   if (!hallForm.name || hallForm.row <= 0 || hallForm.column <= 0) {
-                    setErr("All fields are required and must be valid.");
+                    setErr("Minde mező kitöltése kötelező és érvényes értéknek kell lennie.");
                     return;
                   }
 
@@ -603,7 +594,7 @@ export default function AdminPage() {
                   }
                 }}
               >
-                {hallEditingId ? "Save Changes" : "Create Hall"}
+                {hallEditingId ? "Mentés" : "Új terem létrehozása"}
               </button>
 
               {/* CANCEL EDIT */}
@@ -619,7 +610,7 @@ export default function AdminPage() {
 
             {/* HALL LIST */}
             <section className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10">
-              <h2 className="font-semibold mb-4">Halls</h2>
+              <h2 className="font-semibold mb-4">Termek</h2>
 
               <div className="space-y-2 max-h-[520px] overflow-y-auto pr-2">
 
@@ -631,7 +622,7 @@ export default function AdminPage() {
                     <div>
                       <div className="font-medium">{h.name}</div>
                       <div className="text-xs text-slate-300">
-                        {h.row} rows × {h.column} seats ({h.row * h.column} total seats)
+                        {h.row} sor × {h.column} ülőhely ({h.row * h.column} összesen)
                       </div>
                     </div>
 
@@ -647,9 +638,9 @@ export default function AdminPage() {
                             column: h.column ?? 0,
                           });
                         }}
-                        className="px-3 py-2 rounded-lg bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500/25 transition text-sm"
+                        className="px-3 py-2 rounded-lg bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500/25 transition text-sm cursor-pointer"
                       >
-                        Edit
+                        Szerkesztés
                       </button>
 
                       {/* DELETE */}
@@ -658,9 +649,9 @@ export default function AdminPage() {
                           await api("halls", "DELETE", { id: h.id });
                           await loadAll();
                         }}
-                        className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm"
+                        className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
                       >
-                        Delete
+                        Törlés
                       </button>
 
                     </div>
@@ -680,19 +671,19 @@ export default function AdminPage() {
             {/* CREATE FORM */}
             <section className="lg:col-span-1 p-5 rounded-xl bg-white/5 border border-white/10">
 
-              <h2 className="font-semibold mb-4">Create Screening</h2>
+              <h2 className="font-semibold mb-4">Vetítés létrehozása</h2>
 
               {/* MOVIE */}
               <div className="mb-3">
                 <label className="block text-sm text-slate-300 mb-1">
-                  Movie
+                  Film
                 </label>
                 <select
                   value={screeningForm.movie_id}
                   onChange={(e)=>setScreeningForm({...screeningForm,movie_id:e.target.value})}
                   className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
                 >
-                  <option value="">Select movie...</option>
+                  <option value="">...</option>
                   {movies
                     .filter(m=>m.onscreen)
                     .map(m=>(
@@ -706,14 +697,14 @@ export default function AdminPage() {
               {/* HALL */}
               <div className="mb-3">
                 <label className="block text-sm text-slate-300 mb-1">
-                  Hall
+                  Terem
                 </label>
                 <select
                   value={screeningForm.hall_id}
                   onChange={(e)=>setScreeningForm({...screeningForm,hall_id:e.target.value})}
                   className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
                 >
-                  <option value="">Select hall...</option>
+                  <option value="">...</option>
                   {halls.map(h=>(
                     <option key={h.id} value={h.id}>
                       {h.name} ({h.row*h.column} seats)
@@ -725,7 +716,7 @@ export default function AdminPage() {
               {/* SCREENING TYPE */}
               <div className="mb-3">
                 <label className="block text-sm text-slate-300 mb-1">
-                  Screening Type
+                  Vetítés típusa
                 </label>
 
                 <select
@@ -738,7 +729,7 @@ export default function AdminPage() {
                   }
                   className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
                 >
-                  <option value="">Select type...</option>
+                  <option value="">...</option>
 
                   {screeningTypes.map((t) => (
                     <option key={t.id} value={t.id}>
@@ -751,7 +742,7 @@ export default function AdminPage() {
               {/* START TIME */}
               <div className="mb-4">
                 <label className="block text-sm text-slate-300 mb-1">
-                  Start Time
+                  Vetítés kezdete
                 </label>
                 <input
                   type="datetime-local"
@@ -763,7 +754,7 @@ export default function AdminPage() {
 
               {/* SAVE */}
               <button
-                className="w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition"
+                className="w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
                 onClick={async()=>{
 
                  if (
@@ -774,7 +765,7 @@ export default function AdminPage() {
                   )
 
                   {
-                    setErr("All fields are required.");
+                    setErr("Az összes mező kitöltése kötelező.");
                     return;
                   }
 
@@ -799,14 +790,14 @@ export default function AdminPage() {
                   }
                 }}
               >
-                Create Screening
+                Vetítés létrehozása
               </button>
             </section>
 
             {/* LIST */}
             <section className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10">
 
-              <h2 className="font-semibold mb-4">Screenings</h2>
+              <h2 className="font-semibold mb-4">Vetítések</h2>
 
               <div className="space-y-2 max-h-[520px] overflow-y-auto pr-2">
 
@@ -841,9 +832,9 @@ export default function AdminPage() {
                           await api("screenings", "DELETE", { id: s.id });
                           await loadAll();
                         }}
-                        className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm"
+                        className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
                       >
-                        Delete
+                        Törlés
                       </button>
                     </div>
                   );

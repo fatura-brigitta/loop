@@ -28,25 +28,25 @@ export default function RegisterPage() {
 
   const validate = () => {
     if (!name || !email || !phone_number || !birth_date || !password) {
-      return "Please fill in all fields!";
+      return "Kérjük töltse ki az összes mezőt!";
     }
 
     if (password.length < 5) {
-      return "Password must be at least 5 characters long!";
+      return "A jelszónak legalább 5 karakter hosszúnak kell lennie!";
     }
 
     const age = new Date().getFullYear() - new Date(birth_date).getFullYear();
 
     if (age < 3) {
-      return "Are you sure about your birth date? 🤔";
+      return "Biztos vagy a születési dátumodban? 🤔";
     }
 
     if(age > 150){
-      return "Are you sure about your birth date? 🤔";
+      return "Biztos vagy a születési dátumodban? 🤔";
     }
 
     if (!email.includes("@")) {
-      return "Invalid email address!";
+      return "Érvénytelen email cím!";
     }
 
     return "";
@@ -103,20 +103,20 @@ export default function RegisterPage() {
 
           <nav className="flex items-center gap-5 text-sm">
             <a className="text-slate-200/90 transition hover:text-white" href="/movies">
-              Movies
+              Filmek
             </a>
             <a className="text-slate-200/90 transition hover:text-white" href="/screenings">
-              Screenings
+              Vetítések
             </a>
             <a className="text-slate-200/90 transition hover:text-white" href="/forum">
-              Forum
+              Fórum
             </a>
 
             <Link
               className="ml-2 rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
               href="/login"
             >
-              Login
+              Bejelentkezés
             </Link>
           </nav>
         </div>
@@ -124,11 +124,11 @@ export default function RegisterPage() {
 
       <div className="flex items-center justify-center py-20">
         <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur">
-          <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Create Account</h1>
+          <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Fiók létrehozása</h1>
 
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
-              <label className="text-sm text-white/60">Name</label>
+              <label className="text-sm text-white/60">Név</label>
               <input
                 className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white transition outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
                 placeholder="John Doe"
@@ -150,7 +150,7 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="text-sm text-white/60">Phone number</label>
+              <label className="text-sm text-white/60">Telefonszám</label>
               <input
                 className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white transition outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
                 placeholder="+36 30 123 4567"
@@ -161,7 +161,7 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="text-sm text-white/60">Birth date</label>
+              <label className="text-sm text-white/60">Születési dátum</label>
               <input
                 className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white transition outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
                 type="date"
@@ -171,12 +171,12 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="text-sm text-white/60">Password</label>
+              <label className="text-sm text-white/60">Jelszó</label>
 
               <div className="relative mt-2">
                 <input
                   className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 pr-11 text-white transition outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
-                  placeholder="Choose a password"
+                  placeholder="Válasszon jelszót"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -209,9 +209,9 @@ export default function RegisterPage() {
           </form>
 
           <p className="mt-6 text-center text-sm text-white/60">
-            Already have an account?{" "}
+            Már van fiókod?{" "}
             <Link className="text-cyan-300 hover:underline" href="/login">
-              Login
+              Bejelentkezés
             </Link>
           </p>
         </div>

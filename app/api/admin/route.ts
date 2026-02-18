@@ -25,7 +25,7 @@ function parseId(id: string): string {
   try {
     return new ObjectId(id).toString();
   } catch {
-    throw new Error("Invalid id format");
+    throw new Error("Érvénytelen ID formátum");
   }
 }
 
@@ -40,7 +40,7 @@ function opt<T>(v: T | null | undefined | ""): T | undefined {
 export async function GET(req: Request) {
   try {
     const entity = getEntity(req);
-    if (!entity) return jsonError("Missing or invalid entity");
+    if (!entity) return jsonError("Hiányzó vagy érvénytelen entitás");
 
     if (entity === "movies") {
       return NextResponse.json(
@@ -73,7 +73,7 @@ export async function GET(req: Request) {
     return NextResponse.json(screenings);
   } catch (e) {
     console.error(e);
-    return jsonError("Server error", 500);
+    return jsonError("Szerver hiba történt", 500);
   }
 }
 
@@ -83,13 +83,13 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const entity = getEntity(req);
-    if (!entity) return jsonError("Missing or invalid entity");
+    if (!entity) return jsonError("Hiányzó vagy érvénytelen bemenet");
 
     const body = await req.json();
 
     // ---------- MOVIES ----------
     if (entity === "movies") {
-      if (!body.title) return jsonError("Title is required");
+      if (!body.title) return jsonError("Cím megadása kötelező");
 
       const created = await prisma.movie.create({
         data: {
@@ -112,13 +112,13 @@ export async function POST(req: Request) {
 
     // ---------- HALLS ----------
     if (entity === "halls") {
-      if (!body.name) return jsonError("Hall name required");
+      if (!body.name) return jsonError("Terem nevének megadása kötelező");
 
       const rows = Number(body.row);
       const columns = Number(body.column);
 
       if (!rows || rows <= 0 || !columns || columns <= 0) {
-        return jsonError("Rows and columns must be positive numbers");
+        return jsonError("A sorok és oszlopok számának pozitív számnak kell lennie");
       }
 
       const createdHall = await prisma.hall.create({
@@ -153,18 +153,18 @@ export async function POST(req: Request) {
     // ---------- SCREENINGS ----------
     if (entity === "screenings") {
       if (!body.movie_id || !body.hall_id || !body.start || !body.screening_type_id)
-        return jsonError("All fields required");
+        return jsonError("Minden mező kitöltése kötelező");
 
       const movie_id = parseId(body.movie_id);
       const hall_id = parseId(body.hall_id);
       const screening_type_id = parseId(body.screening_type_id);
 
       const movie = await prisma.movie.findUnique({ where: { id: movie_id } });
-      if (!movie) return jsonError("Movie not found");
-      if (!movie.onscreen) return jsonError("Movie is not on screen");
+      if (!movie) return jsonError("Film nem található");
+      if (!movie.onscreen) return jsonError("A film nem vetítendő");
 
       const startDate = new Date(body.start);
-      if (isNaN(startDate.getTime())) return jsonError("Invalid start date");
+      if (isNaN(startDate.getTime())) return jsonError("Érvénytelen vetítési idő");
 
       const endDate = new Date(startDate.getTime() + movie.playtime * 60000);
 
@@ -180,7 +180,7 @@ export async function POST(req: Request) {
       });
 
       if (conflict)
-        return jsonError("Another screening already occupies this hall at this time", 409);
+        return jsonError("Egy másik vetítés már foglalja ezt a termet ebben az időpontban", 409);
 
       const created = await prisma.screening.create({
         data: {
@@ -195,10 +195,10 @@ export async function POST(req: Request) {
       return NextResponse.json(created, { status: 201 });
     }
 
-    return jsonError("Unsupported entity");
+    return jsonError("Nem támogatott bemenet");
   } catch (e) {
     console.error(e);
-    return jsonError("Server error", 500);
+    return jsonError("Szerver hiba történt", 500);
   }
 }
 
@@ -208,10 +208,10 @@ export async function POST(req: Request) {
 export async function DELETE(req: Request) {
   try {
     const entity = getEntity(req);
-    if (!entity) return jsonError("Missing or invalid entity");
+    if (!entity) return jsonError("Hiányzó vagy érvénytelen bemenet");
 
     const body = await req.json();
-    if (!body.id) return jsonError("Missing id");
+    if (!body.id) return jsonError("Hiányzó azonosító");
 
     const id = parseId(body.id);
 
@@ -230,9 +230,9 @@ export async function DELETE(req: Request) {
       return NextResponse.json({ ok: true });
     }
 
-    return jsonError("Unsupported entity");
+    return jsonError("Nem támogatott bemenet");
   } catch (e) {
     console.error(e);
-    return jsonError("Server error", 500);
+    return jsonError("Szerver hiba történt", 500);
   }
 }

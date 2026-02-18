@@ -13,7 +13,7 @@ export async function GET() {
   const userId = cookieStore.get("userId")?.value;
 
   if (!userId) {
-    return NextResponse.json({ message: "Not logged in" }, { status: 401 });
+    return NextResponse.json({ message: "Nem vagy bejelentkezve" }, { status: 401 });
   }
 
   const user = await prisma.user.findUnique({
@@ -28,7 +28,7 @@ export async function GET() {
   });
 
   if (!user) {
-    return NextResponse.json({ message: "User not found" }, { status: 404 });
+    return NextResponse.json({ message: "Felhasználó nem található" }, { status: 404 });
   }
 
   return NextResponse.json(user);
@@ -42,13 +42,13 @@ export async function PATCH(req: Request) {
   const userId = cookieStore.get("userId")?.value;
 
   if (!userId) {
-    return NextResponse.json({ message: "Not logged in" }, { status: 401 });
+    return NextResponse.json({ message: "Nem vagy bejelentkezve" }, { status: 401 });
   }
 
   const { name } = await req.json();
 
   if (!name || name.length < 2) {
-    return NextResponse.json({ message: "Invalid name" }, { status: 400 });
+    return NextResponse.json({ message: "Érvénytelen név" }, { status: 400 });
   }
 
   await prisma.user.update({
@@ -67,13 +67,13 @@ export async function PUT(req: Request) {
   const userId = cookieStore.get("userId")?.value;
 
   if (!userId) {
-    return NextResponse.json({ message: "Not logged in" }, { status: 401 });
+    return NextResponse.json({ message: "Nem vagy bejelentkezve" }, { status: 401 });
   }
 
   const { oldPassword, newPassword } = await req.json();
 
   if (!oldPassword || !newPassword) {
-    return NextResponse.json({ message: "Missing fields" }, { status: 400 });
+    return NextResponse.json({ message: "Hiányzó mezők" }, { status: 400 });
   }
 
   const user = await prisma.user.findUnique({
@@ -81,25 +81,25 @@ export async function PUT(req: Request) {
   });
 
   if (!user) {
-    return NextResponse.json({ message: "User not found" }, { status: 404 });
+    return NextResponse.json({ message: "Felhasználó nem található" }, { status: 404 });
   }
 
   const valid = await bcrypt.compare(oldPassword, user.password_hash);
 
   if (!valid) {
-    return NextResponse.json({ message: "Wrong old password" }, { status: 400 });
+    return NextResponse.json({ message: "Hibás jelszó" }, { status: 400 });
   }
 
   if (oldPassword === newPassword) {
     return NextResponse.json(
-      { message: "New password cannot be the same as the old one" },
+      { message: "Az új jelszó nem lehet ugyanaz, mint a régi" },
       { status: 400 }
     );
   }
 
   if (newPassword.length < 5) {
     return NextResponse.json(
-      { message: "Password must be at least 5 characters long" },
+      { message: "A jelszó legalább 5 karakter hosszú kell legyen" },
       { status: 400 }
     );
   }
@@ -123,7 +123,7 @@ export async function POST() {
     const userId = cookieStore.get("userId")?.value;
 
     if (!userId) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ message: "Nem vagy bejelentkezve" }, { status: 401 });
     }
 
     const objectUserId = new ObjectId(userId).toString();
@@ -151,6 +151,6 @@ export async function POST() {
     return NextResponse.json(tickets);
   } catch (err) {
     console.error("PROFILE TICKETS ERROR:", err);
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
   }
 }

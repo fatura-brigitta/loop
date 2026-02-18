@@ -27,7 +27,7 @@ export async function GET() {
     return NextResponse.json(movies);
   } catch (err) {
     console.error("MOVIES ERROR:", err);
-    return NextResponse.json({ error: "Failed" }, { status: 500 });
+    return NextResponse.json({ error: "Sikertelen lekérés" }, { status: 500 });
   }
 }
 
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
     const { movieId } = await req.json();
 
     if (!movieId) {
-      return NextResponse.json({ message: "Missing movieId" }, { status: 400 });
+      return NextResponse.json({ message: "Hiányzó film azonosító" }, { status: 400 });
     }
 
     const res = NextResponse.json({ ok: true });
@@ -54,7 +54,7 @@ export async function POST(req: Request) {
     return res;
   } catch (err) {
     console.error("SET MOVIE ERROR:", err);
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
   }
 }
 
@@ -74,6 +74,6 @@ export async function DELETE() {
     return res;
   } catch (err) {
     console.error("CLEAR MOVIE ERROR:", err);
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
   }
 }

@@ -28,14 +28,14 @@ export default function AdminLoginPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.message || "Invalid admin credentials");
+        setError(data.message || "Érvénytelen adatok");
         setLoading(false);
         return;
       }
 
       router.push("/admin");
     } catch (err) {
-      setError("Network error occurred");
+      setError("Hálózati hiba történt");
       setLoading(false);
     }
   };
@@ -46,12 +46,12 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl">
 
         <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">
-          Admin Login
+          Admin Bejelentkezés
         </h1>
 
         <form className="space-y-5" onSubmit={handleSubmit}>
           <div>
-            <label className="text-sm text-white/60">Admin name</label>
+            <label className="text-sm text-white/60">Admin név</label>
 
             <input
               required
@@ -64,7 +64,7 @@ export default function AdminLoginPage() {
           </div>
 
           <div>
-            <label className="text-sm text-white/60">Password</label>
+            <label className="text-sm text-white/60">Jelszó</label>
 
             <div className="relative mt-2">
               <input
@@ -79,7 +79,7 @@ export default function AdminLoginPage() {
               <button
                 type="button"
                 onClick={() => setShowPassword(prev => !prev)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition cursor-pointer"
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
@@ -96,10 +96,10 @@ export default function AdminLoginPage() {
             disabled={loading}
             type="submit"
             className="flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-white transition
-            hover:bg-cyan-500 disabled:cursor-not-allowed disabled:opacity-50"
+            hover:bg-cyan-500 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
           >
             <LogIn size={18} />
-            {loading ? "Signing in..." : "Login"}
+            {loading ? "Bejelentkezés folyamatban..." : "Bejelentkezés"}
           </button>
 
         </form>

@@ -22,8 +22,6 @@ export async function GET() {
       id: true,
       name: true,
       email: true,
-      birth_date: true,
-      phone_number: true,
     },
   });
 

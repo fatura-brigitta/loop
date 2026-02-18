@@ -220,11 +220,6 @@ async function handleConfirm(req: NextRequest) {
 
       const chairIds = session.chair_ids as unknown as string[];
 
-      await prisma.chair.updateMany({
-        where: { id: { in: chairIds } },
-        data: { state: true },
-      });
-
       for (const chairId of chairIds) {
         await prisma.ticket.create({
           data: {

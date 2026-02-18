@@ -6623,7 +6623,6 @@ export namespace Prisma {
 
   export type ChairMinAggregateOutputType = {
     id: string | null
-    state: boolean | null
     row: number | null
     column: number | null
     hall_id: string | null
@@ -6631,7 +6630,6 @@ export namespace Prisma {
 
   export type ChairMaxAggregateOutputType = {
     id: string | null
-    state: boolean | null
     row: number | null
     column: number | null
     hall_id: string | null
@@ -6639,7 +6637,6 @@ export namespace Prisma {
 
   export type ChairCountAggregateOutputType = {
     id: number
-    state: number
     row: number
     column: number
     hall_id: number
@@ -6659,7 +6656,6 @@ export namespace Prisma {
 
   export type ChairMinAggregateInputType = {
     id?: true
-    state?: true
     row?: true
     column?: true
     hall_id?: true
@@ -6667,7 +6663,6 @@ export namespace Prisma {
 
   export type ChairMaxAggregateInputType = {
     id?: true
-    state?: true
     row?: true
     column?: true
     hall_id?: true
@@ -6675,7 +6670,6 @@ export namespace Prisma {
 
   export type ChairCountAggregateInputType = {
     id?: true
-    state?: true
     row?: true
     column?: true
     hall_id?: true
@@ -6770,7 +6764,6 @@ export namespace Prisma {
 
   export type ChairGroupByOutputType = {
     id: string
-    state: boolean
     row: number
     column: number
     hall_id: string
@@ -6797,7 +6790,6 @@ export namespace Prisma {
 
   export type ChairSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    state?: boolean
     row?: boolean
     column?: boolean
     hall_id?: boolean
@@ -6810,13 +6802,12 @@ export namespace Prisma {
 
   export type ChairSelectScalar = {
     id?: boolean
-    state?: boolean
     row?: boolean
     column?: boolean
     hall_id?: boolean
   }
 
-  export type ChairOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "state" | "row" | "column" | "hall_id", ExtArgs["result"]["chair"]>
+  export type ChairOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "row" | "column" | "hall_id", ExtArgs["result"]["chair"]>
   export type ChairInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tickets?: boolean | Chair$ticketsArgs<ExtArgs>
     halls?: boolean | Chair$hallsArgs<ExtArgs>
@@ -6831,7 +6822,6 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      state: boolean
       row: number
       column: number
       hall_id: string
@@ -7230,7 +7220,6 @@ export namespace Prisma {
    */
   interface ChairFieldRefs {
     readonly id: FieldRef<"Chair", 'String'>
-    readonly state: FieldRef<"Chair", 'Boolean'>
     readonly row: FieldRef<"Chair", 'Int'>
     readonly column: FieldRef<"Chair", 'Int'>
     readonly hall_id: FieldRef<"Chair", 'String'>
@@ -16180,7 +16169,6 @@ export namespace Prisma {
 
   export const ChairScalarFieldEnum: {
     id: 'id',
-    state: 'state',
     row: 'row',
     column: 'column',
     hall_id: 'hall_id'
@@ -16681,7 +16669,6 @@ export namespace Prisma {
     OR?: ChairWhereInput[]
     NOT?: ChairWhereInput | ChairWhereInput[]
     id?: StringFilter<"Chair"> | string
-    state?: BoolFilter<"Chair"> | boolean
     row?: IntFilter<"Chair"> | number
     column?: IntFilter<"Chair"> | number
     hall_id?: StringFilter<"Chair"> | string
@@ -16691,7 +16678,6 @@ export namespace Prisma {
 
   export type ChairOrderByWithRelationInput = {
     id?: SortOrder
-    state?: SortOrder
     row?: SortOrder
     column?: SortOrder
     hall_id?: SortOrder
@@ -16704,7 +16690,6 @@ export namespace Prisma {
     AND?: ChairWhereInput | ChairWhereInput[]
     OR?: ChairWhereInput[]
     NOT?: ChairWhereInput | ChairWhereInput[]
-    state?: BoolFilter<"Chair"> | boolean
     row?: IntFilter<"Chair"> | number
     column?: IntFilter<"Chair"> | number
     hall_id?: StringFilter<"Chair"> | string
@@ -16714,7 +16699,6 @@ export namespace Prisma {
 
   export type ChairOrderByWithAggregationInput = {
     id?: SortOrder
-    state?: SortOrder
     row?: SortOrder
     column?: SortOrder
     hall_id?: SortOrder
@@ -16730,7 +16714,6 @@ export namespace Prisma {
     OR?: ChairScalarWhereWithAggregatesInput[]
     NOT?: ChairScalarWhereWithAggregatesInput | ChairScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Chair"> | string
-    state?: BoolWithAggregatesFilter<"Chair"> | boolean
     row?: IntWithAggregatesFilter<"Chair"> | number
     column?: IntWithAggregatesFilter<"Chair"> | number
     hall_id?: StringWithAggregatesFilter<"Chair"> | string
@@ -17539,7 +17522,6 @@ export namespace Prisma {
 
   export type ChairCreateInput = {
     id?: string
-    state?: boolean
     row: number
     column: number
     tickets?: TicketCreateNestedManyWithoutChairsInput
@@ -17548,7 +17530,6 @@ export namespace Prisma {
 
   export type ChairUncheckedCreateInput = {
     id?: string
-    state?: boolean
     row: number
     column: number
     hall_id: string
@@ -17556,7 +17537,6 @@ export namespace Prisma {
   }
 
   export type ChairUpdateInput = {
-    state?: BoolFieldUpdateOperationsInput | boolean
     row?: IntFieldUpdateOperationsInput | number
     column?: IntFieldUpdateOperationsInput | number
     tickets?: TicketUpdateManyWithoutChairsNestedInput
@@ -17564,7 +17544,6 @@ export namespace Prisma {
   }
 
   export type ChairUncheckedUpdateInput = {
-    state?: BoolFieldUpdateOperationsInput | boolean
     row?: IntFieldUpdateOperationsInput | number
     column?: IntFieldUpdateOperationsInput | number
     hall_id?: StringFieldUpdateOperationsInput | string
@@ -17573,20 +17552,17 @@ export namespace Prisma {
 
   export type ChairCreateManyInput = {
     id?: string
-    state?: boolean
     row: number
     column: number
     hall_id: string
   }
 
   export type ChairUpdateManyMutationInput = {
-    state?: BoolFieldUpdateOperationsInput | boolean
     row?: IntFieldUpdateOperationsInput | number
     column?: IntFieldUpdateOperationsInput | number
   }
 
   export type ChairUncheckedUpdateManyInput = {
-    state?: BoolFieldUpdateOperationsInput | boolean
     row?: IntFieldUpdateOperationsInput | number
     column?: IntFieldUpdateOperationsInput | number
     hall_id?: StringFieldUpdateOperationsInput | string
@@ -18430,7 +18406,6 @@ export namespace Prisma {
 
   export type ChairCountOrderByAggregateInput = {
     id?: SortOrder
-    state?: SortOrder
     row?: SortOrder
     column?: SortOrder
     hall_id?: SortOrder
@@ -18443,7 +18418,6 @@ export namespace Prisma {
 
   export type ChairMaxOrderByAggregateInput = {
     id?: SortOrder
-    state?: SortOrder
     row?: SortOrder
     column?: SortOrder
     hall_id?: SortOrder
@@ -18451,7 +18425,6 @@ export namespace Prisma {
 
   export type ChairMinOrderByAggregateInput = {
     id?: SortOrder
-    state?: SortOrder
     row?: SortOrder
     column?: SortOrder
     hall_id?: SortOrder
@@ -20883,7 +20856,6 @@ export namespace Prisma {
 
   export type ChairCreateWithoutHallsInput = {
     id?: string
-    state?: boolean
     row: number
     column: number
     tickets?: TicketCreateNestedManyWithoutChairsInput
@@ -20891,7 +20863,6 @@ export namespace Prisma {
 
   export type ChairUncheckedCreateWithoutHallsInput = {
     id?: string
-    state?: boolean
     row: number
     column: number
     tickets?: TicketUncheckedCreateNestedManyWithoutChairsInput
@@ -20943,7 +20914,6 @@ export namespace Prisma {
     OR?: ChairScalarWhereInput[]
     NOT?: ChairScalarWhereInput | ChairScalarWhereInput[]
     id?: StringFilter<"Chair"> | string
-    state?: BoolFilter<"Chair"> | boolean
     row?: IntFilter<"Chair"> | number
     column?: IntFilter<"Chair"> | number
     hall_id?: StringFilter<"Chair"> | string
@@ -21207,7 +21177,6 @@ export namespace Prisma {
 
   export type ChairCreateWithoutTicketsInput = {
     id?: string
-    state?: boolean
     row: number
     column: number
     halls?: HallCreateNestedOneWithoutChairsInput
@@ -21215,7 +21184,6 @@ export namespace Prisma {
 
   export type ChairUncheckedCreateWithoutTicketsInput = {
     id?: string
-    state?: boolean
     row: number
     column: number
     hall_id: string
@@ -21354,14 +21322,12 @@ export namespace Prisma {
   }
 
   export type ChairUpdateWithoutTicketsInput = {
-    state?: BoolFieldUpdateOperationsInput | boolean
     row?: IntFieldUpdateOperationsInput | number
     column?: IntFieldUpdateOperationsInput | number
     halls?: HallUpdateOneWithoutChairsNestedInput
   }
 
   export type ChairUncheckedUpdateWithoutTicketsInput = {
-    state?: BoolFieldUpdateOperationsInput | boolean
     row?: IntFieldUpdateOperationsInput | number
     column?: IntFieldUpdateOperationsInput | number
     hall_id?: StringFieldUpdateOperationsInput | string
@@ -22087,7 +22053,6 @@ export namespace Prisma {
 
   export type ChairCreateManyHallsInput = {
     id?: string
-    state?: boolean
     row: number
     column: number
   }
@@ -22118,21 +22083,18 @@ export namespace Prisma {
   }
 
   export type ChairUpdateWithoutHallsInput = {
-    state?: BoolFieldUpdateOperationsInput | boolean
     row?: IntFieldUpdateOperationsInput | number
     column?: IntFieldUpdateOperationsInput | number
     tickets?: TicketUpdateManyWithoutChairsNestedInput
   }
 
   export type ChairUncheckedUpdateWithoutHallsInput = {
-    state?: BoolFieldUpdateOperationsInput | boolean
     row?: IntFieldUpdateOperationsInput | number
     column?: IntFieldUpdateOperationsInput | number
     tickets?: TicketUncheckedUpdateManyWithoutChairsNestedInput
   }
 
   export type ChairUncheckedUpdateManyWithoutHallsInput = {
-    state?: BoolFieldUpdateOperationsInput | boolean
     row?: IntFieldUpdateOperationsInput | number
     column?: IntFieldUpdateOperationsInput | number
   }

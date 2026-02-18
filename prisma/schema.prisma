@@ -81,7 +81,6 @@ model User {
 
 model Chair {
   id      String  @id @default(auto()) @map("_id") @db.ObjectId
-  state   Boolean @default(false)
   row     Int
   column  Int
   hall_id String  @db.ObjectId

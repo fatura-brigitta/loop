@@ -80,11 +80,10 @@ model User {
 }
 
 model Chair {
-  id      String  @id @default(auto()) @map("_id") @db.ObjectId
-  state   Boolean @default(false)
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
   row     Int
   column  Int
-  hall_id String  @db.ObjectId
+  hall_id String @db.ObjectId
 
   tickets Ticket[]
 

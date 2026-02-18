@@ -27,7 +27,7 @@ export async function GET() {
 }
 
 /* =====================================================
-   POST → Vetítés kiválasztása (régi selectHall)
+   POST → Vetítés kiválasztása
 ===================================================== */
 export async function POST(req: Request) {
   try {
@@ -53,7 +53,7 @@ export async function POST(req: Request) {
 }
 
 /* =====================================================
-   PUT → Terem + székek lekérése (hall + hallByCookie)
+   PUT → Terem + székek + foglaltság lekérése
 ===================================================== */
 export async function PUT() {
   try {
@@ -85,10 +85,23 @@ export async function PUT() {
       orderBy: [{ row: "asc" }, { column: "asc" }],
     });
 
+    const takenTickets = await prisma.ticket.findMany({
+      where: { screening_id: screeningId },
+      select: { chair_id: true },
+    });
+
+    const takenChairIds = new Set(takenTickets.map(t => t.chair_id));
+
+    const chairsWithState = chairs.map(chair => ({
+      ...chair,
+      state: takenChairIds.has(chair.id),
+    }));
+
     return NextResponse.json({
       hall,
-      chairs,
+      chairs: chairsWithState,
     });
+
   } catch (err) {
     console.error("HALL LOAD ERROR:", err);
     return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });

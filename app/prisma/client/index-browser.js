@@ -160,7 +160,6 @@ exports.Prisma.UserScalarFieldEnum = {
 
 exports.Prisma.ChairScalarFieldEnum = {
   id: 'id',
-  state: 'state',
   row: 'row',
   column: 'column',
   hall_id: 'hall_id'

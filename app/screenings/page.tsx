@@ -28,6 +28,11 @@ type Screening = {
   };
 };
 
+type GroupedMovie = {
+  movie: Movie;
+  screenings: Screening[];
+};
+
 const getYoutubeId = (url: string) => {
   const match = url.match(/(?:v=|youtu\.be\/)([^&]+)/);
   return match ? match[1] : null;
@@ -38,8 +43,10 @@ export default function ScreeningsPage() {
 
   const [name, setUserName] = useState("");
   const [showLogin, setShowLogin] = useState(true);
-  const [screenings, setScreenings] = useState<Screening[]>([]);
   const [openTrailer, setOpenTrailer] = useState<string | null>(null);
+  const [grouped, setGrouped] = useState<GroupedMovie[]>([]);
+
+  /* ================= USER LOAD ================= */
 
   useEffect(() => {
     const load = async () => {
@@ -65,20 +72,50 @@ export default function ScreeningsPage() {
     router.refresh();
   };
 
+  /* ================= SCREENINGS LOAD ================= */
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const movieId = params.get("movieId");
 
-    const url = movieId ? `/api/screenings?movieId=${movieId}` : "/api/screenings";
+    const url = movieId
+      ? `/api/screenings?movieId=${movieId}`
+      : "/api/screenings";
 
     fetch(url, { cache: "no-store" })
       .then((res) => res.json())
-      .then(setScreenings);
+      .then((data: Screening[]) => {
+        const map = new Map<string, GroupedMovie>();
+
+        data.forEach((screening) => {
+          const key = screening.movies.title;
+
+          if (!map.has(key)) {
+            map.set(key, {
+              movie: screening.movies,
+              screenings: [],
+            });
+          }
+
+          map.get(key)!.screenings.push(screening);
+        });
+
+        const groupedMovies = Array.from(map.values()).map((g) => ({
+          ...g,
+          screenings: g.screenings.sort(
+            (a, b) =>
+              new Date(a.start).getTime() -
+              new Date(b.start).getTime()
+          ),
+        }));
+
+        setGrouped(groupedMovies);
+      });
   }, []);
 
-  const openScreening = async (id?: string) => {
-    if (!id) return;
+  /* ================= OPEN SCREENING ================= */
 
+  const openScreening = async (id: string) => {
     await fetch("/api/screenings/", {
       method: "POST",
       body: JSON.stringify({ id }),
@@ -89,13 +126,17 @@ export default function ScreeningsPage() {
     router.push("/screenings/hall");
   };
 
+  /* ================= RENDER ================= */
+
   return (
     <div className="min-h-screen bg-[#060b14] text-slate-100">
       <header className="sticky top-0 z-50 h-14 border-b border-white/10 bg-[#060b14]/90 backdrop-blur">
         <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
           <Link className="flex items-center gap-2" href="/">
             <Image alt="Logo" height={28} src="/favicon.ico" width={28} />
-            <span className="text-lg font-extrabold tracking-wide text-cyan-300">Loop</span>
+            <span className="text-lg font-extrabold tracking-wide text-cyan-300">
+              Loop
+            </span>
           </Link>
 
           <nav className="flex items-center gap-5 text-sm">
@@ -103,15 +144,12 @@ export default function ScreeningsPage() {
               Filmek
             </Link>
 
-            <button
-              className="cursor-pointer text-slate-200/90 hover:text-white"
-              onClick={async () => {
-                await fetch("/api/movies", { method: "DELETE" });
-                window.location.href = "/screenings";
-              }}
+            <Link
+              className="text-slate-200/90 hover:text-white"
+              href="/screenings"
             >
               Vetítések
-            </button>
+            </Link>
 
             <Link className="text-slate-200/90 hover:text-white" href="/forum">
               Fórum
@@ -122,7 +160,7 @@ export default function ScreeningsPage() {
                 <Link className="text-slate-200/90" href="/profile">
                   Szia, {name}!
                 </Link>
-                <button className="cursor-pointer" onClick={handleLogout}>
+                <button onClick={handleLogout}>
                   <LogOut size={22} />
                 </button>
               </div>
@@ -142,89 +180,105 @@ export default function ScreeningsPage() {
         <h1 className="mb-6 text-2xl font-bold text-white">Műsoron</h1>
 
         <div className="flex flex-col gap-6">
-          {screenings.map((s, i) => (
+          {grouped.map((g, index) => (
             <div
+              key={index}
               className="flex w-full gap-6 rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur"
-              key={i}
             >
+              {/* POSTER */}
               <div className="shrink-0">
                 <Image
-                  alt={s.movies.title}
+                  alt={g.movie.title}
                   className="rounded-lg object-cover"
                   height={300}
-                  src={s.movies.poster}
                   width={200}
+                  src={g.movie.poster}
                 />
               </div>
 
+              {/* MOVIE INFO */}
               <div className="flex flex-1 flex-col">
-                <h2 className="text-xl font-semibold text-white">{s.movies.title}</h2>
+                <h2 className="text-xl font-semibold text-white">
+                  {g.movie.title}
+                </h2>
 
                 <p className="text-xs text-slate-400">
-                  {s.movies.genre} • {s.movies.playtime} perc • {s.movies.language}
+                  {g.movie.genre} • {g.movie.playtime} perc •{" "}
+                  {g.movie.language}
                 </p>
 
-                <p className="mt-1 text-sm text-slate-300">Rendező: {s.movies.director}</p>
+                <p className="mt-1 text-sm text-slate-300">
+                  Rendező: {g.movie.director}
+                </p>
 
-                <p className="text-sm text-slate-300">Szereplők: {s.movies.actors}</p>
+                <p className="text-sm text-slate-300">
+                  Szereplők: {g.movie.actors}
+                </p>
 
-                <p className="mt-2 line-clamp-3 text-sm text-slate-300">{s.movies.description}</p>
+                <p className="mt-2 line-clamp-3 text-sm text-slate-300">
+                  {g.movie.description}
+                </p>
 
-                <div className="mt-4 flex gap-2">
-                  <button
-                    className="rounded bg-white/10 px-3 py-1 text-xs transition hover:bg-blue-500/30 cursor-pointer"
-                    onClick={() => openScreening(s.id)}
-                  >
-                    {new Date(s.start).toLocaleString("hu-HU", {
-                      month: "2-digit",
-                      day: "2-digit",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </button>
+                {/* IDŐPONTOK */}
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {g.screenings.map((s) => (
+                    <button
+                      key={s.id}
+                      className="rounded bg-white/10 px-3 py-1 text-xs transition hover:bg-blue-500/30 cursor-pointer"
+                      onClick={() => openScreening(s.id)}
+                    >
+                      {new Date(s.start).toLocaleString("hu-HU", {
+                        month: "2-digit",
+                        day: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </button>
+                  ))}
 
                   <span className="rounded bg-blue-500/30 px-2 py-1 text-xs">
-                    {s.screening_types.type}
+                    {g.screenings[0]?.screening_types.type}
                   </span>
                 </div>
               </div>
 
-              {s.movies.trailer && (
+              {/* TRAILER */}
+              {g.movie.trailer && (
                 <div className="w-[340px] shrink-0">
                   <div className="mb-2 flex justify-end text-blue-300">
                     <span className="mr-1 text-yellow-400">⭐</span>
-                    <span className="font-medium">{s.movies.review}</span>
+                    <span className="font-medium">{g.movie.review}</span>
                   </div>
 
                   <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
-                    {openTrailer === s.movies.trailer ? (
+                    {openTrailer === g.movie.trailer ? (
                       <iframe
                         allow="autoplay; encrypted-media"
                         allowFullScreen
                         className="absolute inset-0 h-full w-full"
                         loading="lazy"
                         src={`https://www.youtube.com/embed/${getYoutubeId(
-                          s.movies.trailer,
+                          g.movie.trailer
                         )}?autoplay=1&rel=0&modestbranding=1`}
                       />
                     ) : (
                       <button
                         className="absolute inset-0"
-                        onClick={() => setOpenTrailer(s.movies.trailer)}
+                        onClick={() => setOpenTrailer(g.movie.trailer)}
                       >
                         <Image
                           alt="Trailer"
-                          className="object-cover brightness-75 transition hover:brightness-90"
                           fill
                           sizes="340px"
+                          className="object-cover brightness-75 transition hover:brightness-90"
                           src={`https://img.youtube.com/vi/${getYoutubeId(
-                            s.movies.trailer,
+                            g.movie.trailer
                           )}/hqdefault.jpg`}
                         />
 
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="flex items-center gap-2 rounded-full bg-black/70 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:scale-105 cursor-pointer">
-                            <Play className="fill-white" size={18} />
+                          <div className="flex items-center gap-2 rounded-full bg-black/70 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:scale-105">
+                            <Play size={18} />
                             Trailer megtekintése
                           </div>
                         </div>

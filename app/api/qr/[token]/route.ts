@@ -1,11 +1,19 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import QRCode from "qrcode";
 
 export async function GET(
-  req: Request,
-  { params }: { params: { token: string } }
+  req: NextRequest,
+  context: { params: Promise<{ token: string }> }
 ) {
-  const url = `${process.env.NEXT_PUBLIC_APP_URL}/ticket/${params.token}`;
+  // Next.js 16 dynamic params
+  const { token } = await context.params;
+
+  if (!token) {
+    return NextResponse.json({ error: "Missing token" }, { status: 400 });
+  }
+
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+  const url = `${baseUrl}/ticket/${token}`;
 
   const pngBuffer = await QRCode.toBuffer(url);
 

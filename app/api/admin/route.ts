@@ -114,16 +114,41 @@ export async function POST(req: Request) {
     if (entity === "halls") {
       if (!body.name) return jsonError("Hall name required");
 
-      const created = await prisma.hall.create({
+      const rows = Number(body.row);
+      const columns = Number(body.column);
+
+      if (!rows || rows <= 0 || !columns || columns <= 0) {
+        return jsonError("Rows and columns must be positive numbers");
+      }
+
+      const createdHall = await prisma.hall.create({
         data: {
           name: body.name,
-          row: Number(body.row),
-          column: Number(body.column),
+          row: rows,
+          column: columns,
         },
       });
 
-      return NextResponse.json(created, { status: 201 });
+      const chairs = [];
+
+      for (let r = 1; r <= rows; r++) {
+        for (let c = 1; c <= columns; c++) {
+          chairs.push({
+            hall_id: createdHall.id,
+            row: r,
+            column: c,
+            state: false,
+          });
+        }
+      }
+
+      await prisma.chair.createMany({
+        data: chairs,
+      });
+
+      return NextResponse.json(createdHall, { status: 201 });
     }
+
 
     // ---------- SCREENINGS ----------
     if (entity === "screenings") {

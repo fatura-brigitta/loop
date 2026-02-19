@@ -1,10 +1,10 @@
 "use client";
 
-import { LogOut, Play } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { LogOut, Play, ChevronDown, RotateCcw } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 type Movie = {
   title: string;
@@ -38,53 +38,80 @@ const getYoutubeId = (url: string) => {
   return match ? match[1] : null;
 };
 
+const getNext7Days = () => {
+  const days: { label: string; date: Date; iso: string }[] = [];
+  const names = ["Va", "Hé", "Ke", "Sze", "Cs", "Pé", "Szo"];
+
+  for (let i = 0; i < 7; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() + i);
+
+    days.push({
+      label: i === 0 ? "Ma" : names[d.getDay()],
+      date: new Date(d),
+      iso: d.toISOString().split("T")[0],
+    });
+  }
+  return days;
+};
+
+const groupByType = (screenings: Screening[]) => {
+  const map: Record<string, Screening[]> = {};
+  screenings.forEach((s) => {
+    const type = s.screening_types?.type || "Egyéb";
+    if (!map[type]) map[type] = [];
+    map[type].push(s);
+  });
+  return map;
+};
+
 export default function ScreeningsPage() {
   const router = useRouter();
 
   const [name, setUserName] = useState("");
   const [showLogin, setShowLogin] = useState(true);
-  const [openTrailer, setOpenTrailer] = useState<string | null>(null);
-  const [grouped, setGrouped] = useState<GroupedMovie[]>([]);
 
-  /* ================= USER LOAD ================= */
+  const [grouped, setGrouped] = useState<GroupedMovie[]>([]);
+  const [openTrailer, setOpenTrailer] = useState<string | null>(null);
+
+  const [selectedDate, setSelectedDate] = useState<string>("all");
+  const [selectedType, setSelectedType] = useState<string>("all");
+  const [availableTypes, setAvailableTypes] = useState<string[]>([]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const nextDays = getNext7Days();
+
+  const hoverTimer = useRef<number | null>(null);
 
   useEffect(() => {
-    const load = async () => {
-      const userRes = await fetch("/api/auth", { cache: "no-store" });
-
-      if (userRes.status === 200) {
-        const user = await userRes.json();
-        setUserName(user.name);
-        setShowLogin(true);
-      } else {
-        setUserName("");
-        setShowLogin(false);
-      }
-    };
-
-    load();
+    fetch("/api/auth", { cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((user) => {
+        if (user) {
+          setUserName(user.name);
+          setShowLogin(true);
+        } else {
+          setShowLogin(false);
+        }
+      });
   }, []);
 
   const handleLogout = async () => {
     await fetch("/api/auth", { method: "DELETE" });
-    setUserName("");
     setShowLogin(false);
     router.refresh();
   };
 
-  /* ================= SCREENINGS LOAD ================= */
-
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const movieId = params.get("movieId");
-
-    const url = movieId
-      ? `/api/screenings?movieId=${movieId}`
-      : "/api/screenings";
-
-    fetch(url, { cache: "no-store" })
+    fetch("/api/screenings", { cache: "no-store" })
       .then((res) => res.json())
       .then((data: Screening[]) => {
+        const types = Array.from(
+          new Set(data.map((s) => s.screening_types?.type).filter(Boolean)),
+        ) as string[];
+        setAvailableTypes(types);
+
         const map = new Map<string, GroupedMovie>();
 
         data.forEach((screening) => {
@@ -103,9 +130,7 @@ export default function ScreeningsPage() {
         const groupedMovies = Array.from(map.values()).map((g) => ({
           ...g,
           screenings: g.screenings.sort(
-            (a, b) =>
-              new Date(a.start).getTime() -
-              new Date(b.start).getTime()
+            (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime(),
           ),
         }));
 
@@ -113,7 +138,41 @@ export default function ScreeningsPage() {
       });
   }, []);
 
-  /* ================= OPEN SCREENING ================= */
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!dropdownRef.current) return;
+
+      if (!dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const filteredGrouped = grouped
+    .map((g) => {
+      let screenings = g.screenings;
+
+      screenings = screenings.filter((s) => new Date(s.start).getTime() > Date.now());
+
+      if (selectedDate !== "all") {
+        screenings = screenings.filter(
+          (s) => new Date(s.start).toISOString().split("T")[0] === selectedDate,
+        );
+      }
+
+      if (selectedType !== "all") {
+        screenings = screenings.filter((s) => s.screening_types?.type === selectedType);
+      }
+
+      return { ...g, screenings };
+    })
+    .filter((g) => g.screenings.length > 0);
 
   const openScreening = async (id: string) => {
     await fetch("/api/screenings/", {
@@ -126,7 +185,13 @@ export default function ScreeningsPage() {
     router.push("/screenings/hall");
   };
 
-  /* ================= RENDER ================= */
+  const resetFilters = () => {
+    setSelectedDate("all");
+    setSelectedType("all");
+    setDropdownOpen(false);
+
+    window.location.href = "/screenings";
+  };
 
   return (
     <div className="min-h-screen bg-[#060b14] text-slate-100">
@@ -134,33 +199,26 @@ export default function ScreeningsPage() {
         <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
           <Link className="flex items-center gap-2" href="/">
             <Image alt="Logo" height={28} src="/favicon.ico" width={28} />
-            <span className="text-lg font-extrabold tracking-wide text-cyan-300">
-              Loop
-            </span>
+            <span className="text-lg font-extrabold tracking-wide text-cyan-300">Loop</span>
           </Link>
 
           <nav className="flex items-center gap-5 text-sm">
-            <Link className="text-slate-200/90 hover:text-white" href="/movies">
+            <Link href="/movies" className="hover:text-white">
               Filmek
             </Link>
-
-            <Link
-              className="text-slate-200/90 hover:text-white"
-              href="/screenings"
-            >
+            <Link href="/screenings" className="hover:text-white">
               Vetítések
             </Link>
-
-            <Link className="text-slate-200/90 hover:text-white" href="/forum">
+            <Link href="/forum" className="hover:text-white">
               Fórum
             </Link>
 
             {showLogin ? (
               <div className="flex items-center gap-2">
-                <Link className="text-slate-200/90" href="/profile">
+                <Link href="/profile" className="hover:text-white">
                   Szia, {name}!
                 </Link>
-                <button onClick={handleLogout}>
+                <button onClick={handleLogout} className="cursor-pointer">
                   <LogOut size={22} />
                 </button>
               </div>
@@ -177,89 +235,161 @@ export default function ScreeningsPage() {
       </header>
 
       <div className="mx-auto max-w-6xl p-4">
-        <h1 className="mb-6 text-2xl font-bold text-white">Műsoron</h1>
+        <h1 className="mb-6 text-2xl font-bold">Műsoron</h1>
+
+        <div className="mb-8 flex flex-wrap items-center gap-4">
+
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            <button
+              onClick={() => setSelectedDate("all")}
+              className={`rounded-lg px-4 py-2 border cursor-pointer ${
+                selectedDate === "all"
+                  ? "bg-cyan-500 border-cyan-500 text-white"
+                  : "bg-white/5 border-white/10 hover:bg-white/10"
+              }`}
+            >
+              Összes
+            </button>
+
+            {nextDays.map((d) => (
+              <button
+                key={d.iso}
+                onClick={() => setSelectedDate(d.iso)}
+                className={`flex min-w-[70px] flex-col items-center rounded-lg border px-4 py-2 cursor-pointer ${
+                  selectedDate === d.iso
+                    ? "bg-cyan-500 border-cyan-500 text-white"
+                    : "bg-white/5 border-white/10 hover:bg-white/10"
+                }`}
+              >
+                <span className="text-xs opacity-80">{d.label}</span>
+                <span className="text-lg font-semibold">{d.date.getDate()}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2">
+
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setDropdownOpen((p) => !p)}
+                className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-2 hover:bg-white/10 cursor-pointer"
+              >
+                {selectedType === "all" ? "Előadás-típus" : selectedType}
+                <ChevronDown size={16} />
+              </button>
+
+              {dropdownOpen && (
+                <div className="absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-xl border border-white/10 bg-[#0b1220] shadow-xl">
+
+                  <div
+                    onClick={() => {
+                      setSelectedType("all");
+                      setDropdownOpen(false);
+                    }}
+                    className="cursor-pointer px-4 py-2 hover:bg-white/10"
+                  >
+                    Mind
+                  </div>
+
+                  {availableTypes.map((type) => (
+                    <div
+                      key={type}
+                      onClick={() => {
+                        setSelectedType(type);
+                        setDropdownOpen(false);
+                      }}
+                      className="cursor-pointer px-4 py-2 hover:bg-white/10"
+                    >
+                      {type}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <button
+              onClick={resetFilters}
+              title="Szűrők törlése"
+              className="flex items-center justify-center rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10 cursor-pointer"
+            >
+              ↻
+            </button>
+          </div>
+        </div>
 
         <div className="flex flex-col gap-6">
-          {grouped.map((g, index) => (
+          {filteredGrouped.map((g, index) => (
             <div
               key={index}
-              className="flex w-full gap-6 rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur"
+              className="flex items-stretch gap-6 rounded-xl border border-white/10 bg-white/5 p-4"
             >
-              {/* POSTER */}
-              <div className="shrink-0">
+              <div className="shrink-0 self-start">
                 <Image
-                  alt={g.movie.title}
-                  className="rounded-lg object-cover"
-                  height={300}
-                  width={200}
                   src={g.movie.poster}
+                  alt={g.movie.title}
+                  width={200}
+                  height={300}
+                  className="rounded-lg object-cover"
                 />
               </div>
 
-              {/* MOVIE INFO */}
               <div className="flex flex-1 flex-col">
-                <h2 className="text-xl font-semibold text-white">
-                  {g.movie.title}
-                </h2>
+                <h2 className="text-xl font-semibold">{g.movie.title}</h2>
 
                 <p className="text-xs text-slate-400">
-                  {g.movie.genre} • {g.movie.playtime} perc •{" "}
-                  {g.movie.language}
+                  {g.movie.genre} • {g.movie.playtime} perc • {g.movie.language}
                 </p>
 
-                <p className="mt-1 text-sm text-slate-300">
-                  Rendező: {g.movie.director}
-                </p>
+                <p className="mt-3 text-sm text-slate-300 line-clamp-3">{g.movie.description}</p>
 
-                <p className="text-sm text-slate-300">
-                  Szereplők: {g.movie.actors}
-                </p>
+                <div className="mt-4 flex flex-col gap-4">
+                  {Object.entries(groupByType(g.screenings)).map(([type, screenings]) => (
+                    <div key={type}>
+                      <div className="mb-2 text-sm font-semibold text-cyan-300">{type}</div>
 
-                <p className="mt-2 line-clamp-3 text-sm text-slate-300">
-                  {g.movie.description}
-                </p>
-
-                {/* IDŐPONTOK */}
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {g.screenings.map((s) => (
-                    <button
-                      key={s.id}
-                      className="rounded bg-white/10 px-3 py-1 text-xs transition hover:bg-blue-500/30 cursor-pointer"
-                      onClick={() => openScreening(s.id)}
-                    >
-                      {new Date(s.start).toLocaleString("hu-HU", {
-                        month: "2-digit",
-                        day: "2-digit",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </button>
+                      <div className="flex flex-wrap gap-2">
+                        {screenings.map((s) => (
+                          <button
+                            key={s.id}
+                            onClick={() => openScreening(s.id)}
+                            className="rounded-lg bg-gray-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-cyan-500 cursor-pointer"
+                          >
+                            {new Date(s.start).toLocaleTimeString("hu-HU", {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   ))}
-
-                  <span className="rounded bg-blue-500/30 px-2 py-1 text-xs">
-                    {g.screenings[0]?.screening_types.type}
-                  </span>
                 </div>
               </div>
 
-              {/* TRAILER */}
               {g.movie.trailer && (
-                <div className="w-[340px] shrink-0">
-                  <div className="mb-2 flex justify-end text-blue-300">
-                    <span className="mr-1 text-yellow-400">⭐</span>
-                    <span className="font-medium">{g.movie.review}</span>
-                  </div>
-
-                  <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
+                <div className="w-[340px] shrink-0 flex items-center">
+                  <div
+                    className="relative aspect-video w-full overflow-hidden rounded-lg bg-black"
+                    onMouseEnter={() => {
+                      if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
+                      hoverTimer.current = window.setTimeout(() => {
+                        setOpenTrailer(g.movie.trailer);
+                      }, 2000);
+                    }}
+                    onMouseLeave={() => {
+                      if (hoverTimer.current) {
+                        window.clearTimeout(hoverTimer.current);
+                        hoverTimer.current = null;
+                      }
+                    }}
+                  >
                     {openTrailer === g.movie.trailer ? (
                       <iframe
                         allow="autoplay; encrypted-media"
                         allowFullScreen
                         className="absolute inset-0 h-full w-full"
-                        loading="lazy"
                         src={`https://www.youtube.com/embed/${getYoutubeId(
-                          g.movie.trailer
-                        )}?autoplay=1&rel=0&modestbranding=1`}
+                          g.movie.trailer,
+                        )}?autoplay=1&mute=1&rel=0&modestbranding=1`}
                       />
                     ) : (
                       <button
@@ -270,16 +400,16 @@ export default function ScreeningsPage() {
                           alt="Trailer"
                           fill
                           sizes="340px"
-                          className="object-cover brightness-75 transition hover:brightness-90"
+                          className="object-cover brightness-75 transition hover:brightness-100"
                           src={`https://img.youtube.com/vi/${getYoutubeId(
-                            g.movie.trailer
+                            g.movie.trailer,
                           )}/hqdefault.jpg`}
                         />
 
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="flex items-center gap-2 rounded-full bg-black/70 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:scale-105">
+                          <div className="rounded-full bg-black/70 px-5 py-3 flex items-center gap-2 text-white">
                             <Play size={18} />
-                            Trailer megtekintése
+                            Trailer
                           </div>
                         </div>
                       </button>
@@ -290,6 +420,12 @@ export default function ScreeningsPage() {
             </div>
           ))}
         </div>
+
+        {filteredGrouped.length === 0 && (
+          <div className="mt-10 text-center text-white/60">
+            Nincs találat a kiválasztott szűrőkre.
+          </div>
+        )}
       </div>
     </div>
   );

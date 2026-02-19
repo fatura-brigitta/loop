@@ -164,12 +164,13 @@ export default function MoviesPage() {
                     <div className="flex justify-end gap-2">
 
                     <button className="rounded bg-blue-500 px-3 py-1 text-xs text-white hover:bg-blue-600  w-30 h-8 cursor-pointer" onClick={async () => {
-                      await fetch("/api/movies", {
-                          method: "POST",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({ movieId: movie.id }),
-                        });
-                        router.push("/screenings");
+                      await fetch("/api/selected-movie", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ movieId: movie.id }),
+                      });
+
+                      router.push("/screenings");
                     }}>
                         Vetítés dátuma
                     </button>

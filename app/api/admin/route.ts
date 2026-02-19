@@ -60,7 +60,6 @@ export async function GET(req: Request) {
       );
     }
 
-    // screenings with relations
     const screenings = await prisma.screening.findMany({
       orderBy: { start: "desc" },
       include: {
@@ -114,18 +113,77 @@ export async function PUT(req: Request) {
 
     // ---------- HALLS ----------
     if (entity === "halls") {
-      const updated = await prisma.hall.update({
-        where: { id },
-        data: {
-          name: body.name,
-          row: Number(body.row),
-          column: Number(body.column),
-        },
+      const hallId = parseId(body.id);
+      const rows = Number(body.row);
+      const columns = Number(body.column);
+
+      if (!body.name || rows <= 0 || columns <= 0)
+        return jsonError("Invalid hall data");
+
+      const result = await prisma.$transaction(async (tx) => {
+
+        const updatedHall = await tx.hall.update({
+          where: { id: hallId },
+          data: {
+            name: body.name,
+            row: rows,
+            column: columns,
+          },
+        });
+
+        const existingChairs = await tx.chair.findMany({
+          where: { hall_id: hallId },
+          include: { tickets: true },
+        });
+
+        const keepIds = new Set<string>();
+        const chairsToCreate: { row: number; column: number }[] = [];
+
+        for (let r = 1; r <= rows; r++) {
+          for (let c = 1; c <= columns; c++) {
+
+            const existing = existingChairs.find(
+              ch => ch.row === r && ch.column === c
+            );
+
+            if (existing) {
+              keepIds.add(existing.id);
+            } else {
+              chairsToCreate.push({ row: r, column: c });
+            }
+          }
+        }
+
+        const toDelete = existingChairs.filter(ch => !keepIds.has(ch.id));
+
+        if (toDelete.some(ch => ch.tickets.length > 0)) {
+          throw new Error(
+            "Nem csökkenthető a terem mérete, mert léteznek jegyek a megszűnő székekre."
+          );
+        }
+
+        if (toDelete.length > 0) {
+          await tx.chair.deleteMany({
+            where: { id: { in: toDelete.map(c => c.id) } },
+          });
+        }
+
+        for (const chair of chairsToCreate) {
+          await tx.chair.create({
+            data: {
+              hall_id: hallId,
+              row: chair.row,
+              column: chair.column,
+            },
+          });
+        }
+
+        return updatedHall;
       });
 
-      return NextResponse.json(updated);
+      return NextResponse.json(result);
     }
-
+    
     return jsonError("Nem támogatott PUT entitás");
   } catch (e) {
     console.error(e);

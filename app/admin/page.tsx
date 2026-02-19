@@ -200,7 +200,7 @@ export default function AdminPage() {
 
   useEffect(() => {
     loadAll();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, []);
 
   // default dropdown values
@@ -225,38 +225,38 @@ export default function AdminPage() {
 
         <nav className="flex flex-col gap-2 text-sm flex-1">
           <button
-            onClick={() => setTab("movies")}
             className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
               tab === "movies" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white "
             }`}
+            onClick={() => setTab("movies")}
           >
             <Film size={18} />
             Filmek
           </button>
 
           <button
-            onClick={() => setTab("halls")}
             className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
               tab === "halls" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white"
             }`}
+            onClick={() => setTab("halls")}
           >
             <Building2 size={18} />
             Termek
           </button>
 
           <button
-            onClick={() => setTab("screenings")}
             className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
               tab === "screenings" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white"
             }`}
+            onClick={() => setTab("screenings")}
           >
             <Calendar size={18} />
             Vetítések
           </button>
 
           <Link
-            href="/forum"
             className="mt-4 flex items-center gap-3 text-slate-300 hover:text-white transition px-3 py-2 cursor-pointer"
+            href="/forum"
           >
             <MessageSquare size={18} />
             Fórum
@@ -264,7 +264,7 @@ export default function AdminPage() {
         </nav>
 
         <div className="border-t border-white/10 pt-4 text-slate-300 text-sm flex flex-col items-end">
-          <button onClick={handleLogout} className="flex items-center gap-2 hover:text-white transition cursor-pointer">
+          <button className="flex items-center gap-2 hover:text-white transition cursor-pointer" onClick={handleLogout}>
             <LogOut size={18} />
             Kijelentkezés
           </button>
@@ -281,8 +281,8 @@ export default function AdminPage() {
           </h1>
 
           <button
-            onClick={loadAll}
             className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 transition text-sm cursor-pointer"
+            onClick={loadAll}
           >
             Frissítés
           </button>
@@ -309,37 +309,37 @@ export default function AdminPage() {
               <div className="space-y-3">
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Cím</label>
-                  <input value={movieForm.title}
-                    onChange={(e)=>setMovieForm({...movieForm,title:e.target.value})}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+                    value={movieForm.title}
+                    onChange={(e)=>setMovieForm({...movieForm,title:e.target.value})} />
                 </div>
 
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Rendező</label>
-                  <input value={movieForm.director}
-                    onChange={(e)=>setMovieForm({...movieForm,director:e.target.value})}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+                    value={movieForm.director}
+                    onChange={(e)=>setMovieForm({...movieForm,director:e.target.value})} />
                 </div>
 
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Színészek</label>
-                  <input value={movieForm.actors}
-                    onChange={(e)=>setMovieForm({...movieForm,actors:e.target.value})}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+                    value={movieForm.actors}
+                    onChange={(e)=>setMovieForm({...movieForm,actors:e.target.value})} />
                 </div>
 
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Nyelv</label>
-                  <input value={movieForm.language}
-                    onChange={(e)=>setMovieForm({...movieForm,language:e.target.value})}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+                    value={movieForm.language}
+                    onChange={(e)=>setMovieForm({...movieForm,language:e.target.value})} />
                 </div>
 
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Hossz (perc)</label>
-                  <input type="number" value={movieForm.playtime}
-                    onChange={(e)=>setMovieForm({...movieForm,playtime:e.target.value})}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" type="number"
+                    value={movieForm.playtime}
+                    onChange={(e)=>setMovieForm({...movieForm,playtime:e.target.value})} />
                 </div>
               </div>
 
@@ -348,31 +348,31 @@ export default function AdminPage() {
 
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Műfaj</label>
-                  <input value={movieForm.genre}
-                    onChange={(e)=>setMovieForm({...movieForm,genre:e.target.value})}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+                    value={movieForm.genre}
+                    onChange={(e)=>setMovieForm({...movieForm,genre:e.target.value})} />
                 </div>
 
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Poszter URL</label>
-                  <input value={movieForm.poster}
-                    onChange={(e)=>setMovieForm({...movieForm,poster:e.target.value})}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+                    value={movieForm.poster}
+                    onChange={(e)=>setMovieForm({...movieForm,poster:e.target.value})} />
                 </div>
 
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Előzetes URL</label>
-                  <input value={movieForm.trailer}
-                    onChange={(e)=>setMovieForm({...movieForm,trailer:e.target.value})}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+                    value={movieForm.trailer}
+                    onChange={(e)=>setMovieForm({...movieForm,trailer:e.target.value})} />
                 </div>
 
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Értékelés</label>
-                  <input type="number" step="0.1"
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" step="0.1"
+                    type="number"
                     value={movieForm.review ?? ""}
-                    onChange={(e)=>setMovieForm({...movieForm,review:e.target.value})}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" />
+                    onChange={(e)=>setMovieForm({...movieForm,review:e.target.value})} />
                 </div>
               </div>
             </div>
@@ -381,18 +381,18 @@ export default function AdminPage() {
             <div className="mt-4">
               <label className="block text-sm text-slate-300 mb-1">Leírás</label>
               <textarea
+                className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
                 rows={4}
                 value={movieForm.description}
                 onChange={(e)=>setMovieForm({...movieForm,description:e.target.value})}
-                className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
               />
             </div>
 
 
               <label className="flex items-center gap-2 text-sm text-slate-200 mb-4">
                 <input
-                  type="checkbox"
                   checked={movieForm.onscreen}
+                  type="checkbox"
                   onChange={(e) =>
                     setMovieForm({ ...movieForm, onscreen: e.target.checked })
                   }
@@ -401,6 +401,7 @@ export default function AdminPage() {
               </label>
 
               <button
+                className="w-full px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30 hover:bg-emerald-500/25 transition cursor-pointer"
                 onClick={async () => {
                   setErr("");
 
@@ -450,15 +451,14 @@ export default function AdminPage() {
                   }
 
                 }}
-                className="w-full px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30 hover:bg-emerald-500/25 transition cursor-pointer"
               >
                 {editingId ? "Mentés" : "Új film létrehozása"}
               </button>
 
               {editingId && (
                 <button
-                  onClick={() => resetForm()}
                   className="w-full mt-2 px-4 py-2 rounded-lg bg-red-500/15 border border-red-500/30 hover:bg-red-500/25 transition cursor-pointer"
+                  onClick={() => resetForm()}
                 >
                   Mégse
                 </button>
@@ -470,11 +470,11 @@ export default function AdminPage() {
               <div className="flex items-center justify-between mb-4 gap-3">
                 <h2 className="font-semibold">Filmek</h2>
                 <input
-                  type="text"
+                  className="px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none text-sm w-60"
                   placeholder="Keresés cím szerint..."
+                  type="text"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none text-sm w-60"
                 />
               </div>
 
@@ -482,8 +482,8 @@ export default function AdminPage() {
               <div className="space-y-2 max-h-[520px] overflow-y-auto pr-2 custom-scroll">
                 {filteredMovies.map((m) => (
                   <div
-                    key={m.id}
                     className="flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-white/10"
+                    key={m.id}
                   >
                     <div>
                       <div className="font-medium">{m.title}</div>
@@ -494,6 +494,7 @@ export default function AdminPage() {
 
                     <div className="flex gap-2">
                       <button
+                        className="px-3 py-2 rounded-lg bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500/25 transition text-sm cursor-pointer"
                         onClick={() => {
                           setEditingId(m.id);
                           setMovieForm({
@@ -511,17 +512,16 @@ export default function AdminPage() {
                           });
 
                         }}
-                        className="px-3 py-2 rounded-lg bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500/25 transition text-sm cursor-pointer"
                       >
                         Szerkesztés
                       </button>
 
                       <button
+                        className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
                         onClick={async () => {
                           await api("movies", "DELETE", { id: m.id });
                           await loadAll();
                         }}
-                        className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
                       >
                         Törlés
                       </button>
@@ -550,11 +550,11 @@ export default function AdminPage() {
                   Terem neve
                 </label>
                 <input
+                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20"
                   value={hallForm.name}
                   onChange={(e) =>
                     setHallForm({ ...hallForm, name: e.target.value })
                   }
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20"
                 />
               </div>
 
@@ -564,13 +564,13 @@ export default function AdminPage() {
                   Sorok száma
                 </label>
                 <input
+                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20"
+                  min={1}
                   type="number"
                   value={hallForm.row}
-                  min={1}
                   onChange={(e) =>
                     setHallForm({ ...hallForm, row: e.target.value })
                   }
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20"
                 />
               </div>
 
@@ -580,13 +580,13 @@ export default function AdminPage() {
                   Oszlopok száma (soronkénti ülőhelyek)
                 </label>
                 <input
+                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20"
+                  min={1}
                   type="number"
                   value={hallForm.column}
-                  min={1}
                   onChange={(e) =>
                     setHallForm({ ...hallForm, column: e.target.value })
                   }
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20"
                 />
               </div>
 
@@ -635,8 +635,8 @@ export default function AdminPage() {
               {/* CANCEL EDIT */}
               {hallEditingId && (
                 <button
-                  onClick={resetHallForm}
                   className="w-full mt-2 px-4 py-2 rounded-xl bg-red-500/15 border border-red-500/40 hover:bg-red-500/25 transition"
+                  onClick={resetHallForm}
                 >
                   Cancel Edit
                 </button>
@@ -651,8 +651,8 @@ export default function AdminPage() {
 
                 {halls.map((h) => (
                   <div
-                    key={h.id}
                     className="flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-white/10"
+                    key={h.id}
                   >
                     <div>
                       <div className="font-medium">{h.name}</div>
@@ -665,6 +665,7 @@ export default function AdminPage() {
 
                       {/* EDIT */}
                       <button
+                        className="px-3 py-2 rounded-lg bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500/25 transition text-sm cursor-pointer"
                         onClick={() => {
                           setHallEditingId(h.id);
                           setHallForm({
@@ -673,18 +674,17 @@ export default function AdminPage() {
                             column: String(h.column ?? 0),
                           });
                         }}
-                        className="px-3 py-2 rounded-lg bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500/25 transition text-sm cursor-pointer"
                       >
                         Szerkesztés
                       </button>
 
                       {/* DELETE */}
                       <button
+                        className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
                         onClick={async () => {
                           await api("halls", "DELETE", { id: h.id });
                           await loadAll();
                         }}
-                        className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
                       >
                         Törlés
                       </button>
@@ -712,10 +712,10 @@ export default function AdminPage() {
               <div className="mb-3">
                 <label className="block text-sm text-slate-300 mb-1">Nap</label>
                 <input
+                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
                   type="date"
                   value={selectedDate}
                   onChange={(e) => setSelectedDate(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
                 />
               </div>
 
@@ -727,9 +727,9 @@ export default function AdminPage() {
                   Terem
                 </label>
                 <select
+                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
                   value={screeningForm.hall_id}
                   onChange={(e)=>setScreeningForm({...screeningForm,hall_id:e.target.value})}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
                 >
                   <option value="">...</option>
                   {halls.map(h=>(
@@ -746,9 +746,9 @@ export default function AdminPage() {
                   Film
                 </label>
                 <select
+                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
                   value={screeningForm.movie_id}
                   onChange={(e)=>setScreeningForm({...screeningForm,movie_id:e.target.value})}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
                 >
                   <option value="">...</option>
                   {movies
@@ -768,6 +768,7 @@ export default function AdminPage() {
                 </label>
 
                 <select
+                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
                   value={screeningForm.screening_type_id}
                   onChange={(e) =>
                     setScreeningForm({
@@ -775,7 +776,6 @@ export default function AdminPage() {
                       screening_type_id: e.target.value,
                     })
                   }
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
                 >
                   <option value="">...</option>
 
@@ -793,15 +793,15 @@ export default function AdminPage() {
                   Vetítés kezdete
                 </label>
                 <input
-                  type="time"
-                  step="900"
-                  min="10:00"
+                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
                   max="21:45"
+                  min="10:00"
+                  step="900"
+                  type="time"
                   value={screeningForm.startTime}
                   onChange={(e)=>
                     setScreeningForm({...screeningForm,startTime:e.target.value})
                   }
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
                 />
 
                 {/* TIMELINE */}
@@ -812,11 +812,11 @@ export default function AdminPage() {
 
                   <Timeline
                     date={selectedDate}
+                    movie={movies.find((m) => m.id === screeningForm.movie_id) || null}
                     screenings={dayHallScreenings}
                     onPickStart={(localISO) =>
                       setScreeningForm((prev) => ({ ...prev, start: localISO }))
                     }
-                    movie={movies.find((m) => m.id === screeningForm.movie_id) || null}
                   />
                 </div>
 
@@ -950,8 +950,8 @@ export default function AdminPage() {
 
                   return (
                     <div
-                      key={s.id}
                       className="flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-white/10"
+                      key={s.id}
                     >
                       <div>
                         <div className="font-medium">
@@ -972,11 +972,11 @@ export default function AdminPage() {
                       </div>
 
                       <button
+                        className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
                         onClick={async () => {
                           await api("screenings", "DELETE", { id: s.id });
                           await loadAll();
                         }}
-                        className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
                       >
                         Törlés
                       </button>

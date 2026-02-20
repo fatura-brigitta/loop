@@ -704,7 +704,7 @@ export default function AdminPage() {
           <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
 
             {/* CREATE FORM */}
-            <section className="lg:col-span-1 p-5 rounded-xl bg-white/5 border border-white/10">
+            <section className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10">
 
               <h2 className="font-semibold mb-4">Vetítés létrehozása</h2>
 
@@ -922,7 +922,7 @@ export default function AdminPage() {
             </section>
 
             {/* LIST */}
-            <section className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10">
+            <section className="lg:col-span-1 p-5 rounded-xl bg-white/5 border border-white/10">
 
               <h2 className="font-semibold mb-4">Vetítések</h2>
 

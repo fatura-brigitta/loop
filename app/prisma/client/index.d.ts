@@ -5441,6 +5441,8 @@ export namespace Prisma {
     email: string | null
     password_hash: string | null
     points: number | null
+    phone_number: string | null
+    profile_image: string | null
     email_verified: boolean | null
     email_code: string | null
     email_code_exp: Date | null
@@ -5455,6 +5457,8 @@ export namespace Prisma {
     email: string | null
     password_hash: string | null
     points: number | null
+    phone_number: string | null
+    profile_image: string | null
     email_verified: boolean | null
     email_code: string | null
     email_code_exp: Date | null
@@ -5469,6 +5473,8 @@ export namespace Prisma {
     email: number
     password_hash: number
     points: number
+    phone_number: number
+    profile_image: number
     email_verified: number
     email_code: number
     email_code_exp: number
@@ -5493,6 +5499,8 @@ export namespace Prisma {
     email?: true
     password_hash?: true
     points?: true
+    phone_number?: true
+    profile_image?: true
     email_verified?: true
     email_code?: true
     email_code_exp?: true
@@ -5507,6 +5515,8 @@ export namespace Prisma {
     email?: true
     password_hash?: true
     points?: true
+    phone_number?: true
+    profile_image?: true
     email_verified?: true
     email_code?: true
     email_code_exp?: true
@@ -5521,6 +5531,8 @@ export namespace Prisma {
     email?: true
     password_hash?: true
     points?: true
+    phone_number?: true
+    profile_image?: true
     email_verified?: true
     email_code?: true
     email_code_exp?: true
@@ -5622,6 +5634,8 @@ export namespace Prisma {
     email: string
     password_hash: string
     points: number
+    phone_number: string
+    profile_image: string
     email_verified: boolean
     email_code: string | null
     email_code_exp: Date | null
@@ -5655,6 +5669,8 @@ export namespace Prisma {
     email?: boolean
     password_hash?: boolean
     points?: boolean
+    phone_number?: boolean
+    profile_image?: boolean
     email_verified?: boolean
     email_code?: boolean
     email_code_exp?: boolean
@@ -5676,6 +5692,8 @@ export namespace Prisma {
     email?: boolean
     password_hash?: boolean
     points?: boolean
+    phone_number?: boolean
+    profile_image?: boolean
     email_verified?: boolean
     email_code?: boolean
     email_code_exp?: boolean
@@ -5684,7 +5702,7 @@ export namespace Prisma {
     rank_id?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password_hash" | "points" | "email_verified" | "email_code" | "email_code_exp" | "password_reset_token" | "password_reset_exp" | "rank_id", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password_hash" | "points" | "phone_number" | "profile_image" | "email_verified" | "email_code" | "email_code_exp" | "password_reset_token" | "password_reset_exp" | "rank_id", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ranks?: boolean | User$ranksArgs<ExtArgs>
     tickets?: boolean | User$ticketsArgs<ExtArgs>
@@ -5707,6 +5725,8 @@ export namespace Prisma {
       email: string
       password_hash: string
       points: number
+      phone_number: string
+      profile_image: string
       email_verified: boolean
       email_code: string | null
       email_code_exp: Date | null
@@ -6114,6 +6134,8 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly password_hash: FieldRef<"User", 'String'>
     readonly points: FieldRef<"User", 'Int'>
+    readonly phone_number: FieldRef<"User", 'String'>
+    readonly profile_image: FieldRef<"User", 'String'>
     readonly email_verified: FieldRef<"User", 'Boolean'>
     readonly email_code: FieldRef<"User", 'String'>
     readonly email_code_exp: FieldRef<"User", 'DateTime'>
@@ -16156,6 +16178,8 @@ export namespace Prisma {
     email: 'email',
     password_hash: 'password_hash',
     points: 'points',
+    phone_number: 'phone_number',
+    profile_image: 'profile_image',
     email_verified: 'email_verified',
     email_code: 'email_code',
     email_code_exp: 'email_code_exp',
@@ -16577,6 +16601,8 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     password_hash?: StringFilter<"User"> | string
     points?: IntFilter<"User"> | number
+    phone_number?: StringFilter<"User"> | string
+    profile_image?: StringFilter<"User"> | string
     email_verified?: BoolFilter<"User"> | boolean
     email_code?: StringNullableFilter<"User"> | string | null
     email_code_exp?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -16595,6 +16621,8 @@ export namespace Prisma {
     email?: SortOrder
     password_hash?: SortOrder
     points?: SortOrder
+    phone_number?: SortOrder
+    profile_image?: SortOrder
     email_verified?: SortOrder
     email_code?: SortOrder
     email_code_exp?: SortOrder
@@ -16610,12 +16638,14 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    phone_number?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
     password_hash?: StringFilter<"User"> | string
     points?: IntFilter<"User"> | number
+    profile_image?: StringFilter<"User"> | string
     email_verified?: BoolFilter<"User"> | boolean
     email_code?: StringNullableFilter<"User"> | string | null
     email_code_exp?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -16626,7 +16656,7 @@ export namespace Prisma {
     tickets?: TicketListRelationFilter
     forum?: ForumListRelationFilter
     payment_sessions?: Payment_sessionListRelationFilter
-  }, "id" | "email">
+  }, "id" | "email" | "phone_number">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -16634,6 +16664,8 @@ export namespace Prisma {
     email?: SortOrder
     password_hash?: SortOrder
     points?: SortOrder
+    phone_number?: SortOrder
+    profile_image?: SortOrder
     email_verified?: SortOrder
     email_code?: SortOrder
     email_code_exp?: SortOrder
@@ -16656,6 +16688,8 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     password_hash?: StringWithAggregatesFilter<"User"> | string
     points?: IntWithAggregatesFilter<"User"> | number
+    phone_number?: StringWithAggregatesFilter<"User"> | string
+    profile_image?: StringWithAggregatesFilter<"User"> | string
     email_verified?: BoolWithAggregatesFilter<"User"> | boolean
     email_code?: StringNullableWithAggregatesFilter<"User"> | string | null
     email_code_exp?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -17421,6 +17455,8 @@ export namespace Prisma {
     email: string
     password_hash: string
     points: number
+    phone_number: string
+    profile_image?: string
     email_verified?: boolean
     email_code?: string | null
     email_code_exp?: Date | string | null
@@ -17438,6 +17474,8 @@ export namespace Prisma {
     email: string
     password_hash: string
     points: number
+    phone_number: string
+    profile_image?: string
     email_verified?: boolean
     email_code?: string | null
     email_code_exp?: Date | string | null
@@ -17454,6 +17492,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    profile_image?: StringFieldUpdateOperationsInput | string
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     email_code?: NullableStringFieldUpdateOperationsInput | string | null
     email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17470,6 +17510,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    profile_image?: StringFieldUpdateOperationsInput | string
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     email_code?: NullableStringFieldUpdateOperationsInput | string | null
     email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17487,6 +17529,8 @@ export namespace Prisma {
     email: string
     password_hash: string
     points: number
+    phone_number: string
+    profile_image?: string
     email_verified?: boolean
     email_code?: string | null
     email_code_exp?: Date | string | null
@@ -17500,6 +17544,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    profile_image?: StringFieldUpdateOperationsInput | string
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     email_code?: NullableStringFieldUpdateOperationsInput | string | null
     email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17512,6 +17558,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    profile_image?: StringFieldUpdateOperationsInput | string
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     email_code?: NullableStringFieldUpdateOperationsInput | string | null
     email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -18345,6 +18393,8 @@ export namespace Prisma {
     email?: SortOrder
     password_hash?: SortOrder
     points?: SortOrder
+    phone_number?: SortOrder
+    profile_image?: SortOrder
     email_verified?: SortOrder
     email_code?: SortOrder
     email_code_exp?: SortOrder
@@ -18363,6 +18413,8 @@ export namespace Prisma {
     email?: SortOrder
     password_hash?: SortOrder
     points?: SortOrder
+    phone_number?: SortOrder
+    profile_image?: SortOrder
     email_verified?: SortOrder
     email_code?: SortOrder
     email_code_exp?: SortOrder
@@ -18377,6 +18429,8 @@ export namespace Prisma {
     email?: SortOrder
     password_hash?: SortOrder
     points?: SortOrder
+    phone_number?: SortOrder
+    profile_image?: SortOrder
     email_verified?: SortOrder
     email_code?: SortOrder
     email_code_exp?: SortOrder
@@ -20682,6 +20736,8 @@ export namespace Prisma {
     email: string
     password_hash: string
     points: number
+    phone_number: string
+    profile_image?: string
     email_verified?: boolean
     email_code?: string | null
     email_code_exp?: Date | string | null
@@ -20698,6 +20754,8 @@ export namespace Prisma {
     email: string
     password_hash: string
     points: number
+    phone_number: string
+    profile_image?: string
     email_verified?: boolean
     email_code?: string | null
     email_code_exp?: Date | string | null
@@ -20765,6 +20823,8 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     password_hash?: StringFilter<"User"> | string
     points?: IntFilter<"User"> | number
+    phone_number?: StringFilter<"User"> | string
+    profile_image?: StringFilter<"User"> | string
     email_verified?: BoolFilter<"User"> | boolean
     email_code?: StringNullableFilter<"User"> | string | null
     email_code_exp?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -20925,6 +20985,8 @@ export namespace Prisma {
     email: string
     password_hash: string
     points: number
+    phone_number: string
+    profile_image?: string
     email_verified?: boolean
     email_code?: string | null
     email_code_exp?: Date | string | null
@@ -20941,6 +21003,8 @@ export namespace Prisma {
     email: string
     password_hash: string
     points: number
+    phone_number: string
+    profile_image?: string
     email_verified?: boolean
     email_code?: string | null
     email_code_exp?: Date | string | null
@@ -21009,6 +21073,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    profile_image?: StringFieldUpdateOperationsInput | string
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     email_code?: NullableStringFieldUpdateOperationsInput | string | null
     email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21024,6 +21090,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    profile_image?: StringFieldUpdateOperationsInput | string
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     email_code?: NullableStringFieldUpdateOperationsInput | string | null
     email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21144,6 +21212,8 @@ export namespace Prisma {
     email: string
     password_hash: string
     points: number
+    phone_number: string
+    profile_image?: string
     email_verified?: boolean
     email_code?: string | null
     email_code_exp?: Date | string | null
@@ -21160,6 +21230,8 @@ export namespace Prisma {
     email: string
     password_hash: string
     points: number
+    phone_number: string
+    profile_image?: string
     email_verified?: boolean
     email_code?: string | null
     email_code_exp?: Date | string | null
@@ -21285,6 +21357,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    profile_image?: StringFieldUpdateOperationsInput | string
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     email_code?: NullableStringFieldUpdateOperationsInput | string | null
     email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21300,6 +21374,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    profile_image?: StringFieldUpdateOperationsInput | string
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     email_code?: NullableStringFieldUpdateOperationsInput | string | null
     email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21540,6 +21616,8 @@ export namespace Prisma {
     email: string
     password_hash: string
     points: number
+    phone_number: string
+    profile_image?: string
     email_verified?: boolean
     email_code?: string | null
     email_code_exp?: Date | string | null
@@ -21556,6 +21634,8 @@ export namespace Prisma {
     email: string
     password_hash: string
     points: number
+    phone_number: string
+    profile_image?: string
     email_verified?: boolean
     email_code?: string | null
     email_code_exp?: Date | string | null
@@ -21635,6 +21715,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    profile_image?: StringFieldUpdateOperationsInput | string
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     email_code?: NullableStringFieldUpdateOperationsInput | string | null
     email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21650,6 +21732,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    profile_image?: StringFieldUpdateOperationsInput | string
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     email_code?: NullableStringFieldUpdateOperationsInput | string | null
     email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21967,6 +22051,8 @@ export namespace Prisma {
     email: string
     password_hash: string
     points: number
+    phone_number: string
+    profile_image?: string
     email_verified?: boolean
     email_code?: string | null
     email_code_exp?: Date | string | null
@@ -21979,6 +22065,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    profile_image?: StringFieldUpdateOperationsInput | string
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     email_code?: NullableStringFieldUpdateOperationsInput | string | null
     email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21994,6 +22082,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    profile_image?: StringFieldUpdateOperationsInput | string
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     email_code?: NullableStringFieldUpdateOperationsInput | string | null
     email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22009,6 +22099,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    profile_image?: StringFieldUpdateOperationsInput | string
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     email_code?: NullableStringFieldUpdateOperationsInput | string | null
     email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

@@ -4,6 +4,7 @@ import { Eye, EyeOff, UserPlus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { NextResponse } from "next/server";
 import { useEffect, useState } from "react";
 
 export default function RegisterPage() {
@@ -12,6 +13,8 @@ export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [profileImage, setProfileImage] = useState<string | null>(null);
 
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -59,6 +62,8 @@ export default function RegisterPage() {
           name,
           email,
           password,
+          phone_number: phone,
+          profile_image: profileImage,
         }),
       });
 
@@ -78,7 +83,15 @@ export default function RegisterPage() {
       router.push("/login");
 
       router.push("/login");
-    } catch {
+    } catch (err: any) {
+      if (err.code === "P2002") {
+        if (err.meta?.target?.includes("phone_number")) {
+          return NextResponse.json(
+            { message: "Ez a telefonszám már regisztrálva van!" },
+            { status: 409 }
+          );
+        }
+      }
       setError("Szerver hiba, próbáld újra később!");
       setLoading(false);
     }
@@ -119,6 +132,41 @@ export default function RegisterPage() {
           <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Fiók létrehozása</h1>
 
           <form className="space-y-5" onSubmit={handleSubmit}>
+            <div className="flex flex-col items-center gap-3">
+              <label className="text-sm text-white/60 text-center">
+                Profilkép
+              </label>
+
+              <div className="relative">
+                <Image
+                  alt="Profilkép"
+                  className="h-24 w-24 rounded-full object-cover border border-white/20"
+                  height={96}
+                  src={profileImage || "/profile/default.png"}
+                  width={96}
+                />
+
+                <label className="absolute inset-0 flex items-center justify-center rounded-full bg-black/60 opacity-0 hover:opacity-100 cursor-pointer transition">
+                  <span className="text-xs text-white">Módosítás</span>
+                  <input
+                    accept="image/*"
+                    className="hidden"
+                    type="file"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setProfileImage(reader.result as string);
+                      };
+                      reader.readAsDataURL(file);
+                    }}
+                  />
+                </label>
+              </div>
+            </div>
+
             <div>
               <label className="text-sm text-white/60">Név</label>
               <input
@@ -138,6 +186,16 @@ export default function RegisterPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label className="text-sm text-white/60">Telefonszám</label>
+              <input
+                className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+                placeholder="+36 30 123 4567"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
               />
             </div>
 

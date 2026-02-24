@@ -6,10 +6,11 @@ import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 import { generate4DigitCode, codeExpiry } from "@/lib/emailVerification";
 import { sendVerificationEmail } from "@/lib/sendVerificationEmail";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 /**
  * GET /api/auth
- * -> aktív felhasználó (cookie: userId)
+ * -> aktív felhasználó
  */
 export async function GET() {
   try {
@@ -25,7 +26,13 @@ export async function GET() {
 
     const user = await prisma.user.findUnique({
       where: { id: userId },
-      select: { id: true, name: true, email: true },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone_number: true,
+        profile_image: true,
+      },
     });
 
     if (!user) {
@@ -59,12 +66,6 @@ export async function POST(req: NextRequest) {
 
     const user = await prisma.user.findUnique({
       where: { email },
-      select: {
-        id: true,
-        name: true,
-        password_hash: true,
-        email_verified: true,
-      },
     });
 
     if (!user) {
@@ -94,7 +95,10 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const res = NextResponse.json({ ok: true, name: user.name });
+    const res = NextResponse.json({
+      ok: true,
+      name: user.name,
+    });
 
     res.cookies.set("userId", user.id, {
       httpOnly: true,
@@ -104,64 +108,37 @@ export async function POST(req: NextRequest) {
 
     return res;
   } catch (err) {
-    console.error("AUTH POST (LOGIN) ERROR:", err);
+    console.error("AUTH POST ERROR:", err);
     return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
   }
 }
 
 /**
  * PUT /api/auth
- * -> REGISZTRÁCIÓ + EMAIL KÓD KÜLDÉS
+ * -> REGISZTRÁCIÓ
  */
 export async function PUT(req: NextRequest) {
   try {
-    const { name, email, password } = await req.json();
+    const { name, email, password, phone_number, profile_image } =
+      await req.json();
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !phone_number) {
       return NextResponse.json(
         { message: "Hiányzó kötelező mezők" },
         { status: 400 }
       );
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    const phone = parsePhoneNumberFromString(phone_number);
+
+    if (!phone || !phone.isValid()) {
       return NextResponse.json(
-        { message: "Érvénytelen email formátum" },
+        { message: "Érvénytelen telefonszám formátum!" },
         { status: 400 }
       );
     }
 
-    const exists = await prisma.user.findUnique({
-      where: { email },
-    });
-
-    if (exists) {
-      if (!exists.email_verified) {
-        const code = generate4DigitCode();
-
-        await prisma.user.update({
-          where: { id: exists.id },
-          data: {
-            email_code: code,
-            email_code_exp: codeExpiry(10),
-          },
-        });
-
-        await sendVerificationEmail(exists.email, exists.name, code);
-
-        return NextResponse.json({
-          ok: true,
-          needsVerification: true,
-          email: exists.email,
-        });
-      }
-
-      return NextResponse.json(
-        { message: "Ezzel az email címmel már van fiók. Jelentkezz be!" },
-        { status: 409 }
-      );
-    }
+    const normalizedPhone = phone.number;
 
     if (password.length < 5) {
       return NextResponse.json(
@@ -177,6 +154,8 @@ export async function PUT(req: NextRequest) {
         name,
         email,
         password_hash,
+        phone_number: normalizedPhone,
+        profile_image: profile_image || "/profile/default.png",
         points: 0,
         rank_id: "aa0000000000000000000001",
         email_verified: false,
@@ -204,13 +183,22 @@ export async function PUT(req: NextRequest) {
       { status: 201 }
     );
   } catch (err: any) {
-    console.error("AUTH PUT (REGISTER) ERROR:", err);
+    console.error("AUTH REGISTER ERROR:", err);
 
     if (err.code === "P2002") {
-      return NextResponse.json(
-        { message: "Ez az email cím már regisztrálva van!" },
-        { status: 409 }
-      );
+      if (err.meta?.target?.includes("email")) {
+        return NextResponse.json(
+          { message: "Ez az email már regisztrálva van!" },
+          { status: 409 }
+        );
+      }
+
+      if (err.meta?.target?.includes("phone_number")) {
+        return NextResponse.json(
+          { message: "Ez a telefonszám már regisztrálva van!" },
+          { status: 409 }
+        );
+      }
     }
 
     return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
@@ -219,20 +207,14 @@ export async function PUT(req: NextRequest) {
 
 /**
  * DELETE /api/auth
- * -> LOGOUT
  */
 export async function DELETE() {
-  try {
-    const res = NextResponse.json({ ok: true });
+  const res = NextResponse.json({ ok: true });
 
-    res.cookies.set("userId", "", {
-      maxAge: 0,
-      path: "/",
-    });
+  res.cookies.set("userId", "", {
+    maxAge: 0,
+    path: "/",
+  });
 
-    return res;
-  } catch (err) {
-    console.error("AUTH DELETE (LOGOUT) ERROR:", err);
-    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
-  }
+  return res;
 }

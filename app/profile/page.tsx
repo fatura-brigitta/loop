@@ -37,6 +37,8 @@ export default function ProfilePage() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
+  const [phone, setPhone] = useState("");
+  const [profileImage, setProfileImage] = useState("");
 
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -57,6 +59,9 @@ export default function ProfilePage() {
       const profile = await profileRes.json();
       setUser(profile);
       setNewName(profile.name);
+
+      setPhone(profile.phone_number);
+      setProfileImage(profile.profile_image);
 
       const ticketRes = await fetch("/api/profile", {
         method: "POST",
@@ -168,6 +173,14 @@ export default function ProfilePage() {
     setMessage("Jelszó sikeresen megváltoztatva!");
   };
 
+  const updateProfileImage = async (base64: string) => {
+    await fetch("/api/profile-image", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ profile_image: base64 }),
+    });
+  };
+
   if (!user) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
@@ -215,12 +228,55 @@ export default function ProfilePage() {
         <div className="w-full max-w-xl rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur">
           <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Profil</h1>
 
+
+          <div className="mb-8 flex flex-col items-center gap-4">
+            <div className="relative">
+              <Image
+                alt="Profilkép"
+                className="h-32 w-32 rounded-full object-cover border border-white/20"
+                height={128}
+                src={profileImage || "/profile/default.png"}
+                width={128}
+              />
+
+              <label className="absolute inset-0 flex items-center justify-center rounded-full bg-black/60 opacity-0 hover:opacity-100 cursor-pointer transition">
+                <span className="text-sm text-white">Módosítás</span>
+                <input
+                  accept="image/*"
+                  className="hidden"
+                  type="file"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                      const newImg = reader.result as string;
+                      setProfileImage(newImg);
+                      updateProfileImage(newImg);
+                    };
+                    reader.readAsDataURL(file);
+                  }}
+                />
+              </label>
+            </div>
+          </div>
+
           <div className="mb-6">
             <label className="text-sm text-white/60">Email</label>
             <input
               className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
               disabled
               value={user.email}
+            />
+          </div>
+
+          <div className="mb-6">
+            <label className="text-sm text-white/60">Telefonszám</label>
+            <input
+              className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+              disabled
+              value={phone}
             />
           </div>
 

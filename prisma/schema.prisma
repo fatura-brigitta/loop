@@ -61,11 +61,11 @@ model User {
   email         String   @unique
   password_hash String
   points        Int
-
+  phone_number  String   @unique
+  profile_image String   @default("/profile/default.png")
   email_verified Boolean  @default(false)
   email_code     String?
   email_code_exp DateTime?
-
   password_reset_token String?
   password_reset_exp   DateTime?
   rank_id       String   @db.ObjectId

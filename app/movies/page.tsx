@@ -180,8 +180,6 @@ export default function MoviesPage() {
             ))}
         </div>
       </div>
-      
-
     </div>
   );
 }

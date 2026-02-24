@@ -57,11 +57,26 @@ const getNext7Days = () => {
 
 const groupByType = (screenings: Screening[]) => {
   const map: Record<string, Screening[]> = {};
+
   screenings.forEach((s) => {
     const type = s.screening_types?.type || "Egyéb";
     if (!map[type]) map[type] = [];
     map[type].push(s);
   });
+
+  Object.keys(map).forEach((type) => {
+    map[type].sort((a, b) => {
+
+      const aDate = new Date(a.start);
+      const bDate = new Date(b.start);
+
+      const aMinutes = aDate.getHours() * 60 + aDate.getMinutes();
+      const bMinutes = bDate.getHours() * 60 + bDate.getMinutes();
+
+      return aMinutes - bMinutes;
+    });
+  });
+
   return map;
 };
 
@@ -203,22 +218,22 @@ export default function ScreeningsPage() {
           </Link>
 
           <nav className="flex items-center gap-5 text-sm">
-            <Link href="/movies" className="hover:text-white">
+            <Link className="hover:text-white" href="/movies">
               Filmek
             </Link>
-            <Link href="/screenings" className="hover:text-white">
+            <Link className="hover:text-white" href="/screenings">
               Vetítések
             </Link>
-            <Link href="/forum" className="hover:text-white">
+            <Link className="hover:text-white" href="/forum">
               Fórum
             </Link>
 
             {showLogin ? (
               <div className="flex items-center gap-2">
-                <Link href="/profile" className="hover:text-white">
+                <Link className="hover:text-white" href="/profile">
                   Szia, {name}!
                 </Link>
-                <button onClick={handleLogout} className="cursor-pointer">
+                <button className="cursor-pointer" onClick={handleLogout}>
                   <LogOut size={22} />
                 </button>
               </div>
@@ -241,25 +256,25 @@ export default function ScreeningsPage() {
 
           <div className="flex gap-2 overflow-x-auto pb-1">
             <button
-              onClick={() => setSelectedDate("all")}
               className={`rounded-lg px-4 py-2 border cursor-pointer ${
                 selectedDate === "all"
                   ? "bg-cyan-500 border-cyan-500 text-white"
                   : "bg-white/5 border-white/10 hover:bg-white/10"
               }`}
+              onClick={() => setSelectedDate("all")}
             >
               Összes
             </button>
 
             {nextDays.map((d) => (
               <button
-                key={d.iso}
-                onClick={() => setSelectedDate(d.iso)}
                 className={`flex min-w-[70px] flex-col items-center rounded-lg border px-4 py-2 cursor-pointer ${
                   selectedDate === d.iso
                     ? "bg-cyan-500 border-cyan-500 text-white"
                     : "bg-white/5 border-white/10 hover:bg-white/10"
                 }`}
+                key={d.iso}
+                onClick={() => setSelectedDate(d.iso)}
               >
                 <span className="text-xs opacity-80">{d.label}</span>
                 <span className="text-lg font-semibold">{d.date.getDate()}</span>
@@ -271,8 +286,8 @@ export default function ScreeningsPage() {
 
             <div className="relative" ref={dropdownRef}>
               <button
-                onClick={() => setDropdownOpen((p) => !p)}
                 className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-2 hover:bg-white/10 cursor-pointer"
+                onClick={() => setDropdownOpen((p) => !p)}
               >
                 {selectedType === "all" ? "Előadás-típus" : selectedType}
                 <ChevronDown size={16} />
@@ -282,23 +297,23 @@ export default function ScreeningsPage() {
                 <div className="absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-xl border border-white/10 bg-[#0b1220] shadow-xl">
 
                   <div
+                    className="cursor-pointer px-4 py-2 hover:bg-white/10"
                     onClick={() => {
                       setSelectedType("all");
                       setDropdownOpen(false);
                     }}
-                    className="cursor-pointer px-4 py-2 hover:bg-white/10"
                   >
                     Mind
                   </div>
 
                   {availableTypes.map((type) => (
                     <div
+                      className="cursor-pointer px-4 py-2 hover:bg-white/10"
                       key={type}
                       onClick={() => {
                         setSelectedType(type);
                         setDropdownOpen(false);
                       }}
-                      className="cursor-pointer px-4 py-2 hover:bg-white/10"
                     >
                       {type}
                     </div>
@@ -307,9 +322,9 @@ export default function ScreeningsPage() {
               )}
             </div>
             <button
-              onClick={resetFilters}
-              title="Szűrők törlése"
               className="flex items-center justify-center rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10 cursor-pointer"
+              title="Szűrők törlése"
+              onClick={resetFilters}
             >
               ↻
             </button>
@@ -319,16 +334,16 @@ export default function ScreeningsPage() {
         <div className="flex flex-col gap-6">
           {filteredGrouped.map((g, index) => (
             <div
-              key={index}
               className="flex items-stretch gap-6 rounded-xl border border-white/10 bg-white/5 p-4"
+              key={index}
             >
               <div className="shrink-0 self-start">
                 <Image
-                  src={g.movie.poster}
                   alt={g.movie.title}
-                  width={200}
-                  height={300}
                   className="rounded-lg object-cover"
+                  height={300}
+                  src={g.movie.poster}
+                  width={200}
                 />
               </div>
 
@@ -349,9 +364,9 @@ export default function ScreeningsPage() {
                       <div className="flex flex-wrap gap-2">
                         {screenings.map((s) => (
                           <button
+                            className="rounded-lg bg-gray-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-cyan-500 cursor-pointer"
                             key={s.id}
                             onClick={() => openScreening(s.id)}
-                            className="rounded-lg bg-gray-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-cyan-500 cursor-pointer"
                           >
                             {new Date(s.start).toLocaleTimeString("hu-HU", {
                               hour: "2-digit",
@@ -398,16 +413,16 @@ export default function ScreeningsPage() {
                       >
                         <Image
                           alt="Trailer"
+                          className="object-cover brightness-75 transition hover:brightness-100"
                           fill
                           sizes="340px"
-                          className="object-cover brightness-75 transition hover:brightness-100"
                           src={`https://img.youtube.com/vi/${getYoutubeId(
                             g.movie.trailer,
                           )}/hqdefault.jpg`}
                         />
 
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="rounded-full bg-black/70 px-5 py-3 flex items-center gap-2 text-white">
+                          <div className="rounded-full bg-black/70 px-5 py-3 flex items-center gap-2 text-white cursor-pointer">
                             <Play size={18} />
                             Trailer
                           </div>

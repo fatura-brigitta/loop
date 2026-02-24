@@ -130,7 +130,7 @@ export default function LoginPage() {
                 />
 
                 <button
-                  className="absolute top-1/2 right-3 -translate-y-1/2 text-white/60 transition hover:text-white"
+                  className="absolute top-1/2 right-3 -translate-y-1/2 text-white/60 transition hover:text-white cursor-pointer"
                   type="button"
                   onClick={() => setShowPassword((prev) => !prev)}
                 >
@@ -140,8 +140,8 @@ export default function LoginPage() {
 
               <div className="mt-2 text-right text-sm">
                 <Link
-                  href="/forgot-password"
                   className="text-cyan-300 hover:underline"
+                  href="/forgot-password"
                 >
                   Elfelejtetted a jelszavad?
                 </Link>
@@ -155,11 +155,11 @@ export default function LoginPage() {
             )}
 
             <button
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-white transition hover:bg-cyan-500 disabled:opacity-50"
+              className="flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-white transition hover:bg-cyan-500 disabled:opacity-50 cursor-pointer"
               disabled={loading}
               type="submit"
             >
-              <LogIn size={18} />
+              <LogIn size={18}/>
               {loading ? "Bejelentkezés..." : "Bejelentkezés"}
             </button>
           </form>

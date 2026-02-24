@@ -319,26 +319,58 @@ export default function ProfilePage() {
                 onDrop={onDrop}
               >
                 <div className="flex items-center gap-4">
-                  <div className="relative h-32 w-32 overflow-hidden rounded-full border border-white/20">
+
+                  <div className="relative h-32 w-32 overflow-hidden rounded-full border border-white/20 group">
                     <Image
                       alt="Profilkép"
                       className="object-cover"
                       fill
                       src={profileImage || "/profile/default.png"}
                     />
+
+                    <label className="absolute inset-0 flex items-center justify-center rounded-full bg-black/60 opacity-0 group-hover:opacity-100 cursor-pointer transition">
+                      <span className="text-sm text-white">Módosítás</span>
+                      <input
+                        accept="image/*"
+                        className="hidden"
+                        type="file"
+                        onChange={async (e) => {
+                          const file = e.target.files?.[0];
+                          if (!file) return;
+
+                          await handlePickFile(file);
+
+                          if (fileInputRef.current) {
+                            fileInputRef.current.value = "";
+                          }
+                        }}
+                      />
+                    </label>
                   </div>
 
                   <div className="flex flex-col gap-2">
                     <div className="text-sm text-white/80">
                       Húzd ide a képet, vagy{" "}
                       <button
-                        className="text-cyan-300 underline hover:text-cyan-200"
+                        className="text-cyan-300 underline hover:text-cyan-200 cursor-pointer"
                         type="button"
                         onClick={() => fileInputRef.current?.click()}
                       >
                         válassz fájlt
-                      </button>
-                      .
+                      </button>.
+                      {profileImage && profileImage !== "/profile/default.png" && (
+                        <button
+                          className="w-fit rounded-lg bg-white/10 px-3 mt-3 py-1 text-xs hover:bg-white/15 cursor-pointer"
+                          type="button"
+                          onClick={async () => {
+                            const defaultImg = "/profile/default.png";
+                            setProfileImage(defaultImg);
+                            await updateProfileImage(defaultImg);
+                          }}
+                        >
+                          Vissza az alapértelmezettre
+                        </button>
+                      )}
                     </div>
 
                     <input
@@ -348,26 +380,17 @@ export default function ProfilePage() {
                       type="file"
                       onChange={async (e) => {
                         const file = e.target.files?.[0];
+                        if (!file) return;
+
                         await handlePickFile(file);
-                        e.currentTarget.value = "";
+
+                        if (fileInputRef.current) {
+                          fileInputRef.current.value = "";
+                        }
                       }}
                     />
                   </div>
                 </div>
-
-                <label className="absolute inset-0 flex items-center justify-center rounded-2xl bg-black/60 opacity-0 hover:opacity-100 cursor-pointer transition">
-                  <span className="text-sm text-white">Módosítás</span>
-                  <input
-                    accept="image/*"
-                    className="hidden"
-                    type="file"
-                    onChange={async (e) => {
-                      const file = e.target.files?.[0];
-                      await handlePickFile(file);
-                      e.currentTarget.value = "";
-                    }}
-                  />
-                </label>
               </div>
             </div>
           </div>

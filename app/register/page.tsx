@@ -160,7 +160,7 @@ export default function RegisterPage() {
           <form className="space-y-5" onSubmit={handleSubmit}>
             {/* PROFILKÉP */}
             <div>
-              <label className="text-sm text-white/60">Profilkép (opcionális)</label>
+              <label className="text-sm text-white/60">Profilkép</label>
 
               <div className="mt-2 flex items-center gap-4">
                 <div className="relative h-20 w-20 overflow-hidden rounded-full border border-white/15">
@@ -200,14 +200,19 @@ export default function RegisterPage() {
                       type="file"
                       onChange={async (e) => {
                         const file = e.target.files?.[0];
+                        if (!file) return;
+
                         await handlePickFile(file);
-                        e.currentTarget.value = "";
+
+                        if (fileInputRef.current) {
+                          fileInputRef.current.value = "";
+                        }
                       }}
                     />
 
                     {profileImageBase64 && (
                       <button
-                        className="w-fit rounded-lg bg-white/10 px-3 py-1 text-xs hover:bg-white/15"
+                        className="w-fit rounded-lg bg-white/10 px-3 py-1 text-xs hover:bg-white/15 cursor-pointer"
                         type="button"
                         onClick={() => setProfileImageBase64("")}
                       >
@@ -219,7 +224,6 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            {/* NÉV */}
             <div>
               <label className="text-sm text-white/60">Név</label>
               <input
@@ -231,7 +235,6 @@ export default function RegisterPage() {
               />
             </div>
 
-            {/* EMAIL */}
             <div>
               <label className="text-sm text-white/60">Email</label>
               <input
@@ -243,7 +246,6 @@ export default function RegisterPage() {
               />
             </div>
 
-            {/* TELEFON */}
             <div>
               <label className="text-sm text-white/60">Telefonszám</label>
               <input
@@ -255,7 +257,6 @@ export default function RegisterPage() {
               />
             </div>
 
-            {/* NEM (RADIO) */}
             <div>
               <label className="text-sm text-white/60">Nem (opcionális)</label>
               <div className="mt-2 grid grid-cols-1 gap-2">
@@ -286,7 +287,6 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            {/* JELSZÓ */}
             <div>
               <label className="text-sm text-white/60">Jelszó</label>
               <div className="relative mt-2">
@@ -318,7 +318,7 @@ export default function RegisterPage() {
               disabled={loading}
               type="submit"
             >
-              <UserPlus size={18} />
+              <UserPlus className="cursor-pointer"  size={18}/>
               {loading ? "Fiók létrehozása..." : "Regisztráció"}
             </button>
           </form>

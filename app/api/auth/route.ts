@@ -32,6 +32,7 @@ export async function GET() {
         email: true,
         phone_number: true,
         profile_image: true,
+        gender: true,
       },
     });
 

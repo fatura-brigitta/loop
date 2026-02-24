@@ -97,7 +97,7 @@ export default function Navbar() {
                   </Link>
 
                   <button
-                    className="text-slate-200/90 hover:text-white transition"
+                    className="text-slate-200/90 hover:text-white transition cursor-pointer"
                     onClick={handleLogout}
                   >
                     <LogOut size={22} />

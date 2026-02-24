@@ -63,6 +63,7 @@ model User {
   points               Int
   phone_number         String    @unique
   profile_image        String    @default("/profile/default.png")
+  gender               String
   email_verified       Boolean   @default(false)
   email_code           String?
   email_code_exp       DateTime?

@@ -119,10 +119,10 @@ export async function POST(req: NextRequest) {
  */
 export async function PUT(req: NextRequest) {
   try {
-    const { name, email, password, phone_number, profile_image } =
+    const { name, email, password, phone_number, profile_image, gender } =
       await req.json();
 
-    if (!name || !email || !password || !phone_number) {
+    if (!name || !email || !password || !phone_number || !gender) {
       return NextResponse.json(
         { message: "Hiányzó kötelező mezők" },
         { status: 400 }
@@ -147,6 +147,9 @@ export async function PUT(req: NextRequest) {
       );
     }
 
+    const allowedGenders = new Set(["MALE", "FEMALE", "RATHER_NOT_SAY"]);
+    const safeGender = allowedGenders.has(gender) ? gender : "RATHER_NOT_SAY";
+
     const password_hash = await bcrypt.hash(password, 10);
 
     const newUser = await prisma.user.create({
@@ -156,6 +159,7 @@ export async function PUT(req: NextRequest) {
         password_hash,
         phone_number: normalizedPhone,
         profile_image: profile_image || "/profile/default.png",
+        gender: safeGender,
         points: 0,
         rank_id: "aa0000000000000000000001",
         email_verified: false,

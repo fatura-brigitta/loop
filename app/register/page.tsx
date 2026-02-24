@@ -1,24 +1,34 @@
 "use client";
 
-import { Eye, EyeOff, UserPlus } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { NextResponse } from "next/server";
-import { useEffect, useState } from "react";
+import { Eye, EyeOff, UserPlus } from "lucide-react";
+
+type Gender = "MALE" | "FEMALE" | "RATHER_NOT_SAY";
 
 export default function RegisterPage() {
   const router = useRouter();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone_number, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
-  const [profileImage, setProfileImage] = useState<string | null>(null);
+
+  const [gender, setGender] = useState<Gender>("RATHER_NOT_SAY");
 
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [isDragging, setIsDragging] = useState(false);
+  const [profileImageBase64, setProfileImageBase64] = useState<string>(""); // ezt küldjük
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const previewSrc = useMemo(() => {
+    return profileImageBase64 || "/profile/default.png";
+  }, [profileImageBase64]);
 
   useEffect(() => {
     if (!error) return;
@@ -27,19 +37,54 @@ export default function RegisterPage() {
   }, [error]);
 
   const validate = () => {
-    if (!name || !email || !password) {
+    if (!name || !email || !phone_number || !password) {
       return "Kérjük töltse ki az összes mezőt!";
     }
-
-    if (password.length < 5) {
-      return "A jelszónak legalább 5 karakter hosszúnak kell lennie!";
-    }
-
     if (!email.includes("@")) {
       return "Érvénytelen email cím!";
     }
-
+    if (password.length < 5) {
+      return "A jelszónak legalább 5 karakter hosszúnak kell lennie!";
+    }
     return "";
+  };
+
+  const readFileAsBase64 = (file: File) =>
+    new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(String(reader.result || ""));
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+
+  const handlePickFile = async (file?: File) => {
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      setError("Csak képfájl tölthető fel!");
+      return;
+    }
+
+    // opcionális: limit (pl 2MB)
+    const maxBytes = 2 * 1024 * 1024;
+    if (file.size > maxBytes) {
+      setError("A kép túl nagy (max 2MB)!");
+      return;
+    }
+
+    try {
+      const base64 = await readFileAsBase64(file);
+      setProfileImageBase64(base64);
+    } catch {
+      setError("Nem sikerült beolvasni a képet.");
+    }
+  };
+
+  const onDrop = async (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    await handlePickFile(file);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -61,9 +106,10 @@ export default function RegisterPage() {
         body: JSON.stringify({
           name,
           email,
+          phone_number,
           password,
-          phone_number: phone,
-          profile_image: profileImage,
+          gender,
+          profile_image: profileImageBase64 || undefined, // ha üres, backend default
         }),
       });
 
@@ -81,17 +127,7 @@ export default function RegisterPage() {
       }
 
       router.push("/login");
-
-      router.push("/login");
-    } catch (err: any) {
-      if (err.code === "P2002") {
-        if (err.meta?.target?.includes("phone_number")) {
-          return NextResponse.json(
-            { message: "Ez a telefonszám már regisztrálva van!" },
-            { status: 409 }
-          );
-        }
-      }
+    } catch {
       setError("Szerver hiba, próbáld újra később!");
       setLoading(false);
     }
@@ -107,16 +143,6 @@ export default function RegisterPage() {
           </Link>
 
           <nav className="flex items-center gap-5 text-sm">
-            <a className="text-slate-200/90 transition hover:text-white" href="/movies">
-              Filmek
-            </a>
-            <a className="text-slate-200/90 transition hover:text-white" href="/screenings">
-              Vetítések
-            </a>
-            <a className="text-slate-200/90 transition hover:text-white" href="/forum">
-              Fórum
-            </a>
-
             <Link
               className="ml-2 rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
               href="/login"
@@ -132,45 +158,72 @@ export default function RegisterPage() {
           <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Fiók létrehozása</h1>
 
           <form className="space-y-5" onSubmit={handleSubmit}>
-            <div className="flex flex-col items-center gap-3">
-              <label className="text-sm text-white/60 text-center">
-                Profilkép
-              </label>
+            {/* PROFILKÉP */}
+            <div>
+              <label className="text-sm text-white/60">Profilkép (opcionális)</label>
 
-              <div className="relative">
-                <Image
-                  alt="Profilkép"
-                  className="h-24 w-24 rounded-full object-cover border border-white/20"
-                  height={96}
-                  src={profileImage || "/profile/default.png"}
-                  width={96}
-                />
+              <div className="mt-2 flex items-center gap-4">
+                <div className="relative h-20 w-20 overflow-hidden rounded-full border border-white/15">
+                  <Image alt="Profilkép előnézet" className="object-cover" fill src={previewSrc} />
+                </div>
 
-                <label className="absolute inset-0 flex items-center justify-center rounded-full bg-black/60 opacity-0 hover:opacity-100 cursor-pointer transition">
-                  <span className="text-xs text-white">Módosítás</span>
-                  <input
-                    accept="image/*"
-                    className="hidden"
-                    type="file"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (!file) return;
+                <div
+                  className={`flex-1 rounded-xl border border-dashed px-4 py-4 text-sm transition ${
+                    isDragging
+                      ? "border-cyan-400 bg-cyan-500/10"
+                      : "border-white/15 bg-black/20"
+                  }`}
+                  onDragLeave={() => setIsDragging(false)}
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    setIsDragging(true);
+                  }}
+                  onDrop={onDrop}
+                >
+                  <div className="flex flex-col gap-2">
+                    <div className="text-white/80">
+                      Húzd ide a képet, vagy{" "}
+                      <button
+                        className="text-cyan-300 underline hover:text-cyan-200 cursor-pointer"
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                      >
+                        válassz fájlt
+                      </button>
+                      .
+                    </div>
 
-                      const reader = new FileReader();
-                      reader.onloadend = () => {
-                        setProfileImage(reader.result as string);
-                      };
-                      reader.readAsDataURL(file);
-                    }}
-                  />
-                </label>
+                    <input
+                      accept="image/*"
+                      className="hidden"
+                      ref={fileInputRef}
+                      type="file"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        await handlePickFile(file);
+                        e.currentTarget.value = "";
+                      }}
+                    />
+
+                    {profileImageBase64 && (
+                      <button
+                        className="w-fit rounded-lg bg-white/10 px-3 py-1 text-xs hover:bg-white/15"
+                        type="button"
+                        onClick={() => setProfileImageBase64("")}
+                      >
+                        Vissza az alapértelmezettre
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
 
+            {/* NÉV */}
             <div>
               <label className="text-sm text-white/60">Név</label>
               <input
-                className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white transition outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+                className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
                 placeholder="John Doe"
                 type="text"
                 value={name}
@@ -178,10 +231,11 @@ export default function RegisterPage() {
               />
             </div>
 
+            {/* EMAIL */}
             <div>
               <label className="text-sm text-white/60">Email</label>
               <input
-                className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white transition outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+                className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
                 placeholder="johndoe@example.com"
                 type="email"
                 value={email}
@@ -189,30 +243,62 @@ export default function RegisterPage() {
               />
             </div>
 
+            {/* TELEFON */}
             <div>
               <label className="text-sm text-white/60">Telefonszám</label>
               <input
-                className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+                className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
                 placeholder="+36 30 123 4567"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                type="text"
+                value={phone_number}
+                onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
 
+            {/* NEM (RADIO) */}
+            <div>
+              <label className="text-sm text-white/60">Nem (opcionális)</label>
+              <div className="mt-2 grid grid-cols-1 gap-2">
+                {[
+                  { value: "MALE", label: "Férfi" },
+                  { value: "FEMALE", label: "Nő" },
+                  { value: "RATHER_NOT_SAY", label: "Inkább nem adom meg" },
+                ].map((opt) => (
+                  <label
+                    className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-2 transition ${
+                      gender === opt.value
+                        ? "border-cyan-400 bg-cyan-500/10"
+                        : "border-white/10 bg-black/20 hover:bg-white/5"
+                    }`}
+                    key={opt.value}
+                  >
+                    <input
+                      checked={gender === (opt.value as Gender)}
+                      className="h-4 w-4"
+                      name="gender"
+                      type="radio"
+                      value={opt.value}
+                      onChange={() => setGender(opt.value as Gender)}
+                    />
+                    <span className="text-sm text-white/80">{opt.label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* JELSZÓ */}
             <div>
               <label className="text-sm text-white/60">Jelszó</label>
-
               <div className="relative mt-2">
                 <input
-                  className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 pr-11 text-white transition outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+                  className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 pr-11 text-white outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
                   placeholder="Válasszon jelszót"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-
                 <button
-                  className="absolute top-1/2 right-3 -translate-y-1/2 text-white/60 transition hover:text-white"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white cursor-pointer"
                   type="button"
                   onClick={() => setShowPassword((prev) => !prev)}
                 >
@@ -222,7 +308,7 @@ export default function RegisterPage() {
             </div>
 
             {error && (
-              <div className="animate-pulse rounded-lg border border-red-500/40 bg-red-500/20 px-4 py-2 text-center text-sm text-red-300">
+              <div className="rounded-lg border border-red-500/40 bg-red-500/20 px-4 py-2 text-center text-sm text-red-300">
                 {error}
               </div>
             )}
@@ -233,7 +319,7 @@ export default function RegisterPage() {
               type="submit"
             >
               <UserPlus size={18} />
-              {loading ? "Creating account..." : "Register"}
+              {loading ? "Fiók létrehozása..." : "Regisztráció"}
             </button>
           </form>
 

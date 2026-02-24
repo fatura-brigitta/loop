@@ -4,7 +4,7 @@ import { LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Ticket = {
   id: string;
@@ -25,6 +25,13 @@ type Ticket = {
   };
 };
 
+function formatGender(g?: string) {
+  if (!g) return "Inkább nem adom meg";
+  if (g === "MALE") return "Férfi";
+  if (g === "FEMALE") return "Nő";
+  return "Inkább nem adom meg";
+}
+
 export default function ProfilePage() {
   const router = useRouter();
 
@@ -37,11 +44,19 @@ export default function ProfilePage() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
+
   const [phone, setPhone] = useState("");
   const [profileImage, setProfileImage] = useState("");
 
+  // ÚJ: gender megjelenítéshez
+  const [gender, setGender] = useState<string>("RATHER_NOT_SAY");
+
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+
+  // ÚJ: drag & drop
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const loadUser = async () => {
@@ -57,11 +72,15 @@ export default function ProfilePage() {
 
       const profileRes = await fetch("/api/profile", { cache: "no-store" });
       const profile = await profileRes.json();
+
       setUser(profile);
       setNewName(profile.name);
 
       setPhone(profile.phone_number);
       setProfileImage(profile.profile_image);
+
+      // ÚJ: gender
+      setGender(profile.gender || "RATHER_NOT_SAY");
 
       const ticketRes = await fetch("/api/profile", {
         method: "POST",
@@ -123,7 +142,11 @@ export default function ProfilePage() {
       return;
     }
 
-    if (oldPassword.trim() === "" || newPassword.trim() === "" || newPassword2.trim() === "") {
+    if (
+      oldPassword.trim() === "" ||
+      newPassword.trim() === "" ||
+      newPassword2.trim() === ""
+    ) {
       setError("Jelszó mezők nem lehetnek üresek!");
       return;
     }
@@ -174,11 +197,56 @@ export default function ProfilePage() {
   };
 
   const updateProfileImage = async (base64: string) => {
-    await fetch("/api/profile-image", {
+    const res = await fetch("/api/profile-image", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ profile_image: base64 }),
     });
+
+    if (!res.ok) {
+      setError("Hiba a profilkép frissítése közben!");
+      return;
+    }
+
+    setMessage("Profilkép frissítve!");
+  };
+
+  const readFileAsBase64 = (file: File) =>
+    new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(String(reader.result || ""));
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+
+  const handlePickFile = async (file?: File) => {
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      setError("Csak képfájl tölthető fel!");
+      return;
+    }
+
+    const maxBytes = 2 * 1024 * 1024;
+    if (file.size > maxBytes) {
+      setError("A kép túl nagy (max 2MB)!");
+      return;
+    }
+
+    try {
+      const base64 = await readFileAsBase64(file);
+      setProfileImage(base64);
+      await updateProfileImage(base64);
+    } catch {
+      setError("Nem sikerült beolvasni a képet.");
+    }
+  };
+
+  const onDrop = async (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    await handlePickFile(file);
   };
 
   if (!user) {
@@ -195,7 +263,9 @@ export default function ProfilePage() {
         <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
           <Link className="flex items-center gap-2" href="/">
             <Image alt="Logo" height={28} src="/favicon.ico" width={28} />
-            <span className="text-lg font-extrabold tracking-wide text-cyan-300">Loop</span>
+            <span className="text-lg font-extrabold tracking-wide text-cyan-300">
+              Loop
+            </span>
           </Link>
 
           <nav className="flex items-center gap-5 text-sm">
@@ -226,39 +296,79 @@ export default function ProfilePage() {
 
       <div className="flex items-center justify-center py-16">
         <div className="w-full max-w-xl rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur">
-          <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Profil</h1>
+          <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">
+            Profil
+          </h1>
 
 
-          <div className="mb-8 flex flex-col items-center gap-4">
-            <div className="relative">
-              <Image
-                alt="Profilkép"
-                className="h-32 w-32 rounded-full object-cover border border-white/20"
-                height={128}
-                src={profileImage || "/profile/default.png"}
-                width={128}
-              />
+          <div className="mb-8">
+            <label className="text-sm text-white/60">Profilkép</label>
 
-              <label className="absolute inset-0 flex items-center justify-center rounded-full bg-black/60 opacity-0 hover:opacity-100 cursor-pointer transition">
-                <span className="text-sm text-white">Módosítás</span>
-                <input
-                  accept="image/*"
-                  className="hidden"
-                  type="file"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (!file) return;
+            <div className="mt-3 flex flex-col items-center gap-4">
+              <div
+                className={`relative rounded-2xl border p-4 transition ${
+                  isDragging
+                    ? "border-cyan-400 bg-cyan-500/10"
+                    : "border-white/10 bg-black/20"
+                }`}
+                onDragLeave={() => setIsDragging(false)}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setIsDragging(true);
+                }}
+                onDrop={onDrop}
+              >
+                <div className="flex items-center gap-4">
+                  <div className="relative h-32 w-32 overflow-hidden rounded-full border border-white/20">
+                    <Image
+                      alt="Profilkép"
+                      className="object-cover"
+                      fill
+                      src={profileImage || "/profile/default.png"}
+                    />
+                  </div>
 
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                      const newImg = reader.result as string;
-                      setProfileImage(newImg);
-                      updateProfileImage(newImg);
-                    };
-                    reader.readAsDataURL(file);
-                  }}
-                />
-              </label>
+                  <div className="flex flex-col gap-2">
+                    <div className="text-sm text-white/80">
+                      Húzd ide a képet, vagy{" "}
+                      <button
+                        className="text-cyan-300 underline hover:text-cyan-200"
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                      >
+                        válassz fájlt
+                      </button>
+                      .
+                    </div>
+
+                    <input
+                      accept="image/*"
+                      className="hidden"
+                      ref={fileInputRef}
+                      type="file"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        await handlePickFile(file);
+                        e.currentTarget.value = "";
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <label className="absolute inset-0 flex items-center justify-center rounded-2xl bg-black/60 opacity-0 hover:opacity-100 cursor-pointer transition">
+                  <span className="text-sm text-white">Módosítás</span>
+                  <input
+                    accept="image/*"
+                    className="hidden"
+                    type="file"
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      await handlePickFile(file);
+                      e.currentTarget.value = "";
+                    }}
+                  />
+                </label>
+              </div>
             </div>
           </div>
 
@@ -281,9 +391,19 @@ export default function ProfilePage() {
           </div>
 
           <div className="mb-6">
+            <label className="text-sm text-white/60">Nem</label>
+            <input
+              className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+              disabled
+              value={formatGender(gender)}
+            />
+          </div>
+
+          <div className="mb-6">
             <label className="text-sm text-white/60">Név</label>
             <input
               className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+              disabled
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
             />
@@ -295,8 +415,11 @@ export default function ProfilePage() {
             </button>
           </div>
 
+          {/* JELSZÓ MODOSÍTÁS - érintetlen */}
           <div className="border-t border-white/10 pt-6">
-            <h2 className="mb-4 text-xl font-semibold text-cyan-300">Jelszó módosítása</h2>
+            <h2 className="mb-4 text-xl font-semibold text-cyan-300">
+              Jelszó módosítása
+            </h2>
 
             <input
               className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
@@ -369,7 +492,9 @@ export default function ProfilePage() {
                 </div>
 
                 <div className="text-right">
-                  <div className="text-2xl font-bold text-green-400">{ticket.price} Ft</div>
+                  <div className="text-2xl font-bold text-green-400">
+                    {ticket.price} Ft
+                  </div>
                 </div>
 
                 {/* eslint-disable-next-line @next/next/no-img-element */}

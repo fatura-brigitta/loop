@@ -5,7 +5,7 @@ import Link from "next/link";
 import Timeline from "./Timeline";
 import { LogOut, Film, Calendar, MessageSquare, Building2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 type Movie = {
   id: string;

@@ -1,10 +1,9 @@
 "use client";
 
-import { LogOut } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import Navbar from "@/app/components/navbar";
 
 type Ticket = {
   id: string;
@@ -48,13 +47,11 @@ export default function ProfilePage() {
   const [phone, setPhone] = useState("");
   const [profileImage, setProfileImage] = useState("");
 
-  // ÚJ: gender megjelenítéshez
   const [gender, setGender] = useState<string>("RATHER_NOT_SAY");
 
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  // ÚJ: drag & drop
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -79,7 +76,6 @@ export default function ProfilePage() {
       setPhone(profile.phone_number);
       setProfileImage(profile.profile_image);
 
-      // ÚJ: gender
       setGender(profile.gender || "RATHER_NOT_SAY");
 
       const ticketRes = await fetch("/api/profile", {
@@ -107,12 +103,6 @@ export default function ProfilePage() {
 
     return () => clearTimeout(timer);
   }, [message, error]);
-
-  const handleLogout = async () => {
-    await fetch("/api/auth", { method: "DELETE" });
-    setUser(null);
-    router.push("/login");
-  };
 
   const updateName = async () => {
     setError("");
@@ -259,40 +249,7 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-[#060b14] text-slate-100">
-      <header className="sticky top-0 z-50 h-14 border-b border-white/10 bg-[#060b14]/90 backdrop-blur">
-        <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
-          <Link className="flex items-center gap-2" href="/">
-            <Image alt="Logo" height={28} src="/favicon.ico" width={28} />
-            <span className="text-lg font-extrabold tracking-wide text-cyan-300">
-              Loop
-            </span>
-          </Link>
-
-          <nav className="flex items-center gap-5 text-sm">
-            <a className="text-slate-200/90 transition hover:text-white" href="/movies">
-              Filmek
-            </a>
-            <a className="text-slate-200/90 transition hover:text-white" href="/screenings">
-              Vetítések
-            </a>
-            <a className="text-slate-200/90 transition hover:text-white" href="/forum">
-              Fórum
-            </a>
-
-            <div className="flex items-center gap-2">
-              <a className="text-slate-200/90" href="/profile">
-                Szia, {name} !
-              </a>
-              <button
-                className="cursor-pointer text-slate-200/90 transition hover:text-white"
-                onClick={handleLogout}
-              >
-                <LogOut size={25} />
-              </button>
-            </div>
-          </nav>
-        </div>
-      </header>
+      <Navbar/>
 
       <div className="flex items-center justify-center py-16">
         <div className="w-full max-w-xl rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur">

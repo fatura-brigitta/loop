@@ -1,8 +1,6 @@
 "use client";
 
-import { LogOut } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import Navbar from "@/app/components/navbar";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -45,7 +43,7 @@ function SeatGrid({
           {Array.from({ length: columns }).map((_, c) => {
             const chair = chairs.find((ch) => ch.row === r + 1 && ch.column === c + 1);
 
-            let color = "bg-slate-700/40"; // nincs szék
+            let color = "bg-slate-700/40";
 
             if (chair) {
               if (chair.state) color = "bg-gray-400";
@@ -113,16 +111,6 @@ export default function HallPage() {
     loadUser();
   }, []);
 
-  const handleLogout = async () => {
-    await fetch("/api/auth", { method: "DELETE" });
-    setUserName("");
-    setShowLogin(false);
-    setHall(null);
-    setSeats([]);
-    setError("");
-    router.refresh();
-  };
-
   useEffect(() => {
     if (!showLogin) return;
 
@@ -176,7 +164,6 @@ export default function HallPage() {
     };
   }, []);
 
-  //több szék foglalva mint a maximum
   const showSeatError = (msg: string) => {
     setSeatError(msg);
 
@@ -190,7 +177,6 @@ export default function HallPage() {
     }, 5000);
   };
 
-  // székre való kattintás(állapot jelzése)
   const toggleSeat = (chair: Chair | undefined) => {
     if (!chair) return;
     if (chair.state) return;
@@ -219,7 +205,6 @@ export default function HallPage() {
 
   const groupedSeats: Record<number, number[]> = {};
 
-  // székek csoportosítva összegezve
   selectedChairs.forEach((chair) => {
     if (!groupedSeats[chair.row]) {
       groupedSeats[chair.row] = [];
@@ -231,7 +216,6 @@ export default function HallPage() {
     groupedSeats[Number(row)].sort((a, b) => a - b);
   });
 
-  // szék foglalása
   const reserveSeats = async () => {
     if (selectedSeats.length === 0) return;
 
@@ -254,55 +238,7 @@ export default function HallPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#020617] via-[#060b14] to-black text-slate-100">
-      <header className="sticky top-0 z-50 h-14 border-b border-white/10 bg-[#060b14]/90 backdrop-blur">
-        <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
-          <Link className="flex items-center justify-center gap-2 tracking-wide" href="/">
-            <Image
-              alt="Logo"
-              className="object-contain"
-              height={28}
-              src="/favicon.ico"
-              width={28}
-            />
-            <span className="flex gap-2 text-lg font-extrabold tracking-wide text-cyan-300">
-              Loop
-            </span>
-          </Link>
-
-          <nav className="flex items-center gap-5 text-sm">
-            <a className="text-slate-200/90 transition hover:text-white" href="/movies">
-              Filmek
-            </a>
-            <a className="text-slate-200/90 transition hover:text-white" href="/screenings">
-              Vetítések
-            </a>
-            <a className="text-slate-200/90 transition hover:text-white" href="/forum">
-              Fórum
-            </a>
-
-            {showLogin ? (
-              <div className="flex items-center gap-2">
-                <a className="text-slate-200/90" href="/profile">
-                  Szia, {name} !
-                </a>
-                <a
-                  className="cursor-pointer text-slate-200/90 transition hover:text-white"
-                  onClick={handleLogout}
-                >
-                  <LogOut size={25} />
-                </a>
-              </div>
-            ) : (
-              <a
-                className="ml-2 rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
-                href="/login"
-              >
-                Bejelentkezés
-              </a>
-            )}
-          </nav>
-        </div>
-      </header>
+      <Navbar/>
 
       {!showLogin && (
         <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">

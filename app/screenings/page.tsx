@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { LogOut, Play, ChevronDown, RotateCcw } from "lucide-react";
+import { Play, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import Navbar from "@/app/components/navbar";
 
 type Movie = {
   title: string;
@@ -112,12 +112,6 @@ export default function ScreeningsPage() {
       });
   }, []);
 
-  const handleLogout = async () => {
-    await fetch("/api/auth", { method: "DELETE" });
-    setShowLogin(false);
-    router.refresh();
-  };
-
   useEffect(() => {
     fetch("/api/screenings", { cache: "no-store" })
       .then((res) => res.json())
@@ -210,45 +204,7 @@ export default function ScreeningsPage() {
 
   return (
     <div className="min-h-screen bg-[#060b14] text-slate-100">
-      <header className="sticky top-0 z-50 h-14 border-b border-white/10 bg-[#060b14]/90 backdrop-blur">
-        <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
-          <Link className="flex items-center gap-2" href="/">
-            <Image alt="Logo" height={28} src="/favicon.ico" width={28} />
-            <span className="text-lg font-extrabold tracking-wide text-cyan-300">Loop</span>
-          </Link>
-
-          <nav className="flex items-center gap-5 text-sm">
-            <Link className="hover:text-white" href="/movies">
-              Filmek
-            </Link>
-            <Link className="hover:text-white" href="/screenings">
-              Vetítések
-            </Link>
-            <Link className="hover:text-white" href="/forum">
-              Fórum
-            </Link>
-
-            {showLogin ? (
-              <div className="flex items-center gap-2">
-                <Link className="hover:text-white" href="/profile">
-                  Szia, {name}!
-                </Link>
-                <button className="cursor-pointer" onClick={handleLogout}>
-                  <LogOut size={22} />
-                </button>
-              </div>
-            ) : (
-              <Link
-                className="ml-2 rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
-                href="/login"
-              >
-                Bejelentkezés
-              </Link>
-            )}
-          </nav>
-        </div>
-      </header>
-
+      <Navbar/>
       <div className="mx-auto max-w-6xl p-4">
         <h1 className="mb-6 text-2xl font-bold">Műsoron</h1>
 

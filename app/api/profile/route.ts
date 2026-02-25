@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 import { ObjectId } from "mongodb";
 
 /* =========================
-   GET  → profil adatok
+   GET  → profil + rang adatok
    ========================= */
 export async function GET() {
   const cookieStore = await cookies();
@@ -18,21 +18,55 @@ export async function GET() {
 
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      profile_image: true,
-      gender: true,
-      phone_number: true,
-    },
+    include: {
+      ranks: true
+    }
   });
 
   if (!user) {
     return NextResponse.json({ message: "Felhasználó nem található" }, { status: 404 });
   }
 
-  return NextResponse.json(user);
+  /* ===== KÖVETKEZŐ RANG ===== */
+
+  const nextRank = await prisma.rank.findFirst({
+    where: {
+      point_limit: {
+        gt: user.points
+      }
+    },
+    orderBy: {
+      point_limit: "asc"
+    }
+  });
+
+  /* ===== PROGRESS BAR ===== */
+
+  let progress = 100;
+
+  if (nextRank) {
+    const currentRankLimit = user.ranks?.point_limit || 0;
+    const needed = nextRank.point_limit - currentRankLimit;
+    const current = user.points - currentRankLimit;
+
+    progress = Math.floor((current / needed) * 100);
+    if (progress < 0) progress = 0;
+    if (progress > 100) progress = 100;
+  }
+
+  return NextResponse.json({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    profile_image: user.profile_image,
+    gender: user.gender,
+    phone_number: user.phone_number,
+
+    points: user.points,
+    rank: user.ranks,
+    nextRank,
+    progress
+  });
 }
 
 /* =========================
@@ -116,7 +150,7 @@ export async function PUT(req: Request) {
 }
 
 /* =========================
-   POST → jegyek lekérése
+   POST → jegyek lekérése (AKTÍV + HISTORY)
    ========================= */
 export async function POST() {
   try {
@@ -127,11 +161,16 @@ export async function POST() {
       return NextResponse.json({ message: "Nem vagy bejelentkezve" }, { status: 401 });
     }
 
-    const objectUserId = new ObjectId(userId).toString();
+    const now = new Date();
 
-    const tickets = await prisma.ticket.findMany({
+    const activeTickets = await prisma.ticket.findMany({
       where: {
-        user_id: objectUserId,
+        user_id: userId,
+        screenings: {
+          start: {
+            gte: now,
+          },
+        },
       },
       include: {
         screenings: {
@@ -145,11 +184,40 @@ export async function POST() {
         ticket_types: true,
       },
       orderBy: {
-        id: "desc",
+        screenings: { start: "asc" },
       },
     });
 
-    return NextResponse.json(tickets);
+    const historyTickets = await prisma.ticket.findMany({
+      where: {
+        user_id: userId,
+        screenings: {
+          start: {
+            lt: now,
+          },
+        },
+      },
+      include: {
+        screenings: {
+          include: {
+            movies: true,
+            halls: true,
+            screening_types: true,
+          },
+        },
+        chairs: true,
+        ticket_types: true,
+      },
+      orderBy: {
+        screenings: { start: "desc" },
+      },
+    });
+
+    return NextResponse.json({
+      active: activeTickets,
+      history: historyTickets,
+    });
+
   } catch (err) {
     console.error("PROFILE TICKETS ERROR:", err);
     return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });

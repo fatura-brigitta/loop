@@ -1,8 +1,8 @@
 "use client";
 
-import Navbar from "@/app/components/navbar";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import Navbar from "@/app/components/navbar";
 
 type Chair = {
   id: string;
@@ -238,7 +238,7 @@ export default function HallPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#020617] via-[#060b14] to-black text-slate-100">
-      <Navbar/>
+      <Navbar />
 
       {!showLogin && (
         <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
@@ -260,9 +260,7 @@ export default function HallPage() {
 
       {showLogin && !loadingHall && !error && hall && (
         <div className="mx-auto max-w-6xl px-4 py-8 pb-40 text-center">
-          <h1 className="mb-6 text-center text-2xl font-bold">
-            {hall.name}
-          </h1>
+          <h1 className="mb-6 text-center text-2xl font-bold">{hall.name}</h1>
 
           <CinemaScreen />
 
@@ -320,7 +318,7 @@ export default function HallPage() {
                     const seatWord = cols.length === 1 ? "SZÉK" : "SZÉKEK";
 
                     return (
-                      <div key={row}>
+                      <div className="text-cyan-300" key={row}>
                         SOR: {row} {seatWord}:{" "}
                         <span className="text-cyan-300">{cols.join(", ")}</span>
                       </div>
@@ -333,7 +331,7 @@ export default function HallPage() {
               <div className="text-2xl font-bold text-orange-400">🎟 {selectedChairs.length}</div>
 
               <button
-                className="rounded-lg bg-blue-500 px-5 py-2 font-semibold text-white transition hover:bg-blue-600"
+                className="cursor-pointer rounded-lg bg-blue-500 px-5 py-2 font-semibold text-white transition hover:bg-blue-600"
                 onClick={reserveSeats}
               >
                 Székek foglalása

@@ -74,7 +74,6 @@ export default function PaymentPage() {
       return;
     }
 
-    // sikeres fizetés → profil oldal
     router.push("/profile");
   };
 
@@ -138,7 +137,7 @@ export default function PaymentPage() {
               <span className="block mb-2">Jegytípus</span>
 
               <select
-                className="w-full rounded-lg bg-[#060b14] border border-white/20 p-2"
+                className="w-full rounded-lg bg-[#060b14] border border-white/20 p-2 cursor-pointer"
                 value={ticketType}
                 onChange={async (e) => {
                   const newType = e.target.value;
@@ -171,7 +170,7 @@ export default function PaymentPage() {
         </div>
 
         <button
-          className="mt-6 w-full rounded-lg bg-green-500 py-3 font-bold transition hover:bg-green-600 disabled:opacity-50"
+          className="mt-6 w-full rounded-lg bg-green-500 py-3 font-bold transition hover:bg-green-600 disabled:opacity-50 cursor-pointer"
           disabled={paying}
           onClick={simulatePayment}
         >

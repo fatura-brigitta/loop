@@ -21,20 +21,36 @@ export default function Navbar() {
   useEffect(() => {
     const loadUser = async () => {
       try {
-        const res = await fetch("/api/profile", { cache: "no-store" });
 
-        if (!res.ok) {
+        const authRes = await fetch("/api/auth", {
+          credentials: "include",
+          cache: "no-store",
+        });
+
+        if (!authRes.ok) {
           setUser(null);
           setLoading(false);
           return;
         }
 
-        const data = await res.json();
+        const profileRes = await fetch("/api/profile", {
+          credentials: "include",
+          cache: "no-store",
+        });
+
+        if (!profileRes.ok) {
+          setUser(null);
+          setLoading(false);
+          return;
+        }
+
+        const data = await profileRes.json();
 
         setUser({
           name: data.name,
           profile_image: data.profile_image || "/profile/default.png",
         });
+
       } catch {
         setUser(null);
       }

@@ -153,6 +153,17 @@ export async function PUT(req: NextRequest) {
 
     const password_hash = await bcrypt.hash(password, 10);
 
+    const baseRank = await prisma.rank.findFirst({
+      where: { point_limit: 0 },
+    });
+
+    if (!baseRank) {
+      return NextResponse.json(
+        { message: "Alap rang (0 pontos) nem található!" },
+        { status: 500 }
+      );
+    }
+
     const newUser = await prisma.user.create({
       data: {
         name,
@@ -162,7 +173,7 @@ export async function PUT(req: NextRequest) {
         profile_image: profile_image || "/profile/default.png",
         gender: safeGender,
         points: 0,
-        rank_id: "aa0000000000000000000001",
+        rank_id: baseRank.id,
         email_verified: false,
       },
     });
@@ -177,7 +188,8 @@ export async function PUT(req: NextRequest) {
       },
     });
 
-    await sendVerificationEmail(newUser.email, newUser.name, code);
+    sendVerificationEmail(newUser.email, newUser.name, code)
+      .catch(err => console.error("EMAIL SEND ERROR:", err));
 
     return NextResponse.json(
       {

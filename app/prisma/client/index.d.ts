@@ -7693,14 +7693,24 @@ export namespace Prisma {
 
   export type AggregateRank = {
     _count: RankCountAggregateOutputType | null
+    _avg: RankAvgAggregateOutputType | null
+    _sum: RankSumAggregateOutputType | null
     _min: RankMinAggregateOutputType | null
     _max: RankMaxAggregateOutputType | null
+  }
+
+  export type RankAvgAggregateOutputType = {
+    point_limit: number | null
+  }
+
+  export type RankSumAggregateOutputType = {
+    point_limit: number | null
   }
 
   export type RankMinAggregateOutputType = {
     id: string | null
     name: string | null
-    point_limit: string | null
+    point_limit: number | null
     discount_id: string | null
     image: string | null
   }
@@ -7708,7 +7718,7 @@ export namespace Prisma {
   export type RankMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    point_limit: string | null
+    point_limit: number | null
     discount_id: string | null
     image: string | null
   }
@@ -7722,6 +7732,14 @@ export namespace Prisma {
     _all: number
   }
 
+
+  export type RankAvgAggregateInputType = {
+    point_limit?: true
+  }
+
+  export type RankSumAggregateInputType = {
+    point_limit?: true
+  }
 
   export type RankMinAggregateInputType = {
     id?: true
@@ -7786,6 +7804,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: RankAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RankSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: RankMinAggregateInputType
@@ -7816,6 +7846,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: RankCountAggregateInputType | true
+    _avg?: RankAvgAggregateInputType
+    _sum?: RankSumAggregateInputType
     _min?: RankMinAggregateInputType
     _max?: RankMaxAggregateInputType
   }
@@ -7823,10 +7855,12 @@ export namespace Prisma {
   export type RankGroupByOutputType = {
     id: string
     name: string
-    point_limit: string
-    discount_id: string
+    point_limit: number
+    discount_id: string | null
     image: string
     _count: RankCountAggregateOutputType | null
+    _avg: RankAvgAggregateOutputType | null
+    _sum: RankSumAggregateOutputType | null
     _min: RankMinAggregateOutputType | null
     _max: RankMaxAggregateOutputType | null
   }
@@ -7882,8 +7916,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      point_limit: string
-      discount_id: string
+      point_limit: number
+      discount_id: string | null
       image: string
     }, ExtArgs["result"]["rank"]>
     composites: {}
@@ -8281,7 +8315,7 @@ export namespace Prisma {
   interface RankFieldRefs {
     readonly id: FieldRef<"Rank", 'String'>
     readonly name: FieldRef<"Rank", 'String'>
-    readonly point_limit: FieldRef<"Rank", 'String'>
+    readonly point_limit: FieldRef<"Rank", 'Int'>
     readonly discount_id: FieldRef<"Rank", 'String'>
     readonly image: FieldRef<"Rank", 'String'>
   }
@@ -16776,8 +16810,8 @@ export namespace Prisma {
     NOT?: RankWhereInput | RankWhereInput[]
     id?: StringFilter<"Rank"> | string
     name?: StringFilter<"Rank"> | string
-    point_limit?: StringFilter<"Rank"> | string
-    discount_id?: StringFilter<"Rank"> | string
+    point_limit?: IntFilter<"Rank"> | number
+    discount_id?: StringNullableFilter<"Rank"> | string | null
     image?: StringFilter<"Rank"> | string
     discount?: XOR<DiscountNullableScalarRelationFilter, DiscountWhereInput> | null
     users?: UserListRelationFilter
@@ -16799,8 +16833,8 @@ export namespace Prisma {
     AND?: RankWhereInput | RankWhereInput[]
     OR?: RankWhereInput[]
     NOT?: RankWhereInput | RankWhereInput[]
-    point_limit?: StringFilter<"Rank"> | string
-    discount_id?: StringFilter<"Rank"> | string
+    point_limit?: IntFilter<"Rank"> | number
+    discount_id?: StringNullableFilter<"Rank"> | string | null
     image?: StringFilter<"Rank"> | string
     discount?: XOR<DiscountNullableScalarRelationFilter, DiscountWhereInput> | null
     users?: UserListRelationFilter
@@ -16813,8 +16847,10 @@ export namespace Prisma {
     discount_id?: SortOrder
     image?: SortOrder
     _count?: RankCountOrderByAggregateInput
+    _avg?: RankAvgOrderByAggregateInput
     _max?: RankMaxOrderByAggregateInput
     _min?: RankMinOrderByAggregateInput
+    _sum?: RankSumOrderByAggregateInput
   }
 
   export type RankScalarWhereWithAggregatesInput = {
@@ -16823,8 +16859,8 @@ export namespace Prisma {
     NOT?: RankScalarWhereWithAggregatesInput | RankScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Rank"> | string
     name?: StringWithAggregatesFilter<"Rank"> | string
-    point_limit?: StringWithAggregatesFilter<"Rank"> | string
-    discount_id?: StringWithAggregatesFilter<"Rank"> | string
+    point_limit?: IntWithAggregatesFilter<"Rank"> | number
+    discount_id?: StringNullableWithAggregatesFilter<"Rank"> | string | null
     image?: StringWithAggregatesFilter<"Rank"> | string
   }
 
@@ -17471,7 +17507,7 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    points: number
+    points?: number
     phone_number: string
     profile_image?: string
     gender: string
@@ -17491,7 +17527,7 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    points: number
+    points?: number
     phone_number: string
     profile_image?: string
     gender: string
@@ -17549,7 +17585,7 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    points: number
+    points?: number
     phone_number: string
     profile_image?: string
     gender: string
@@ -17643,7 +17679,7 @@ export namespace Prisma {
   export type RankCreateInput = {
     id?: string
     name: string
-    point_limit: string
+    point_limit: number
     image: string
     discount?: DiscountCreateNestedOneWithoutRanksInput
     users?: UserCreateNestedManyWithoutRanksInput
@@ -17652,15 +17688,15 @@ export namespace Prisma {
   export type RankUncheckedCreateInput = {
     id?: string
     name: string
-    point_limit: string
-    discount_id: string
+    point_limit: number
+    discount_id?: string | null
     image: string
     users?: UserUncheckedCreateNestedManyWithoutRanksInput
   }
 
   export type RankUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    point_limit?: StringFieldUpdateOperationsInput | string
+    point_limit?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     discount?: DiscountUpdateOneWithoutRanksNestedInput
     users?: UserUpdateManyWithoutRanksNestedInput
@@ -17668,8 +17704,8 @@ export namespace Prisma {
 
   export type RankUncheckedUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    point_limit?: StringFieldUpdateOperationsInput | string
-    discount_id?: StringFieldUpdateOperationsInput | string
+    point_limit?: IntFieldUpdateOperationsInput | number
+    discount_id?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     users?: UserUncheckedUpdateManyWithoutRanksNestedInput
   }
@@ -17677,21 +17713,21 @@ export namespace Prisma {
   export type RankCreateManyInput = {
     id?: string
     name: string
-    point_limit: string
-    discount_id: string
+    point_limit: number
+    discount_id?: string | null
     image: string
   }
 
   export type RankUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
-    point_limit?: StringFieldUpdateOperationsInput | string
+    point_limit?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
   }
 
   export type RankUncheckedUpdateManyInput = {
     name?: StringFieldUpdateOperationsInput | string
-    point_limit?: StringFieldUpdateOperationsInput | string
-    discount_id?: StringFieldUpdateOperationsInput | string
+    point_limit?: IntFieldUpdateOperationsInput | number
+    discount_id?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
   }
 
@@ -18539,6 +18575,10 @@ export namespace Prisma {
     image?: SortOrder
   }
 
+  export type RankAvgOrderByAggregateInput = {
+    point_limit?: SortOrder
+  }
+
   export type RankMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -18553,6 +18593,10 @@ export namespace Prisma {
     point_limit?: SortOrder
     discount_id?: SortOrder
     image?: SortOrder
+  }
+
+  export type RankSumOrderByAggregateInput = {
+    point_limit?: SortOrder
   }
 
   export type RankListRelationFilter = {
@@ -20473,7 +20517,7 @@ export namespace Prisma {
   export type RankCreateWithoutUsersInput = {
     id?: string
     name: string
-    point_limit: string
+    point_limit: number
     image: string
     discount?: DiscountCreateNestedOneWithoutRanksInput
   }
@@ -20481,8 +20525,8 @@ export namespace Prisma {
   export type RankUncheckedCreateWithoutUsersInput = {
     id?: string
     name: string
-    point_limit: string
-    discount_id: string
+    point_limit: number
+    discount_id?: string | null
     image: string
   }
 
@@ -20585,15 +20629,15 @@ export namespace Prisma {
 
   export type RankUpdateWithoutUsersInput = {
     name?: StringFieldUpdateOperationsInput | string
-    point_limit?: StringFieldUpdateOperationsInput | string
+    point_limit?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     discount?: DiscountUpdateOneWithoutRanksNestedInput
   }
 
   export type RankUncheckedUpdateWithoutUsersInput = {
     name?: StringFieldUpdateOperationsInput | string
-    point_limit?: StringFieldUpdateOperationsInput | string
-    discount_id?: StringFieldUpdateOperationsInput | string
+    point_limit?: IntFieldUpdateOperationsInput | number
+    discount_id?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
   }
 
@@ -20762,7 +20806,7 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    points: number
+    points?: number
     phone_number: string
     profile_image?: string
     gender: string
@@ -20781,7 +20825,7 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    points: number
+    points?: number
     phone_number: string
     profile_image?: string
     gender: string
@@ -20866,7 +20910,7 @@ export namespace Prisma {
   export type RankCreateWithoutDiscountInput = {
     id?: string
     name: string
-    point_limit: string
+    point_limit: number
     image: string
     users?: UserCreateNestedManyWithoutRanksInput
   }
@@ -20874,7 +20918,7 @@ export namespace Prisma {
   export type RankUncheckedCreateWithoutDiscountInput = {
     id?: string
     name: string
-    point_limit: string
+    point_limit: number
     image: string
     users?: UserUncheckedCreateNestedManyWithoutRanksInput
   }
@@ -20910,8 +20954,8 @@ export namespace Prisma {
     NOT?: RankScalarWhereInput | RankScalarWhereInput[]
     id?: StringFilter<"Rank"> | string
     name?: StringFilter<"Rank"> | string
-    point_limit?: StringFilter<"Rank"> | string
-    discount_id?: StringFilter<"Rank"> | string
+    point_limit?: IntFilter<"Rank"> | number
+    discount_id?: StringNullableFilter<"Rank"> | string | null
     image?: StringFilter<"Rank"> | string
   }
 
@@ -21014,7 +21058,7 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    points: number
+    points?: number
     phone_number: string
     profile_image?: string
     gender: string
@@ -21033,7 +21077,7 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    points: number
+    points?: number
     phone_number: string
     profile_image?: string
     gender: string
@@ -21245,7 +21289,7 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    points: number
+    points?: number
     phone_number: string
     profile_image?: string
     gender: string
@@ -21264,7 +21308,7 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    points: number
+    points?: number
     phone_number: string
     profile_image?: string
     gender: string
@@ -21653,7 +21697,7 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    points: number
+    points?: number
     phone_number: string
     profile_image?: string
     gender: string
@@ -21672,7 +21716,7 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    points: number
+    points?: number
     phone_number: string
     profile_image?: string
     gender: string
@@ -22092,7 +22136,7 @@ export namespace Prisma {
     name: string
     email: string
     password_hash: string
-    points: number
+    points?: number
     phone_number: string
     profile_image?: string
     gender: string
@@ -22157,27 +22201,27 @@ export namespace Prisma {
   export type RankCreateManyDiscountInput = {
     id?: string
     name: string
-    point_limit: string
+    point_limit: number
     image: string
   }
 
   export type RankUpdateWithoutDiscountInput = {
     name?: StringFieldUpdateOperationsInput | string
-    point_limit?: StringFieldUpdateOperationsInput | string
+    point_limit?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     users?: UserUpdateManyWithoutRanksNestedInput
   }
 
   export type RankUncheckedUpdateWithoutDiscountInput = {
     name?: StringFieldUpdateOperationsInput | string
-    point_limit?: StringFieldUpdateOperationsInput | string
+    point_limit?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     users?: UserUncheckedUpdateManyWithoutRanksNestedInput
   }
 
   export type RankUncheckedUpdateManyWithoutDiscountInput = {
     name?: StringFieldUpdateOperationsInput | string
-    point_limit?: StringFieldUpdateOperationsInput | string
+    point_limit?: IntFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
   }
 

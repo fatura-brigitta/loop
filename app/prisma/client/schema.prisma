@@ -60,7 +60,7 @@ model User {
   name                 String
   email                String    @unique
   password_hash        String
-  points               Int
+  points               Int       @default(0)
   phone_number         String    @unique
   profile_image        String    @default("/profile/default.png")
   gender               String
@@ -94,10 +94,10 @@ model Chair {
 }
 
 model Rank {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  name        String @unique
-  point_limit String
-  discount_id String @db.ObjectId
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String  @unique
+  point_limit Int
+  discount_id String? @db.ObjectId
   image       String
 
   discount Discount? @relation(fields: [discount_id], references: [id], onDelete: Cascade)

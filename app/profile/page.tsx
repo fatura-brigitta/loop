@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Navbar from "@/app/components/navbar";
+import { set } from "mongoose";
 
 type Ticket = {
   id: string;
@@ -63,10 +64,14 @@ export default function ProfilePage() {
 
   const [user, setUser] = useState<any>(null);
   const [tickets, setTickets] = useState<Ticket[]>([]);
+  const [showTickets, setShowTickets] = useState(false);
   const [history, setHistory] = useState<Ticket[]>([]);
 
   const [rankData, setRankData] = useState<RankData | null>(null);
   const [rankUp, setRankUp] = useState<null | { name: string; image: string }>(null);
+  const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const [showCoupons, setShowCoupons] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
 
   const [newName, setNewName] = useState("");
   const [oldPassword, setOldPassword] = useState("");
@@ -127,6 +132,16 @@ export default function ProfilePage() {
         const ticketData = await ticketRes.json();
         setTickets(ticketData.active);
         setHistory(ticketData.history);
+      }
+
+      const couponRes = await fetch("/api/coupons", {
+        cache: "no-store",
+        credentials: "include",
+      });
+
+      if (couponRes.ok) {
+        const couponData = await couponRes.json();
+        setCoupons(couponData);
       }
     };
 
@@ -379,14 +394,14 @@ export default function ProfilePage() {
         </div>
       )}
 
-      <div className="flex items-center justify-center py-16">
-        <div className="w-full max-w-xl rounded-2xl border border-white/10 bg-white/5 from-cyan-400 via-purple-500 to-pink-500 p-8 shadow-2xl backdrop-blur transition-all">
-          <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Profil</h1>
+      <div className="mx-auto max-w-5xl px-4 py-16">
+        <div className="w-full rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur transition-all">
+          <h1 className="mb-8 text-3xl font-bold text-cyan-300">Profil</h1>
 
           <div className="mb-8">
             <label className="text-sm text-white/60">Profilkép</label>
 
-            <div className="mt-3 flex flex-col items-center gap-4">
+            <div className="mt-3 flex flex-col gap-4">
               <div
                 className={`relative rounded-2xl border p-4 transition ${
                   isDragging ? "border-cyan-400 bg-cyan-500/10" : "border-white/10 bg-black/20"
@@ -517,7 +532,6 @@ export default function ProfilePage() {
             </button>
           </div>
 
-          {/* JELSZÓ MODOSÍTÁS - érintetlen */}
           <div className="border-t border-white/10 pt-6">
             <h2 className="mb-4 text-xl font-semibold text-cyan-300">Jelszó módosítása</h2>
 
@@ -558,83 +572,211 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-5xl px-4 pb-20">
-        <h2 className="mb-6 text-2xl font-bold text-cyan-300">Jegyeim</h2>
+      <div className="mx-auto max-w-5xl px-4">
+        <div className="mx-auto max-w-5xl">
+          <button
+            className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-white/10"
+            onClick={() => {
+              setShowCoupons((v) => !v);
+              setShowTickets(false);
+              setShowHistory(false);
+            }}
+          >
+            <span>Kuponjaim</span>
 
-        {tickets.length === 0 && <div className="text-white/60">Még nem vásároltál jegyet.</div>}
+            <span className={`text-xl transition ${showCoupons ? "rotate-180" : ""}`}>▼</span>
+          </button>
 
-        <div className="grid gap-6">
-          {tickets.map((ticket) => (
-            <div
-              className="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur"
-              key={ticket.id}
-            >
-              <div className="flex justify-between">
-                <div>
-                  <h3 className="text-lg font-bold text-cyan-300">
-                    {ticket.screenings.movies.title}
-                  </h3>
+          <div
+            className={`overflow-hidden transition-all duration-500 ease-in-out ${
+              showCoupons ? "mt-4 mb-4 max-h-[1200px] opacity-100" : "max-h-0 opacity-0"
+            }`}
+          >
+            <div>
+              {coupons.length === 0 && (
+                <div className="mb-6 text-white/60">
+                  Még nincs kuponod. Szerezz pontokat jegyvásárlással!
+                </div>
+              )}
 
-                  <div className="mt-1 text-sm text-white/70">
-                    {new Date(ticket.screenings.start).toLocaleString()}
-                  </div>
+              <div className="grid gap-6 md:grid-cols-2">
+                {coupons.map((coupon) => (
+                  <div
+                    className={`relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur ${
+                      coupon.used ? "opacity-40" : ""
+                    }`}
+                    key={coupon.id}
+                  >
+                    <div className="flex items-center gap-5">
+                      <Image
+                        alt="discount"
+                        className="h-24 w-24 object-contain"
+                        height={112}
+                        src={coupon.discounts.image}
+                        width={112}
+                      />
 
-                  <div className="mt-3 space-y-1 text-sm">
-                    <div>Terem: {ticket.screenings.halls.name}</div>
-                    <div>Típus: {ticket.screenings.screening_types.type}</div>
-                    <div>
-                      Szék: Sor {ticket.chairs.row} Szék {ticket.chairs.column}
+                      <div className="flex-1">
+                        <div className="text-xl font-bold text-white">{coupon.discounts.name}</div>
+
+                        <div className="font-semibold text-cyan-300">
+                          -{coupon.discounts.percent}%
+                        </div>
+
+                        {coupon.used && (
+                          <div className="mt-2 font-semibold text-red-400">Felhasználva</div>
+                        )}
+                      </div>
+
+                      {!coupon.used && (
+                        <Image
+                          alt="qr"
+                          className="w-28 rounded-lg bg-white p-2"
+                          height={112}
+                          src={`/api/qr/${coupon.qr_token}`}
+                          width={112}
+                        />
+                      )}
                     </div>
-                    <div>Jegy típusa: {ticket.ticket_types.type}</div>
+
+                    {coupon.used && (
+                      <div className="absolute inset-0 flex items-center justify-center text-4xl font-bold text-red-500/70">
+                        FELHASZNÁLVA
+                      </div>
+                    )}
                   </div>
-                </div>
-
-                <div className="text-right">
-                  <div className="text-xl font-semibold text-cyan-300">{ticket.price} Ft</div>
-                </div>
-
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  alt="qr"
-                  className="mt-4 w-32 rounded-lg bg-white p-2"
-                  src={`/api/qr/${ticket.qr_token}`}
-                />
+                ))}
               </div>
             </div>
-          ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-5xl px-4">
+        <button
+          className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-white/10"
+          onClick={() => {
+            setShowTickets((v) => !v);
+            setShowCoupons(false);
+            setShowHistory(false);
+          }}
+        >
+          <span>Jegyeim</span>
+          <span className={`text-xl transition ${showTickets ? "rotate-180" : ""}`}>▼</span>
+        </button>
+
+        <div
+          className={`overflow-hidden transition-all duration-500 ease-in-out ${
+            showTickets ? "mt-4 mb-4 max-h-[1400px] opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="overflow-hidden">
+            {tickets.length === 0 && (
+              <div className="mb-6 text-white/60">Még nem vásároltál jegyet.</div>
+            )}
+
+            <div className="grid gap-6">
+              {tickets.map((ticket) => (
+                <div
+                  className="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur"
+                  key={ticket.id}
+                >
+                  <div className="flex flex-wrap justify-between gap-6 md:flex-nowrap">
+                    <div>
+                      <h3 className="text-lg font-bold text-cyan-300">
+                        {ticket.screenings.movies.title}
+                      </h3>
+
+                      <div className="mt-1 text-sm text-white/70">
+                        {new Date(ticket.screenings.start).toLocaleString()}
+                      </div>
+
+                      <div className="mt-3 space-y-1 text-sm">
+                        <div>Terem: {ticket.screenings.halls.name}</div>
+                        <div>Típus: {ticket.screenings.screening_types.type}</div>
+                        <div>
+                          Szék: Sor {ticket.chairs.row} Szék {ticket.chairs.column}
+                        </div>
+                        <div>Jegy típusa: {ticket.ticket_types.type}</div>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col items-end gap-3">
+                      <div className="text-xl font-semibold text-cyan-300">{ticket.price} Ft</div>
+
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        alt="qr"
+                        className="w-32 rounded-lg bg-white p-2"
+                        src={`/api/qr/${ticket.qr_token}`}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
       <div className="mx-auto max-w-5xl px-4 pb-32">
-        <h2 className="mb-6 text-2xl font-bold text-cyan-300">Vásárlási előzmények</h2>
+        <button
+          className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-white/10"
+          onClick={() => {
+            setShowHistory((v) => !v);
+            setShowCoupons(false);
+            setShowTickets(false);
+          }}
+        >
+          <span>Vásárlási előzmények</span>
+          <span
+            className={`text-xl transition-transform duration-300 ${
+              showHistory ? "rotate-180" : ""
+            }`}
+          >
+            ▼
+          </span>
+        </button>
 
-        {history.length === 0 && <div className="text-white/60">Még nincs lezárt vetítésed.</div>}
+        <div
+          className={`overflow-hidden transition-all duration-500 ease-in-out ${
+            showHistory ? "mt-4 max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          {history.length === 0 && (
+            <div className="mb-6 text-white/60">Még nincs lezárt vetítésed.</div>
+          )}
 
-        <div className="grid gap-4">
-          {history.map((ticket) => (
-            <div
-              className="rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur"
-              key={ticket.id}
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-lg font-semibold text-white">
-                    {ticket.screenings.movies.title}
+          <div className="grid gap-4">
+            {history.map((ticket) => (
+              <div
+                className="rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:bg-white/10"
+                key={ticket.id}
+              >
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div>
+                    <div className="text-lg font-semibold text-white">
+                      {ticket.screenings.movies.title}
+                    </div>
+
+                    <div className="mt-1 text-sm text-white/60">
+                      {new Date(ticket.screenings.start).toLocaleString()}
+                    </div>
+
+                    <div className="text-sm text-white/60">
+                      Terem: {ticket.screenings.halls.name}
+                    </div>
+
+                    <div className="text-sm text-white/60">Jegy: {ticket.ticket_types.type}</div>
                   </div>
 
-                  <div className="mt-1 text-sm text-white/60">
-                    {new Date(ticket.screenings.start).toLocaleString()}
+                  <div className="text-right text-lg font-bold text-green-400">
+                    {ticket.price} Ft
                   </div>
-
-                  <div className="text-sm text-white/60">Terem: {ticket.screenings.halls.name}</div>
-
-                  <div className="text-sm text-white/60">Jegy: {ticket.ticket_types.type}</div>
                 </div>
-
-                <div className="text-right text-lg font-bold text-green-400">{ticket.price} Ft</div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>

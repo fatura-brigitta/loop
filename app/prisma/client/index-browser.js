@@ -172,8 +172,8 @@ exports.Prisma.RankScalarFieldEnum = {
   id: 'id',
   name: 'name',
   point_limit: 'point_limit',
-  discount_id: 'discount_id',
-  image: 'image'
+  image: 'image',
+  discount_id: 'discount_id'
 };
 
 exports.Prisma.DiscountScalarFieldEnum = {
@@ -232,6 +232,15 @@ exports.Prisma.Payment_sessionScalarFieldEnum = {
   ticket_type_id: 'ticket_type_id'
 };
 
+exports.Prisma.CouponScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  discount_id: 'discount_id',
+  qr_token: 'qr_token',
+  used: 'used',
+  created_at: 'created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -256,7 +265,8 @@ exports.Prisma.ModelName = {
   Ticket: 'Ticket',
   Ticket_type: 'Ticket_type',
   Screening_type: 'Screening_type',
-  Payment_session: 'Payment_session'
+  Payment_session: 'Payment_session',
+  Coupon: 'Coupon'
 };
 
 /**

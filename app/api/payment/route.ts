@@ -87,16 +87,24 @@ async function handleSession() {
         orderBy: [{ row: "asc" }, { column: "asc" }],
       });
 
-      const normalType = await prisma.ticket_type.findFirst({
-        where: { type: "Normál" },
-      });
+      let selectedType;
 
-      if (!normalType)
+      if (session.ticket_type_id) {
+        selectedType = await prisma.ticket_type.findUnique({
+          where: { id: session.ticket_type_id },
+        });
+      } else {
+        selectedType = await prisma.ticket_type.findFirst({
+          where: { type: "Normál" },
+        });
+      }
+
+      if (!selectedType)
         return NextResponse.json({ message: "A jegytípus hiányzik" }, { status: 500 });
 
       const pricePerSeat = calculateTicketPrice(
         session.screenings.screening_types.percent,
-        normalType.percent
+        selectedType!.percent
       );
 
       const totalPrice = pricePerSeat * chairIds.length;
@@ -107,7 +115,7 @@ async function handleSession() {
         hallName: session.screenings.halls.name,
         start: session.screenings.start,
         screeningType: session.screenings.screening_types.type,
-        ticketType: null,
+        ticketType: selectedType.type,
         seats: chairs.map((c) => ({
           row: c.row,
           column: c.column,
@@ -129,6 +137,18 @@ async function handleSession() {
         return NextResponse.json({ message: "Nincs fizetési munkamenet" }, { status: 400 });
 
       const { ticketType } = await req.json();
+      const type = await prisma.ticket_type.findFirst({
+        where: { type: ticketType },
+      });
+
+      if (!type)
+        return NextResponse.json({ message: "A jegytípus hiányzik" }, { status: 400 });
+      await prisma.payment_session.update({
+        where: { id: paymentId },
+        data: {
+          ticket_type_id: type.id
+        }
+      });
 
       if (!ticketType)
         return NextResponse.json({ message: "Hiányzó jegytípus" }, { status: 400 });
@@ -145,12 +165,6 @@ async function handleSession() {
       if (!session || !session.screenings || !session.screenings.screening_types)
         return NextResponse.json({ message: "Érvénytelen munkamenet" }, { status: 400 });
 
-      const type = await prisma.ticket_type.findFirst({
-        where: { type: ticketType },
-      });
-
-      if (!type)
-        return NextResponse.json({ message: "A jegytípus hiányzik" }, { status: 400 });
 
       const chairIds = session.chair_ids as unknown as string[];
 
@@ -178,11 +192,7 @@ async function handleConfirm(req: NextRequest) {
     if (!paymentId)
       return NextResponse.json({ message: "Nincs fizetési munkamenet" }, { status: 400 });
 
-    const body = await req.json();
-    const chosenType = body.ticketType;
-
-    if (!chosenType)
-      return NextResponse.json({ message: "Hiányzó jegytípus" }, { status: 400 });
+    const { ticketType } = await req.json();
 
     const session = await prisma.payment_session.findUnique({
       where: { id: paymentId },
@@ -191,129 +201,95 @@ async function handleConfirm(req: NextRequest) {
     if (!session || session.status === "paid")
       return NextResponse.json({ message: "Érvénytelen munkamenet" }, { status: 400 });
 
-    const user = await prisma.user.findUnique({
+    const userBefore = await prisma.user.findUnique({
       where: { id: session.user_id },
     });
 
-    if (!user)
-      return NextResponse.json({ message: "A felhasználó hiányzik" }, { status: 500 });
-
-    const ticketType = await prisma.ticket_type.findFirst({
-      where: { type: chosenType },
-    });
-
-    if (!ticketType)
-      return NextResponse.json({ message: "A jegytípus hiányzik" }, { status: 500 });
+    if (!userBefore)
+      return NextResponse.json({ message: "Felhasználó nem található" }, { status: 500 });
 
     const screening = await prisma.screening.findUnique({
       where: { id: session.screening_id },
       include: { screening_types: true },
     });
 
-    if (!screening || !screening.screening_types)
-      return NextResponse.json({ message: "A vetítés vagy a vetítés típusa hiányzik" }, { status: 500 });
+    const type = await prisma.ticket_type.findFirst({
+      where: { type: ticketType },
+    });
+
+    if (!screening || !type)
+      return NextResponse.json({ message: "Hiányzó adatok" }, { status: 500 });
+
+    const chairIds = session.chair_ids as string[];
 
     const price = calculateTicketPrice(
-      screening.screening_types.percent,
-      ticketType.percent
+      screening.screening_types!.percent,
+      type.percent
     );
 
-    const chairIds = session.chair_ids as unknown as string[];
-
-    await prisma.$transaction(async (tx) => {
-
-      const originalUser = await tx.user.findUnique({
-        where: { id: session.user_id },
-      });
-
-      if (!originalUser) throw new Error("User not found");
-
-      for (const chairId of chairIds) {
-        await tx.ticket.create({
-          data: {
-            user_id: session.user_id,
-            screening_id: session.screening_id,
-            screening_type_id: screening.screening_type_id,
-            chair_id: chairId,
-            ticket_type_id: ticketType.id,
-            price: price,
-            qr_token: generateQrToken(),
-          },
-        });
-      }
-
-      const gainedPoints = Math.floor((price * chairIds.length) / 50);
-
-      const updatedUser = await tx.user.update({
-        where: { id: session.user_id },
+    for (const chairId of chairIds) {
+      await prisma.ticket.create({
         data: {
-          points: {
-            increment: gainedPoints,
-          },
+          user_id: userBefore.id,
+          screening_id: screening.id,
+          screening_type_id: screening.screening_type_id,
+          chair_id: chairId,
+          ticket_type_id: type.id,
+          price,
+          qr_token: generateQrToken(),
         },
       });
+    }
 
-      const ranks = await tx.rank.findMany({
-        orderBy: { point_limit: "asc" },
+    const gainedPoints = Math.floor((price * chairIds.length) / 50);
+
+    const userAfter = await prisma.user.update({
+      where: { id: userBefore.id },
+      data: {
+        points: { increment: gainedPoints },
+      },
+    });
+
+    const ranks = await prisma.rank.findMany({
+      orderBy: { point_limit: "asc" },
+    });
+
+    let calculatedRank = ranks[0];
+
+    for (const r of ranks) {
+      if (userAfter.points >= r.point_limit) {
+        calculatedRank = r;
+      }
+    }
+
+    if (String(calculatedRank.id) !== String(userBefore.rank_id)) {
+
+      await prisma.user.update({
+        where: { id: userBefore.id },
+        data: { rank_id: calculatedRank.id },
       });
 
-      let newRank = ranks[0];
+      console.log("RANGLÉPÉS:", calculatedRank.name);
 
-      for (const r of ranks) {
-        if (updatedUser.points >= r.point_limit) {
-          newRank = r;
-        }
-      }
+      if (calculatedRank.discount_id) {
 
-      if (String(newRank.id) !== String(originalUser.rank_id)) {
-
-        await tx.user.update({
-          where: { id: updatedUser.id },
-          data: { rank_id: newRank.id },
+        await prisma.coupon.create({
+          data: {
+            user_id: userBefore.id,
+            discount_id: calculatedRank.discount_id,
+            qr_token: generateQrToken(),
+            used: false,
+          },
         });
 
-        if (newRank.discount_id) {
-          await tx.coupon.create({
-            data: {
-              user_id: updatedUser.id,
-              discount_id: newRank.discount_id,
-              qr_token: generateQrToken(),
-              used: false,
-            },
-          });
-        }
+        console.log("KUPON LÉTREHOZVA");
       }
+    }
 
-      await tx.payment_session.update({
-        where: { id: paymentId },
-        data: { status: "paid" },
-      });
+    await prisma.payment_session.update({
+      where: { id: paymentId },
+      data: { status: "paid" },
     });
-
-    const tickets = await prisma.ticket.findMany({
-      where: {
-        user_id: session.user_id,
-        screening_id: session.screening_id,
-        chair_id: { in: chairIds },
-      },
-      include: {
-        screenings: {
-          include: {
-            movies: true,
-            halls: true,
-            screening_types: true,
-          },
-        },
-        chairs: true,
-        ticket_types: true,
-      },
-    });
-
-    sendTicketEmail({
-      to: user.email,
-      name: user.name,
-      tickets,
-    }).catch((err) => console.error("EMAIL HIBA:", err));
 
     const res = NextResponse.json({ ok: true });
     res.cookies.set("paymentSessionId", "", { maxAge: 0, path: "/" });

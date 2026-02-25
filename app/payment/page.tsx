@@ -40,6 +40,10 @@ export default function PaymentPage() {
 
         const json = await res.json();
         setData(json);
+        if (json.ticketType) {
+          setTicketType(json.ticketType);
+          setPrice(json.totalPrice);
+        }
         setLoading(false);
       } catch {
         setError("Fizetési adatok betöltése sikertelen");

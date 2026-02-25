@@ -76,6 +76,7 @@ model User {
   tickets          Ticket[]
   forum            Forum[]
   payment_sessions Payment_session[]
+  coupons          Coupon[]
 
   @@map("users")
 }
@@ -97,8 +98,8 @@ model Rank {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
   name        String  @unique
   point_limit Int
-  discount_id String? @db.ObjectId
   image       String
+  discount_id String? @db.ObjectId
 
   discount Discount? @relation(fields: [discount_id], references: [id], onDelete: Cascade)
   users    User[]
@@ -112,7 +113,8 @@ model Discount {
   image   String
   percent Int
 
-  ranks Rank[]
+  ranks   Rank[]
+  coupons Coupon[]
 
   @@map("discounts")
 }
@@ -198,4 +200,18 @@ model Payment_session {
   screenings   Screening    @relation(fields: [screening_id], references: [id], onDelete: Cascade)
 
   @@map("payment_sessions")
+}
+
+model Coupon {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  user_id     String   @db.ObjectId
+  discount_id String   @db.ObjectId
+  qr_token    String   @unique
+  used        Boolean  @default(false)
+  created_at  DateTime @default(now())
+
+  users     User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  discounts Discount @relation(fields: [discount_id], references: [id], onDelete: Cascade)
+
+  @@map("coupons")
 }

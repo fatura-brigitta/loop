@@ -26,6 +26,7 @@ model Movie {
   language    String
   trailer     String
   poster      String
+  backdrop    String?
   onscreen    Boolean
   genre       String
   review      Float?

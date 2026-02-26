@@ -7,6 +7,7 @@ import { NextResponse } from "next/server";
 ===================================================== */
 export async function GET() {
   try {
+
     const cookieStore = await cookies();
     const movieId = cookieStore.get("selectedMovie")?.value;
 
@@ -14,12 +15,33 @@ export async function GET() {
       where: movieId ? { movie_id: movieId } : {},
       orderBy: { start: "asc" },
       include: {
-        movies: true,
-        screening_types: true,
-      },
+        screening_types: true
+      }
     });
 
-    const res = NextResponse.json(screenings);
+    const movieIds = [...new Set(screenings.map(s => s.movie_id))];
+
+    const movies = await prisma.movie.findMany({
+      where: {
+        id: { in: movieIds }
+      }
+    });
+
+    const movieMap = new Map(movies.map(m => [m.id, m]));
+
+    const safeScreenings = screenings
+      .map(s => {
+        const movie = movieMap.get(s.movie_id);
+        if (!movie) return null;
+
+        return {
+          ...s,
+          movies: movie
+        };
+      })
+      .filter(Boolean);
+
+    const res = NextResponse.json(safeScreenings);
 
     res.cookies.set("selectedMovie", "", {
       maxAge: 0,
@@ -27,6 +49,7 @@ export async function GET() {
     });
 
     return res;
+
   } catch (err) {
     console.error("SCREENINGS ERROR:", err);
     return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });

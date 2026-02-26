@@ -129,6 +129,7 @@ exports.Prisma.MovieScalarFieldEnum = {
   language: 'language',
   trailer: 'trailer',
   poster: 'poster',
+  backdrop: 'backdrop',
   onscreen: 'onscreen',
   genre: 'genre',
   review: 'review',

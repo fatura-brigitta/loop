@@ -71,7 +71,7 @@ export default function MoviesPage() {
                     />
                 </div>
 
-                <div className="flex flex-1 flex-col justify-between px-4 py-3">
+                <div className="flex flex-1 flex-col justify-between px-4 py-3" data-cy>
                     <div>
                     <div className="flex items-center justify-between">
                         <h2 className="text-base font-semibold text-white">

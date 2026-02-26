@@ -3551,6 +3551,7 @@ export namespace Prisma {
     language: string | null
     trailer: string | null
     poster: string | null
+    backdrop: string | null
     onscreen: boolean | null
     genre: string | null
     review: number | null
@@ -3566,6 +3567,7 @@ export namespace Prisma {
     language: string | null
     trailer: string | null
     poster: string | null
+    backdrop: string | null
     onscreen: boolean | null
     genre: string | null
     review: number | null
@@ -3581,6 +3583,7 @@ export namespace Prisma {
     language: number
     trailer: number
     poster: number
+    backdrop: number
     onscreen: number
     genre: number
     review: number
@@ -3608,6 +3611,7 @@ export namespace Prisma {
     language?: true
     trailer?: true
     poster?: true
+    backdrop?: true
     onscreen?: true
     genre?: true
     review?: true
@@ -3623,6 +3627,7 @@ export namespace Prisma {
     language?: true
     trailer?: true
     poster?: true
+    backdrop?: true
     onscreen?: true
     genre?: true
     review?: true
@@ -3638,6 +3643,7 @@ export namespace Prisma {
     language?: true
     trailer?: true
     poster?: true
+    backdrop?: true
     onscreen?: true
     genre?: true
     review?: true
@@ -3740,6 +3746,7 @@ export namespace Prisma {
     language: string
     trailer: string
     poster: string
+    backdrop: string | null
     onscreen: boolean
     genre: string
     review: number | null
@@ -3774,6 +3781,7 @@ export namespace Prisma {
     language?: boolean
     trailer?: boolean
     poster?: boolean
+    backdrop?: boolean
     onscreen?: boolean
     genre?: boolean
     review?: boolean
@@ -3794,13 +3802,14 @@ export namespace Prisma {
     language?: boolean
     trailer?: boolean
     poster?: boolean
+    backdrop?: boolean
     onscreen?: boolean
     genre?: boolean
     review?: boolean
     description?: boolean
   }
 
-  export type MovieOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "director" | "actors" | "playtime" | "language" | "trailer" | "poster" | "onscreen" | "genre" | "review" | "description", ExtArgs["result"]["movie"]>
+  export type MovieOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "director" | "actors" | "playtime" | "language" | "trailer" | "poster" | "backdrop" | "onscreen" | "genre" | "review" | "description", ExtArgs["result"]["movie"]>
   export type MovieInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     screenings?: boolean | Movie$screeningsArgs<ExtArgs>
     forum?: boolean | Movie$forumArgs<ExtArgs>
@@ -3822,6 +3831,7 @@ export namespace Prisma {
       language: string
       trailer: string
       poster: string
+      backdrop: string | null
       onscreen: boolean
       genre: string
       review: number | null
@@ -4228,6 +4238,7 @@ export namespace Prisma {
     readonly language: FieldRef<"Movie", 'String'>
     readonly trailer: FieldRef<"Movie", 'String'>
     readonly poster: FieldRef<"Movie", 'String'>
+    readonly backdrop: FieldRef<"Movie", 'String'>
     readonly onscreen: FieldRef<"Movie", 'Boolean'>
     readonly genre: FieldRef<"Movie", 'String'>
     readonly review: FieldRef<"Movie", 'Float'>
@@ -19787,6 +19798,7 @@ export namespace Prisma {
     language: 'language',
     trailer: 'trailer',
     poster: 'poster',
+    backdrop: 'backdrop',
     onscreen: 'onscreen',
     genre: 'genre',
     review: 'review',
@@ -20123,6 +20135,7 @@ export namespace Prisma {
     language?: StringFilter<"Movie"> | string
     trailer?: StringFilter<"Movie"> | string
     poster?: StringFilter<"Movie"> | string
+    backdrop?: StringNullableFilter<"Movie"> | string | null
     onscreen?: BoolFilter<"Movie"> | boolean
     genre?: StringFilter<"Movie"> | string
     review?: FloatNullableFilter<"Movie"> | number | null
@@ -20140,6 +20153,7 @@ export namespace Prisma {
     language?: SortOrder
     trailer?: SortOrder
     poster?: SortOrder
+    backdrop?: SortOrder
     onscreen?: SortOrder
     genre?: SortOrder
     review?: SortOrder
@@ -20160,6 +20174,7 @@ export namespace Prisma {
     language?: StringFilter<"Movie"> | string
     trailer?: StringFilter<"Movie"> | string
     poster?: StringFilter<"Movie"> | string
+    backdrop?: StringNullableFilter<"Movie"> | string | null
     onscreen?: BoolFilter<"Movie"> | boolean
     genre?: StringFilter<"Movie"> | string
     review?: FloatNullableFilter<"Movie"> | number | null
@@ -20177,6 +20192,7 @@ export namespace Prisma {
     language?: SortOrder
     trailer?: SortOrder
     poster?: SortOrder
+    backdrop?: SortOrder
     onscreen?: SortOrder
     genre?: SortOrder
     review?: SortOrder
@@ -20200,6 +20216,7 @@ export namespace Prisma {
     language?: StringWithAggregatesFilter<"Movie"> | string
     trailer?: StringWithAggregatesFilter<"Movie"> | string
     poster?: StringWithAggregatesFilter<"Movie"> | string
+    backdrop?: StringNullableWithAggregatesFilter<"Movie"> | string | null
     onscreen?: BoolWithAggregatesFilter<"Movie"> | boolean
     genre?: StringWithAggregatesFilter<"Movie"> | string
     review?: FloatNullableWithAggregatesFilter<"Movie"> | number | null
@@ -21181,6 +21198,7 @@ export namespace Prisma {
     language: string
     trailer: string
     poster: string
+    backdrop?: string | null
     onscreen: boolean
     genre: string
     review?: number | null
@@ -21198,6 +21216,7 @@ export namespace Prisma {
     language: string
     trailer: string
     poster: string
+    backdrop?: string | null
     onscreen: boolean
     genre: string
     review?: number | null
@@ -21214,6 +21233,7 @@ export namespace Prisma {
     language?: StringFieldUpdateOperationsInput | string
     trailer?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
+    backdrop?: NullableStringFieldUpdateOperationsInput | string | null
     onscreen?: BoolFieldUpdateOperationsInput | boolean
     genre?: StringFieldUpdateOperationsInput | string
     review?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -21230,6 +21250,7 @@ export namespace Prisma {
     language?: StringFieldUpdateOperationsInput | string
     trailer?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
+    backdrop?: NullableStringFieldUpdateOperationsInput | string | null
     onscreen?: BoolFieldUpdateOperationsInput | boolean
     genre?: StringFieldUpdateOperationsInput | string
     review?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -21247,6 +21268,7 @@ export namespace Prisma {
     language: string
     trailer: string
     poster: string
+    backdrop?: string | null
     onscreen: boolean
     genre: string
     review?: number | null
@@ -21261,6 +21283,7 @@ export namespace Prisma {
     language?: StringFieldUpdateOperationsInput | string
     trailer?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
+    backdrop?: NullableStringFieldUpdateOperationsInput | string | null
     onscreen?: BoolFieldUpdateOperationsInput | boolean
     genre?: StringFieldUpdateOperationsInput | string
     review?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -21275,6 +21298,7 @@ export namespace Prisma {
     language?: StringFieldUpdateOperationsInput | string
     trailer?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
+    backdrop?: NullableStringFieldUpdateOperationsInput | string | null
     onscreen?: BoolFieldUpdateOperationsInput | boolean
     genre?: StringFieldUpdateOperationsInput | string
     review?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -22206,6 +22230,22 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    isSet?: boolean
+  }
+
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -22220,22 +22260,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-    isSet?: boolean
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
     isSet?: boolean
   }
 
@@ -22268,6 +22292,7 @@ export namespace Prisma {
     language?: SortOrder
     trailer?: SortOrder
     poster?: SortOrder
+    backdrop?: SortOrder
     onscreen?: SortOrder
     genre?: SortOrder
     review?: SortOrder
@@ -22288,6 +22313,7 @@ export namespace Prisma {
     language?: SortOrder
     trailer?: SortOrder
     poster?: SortOrder
+    backdrop?: SortOrder
     onscreen?: SortOrder
     genre?: SortOrder
     review?: SortOrder
@@ -22303,6 +22329,7 @@ export namespace Prisma {
     language?: SortOrder
     trailer?: SortOrder
     poster?: SortOrder
+    backdrop?: SortOrder
     onscreen?: SortOrder
     genre?: SortOrder
     review?: SortOrder
@@ -22330,6 +22357,25 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
@@ -22352,25 +22398,6 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
-    isSet?: boolean
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
     isSet?: boolean
   }
 
@@ -23132,6 +23159,11 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+    unset?: boolean
+  }
+
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
   }
@@ -23142,11 +23174,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-    unset?: boolean
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
     unset?: boolean
   }
 
@@ -24453,6 +24480,21 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    isSet?: boolean
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -24467,21 +24509,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-    isSet?: boolean
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
     isSet?: boolean
   }
 
@@ -24512,6 +24539,36 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
@@ -24534,36 +24591,6 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
-    isSet?: boolean
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-    isSet?: boolean
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
     isSet?: boolean
   }
 
@@ -24847,6 +24874,7 @@ export namespace Prisma {
     language: string
     trailer: string
     poster: string
+    backdrop?: string | null
     onscreen: boolean
     genre: string
     review?: number | null
@@ -24863,6 +24891,7 @@ export namespace Prisma {
     language: string
     trailer: string
     poster: string
+    backdrop?: string | null
     onscreen: boolean
     genre: string
     review?: number | null
@@ -24994,6 +25023,7 @@ export namespace Prisma {
     language?: StringFieldUpdateOperationsInput | string
     trailer?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
+    backdrop?: NullableStringFieldUpdateOperationsInput | string | null
     onscreen?: BoolFieldUpdateOperationsInput | boolean
     genre?: StringFieldUpdateOperationsInput | string
     review?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -25009,6 +25039,7 @@ export namespace Prisma {
     language?: StringFieldUpdateOperationsInput | string
     trailer?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
+    backdrop?: NullableStringFieldUpdateOperationsInput | string | null
     onscreen?: BoolFieldUpdateOperationsInput | boolean
     genre?: StringFieldUpdateOperationsInput | string
     review?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -26074,6 +26105,7 @@ export namespace Prisma {
     language: string
     trailer: string
     poster: string
+    backdrop?: string | null
     onscreen: boolean
     genre: string
     review?: number | null
@@ -26090,6 +26122,7 @@ export namespace Prisma {
     language: string
     trailer: string
     poster: string
+    backdrop?: string | null
     onscreen: boolean
     genre: string
     review?: number | null
@@ -26206,6 +26239,7 @@ export namespace Prisma {
     language?: StringFieldUpdateOperationsInput | string
     trailer?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
+    backdrop?: NullableStringFieldUpdateOperationsInput | string | null
     onscreen?: BoolFieldUpdateOperationsInput | boolean
     genre?: StringFieldUpdateOperationsInput | string
     review?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -26221,6 +26255,7 @@ export namespace Prisma {
     language?: StringFieldUpdateOperationsInput | string
     trailer?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
+    backdrop?: NullableStringFieldUpdateOperationsInput | string | null
     onscreen?: BoolFieldUpdateOperationsInput | boolean
     genre?: StringFieldUpdateOperationsInput | string
     review?: NullableFloatFieldUpdateOperationsInput | number | null

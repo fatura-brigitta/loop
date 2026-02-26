@@ -3,26 +3,54 @@
         "_id": {
             "$oid": "ff0000000000000000000001"
         },
-        "name": "John Doe",
-        "email": "john.doe@example.com",
-        "password_hash": "$2y$10$e0NRz1G5Q9KJH1JH1JH1J.H1JH1JH1JH1JH1JH1JH1JH1JH1JH1J",
-        "phone_number": "123-456-7890",
-        "points": 150,
+        "name": "Brigi",
+        "email": "brigi@gmail.com",
+        "password_hash": "$2b$10$xFeWSdzYu2RDSnU0sjRm6./E/9U7TiuoJeyNbZTecBoW8EK92qbmi",
+        "phone_number": "+36307894561",
+        "profile_image": "/profile/default.png",
+        "points": 0,
+        "gender": "FEMALE",
+        "email_verified": true,
         "rank_id": {
-            "$oid": "aa0000000000000000000002"
-        }
+            "$oid": "aa0000000000000000000001"
+        },
+        "email_code": null,
+        "email_code_exp": null
     },
     {
         "_id": {
             "$oid": "ff0000000000000000000002"
         },
-        "name": "Jane Smith",
-        "email": "jane.smith@example.com",
-        "password_hash": "$2y$10$e0NRz1G5Q9KJH1JH1JH1J.H1JH1JH1JH1JH1JH1JH1JH1JH1JH2",
-        "phone_number": "098-765-4321",
-        "points": 200,
+        "name": "Ajsa",
+        "email": "ajsa@gmail.com",
+        "password_hash": "$2b$10$xFeWSdzYu2RDSnU0sjRm6./E/9U7TiuoJeyNbZTecBoW8EK92qbmi",
+        "phone_number": "+36306549871",
+        "profile_image": "/profile/default.png",
+        "points": 0,
+        "gender": "FEMALE",
+        "email_verified": true,
         "rank_id": {
-            "$oid": "aa0000000000000000000002"
-        }
+            "$oid": "aa0000000000000000000001"
+        },
+        "email_code": null,
+        "email_code_exp": null
+    },
+    {
+        "_id": {
+            "$oid": "699f5e83514aed9e44b454df"
+        },
+        "name": "Dominik",
+        "email": "liszkai.dominik@students.jedlik.eu",
+        "password_hash": "$2b$10$YeHYV7tXtFng9pf0XejV/.NGAcCdblpugnxSXxEbn6/N1hO6r2F.S",
+        "phone_number": "+36301234567",
+        "profile_image": "/profile/default.png",
+        "points": 0,
+        "gender": "MALE",
+        "email_verified": true,
+        "rank_id": {
+            "$oid": "aa0000000000000000000001"
+        },
+        "email_code": null,
+        "email_code_exp": null
     }
 ]

@@ -190,12 +190,29 @@ exports.Prisma.HallScalarFieldEnum = {
   column: 'column'
 };
 
+exports.Prisma.ForumVoteScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  forum_id: 'forum_id',
+  type: 'type'
+};
+
 exports.Prisma.ForumScalarFieldEnum = {
   id: 'id',
   review: 'review',
   comment: 'comment',
   user_id: 'user_id',
-  movie_id: 'movie_id'
+  movie_id: 'movie_id',
+  likes: 'likes',
+  dislikes: 'dislikes'
+};
+
+exports.Prisma.ForumReplyScalarFieldEnum = {
+  id: 'id',
+  forum_id: 'forum_id',
+  user_id: 'user_id',
+  comment: 'comment',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.TicketScalarFieldEnum = {
@@ -250,7 +267,10 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
-
+exports.VoteType = exports.$Enums.VoteType = {
+  LIKE: 'LIKE',
+  DISLIKE: 'DISLIKE'
+};
 
 exports.Prisma.ModelName = {
   Admin: 'Admin',
@@ -261,7 +281,9 @@ exports.Prisma.ModelName = {
   Rank: 'Rank',
   Discount: 'Discount',
   Hall: 'Hall',
+  ForumVote: 'ForumVote',
   Forum: 'Forum',
+  ForumReply: 'ForumReply',
   Ticket: 'Ticket',
   Ticket_type: 'Ticket_type',
   Screening_type: 'Screening_type',

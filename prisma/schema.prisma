@@ -56,20 +56,20 @@ model Screening {
 }
 
 model User {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
-  email         String   @unique
-  password_hash String
-  points        Int      @default(0)
-  phone_number  String   @unique
-  profile_image String   @default("/profile/default.png")
-  gender        String
-  email_verified Boolean  @default(false)
-  email_code     String?
-  email_code_exp DateTime?
+  id                   String    @id @default(auto()) @map("_id") @db.ObjectId
+  name                 String
+  email                String    @unique
+  password_hash        String
+  points               Int       @default(0)
+  phone_number         String    @unique
+  profile_image        String    @default("/profile/default.png")
+  gender               String
+  email_verified       Boolean   @default(false)
+  email_code           String?
+  email_code_exp       DateTime?
   password_reset_token String?
   password_reset_exp   DateTime?
-  rank_id       String   @db.ObjectId
+  rank_id              String    @db.ObjectId
 
   ranks Rank? @relation(fields: [rank_id], references: [id], onDelete: Cascade)
 
@@ -77,15 +77,17 @@ model User {
   forum            Forum[]
   payment_sessions Payment_session[]
   coupons          Coupon[]
+  forum_votes      ForumVote[]
+  forum_replies    ForumReply[]
 
   @@map("users")
 }
 
 model Chair {
-  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
   row     Int
   column  Int
-  hall_id String  @db.ObjectId
+  hall_id String @db.ObjectId
 
   tickets Ticket[]
 
@@ -95,8 +97,8 @@ model Chair {
 }
 
 model Rank {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  name        String @unique
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String  @unique
   point_limit Int
   image       String
   discount_id String? @db.ObjectId
@@ -113,7 +115,7 @@ model Discount {
   image   String
   percent Int
 
-  ranks Rank[]
+  ranks   Rank[]
   coupons Coupon[]
 
   @@map("discounts")
@@ -131,6 +133,24 @@ model Hall {
   @@map("halls")
 }
 
+enum VoteType {
+  LIKE
+  DISLIKE
+}
+
+model ForumVote {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  user_id  String   @db.ObjectId
+  forum_id String   @db.ObjectId
+  type     VoteType
+
+  forum Forum? @relation(fields: [forum_id], references: [id], onDelete: Cascade)
+  user  User?  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, forum_id])
+  @@map("forum_votes")
+}
+
 model Forum {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   review   Float
@@ -138,10 +158,29 @@ model Forum {
   user_id  String @db.ObjectId
   movie_id String @db.ObjectId
 
+  likes    Int @default(0)
+  dislikes Int @default(0)
+
+  votes   ForumVote[]
+  replies ForumReply[]
+
   users  User?  @relation(fields: [user_id], references: [id], onDelete: Cascade)
   movies Movie? @relation(fields: [movie_id], references: [id], onDelete: Cascade)
 
   @@map("forums")
+}
+
+model ForumReply {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  forum_id  String   @db.ObjectId
+  user_id   String   @db.ObjectId
+  comment   String
+  createdAt DateTime @default(now())
+
+  forum Forum? @relation(fields: [forum_id], references: [id], onDelete: Cascade)
+  user  User?  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("forum_replies")
 }
 
 model Ticket {
@@ -169,7 +208,7 @@ model Ticket_type {
   type    String
   percent Int
 
-  tickets Ticket[]
+  tickets          Ticket[]
   payment_sessions Payment_session[]
 
   @@map("ticket_types")
@@ -187,17 +226,17 @@ model Screening_type {
 }
 
 model Payment_session {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  user_id      String   @db.ObjectId
-  screening_id String   @db.ObjectId
-  chair_ids    Json
-  status       String
-  createdAt    DateTime @default(now())
-  ticket_type_id String? @db.ObjectId
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  user_id        String   @db.ObjectId
+  screening_id   String   @db.ObjectId
+  chair_ids      Json
+  status         String
+  createdAt      DateTime @default(now())
+  ticket_type_id String?  @db.ObjectId
 
   ticket_types Ticket_type? @relation(fields: [ticket_type_id], references: [id])
-  users      User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  screenings Screening @relation(fields: [screening_id], references: [id], onDelete: Cascade)
+  users        User         @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  screenings   Screening    @relation(fields: [screening_id], references: [id], onDelete: Cascade)
 
   @@map("payment_sessions")
 }

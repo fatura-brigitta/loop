@@ -54,10 +54,20 @@ export type Discount = $Result.DefaultSelection<Prisma.$DiscountPayload>
  */
 export type Hall = $Result.DefaultSelection<Prisma.$HallPayload>
 /**
+ * Model ForumVote
+ * 
+ */
+export type ForumVote = $Result.DefaultSelection<Prisma.$ForumVotePayload>
+/**
  * Model Forum
  * 
  */
 export type Forum = $Result.DefaultSelection<Prisma.$ForumPayload>
+/**
+ * Model ForumReply
+ * 
+ */
+export type ForumReply = $Result.DefaultSelection<Prisma.$ForumReplyPayload>
 /**
  * Model Ticket
  * 
@@ -83,6 +93,23 @@ export type Payment_session = $Result.DefaultSelection<Prisma.$Payment_sessionPa
  * 
  */
 export type Coupon = $Result.DefaultSelection<Prisma.$CouponPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const VoteType: {
+  LIKE: 'LIKE',
+  DISLIKE: 'DISLIKE'
+};
+
+export type VoteType = (typeof VoteType)[keyof typeof VoteType]
+
+}
+
+export type VoteType = $Enums.VoteType
+
+export const VoteType: typeof $Enums.VoteType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -250,6 +277,16 @@ export class PrismaClient<
   get hall(): Prisma.HallDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.forumVote`: Exposes CRUD operations for the **ForumVote** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ForumVotes
+    * const forumVotes = await prisma.forumVote.findMany()
+    * ```
+    */
+  get forumVote(): Prisma.ForumVoteDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.forum`: Exposes CRUD operations for the **Forum** model.
     * Example usage:
     * ```ts
@@ -258,6 +295,16 @@ export class PrismaClient<
     * ```
     */
   get forum(): Prisma.ForumDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.forumReply`: Exposes CRUD operations for the **ForumReply** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ForumReplies
+    * const forumReplies = await prisma.forumReply.findMany()
+    * ```
+    */
+  get forumReply(): Prisma.ForumReplyDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.ticket`: Exposes CRUD operations for the **Ticket** model.
@@ -757,7 +804,9 @@ export namespace Prisma {
     Rank: 'Rank',
     Discount: 'Discount',
     Hall: 'Hall',
+    ForumVote: 'ForumVote',
     Forum: 'Forum',
+    ForumReply: 'ForumReply',
     Ticket: 'Ticket',
     Ticket_type: 'Ticket_type',
     Screening_type: 'Screening_type',
@@ -781,7 +830,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "admin" | "movie" | "screening" | "user" | "chair" | "rank" | "discount" | "hall" | "forum" | "ticket" | "ticket_type" | "screening_type" | "payment_session" | "coupon"
+      modelProps: "admin" | "movie" | "screening" | "user" | "chair" | "rank" | "discount" | "hall" | "forumVote" | "forum" | "forumReply" | "ticket" | "ticket_type" | "screening_type" | "payment_session" | "coupon"
       txIsolationLevel: never
     }
     model: {
@@ -1377,6 +1426,80 @@ export namespace Prisma {
           }
         }
       }
+      ForumVote: {
+        payload: Prisma.$ForumVotePayload<ExtArgs>
+        fields: Prisma.ForumVoteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ForumVoteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumVotePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ForumVoteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumVotePayload>
+          }
+          findFirst: {
+            args: Prisma.ForumVoteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumVotePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ForumVoteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumVotePayload>
+          }
+          findMany: {
+            args: Prisma.ForumVoteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumVotePayload>[]
+          }
+          create: {
+            args: Prisma.ForumVoteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumVotePayload>
+          }
+          createMany: {
+            args: Prisma.ForumVoteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ForumVoteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumVotePayload>
+          }
+          update: {
+            args: Prisma.ForumVoteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumVotePayload>
+          }
+          deleteMany: {
+            args: Prisma.ForumVoteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ForumVoteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ForumVoteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumVotePayload>
+          }
+          aggregate: {
+            args: Prisma.ForumVoteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateForumVote>
+          }
+          groupBy: {
+            args: Prisma.ForumVoteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ForumVoteGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ForumVoteFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ForumVoteAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ForumVoteCountArgs<ExtArgs>
+            result: $Utils.Optional<ForumVoteCountAggregateOutputType> | number
+          }
+        }
+      }
       Forum: {
         payload: Prisma.$ForumPayload<ExtArgs>
         fields: Prisma.ForumFieldRefs
@@ -1448,6 +1571,80 @@ export namespace Prisma {
           count: {
             args: Prisma.ForumCountArgs<ExtArgs>
             result: $Utils.Optional<ForumCountAggregateOutputType> | number
+          }
+        }
+      }
+      ForumReply: {
+        payload: Prisma.$ForumReplyPayload<ExtArgs>
+        fields: Prisma.ForumReplyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ForumReplyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumReplyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ForumReplyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumReplyPayload>
+          }
+          findFirst: {
+            args: Prisma.ForumReplyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumReplyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ForumReplyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumReplyPayload>
+          }
+          findMany: {
+            args: Prisma.ForumReplyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumReplyPayload>[]
+          }
+          create: {
+            args: Prisma.ForumReplyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumReplyPayload>
+          }
+          createMany: {
+            args: Prisma.ForumReplyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ForumReplyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumReplyPayload>
+          }
+          update: {
+            args: Prisma.ForumReplyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumReplyPayload>
+          }
+          deleteMany: {
+            args: Prisma.ForumReplyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ForumReplyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ForumReplyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ForumReplyPayload>
+          }
+          aggregate: {
+            args: Prisma.ForumReplyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateForumReply>
+          }
+          groupBy: {
+            args: Prisma.ForumReplyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ForumReplyGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ForumReplyFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ForumReplyAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ForumReplyCountArgs<ExtArgs>
+            result: $Utils.Optional<ForumReplyCountAggregateOutputType> | number
           }
         }
       }
@@ -1908,7 +2105,9 @@ export namespace Prisma {
     rank?: RankOmit
     discount?: DiscountOmit
     hall?: HallOmit
+    forumVote?: ForumVoteOmit
     forum?: ForumOmit
+    forumReply?: ForumReplyOmit
     ticket?: TicketOmit
     ticket_type?: Ticket_typeOmit
     screening_type?: Screening_typeOmit
@@ -2078,6 +2277,8 @@ export namespace Prisma {
     forum: number
     payment_sessions: number
     coupons: number
+    forum_votes: number
+    forum_replies: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2085,6 +2286,8 @@ export namespace Prisma {
     forum?: boolean | UserCountOutputTypeCountForumArgs
     payment_sessions?: boolean | UserCountOutputTypeCountPayment_sessionsArgs
     coupons?: boolean | UserCountOutputTypeCountCouponsArgs
+    forum_votes?: boolean | UserCountOutputTypeCountForum_votesArgs
+    forum_replies?: boolean | UserCountOutputTypeCountForum_repliesArgs
   }
 
   // Custom InputTypes
@@ -2124,6 +2327,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCouponsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CouponWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountForum_votesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ForumVoteWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountForum_repliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ForumReplyWhereInput
   }
 
 
@@ -2266,6 +2483,46 @@ export namespace Prisma {
    */
   export type HallCountOutputTypeCountChairsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ChairWhereInput
+  }
+
+
+  /**
+   * Count Type ForumCountOutputType
+   */
+
+  export type ForumCountOutputType = {
+    votes: number
+    replies: number
+  }
+
+  export type ForumCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    votes?: boolean | ForumCountOutputTypeCountVotesArgs
+    replies?: boolean | ForumCountOutputTypeCountRepliesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ForumCountOutputType without action
+   */
+  export type ForumCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumCountOutputType
+     */
+    select?: ForumCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ForumCountOutputType without action
+   */
+  export type ForumCountOutputTypeCountVotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ForumVoteWhereInput
+  }
+
+  /**
+   * ForumCountOutputType without action
+   */
+  export type ForumCountOutputTypeCountRepliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ForumReplyWhereInput
   }
 
 
@@ -5799,6 +6056,8 @@ export namespace Prisma {
     forum?: boolean | User$forumArgs<ExtArgs>
     payment_sessions?: boolean | User$payment_sessionsArgs<ExtArgs>
     coupons?: boolean | User$couponsArgs<ExtArgs>
+    forum_votes?: boolean | User$forum_votesArgs<ExtArgs>
+    forum_replies?: boolean | User$forum_repliesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -5828,6 +6087,8 @@ export namespace Prisma {
     forum?: boolean | User$forumArgs<ExtArgs>
     payment_sessions?: boolean | User$payment_sessionsArgs<ExtArgs>
     coupons?: boolean | User$couponsArgs<ExtArgs>
+    forum_votes?: boolean | User$forum_votesArgs<ExtArgs>
+    forum_replies?: boolean | User$forum_repliesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -5839,6 +6100,8 @@ export namespace Prisma {
       forum: Prisma.$ForumPayload<ExtArgs>[]
       payment_sessions: Prisma.$Payment_sessionPayload<ExtArgs>[]
       coupons: Prisma.$CouponPayload<ExtArgs>[]
+      forum_votes: Prisma.$ForumVotePayload<ExtArgs>[]
+      forum_replies: Prisma.$ForumReplyPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6223,6 +6486,8 @@ export namespace Prisma {
     forum<T extends User$forumArgs<ExtArgs> = {}>(args?: Subset<T, User$forumArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ForumPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     payment_sessions<T extends User$payment_sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$payment_sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Payment_sessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     coupons<T extends User$couponsArgs<ExtArgs> = {}>(args?: Subset<T, User$couponsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CouponPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    forum_votes<T extends User$forum_votesArgs<ExtArgs> = {}>(args?: Subset<T, User$forum_votesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ForumVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    forum_replies<T extends User$forum_repliesArgs<ExtArgs> = {}>(args?: Subset<T, User$forum_repliesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ForumReplyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6748,6 +7013,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CouponScalarFieldEnum | CouponScalarFieldEnum[]
+  }
+
+  /**
+   * User.forum_votes
+   */
+  export type User$forum_votesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumVote
+     */
+    select?: ForumVoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumVote
+     */
+    omit?: ForumVoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumVoteInclude<ExtArgs> | null
+    where?: ForumVoteWhereInput
+    orderBy?: ForumVoteOrderByWithRelationInput | ForumVoteOrderByWithRelationInput[]
+    cursor?: ForumVoteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ForumVoteScalarFieldEnum | ForumVoteScalarFieldEnum[]
+  }
+
+  /**
+   * User.forum_replies
+   */
+  export type User$forum_repliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumReply
+     */
+    select?: ForumReplySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumReply
+     */
+    omit?: ForumReplyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumReplyInclude<ExtArgs> | null
+    where?: ForumReplyWhereInput
+    orderBy?: ForumReplyOrderByWithRelationInput | ForumReplyOrderByWithRelationInput[]
+    cursor?: ForumReplyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ForumReplyScalarFieldEnum | ForumReplyScalarFieldEnum[]
   }
 
   /**
@@ -11003,6 +11316,1016 @@ export namespace Prisma {
 
 
   /**
+   * Model ForumVote
+   */
+
+  export type AggregateForumVote = {
+    _count: ForumVoteCountAggregateOutputType | null
+    _min: ForumVoteMinAggregateOutputType | null
+    _max: ForumVoteMaxAggregateOutputType | null
+  }
+
+  export type ForumVoteMinAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    forum_id: string | null
+    type: $Enums.VoteType | null
+  }
+
+  export type ForumVoteMaxAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    forum_id: string | null
+    type: $Enums.VoteType | null
+  }
+
+  export type ForumVoteCountAggregateOutputType = {
+    id: number
+    user_id: number
+    forum_id: number
+    type: number
+    _all: number
+  }
+
+
+  export type ForumVoteMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    forum_id?: true
+    type?: true
+  }
+
+  export type ForumVoteMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    forum_id?: true
+    type?: true
+  }
+
+  export type ForumVoteCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    forum_id?: true
+    type?: true
+    _all?: true
+  }
+
+  export type ForumVoteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ForumVote to aggregate.
+     */
+    where?: ForumVoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ForumVotes to fetch.
+     */
+    orderBy?: ForumVoteOrderByWithRelationInput | ForumVoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ForumVoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ForumVotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ForumVotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ForumVotes
+    **/
+    _count?: true | ForumVoteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ForumVoteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ForumVoteMaxAggregateInputType
+  }
+
+  export type GetForumVoteAggregateType<T extends ForumVoteAggregateArgs> = {
+        [P in keyof T & keyof AggregateForumVote]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateForumVote[P]>
+      : GetScalarType<T[P], AggregateForumVote[P]>
+  }
+
+
+
+
+  export type ForumVoteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ForumVoteWhereInput
+    orderBy?: ForumVoteOrderByWithAggregationInput | ForumVoteOrderByWithAggregationInput[]
+    by: ForumVoteScalarFieldEnum[] | ForumVoteScalarFieldEnum
+    having?: ForumVoteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ForumVoteCountAggregateInputType | true
+    _min?: ForumVoteMinAggregateInputType
+    _max?: ForumVoteMaxAggregateInputType
+  }
+
+  export type ForumVoteGroupByOutputType = {
+    id: string
+    user_id: string
+    forum_id: string
+    type: $Enums.VoteType
+    _count: ForumVoteCountAggregateOutputType | null
+    _min: ForumVoteMinAggregateOutputType | null
+    _max: ForumVoteMaxAggregateOutputType | null
+  }
+
+  type GetForumVoteGroupByPayload<T extends ForumVoteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ForumVoteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ForumVoteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ForumVoteGroupByOutputType[P]>
+            : GetScalarType<T[P], ForumVoteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ForumVoteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    forum_id?: boolean
+    type?: boolean
+    forum?: boolean | ForumVote$forumArgs<ExtArgs>
+    user?: boolean | ForumVote$userArgs<ExtArgs>
+  }, ExtArgs["result"]["forumVote"]>
+
+
+
+  export type ForumVoteSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    forum_id?: boolean
+    type?: boolean
+  }
+
+  export type ForumVoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "forum_id" | "type", ExtArgs["result"]["forumVote"]>
+  export type ForumVoteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    forum?: boolean | ForumVote$forumArgs<ExtArgs>
+    user?: boolean | ForumVote$userArgs<ExtArgs>
+  }
+
+  export type $ForumVotePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ForumVote"
+    objects: {
+      forum: Prisma.$ForumPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      user_id: string
+      forum_id: string
+      type: $Enums.VoteType
+    }, ExtArgs["result"]["forumVote"]>
+    composites: {}
+  }
+
+  type ForumVoteGetPayload<S extends boolean | null | undefined | ForumVoteDefaultArgs> = $Result.GetResult<Prisma.$ForumVotePayload, S>
+
+  type ForumVoteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ForumVoteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ForumVoteCountAggregateInputType | true
+    }
+
+  export interface ForumVoteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ForumVote'], meta: { name: 'ForumVote' } }
+    /**
+     * Find zero or one ForumVote that matches the filter.
+     * @param {ForumVoteFindUniqueArgs} args - Arguments to find a ForumVote
+     * @example
+     * // Get one ForumVote
+     * const forumVote = await prisma.forumVote.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ForumVoteFindUniqueArgs>(args: SelectSubset<T, ForumVoteFindUniqueArgs<ExtArgs>>): Prisma__ForumVoteClient<$Result.GetResult<Prisma.$ForumVotePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ForumVote that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ForumVoteFindUniqueOrThrowArgs} args - Arguments to find a ForumVote
+     * @example
+     * // Get one ForumVote
+     * const forumVote = await prisma.forumVote.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ForumVoteFindUniqueOrThrowArgs>(args: SelectSubset<T, ForumVoteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ForumVoteClient<$Result.GetResult<Prisma.$ForumVotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ForumVote that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumVoteFindFirstArgs} args - Arguments to find a ForumVote
+     * @example
+     * // Get one ForumVote
+     * const forumVote = await prisma.forumVote.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ForumVoteFindFirstArgs>(args?: SelectSubset<T, ForumVoteFindFirstArgs<ExtArgs>>): Prisma__ForumVoteClient<$Result.GetResult<Prisma.$ForumVotePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ForumVote that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumVoteFindFirstOrThrowArgs} args - Arguments to find a ForumVote
+     * @example
+     * // Get one ForumVote
+     * const forumVote = await prisma.forumVote.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ForumVoteFindFirstOrThrowArgs>(args?: SelectSubset<T, ForumVoteFindFirstOrThrowArgs<ExtArgs>>): Prisma__ForumVoteClient<$Result.GetResult<Prisma.$ForumVotePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ForumVotes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumVoteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ForumVotes
+     * const forumVotes = await prisma.forumVote.findMany()
+     * 
+     * // Get first 10 ForumVotes
+     * const forumVotes = await prisma.forumVote.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const forumVoteWithIdOnly = await prisma.forumVote.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ForumVoteFindManyArgs>(args?: SelectSubset<T, ForumVoteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ForumVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ForumVote.
+     * @param {ForumVoteCreateArgs} args - Arguments to create a ForumVote.
+     * @example
+     * // Create one ForumVote
+     * const ForumVote = await prisma.forumVote.create({
+     *   data: {
+     *     // ... data to create a ForumVote
+     *   }
+     * })
+     * 
+     */
+    create<T extends ForumVoteCreateArgs>(args: SelectSubset<T, ForumVoteCreateArgs<ExtArgs>>): Prisma__ForumVoteClient<$Result.GetResult<Prisma.$ForumVotePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ForumVotes.
+     * @param {ForumVoteCreateManyArgs} args - Arguments to create many ForumVotes.
+     * @example
+     * // Create many ForumVotes
+     * const forumVote = await prisma.forumVote.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ForumVoteCreateManyArgs>(args?: SelectSubset<T, ForumVoteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ForumVote.
+     * @param {ForumVoteDeleteArgs} args - Arguments to delete one ForumVote.
+     * @example
+     * // Delete one ForumVote
+     * const ForumVote = await prisma.forumVote.delete({
+     *   where: {
+     *     // ... filter to delete one ForumVote
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ForumVoteDeleteArgs>(args: SelectSubset<T, ForumVoteDeleteArgs<ExtArgs>>): Prisma__ForumVoteClient<$Result.GetResult<Prisma.$ForumVotePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ForumVote.
+     * @param {ForumVoteUpdateArgs} args - Arguments to update one ForumVote.
+     * @example
+     * // Update one ForumVote
+     * const forumVote = await prisma.forumVote.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ForumVoteUpdateArgs>(args: SelectSubset<T, ForumVoteUpdateArgs<ExtArgs>>): Prisma__ForumVoteClient<$Result.GetResult<Prisma.$ForumVotePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ForumVotes.
+     * @param {ForumVoteDeleteManyArgs} args - Arguments to filter ForumVotes to delete.
+     * @example
+     * // Delete a few ForumVotes
+     * const { count } = await prisma.forumVote.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ForumVoteDeleteManyArgs>(args?: SelectSubset<T, ForumVoteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ForumVotes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumVoteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ForumVotes
+     * const forumVote = await prisma.forumVote.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ForumVoteUpdateManyArgs>(args: SelectSubset<T, ForumVoteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ForumVote.
+     * @param {ForumVoteUpsertArgs} args - Arguments to update or create a ForumVote.
+     * @example
+     * // Update or create a ForumVote
+     * const forumVote = await prisma.forumVote.upsert({
+     *   create: {
+     *     // ... data to create a ForumVote
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ForumVote we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ForumVoteUpsertArgs>(args: SelectSubset<T, ForumVoteUpsertArgs<ExtArgs>>): Prisma__ForumVoteClient<$Result.GetResult<Prisma.$ForumVotePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ForumVotes that matches the filter.
+     * @param {ForumVoteFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const forumVote = await prisma.forumVote.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ForumVoteFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a ForumVote.
+     * @param {ForumVoteAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const forumVote = await prisma.forumVote.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ForumVoteAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of ForumVotes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumVoteCountArgs} args - Arguments to filter ForumVotes to count.
+     * @example
+     * // Count the number of ForumVotes
+     * const count = await prisma.forumVote.count({
+     *   where: {
+     *     // ... the filter for the ForumVotes we want to count
+     *   }
+     * })
+    **/
+    count<T extends ForumVoteCountArgs>(
+      args?: Subset<T, ForumVoteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ForumVoteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ForumVote.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumVoteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ForumVoteAggregateArgs>(args: Subset<T, ForumVoteAggregateArgs>): Prisma.PrismaPromise<GetForumVoteAggregateType<T>>
+
+    /**
+     * Group by ForumVote.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumVoteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ForumVoteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ForumVoteGroupByArgs['orderBy'] }
+        : { orderBy?: ForumVoteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ForumVoteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetForumVoteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ForumVote model
+   */
+  readonly fields: ForumVoteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ForumVote.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ForumVoteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    forum<T extends ForumVote$forumArgs<ExtArgs> = {}>(args?: Subset<T, ForumVote$forumArgs<ExtArgs>>): Prisma__ForumClient<$Result.GetResult<Prisma.$ForumPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends ForumVote$userArgs<ExtArgs> = {}>(args?: Subset<T, ForumVote$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ForumVote model
+   */
+  interface ForumVoteFieldRefs {
+    readonly id: FieldRef<"ForumVote", 'String'>
+    readonly user_id: FieldRef<"ForumVote", 'String'>
+    readonly forum_id: FieldRef<"ForumVote", 'String'>
+    readonly type: FieldRef<"ForumVote", 'VoteType'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ForumVote findUnique
+   */
+  export type ForumVoteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumVote
+     */
+    select?: ForumVoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumVote
+     */
+    omit?: ForumVoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumVoteInclude<ExtArgs> | null
+    /**
+     * Filter, which ForumVote to fetch.
+     */
+    where: ForumVoteWhereUniqueInput
+  }
+
+  /**
+   * ForumVote findUniqueOrThrow
+   */
+  export type ForumVoteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumVote
+     */
+    select?: ForumVoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumVote
+     */
+    omit?: ForumVoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumVoteInclude<ExtArgs> | null
+    /**
+     * Filter, which ForumVote to fetch.
+     */
+    where: ForumVoteWhereUniqueInput
+  }
+
+  /**
+   * ForumVote findFirst
+   */
+  export type ForumVoteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumVote
+     */
+    select?: ForumVoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumVote
+     */
+    omit?: ForumVoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumVoteInclude<ExtArgs> | null
+    /**
+     * Filter, which ForumVote to fetch.
+     */
+    where?: ForumVoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ForumVotes to fetch.
+     */
+    orderBy?: ForumVoteOrderByWithRelationInput | ForumVoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ForumVotes.
+     */
+    cursor?: ForumVoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ForumVotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ForumVotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ForumVotes.
+     */
+    distinct?: ForumVoteScalarFieldEnum | ForumVoteScalarFieldEnum[]
+  }
+
+  /**
+   * ForumVote findFirstOrThrow
+   */
+  export type ForumVoteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumVote
+     */
+    select?: ForumVoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumVote
+     */
+    omit?: ForumVoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumVoteInclude<ExtArgs> | null
+    /**
+     * Filter, which ForumVote to fetch.
+     */
+    where?: ForumVoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ForumVotes to fetch.
+     */
+    orderBy?: ForumVoteOrderByWithRelationInput | ForumVoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ForumVotes.
+     */
+    cursor?: ForumVoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ForumVotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ForumVotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ForumVotes.
+     */
+    distinct?: ForumVoteScalarFieldEnum | ForumVoteScalarFieldEnum[]
+  }
+
+  /**
+   * ForumVote findMany
+   */
+  export type ForumVoteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumVote
+     */
+    select?: ForumVoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumVote
+     */
+    omit?: ForumVoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumVoteInclude<ExtArgs> | null
+    /**
+     * Filter, which ForumVotes to fetch.
+     */
+    where?: ForumVoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ForumVotes to fetch.
+     */
+    orderBy?: ForumVoteOrderByWithRelationInput | ForumVoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ForumVotes.
+     */
+    cursor?: ForumVoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ForumVotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ForumVotes.
+     */
+    skip?: number
+    distinct?: ForumVoteScalarFieldEnum | ForumVoteScalarFieldEnum[]
+  }
+
+  /**
+   * ForumVote create
+   */
+  export type ForumVoteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumVote
+     */
+    select?: ForumVoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumVote
+     */
+    omit?: ForumVoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumVoteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ForumVote.
+     */
+    data: XOR<ForumVoteCreateInput, ForumVoteUncheckedCreateInput>
+  }
+
+  /**
+   * ForumVote createMany
+   */
+  export type ForumVoteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ForumVotes.
+     */
+    data: ForumVoteCreateManyInput | ForumVoteCreateManyInput[]
+  }
+
+  /**
+   * ForumVote update
+   */
+  export type ForumVoteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumVote
+     */
+    select?: ForumVoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumVote
+     */
+    omit?: ForumVoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumVoteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ForumVote.
+     */
+    data: XOR<ForumVoteUpdateInput, ForumVoteUncheckedUpdateInput>
+    /**
+     * Choose, which ForumVote to update.
+     */
+    where: ForumVoteWhereUniqueInput
+  }
+
+  /**
+   * ForumVote updateMany
+   */
+  export type ForumVoteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ForumVotes.
+     */
+    data: XOR<ForumVoteUpdateManyMutationInput, ForumVoteUncheckedUpdateManyInput>
+    /**
+     * Filter which ForumVotes to update
+     */
+    where?: ForumVoteWhereInput
+    /**
+     * Limit how many ForumVotes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ForumVote upsert
+   */
+  export type ForumVoteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumVote
+     */
+    select?: ForumVoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumVote
+     */
+    omit?: ForumVoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumVoteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ForumVote to update in case it exists.
+     */
+    where: ForumVoteWhereUniqueInput
+    /**
+     * In case the ForumVote found by the `where` argument doesn't exist, create a new ForumVote with this data.
+     */
+    create: XOR<ForumVoteCreateInput, ForumVoteUncheckedCreateInput>
+    /**
+     * In case the ForumVote was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ForumVoteUpdateInput, ForumVoteUncheckedUpdateInput>
+  }
+
+  /**
+   * ForumVote delete
+   */
+  export type ForumVoteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumVote
+     */
+    select?: ForumVoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumVote
+     */
+    omit?: ForumVoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumVoteInclude<ExtArgs> | null
+    /**
+     * Filter which ForumVote to delete.
+     */
+    where: ForumVoteWhereUniqueInput
+  }
+
+  /**
+   * ForumVote deleteMany
+   */
+  export type ForumVoteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ForumVotes to delete
+     */
+    where?: ForumVoteWhereInput
+    /**
+     * Limit how many ForumVotes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ForumVote findRaw
+   */
+  export type ForumVoteFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ForumVote aggregateRaw
+   */
+  export type ForumVoteAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ForumVote.forum
+   */
+  export type ForumVote$forumArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Forum
+     */
+    select?: ForumSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Forum
+     */
+    omit?: ForumOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumInclude<ExtArgs> | null
+    where?: ForumWhereInput
+  }
+
+  /**
+   * ForumVote.user
+   */
+  export type ForumVote$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * ForumVote without action
+   */
+  export type ForumVoteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumVote
+     */
+    select?: ForumVoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumVote
+     */
+    omit?: ForumVoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumVoteInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Forum
    */
 
@@ -11016,10 +12339,14 @@ export namespace Prisma {
 
   export type ForumAvgAggregateOutputType = {
     review: number | null
+    likes: number | null
+    dislikes: number | null
   }
 
   export type ForumSumAggregateOutputType = {
     review: number | null
+    likes: number | null
+    dislikes: number | null
   }
 
   export type ForumMinAggregateOutputType = {
@@ -11028,6 +12355,8 @@ export namespace Prisma {
     comment: string | null
     user_id: string | null
     movie_id: string | null
+    likes: number | null
+    dislikes: number | null
   }
 
   export type ForumMaxAggregateOutputType = {
@@ -11036,6 +12365,8 @@ export namespace Prisma {
     comment: string | null
     user_id: string | null
     movie_id: string | null
+    likes: number | null
+    dislikes: number | null
   }
 
   export type ForumCountAggregateOutputType = {
@@ -11044,16 +12375,22 @@ export namespace Prisma {
     comment: number
     user_id: number
     movie_id: number
+    likes: number
+    dislikes: number
     _all: number
   }
 
 
   export type ForumAvgAggregateInputType = {
     review?: true
+    likes?: true
+    dislikes?: true
   }
 
   export type ForumSumAggregateInputType = {
     review?: true
+    likes?: true
+    dislikes?: true
   }
 
   export type ForumMinAggregateInputType = {
@@ -11062,6 +12399,8 @@ export namespace Prisma {
     comment?: true
     user_id?: true
     movie_id?: true
+    likes?: true
+    dislikes?: true
   }
 
   export type ForumMaxAggregateInputType = {
@@ -11070,6 +12409,8 @@ export namespace Prisma {
     comment?: true
     user_id?: true
     movie_id?: true
+    likes?: true
+    dislikes?: true
   }
 
   export type ForumCountAggregateInputType = {
@@ -11078,6 +12419,8 @@ export namespace Prisma {
     comment?: true
     user_id?: true
     movie_id?: true
+    likes?: true
+    dislikes?: true
     _all?: true
   }
 
@@ -11173,6 +12516,8 @@ export namespace Prisma {
     comment: string
     user_id: string
     movie_id: string
+    likes: number
+    dislikes: number
     _count: ForumCountAggregateOutputType | null
     _avg: ForumAvgAggregateOutputType | null
     _sum: ForumSumAggregateOutputType | null
@@ -11200,8 +12545,13 @@ export namespace Prisma {
     comment?: boolean
     user_id?: boolean
     movie_id?: boolean
+    likes?: boolean
+    dislikes?: boolean
+    votes?: boolean | Forum$votesArgs<ExtArgs>
+    replies?: boolean | Forum$repliesArgs<ExtArgs>
     users?: boolean | Forum$usersArgs<ExtArgs>
     movies?: boolean | Forum$moviesArgs<ExtArgs>
+    _count?: boolean | ForumCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["forum"]>
 
 
@@ -11212,17 +12562,24 @@ export namespace Prisma {
     comment?: boolean
     user_id?: boolean
     movie_id?: boolean
+    likes?: boolean
+    dislikes?: boolean
   }
 
-  export type ForumOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "review" | "comment" | "user_id" | "movie_id", ExtArgs["result"]["forum"]>
+  export type ForumOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "review" | "comment" | "user_id" | "movie_id" | "likes" | "dislikes", ExtArgs["result"]["forum"]>
   export type ForumInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    votes?: boolean | Forum$votesArgs<ExtArgs>
+    replies?: boolean | Forum$repliesArgs<ExtArgs>
     users?: boolean | Forum$usersArgs<ExtArgs>
     movies?: boolean | Forum$moviesArgs<ExtArgs>
+    _count?: boolean | ForumCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $ForumPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Forum"
     objects: {
+      votes: Prisma.$ForumVotePayload<ExtArgs>[]
+      replies: Prisma.$ForumReplyPayload<ExtArgs>[]
       users: Prisma.$UserPayload<ExtArgs> | null
       movies: Prisma.$MoviePayload<ExtArgs> | null
     }
@@ -11232,6 +12589,8 @@ export namespace Prisma {
       comment: string
       user_id: string
       movie_id: string
+      likes: number
+      dislikes: number
     }, ExtArgs["result"]["forum"]>
     composites: {}
   }
@@ -11595,6 +12954,8 @@ export namespace Prisma {
    */
   export interface Prisma__ForumClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    votes<T extends Forum$votesArgs<ExtArgs> = {}>(args?: Subset<T, Forum$votesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ForumVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    replies<T extends Forum$repliesArgs<ExtArgs> = {}>(args?: Subset<T, Forum$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ForumReplyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     users<T extends Forum$usersArgs<ExtArgs> = {}>(args?: Subset<T, Forum$usersArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     movies<T extends Forum$moviesArgs<ExtArgs> = {}>(args?: Subset<T, Forum$moviesArgs<ExtArgs>>): Prisma__MovieClient<$Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
@@ -11631,6 +12992,8 @@ export namespace Prisma {
     readonly comment: FieldRef<"Forum", 'String'>
     readonly user_id: FieldRef<"Forum", 'String'>
     readonly movie_id: FieldRef<"Forum", 'String'>
+    readonly likes: FieldRef<"Forum", 'Int'>
+    readonly dislikes: FieldRef<"Forum", 'Int'>
   }
     
 
@@ -12001,6 +13364,54 @@ export namespace Prisma {
   }
 
   /**
+   * Forum.votes
+   */
+  export type Forum$votesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumVote
+     */
+    select?: ForumVoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumVote
+     */
+    omit?: ForumVoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumVoteInclude<ExtArgs> | null
+    where?: ForumVoteWhereInput
+    orderBy?: ForumVoteOrderByWithRelationInput | ForumVoteOrderByWithRelationInput[]
+    cursor?: ForumVoteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ForumVoteScalarFieldEnum | ForumVoteScalarFieldEnum[]
+  }
+
+  /**
+   * Forum.replies
+   */
+  export type Forum$repliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumReply
+     */
+    select?: ForumReplySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumReply
+     */
+    omit?: ForumReplyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumReplyInclude<ExtArgs> | null
+    where?: ForumReplyWhereInput
+    orderBy?: ForumReplyOrderByWithRelationInput | ForumReplyOrderByWithRelationInput[]
+    cursor?: ForumReplyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ForumReplyScalarFieldEnum | ForumReplyScalarFieldEnum[]
+  }
+
+  /**
    * Forum.users
    */
   export type Forum$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12054,6 +13465,1027 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ForumInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ForumReply
+   */
+
+  export type AggregateForumReply = {
+    _count: ForumReplyCountAggregateOutputType | null
+    _min: ForumReplyMinAggregateOutputType | null
+    _max: ForumReplyMaxAggregateOutputType | null
+  }
+
+  export type ForumReplyMinAggregateOutputType = {
+    id: string | null
+    forum_id: string | null
+    user_id: string | null
+    comment: string | null
+    createdAt: Date | null
+  }
+
+  export type ForumReplyMaxAggregateOutputType = {
+    id: string | null
+    forum_id: string | null
+    user_id: string | null
+    comment: string | null
+    createdAt: Date | null
+  }
+
+  export type ForumReplyCountAggregateOutputType = {
+    id: number
+    forum_id: number
+    user_id: number
+    comment: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ForumReplyMinAggregateInputType = {
+    id?: true
+    forum_id?: true
+    user_id?: true
+    comment?: true
+    createdAt?: true
+  }
+
+  export type ForumReplyMaxAggregateInputType = {
+    id?: true
+    forum_id?: true
+    user_id?: true
+    comment?: true
+    createdAt?: true
+  }
+
+  export type ForumReplyCountAggregateInputType = {
+    id?: true
+    forum_id?: true
+    user_id?: true
+    comment?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ForumReplyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ForumReply to aggregate.
+     */
+    where?: ForumReplyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ForumReplies to fetch.
+     */
+    orderBy?: ForumReplyOrderByWithRelationInput | ForumReplyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ForumReplyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ForumReplies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ForumReplies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ForumReplies
+    **/
+    _count?: true | ForumReplyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ForumReplyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ForumReplyMaxAggregateInputType
+  }
+
+  export type GetForumReplyAggregateType<T extends ForumReplyAggregateArgs> = {
+        [P in keyof T & keyof AggregateForumReply]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateForumReply[P]>
+      : GetScalarType<T[P], AggregateForumReply[P]>
+  }
+
+
+
+
+  export type ForumReplyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ForumReplyWhereInput
+    orderBy?: ForumReplyOrderByWithAggregationInput | ForumReplyOrderByWithAggregationInput[]
+    by: ForumReplyScalarFieldEnum[] | ForumReplyScalarFieldEnum
+    having?: ForumReplyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ForumReplyCountAggregateInputType | true
+    _min?: ForumReplyMinAggregateInputType
+    _max?: ForumReplyMaxAggregateInputType
+  }
+
+  export type ForumReplyGroupByOutputType = {
+    id: string
+    forum_id: string
+    user_id: string
+    comment: string
+    createdAt: Date
+    _count: ForumReplyCountAggregateOutputType | null
+    _min: ForumReplyMinAggregateOutputType | null
+    _max: ForumReplyMaxAggregateOutputType | null
+  }
+
+  type GetForumReplyGroupByPayload<T extends ForumReplyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ForumReplyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ForumReplyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ForumReplyGroupByOutputType[P]>
+            : GetScalarType<T[P], ForumReplyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ForumReplySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    forum_id?: boolean
+    user_id?: boolean
+    comment?: boolean
+    createdAt?: boolean
+    forum?: boolean | ForumReply$forumArgs<ExtArgs>
+    user?: boolean | ForumReply$userArgs<ExtArgs>
+  }, ExtArgs["result"]["forumReply"]>
+
+
+
+  export type ForumReplySelectScalar = {
+    id?: boolean
+    forum_id?: boolean
+    user_id?: boolean
+    comment?: boolean
+    createdAt?: boolean
+  }
+
+  export type ForumReplyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "forum_id" | "user_id" | "comment" | "createdAt", ExtArgs["result"]["forumReply"]>
+  export type ForumReplyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    forum?: boolean | ForumReply$forumArgs<ExtArgs>
+    user?: boolean | ForumReply$userArgs<ExtArgs>
+  }
+
+  export type $ForumReplyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ForumReply"
+    objects: {
+      forum: Prisma.$ForumPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      forum_id: string
+      user_id: string
+      comment: string
+      createdAt: Date
+    }, ExtArgs["result"]["forumReply"]>
+    composites: {}
+  }
+
+  type ForumReplyGetPayload<S extends boolean | null | undefined | ForumReplyDefaultArgs> = $Result.GetResult<Prisma.$ForumReplyPayload, S>
+
+  type ForumReplyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ForumReplyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ForumReplyCountAggregateInputType | true
+    }
+
+  export interface ForumReplyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ForumReply'], meta: { name: 'ForumReply' } }
+    /**
+     * Find zero or one ForumReply that matches the filter.
+     * @param {ForumReplyFindUniqueArgs} args - Arguments to find a ForumReply
+     * @example
+     * // Get one ForumReply
+     * const forumReply = await prisma.forumReply.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ForumReplyFindUniqueArgs>(args: SelectSubset<T, ForumReplyFindUniqueArgs<ExtArgs>>): Prisma__ForumReplyClient<$Result.GetResult<Prisma.$ForumReplyPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ForumReply that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ForumReplyFindUniqueOrThrowArgs} args - Arguments to find a ForumReply
+     * @example
+     * // Get one ForumReply
+     * const forumReply = await prisma.forumReply.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ForumReplyFindUniqueOrThrowArgs>(args: SelectSubset<T, ForumReplyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ForumReplyClient<$Result.GetResult<Prisma.$ForumReplyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ForumReply that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumReplyFindFirstArgs} args - Arguments to find a ForumReply
+     * @example
+     * // Get one ForumReply
+     * const forumReply = await prisma.forumReply.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ForumReplyFindFirstArgs>(args?: SelectSubset<T, ForumReplyFindFirstArgs<ExtArgs>>): Prisma__ForumReplyClient<$Result.GetResult<Prisma.$ForumReplyPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ForumReply that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumReplyFindFirstOrThrowArgs} args - Arguments to find a ForumReply
+     * @example
+     * // Get one ForumReply
+     * const forumReply = await prisma.forumReply.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ForumReplyFindFirstOrThrowArgs>(args?: SelectSubset<T, ForumReplyFindFirstOrThrowArgs<ExtArgs>>): Prisma__ForumReplyClient<$Result.GetResult<Prisma.$ForumReplyPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ForumReplies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumReplyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ForumReplies
+     * const forumReplies = await prisma.forumReply.findMany()
+     * 
+     * // Get first 10 ForumReplies
+     * const forumReplies = await prisma.forumReply.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const forumReplyWithIdOnly = await prisma.forumReply.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ForumReplyFindManyArgs>(args?: SelectSubset<T, ForumReplyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ForumReplyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ForumReply.
+     * @param {ForumReplyCreateArgs} args - Arguments to create a ForumReply.
+     * @example
+     * // Create one ForumReply
+     * const ForumReply = await prisma.forumReply.create({
+     *   data: {
+     *     // ... data to create a ForumReply
+     *   }
+     * })
+     * 
+     */
+    create<T extends ForumReplyCreateArgs>(args: SelectSubset<T, ForumReplyCreateArgs<ExtArgs>>): Prisma__ForumReplyClient<$Result.GetResult<Prisma.$ForumReplyPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ForumReplies.
+     * @param {ForumReplyCreateManyArgs} args - Arguments to create many ForumReplies.
+     * @example
+     * // Create many ForumReplies
+     * const forumReply = await prisma.forumReply.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ForumReplyCreateManyArgs>(args?: SelectSubset<T, ForumReplyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ForumReply.
+     * @param {ForumReplyDeleteArgs} args - Arguments to delete one ForumReply.
+     * @example
+     * // Delete one ForumReply
+     * const ForumReply = await prisma.forumReply.delete({
+     *   where: {
+     *     // ... filter to delete one ForumReply
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ForumReplyDeleteArgs>(args: SelectSubset<T, ForumReplyDeleteArgs<ExtArgs>>): Prisma__ForumReplyClient<$Result.GetResult<Prisma.$ForumReplyPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ForumReply.
+     * @param {ForumReplyUpdateArgs} args - Arguments to update one ForumReply.
+     * @example
+     * // Update one ForumReply
+     * const forumReply = await prisma.forumReply.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ForumReplyUpdateArgs>(args: SelectSubset<T, ForumReplyUpdateArgs<ExtArgs>>): Prisma__ForumReplyClient<$Result.GetResult<Prisma.$ForumReplyPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ForumReplies.
+     * @param {ForumReplyDeleteManyArgs} args - Arguments to filter ForumReplies to delete.
+     * @example
+     * // Delete a few ForumReplies
+     * const { count } = await prisma.forumReply.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ForumReplyDeleteManyArgs>(args?: SelectSubset<T, ForumReplyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ForumReplies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumReplyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ForumReplies
+     * const forumReply = await prisma.forumReply.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ForumReplyUpdateManyArgs>(args: SelectSubset<T, ForumReplyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ForumReply.
+     * @param {ForumReplyUpsertArgs} args - Arguments to update or create a ForumReply.
+     * @example
+     * // Update or create a ForumReply
+     * const forumReply = await prisma.forumReply.upsert({
+     *   create: {
+     *     // ... data to create a ForumReply
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ForumReply we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ForumReplyUpsertArgs>(args: SelectSubset<T, ForumReplyUpsertArgs<ExtArgs>>): Prisma__ForumReplyClient<$Result.GetResult<Prisma.$ForumReplyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ForumReplies that matches the filter.
+     * @param {ForumReplyFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const forumReply = await prisma.forumReply.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ForumReplyFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a ForumReply.
+     * @param {ForumReplyAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const forumReply = await prisma.forumReply.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ForumReplyAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of ForumReplies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumReplyCountArgs} args - Arguments to filter ForumReplies to count.
+     * @example
+     * // Count the number of ForumReplies
+     * const count = await prisma.forumReply.count({
+     *   where: {
+     *     // ... the filter for the ForumReplies we want to count
+     *   }
+     * })
+    **/
+    count<T extends ForumReplyCountArgs>(
+      args?: Subset<T, ForumReplyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ForumReplyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ForumReply.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumReplyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ForumReplyAggregateArgs>(args: Subset<T, ForumReplyAggregateArgs>): Prisma.PrismaPromise<GetForumReplyAggregateType<T>>
+
+    /**
+     * Group by ForumReply.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ForumReplyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ForumReplyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ForumReplyGroupByArgs['orderBy'] }
+        : { orderBy?: ForumReplyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ForumReplyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetForumReplyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ForumReply model
+   */
+  readonly fields: ForumReplyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ForumReply.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ForumReplyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    forum<T extends ForumReply$forumArgs<ExtArgs> = {}>(args?: Subset<T, ForumReply$forumArgs<ExtArgs>>): Prisma__ForumClient<$Result.GetResult<Prisma.$ForumPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends ForumReply$userArgs<ExtArgs> = {}>(args?: Subset<T, ForumReply$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ForumReply model
+   */
+  interface ForumReplyFieldRefs {
+    readonly id: FieldRef<"ForumReply", 'String'>
+    readonly forum_id: FieldRef<"ForumReply", 'String'>
+    readonly user_id: FieldRef<"ForumReply", 'String'>
+    readonly comment: FieldRef<"ForumReply", 'String'>
+    readonly createdAt: FieldRef<"ForumReply", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ForumReply findUnique
+   */
+  export type ForumReplyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumReply
+     */
+    select?: ForumReplySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumReply
+     */
+    omit?: ForumReplyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumReplyInclude<ExtArgs> | null
+    /**
+     * Filter, which ForumReply to fetch.
+     */
+    where: ForumReplyWhereUniqueInput
+  }
+
+  /**
+   * ForumReply findUniqueOrThrow
+   */
+  export type ForumReplyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumReply
+     */
+    select?: ForumReplySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumReply
+     */
+    omit?: ForumReplyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumReplyInclude<ExtArgs> | null
+    /**
+     * Filter, which ForumReply to fetch.
+     */
+    where: ForumReplyWhereUniqueInput
+  }
+
+  /**
+   * ForumReply findFirst
+   */
+  export type ForumReplyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumReply
+     */
+    select?: ForumReplySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumReply
+     */
+    omit?: ForumReplyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumReplyInclude<ExtArgs> | null
+    /**
+     * Filter, which ForumReply to fetch.
+     */
+    where?: ForumReplyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ForumReplies to fetch.
+     */
+    orderBy?: ForumReplyOrderByWithRelationInput | ForumReplyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ForumReplies.
+     */
+    cursor?: ForumReplyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ForumReplies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ForumReplies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ForumReplies.
+     */
+    distinct?: ForumReplyScalarFieldEnum | ForumReplyScalarFieldEnum[]
+  }
+
+  /**
+   * ForumReply findFirstOrThrow
+   */
+  export type ForumReplyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumReply
+     */
+    select?: ForumReplySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumReply
+     */
+    omit?: ForumReplyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumReplyInclude<ExtArgs> | null
+    /**
+     * Filter, which ForumReply to fetch.
+     */
+    where?: ForumReplyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ForumReplies to fetch.
+     */
+    orderBy?: ForumReplyOrderByWithRelationInput | ForumReplyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ForumReplies.
+     */
+    cursor?: ForumReplyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ForumReplies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ForumReplies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ForumReplies.
+     */
+    distinct?: ForumReplyScalarFieldEnum | ForumReplyScalarFieldEnum[]
+  }
+
+  /**
+   * ForumReply findMany
+   */
+  export type ForumReplyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumReply
+     */
+    select?: ForumReplySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumReply
+     */
+    omit?: ForumReplyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumReplyInclude<ExtArgs> | null
+    /**
+     * Filter, which ForumReplies to fetch.
+     */
+    where?: ForumReplyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ForumReplies to fetch.
+     */
+    orderBy?: ForumReplyOrderByWithRelationInput | ForumReplyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ForumReplies.
+     */
+    cursor?: ForumReplyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ForumReplies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ForumReplies.
+     */
+    skip?: number
+    distinct?: ForumReplyScalarFieldEnum | ForumReplyScalarFieldEnum[]
+  }
+
+  /**
+   * ForumReply create
+   */
+  export type ForumReplyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumReply
+     */
+    select?: ForumReplySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumReply
+     */
+    omit?: ForumReplyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumReplyInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ForumReply.
+     */
+    data: XOR<ForumReplyCreateInput, ForumReplyUncheckedCreateInput>
+  }
+
+  /**
+   * ForumReply createMany
+   */
+  export type ForumReplyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ForumReplies.
+     */
+    data: ForumReplyCreateManyInput | ForumReplyCreateManyInput[]
+  }
+
+  /**
+   * ForumReply update
+   */
+  export type ForumReplyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumReply
+     */
+    select?: ForumReplySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumReply
+     */
+    omit?: ForumReplyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumReplyInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ForumReply.
+     */
+    data: XOR<ForumReplyUpdateInput, ForumReplyUncheckedUpdateInput>
+    /**
+     * Choose, which ForumReply to update.
+     */
+    where: ForumReplyWhereUniqueInput
+  }
+
+  /**
+   * ForumReply updateMany
+   */
+  export type ForumReplyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ForumReplies.
+     */
+    data: XOR<ForumReplyUpdateManyMutationInput, ForumReplyUncheckedUpdateManyInput>
+    /**
+     * Filter which ForumReplies to update
+     */
+    where?: ForumReplyWhereInput
+    /**
+     * Limit how many ForumReplies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ForumReply upsert
+   */
+  export type ForumReplyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumReply
+     */
+    select?: ForumReplySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumReply
+     */
+    omit?: ForumReplyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumReplyInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ForumReply to update in case it exists.
+     */
+    where: ForumReplyWhereUniqueInput
+    /**
+     * In case the ForumReply found by the `where` argument doesn't exist, create a new ForumReply with this data.
+     */
+    create: XOR<ForumReplyCreateInput, ForumReplyUncheckedCreateInput>
+    /**
+     * In case the ForumReply was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ForumReplyUpdateInput, ForumReplyUncheckedUpdateInput>
+  }
+
+  /**
+   * ForumReply delete
+   */
+  export type ForumReplyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumReply
+     */
+    select?: ForumReplySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumReply
+     */
+    omit?: ForumReplyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumReplyInclude<ExtArgs> | null
+    /**
+     * Filter which ForumReply to delete.
+     */
+    where: ForumReplyWhereUniqueInput
+  }
+
+  /**
+   * ForumReply deleteMany
+   */
+  export type ForumReplyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ForumReplies to delete
+     */
+    where?: ForumReplyWhereInput
+    /**
+     * Limit how many ForumReplies to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ForumReply findRaw
+   */
+  export type ForumReplyFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ForumReply aggregateRaw
+   */
+  export type ForumReplyAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ForumReply.forum
+   */
+  export type ForumReply$forumArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Forum
+     */
+    select?: ForumSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Forum
+     */
+    omit?: ForumOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumInclude<ExtArgs> | null
+    where?: ForumWhereInput
+  }
+
+  /**
+   * ForumReply.user
+   */
+  export type ForumReply$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * ForumReply without action
+   */
+  export type ForumReplyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ForumReply
+     */
+    select?: ForumReplySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ForumReply
+     */
+    omit?: ForumReplyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ForumReplyInclude<ExtArgs> | null
   }
 
 
@@ -17437,15 +19869,38 @@ export namespace Prisma {
   export type HallScalarFieldEnum = (typeof HallScalarFieldEnum)[keyof typeof HallScalarFieldEnum]
 
 
+  export const ForumVoteScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    forum_id: 'forum_id',
+    type: 'type'
+  };
+
+  export type ForumVoteScalarFieldEnum = (typeof ForumVoteScalarFieldEnum)[keyof typeof ForumVoteScalarFieldEnum]
+
+
   export const ForumScalarFieldEnum: {
     id: 'id',
     review: 'review',
     comment: 'comment',
     user_id: 'user_id',
-    movie_id: 'movie_id'
+    movie_id: 'movie_id',
+    likes: 'likes',
+    dislikes: 'dislikes'
   };
 
   export type ForumScalarFieldEnum = (typeof ForumScalarFieldEnum)[keyof typeof ForumScalarFieldEnum]
+
+
+  export const ForumReplyScalarFieldEnum: {
+    id: 'id',
+    forum_id: 'forum_id',
+    user_id: 'user_id',
+    comment: 'comment',
+    createdAt: 'createdAt'
+  };
+
+  export type ForumReplyScalarFieldEnum = (typeof ForumReplyScalarFieldEnum)[keyof typeof ForumReplyScalarFieldEnum]
 
 
   export const TicketScalarFieldEnum: {
@@ -17587,6 +20042,20 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'VoteType'
+   */
+  export type EnumVoteTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VoteType'>
+    
+
+
+  /**
+   * Reference to a field of type 'VoteType[]'
+   */
+  export type ListEnumVoteTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VoteType[]'>
     
 
 
@@ -17832,6 +20301,8 @@ export namespace Prisma {
     forum?: ForumListRelationFilter
     payment_sessions?: Payment_sessionListRelationFilter
     coupons?: CouponListRelationFilter
+    forum_votes?: ForumVoteListRelationFilter
+    forum_replies?: ForumReplyListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -17854,6 +20325,8 @@ export namespace Prisma {
     forum?: ForumOrderByRelationAggregateInput
     payment_sessions?: Payment_sessionOrderByRelationAggregateInput
     coupons?: CouponOrderByRelationAggregateInput
+    forum_votes?: ForumVoteOrderByRelationAggregateInput
+    forum_replies?: ForumReplyOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -17879,6 +20352,8 @@ export namespace Prisma {
     forum?: ForumListRelationFilter
     payment_sessions?: Payment_sessionListRelationFilter
     coupons?: CouponListRelationFilter
+    forum_votes?: ForumVoteListRelationFilter
+    forum_replies?: ForumReplyListRelationFilter
   }, "id" | "email" | "phone_number">
 
   export type UserOrderByWithAggregationInput = {
@@ -18148,6 +20623,60 @@ export namespace Prisma {
     column?: IntWithAggregatesFilter<"Hall"> | number
   }
 
+  export type ForumVoteWhereInput = {
+    AND?: ForumVoteWhereInput | ForumVoteWhereInput[]
+    OR?: ForumVoteWhereInput[]
+    NOT?: ForumVoteWhereInput | ForumVoteWhereInput[]
+    id?: StringFilter<"ForumVote"> | string
+    user_id?: StringFilter<"ForumVote"> | string
+    forum_id?: StringFilter<"ForumVote"> | string
+    type?: EnumVoteTypeFilter<"ForumVote"> | $Enums.VoteType
+    forum?: XOR<ForumNullableScalarRelationFilter, ForumWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type ForumVoteOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    forum_id?: SortOrder
+    type?: SortOrder
+    forum?: ForumOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type ForumVoteWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    user_id_forum_id?: ForumVoteUser_idForum_idCompoundUniqueInput
+    AND?: ForumVoteWhereInput | ForumVoteWhereInput[]
+    OR?: ForumVoteWhereInput[]
+    NOT?: ForumVoteWhereInput | ForumVoteWhereInput[]
+    user_id?: StringFilter<"ForumVote"> | string
+    forum_id?: StringFilter<"ForumVote"> | string
+    type?: EnumVoteTypeFilter<"ForumVote"> | $Enums.VoteType
+    forum?: XOR<ForumNullableScalarRelationFilter, ForumWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id" | "user_id_forum_id">
+
+  export type ForumVoteOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    forum_id?: SortOrder
+    type?: SortOrder
+    _count?: ForumVoteCountOrderByAggregateInput
+    _max?: ForumVoteMaxOrderByAggregateInput
+    _min?: ForumVoteMinOrderByAggregateInput
+  }
+
+  export type ForumVoteScalarWhereWithAggregatesInput = {
+    AND?: ForumVoteScalarWhereWithAggregatesInput | ForumVoteScalarWhereWithAggregatesInput[]
+    OR?: ForumVoteScalarWhereWithAggregatesInput[]
+    NOT?: ForumVoteScalarWhereWithAggregatesInput | ForumVoteScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ForumVote"> | string
+    user_id?: StringWithAggregatesFilter<"ForumVote"> | string
+    forum_id?: StringWithAggregatesFilter<"ForumVote"> | string
+    type?: EnumVoteTypeWithAggregatesFilter<"ForumVote"> | $Enums.VoteType
+  }
+
   export type ForumWhereInput = {
     AND?: ForumWhereInput | ForumWhereInput[]
     OR?: ForumWhereInput[]
@@ -18157,6 +20686,10 @@ export namespace Prisma {
     comment?: StringFilter<"Forum"> | string
     user_id?: StringFilter<"Forum"> | string
     movie_id?: StringFilter<"Forum"> | string
+    likes?: IntFilter<"Forum"> | number
+    dislikes?: IntFilter<"Forum"> | number
+    votes?: ForumVoteListRelationFilter
+    replies?: ForumReplyListRelationFilter
     users?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     movies?: XOR<MovieNullableScalarRelationFilter, MovieWhereInput> | null
   }
@@ -18167,6 +20700,10 @@ export namespace Prisma {
     comment?: SortOrder
     user_id?: SortOrder
     movie_id?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
+    votes?: ForumVoteOrderByRelationAggregateInput
+    replies?: ForumReplyOrderByRelationAggregateInput
     users?: UserOrderByWithRelationInput
     movies?: MovieOrderByWithRelationInput
   }
@@ -18180,6 +20717,10 @@ export namespace Prisma {
     comment?: StringFilter<"Forum"> | string
     user_id?: StringFilter<"Forum"> | string
     movie_id?: StringFilter<"Forum"> | string
+    likes?: IntFilter<"Forum"> | number
+    dislikes?: IntFilter<"Forum"> | number
+    votes?: ForumVoteListRelationFilter
+    replies?: ForumReplyListRelationFilter
     users?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     movies?: XOR<MovieNullableScalarRelationFilter, MovieWhereInput> | null
   }, "id">
@@ -18190,6 +20731,8 @@ export namespace Prisma {
     comment?: SortOrder
     user_id?: SortOrder
     movie_id?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
     _count?: ForumCountOrderByAggregateInput
     _avg?: ForumAvgOrderByAggregateInput
     _max?: ForumMaxOrderByAggregateInput
@@ -18206,6 +20749,66 @@ export namespace Prisma {
     comment?: StringWithAggregatesFilter<"Forum"> | string
     user_id?: StringWithAggregatesFilter<"Forum"> | string
     movie_id?: StringWithAggregatesFilter<"Forum"> | string
+    likes?: IntWithAggregatesFilter<"Forum"> | number
+    dislikes?: IntWithAggregatesFilter<"Forum"> | number
+  }
+
+  export type ForumReplyWhereInput = {
+    AND?: ForumReplyWhereInput | ForumReplyWhereInput[]
+    OR?: ForumReplyWhereInput[]
+    NOT?: ForumReplyWhereInput | ForumReplyWhereInput[]
+    id?: StringFilter<"ForumReply"> | string
+    forum_id?: StringFilter<"ForumReply"> | string
+    user_id?: StringFilter<"ForumReply"> | string
+    comment?: StringFilter<"ForumReply"> | string
+    createdAt?: DateTimeFilter<"ForumReply"> | Date | string
+    forum?: XOR<ForumNullableScalarRelationFilter, ForumWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type ForumReplyOrderByWithRelationInput = {
+    id?: SortOrder
+    forum_id?: SortOrder
+    user_id?: SortOrder
+    comment?: SortOrder
+    createdAt?: SortOrder
+    forum?: ForumOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type ForumReplyWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ForumReplyWhereInput | ForumReplyWhereInput[]
+    OR?: ForumReplyWhereInput[]
+    NOT?: ForumReplyWhereInput | ForumReplyWhereInput[]
+    forum_id?: StringFilter<"ForumReply"> | string
+    user_id?: StringFilter<"ForumReply"> | string
+    comment?: StringFilter<"ForumReply"> | string
+    createdAt?: DateTimeFilter<"ForumReply"> | Date | string
+    forum?: XOR<ForumNullableScalarRelationFilter, ForumWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type ForumReplyOrderByWithAggregationInput = {
+    id?: SortOrder
+    forum_id?: SortOrder
+    user_id?: SortOrder
+    comment?: SortOrder
+    createdAt?: SortOrder
+    _count?: ForumReplyCountOrderByAggregateInput
+    _max?: ForumReplyMaxOrderByAggregateInput
+    _min?: ForumReplyMinOrderByAggregateInput
+  }
+
+  export type ForumReplyScalarWhereWithAggregatesInput = {
+    AND?: ForumReplyScalarWhereWithAggregatesInput | ForumReplyScalarWhereWithAggregatesInput[]
+    OR?: ForumReplyScalarWhereWithAggregatesInput[]
+    NOT?: ForumReplyScalarWhereWithAggregatesInput | ForumReplyScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ForumReply"> | string
+    forum_id?: StringWithAggregatesFilter<"ForumReply"> | string
+    user_id?: StringWithAggregatesFilter<"ForumReply"> | string
+    comment?: StringWithAggregatesFilter<"ForumReply"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ForumReply"> | Date | string
   }
 
   export type TicketWhereInput = {
@@ -18761,6 +21364,8 @@ export namespace Prisma {
     forum?: ForumCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionCreateNestedManyWithoutUsersInput
     coupons?: CouponCreateNestedManyWithoutUsersInput
+    forum_votes?: ForumVoteCreateNestedManyWithoutUserInput
+    forum_replies?: ForumReplyCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -18782,6 +21387,8 @@ export namespace Prisma {
     forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionUncheckedCreateNestedManyWithoutUsersInput
     coupons?: CouponUncheckedCreateNestedManyWithoutUsersInput
+    forum_votes?: ForumVoteUncheckedCreateNestedManyWithoutUserInput
+    forum_replies?: ForumReplyUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -18802,6 +21409,8 @@ export namespace Prisma {
     forum?: ForumUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUpdateManyWithoutUsersNestedInput
     coupons?: CouponUpdateManyWithoutUsersNestedInput
+    forum_votes?: ForumVoteUpdateManyWithoutUserNestedInput
+    forum_replies?: ForumReplyUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -18822,6 +21431,8 @@ export namespace Prisma {
     forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUncheckedUpdateManyWithoutUsersNestedInput
     coupons?: CouponUncheckedUpdateManyWithoutUsersNestedInput
+    forum_votes?: ForumVoteUncheckedUpdateManyWithoutUserNestedInput
+    forum_replies?: ForumReplyUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -19081,10 +21692,57 @@ export namespace Prisma {
     column?: IntFieldUpdateOperationsInput | number
   }
 
+  export type ForumVoteCreateInput = {
+    id?: string
+    type: $Enums.VoteType
+    forum?: ForumCreateNestedOneWithoutVotesInput
+    user?: UserCreateNestedOneWithoutForum_votesInput
+  }
+
+  export type ForumVoteUncheckedCreateInput = {
+    id?: string
+    user_id: string
+    forum_id: string
+    type: $Enums.VoteType
+  }
+
+  export type ForumVoteUpdateInput = {
+    type?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
+    forum?: ForumUpdateOneWithoutVotesNestedInput
+    user?: UserUpdateOneWithoutForum_votesNestedInput
+  }
+
+  export type ForumVoteUncheckedUpdateInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    forum_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
+  }
+
+  export type ForumVoteCreateManyInput = {
+    id?: string
+    user_id: string
+    forum_id: string
+    type: $Enums.VoteType
+  }
+
+  export type ForumVoteUpdateManyMutationInput = {
+    type?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
+  }
+
+  export type ForumVoteUncheckedUpdateManyInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    forum_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
+  }
+
   export type ForumCreateInput = {
     id?: string
     review: number
     comment: string
+    likes?: number
+    dislikes?: number
+    votes?: ForumVoteCreateNestedManyWithoutForumInput
+    replies?: ForumReplyCreateNestedManyWithoutForumInput
     users?: UserCreateNestedOneWithoutForumInput
     movies?: MovieCreateNestedOneWithoutForumInput
   }
@@ -19095,11 +21753,19 @@ export namespace Prisma {
     comment: string
     user_id: string
     movie_id: string
+    likes?: number
+    dislikes?: number
+    votes?: ForumVoteUncheckedCreateNestedManyWithoutForumInput
+    replies?: ForumReplyUncheckedCreateNestedManyWithoutForumInput
   }
 
   export type ForumUpdateInput = {
     review?: FloatFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    votes?: ForumVoteUpdateManyWithoutForumNestedInput
+    replies?: ForumReplyUpdateManyWithoutForumNestedInput
     users?: UserUpdateOneWithoutForumNestedInput
     movies?: MovieUpdateOneWithoutForumNestedInput
   }
@@ -19109,6 +21775,10 @@ export namespace Prisma {
     comment?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
     movie_id?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    votes?: ForumVoteUncheckedUpdateManyWithoutForumNestedInput
+    replies?: ForumReplyUncheckedUpdateManyWithoutForumNestedInput
   }
 
   export type ForumCreateManyInput = {
@@ -19117,11 +21787,15 @@ export namespace Prisma {
     comment: string
     user_id: string
     movie_id: string
+    likes?: number
+    dislikes?: number
   }
 
   export type ForumUpdateManyMutationInput = {
     review?: FloatFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
   }
 
   export type ForumUncheckedUpdateManyInput = {
@@ -19129,6 +21803,58 @@ export namespace Prisma {
     comment?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
     movie_id?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ForumReplyCreateInput = {
+    id?: string
+    comment: string
+    createdAt?: Date | string
+    forum?: ForumCreateNestedOneWithoutRepliesInput
+    user?: UserCreateNestedOneWithoutForum_repliesInput
+  }
+
+  export type ForumReplyUncheckedCreateInput = {
+    id?: string
+    forum_id: string
+    user_id: string
+    comment: string
+    createdAt?: Date | string
+  }
+
+  export type ForumReplyUpdateInput = {
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    forum?: ForumUpdateOneWithoutRepliesNestedInput
+    user?: UserUpdateOneWithoutForum_repliesNestedInput
+  }
+
+  export type ForumReplyUncheckedUpdateInput = {
+    forum_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ForumReplyCreateManyInput = {
+    id?: string
+    forum_id: string
+    user_id: string
+    comment: string
+    createdAt?: Date | string
+  }
+
+  export type ForumReplyUpdateManyMutationInput = {
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ForumReplyUncheckedUpdateManyInput = {
+    forum_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TicketCreateInput = {
@@ -19758,7 +22484,27 @@ export namespace Prisma {
     none?: CouponWhereInput
   }
 
+  export type ForumVoteListRelationFilter = {
+    every?: ForumVoteWhereInput
+    some?: ForumVoteWhereInput
+    none?: ForumVoteWhereInput
+  }
+
+  export type ForumReplyListRelationFilter = {
+    every?: ForumReplyWhereInput
+    some?: ForumReplyWhereInput
+    none?: ForumReplyWhereInput
+  }
+
   export type CouponOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ForumVoteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ForumReplyOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -19994,6 +22740,59 @@ export namespace Prisma {
     column?: SortOrder
   }
 
+  export type EnumVoteTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.VoteType | EnumVoteTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.VoteType[] | ListEnumVoteTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VoteType[] | ListEnumVoteTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumVoteTypeFilter<$PrismaModel> | $Enums.VoteType
+  }
+
+  export type ForumNullableScalarRelationFilter = {
+    is?: ForumWhereInput | null
+    isNot?: ForumWhereInput | null
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type ForumVoteUser_idForum_idCompoundUniqueInput = {
+    user_id: string
+    forum_id: string
+  }
+
+  export type ForumVoteCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    forum_id?: SortOrder
+    type?: SortOrder
+  }
+
+  export type ForumVoteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    forum_id?: SortOrder
+    type?: SortOrder
+  }
+
+  export type ForumVoteMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    forum_id?: SortOrder
+    type?: SortOrder
+  }
+
+  export type EnumVoteTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VoteType | EnumVoteTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.VoteType[] | ListEnumVoteTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VoteType[] | ListEnumVoteTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumVoteTypeWithAggregatesFilter<$PrismaModel> | $Enums.VoteType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVoteTypeFilter<$PrismaModel>
+    _max?: NestedEnumVoteTypeFilter<$PrismaModel>
+  }
+
   export type FloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -20005,21 +22804,20 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
-  }
-
   export type ForumCountOrderByAggregateInput = {
     id?: SortOrder
     review?: SortOrder
     comment?: SortOrder
     user_id?: SortOrder
     movie_id?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
   }
 
   export type ForumAvgOrderByAggregateInput = {
     review?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
   }
 
   export type ForumMaxOrderByAggregateInput = {
@@ -20028,6 +22826,8 @@ export namespace Prisma {
     comment?: SortOrder
     user_id?: SortOrder
     movie_id?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
   }
 
   export type ForumMinOrderByAggregateInput = {
@@ -20036,10 +22836,14 @@ export namespace Prisma {
     comment?: SortOrder
     user_id?: SortOrder
     movie_id?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
   }
 
   export type ForumSumOrderByAggregateInput = {
     review?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
   }
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -20056,6 +22860,30 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type ForumReplyCountOrderByAggregateInput = {
+    id?: SortOrder
+    forum_id?: SortOrder
+    user_id?: SortOrder
+    comment?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ForumReplyMaxOrderByAggregateInput = {
+    id?: SortOrder
+    forum_id?: SortOrder
+    user_id?: SortOrder
+    comment?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ForumReplyMinOrderByAggregateInput = {
+    id?: SortOrder
+    forum_id?: SortOrder
+    user_id?: SortOrder
+    comment?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type Ticket_typeNullableScalarRelationFilter = {
@@ -20548,6 +23376,20 @@ export namespace Prisma {
     connect?: CouponWhereUniqueInput | CouponWhereUniqueInput[]
   }
 
+  export type ForumVoteCreateNestedManyWithoutUserInput = {
+    create?: XOR<ForumVoteCreateWithoutUserInput, ForumVoteUncheckedCreateWithoutUserInput> | ForumVoteCreateWithoutUserInput[] | ForumVoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ForumVoteCreateOrConnectWithoutUserInput | ForumVoteCreateOrConnectWithoutUserInput[]
+    createMany?: ForumVoteCreateManyUserInputEnvelope
+    connect?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+  }
+
+  export type ForumReplyCreateNestedManyWithoutUserInput = {
+    create?: XOR<ForumReplyCreateWithoutUserInput, ForumReplyUncheckedCreateWithoutUserInput> | ForumReplyCreateWithoutUserInput[] | ForumReplyUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ForumReplyCreateOrConnectWithoutUserInput | ForumReplyCreateOrConnectWithoutUserInput[]
+    createMany?: ForumReplyCreateManyUserInputEnvelope
+    connect?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+  }
+
   export type TicketUncheckedCreateNestedManyWithoutUsersInput = {
     create?: XOR<TicketCreateWithoutUsersInput, TicketUncheckedCreateWithoutUsersInput> | TicketCreateWithoutUsersInput[] | TicketUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: TicketCreateOrConnectWithoutUsersInput | TicketCreateOrConnectWithoutUsersInput[]
@@ -20574,6 +23416,20 @@ export namespace Prisma {
     connectOrCreate?: CouponCreateOrConnectWithoutUsersInput | CouponCreateOrConnectWithoutUsersInput[]
     createMany?: CouponCreateManyUsersInputEnvelope
     connect?: CouponWhereUniqueInput | CouponWhereUniqueInput[]
+  }
+
+  export type ForumVoteUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ForumVoteCreateWithoutUserInput, ForumVoteUncheckedCreateWithoutUserInput> | ForumVoteCreateWithoutUserInput[] | ForumVoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ForumVoteCreateOrConnectWithoutUserInput | ForumVoteCreateOrConnectWithoutUserInput[]
+    createMany?: ForumVoteCreateManyUserInputEnvelope
+    connect?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+  }
+
+  export type ForumReplyUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ForumReplyCreateWithoutUserInput, ForumReplyUncheckedCreateWithoutUserInput> | ForumReplyCreateWithoutUserInput[] | ForumReplyUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ForumReplyCreateOrConnectWithoutUserInput | ForumReplyCreateOrConnectWithoutUserInput[]
+    createMany?: ForumReplyCreateManyUserInputEnvelope
+    connect?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -20647,6 +23503,34 @@ export namespace Prisma {
     deleteMany?: CouponScalarWhereInput | CouponScalarWhereInput[]
   }
 
+  export type ForumVoteUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ForumVoteCreateWithoutUserInput, ForumVoteUncheckedCreateWithoutUserInput> | ForumVoteCreateWithoutUserInput[] | ForumVoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ForumVoteCreateOrConnectWithoutUserInput | ForumVoteCreateOrConnectWithoutUserInput[]
+    upsert?: ForumVoteUpsertWithWhereUniqueWithoutUserInput | ForumVoteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ForumVoteCreateManyUserInputEnvelope
+    set?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+    disconnect?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+    delete?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+    connect?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+    update?: ForumVoteUpdateWithWhereUniqueWithoutUserInput | ForumVoteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ForumVoteUpdateManyWithWhereWithoutUserInput | ForumVoteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ForumVoteScalarWhereInput | ForumVoteScalarWhereInput[]
+  }
+
+  export type ForumReplyUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ForumReplyCreateWithoutUserInput, ForumReplyUncheckedCreateWithoutUserInput> | ForumReplyCreateWithoutUserInput[] | ForumReplyUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ForumReplyCreateOrConnectWithoutUserInput | ForumReplyCreateOrConnectWithoutUserInput[]
+    upsert?: ForumReplyUpsertWithWhereUniqueWithoutUserInput | ForumReplyUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ForumReplyCreateManyUserInputEnvelope
+    set?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+    disconnect?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+    delete?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+    connect?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+    update?: ForumReplyUpdateWithWhereUniqueWithoutUserInput | ForumReplyUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ForumReplyUpdateManyWithWhereWithoutUserInput | ForumReplyUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ForumReplyScalarWhereInput | ForumReplyScalarWhereInput[]
+  }
+
   export type TicketUncheckedUpdateManyWithoutUsersNestedInput = {
     create?: XOR<TicketCreateWithoutUsersInput, TicketUncheckedCreateWithoutUsersInput> | TicketCreateWithoutUsersInput[] | TicketUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: TicketCreateOrConnectWithoutUsersInput | TicketCreateOrConnectWithoutUsersInput[]
@@ -20701,6 +23585,34 @@ export namespace Prisma {
     update?: CouponUpdateWithWhereUniqueWithoutUsersInput | CouponUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: CouponUpdateManyWithWhereWithoutUsersInput | CouponUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: CouponScalarWhereInput | CouponScalarWhereInput[]
+  }
+
+  export type ForumVoteUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ForumVoteCreateWithoutUserInput, ForumVoteUncheckedCreateWithoutUserInput> | ForumVoteCreateWithoutUserInput[] | ForumVoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ForumVoteCreateOrConnectWithoutUserInput | ForumVoteCreateOrConnectWithoutUserInput[]
+    upsert?: ForumVoteUpsertWithWhereUniqueWithoutUserInput | ForumVoteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ForumVoteCreateManyUserInputEnvelope
+    set?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+    disconnect?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+    delete?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+    connect?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+    update?: ForumVoteUpdateWithWhereUniqueWithoutUserInput | ForumVoteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ForumVoteUpdateManyWithWhereWithoutUserInput | ForumVoteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ForumVoteScalarWhereInput | ForumVoteScalarWhereInput[]
+  }
+
+  export type ForumReplyUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ForumReplyCreateWithoutUserInput, ForumReplyUncheckedCreateWithoutUserInput> | ForumReplyCreateWithoutUserInput[] | ForumReplyUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ForumReplyCreateOrConnectWithoutUserInput | ForumReplyCreateOrConnectWithoutUserInput[]
+    upsert?: ForumReplyUpsertWithWhereUniqueWithoutUserInput | ForumReplyUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ForumReplyCreateManyUserInputEnvelope
+    set?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+    disconnect?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+    delete?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+    connect?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+    update?: ForumReplyUpdateWithWhereUniqueWithoutUserInput | ForumReplyUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ForumReplyUpdateManyWithWhereWithoutUserInput | ForumReplyUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ForumReplyScalarWhereInput | ForumReplyScalarWhereInput[]
   }
 
   export type TicketCreateNestedManyWithoutChairsInput = {
@@ -20987,6 +23899,56 @@ export namespace Prisma {
     deleteMany?: ChairScalarWhereInput | ChairScalarWhereInput[]
   }
 
+  export type ForumCreateNestedOneWithoutVotesInput = {
+    create?: XOR<ForumCreateWithoutVotesInput, ForumUncheckedCreateWithoutVotesInput>
+    connectOrCreate?: ForumCreateOrConnectWithoutVotesInput
+    connect?: ForumWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutForum_votesInput = {
+    create?: XOR<UserCreateWithoutForum_votesInput, UserUncheckedCreateWithoutForum_votesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutForum_votesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumVoteTypeFieldUpdateOperationsInput = {
+    set?: $Enums.VoteType
+  }
+
+  export type ForumUpdateOneWithoutVotesNestedInput = {
+    create?: XOR<ForumCreateWithoutVotesInput, ForumUncheckedCreateWithoutVotesInput>
+    connectOrCreate?: ForumCreateOrConnectWithoutVotesInput
+    upsert?: ForumUpsertWithoutVotesInput
+    disconnect?: boolean
+    delete?: ForumWhereInput | boolean
+    connect?: ForumWhereUniqueInput
+    update?: XOR<XOR<ForumUpdateToOneWithWhereWithoutVotesInput, ForumUpdateWithoutVotesInput>, ForumUncheckedUpdateWithoutVotesInput>
+  }
+
+  export type UserUpdateOneWithoutForum_votesNestedInput = {
+    create?: XOR<UserCreateWithoutForum_votesInput, UserUncheckedCreateWithoutForum_votesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutForum_votesInput
+    upsert?: UserUpsertWithoutForum_votesInput
+    disconnect?: boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutForum_votesInput, UserUpdateWithoutForum_votesInput>, UserUncheckedUpdateWithoutForum_votesInput>
+  }
+
+  export type ForumVoteCreateNestedManyWithoutForumInput = {
+    create?: XOR<ForumVoteCreateWithoutForumInput, ForumVoteUncheckedCreateWithoutForumInput> | ForumVoteCreateWithoutForumInput[] | ForumVoteUncheckedCreateWithoutForumInput[]
+    connectOrCreate?: ForumVoteCreateOrConnectWithoutForumInput | ForumVoteCreateOrConnectWithoutForumInput[]
+    createMany?: ForumVoteCreateManyForumInputEnvelope
+    connect?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+  }
+
+  export type ForumReplyCreateNestedManyWithoutForumInput = {
+    create?: XOR<ForumReplyCreateWithoutForumInput, ForumReplyUncheckedCreateWithoutForumInput> | ForumReplyCreateWithoutForumInput[] | ForumReplyUncheckedCreateWithoutForumInput[]
+    connectOrCreate?: ForumReplyCreateOrConnectWithoutForumInput | ForumReplyCreateOrConnectWithoutForumInput[]
+    createMany?: ForumReplyCreateManyForumInputEnvelope
+    connect?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+  }
+
   export type UserCreateNestedOneWithoutForumInput = {
     create?: XOR<UserCreateWithoutForumInput, UserUncheckedCreateWithoutForumInput>
     connectOrCreate?: UserCreateOrConnectWithoutForumInput
@@ -20999,12 +23961,54 @@ export namespace Prisma {
     connect?: MovieWhereUniqueInput
   }
 
+  export type ForumVoteUncheckedCreateNestedManyWithoutForumInput = {
+    create?: XOR<ForumVoteCreateWithoutForumInput, ForumVoteUncheckedCreateWithoutForumInput> | ForumVoteCreateWithoutForumInput[] | ForumVoteUncheckedCreateWithoutForumInput[]
+    connectOrCreate?: ForumVoteCreateOrConnectWithoutForumInput | ForumVoteCreateOrConnectWithoutForumInput[]
+    createMany?: ForumVoteCreateManyForumInputEnvelope
+    connect?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+  }
+
+  export type ForumReplyUncheckedCreateNestedManyWithoutForumInput = {
+    create?: XOR<ForumReplyCreateWithoutForumInput, ForumReplyUncheckedCreateWithoutForumInput> | ForumReplyCreateWithoutForumInput[] | ForumReplyUncheckedCreateWithoutForumInput[]
+    connectOrCreate?: ForumReplyCreateOrConnectWithoutForumInput | ForumReplyCreateOrConnectWithoutForumInput[]
+    createMany?: ForumReplyCreateManyForumInputEnvelope
+    connect?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+  }
+
   export type FloatFieldUpdateOperationsInput = {
     set?: number
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type ForumVoteUpdateManyWithoutForumNestedInput = {
+    create?: XOR<ForumVoteCreateWithoutForumInput, ForumVoteUncheckedCreateWithoutForumInput> | ForumVoteCreateWithoutForumInput[] | ForumVoteUncheckedCreateWithoutForumInput[]
+    connectOrCreate?: ForumVoteCreateOrConnectWithoutForumInput | ForumVoteCreateOrConnectWithoutForumInput[]
+    upsert?: ForumVoteUpsertWithWhereUniqueWithoutForumInput | ForumVoteUpsertWithWhereUniqueWithoutForumInput[]
+    createMany?: ForumVoteCreateManyForumInputEnvelope
+    set?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+    disconnect?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+    delete?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+    connect?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+    update?: ForumVoteUpdateWithWhereUniqueWithoutForumInput | ForumVoteUpdateWithWhereUniqueWithoutForumInput[]
+    updateMany?: ForumVoteUpdateManyWithWhereWithoutForumInput | ForumVoteUpdateManyWithWhereWithoutForumInput[]
+    deleteMany?: ForumVoteScalarWhereInput | ForumVoteScalarWhereInput[]
+  }
+
+  export type ForumReplyUpdateManyWithoutForumNestedInput = {
+    create?: XOR<ForumReplyCreateWithoutForumInput, ForumReplyUncheckedCreateWithoutForumInput> | ForumReplyCreateWithoutForumInput[] | ForumReplyUncheckedCreateWithoutForumInput[]
+    connectOrCreate?: ForumReplyCreateOrConnectWithoutForumInput | ForumReplyCreateOrConnectWithoutForumInput[]
+    upsert?: ForumReplyUpsertWithWhereUniqueWithoutForumInput | ForumReplyUpsertWithWhereUniqueWithoutForumInput[]
+    createMany?: ForumReplyCreateManyForumInputEnvelope
+    set?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+    disconnect?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+    delete?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+    connect?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+    update?: ForumReplyUpdateWithWhereUniqueWithoutForumInput | ForumReplyUpdateWithWhereUniqueWithoutForumInput[]
+    updateMany?: ForumReplyUpdateManyWithWhereWithoutForumInput | ForumReplyUpdateManyWithWhereWithoutForumInput[]
+    deleteMany?: ForumReplyScalarWhereInput | ForumReplyScalarWhereInput[]
   }
 
   export type UserUpdateOneWithoutForumNestedInput = {
@@ -21025,6 +24029,66 @@ export namespace Prisma {
     delete?: MovieWhereInput | boolean
     connect?: MovieWhereUniqueInput
     update?: XOR<XOR<MovieUpdateToOneWithWhereWithoutForumInput, MovieUpdateWithoutForumInput>, MovieUncheckedUpdateWithoutForumInput>
+  }
+
+  export type ForumVoteUncheckedUpdateManyWithoutForumNestedInput = {
+    create?: XOR<ForumVoteCreateWithoutForumInput, ForumVoteUncheckedCreateWithoutForumInput> | ForumVoteCreateWithoutForumInput[] | ForumVoteUncheckedCreateWithoutForumInput[]
+    connectOrCreate?: ForumVoteCreateOrConnectWithoutForumInput | ForumVoteCreateOrConnectWithoutForumInput[]
+    upsert?: ForumVoteUpsertWithWhereUniqueWithoutForumInput | ForumVoteUpsertWithWhereUniqueWithoutForumInput[]
+    createMany?: ForumVoteCreateManyForumInputEnvelope
+    set?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+    disconnect?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+    delete?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+    connect?: ForumVoteWhereUniqueInput | ForumVoteWhereUniqueInput[]
+    update?: ForumVoteUpdateWithWhereUniqueWithoutForumInput | ForumVoteUpdateWithWhereUniqueWithoutForumInput[]
+    updateMany?: ForumVoteUpdateManyWithWhereWithoutForumInput | ForumVoteUpdateManyWithWhereWithoutForumInput[]
+    deleteMany?: ForumVoteScalarWhereInput | ForumVoteScalarWhereInput[]
+  }
+
+  export type ForumReplyUncheckedUpdateManyWithoutForumNestedInput = {
+    create?: XOR<ForumReplyCreateWithoutForumInput, ForumReplyUncheckedCreateWithoutForumInput> | ForumReplyCreateWithoutForumInput[] | ForumReplyUncheckedCreateWithoutForumInput[]
+    connectOrCreate?: ForumReplyCreateOrConnectWithoutForumInput | ForumReplyCreateOrConnectWithoutForumInput[]
+    upsert?: ForumReplyUpsertWithWhereUniqueWithoutForumInput | ForumReplyUpsertWithWhereUniqueWithoutForumInput[]
+    createMany?: ForumReplyCreateManyForumInputEnvelope
+    set?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+    disconnect?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+    delete?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+    connect?: ForumReplyWhereUniqueInput | ForumReplyWhereUniqueInput[]
+    update?: ForumReplyUpdateWithWhereUniqueWithoutForumInput | ForumReplyUpdateWithWhereUniqueWithoutForumInput[]
+    updateMany?: ForumReplyUpdateManyWithWhereWithoutForumInput | ForumReplyUpdateManyWithWhereWithoutForumInput[]
+    deleteMany?: ForumReplyScalarWhereInput | ForumReplyScalarWhereInput[]
+  }
+
+  export type ForumCreateNestedOneWithoutRepliesInput = {
+    create?: XOR<ForumCreateWithoutRepliesInput, ForumUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: ForumCreateOrConnectWithoutRepliesInput
+    connect?: ForumWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutForum_repliesInput = {
+    create?: XOR<UserCreateWithoutForum_repliesInput, UserUncheckedCreateWithoutForum_repliesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutForum_repliesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ForumUpdateOneWithoutRepliesNestedInput = {
+    create?: XOR<ForumCreateWithoutRepliesInput, ForumUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: ForumCreateOrConnectWithoutRepliesInput
+    upsert?: ForumUpsertWithoutRepliesInput
+    disconnect?: boolean
+    delete?: ForumWhereInput | boolean
+    connect?: ForumWhereUniqueInput
+    update?: XOR<XOR<ForumUpdateToOneWithWhereWithoutRepliesInput, ForumUpdateWithoutRepliesInput>, ForumUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type UserUpdateOneWithoutForum_repliesNestedInput = {
+    create?: XOR<UserCreateWithoutForum_repliesInput, UserUncheckedCreateWithoutForum_repliesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutForum_repliesInput
+    upsert?: UserUpsertWithoutForum_repliesInput
+    disconnect?: boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutForum_repliesInput, UserUpdateWithoutForum_repliesInput>, UserUncheckedUpdateWithoutForum_repliesInput>
   }
 
   export type Ticket_typeCreateNestedOneWithoutTicketsInput = {
@@ -21555,6 +24619,23 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type NestedEnumVoteTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.VoteType | EnumVoteTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.VoteType[] | ListEnumVoteTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VoteType[] | ListEnumVoteTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumVoteTypeFilter<$PrismaModel> | $Enums.VoteType
+  }
+
+  export type NestedEnumVoteTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VoteType | EnumVoteTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.VoteType[] | ListEnumVoteTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VoteType[] | ListEnumVoteTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumVoteTypeWithAggregatesFilter<$PrismaModel> | $Enums.VoteType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVoteTypeFilter<$PrismaModel>
+    _max?: NestedEnumVoteTypeFilter<$PrismaModel>
+  }
+
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -21615,6 +24696,10 @@ export namespace Prisma {
     id?: string
     review: number
     comment: string
+    likes?: number
+    dislikes?: number
+    votes?: ForumVoteCreateNestedManyWithoutForumInput
+    replies?: ForumReplyCreateNestedManyWithoutForumInput
     users?: UserCreateNestedOneWithoutForumInput
   }
 
@@ -21623,6 +24708,10 @@ export namespace Prisma {
     review: number
     comment: string
     user_id: string
+    likes?: number
+    dislikes?: number
+    votes?: ForumVoteUncheckedCreateNestedManyWithoutForumInput
+    replies?: ForumReplyUncheckedCreateNestedManyWithoutForumInput
   }
 
   export type ForumCreateOrConnectWithoutMoviesInput = {
@@ -21687,6 +24776,8 @@ export namespace Prisma {
     comment?: StringFilter<"Forum"> | string
     user_id?: StringFilter<"Forum"> | string
     movie_id?: StringFilter<"Forum"> | string
+    likes?: IntFilter<"Forum"> | number
+    dislikes?: IntFilter<"Forum"> | number
   }
 
   export type Payment_sessionCreateWithoutScreeningsInput = {
@@ -22029,6 +25120,10 @@ export namespace Prisma {
     id?: string
     review: number
     comment: string
+    likes?: number
+    dislikes?: number
+    votes?: ForumVoteCreateNestedManyWithoutForumInput
+    replies?: ForumReplyCreateNestedManyWithoutForumInput
     movies?: MovieCreateNestedOneWithoutForumInput
   }
 
@@ -22037,6 +25132,10 @@ export namespace Prisma {
     review: number
     comment: string
     movie_id: string
+    likes?: number
+    dislikes?: number
+    votes?: ForumVoteUncheckedCreateNestedManyWithoutForumInput
+    replies?: ForumReplyUncheckedCreateNestedManyWithoutForumInput
   }
 
   export type ForumCreateOrConnectWithoutUsersInput = {
@@ -22098,6 +25197,50 @@ export namespace Prisma {
 
   export type CouponCreateManyUsersInputEnvelope = {
     data: CouponCreateManyUsersInput | CouponCreateManyUsersInput[]
+  }
+
+  export type ForumVoteCreateWithoutUserInput = {
+    id?: string
+    type: $Enums.VoteType
+    forum?: ForumCreateNestedOneWithoutVotesInput
+  }
+
+  export type ForumVoteUncheckedCreateWithoutUserInput = {
+    id?: string
+    forum_id: string
+    type: $Enums.VoteType
+  }
+
+  export type ForumVoteCreateOrConnectWithoutUserInput = {
+    where: ForumVoteWhereUniqueInput
+    create: XOR<ForumVoteCreateWithoutUserInput, ForumVoteUncheckedCreateWithoutUserInput>
+  }
+
+  export type ForumVoteCreateManyUserInputEnvelope = {
+    data: ForumVoteCreateManyUserInput | ForumVoteCreateManyUserInput[]
+  }
+
+  export type ForumReplyCreateWithoutUserInput = {
+    id?: string
+    comment: string
+    createdAt?: Date | string
+    forum?: ForumCreateNestedOneWithoutRepliesInput
+  }
+
+  export type ForumReplyUncheckedCreateWithoutUserInput = {
+    id?: string
+    forum_id: string
+    comment: string
+    createdAt?: Date | string
+  }
+
+  export type ForumReplyCreateOrConnectWithoutUserInput = {
+    where: ForumReplyWhereUniqueInput
+    create: XOR<ForumReplyCreateWithoutUserInput, ForumReplyUncheckedCreateWithoutUserInput>
+  }
+
+  export type ForumReplyCreateManyUserInputEnvelope = {
+    data: ForumReplyCreateManyUserInput | ForumReplyCreateManyUserInput[]
   }
 
   export type RankUpsertWithoutUsersInput = {
@@ -22199,6 +25342,59 @@ export namespace Prisma {
     qr_token?: StringFilter<"Coupon"> | string
     used?: BoolFilter<"Coupon"> | boolean
     created_at?: DateTimeFilter<"Coupon"> | Date | string
+  }
+
+  export type ForumVoteUpsertWithWhereUniqueWithoutUserInput = {
+    where: ForumVoteWhereUniqueInput
+    update: XOR<ForumVoteUpdateWithoutUserInput, ForumVoteUncheckedUpdateWithoutUserInput>
+    create: XOR<ForumVoteCreateWithoutUserInput, ForumVoteUncheckedCreateWithoutUserInput>
+  }
+
+  export type ForumVoteUpdateWithWhereUniqueWithoutUserInput = {
+    where: ForumVoteWhereUniqueInput
+    data: XOR<ForumVoteUpdateWithoutUserInput, ForumVoteUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ForumVoteUpdateManyWithWhereWithoutUserInput = {
+    where: ForumVoteScalarWhereInput
+    data: XOR<ForumVoteUpdateManyMutationInput, ForumVoteUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ForumVoteScalarWhereInput = {
+    AND?: ForumVoteScalarWhereInput | ForumVoteScalarWhereInput[]
+    OR?: ForumVoteScalarWhereInput[]
+    NOT?: ForumVoteScalarWhereInput | ForumVoteScalarWhereInput[]
+    id?: StringFilter<"ForumVote"> | string
+    user_id?: StringFilter<"ForumVote"> | string
+    forum_id?: StringFilter<"ForumVote"> | string
+    type?: EnumVoteTypeFilter<"ForumVote"> | $Enums.VoteType
+  }
+
+  export type ForumReplyUpsertWithWhereUniqueWithoutUserInput = {
+    where: ForumReplyWhereUniqueInput
+    update: XOR<ForumReplyUpdateWithoutUserInput, ForumReplyUncheckedUpdateWithoutUserInput>
+    create: XOR<ForumReplyCreateWithoutUserInput, ForumReplyUncheckedCreateWithoutUserInput>
+  }
+
+  export type ForumReplyUpdateWithWhereUniqueWithoutUserInput = {
+    where: ForumReplyWhereUniqueInput
+    data: XOR<ForumReplyUpdateWithoutUserInput, ForumReplyUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ForumReplyUpdateManyWithWhereWithoutUserInput = {
+    where: ForumReplyScalarWhereInput
+    data: XOR<ForumReplyUpdateManyMutationInput, ForumReplyUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ForumReplyScalarWhereInput = {
+    AND?: ForumReplyScalarWhereInput | ForumReplyScalarWhereInput[]
+    OR?: ForumReplyScalarWhereInput[]
+    NOT?: ForumReplyScalarWhereInput | ForumReplyScalarWhereInput[]
+    id?: StringFilter<"ForumReply"> | string
+    forum_id?: StringFilter<"ForumReply"> | string
+    user_id?: StringFilter<"ForumReply"> | string
+    comment?: StringFilter<"ForumReply"> | string
+    createdAt?: DateTimeFilter<"ForumReply"> | Date | string
   }
 
   export type TicketCreateWithoutChairsInput = {
@@ -22333,6 +25529,8 @@ export namespace Prisma {
     forum?: ForumCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionCreateNestedManyWithoutUsersInput
     coupons?: CouponCreateNestedManyWithoutUsersInput
+    forum_votes?: ForumVoteCreateNestedManyWithoutUserInput
+    forum_replies?: ForumReplyCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRanksInput = {
@@ -22353,6 +25551,8 @@ export namespace Prisma {
     forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionUncheckedCreateNestedManyWithoutUsersInput
     coupons?: CouponUncheckedCreateNestedManyWithoutUsersInput
+    forum_votes?: ForumVoteUncheckedCreateNestedManyWithoutUserInput
+    forum_replies?: ForumReplyUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRanksInput = {
@@ -22612,6 +25812,210 @@ export namespace Prisma {
     hall_id?: StringFilter<"Chair"> | string
   }
 
+  export type ForumCreateWithoutVotesInput = {
+    id?: string
+    review: number
+    comment: string
+    likes?: number
+    dislikes?: number
+    replies?: ForumReplyCreateNestedManyWithoutForumInput
+    users?: UserCreateNestedOneWithoutForumInput
+    movies?: MovieCreateNestedOneWithoutForumInput
+  }
+
+  export type ForumUncheckedCreateWithoutVotesInput = {
+    id?: string
+    review: number
+    comment: string
+    user_id: string
+    movie_id: string
+    likes?: number
+    dislikes?: number
+    replies?: ForumReplyUncheckedCreateNestedManyWithoutForumInput
+  }
+
+  export type ForumCreateOrConnectWithoutVotesInput = {
+    where: ForumWhereUniqueInput
+    create: XOR<ForumCreateWithoutVotesInput, ForumUncheckedCreateWithoutVotesInput>
+  }
+
+  export type UserCreateWithoutForum_votesInput = {
+    id?: string
+    name: string
+    email: string
+    password_hash: string
+    points?: number
+    phone_number: string
+    profile_image?: string
+    gender: string
+    email_verified?: boolean
+    email_code?: string | null
+    email_code_exp?: Date | string | null
+    password_reset_token?: string | null
+    password_reset_exp?: Date | string | null
+    ranks?: RankCreateNestedOneWithoutUsersInput
+    tickets?: TicketCreateNestedManyWithoutUsersInput
+    forum?: ForumCreateNestedManyWithoutUsersInput
+    payment_sessions?: Payment_sessionCreateNestedManyWithoutUsersInput
+    coupons?: CouponCreateNestedManyWithoutUsersInput
+    forum_replies?: ForumReplyCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutForum_votesInput = {
+    id?: string
+    name: string
+    email: string
+    password_hash: string
+    points?: number
+    phone_number: string
+    profile_image?: string
+    gender: string
+    email_verified?: boolean
+    email_code?: string | null
+    email_code_exp?: Date | string | null
+    password_reset_token?: string | null
+    password_reset_exp?: Date | string | null
+    rank_id: string
+    tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
+    forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
+    payment_sessions?: Payment_sessionUncheckedCreateNestedManyWithoutUsersInput
+    coupons?: CouponUncheckedCreateNestedManyWithoutUsersInput
+    forum_replies?: ForumReplyUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutForum_votesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutForum_votesInput, UserUncheckedCreateWithoutForum_votesInput>
+  }
+
+  export type ForumUpsertWithoutVotesInput = {
+    update: XOR<ForumUpdateWithoutVotesInput, ForumUncheckedUpdateWithoutVotesInput>
+    create: XOR<ForumCreateWithoutVotesInput, ForumUncheckedCreateWithoutVotesInput>
+    where?: ForumWhereInput
+  }
+
+  export type ForumUpdateToOneWithWhereWithoutVotesInput = {
+    where?: ForumWhereInput
+    data: XOR<ForumUpdateWithoutVotesInput, ForumUncheckedUpdateWithoutVotesInput>
+  }
+
+  export type ForumUpdateWithoutVotesInput = {
+    review?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    replies?: ForumReplyUpdateManyWithoutForumNestedInput
+    users?: UserUpdateOneWithoutForumNestedInput
+    movies?: MovieUpdateOneWithoutForumNestedInput
+  }
+
+  export type ForumUncheckedUpdateWithoutVotesInput = {
+    review?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    movie_id?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    replies?: ForumReplyUncheckedUpdateManyWithoutForumNestedInput
+  }
+
+  export type UserUpsertWithoutForum_votesInput = {
+    update: XOR<UserUpdateWithoutForum_votesInput, UserUncheckedUpdateWithoutForum_votesInput>
+    create: XOR<UserCreateWithoutForum_votesInput, UserUncheckedCreateWithoutForum_votesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutForum_votesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutForum_votesInput, UserUncheckedUpdateWithoutForum_votesInput>
+  }
+
+  export type UserUpdateWithoutForum_votesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    profile_image?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    email_code?: NullableStringFieldUpdateOperationsInput | string | null
+    email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ranks?: RankUpdateOneWithoutUsersNestedInput
+    tickets?: TicketUpdateManyWithoutUsersNestedInput
+    forum?: ForumUpdateManyWithoutUsersNestedInput
+    payment_sessions?: Payment_sessionUpdateManyWithoutUsersNestedInput
+    coupons?: CouponUpdateManyWithoutUsersNestedInput
+    forum_replies?: ForumReplyUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutForum_votesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    profile_image?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    email_code?: NullableStringFieldUpdateOperationsInput | string | null
+    email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rank_id?: StringFieldUpdateOperationsInput | string
+    tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
+    forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
+    payment_sessions?: Payment_sessionUncheckedUpdateManyWithoutUsersNestedInput
+    coupons?: CouponUncheckedUpdateManyWithoutUsersNestedInput
+    forum_replies?: ForumReplyUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ForumVoteCreateWithoutForumInput = {
+    id?: string
+    type: $Enums.VoteType
+    user?: UserCreateNestedOneWithoutForum_votesInput
+  }
+
+  export type ForumVoteUncheckedCreateWithoutForumInput = {
+    id?: string
+    user_id: string
+    type: $Enums.VoteType
+  }
+
+  export type ForumVoteCreateOrConnectWithoutForumInput = {
+    where: ForumVoteWhereUniqueInput
+    create: XOR<ForumVoteCreateWithoutForumInput, ForumVoteUncheckedCreateWithoutForumInput>
+  }
+
+  export type ForumVoteCreateManyForumInputEnvelope = {
+    data: ForumVoteCreateManyForumInput | ForumVoteCreateManyForumInput[]
+  }
+
+  export type ForumReplyCreateWithoutForumInput = {
+    id?: string
+    comment: string
+    createdAt?: Date | string
+    user?: UserCreateNestedOneWithoutForum_repliesInput
+  }
+
+  export type ForumReplyUncheckedCreateWithoutForumInput = {
+    id?: string
+    user_id: string
+    comment: string
+    createdAt?: Date | string
+  }
+
+  export type ForumReplyCreateOrConnectWithoutForumInput = {
+    where: ForumReplyWhereUniqueInput
+    create: XOR<ForumReplyCreateWithoutForumInput, ForumReplyUncheckedCreateWithoutForumInput>
+  }
+
+  export type ForumReplyCreateManyForumInputEnvelope = {
+    data: ForumReplyCreateManyForumInput | ForumReplyCreateManyForumInput[]
+  }
+
   export type UserCreateWithoutForumInput = {
     id?: string
     name: string
@@ -22630,6 +26034,8 @@ export namespace Prisma {
     tickets?: TicketCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionCreateNestedManyWithoutUsersInput
     coupons?: CouponCreateNestedManyWithoutUsersInput
+    forum_votes?: ForumVoteCreateNestedManyWithoutUserInput
+    forum_replies?: ForumReplyCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutForumInput = {
@@ -22650,6 +26056,8 @@ export namespace Prisma {
     tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionUncheckedCreateNestedManyWithoutUsersInput
     coupons?: CouponUncheckedCreateNestedManyWithoutUsersInput
+    forum_votes?: ForumVoteUncheckedCreateNestedManyWithoutUserInput
+    forum_replies?: ForumReplyUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutForumInput = {
@@ -22694,6 +26102,38 @@ export namespace Prisma {
     create: XOR<MovieCreateWithoutForumInput, MovieUncheckedCreateWithoutForumInput>
   }
 
+  export type ForumVoteUpsertWithWhereUniqueWithoutForumInput = {
+    where: ForumVoteWhereUniqueInput
+    update: XOR<ForumVoteUpdateWithoutForumInput, ForumVoteUncheckedUpdateWithoutForumInput>
+    create: XOR<ForumVoteCreateWithoutForumInput, ForumVoteUncheckedCreateWithoutForumInput>
+  }
+
+  export type ForumVoteUpdateWithWhereUniqueWithoutForumInput = {
+    where: ForumVoteWhereUniqueInput
+    data: XOR<ForumVoteUpdateWithoutForumInput, ForumVoteUncheckedUpdateWithoutForumInput>
+  }
+
+  export type ForumVoteUpdateManyWithWhereWithoutForumInput = {
+    where: ForumVoteScalarWhereInput
+    data: XOR<ForumVoteUpdateManyMutationInput, ForumVoteUncheckedUpdateManyWithoutForumInput>
+  }
+
+  export type ForumReplyUpsertWithWhereUniqueWithoutForumInput = {
+    where: ForumReplyWhereUniqueInput
+    update: XOR<ForumReplyUpdateWithoutForumInput, ForumReplyUncheckedUpdateWithoutForumInput>
+    create: XOR<ForumReplyCreateWithoutForumInput, ForumReplyUncheckedCreateWithoutForumInput>
+  }
+
+  export type ForumReplyUpdateWithWhereUniqueWithoutForumInput = {
+    where: ForumReplyWhereUniqueInput
+    data: XOR<ForumReplyUpdateWithoutForumInput, ForumReplyUncheckedUpdateWithoutForumInput>
+  }
+
+  export type ForumReplyUpdateManyWithWhereWithoutForumInput = {
+    where: ForumReplyScalarWhereInput
+    data: XOR<ForumReplyUpdateManyMutationInput, ForumReplyUncheckedUpdateManyWithoutForumInput>
+  }
+
   export type UserUpsertWithoutForumInput = {
     update: XOR<UserUpdateWithoutForumInput, UserUncheckedUpdateWithoutForumInput>
     create: XOR<UserCreateWithoutForumInput, UserUncheckedCreateWithoutForumInput>
@@ -22722,6 +26162,8 @@ export namespace Prisma {
     tickets?: TicketUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUpdateManyWithoutUsersNestedInput
     coupons?: CouponUpdateManyWithoutUsersNestedInput
+    forum_votes?: ForumVoteUpdateManyWithoutUserNestedInput
+    forum_replies?: ForumReplyUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutForumInput = {
@@ -22741,6 +26183,8 @@ export namespace Prisma {
     tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUncheckedUpdateManyWithoutUsersNestedInput
     coupons?: CouponUncheckedUpdateManyWithoutUsersNestedInput
+    forum_votes?: ForumVoteUncheckedUpdateManyWithoutUserNestedInput
+    forum_replies?: ForumReplyUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MovieUpsertWithoutForumInput = {
@@ -22782,6 +26226,166 @@ export namespace Prisma {
     review?: NullableFloatFieldUpdateOperationsInput | number | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     screenings?: ScreeningUncheckedUpdateManyWithoutMoviesNestedInput
+  }
+
+  export type ForumCreateWithoutRepliesInput = {
+    id?: string
+    review: number
+    comment: string
+    likes?: number
+    dislikes?: number
+    votes?: ForumVoteCreateNestedManyWithoutForumInput
+    users?: UserCreateNestedOneWithoutForumInput
+    movies?: MovieCreateNestedOneWithoutForumInput
+  }
+
+  export type ForumUncheckedCreateWithoutRepliesInput = {
+    id?: string
+    review: number
+    comment: string
+    user_id: string
+    movie_id: string
+    likes?: number
+    dislikes?: number
+    votes?: ForumVoteUncheckedCreateNestedManyWithoutForumInput
+  }
+
+  export type ForumCreateOrConnectWithoutRepliesInput = {
+    where: ForumWhereUniqueInput
+    create: XOR<ForumCreateWithoutRepliesInput, ForumUncheckedCreateWithoutRepliesInput>
+  }
+
+  export type UserCreateWithoutForum_repliesInput = {
+    id?: string
+    name: string
+    email: string
+    password_hash: string
+    points?: number
+    phone_number: string
+    profile_image?: string
+    gender: string
+    email_verified?: boolean
+    email_code?: string | null
+    email_code_exp?: Date | string | null
+    password_reset_token?: string | null
+    password_reset_exp?: Date | string | null
+    ranks?: RankCreateNestedOneWithoutUsersInput
+    tickets?: TicketCreateNestedManyWithoutUsersInput
+    forum?: ForumCreateNestedManyWithoutUsersInput
+    payment_sessions?: Payment_sessionCreateNestedManyWithoutUsersInput
+    coupons?: CouponCreateNestedManyWithoutUsersInput
+    forum_votes?: ForumVoteCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutForum_repliesInput = {
+    id?: string
+    name: string
+    email: string
+    password_hash: string
+    points?: number
+    phone_number: string
+    profile_image?: string
+    gender: string
+    email_verified?: boolean
+    email_code?: string | null
+    email_code_exp?: Date | string | null
+    password_reset_token?: string | null
+    password_reset_exp?: Date | string | null
+    rank_id: string
+    tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
+    forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
+    payment_sessions?: Payment_sessionUncheckedCreateNestedManyWithoutUsersInput
+    coupons?: CouponUncheckedCreateNestedManyWithoutUsersInput
+    forum_votes?: ForumVoteUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutForum_repliesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutForum_repliesInput, UserUncheckedCreateWithoutForum_repliesInput>
+  }
+
+  export type ForumUpsertWithoutRepliesInput = {
+    update: XOR<ForumUpdateWithoutRepliesInput, ForumUncheckedUpdateWithoutRepliesInput>
+    create: XOR<ForumCreateWithoutRepliesInput, ForumUncheckedCreateWithoutRepliesInput>
+    where?: ForumWhereInput
+  }
+
+  export type ForumUpdateToOneWithWhereWithoutRepliesInput = {
+    where?: ForumWhereInput
+    data: XOR<ForumUpdateWithoutRepliesInput, ForumUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type ForumUpdateWithoutRepliesInput = {
+    review?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    votes?: ForumVoteUpdateManyWithoutForumNestedInput
+    users?: UserUpdateOneWithoutForumNestedInput
+    movies?: MovieUpdateOneWithoutForumNestedInput
+  }
+
+  export type ForumUncheckedUpdateWithoutRepliesInput = {
+    review?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    movie_id?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    votes?: ForumVoteUncheckedUpdateManyWithoutForumNestedInput
+  }
+
+  export type UserUpsertWithoutForum_repliesInput = {
+    update: XOR<UserUpdateWithoutForum_repliesInput, UserUncheckedUpdateWithoutForum_repliesInput>
+    create: XOR<UserCreateWithoutForum_repliesInput, UserUncheckedCreateWithoutForum_repliesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutForum_repliesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutForum_repliesInput, UserUncheckedUpdateWithoutForum_repliesInput>
+  }
+
+  export type UserUpdateWithoutForum_repliesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    profile_image?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    email_code?: NullableStringFieldUpdateOperationsInput | string | null
+    email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ranks?: RankUpdateOneWithoutUsersNestedInput
+    tickets?: TicketUpdateManyWithoutUsersNestedInput
+    forum?: ForumUpdateManyWithoutUsersNestedInput
+    payment_sessions?: Payment_sessionUpdateManyWithoutUsersNestedInput
+    coupons?: CouponUpdateManyWithoutUsersNestedInput
+    forum_votes?: ForumVoteUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutForum_repliesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    points?: IntFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    profile_image?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    email_code?: NullableStringFieldUpdateOperationsInput | string | null
+    email_code_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rank_id?: StringFieldUpdateOperationsInput | string
+    tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
+    forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
+    payment_sessions?: Payment_sessionUncheckedUpdateManyWithoutUsersNestedInput
+    coupons?: CouponUncheckedUpdateManyWithoutUsersNestedInput
+    forum_votes?: ForumVoteUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type Ticket_typeCreateWithoutTicketsInput = {
@@ -22865,6 +26469,8 @@ export namespace Prisma {
     forum?: ForumCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionCreateNestedManyWithoutUsersInput
     coupons?: CouponCreateNestedManyWithoutUsersInput
+    forum_votes?: ForumVoteCreateNestedManyWithoutUserInput
+    forum_replies?: ForumReplyCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTicketsInput = {
@@ -22885,6 +26491,8 @@ export namespace Prisma {
     forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionUncheckedCreateNestedManyWithoutUsersInput
     coupons?: CouponUncheckedCreateNestedManyWithoutUsersInput
+    forum_votes?: ForumVoteUncheckedCreateNestedManyWithoutUserInput
+    forum_replies?: ForumReplyUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTicketsInput = {
@@ -23014,6 +26622,8 @@ export namespace Prisma {
     forum?: ForumUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUpdateManyWithoutUsersNestedInput
     coupons?: CouponUpdateManyWithoutUsersNestedInput
+    forum_votes?: ForumVoteUpdateManyWithoutUserNestedInput
+    forum_replies?: ForumReplyUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTicketsInput = {
@@ -23033,6 +26643,8 @@ export namespace Prisma {
     forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUncheckedUpdateManyWithoutUsersNestedInput
     coupons?: CouponUncheckedUpdateManyWithoutUsersNestedInput
+    forum_votes?: ForumVoteUncheckedUpdateManyWithoutUserNestedInput
+    forum_replies?: ForumReplyUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ChairUpsertWithoutTicketsInput = {
@@ -23277,6 +26889,8 @@ export namespace Prisma {
     tickets?: TicketCreateNestedManyWithoutUsersInput
     forum?: ForumCreateNestedManyWithoutUsersInput
     coupons?: CouponCreateNestedManyWithoutUsersInput
+    forum_votes?: ForumVoteCreateNestedManyWithoutUserInput
+    forum_replies?: ForumReplyCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPayment_sessionsInput = {
@@ -23297,6 +26911,8 @@ export namespace Prisma {
     tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
     forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
     coupons?: CouponUncheckedCreateNestedManyWithoutUsersInput
+    forum_votes?: ForumVoteUncheckedCreateNestedManyWithoutUserInput
+    forum_replies?: ForumReplyUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPayment_sessionsInput = {
@@ -23380,6 +26996,8 @@ export namespace Prisma {
     tickets?: TicketUpdateManyWithoutUsersNestedInput
     forum?: ForumUpdateManyWithoutUsersNestedInput
     coupons?: CouponUpdateManyWithoutUsersNestedInput
+    forum_votes?: ForumVoteUpdateManyWithoutUserNestedInput
+    forum_replies?: ForumReplyUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPayment_sessionsInput = {
@@ -23399,6 +27017,8 @@ export namespace Prisma {
     tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
     forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
     coupons?: CouponUncheckedUpdateManyWithoutUsersNestedInput
+    forum_votes?: ForumVoteUncheckedUpdateManyWithoutUserNestedInput
+    forum_replies?: ForumReplyUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ScreeningUpsertWithoutPayment_sessionsInput = {
@@ -23448,6 +27068,8 @@ export namespace Prisma {
     tickets?: TicketCreateNestedManyWithoutUsersInput
     forum?: ForumCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionCreateNestedManyWithoutUsersInput
+    forum_votes?: ForumVoteCreateNestedManyWithoutUserInput
+    forum_replies?: ForumReplyCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCouponsInput = {
@@ -23468,6 +27090,8 @@ export namespace Prisma {
     tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
     forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionUncheckedCreateNestedManyWithoutUsersInput
+    forum_votes?: ForumVoteUncheckedCreateNestedManyWithoutUserInput
+    forum_replies?: ForumReplyUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCouponsInput = {
@@ -23524,6 +27148,8 @@ export namespace Prisma {
     tickets?: TicketUpdateManyWithoutUsersNestedInput
     forum?: ForumUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUpdateManyWithoutUsersNestedInput
+    forum_votes?: ForumVoteUpdateManyWithoutUserNestedInput
+    forum_replies?: ForumReplyUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCouponsInput = {
@@ -23543,6 +27169,8 @@ export namespace Prisma {
     tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
     forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUncheckedUpdateManyWithoutUsersNestedInput
+    forum_votes?: ForumVoteUncheckedUpdateManyWithoutUserNestedInput
+    forum_replies?: ForumReplyUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DiscountUpsertWithoutCouponsInput = {
@@ -23583,6 +27211,8 @@ export namespace Prisma {
     review: number
     comment: string
     user_id: string
+    likes?: number
+    dislikes?: number
   }
 
   export type ScreeningUpdateWithoutMoviesInput = {
@@ -23613,6 +27243,10 @@ export namespace Prisma {
   export type ForumUpdateWithoutMoviesInput = {
     review?: FloatFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    votes?: ForumVoteUpdateManyWithoutForumNestedInput
+    replies?: ForumReplyUpdateManyWithoutForumNestedInput
     users?: UserUpdateOneWithoutForumNestedInput
   }
 
@@ -23620,12 +27254,18 @@ export namespace Prisma {
     review?: FloatFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    votes?: ForumVoteUncheckedUpdateManyWithoutForumNestedInput
+    replies?: ForumReplyUncheckedUpdateManyWithoutForumNestedInput
   }
 
   export type ForumUncheckedUpdateManyWithoutMoviesInput = {
     review?: FloatFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
   }
 
   export type Payment_sessionCreateManyScreeningsInput = {
@@ -23718,6 +27358,8 @@ export namespace Prisma {
     review: number
     comment: string
     movie_id: string
+    likes?: number
+    dislikes?: number
   }
 
   export type Payment_sessionCreateManyUsersInput = {
@@ -23735,6 +27377,19 @@ export namespace Prisma {
     qr_token: string
     used?: boolean
     created_at?: Date | string
+  }
+
+  export type ForumVoteCreateManyUserInput = {
+    id?: string
+    forum_id: string
+    type: $Enums.VoteType
+  }
+
+  export type ForumReplyCreateManyUserInput = {
+    id?: string
+    forum_id: string
+    comment: string
+    createdAt?: Date | string
   }
 
   export type TicketUpdateWithoutUsersInput = {
@@ -23770,6 +27425,10 @@ export namespace Prisma {
   export type ForumUpdateWithoutUsersInput = {
     review?: FloatFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    votes?: ForumVoteUpdateManyWithoutForumNestedInput
+    replies?: ForumReplyUpdateManyWithoutForumNestedInput
     movies?: MovieUpdateOneWithoutForumNestedInput
   }
 
@@ -23777,12 +27436,18 @@ export namespace Prisma {
     review?: FloatFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
     movie_id?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
+    votes?: ForumVoteUncheckedUpdateManyWithoutForumNestedInput
+    replies?: ForumReplyUncheckedUpdateManyWithoutForumNestedInput
   }
 
   export type ForumUncheckedUpdateManyWithoutUsersInput = {
     review?: FloatFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
     movie_id?: StringFieldUpdateOperationsInput | string
+    likes?: IntFieldUpdateOperationsInput | number
+    dislikes?: IntFieldUpdateOperationsInput | number
   }
 
   export type Payment_sessionUpdateWithoutUsersInput = {
@@ -23828,6 +27493,39 @@ export namespace Prisma {
     qr_token?: StringFieldUpdateOperationsInput | string
     used?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ForumVoteUpdateWithoutUserInput = {
+    type?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
+    forum?: ForumUpdateOneWithoutVotesNestedInput
+  }
+
+  export type ForumVoteUncheckedUpdateWithoutUserInput = {
+    forum_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
+  }
+
+  export type ForumVoteUncheckedUpdateManyWithoutUserInput = {
+    forum_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
+  }
+
+  export type ForumReplyUpdateWithoutUserInput = {
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    forum?: ForumUpdateOneWithoutRepliesNestedInput
+  }
+
+  export type ForumReplyUncheckedUpdateWithoutUserInput = {
+    forum_id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ForumReplyUncheckedUpdateManyWithoutUserInput = {
+    forum_id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TicketCreateManyChairsInput = {
@@ -23904,6 +27602,8 @@ export namespace Prisma {
     forum?: ForumUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUpdateManyWithoutUsersNestedInput
     coupons?: CouponUpdateManyWithoutUsersNestedInput
+    forum_votes?: ForumVoteUpdateManyWithoutUserNestedInput
+    forum_replies?: ForumReplyUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRanksInput = {
@@ -23923,6 +27623,8 @@ export namespace Prisma {
     forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUncheckedUpdateManyWithoutUsersNestedInput
     coupons?: CouponUncheckedUpdateManyWithoutUsersNestedInput
+    forum_votes?: ForumVoteUncheckedUpdateManyWithoutUserNestedInput
+    forum_replies?: ForumReplyUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutRanksInput = {
@@ -24050,6 +27752,52 @@ export namespace Prisma {
   export type ChairUncheckedUpdateManyWithoutHallsInput = {
     row?: IntFieldUpdateOperationsInput | number
     column?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ForumVoteCreateManyForumInput = {
+    id?: string
+    user_id: string
+    type: $Enums.VoteType
+  }
+
+  export type ForumReplyCreateManyForumInput = {
+    id?: string
+    user_id: string
+    comment: string
+    createdAt?: Date | string
+  }
+
+  export type ForumVoteUpdateWithoutForumInput = {
+    type?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
+    user?: UserUpdateOneWithoutForum_votesNestedInput
+  }
+
+  export type ForumVoteUncheckedUpdateWithoutForumInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
+  }
+
+  export type ForumVoteUncheckedUpdateManyWithoutForumInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
+  }
+
+  export type ForumReplyUpdateWithoutForumInput = {
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutForum_repliesNestedInput
+  }
+
+  export type ForumReplyUncheckedUpdateWithoutForumInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ForumReplyUncheckedUpdateManyWithoutForumInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TicketCreateManyTicket_typesInput = {

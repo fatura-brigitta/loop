@@ -77,6 +77,8 @@ model User {
   forum            Forum[]
   payment_sessions Payment_session[]
   coupons          Coupon[]
+  forum_votes      ForumVote[]
+  forum_replies    ForumReply[]
 
   @@map("users")
 }
@@ -131,6 +133,24 @@ model Hall {
   @@map("halls")
 }
 
+enum VoteType {
+  LIKE
+  DISLIKE
+}
+
+model ForumVote {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  user_id  String   @db.ObjectId
+  forum_id String   @db.ObjectId
+  type     VoteType
+
+  forum Forum? @relation(fields: [forum_id], references: [id], onDelete: Cascade)
+  user  User?  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, forum_id])
+  @@map("forum_votes")
+}
+
 model Forum {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   review   Float
@@ -138,10 +158,29 @@ model Forum {
   user_id  String @db.ObjectId
   movie_id String @db.ObjectId
 
+  likes    Int @default(0)
+  dislikes Int @default(0)
+
+  votes   ForumVote[]
+  replies ForumReply[]
+
   users  User?  @relation(fields: [user_id], references: [id], onDelete: Cascade)
   movies Movie? @relation(fields: [movie_id], references: [id], onDelete: Cascade)
 
   @@map("forums")
+}
+
+model ForumReply {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  forum_id  String   @db.ObjectId
+  user_id   String   @db.ObjectId
+  comment   String
+  createdAt DateTime @default(now())
+
+  forum Forum? @relation(fields: [forum_id], references: [id], onDelete: Cascade)
+  user  User?  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("forum_replies")
 }
 
 model Ticket {

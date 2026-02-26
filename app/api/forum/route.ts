@@ -8,21 +8,53 @@ export async function GET(req: Request) {
 
   if (!movieId) return NextResponse.json([]);
 
+  const cookieStore = await cookies();
+  const userId = cookieStore.get("userId")?.value;
+
   const posts = await prisma.forum.findMany({
     where: { movie_id: movieId },
     orderBy: { id: "desc" },
   });
 
   const users = await prisma.user.findMany({
-    where: {
-      id: { in: posts.map((p) => p.user_id) },
-    },
-    select: {
-      id: true,
-      name: true,
-      profile_image: true,
-    },
+    where: { id: { in: posts.map((p) => p.user_id) } },
+    select: { id: true, name: true, profile_image: true },
   });
+
+  const votes = userId
+    ? await prisma.forumVote.findMany({
+        where: { user_id: userId, forum_id: { in: posts.map((p) => p.id) } },
+        select: { forum_id: true, type: true },
+      })
+    : [];
+
+  const voteMap = new Map(votes.map((v) => [v.forum_id, v.type]));
+  const replies = await prisma.forumReply.findMany({
+    where: { forum_id: { in: posts.map((p) => p.id) } },
+    orderBy: { createdAt: "asc" },
+  });
+
+  const replyUsers = await prisma.user.findMany({
+    where: { id: { in: replies.map((r) => r.user_id) } },
+    select: { id: true, name: true, profile_image: true },
+  });
+
+  const replyUserMap = new Map(replyUsers.map((u) => [u.id, u]));
+
+  const replyMap = new Map<string, any[]>();
+  for (const r of replies) {
+    const u = replyUserMap.get(r.user_id);
+    const formatted = {
+      id: r.id,
+      forum_id: r.forum_id,
+      comment: r.comment,
+      createdAt: r.createdAt,
+      user_name: u?.name ?? "Ismeretlen felhasználó",
+      profile_image: u?.profile_image ?? "/profile/default.png",
+    };
+
+    replyMap.set(r.forum_id, [...(replyMap.get(r.forum_id) ?? []), formatted]);
+  }
 
   const formatted = posts.map((p) => {
     const user = users.find((u) => u.id === p.user_id);
@@ -33,6 +65,10 @@ export async function GET(req: Request) {
       profile_image: user?.profile_image ?? "/profile/default.png",
       comment: p.comment,
       review: p.review,
+      likes: p.likes ?? 0,
+      dislikes: p.dislikes ?? 0,
+      myVote: voteMap.get(p.id) ?? null, // "LIKE" | "DISLIKE" | null
+      replies: replyMap.get(p.id) ?? []
     };
   });
 

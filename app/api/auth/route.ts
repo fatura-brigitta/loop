@@ -6,6 +6,7 @@ import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 import { generate4DigitCode, codeExpiry } from "@/lib/emailVerification";
 import { sendVerificationEmail } from "@/lib/sendVerificationEmail";
+import { parsePhoneNumberFromString } from 'libphonenumber-js';
 
 /**
  * GET /api/auth

@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 type Movie = {
   id: string;
@@ -78,67 +78,74 @@ export default function HeroSlider() {
 
   return (
     <div
-      className="relative w-full h-[600px] overflow-hidden"
+      className="relative h-[80vh] min-h-[520px] w-full overflow-hidden"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
+      onTouchStart={handleTouchStart}
     >
+      <div className="absolute inset-0">
+        {movies.map((m, i) => (
+          <div
+            className={`absolute inset-0 bg-cover bg-top bg-no-repeat transition-opacity duration-[1400ms] ${
+              i === index ? "animate-heroZoom opacity-100" : "z-0 opacity-0"
+            }`}
+            key={m.id}
+            style={{
+              backgroundImage: `url(${m.backdrop || m.poster})`,
+            }}
+          />
+        ))}
+      </div>
 
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-700"
-        style={{
-          backgroundImage: `url(${movie.backdrop || movie.poster})`,
-        }}
-      />
-
-      <div className="absolute inset-0 bg-gradient-to-r from-[#060b14] via-[#060b14]/80 to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.7))]" />
 
       <button
+        className="absolute top-1/2 left-6 z-20 -translate-y-1/2 cursor-pointer text-5xl text-white/60 select-none hover:text-white"
         onClick={prev}
-        className="absolute left-6 top-1/2 z-20 -translate-y-1/2 text-5xl text-white/60 hover:text-white cursor-pointer select-none"
       >
         ‹
       </button>
 
       <button
+        className="absolute top-1/2 right-6 z-20 -translate-y-1/2 cursor-pointer text-5xl text-white/60 select-none hover:text-white"
         onClick={next}
-        className="absolute right-6 top-1/2 z-20 -translate-y-1/2 text-5xl text-white/60 hover:text-white cursor-pointer select-none"
       >
         ›
       </button>
 
-      <div className="relative z-10 flex h-full items-center">
-        <div className="mx-auto max-w-6xl px-6 items-center">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-white drop-shadow-2xl">
+      <div className="relative z-10 flex h-full items-center justify-center text-center">
+        <div className="max-w-4xl px-6">
+          <h1
+            className="animate-heroText text-5xl font-extrabold text-white drop-shadow-2xl md:text-6xl"
+            key={movie.id}
+          >
             {movie.title}
           </h1>
 
-          <div className="mt-4 text-white/80 text-lg">
+          <div className="mt-4 text-lg text-white/80">
             {movie.genre} • {movie.playtime} perc
           </div>
 
-          <div className="mt-2 text-yellow-400 text-xl font-semibold">
-            ⭐ {movie.review}
-          </div>
+          <div className="mt-2 text-xl font-semibold text-yellow-400">⭐ {movie.review}</div>
 
           <button
+            className="mt-8 rounded-xl bg-white/90 px-10 py-4 text-lg font-bold text-black backdrop-blur transition hover:bg-white hover:scale-105 active:scale-95 cursor-pointer"
             onClick={() => router.push("/screenings")}
-            className="mt-8 rounded-xl bg-cyan-500 px-8 py-3 text-lg font-bold text-black transition hover:bg-cyan-400 cursor-pointer"
           >
             Jegyvásárlás
           </button>
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+      <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-3">
         {movies.map((_, i) => (
           <div
+            className={`h-3 w-3 cursor-pointer rounded-full transition-all duration-300 ${
+              i === index ? "scale-125 bg-white" : "bg-white/40"
+            }`}
             key={i}
             onClick={() => setIndex(i)}
-            className={`h-3 w-3 rounded-full cursor-pointer transition-all duration-300 ${
-              i === index ? "bg-white scale-125" : "bg-white/40"
-            }`}
           />
         ))}
       </div>

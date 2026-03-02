@@ -182,8 +182,6 @@ async function handleSession() {
     }
   }
 
-/* ================= CONFIRM PAYMENT ================ */
-
 async function handleConfirm(req: NextRequest) {
   try {
     const cookieStore = await cookies();
@@ -203,6 +201,13 @@ async function handleConfirm(req: NextRequest) {
 
     const userBefore = await prisma.user.findUnique({
       where: { id: session.user_id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        rank_id: true,
+        points: true,
+      },
     });
 
     if (!userBefore)
@@ -210,7 +215,11 @@ async function handleConfirm(req: NextRequest) {
 
     const screening = await prisma.screening.findUnique({
       where: { id: session.screening_id },
-      include: { screening_types: true },
+      include: {
+        screening_types: true,
+        movies: true,
+        halls: true,
+      },
     });
 
     const type = await prisma.ticket_type.findFirst({
@@ -227,8 +236,10 @@ async function handleConfirm(req: NextRequest) {
       type.percent
     );
 
+    const createdTicketIds: string[] = [];
+
     for (const chairId of chairIds) {
-      await prisma.ticket.create({
+      const ticket = await prisma.ticket.create({
         data: {
           user_id: userBefore.id,
           screening_id: screening.id,
@@ -239,6 +250,8 @@ async function handleConfirm(req: NextRequest) {
           qr_token: generateQrToken(),
         },
       });
+
+      createdTicketIds.push(ticket.id);
     }
 
     const gainedPoints = Math.floor((price * chairIds.length) / 50);
@@ -269,7 +282,7 @@ async function handleConfirm(req: NextRequest) {
         data: { rank_id: calculatedRank.id },
       });
 
-      console.log("RANGLÉPÉS:", calculatedRank.name);
+      NextResponse.json({ message: `Gratulálunk, elértél egy új rangot: ${calculatedRank.name}!`}, { status: 200 });
 
       if (calculatedRank.discount_id) {
 
@@ -282,7 +295,7 @@ async function handleConfirm(req: NextRequest) {
           },
         });
 
-        console.log("KUPON LÉTREHOZVA");
+        NextResponse.json({ message: `Kupon létrehozva!`}, { status: 200 });
       }
     }
 
@@ -291,18 +304,47 @@ async function handleConfirm(req: NextRequest) {
       data: { status: "paid" },
     });
 
+    const fullTickets = await prisma.ticket.findMany({
+      where: {
+        id: { in: createdTicketIds }
+      },
+      include: {
+        chairs: true,
+        ticket_types: true,
+        screenings: {
+          include: {
+            movies: true,
+            halls: true,
+            screening_types: true,
+          }
+        }
+      }
+    });
+
+    try {
+      await sendTicketEmail({
+        to: userBefore.email,
+        name: userBefore.name,
+        tickets: fullTickets
+      });
+
+      NextResponse.json({ message: "Jegyek sikeresen elküldve" }, { status: 200 });
+    } catch (err) {
+      NextResponse.json({ message: "Nem sikerült elküldeni a jegyeket" }, { status: 500 });
+    }
+
     const res = NextResponse.json({ ok: true });
     res.cookies.set("paymentSessionId", "", { maxAge: 0, path: "/" });
 
     return res;
 
   } catch (err) {
-    console.error("CONFIRM ERROR:", err);
+    if(err instanceof Error) {
+      NextResponse.json({ message: `Fizetési hiba: ${err.message}` }, { status: 500 });
+    }
     return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
   }
 }
-
-/* ================= ROUTER ========================= */
 
 export async function POST(req: NextRequest) {
   const action = req.nextUrl.searchParams.get("action");

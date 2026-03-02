@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import Navbar from "@/app/components/navbar";
 
 type Chair = {
   id: string;
@@ -241,12 +240,6 @@ export default function HallPage() {
       {!showLogin && (
         <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
           A terem megtekintéséhez kérjük jelentkezzen be.
-        </div>
-      )}
-
-      {showLogin && loadingHall && (
-        <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
-          Betöltés...
         </div>
       )}
 

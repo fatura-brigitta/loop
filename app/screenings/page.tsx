@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Play, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import Navbar from "@/app/components/navbar";
 
 type Movie = {
   title: string;

@@ -53,7 +53,6 @@ export default function ForumPage() {
   const [replyOpenFor, setReplyOpenFor] = useState<string | null>(null);
   const [replyText, setReplyText] = useState("");
 
-  // ---------------- AUTH ----------------
   useEffect(() => {
     const loadUser = async () => {
       const userRes = await fetch("/api/auth", { cache: "no-store" });
@@ -70,14 +69,12 @@ export default function ForumPage() {
     loadUser();
   }, []);
 
-  // ---------------- MOVIES ----------------
   useEffect(() => {
     fetch("/api/movies", { cache: "no-store" })
       .then((res) => res.json())
       .then(setMovies);
   }, []);
 
-  // ---------------- SELECT MOVIE ----------------
   const selectMovie = async (movieId: string) => {
     setSelectedMovie(movieId);
 
@@ -91,7 +88,6 @@ export default function ForumPage() {
   );
   };
 
-  // ---------------- SEND COMMENT ----------------
   const sendComment = async () => {
     if (!selectedMovie || !newComment.trim()) return;
 
@@ -242,8 +238,6 @@ export default function ForumPage() {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-[#020617] via-[#060b14] to-black text-slate-100">
-      <Navbar />
-
       {!showLogin && (
         <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
           A fórum megtekintéséhez kérjük jelentkezzen be.
@@ -303,6 +297,12 @@ export default function ForumPage() {
                   <textarea
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !e.shiftKey) {
+                        e.preventDefault();
+                        sendComment();
+                      }
+                    }}
                     placeholder="Írd le a véleményed a filmről..."
                     className="w-full h-28 resize-none rounded-lg bg-[#060b14] border border-white/10 p-3 text-sm outline-none focus:border-cyan-400"
                   />
@@ -421,6 +421,12 @@ export default function ForumPage() {
                             <input
                               value={replyText}
                               onChange={(e) => setReplyText(e.target.value)}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                  e.preventDefault();
+                                  sendReply(c.id);
+                                }
+                              }}
                               placeholder="Írj választ..."
                               className="w-full rounded-lg bg-[#060b14] border border-white/10 px-3 py-2 text-sm outline-none focus:border-cyan-400"
                             />

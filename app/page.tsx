@@ -4,7 +4,6 @@ export const dynamic = "force-dynamic";
 
 import { useEffect, useState } from "react";
 import Navbar from "@/app/components/navbar";
-import MovieCarousel from "@/app/components/movieCarousel";
 import HeroSlider from "@/app/components/heroSlider";
 
 export default function HomePage() {
@@ -32,7 +31,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#060b14] text-slate-100">
-      <Navbar />
       <HeroSlider/>
       <main className="mx-auto max-w-6xl px-4 py-8">
       </main>

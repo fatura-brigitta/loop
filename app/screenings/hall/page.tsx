@@ -238,8 +238,6 @@ export default function HallPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#020617] via-[#060b14] to-black text-slate-100">
-      <Navbar />
-
       {!showLogin && (
         <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
           A terem megtekintéséhez kérjük jelentkezzen be.

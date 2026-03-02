@@ -65,7 +65,6 @@ export default function RegisterPage() {
       return;
     }
 
-    // opcionális: limit (pl 2MB)
     const maxBytes = 2 * 1024 * 1024;
     if (file.size > maxBytes) {
       setError("A kép túl nagy (max 2MB)!");
@@ -109,7 +108,7 @@ export default function RegisterPage() {
           phone_number,
           password,
           gender,
-          profile_image: profileImageBase64 || undefined, // ha üres, backend default
+          profile_image: profileImageBase64 || undefined,
         }),
       });
 

@@ -317,7 +317,6 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-[#060b14] text-slate-100">
-      <Navbar />
       {rankUp && (
         <div className="rank-overlay fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm">
           <div className="rank-popup flex flex-col items-center gap-6 rounded-2xl border border-white/10 bg-[#060b14]/90 p-10 shadow-2xl">

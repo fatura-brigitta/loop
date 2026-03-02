@@ -204,7 +204,6 @@ export default function ScreeningsPage() {
 
   return (
     <div className="min-h-screen bg-[#060b14] text-slate-100">
-      <Navbar/>
       <div className="mx-auto max-w-6xl p-4">
         <h1 className="mb-6 text-2xl font-bold">Műsoron</h1>
 

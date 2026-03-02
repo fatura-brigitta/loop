@@ -1,5 +1,6 @@
 "use client";
 
+import Navbar from "@/app/components/navbar";
 import { Eye, EyeOff, LogIn } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,6 +27,9 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (loading) return;
+
     setError("");
 
     if (!email || !password) {
@@ -70,39 +74,8 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-[#060b14] text-slate-100">
-      <header className="sticky top-0 z-50 h-14 border-b border-white/10 bg-[#060b14]/90 backdrop-blur">
-        <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
-          <Link className="flex items-center gap-2" href="/">
-            <Image alt="Logo" height={28} src="/favicon.ico" width={28} />
-            <span className="text-lg font-extrabold tracking-wide text-cyan-300">
-              Loop
-            </span>
-          </Link>
-
-          <nav className="flex items-center gap-5 text-sm">
-            <a className="text-slate-200/90 transition hover:text-white" href="/movies">
-              Filmek
-            </a>
-            <a className="text-slate-200/90 transition hover:text-white" href="/screenings">
-              Vetítések
-            </a>
-            <a className="text-slate-200/90 transition hover:text-white" href="/forum">
-              Fórum
-            </a>
-
-            <Link
-              className="ml-2 rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
-              href="/register"
-            >
-              Regisztráció
-            </Link>
-          </nav>
-        </div>
-      </header>
-
       <div className="flex items-center justify-center py-20">
         <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur">
-
           <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">
             Bejelentkezés
           </h1>

@@ -67,6 +67,10 @@ export default function Navbar() {
     router.refresh();
   };
 
+  const handleLogin = () => {
+    router.push(`/login?redirect=${encodeURIComponent(pathname)}`);
+  };
+
   return (
     <header className="sticky top-0 z-50 h-14 border-b border-white/10 bg-[#060b14]/90 backdrop-blur">
       <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
@@ -120,12 +124,12 @@ export default function Navbar() {
                   </button>
                 </div>
               ) : (
-                <Link
-                  className="rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
-                  href="/login"
+                <button
+                  className="rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110 cursor-pointer"
+                  onClick={handleLogin}
                 >
                   Bejelentkezés
-                </Link>
+                </button>
               )}
             </>
           )}

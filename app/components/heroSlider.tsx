@@ -109,7 +109,7 @@ export default function HeroSlider() {
       </button>
 
       <div className="relative z-10 flex h-full items-center">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-6xl px-6 items-center">
           <h1 className="text-5xl md:text-6xl font-extrabold text-white drop-shadow-2xl">
             {movie.title}
           </h1>

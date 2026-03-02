@@ -3,11 +3,13 @@
 import { Eye, EyeOff, LogIn } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect") || "/";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -57,7 +59,7 @@ export default function LoginPage() {
         return;
       }
 
-      router.push("/");
+      router.replace(redirect);
       router.refresh();
 
     } catch {

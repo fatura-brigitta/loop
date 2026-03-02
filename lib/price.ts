@@ -1,4 +1,4 @@
-export const BASE_PRICE = 1500;
+export const BASE_PRICE = 2000;
 
 export function calculateAge(birthDate: Date): number {
   const today = new Date();
@@ -21,19 +21,15 @@ export function getTicketTypeByAge(age: number): "Gyerek" | "Diák" | "Normál" 
 }
 
 /**
- * Végső jegyár kiszámítása
- *
- * @param screeningPercent pl. 200 (VIP)
- * @param ticketDiscount pl. 30 (senior)
+ * @param screeningPercent
+ * @param ticketDiscount
  */
 export function calculateTicketPrice(
   screeningPercent: number,
   ticketDiscount: number
 ): number {
-  // terem szorzó
   let price = BASE_PRICE * (screeningPercent / 100);
 
-  // kedvezmény
   price = price * (1 - ticketDiscount / 100);
 
   return Math.round(price);

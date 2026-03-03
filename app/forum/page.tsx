@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Navbar from "@/app/components/navbar";
+import { Star } from "lucide-react";
 
 type Movie = {
   id: string;
@@ -52,6 +53,9 @@ export default function ForumPage() {
   const [comments, setComments] = useState<ForumComment[]>([]);
   const [replyOpenFor, setReplyOpenFor] = useState<string | null>(null);
   const [replyText, setReplyText] = useState("");
+  const currentMovie = movies.find((m) => m.id === selectedMovie);
+  const [visibleCount, setVisibleCount] = useState(5);
+  const [repliesOpen, setRepliesOpen] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     const loadUser = async () => {
@@ -145,6 +149,11 @@ export default function ForumPage() {
           : c
       )
     );
+
+    setVisibleCount(5);
+    setRepliesOpen({});
+    setReplyOpenFor(null);
+    setReplyText("");
   };
 
   const sendReply = async (forumId: string) => {
@@ -236,6 +245,16 @@ export default function ForumPage() {
     );
   };
 
+  const toggleReplies = (commentId: string) => {
+    setRepliesOpen((prev) => ({
+      ...prev,
+      [commentId]: !prev[commentId],
+    }));
+  };
+
+  const shownComments = comments.slice(0, visibleCount);
+  const hasMore = visibleCount < comments.length;
+
   return (
     <div className="min-h-screen bg-linear-to-b from-[#020617] via-[#060b14] to-black text-slate-100">
       {!showLogin && (
@@ -247,30 +266,39 @@ export default function ForumPage() {
       {showLogin && (
         <div className="mx-auto max-w-6xl px-4 py-8 pb-40 text-center">
           <h1 className="mb-6 text-center text-2xl font-bold">Fórum</h1>
+          <p className="mb-6 text-center">Válassz egy filmet és értékeld, adj hangot véleményednek!</p>
           <div className="mt-2">
-            <div className="overflow-x-auto pb-3">
-              <div className="flex w-fit mx-auto gap-4">
+            <div className="relative">
+              <div className="film-scroll flex gap-6 overflow-x-auto px-6 py-4 scroll-smooth">
                 {movies.map((movie) => (
                   <div
                     key={movie.id}
                     onClick={() => selectMovie(movie.id)}
-                    className="min-w-[120px] max-w-[120px] flex-shrink-0 group cursor-pointer"
+                    className={`min-w-[150px] transition duration-300 cursor-pointer
+                      ${
+                        selectedMovie === movie.id
+                          ? "scale-105"
+                          : "opacity-70 hover:opacity-100 hover:scale-105"
+                      }
+                    `}
                   >
-                    <div className="rounded-lg overflow-hidden border border-white/10 bg-[#0b1320] hover:border-cyan-400 transition">
+                    <div className="rounded-xl overflow-hidden border border-white/10 bg-[#0b1320]">
                       <Image
                         src={movie.poster}
                         alt={movie.title}
-                        width={120}
-                        height={180}
-                        className="w-[120px] h-[180px] object-cover transition duration-300 group-hover:scale-105"
+                        width={150}
+                        height={220}
+                        className="w-[150px] h-[220px] object-cover"
                       />
                     </div>
 
                     <div className="mt-2 text-center">
-                      <p className="text-xs font-semibold text-slate-200 line-clamp-2 group-hover:text-cyan-300 transition">
+                      <p className="text-sm font-semibold text-slate-200 line-clamp-2">
                         {movie.title}
                       </p>
-                      <p className="text-[11px] text-blue-300 mt-1">⭐ {movie.review}</p>
+                      <p className="text-xs text-cyan-300 mt-1">
+                        ⭐ {movie.review}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -279,7 +307,12 @@ export default function ForumPage() {
           </div>
           {selectedMovie && (
             <div className="mt-10 text-left">
-              <h2 className="text-xl font-semibold mb-4">Hozzászólások</h2>
+              <h2 className="mb-4 flex flex-wrap items-end gap-2 text-xl font-semibold">
+                <span>Hozzászólások -</span>
+                {currentMovie && (
+                  <span className="text-cyan-300 font-semibold">{currentMovie.title}</span>
+                )}
+              </h2>
 
              <div className="bg-[#0b1320] border border-white/10 rounded-xl p-4 mb-6 flex gap-4">
 
@@ -311,19 +344,12 @@ export default function ForumPage() {
                     <div className="flex items-center gap-4">
 
                       <div className="flex flex-col gap-2">
-                        <span className="text-sm text-slate-300">
-                          Értékelés: {newReview.toFixed(1)}
-                        </span>
-
-                        <input
-                          type="range"
-                          min={0}
-                          max={10}
-                          step={0.1}
-                          value={newReview}
-                          onChange={(e) => setNewReview(parseFloat(e.target.value))}
-                          className="w-40 accent-cyan-400"
-                        />
+                        <div className="flex flex-col gap-2">
+                          <StarRating10
+                            value={newReview}
+                            onChange={(v) => setNewReview(v)}
+                          />
+                        </div>
                       </div>
 
                     </div>
@@ -343,57 +369,74 @@ export default function ForumPage() {
                   <div className="text-slate-400">Még nincs hozzászólás ehhez a filmhez.</div>
                 )}
 
-                {comments.map((c) => (
+                {shownComments.map((c) => (
                   <div
                     key={c.id}
-                    className="bg-[#0b1320] border border-white/10 rounded-xl p-4 flex gap-4"
+                    className="rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5 flex gap-4"
                   >
                     <Image
                       src={c.profile_image || "/profile/default.png"}
                       alt="profil"
                       width={40}
                       height={40}
-                      className="rounded-full h-10 w-10 object-cover"
+                      className="rounded-full h-10 w-10 object-cover border border-white/10"
                     />
 
                     <div className="flex-1">
-                      <div className="text-cyan-300 font-semibold">
-                        {c.user_name}
+                      {/* HEADER: name+rating left, votes right */}
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="text-cyan-300 font-semibold truncate">
+                              {c.user_name}
+                            </span>
+
+                            <span className="text-slate-500">•</span>
+
+                            <span className="text-sm text-slate-200">
+                              ⭐ {Number(c.review).toFixed(1)}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-2 shrink-0">
+                          <button
+                            onClick={() => vote(c.id, "LIKE")}
+                            className={`inline-flex items-center gap-2 rounded-xl border px-3 py-1.5 text-sm transition cursor-pointer
+                              ${
+                                c.myVote === "LIKE"
+                                  ? "border-green-400/70 bg-green-400/10 text-green-200"
+                                  : "border-white/10 bg-[#060b14]/40 text-slate-200 hover:border-green-400/60 hover:text-green-200"
+                              }`}
+                            title="Like"
+                          >
+                            <span className="text-base leading-none">👍</span>
+                            <span className="tabular-nums">{c.likes ?? 0}</span>
+                          </button>
+
+                          <button
+                            onClick={() => vote(c.id, "DISLIKE")}
+                            className={`inline-flex items-center gap-2 rounded-xl border px-3 py-1.5 text-sm transition cursor-pointer
+                              ${
+                                c.myVote === "DISLIKE"
+                                  ? "border-red-400/70 bg-red-400/10 text-red-200"
+                                  : "border-white/10 bg-[#060b14]/40 text-slate-200 hover:border-red-400/60 hover:text-red-200"
+                              }`}
+                            title="Dislike"
+                          >
+                            <span className="text-base leading-none">👎</span>
+                            <span className="tabular-nums">{c.dislikes ?? 0}</span>
+                          </button>
+                        </div>
                       </div>
 
-                      <div className="text-sm text-slate-400">
-                        ⭐ {c.review}
-                      </div>
-
-                      <div className="mt-2 text-slate-200">
+                      {/* BODY */}
+                      <div className="mt-2 text-slate-100 leading-relaxed break-words">
                         {c.comment}
                       </div>
 
-                      <div className="mt-3 flex items-center gap-3 text-sm">
-                        <button
-                          onClick={() => vote(c.id, "LIKE")}
-                          className={`rounded-lg border px-3 py-1 transition cursor-pointer
-                            ${c.myVote === "LIKE"
-                              ? "border-green-400 text-green-300 bg-white/10"
-                              : "border-white/10 bg-white/5 hover:border-green-400 hover:text-green-300"
-                            }`}
-                        >
-                          👍 {c.likes ?? 0}
-                        </button>
-
-                        <button
-                          onClick={() => vote(c.id, "DISLIKE")}
-                          className={`rounded-lg border px-3 py-1 transition cursor-pointer
-                            ${c.myVote === "DISLIKE"
-                              ? "border-red-400 text-red-300 bg-white/10"
-                              : "border-white/10 bg-white/5 hover:border-red-400 hover:text-red-300"
-                            }`}
-                        >
-                          👎 {c.dislikes ?? 0}
-                        </button>
-                      </div>
-
-                      <div className="mt-3 flex items-center gap-3 text-sm">
+                      {/* ACTIONS */}
+                      <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
                         <button
                           onClick={() => setReplyOpenFor(replyOpenFor === c.id ? null : c.id)}
                           className="text-slate-300 hover:text-cyan-300 transition cursor-pointer"
@@ -401,20 +444,27 @@ export default function ForumPage() {
                           Válasz
                         </button>
 
-                        <span className="text-slate-500">
-                          {c.replies?.length ? `${c.replies.length} válasz` : ""}
-                        </span>
+                        {(c.replies?.length ?? 0) > 0 && (
+                          <button
+                            onClick={() => toggleReplies(c.id)}
+                            className="text-slate-400 hover:text-cyan-300 transition cursor-pointer"
+                          >
+                            {repliesOpen[c.id]
+                              ? "Válaszok elrejtése"
+                              : `${c.replies?.length} válasz`}
+                          </button>
+                        )}
                       </div>
 
                       {/* Reply input */}
                       {replyOpenFor === c.id && (
-                        <div className="mt-3 flex gap-3">
+                        <div className="mt-4 flex gap-3 rounded-xl border border-white/10 bg-[#060b14]/40 p-3">
                           <Image
                             src={profileImage || "/profile/default.png"}
                             alt="profil"
                             width={32}
                             height={32}
-                            className="rounded-full h-8 w-8 object-cover"
+                            className="rounded-full h-8 w-8 object-cover border border-white/10"
                           />
 
                           <div className="flex-1">
@@ -428,7 +478,7 @@ export default function ForumPage() {
                                 }
                               }}
                               placeholder="Írj választ..."
-                              className="w-full rounded-lg bg-[#060b14] border border-white/10 px-3 py-2 text-sm outline-none focus:border-cyan-400"
+                              className="w-full rounded-lg bg-[#060b14] border border-white/10 px-3 py-2 text-sm outline-none focus:border-cyan-400 text-slate-100"
                             />
 
                             <div className="mt-2 flex justify-end">
@@ -444,20 +494,27 @@ export default function ForumPage() {
                       )}
 
                       {/* Replies list */}
-                      {(c.replies?.length ?? 0) > 0 && (
+                      {repliesOpen[c.id] && (c.replies?.length ?? 0) > 0 && (
                         <div className="mt-4 space-y-3 border-l border-white/10 pl-4">
                           {(c.replies ?? []).map((r) => (
-                            <div key={r.id} className="flex gap-3">
+                            <div
+                              key={r.id}
+                              className="flex gap-3 rounded-xl border border-white/10 bg-[#060b14]/35 p-3"
+                            >
                               <Image
                                 src={r.profile_image || "/profile/default.png"}
                                 alt="profil"
                                 width={32}
                                 height={32}
-                                className="rounded-full h-8 w-8 object-cover"
+                                className="rounded-full h-8 w-8 object-cover border border-white/10"
                               />
-                              <div className="flex-1">
-                                <div className="text-sm text-cyan-300 font-semibold">{r.user_name}</div>
-                                <div className="text-sm text-slate-200">{r.comment}</div>
+                              <div className="flex-1 min-w-0">
+                                <div className="text-sm text-cyan-300 font-semibold truncate">
+                                  {r.user_name}
+                                </div>
+                                <div className="text-sm text-slate-100 break-words">
+                                  {r.comment}
+                                </div>
                               </div>
                             </div>
                           ))}
@@ -466,6 +523,19 @@ export default function ForumPage() {
                     </div>
                   </div>
                 ))}
+
+                {hasMore && (
+                  <div className="mt-6 flex justify-center">
+                    <button
+                      onClick={() =>
+                        setVisibleCount((v) => Math.min(v + 5, comments.length))
+                      }
+                      className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-200 hover:border-cyan-400 hover:text-cyan-300 transition cursor-pointer"
+                    >
+                      További kommentek megjelenítése
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -473,4 +543,91 @@ export default function ForumPage() {
       )}
     </div>
   );
+
+  type StarRatingProps = {
+    value: number; // 0..10 (0.5 step)
+    onChange: (v: number) => void;
+    disabled?: boolean;
+  };
+
+  function StarRating10({ value, onChange, disabled }: StarRatingProps) {
+    const [hover, setHover] = useState<number | null>(null);
+    const display = hover ?? value;
+
+    // display: 0..10 -> csillag index 1..10
+    const fillForStar = (i: number) => {
+      // i: 1..10
+      const d = display - (i - 1); // 0..?
+      if (d >= 1) return 1; // full
+      if (d >= 0.5) return 0.5; // half
+      return 0; // empty
+    };
+
+    const pickValueFromClick = (e: React.MouseEvent<HTMLButtonElement>, i: number) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const half = x < rect.width / 2 ? 0.5 : 1;
+      const next = (i - 1) + half; // 0.5..10
+      return Math.max(0, Math.min(10, next));
+    };
+
+    return (
+      <div className="flex items-center gap-2">
+        <div className="flex items-center">
+          {Array.from({ length: 10 }).map((_, idx) => {
+            const i = idx + 1;
+            const fill = fillForStar(i);
+
+            return (
+              <button
+                key={i}
+                type="button"
+                disabled={disabled}
+                onMouseEnter={() => setHover(valueForHover(i, 1))}
+                onMouseMove={(e) => {
+                  if (disabled) return;
+                  const rect = (e.currentTarget as HTMLButtonElement).getBoundingClientRect();
+                  const x = e.clientX - rect.left;
+                  setHover((i - 1) + (x < rect.width / 2 ? 0.5 : 1));
+                }}
+                onMouseLeave={() => setHover(null)}
+                onClick={(e) => {
+                  if (disabled) return;
+                  onChange(pickValueFromClick(e, i));
+                }}
+                className={`relative p-0.5 transition ${
+                  disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"
+                }`}
+                aria-label={`Értékelés: ${i} csillag`}
+              >
+                {/* base (empty) */}
+                <Star className="h-5 w-5 text-slate-600" />
+
+                {/* full overlay */}
+                {fill === 1 && (
+                  <Star className="absolute left-0 top-0 h-5 w-5 text-yellow-400 fill-yellow-400" />
+                )}
+
+                {/* half overlay */}
+                {fill === 0.5 && (
+                  <span className="absolute left-0 top-0 h-5 w-2.5 overflow-hidden">
+                    <Star className="h-5 w-5 text-yellow-400 fill-yellow-400" />
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        <span className="text-sm text-slate-300 tabular-nums w-12 text-right">
+          {display.toFixed(1)}
+        </span>
+      </div>
+    );
+  }
+
+  // kis helper (nem kötelező, csak hogy TS ne kötözködjön)
+  function valueForHover(i: number, full: number) {
+    return (i - 1) + full;
+  }
 }

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Play, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import Footer from "@/app/components/footer";
 
 type Movie = {
   title: string;
@@ -396,6 +397,7 @@ export default function ScreeningsPage() {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }

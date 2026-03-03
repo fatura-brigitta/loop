@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Navbar from "@/app/components/navbar";
 import { set } from "mongoose";
+import Footer from "@/app/components/footer";
 
 type Ticket = {
   id: string;
@@ -778,6 +779,7 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

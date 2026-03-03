@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Navbar from "@/app/components/navbar";
+import Footer from "@/app/components/footer";
 
 
 type Movie = {
@@ -118,6 +119,7 @@ export default function MoviesPage() {
             ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

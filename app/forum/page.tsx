@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Navbar from "@/app/components/navbar";
+import Footer from "@/app/components/footer";
 import { Star } from "lucide-react";
 
 type Movie = {
@@ -541,6 +542,7 @@ export default function ForumPage() {
           )}
         </div>
       )}
+      <Footer />
     </div>
   );
 

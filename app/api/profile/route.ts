@@ -3,11 +3,8 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
-import { ObjectId } from "mongodb";
+import parsePhoneNumberFromString from "libphonenumber-js";
 
-/* =========================
-   GET  → profil + rang adatok
-   ========================= */
 export async function GET() {
   const cookieStore = await cookies();
   const userId = cookieStore.get("userId")?.value;
@@ -27,8 +24,6 @@ export async function GET() {
     return NextResponse.json({ message: "Felhasználó nem található" }, { status: 404 });
   }
 
-  /* ===== KÖVETKEZŐ RANG ===== */
-
   const nextRank = await prisma.rank.findFirst({
     where: {
       point_limit: {
@@ -39,8 +34,6 @@ export async function GET() {
       point_limit: "asc"
     }
   });
-
-  /* ===== PROGRESS BAR ===== */
 
   let progress = 100;
 
@@ -69,9 +62,6 @@ export async function GET() {
   });
 }
 
-/* =========================
-   PATCH → név módosítás
-   ========================= */
 export async function PATCH(req: Request) {
   const cookieStore = await cookies();
   const userId = cookieStore.get("userId")?.value;
@@ -87,8 +77,33 @@ export async function PATCH(req: Request) {
 
   if (!name || name.length < 2) {
     return NextResponse.json(
-      { message: "Érvénytelen név" },
+      { message: "A név túl rövid" },
       { status: 400 }
+    );
+  }
+
+  const phone = parsePhoneNumberFromString(phone_number, "HU");
+
+  if (!phone || !phone.isValid()) {
+    return NextResponse.json(
+      { message: "Érvénytelen telefonszám formátum!" },
+      { status: 400 }
+    );
+  }
+
+  const normalizedPhone = phone.number;
+
+  const existingPhone = await prisma.user.findFirst({
+    where: {
+      phone_number: normalizedPhone,
+      NOT: { id: userId },
+    },
+  });
+
+  if (existingPhone) {
+    return NextResponse.json(
+      { message: "Ez a telefonszám már használatban van!" },
+      { status: 409 }
     );
   }
 
@@ -96,7 +111,7 @@ export async function PATCH(req: Request) {
     where: { id: userId },
     data: {
       name,
-      phone_number,
+      phone_number: normalizedPhone,
       gender,
     },
   });
@@ -106,9 +121,6 @@ export async function PATCH(req: Request) {
   });
 }
 
-/* =========================
-   PUT → jelszó módosítás
-   ========================= */
 export async function PUT(req: Request) {
   const cookieStore = await cookies();
   const userId = cookieStore.get("userId")?.value;
@@ -140,7 +152,6 @@ export async function PUT(req: Request) {
     );
   }
 
-  // Ha már volt jelszava (nem Google only user)
   if (user.password_hash) {
     if (!oldPassword) {
       return NextResponse.json(
@@ -169,9 +180,6 @@ export async function PUT(req: Request) {
   return NextResponse.json({ ok: true });
 }
 
-/* =========================
-   POST → jegyek lekérése (AKTÍV + HISTORY)
-   ========================= */
 export async function POST() {
   try {
     const cookieStore = await cookies();

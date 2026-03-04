@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-/* =========================================================
-   GET  → filmek lekérése (régi: /api/movies)
-========================================================= */
 export async function GET() {
   try {
     const movies = await prisma.movie.findMany({
@@ -31,10 +28,6 @@ export async function GET() {
   }
 }
 
-/* =========================================================
-   POST → kiválasztott film mentése
-   (régi: /api/setSelectedMovie)
-========================================================= */
 export async function POST(req: Request) {
   try {
     const { movieId } = await req.json();
@@ -58,10 +51,6 @@ export async function POST(req: Request) {
   }
 }
 
-/* =========================================================
-   DELETE → kiválasztott film törlése
-   (régi: /api/clearSelectedMovie)
-========================================================= */
 export async function DELETE() {
   try {
     const res = NextResponse.json({ ok: true });

@@ -6,8 +6,6 @@ import { calculateTicketPrice } from "@/lib/price";
 import { sendTicketEmail } from "@/lib/sendTicketEmail";
 import { generateQrToken } from "@/lib/generateQrToken";
 
-/* ================= CREATE SESSION ================= */
-
 async function handleCreate(req: NextRequest) {
   try {
     const cookieStore = await cookies();
@@ -46,8 +44,6 @@ async function handleCreate(req: NextRequest) {
     return NextResponse.json({ message: "Nem sikerült elindítani a fizetést" }, { status: 500 });
   }
 }
-
-/* ================= GET SESSION ==================== */
 
 async function handleSession() {
     try {

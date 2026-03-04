@@ -2,9 +2,6 @@ import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-/* =====================================================
-   GET  → Vetítések lekérése (movies → screenings oldal)
-===================================================== */
 export async function GET() {
   try {
 
@@ -56,9 +53,6 @@ export async function GET() {
   }
 }
 
-/* =====================================================
-   POST → Vetítés kiválasztása
-===================================================== */
 export async function POST(req: Request) {
   try {
     const { id } = await req.json();
@@ -82,9 +76,6 @@ export async function POST(req: Request) {
   }
 }
 
-/* =====================================================
-   PUT → Terem + székek + foglaltság lekérése
-===================================================== */
 export async function PUT() {
   try {
     const cookieStore = await cookies();

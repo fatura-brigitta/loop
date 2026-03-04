@@ -1,11 +1,9 @@
 "use client";
 
 import { Eye, EyeOff, LogIn } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import Navbar from "@/app/components/navbar";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -133,8 +131,8 @@ export default function LoginPage() {
             <div className="mt-6">
               <button
                 className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-white transition hover:bg-cyan-500 disabled:opacity-50"
-              disabled={loading}
-              type="submit"
+                disabled={loading}
+                type="button"
                 onClick={() => {
                   window.location.href = "/api/auth/signin/google";
                 }}

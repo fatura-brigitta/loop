@@ -8,10 +8,6 @@ import { generate4DigitCode, codeExpiry } from "@/lib/emailVerification";
 import { sendVerificationEmail } from "@/lib/sendVerificationEmail";
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 
-/**
- * GET /api/auth
- * -> aktív felhasználó
- */
 export async function GET() {
   try {
     const cookieStore = await cookies();
@@ -50,10 +46,6 @@ export async function GET() {
   }
 }
 
-/**
- * POST /api/auth
- * -> LOGIN
- */
 export async function POST(req: NextRequest) {
   try {
     const { email, password } = await req.json();
@@ -124,10 +116,6 @@ export async function POST(req: NextRequest) {
   }
 }
 
-/**
- * PUT /api/auth
- * -> REGISZTRÁCIÓ
- */
 export async function PUT(req: NextRequest) {
   try {
     const { name, email, password, phone_number, profile_image, gender } =
@@ -232,9 +220,6 @@ export async function PUT(req: NextRequest) {
   }
 }
 
-/**
- * DELETE /api/auth
- */
 export async function DELETE() {
   const res = NextResponse.json({ ok: true });
 

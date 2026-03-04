@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         {
           message:
-            "Ehhez a fiókhoz még nincs jelszó beállítva. Jelentkezzen be Google-lel, és állítson be jelszót a profilban.",
+            "Ehhez a fiókhoz még nincs jelszó beállítva. Jelentkezzen be Google-lel vagy Facebookal, és állítson be jelszót a profilban.",
         },
         { status: 400 }
       );

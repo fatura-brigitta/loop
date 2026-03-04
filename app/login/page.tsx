@@ -141,6 +141,19 @@ export default function LoginPage() {
                 {loading ? "Bejelentkezés..." : "Bejelentkezés Google fiókkal"}
               </button>
             </div>
+            <div className="mt-6">
+              <button
+                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-white transition hover:bg-cyan-500 disabled:opacity-50"
+                disabled={loading}
+                type="button"
+                onClick={() => {
+                  window.location.href = "/api/auth/signin/facebook";
+                }}
+              >
+                <LogIn size={18} />
+                {loading ? "Bejelentkezés..." : "Bejelentkezés Facebook fiókkal"}
+              </button>
+            </div>
           </form>
 
           <p className="mt-6 text-center text-sm text-white/60">

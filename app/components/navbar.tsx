@@ -3,7 +3,7 @@
 import { LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type User = {
@@ -85,25 +85,21 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 h-14 border-b border-white/10 bg-[#060b14]/90 backdrop-blur">
       <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
-
-        <Link href="/" className="flex items-center gap-2">
+        <Link className="flex items-center gap-2" href="/">
           <Image alt="Logo" height={40} src="/favicon.ico" width={40} />
-          <span className="text-lg font-extrabold tracking-wide text-cyan-300">
-            Loop
-          </span>
+          <span className="text-lg font-extrabold tracking-wide text-cyan-300">Loop</span>
         </Link>
 
         <nav className="flex items-center gap-6 text-sm">
-
-          <Link href="/movies" className={navLinkClass(isActive("/movies"))}>
+          <Link className={navLinkClass(isActive("/movies"))} href="/movies">
             Filmek
           </Link>
 
-          <Link href="/screenings" className={navLinkClass(isActive("/screenings"))}>
+          <Link className={navLinkClass(isActive("/screenings"))} href="/screenings">
             Vetítések
           </Link>
 
-          <Link href="/forum" className={navLinkClass(isActive("/forum"))}>
+          <Link className={navLinkClass(isActive("/forum"))} href="/forum">
             Fórum
           </Link>
 
@@ -111,35 +107,32 @@ export default function Navbar() {
             <>
               {user ? (
                 <div className="flex items-center gap-4">
-
                   <Link
+                    className={`flex items-center gap-2 ${navLinkClass(isActive("/profile"))}`}
                     href="/profile"
-                    className={`flex items-center gap-2 ${navLinkClass(
-                      isActive("/profile")
-                    )}`}
                   >
                     <div className="relative h-9 w-9 overflow-hidden rounded-full border border-white/20">
                       <Image
                         alt="Profil"
-                        fill
-                        src={user.profile_image}
                         className="object-cover"
+                        fill
+                        src={user.profile_image || "/profile/default.png"}
                       />
                     </div>
                     <span>{user.name}</span>
                   </Link>
 
                   <button
+                    className="cursor-pointer text-slate-300 transition hover:text-white"
                     onClick={handleLogout}
-                    className="text-slate-300 hover:text-white transition cursor-pointer"
                   >
                     <LogOut size={22} />
                   </button>
                 </div>
               ) : (
                 <button
+                  className="cursor-pointer rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
                   onClick={handleLogin}
-                  className="rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110 cursor-pointer"
                 >
                   Bejelentkezés
                 </button>

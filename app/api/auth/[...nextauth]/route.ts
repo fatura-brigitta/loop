@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import FacebookProvider from "next-auth/providers/facebook";
 import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
 
@@ -9,12 +10,18 @@ const handler = NextAuth({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
+
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID!,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
+    }),
   ],
 
   secret: process.env.NEXTAUTH_SECRET,
 
   callbacks: {
-    async signIn({ user }) {
+    async signIn({ user, account }) {
+
       if (!user.email) return false;
 
       let existing = await prisma.user.findUnique({
@@ -22,17 +29,18 @@ const handler = NextAuth({
       });
 
       if (!existing) {
+
         const baseRank = await prisma.rank.findFirst({
           where: { point_limit: 0 },
         });
 
         existing = await prisma.user.create({
           data: {
-            name: user.name || "Google User",
+            name: user.name || "User",
             email: user.email,
             password_hash: "",
-            auth_provider: "google",
-            phone_number: "0000000000",
+            auth_provider: account?.provider || "oauth",
+            phone_number: null,
             profile_image: user.image || "/profile/default.png",
             gender: "RATHER_NOT_SAY",
             points: 0,
@@ -42,8 +50,8 @@ const handler = NextAuth({
         });
       }
 
-      const cookieStore = await cookies();
-      cookieStore.set("userId", existing.id, {
+      const cookieStore = cookies();
+      (await cookieStore).set("userId", existing.id, {
         httpOnly: true,
         sameSite: "lax",
         path: "/",

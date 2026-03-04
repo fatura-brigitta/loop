@@ -391,7 +391,7 @@ export default function ProfilePage() {
             <input
               className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
               placeholder="+36123456789"
-              value={phone}
+              value={phone || ""}
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>

@@ -11,5 +11,8 @@ export default function GlobalLoading() {
         <div className="text-white/70">Betöltés...</div>
       </div>
     </div>
+
+
+
   );
 }

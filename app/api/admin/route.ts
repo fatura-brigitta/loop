@@ -109,6 +109,8 @@ export async function GET(req: Request) {
         type:"post"
       }));
 
+
+      
       const flaggedReplies = replies
       .filter(r => bad.some(w => r.comment.toLowerCase().includes(w)))
       .map(r => ({

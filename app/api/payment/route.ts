@@ -256,6 +256,7 @@ async function handleConfirm(req: NextRequest) {
       where: { id: userBefore.id },
       data: {
         points: { increment: gainedPoints },
+        last_ticket_at: new Date()
       },
     });
 
@@ -278,8 +279,6 @@ async function handleConfirm(req: NextRequest) {
         data: { rank_id: calculatedRank.id },
       });
 
-      NextResponse.json({ message: `Gratulálunk, elértél egy új rangot: ${calculatedRank.name}!`}, { status: 200 });
-
       if (calculatedRank.discount_id) {
 
         await prisma.coupon.create({
@@ -291,7 +290,6 @@ async function handleConfirm(req: NextRequest) {
           },
         });
 
-        NextResponse.json({ message: `Kupon létrehozva!`}, { status: 200 });
       }
     }
 
@@ -324,7 +322,6 @@ async function handleConfirm(req: NextRequest) {
         tickets: fullTickets
       });
 
-      NextResponse.json({ message: "Jegyek sikeresen elküldve" }, { status: 200 });
     } catch (err) {
       NextResponse.json({ message: "Nem sikerült elküldeni a jegyeket" }, { status: 500 });
     }

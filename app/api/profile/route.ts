@@ -24,6 +24,59 @@ export async function GET() {
     return NextResponse.json({ message: "Felhasználó nem található" }, { status: 404 });
   }
 
+  const now = new Date();
+
+  let diffDays = 0;
+
+  if (user.last_ticket_at) {
+    diffDays =
+      (now.getTime() - new Date(user.last_ticket_at).getTime()) /
+      (1000 * 60 * 60 * 24);
+  }
+
+  const days = Math.floor(diffDays);
+
+  if (Math.floor(days) >= 30) {
+
+    if (user.ranks?.point_limit === 0) {
+      console.log("Lowest rank → cannot downgrade");
+    }
+    else if (user.ranks?.name === "VIP") {
+      console.log("VIP user → no downgrade");
+    }
+
+    else {
+
+      const lowerRank = await prisma.rank.findFirst({
+        where: {
+          point_limit: {
+            lt: user.ranks?.point_limit ?? 0
+          }
+        },
+        orderBy: {
+          point_limit: "desc"
+        }
+      });
+
+      if (lowerRank && lowerRank.id !== user.rank_id) {
+
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { rank_id: lowerRank.id }
+        });
+
+        user.ranks = lowerRank;
+      }
+
+    }
+  }
+
+  let inactivityWarning = false;
+
+  if (days === 29) {
+    inactivityWarning = true;
+  }
+
   const nextRank = await prisma.rank.findFirst({
     where: {
       point_limit: {
@@ -54,11 +107,12 @@ export async function GET() {
     profile_image: user.profile_image,
     gender: user.gender,
     phone_number: user.phone_number,
-    password_hash: user.password_hash,
+    hasPassword: !!user.password_hash,
     points: user.points,
     rank: user.ranks,
     nextRank,
-    progress
+    progress,
+    inactivityWarning
   });
 }
 

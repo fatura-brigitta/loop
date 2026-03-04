@@ -5827,6 +5827,7 @@ export namespace Prisma {
     password_reset_token: string | null
     password_reset_exp: Date | null
     auth_provider: string | null
+    last_ticket_at: Date | null
     rank_id: string | null
   }
 
@@ -5845,6 +5846,7 @@ export namespace Prisma {
     password_reset_token: string | null
     password_reset_exp: Date | null
     auth_provider: string | null
+    last_ticket_at: Date | null
     rank_id: string | null
   }
 
@@ -5863,6 +5865,7 @@ export namespace Prisma {
     password_reset_token: number
     password_reset_exp: number
     auth_provider: number
+    last_ticket_at: number
     rank_id: number
     _all: number
   }
@@ -5891,6 +5894,7 @@ export namespace Prisma {
     password_reset_token?: true
     password_reset_exp?: true
     auth_provider?: true
+    last_ticket_at?: true
     rank_id?: true
   }
 
@@ -5909,6 +5913,7 @@ export namespace Prisma {
     password_reset_token?: true
     password_reset_exp?: true
     auth_provider?: true
+    last_ticket_at?: true
     rank_id?: true
   }
 
@@ -5927,6 +5932,7 @@ export namespace Prisma {
     password_reset_token?: true
     password_reset_exp?: true
     auth_provider?: true
+    last_ticket_at?: true
     rank_id?: true
     _all?: true
   }
@@ -6032,6 +6038,7 @@ export namespace Prisma {
     password_reset_token: string | null
     password_reset_exp: Date | null
     auth_provider: string
+    last_ticket_at: Date | null
     rank_id: string
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
@@ -6069,6 +6076,7 @@ export namespace Prisma {
     password_reset_token?: boolean
     password_reset_exp?: boolean
     auth_provider?: boolean
+    last_ticket_at?: boolean
     rank_id?: boolean
     ranks?: boolean | User$ranksArgs<ExtArgs>
     tickets?: boolean | User$ticketsArgs<ExtArgs>
@@ -6097,10 +6105,11 @@ export namespace Prisma {
     password_reset_token?: boolean
     password_reset_exp?: boolean
     auth_provider?: boolean
+    last_ticket_at?: boolean
     rank_id?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password_hash" | "points" | "phone_number" | "profile_image" | "gender" | "email_verified" | "email_code" | "email_code_exp" | "password_reset_token" | "password_reset_exp" | "auth_provider" | "rank_id", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password_hash" | "points" | "phone_number" | "profile_image" | "gender" | "email_verified" | "email_code" | "email_code_exp" | "password_reset_token" | "password_reset_exp" | "auth_provider" | "last_ticket_at" | "rank_id", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ranks?: boolean | User$ranksArgs<ExtArgs>
     tickets?: boolean | User$ticketsArgs<ExtArgs>
@@ -6138,6 +6147,7 @@ export namespace Prisma {
       password_reset_token: string | null
       password_reset_exp: Date | null
       auth_provider: string
+      last_ticket_at: Date | null
       rank_id: string
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -6552,6 +6562,7 @@ export namespace Prisma {
     readonly password_reset_token: FieldRef<"User", 'String'>
     readonly password_reset_exp: FieldRef<"User", 'DateTime'>
     readonly auth_provider: FieldRef<"User", 'String'>
+    readonly last_ticket_at: FieldRef<"User", 'DateTime'>
     readonly rank_id: FieldRef<"User", 'String'>
   }
     
@@ -19846,6 +19857,7 @@ export namespace Prisma {
     password_reset_token: 'password_reset_token',
     password_reset_exp: 'password_reset_exp',
     auth_provider: 'auth_provider',
+    last_ticket_at: 'last_ticket_at',
     rank_id: 'rank_id'
   };
 
@@ -20325,6 +20337,7 @@ export namespace Prisma {
     password_reset_token?: StringNullableFilter<"User"> | string | null
     password_reset_exp?: DateTimeNullableFilter<"User"> | Date | string | null
     auth_provider?: StringFilter<"User"> | string
+    last_ticket_at?: DateTimeNullableFilter<"User"> | Date | string | null
     rank_id?: StringFilter<"User"> | string
     ranks?: XOR<RankNullableScalarRelationFilter, RankWhereInput> | null
     tickets?: TicketListRelationFilter
@@ -20350,6 +20363,7 @@ export namespace Prisma {
     password_reset_token?: SortOrder
     password_reset_exp?: SortOrder
     auth_provider?: SortOrder
+    last_ticket_at?: SortOrder
     rank_id?: SortOrder
     ranks?: RankOrderByWithRelationInput
     tickets?: TicketOrderByRelationAggregateInput
@@ -20378,6 +20392,7 @@ export namespace Prisma {
     password_reset_token?: StringNullableFilter<"User"> | string | null
     password_reset_exp?: DateTimeNullableFilter<"User"> | Date | string | null
     auth_provider?: StringFilter<"User"> | string
+    last_ticket_at?: DateTimeNullableFilter<"User"> | Date | string | null
     rank_id?: StringFilter<"User"> | string
     ranks?: XOR<RankNullableScalarRelationFilter, RankWhereInput> | null
     tickets?: TicketListRelationFilter
@@ -20403,6 +20418,7 @@ export namespace Prisma {
     password_reset_token?: SortOrder
     password_reset_exp?: SortOrder
     auth_provider?: SortOrder
+    last_ticket_at?: SortOrder
     rank_id?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
@@ -20429,6 +20445,7 @@ export namespace Prisma {
     password_reset_token?: StringNullableWithAggregatesFilter<"User"> | string | null
     password_reset_exp?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     auth_provider?: StringWithAggregatesFilter<"User"> | string
+    last_ticket_at?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     rank_id?: StringWithAggregatesFilter<"User"> | string
   }
 
@@ -21401,6 +21418,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
     ranks?: RankCreateNestedOneWithoutUsersInput
     tickets?: TicketCreateNestedManyWithoutUsersInput
     forum?: ForumCreateNestedManyWithoutUsersInput
@@ -21425,6 +21443,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
     rank_id: string
     tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
     forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
@@ -21448,6 +21467,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ranks?: RankUpdateOneWithoutUsersNestedInput
     tickets?: TicketUpdateManyWithoutUsersNestedInput
     forum?: ForumUpdateManyWithoutUsersNestedInput
@@ -21471,6 +21491,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     rank_id?: StringFieldUpdateOperationsInput | string
     tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
     forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
@@ -21495,6 +21516,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
     rank_id: string
   }
 
@@ -21512,6 +21534,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -21528,6 +21551,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     rank_id?: StringFieldUpdateOperationsInput | string
   }
 
@@ -22574,6 +22598,7 @@ export namespace Prisma {
     password_reset_token?: SortOrder
     password_reset_exp?: SortOrder
     auth_provider?: SortOrder
+    last_ticket_at?: SortOrder
     rank_id?: SortOrder
   }
 
@@ -22596,6 +22621,7 @@ export namespace Prisma {
     password_reset_token?: SortOrder
     password_reset_exp?: SortOrder
     auth_provider?: SortOrder
+    last_ticket_at?: SortOrder
     rank_id?: SortOrder
   }
 
@@ -22614,6 +22640,7 @@ export namespace Prisma {
     password_reset_token?: SortOrder
     password_reset_exp?: SortOrder
     auth_provider?: SortOrder
+    last_ticket_at?: SortOrder
     rank_id?: SortOrder
   }
 
@@ -25584,6 +25611,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
     tickets?: TicketCreateNestedManyWithoutUsersInput
     forum?: ForumCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionCreateNestedManyWithoutUsersInput
@@ -25607,6 +25635,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
     tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
     forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionUncheckedCreateNestedManyWithoutUsersInput
@@ -25683,6 +25712,7 @@ export namespace Prisma {
     password_reset_token?: StringNullableFilter<"User"> | string | null
     password_reset_exp?: DateTimeNullableFilter<"User"> | Date | string | null
     auth_provider?: StringFilter<"User"> | string
+    last_ticket_at?: DateTimeNullableFilter<"User"> | Date | string | null
     rank_id?: StringFilter<"User"> | string
   }
 
@@ -25915,6 +25945,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
     ranks?: RankCreateNestedOneWithoutUsersInput
     tickets?: TicketCreateNestedManyWithoutUsersInput
     forum?: ForumCreateNestedManyWithoutUsersInput
@@ -25938,6 +25969,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
     rank_id: string
     tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
     forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
@@ -26007,6 +26039,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ranks?: RankUpdateOneWithoutUsersNestedInput
     tickets?: TicketUpdateManyWithoutUsersNestedInput
     forum?: ForumUpdateManyWithoutUsersNestedInput
@@ -26029,6 +26062,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     rank_id?: StringFieldUpdateOperationsInput | string
     tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
     forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
@@ -26096,6 +26130,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
     ranks?: RankCreateNestedOneWithoutUsersInput
     tickets?: TicketCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionCreateNestedManyWithoutUsersInput
@@ -26119,6 +26154,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
     rank_id: string
     tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionUncheckedCreateNestedManyWithoutUsersInput
@@ -26228,6 +26264,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ranks?: RankUpdateOneWithoutUsersNestedInput
     tickets?: TicketUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUpdateManyWithoutUsersNestedInput
@@ -26250,6 +26287,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     rank_id?: StringFieldUpdateOperationsInput | string
     tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUncheckedUpdateManyWithoutUsersNestedInput
@@ -26343,6 +26381,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
     ranks?: RankCreateNestedOneWithoutUsersInput
     tickets?: TicketCreateNestedManyWithoutUsersInput
     forum?: ForumCreateNestedManyWithoutUsersInput
@@ -26366,6 +26405,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
     rank_id: string
     tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
     forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
@@ -26435,6 +26475,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ranks?: RankUpdateOneWithoutUsersNestedInput
     tickets?: TicketUpdateManyWithoutUsersNestedInput
     forum?: ForumUpdateManyWithoutUsersNestedInput
@@ -26457,6 +26498,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     rank_id?: StringFieldUpdateOperationsInput | string
     tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
     forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
@@ -26543,6 +26585,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
     ranks?: RankCreateNestedOneWithoutUsersInput
     forum?: ForumCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionCreateNestedManyWithoutUsersInput
@@ -26566,6 +26609,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
     rank_id: string
     forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
     payment_sessions?: Payment_sessionUncheckedCreateNestedManyWithoutUsersInput
@@ -26698,6 +26742,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ranks?: RankUpdateOneWithoutUsersNestedInput
     forum?: ForumUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUpdateManyWithoutUsersNestedInput
@@ -26720,6 +26765,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     rank_id?: StringFieldUpdateOperationsInput | string
     forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUncheckedUpdateManyWithoutUsersNestedInput
@@ -26967,6 +27013,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
     ranks?: RankCreateNestedOneWithoutUsersInput
     tickets?: TicketCreateNestedManyWithoutUsersInput
     forum?: ForumCreateNestedManyWithoutUsersInput
@@ -26990,6 +27037,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
     rank_id: string
     tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
     forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
@@ -27076,6 +27124,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ranks?: RankUpdateOneWithoutUsersNestedInput
     tickets?: TicketUpdateManyWithoutUsersNestedInput
     forum?: ForumUpdateManyWithoutUsersNestedInput
@@ -27098,6 +27147,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     rank_id?: StringFieldUpdateOperationsInput | string
     tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
     forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
@@ -27150,6 +27200,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
     ranks?: RankCreateNestedOneWithoutUsersInput
     tickets?: TicketCreateNestedManyWithoutUsersInput
     forum?: ForumCreateNestedManyWithoutUsersInput
@@ -27173,6 +27224,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
     rank_id: string
     tickets?: TicketUncheckedCreateNestedManyWithoutUsersInput
     forum?: ForumUncheckedCreateNestedManyWithoutUsersInput
@@ -27232,6 +27284,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ranks?: RankUpdateOneWithoutUsersNestedInput
     tickets?: TicketUpdateManyWithoutUsersNestedInput
     forum?: ForumUpdateManyWithoutUsersNestedInput
@@ -27254,6 +27307,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     rank_id?: StringFieldUpdateOperationsInput | string
     tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
     forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
@@ -27673,6 +27727,7 @@ export namespace Prisma {
     password_reset_token?: string | null
     password_reset_exp?: Date | string | null
     auth_provider?: string
+    last_ticket_at?: Date | string | null
   }
 
   export type UserUpdateWithoutRanksInput = {
@@ -27689,6 +27744,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tickets?: TicketUpdateManyWithoutUsersNestedInput
     forum?: ForumUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUpdateManyWithoutUsersNestedInput
@@ -27711,6 +27767,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tickets?: TicketUncheckedUpdateManyWithoutUsersNestedInput
     forum?: ForumUncheckedUpdateManyWithoutUsersNestedInput
     payment_sessions?: Payment_sessionUncheckedUpdateManyWithoutUsersNestedInput
@@ -27733,6 +27790,7 @@ export namespace Prisma {
     password_reset_token?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_exp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auth_provider?: StringFieldUpdateOperationsInput | string
+    last_ticket_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type RankCreateManyDiscountInput = {

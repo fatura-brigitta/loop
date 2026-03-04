@@ -78,8 +78,8 @@ export default function ProfilePage() {
 
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [warning, setWarning] = useState(false);
 
-  const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -115,7 +115,8 @@ export default function ProfilePage() {
 
       setGender(profile.gender || "RATHER_NOT_SAY");
 
-      setIsGoogleUser(!profile.password_hash);
+      setIsGoogleUser(!profile.hasPassword);
+      setWarning(profile.inactivityWarning);
 
       const ticketRes = await fetch("/api/profile", {
         method: "POST",
@@ -302,6 +303,12 @@ export default function ProfilePage() {
               Folytatás
             </button>
           </div>
+        </div>
+      )}
+
+      {warning && (
+        <div className="mb-6 rounded-lg border border-yellow-400/40 bg-yellow-500/20 p-4 text-yellow-300">
+          ⚠️ Ha 24 órán belül nem vásárolsz jegyet, visszaesel egy rangot.
         </div>
       )}
 

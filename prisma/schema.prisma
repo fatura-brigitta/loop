@@ -70,7 +70,8 @@ model User {
   email_code_exp       DateTime?
   password_reset_token String?
   password_reset_exp   DateTime?
-  auth_provider String @default("local")
+  auth_provider        String @default("local")
+  last_ticket_at       DateTime?
   rank_id              String    @db.ObjectId
 
   ranks Rank? @relation(fields: [rank_id], references: [id], onDelete: Cascade)

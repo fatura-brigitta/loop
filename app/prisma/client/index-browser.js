@@ -160,6 +160,7 @@ exports.Prisma.UserScalarFieldEnum = {
   password_reset_token: 'password_reset_token',
   password_reset_exp: 'password_reset_exp',
   auth_provider: 'auth_provider',
+  last_ticket_at: 'last_ticket_at',
   rank_id: 'rank_id'
 };
 

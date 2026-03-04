@@ -306,12 +306,6 @@ export default function ProfilePage() {
         </div>
       )}
 
-      {warning && (
-        <div className="mb-6 rounded-lg border border-yellow-400/40 bg-yellow-500/20 p-4 text-yellow-300">
-          ⚠️ Ha 24 órán belül nem vásárolsz jegyet, visszaesel egy rangot.
-        </div>
-      )}
-
       {rankData?.rank && (
         <div className="mx-auto max-w-5xl px-4 pt-12">
           <div className="mb-10 w-full rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur">
@@ -361,7 +355,16 @@ export default function ProfilePage() {
         </div>
       )}
 
-      <div className="mx-auto max-w-5xl px-4 py-16">
+      <div className="mx-auto max-w-5xl px-4 py-2">
+        {warning && (
+          <div className="mb-6 rounded-lg border border-yellow-400/40 bg-yellow-500/20 p-4 text-yellow-300">
+            ⚠️ Ha 24 órán belül nem vásárolsz jegyet, visszaesel egy rangot.
+          </div>
+        )}
+      </div>
+
+
+      <div className="mx-auto max-w-5xl px-4 py-8">
         <div className="w-full rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur transition-all">
           <h1 className="mb-8 text-3xl font-bold text-cyan-300">Profil adatok</h1>
 

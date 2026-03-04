@@ -36,13 +36,14 @@ export async function GET() {
 
   const days = Math.floor(diffDays);
 
-  if (Math.floor(days) >= 30) {
+  if (days >= 30) {
 
-    if (user.ranks?.point_limit === 0) {
-      console.log("Lowest rank → cannot downgrade");
-    }
-    else if (user.ranks?.name === "VIP") {
+    if (user.ranks?.name === "VIP") {
       console.log("VIP user → no downgrade");
+    }
+
+    else if (user.ranks?.name === "BRONZE") {
+      console.log("Bronze user → cannot downgrade");
     }
 
     else {
@@ -50,7 +51,7 @@ export async function GET() {
       const lowerRank = await prisma.rank.findFirst({
         where: {
           point_limit: {
-            lt: user.ranks?.point_limit ?? 0
+            lt: user.ranks?.point_limit
           }
         },
         orderBy: {
@@ -62,10 +63,14 @@ export async function GET() {
 
         await prisma.user.update({
           where: { id: user.id },
-          data: { rank_id: lowerRank.id }
+          data: {
+            rank_id: lowerRank.id,
+            points: lowerRank.point_limit
+          }
         });
 
         user.ranks = lowerRank;
+        user.points = lowerRank.point_limit;
       }
 
     }
@@ -167,6 +172,7 @@ export async function PATCH(req: Request) {
       name,
       phone_number: normalizedPhone,
       gender,
+      last_ticket_at: new Date()
     },
   });
 

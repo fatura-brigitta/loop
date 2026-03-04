@@ -186,6 +186,13 @@ model ForumReply {
   @@map("forum_replies")
 }
 
+model BadWord {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  word String @unique
+
+  @@map("bad_words")
+}
+
 model Ticket {
   id                String    @id @default(auto()) @map("_id") @db.ObjectId
   ticket_type_id    String    @db.ObjectId

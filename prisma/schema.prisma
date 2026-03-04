@@ -70,7 +70,7 @@ model User {
   email_code_exp       DateTime?
   password_reset_token String?
   password_reset_exp   DateTime?
-  auth_provider        String @default("local")
+  auth_provider        String    @default("local")
   last_ticket_at       DateTime?
   rank_id              String    @db.ObjectId
 
@@ -174,16 +174,23 @@ model Forum {
 }
 
 model ForumReply {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  forum_id  String   @db.ObjectId
-  user_id   String   @db.ObjectId
-  comment   String
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  forum_id   String   @db.ObjectId
+  user_id    String   @db.ObjectId
+  comment    String
   created_at DateTime @default(now())
 
   forum Forum? @relation(fields: [forum_id], references: [id], onDelete: Cascade)
   user  User?  @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("forum_replies")
+}
+
+model BadWord {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  word String @unique
+
+  @@map("bad_words")
 }
 
 model Ticket {

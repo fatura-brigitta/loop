@@ -69,6 +69,11 @@ export type Forum = $Result.DefaultSelection<Prisma.$ForumPayload>
  */
 export type ForumReply = $Result.DefaultSelection<Prisma.$ForumReplyPayload>
 /**
+ * Model BadWord
+ * 
+ */
+export type BadWord = $Result.DefaultSelection<Prisma.$BadWordPayload>
+/**
  * Model Ticket
  * 
  */
@@ -305,6 +310,16 @@ export class PrismaClient<
     * ```
     */
   get forumReply(): Prisma.ForumReplyDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.badWord`: Exposes CRUD operations for the **BadWord** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BadWords
+    * const badWords = await prisma.badWord.findMany()
+    * ```
+    */
+  get badWord(): Prisma.BadWordDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.ticket`: Exposes CRUD operations for the **Ticket** model.
@@ -807,6 +822,7 @@ export namespace Prisma {
     ForumVote: 'ForumVote',
     Forum: 'Forum',
     ForumReply: 'ForumReply',
+    BadWord: 'BadWord',
     Ticket: 'Ticket',
     Ticket_type: 'Ticket_type',
     Screening_type: 'Screening_type',
@@ -830,7 +846,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "admin" | "movie" | "screening" | "user" | "chair" | "rank" | "discount" | "hall" | "forumVote" | "forum" | "forumReply" | "ticket" | "ticket_type" | "screening_type" | "payment_session" | "coupon"
+      modelProps: "admin" | "movie" | "screening" | "user" | "chair" | "rank" | "discount" | "hall" | "forumVote" | "forum" | "forumReply" | "badWord" | "ticket" | "ticket_type" | "screening_type" | "payment_session" | "coupon"
       txIsolationLevel: never
     }
     model: {
@@ -1648,6 +1664,80 @@ export namespace Prisma {
           }
         }
       }
+      BadWord: {
+        payload: Prisma.$BadWordPayload<ExtArgs>
+        fields: Prisma.BadWordFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BadWordFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BadWordPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BadWordFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BadWordPayload>
+          }
+          findFirst: {
+            args: Prisma.BadWordFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BadWordPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BadWordFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BadWordPayload>
+          }
+          findMany: {
+            args: Prisma.BadWordFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BadWordPayload>[]
+          }
+          create: {
+            args: Prisma.BadWordCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BadWordPayload>
+          }
+          createMany: {
+            args: Prisma.BadWordCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.BadWordDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BadWordPayload>
+          }
+          update: {
+            args: Prisma.BadWordUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BadWordPayload>
+          }
+          deleteMany: {
+            args: Prisma.BadWordDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BadWordUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.BadWordUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BadWordPayload>
+          }
+          aggregate: {
+            args: Prisma.BadWordAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBadWord>
+          }
+          groupBy: {
+            args: Prisma.BadWordGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BadWordGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.BadWordFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.BadWordAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.BadWordCountArgs<ExtArgs>
+            result: $Utils.Optional<BadWordCountAggregateOutputType> | number
+          }
+        }
+      }
       Ticket: {
         payload: Prisma.$TicketPayload<ExtArgs>
         fields: Prisma.TicketFieldRefs
@@ -2108,6 +2198,7 @@ export namespace Prisma {
     forumVote?: ForumVoteOmit
     forum?: ForumOmit
     forumReply?: ForumReplyOmit
+    badWord?: BadWordOmit
     ticket?: TicketOmit
     ticket_type?: Ticket_typeOmit
     screening_type?: Screening_typeOmit
@@ -14523,6 +14614,905 @@ export namespace Prisma {
 
 
   /**
+   * Model BadWord
+   */
+
+  export type AggregateBadWord = {
+    _count: BadWordCountAggregateOutputType | null
+    _min: BadWordMinAggregateOutputType | null
+    _max: BadWordMaxAggregateOutputType | null
+  }
+
+  export type BadWordMinAggregateOutputType = {
+    id: string | null
+    word: string | null
+  }
+
+  export type BadWordMaxAggregateOutputType = {
+    id: string | null
+    word: string | null
+  }
+
+  export type BadWordCountAggregateOutputType = {
+    id: number
+    word: number
+    _all: number
+  }
+
+
+  export type BadWordMinAggregateInputType = {
+    id?: true
+    word?: true
+  }
+
+  export type BadWordMaxAggregateInputType = {
+    id?: true
+    word?: true
+  }
+
+  export type BadWordCountAggregateInputType = {
+    id?: true
+    word?: true
+    _all?: true
+  }
+
+  export type BadWordAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BadWord to aggregate.
+     */
+    where?: BadWordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BadWords to fetch.
+     */
+    orderBy?: BadWordOrderByWithRelationInput | BadWordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BadWordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BadWords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BadWords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BadWords
+    **/
+    _count?: true | BadWordCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BadWordMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BadWordMaxAggregateInputType
+  }
+
+  export type GetBadWordAggregateType<T extends BadWordAggregateArgs> = {
+        [P in keyof T & keyof AggregateBadWord]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBadWord[P]>
+      : GetScalarType<T[P], AggregateBadWord[P]>
+  }
+
+
+
+
+  export type BadWordGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BadWordWhereInput
+    orderBy?: BadWordOrderByWithAggregationInput | BadWordOrderByWithAggregationInput[]
+    by: BadWordScalarFieldEnum[] | BadWordScalarFieldEnum
+    having?: BadWordScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BadWordCountAggregateInputType | true
+    _min?: BadWordMinAggregateInputType
+    _max?: BadWordMaxAggregateInputType
+  }
+
+  export type BadWordGroupByOutputType = {
+    id: string
+    word: string
+    _count: BadWordCountAggregateOutputType | null
+    _min: BadWordMinAggregateOutputType | null
+    _max: BadWordMaxAggregateOutputType | null
+  }
+
+  type GetBadWordGroupByPayload<T extends BadWordGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BadWordGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BadWordGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BadWordGroupByOutputType[P]>
+            : GetScalarType<T[P], BadWordGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BadWordSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    word?: boolean
+  }, ExtArgs["result"]["badWord"]>
+
+
+
+  export type BadWordSelectScalar = {
+    id?: boolean
+    word?: boolean
+  }
+
+  export type BadWordOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "word", ExtArgs["result"]["badWord"]>
+
+  export type $BadWordPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BadWord"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      word: string
+    }, ExtArgs["result"]["badWord"]>
+    composites: {}
+  }
+
+  type BadWordGetPayload<S extends boolean | null | undefined | BadWordDefaultArgs> = $Result.GetResult<Prisma.$BadWordPayload, S>
+
+  type BadWordCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BadWordFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BadWordCountAggregateInputType | true
+    }
+
+  export interface BadWordDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BadWord'], meta: { name: 'BadWord' } }
+    /**
+     * Find zero or one BadWord that matches the filter.
+     * @param {BadWordFindUniqueArgs} args - Arguments to find a BadWord
+     * @example
+     * // Get one BadWord
+     * const badWord = await prisma.badWord.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BadWordFindUniqueArgs>(args: SelectSubset<T, BadWordFindUniqueArgs<ExtArgs>>): Prisma__BadWordClient<$Result.GetResult<Prisma.$BadWordPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BadWord that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BadWordFindUniqueOrThrowArgs} args - Arguments to find a BadWord
+     * @example
+     * // Get one BadWord
+     * const badWord = await prisma.badWord.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BadWordFindUniqueOrThrowArgs>(args: SelectSubset<T, BadWordFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BadWordClient<$Result.GetResult<Prisma.$BadWordPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BadWord that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BadWordFindFirstArgs} args - Arguments to find a BadWord
+     * @example
+     * // Get one BadWord
+     * const badWord = await prisma.badWord.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BadWordFindFirstArgs>(args?: SelectSubset<T, BadWordFindFirstArgs<ExtArgs>>): Prisma__BadWordClient<$Result.GetResult<Prisma.$BadWordPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BadWord that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BadWordFindFirstOrThrowArgs} args - Arguments to find a BadWord
+     * @example
+     * // Get one BadWord
+     * const badWord = await prisma.badWord.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BadWordFindFirstOrThrowArgs>(args?: SelectSubset<T, BadWordFindFirstOrThrowArgs<ExtArgs>>): Prisma__BadWordClient<$Result.GetResult<Prisma.$BadWordPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BadWords that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BadWordFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BadWords
+     * const badWords = await prisma.badWord.findMany()
+     * 
+     * // Get first 10 BadWords
+     * const badWords = await prisma.badWord.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const badWordWithIdOnly = await prisma.badWord.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BadWordFindManyArgs>(args?: SelectSubset<T, BadWordFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BadWordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BadWord.
+     * @param {BadWordCreateArgs} args - Arguments to create a BadWord.
+     * @example
+     * // Create one BadWord
+     * const BadWord = await prisma.badWord.create({
+     *   data: {
+     *     // ... data to create a BadWord
+     *   }
+     * })
+     * 
+     */
+    create<T extends BadWordCreateArgs>(args: SelectSubset<T, BadWordCreateArgs<ExtArgs>>): Prisma__BadWordClient<$Result.GetResult<Prisma.$BadWordPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BadWords.
+     * @param {BadWordCreateManyArgs} args - Arguments to create many BadWords.
+     * @example
+     * // Create many BadWords
+     * const badWord = await prisma.badWord.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BadWordCreateManyArgs>(args?: SelectSubset<T, BadWordCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a BadWord.
+     * @param {BadWordDeleteArgs} args - Arguments to delete one BadWord.
+     * @example
+     * // Delete one BadWord
+     * const BadWord = await prisma.badWord.delete({
+     *   where: {
+     *     // ... filter to delete one BadWord
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BadWordDeleteArgs>(args: SelectSubset<T, BadWordDeleteArgs<ExtArgs>>): Prisma__BadWordClient<$Result.GetResult<Prisma.$BadWordPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BadWord.
+     * @param {BadWordUpdateArgs} args - Arguments to update one BadWord.
+     * @example
+     * // Update one BadWord
+     * const badWord = await prisma.badWord.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BadWordUpdateArgs>(args: SelectSubset<T, BadWordUpdateArgs<ExtArgs>>): Prisma__BadWordClient<$Result.GetResult<Prisma.$BadWordPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BadWords.
+     * @param {BadWordDeleteManyArgs} args - Arguments to filter BadWords to delete.
+     * @example
+     * // Delete a few BadWords
+     * const { count } = await prisma.badWord.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BadWordDeleteManyArgs>(args?: SelectSubset<T, BadWordDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BadWords.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BadWordUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BadWords
+     * const badWord = await prisma.badWord.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BadWordUpdateManyArgs>(args: SelectSubset<T, BadWordUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BadWord.
+     * @param {BadWordUpsertArgs} args - Arguments to update or create a BadWord.
+     * @example
+     * // Update or create a BadWord
+     * const badWord = await prisma.badWord.upsert({
+     *   create: {
+     *     // ... data to create a BadWord
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BadWord we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BadWordUpsertArgs>(args: SelectSubset<T, BadWordUpsertArgs<ExtArgs>>): Prisma__BadWordClient<$Result.GetResult<Prisma.$BadWordPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BadWords that matches the filter.
+     * @param {BadWordFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const badWord = await prisma.badWord.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: BadWordFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a BadWord.
+     * @param {BadWordAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const badWord = await prisma.badWord.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: BadWordAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of BadWords.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BadWordCountArgs} args - Arguments to filter BadWords to count.
+     * @example
+     * // Count the number of BadWords
+     * const count = await prisma.badWord.count({
+     *   where: {
+     *     // ... the filter for the BadWords we want to count
+     *   }
+     * })
+    **/
+    count<T extends BadWordCountArgs>(
+      args?: Subset<T, BadWordCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BadWordCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BadWord.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BadWordAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BadWordAggregateArgs>(args: Subset<T, BadWordAggregateArgs>): Prisma.PrismaPromise<GetBadWordAggregateType<T>>
+
+    /**
+     * Group by BadWord.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BadWordGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BadWordGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BadWordGroupByArgs['orderBy'] }
+        : { orderBy?: BadWordGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BadWordGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBadWordGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BadWord model
+   */
+  readonly fields: BadWordFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BadWord.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BadWordClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BadWord model
+   */
+  interface BadWordFieldRefs {
+    readonly id: FieldRef<"BadWord", 'String'>
+    readonly word: FieldRef<"BadWord", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BadWord findUnique
+   */
+  export type BadWordFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BadWord
+     */
+    select?: BadWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BadWord
+     */
+    omit?: BadWordOmit<ExtArgs> | null
+    /**
+     * Filter, which BadWord to fetch.
+     */
+    where: BadWordWhereUniqueInput
+  }
+
+  /**
+   * BadWord findUniqueOrThrow
+   */
+  export type BadWordFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BadWord
+     */
+    select?: BadWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BadWord
+     */
+    omit?: BadWordOmit<ExtArgs> | null
+    /**
+     * Filter, which BadWord to fetch.
+     */
+    where: BadWordWhereUniqueInput
+  }
+
+  /**
+   * BadWord findFirst
+   */
+  export type BadWordFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BadWord
+     */
+    select?: BadWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BadWord
+     */
+    omit?: BadWordOmit<ExtArgs> | null
+    /**
+     * Filter, which BadWord to fetch.
+     */
+    where?: BadWordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BadWords to fetch.
+     */
+    orderBy?: BadWordOrderByWithRelationInput | BadWordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BadWords.
+     */
+    cursor?: BadWordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BadWords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BadWords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BadWords.
+     */
+    distinct?: BadWordScalarFieldEnum | BadWordScalarFieldEnum[]
+  }
+
+  /**
+   * BadWord findFirstOrThrow
+   */
+  export type BadWordFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BadWord
+     */
+    select?: BadWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BadWord
+     */
+    omit?: BadWordOmit<ExtArgs> | null
+    /**
+     * Filter, which BadWord to fetch.
+     */
+    where?: BadWordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BadWords to fetch.
+     */
+    orderBy?: BadWordOrderByWithRelationInput | BadWordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BadWords.
+     */
+    cursor?: BadWordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BadWords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BadWords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BadWords.
+     */
+    distinct?: BadWordScalarFieldEnum | BadWordScalarFieldEnum[]
+  }
+
+  /**
+   * BadWord findMany
+   */
+  export type BadWordFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BadWord
+     */
+    select?: BadWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BadWord
+     */
+    omit?: BadWordOmit<ExtArgs> | null
+    /**
+     * Filter, which BadWords to fetch.
+     */
+    where?: BadWordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BadWords to fetch.
+     */
+    orderBy?: BadWordOrderByWithRelationInput | BadWordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BadWords.
+     */
+    cursor?: BadWordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BadWords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BadWords.
+     */
+    skip?: number
+    distinct?: BadWordScalarFieldEnum | BadWordScalarFieldEnum[]
+  }
+
+  /**
+   * BadWord create
+   */
+  export type BadWordCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BadWord
+     */
+    select?: BadWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BadWord
+     */
+    omit?: BadWordOmit<ExtArgs> | null
+    /**
+     * The data needed to create a BadWord.
+     */
+    data: XOR<BadWordCreateInput, BadWordUncheckedCreateInput>
+  }
+
+  /**
+   * BadWord createMany
+   */
+  export type BadWordCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BadWords.
+     */
+    data: BadWordCreateManyInput | BadWordCreateManyInput[]
+  }
+
+  /**
+   * BadWord update
+   */
+  export type BadWordUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BadWord
+     */
+    select?: BadWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BadWord
+     */
+    omit?: BadWordOmit<ExtArgs> | null
+    /**
+     * The data needed to update a BadWord.
+     */
+    data: XOR<BadWordUpdateInput, BadWordUncheckedUpdateInput>
+    /**
+     * Choose, which BadWord to update.
+     */
+    where: BadWordWhereUniqueInput
+  }
+
+  /**
+   * BadWord updateMany
+   */
+  export type BadWordUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BadWords.
+     */
+    data: XOR<BadWordUpdateManyMutationInput, BadWordUncheckedUpdateManyInput>
+    /**
+     * Filter which BadWords to update
+     */
+    where?: BadWordWhereInput
+    /**
+     * Limit how many BadWords to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BadWord upsert
+   */
+  export type BadWordUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BadWord
+     */
+    select?: BadWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BadWord
+     */
+    omit?: BadWordOmit<ExtArgs> | null
+    /**
+     * The filter to search for the BadWord to update in case it exists.
+     */
+    where: BadWordWhereUniqueInput
+    /**
+     * In case the BadWord found by the `where` argument doesn't exist, create a new BadWord with this data.
+     */
+    create: XOR<BadWordCreateInput, BadWordUncheckedCreateInput>
+    /**
+     * In case the BadWord was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BadWordUpdateInput, BadWordUncheckedUpdateInput>
+  }
+
+  /**
+   * BadWord delete
+   */
+  export type BadWordDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BadWord
+     */
+    select?: BadWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BadWord
+     */
+    omit?: BadWordOmit<ExtArgs> | null
+    /**
+     * Filter which BadWord to delete.
+     */
+    where: BadWordWhereUniqueInput
+  }
+
+  /**
+   * BadWord deleteMany
+   */
+  export type BadWordDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BadWords to delete
+     */
+    where?: BadWordWhereInput
+    /**
+     * Limit how many BadWords to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BadWord findRaw
+   */
+  export type BadWordFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * BadWord aggregateRaw
+   */
+  export type BadWordAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * BadWord without action
+   */
+  export type BadWordDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BadWord
+     */
+    select?: BadWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BadWord
+     */
+    omit?: BadWordOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model Ticket
    */
 
@@ -19939,6 +20929,14 @@ export namespace Prisma {
   export type ForumReplyScalarFieldEnum = (typeof ForumReplyScalarFieldEnum)[keyof typeof ForumReplyScalarFieldEnum]
 
 
+  export const BadWordScalarFieldEnum: {
+    id: 'id',
+    word: 'word'
+  };
+
+  export type BadWordScalarFieldEnum = (typeof BadWordScalarFieldEnum)[keyof typeof BadWordScalarFieldEnum]
+
+
   export const TicketScalarFieldEnum: {
     id: 'id',
     ticket_type_id: 'ticket_type_id',
@@ -20860,6 +21858,43 @@ export namespace Prisma {
     user_id?: StringWithAggregatesFilter<"ForumReply"> | string
     comment?: StringWithAggregatesFilter<"ForumReply"> | string
     created_at?: DateTimeWithAggregatesFilter<"ForumReply"> | Date | string
+  }
+
+  export type BadWordWhereInput = {
+    AND?: BadWordWhereInput | BadWordWhereInput[]
+    OR?: BadWordWhereInput[]
+    NOT?: BadWordWhereInput | BadWordWhereInput[]
+    id?: StringFilter<"BadWord"> | string
+    word?: StringFilter<"BadWord"> | string
+  }
+
+  export type BadWordOrderByWithRelationInput = {
+    id?: SortOrder
+    word?: SortOrder
+  }
+
+  export type BadWordWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    word?: string
+    AND?: BadWordWhereInput | BadWordWhereInput[]
+    OR?: BadWordWhereInput[]
+    NOT?: BadWordWhereInput | BadWordWhereInput[]
+  }, "id" | "word">
+
+  export type BadWordOrderByWithAggregationInput = {
+    id?: SortOrder
+    word?: SortOrder
+    _count?: BadWordCountOrderByAggregateInput
+    _max?: BadWordMaxOrderByAggregateInput
+    _min?: BadWordMinOrderByAggregateInput
+  }
+
+  export type BadWordScalarWhereWithAggregatesInput = {
+    AND?: BadWordScalarWhereWithAggregatesInput | BadWordScalarWhereWithAggregatesInput[]
+    OR?: BadWordScalarWhereWithAggregatesInput[]
+    NOT?: BadWordScalarWhereWithAggregatesInput | BadWordScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BadWord"> | string
+    word?: StringWithAggregatesFilter<"BadWord"> | string
   }
 
   export type TicketWhereInput = {
@@ -21929,6 +22964,37 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BadWordCreateInput = {
+    id?: string
+    word: string
+  }
+
+  export type BadWordUncheckedCreateInput = {
+    id?: string
+    word: string
+  }
+
+  export type BadWordUpdateInput = {
+    word?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BadWordUncheckedUpdateInput = {
+    word?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BadWordCreateManyInput = {
+    id?: string
+    word: string
+  }
+
+  export type BadWordUpdateManyMutationInput = {
+    word?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BadWordUncheckedUpdateManyInput = {
+    word?: StringFieldUpdateOperationsInput | string
+  }
+
   export type TicketCreateInput = {
     id?: string
     price: number
@@ -22965,6 +24031,21 @@ export namespace Prisma {
     user_id?: SortOrder
     comment?: SortOrder
     created_at?: SortOrder
+  }
+
+  export type BadWordCountOrderByAggregateInput = {
+    id?: SortOrder
+    word?: SortOrder
+  }
+
+  export type BadWordMaxOrderByAggregateInput = {
+    id?: SortOrder
+    word?: SortOrder
+  }
+
+  export type BadWordMinOrderByAggregateInput = {
+    id?: SortOrder
+    word?: SortOrder
   }
 
   export type Ticket_typeNullableScalarRelationFilter = {

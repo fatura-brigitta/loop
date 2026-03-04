@@ -2,7 +2,13 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { ObjectId } from "bson";
 
-type Entity = "movies" | "halls" | "screenings" | "screening_types";
+type Entity =
+  | "movies"
+  | "halls"
+  | "screenings"
+  | "screening_types"
+  | "bad_words"
+  | "flagged_comments";
 
 function jsonError(message: string, status = 400) {
   return NextResponse.json({ error: message }, { status });
@@ -15,7 +21,9 @@ function getEntity(req: Request): Entity | null {
     e === "movies" ||
     e === "halls" ||
     e === "screenings" ||
-    e === "screening_types"
+    e === "screening_types" ||
+    e === "bad_words" ||
+    e === "flagged_comments"
   )
     return e;
   return null;
@@ -58,6 +66,63 @@ export async function GET(req: Request) {
       return NextResponse.json(
         await prisma.screening_type.findMany({ orderBy: { type: "asc" } })
       );
+    }
+
+    if (entity === "bad_words") {
+      const words = await prisma.badWord.findMany({
+        orderBy:{word:"asc"}
+      });
+
+      return NextResponse.json(words);
+    }
+
+    if(entity === "flagged_comments"){
+
+      const words = await prisma.badWord.findMany();
+      const bad = words.map(w => w.word.toLowerCase());
+
+      const posts = await prisma.forum.findMany({
+        include:{
+          users:true,
+          movies:true
+        }
+      });
+
+      const replies = await prisma.forumReply.findMany({
+        include:{
+          user:true,
+          forum:{
+            include:{
+              movies:true
+            }
+          }
+        }
+      });
+
+      const flaggedPosts = posts
+      .filter(p => bad.some(w => p.comment.toLowerCase().includes(w)))
+      .map(p => ({
+        id:p.id,
+        comment:p.comment,
+        user:p.users?.name ?? "Ismeretlen",
+        movie:p.movies?.title ?? "",
+        type:"post"
+      }));
+
+      const flaggedReplies = replies
+      .filter(r => bad.some(w => r.comment.toLowerCase().includes(w)))
+      .map(r => ({
+        id:r.id,
+        comment:r.comment,
+        user:r.user?.name ?? "Ismeretlen",
+        movie:r.forum?.movies?.title ?? "",
+        type:"reply"
+      }));
+
+      return NextResponse.json([
+        ...flaggedPosts,
+        ...flaggedReplies
+      ]);
     }
 
     const screenings = await prisma.screening.findMany({
@@ -331,6 +396,19 @@ export async function POST(req: Request) {
       return NextResponse.json(created, { status: 201 });
     }
 
+    if (entity === "bad_words") {
+      const words:string[] = body.words;
+      await prisma.badWord.deleteMany();
+      if(words.length){
+        await prisma.badWord.createMany({
+          data: words.map(w=>({
+            word: w.toLowerCase().trim()
+          }))
+        });
+      }
+      return NextResponse.json({ok:true});
+    }
+
     return jsonError("Nem támogatott bemenet");
   } catch (e) {
     console.error(e);
@@ -366,6 +444,20 @@ export async function DELETE(req: Request) {
       return NextResponse.json({ ok: true });
     }
 
+    if(entity === "flagged_comments"){
+
+      if(body.type === "reply"){
+        await prisma.forumReply.delete({
+          where:{id}
+        });
+      } else {
+        await prisma.forum.delete({
+          where:{id}
+        });
+      }
+
+      return NextResponse.json({ok:true});
+    }
     return jsonError("Nem támogatott bemenet");
   } catch (e) {
     console.error(e);

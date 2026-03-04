@@ -218,6 +218,11 @@ exports.Prisma.ForumReplyScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.BadWordScalarFieldEnum = {
+  id: 'id',
+  word: 'word'
+};
+
 exports.Prisma.TicketScalarFieldEnum = {
   id: 'id',
   ticket_type_id: 'ticket_type_id',
@@ -287,6 +292,7 @@ exports.Prisma.ModelName = {
   ForumVote: 'ForumVote',
   Forum: 'Forum',
   ForumReply: 'ForumReply',
+  BadWord: 'BadWord',
   Ticket: 'Ticket',
   Ticket_type: 'Ticket_type',
   Screening_type: 'Screening_type',

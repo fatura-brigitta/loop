@@ -3,76 +3,101 @@ import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
 
 export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const movieId = searchParams.get("movie");
+  try {
 
-  if (!movieId) return NextResponse.json([]);
+    const { searchParams } = new URL(req.url);
+    const movieId = searchParams.get("movie");
 
-  const cookieStore = await cookies();
-  const userId = cookieStore.get("userId")?.value;
+    if (!movieId) return NextResponse.json([]);
 
-  const posts = await prisma.forum.findMany({
-    where: { movie_id: movieId },
-    orderBy: { id: "desc" },
-  });
+    const cookieStore = await cookies();
+    const userId = cookieStore.get("userId")?.value;
 
-  const users = await prisma.user.findMany({
-    where: { id: { in: posts.map((p) => p.user_id) } },
-    select: { id: true, name: true, profile_image: true },
-  });
+    const posts = await prisma.forum.findMany({
+      where: { movie_id: movieId },
+      orderBy: { id: "desc" },
+    });
 
-  const votes = userId
-    ? await prisma.forumVote.findMany({
-        where: { user_id: userId, forum_id: { in: posts.map((p) => p.id) } },
-        select: { forum_id: true, type: true },
-      })
-    : [];
+    const postIds = posts.map(p => p.id);
+    const userIds = posts.map(p => p.user_id);
 
-  const voteMap = new Map(votes.map((v) => [v.forum_id, v.type]));
-  const replies = await prisma.forumReply.findMany({
-    where: { forum_id: { in: posts.map((p) => p.id) } },
-    orderBy: { created_at: "asc" },
-  });
+    const users = userIds.length
+      ? await prisma.user.findMany({
+          where: { id: { in: userIds } },
+          select: { id: true, name: true, profile_image: true },
+        })
+      : [];
 
-  const replyUsers = await prisma.user.findMany({
-    where: { id: { in: replies.map((r) => r.user_id) } },
-    select: { id: true, name: true, profile_image: true },
-  });
+    const votes = userId && postIds.length
+      ? await prisma.forumVote.findMany({
+          where: { user_id: userId, forum_id: { in: postIds } },
+          select: { forum_id: true, type: true },
+        })
+      : [];
 
-  const replyUserMap = new Map(replyUsers.map((u) => [u.id, u]));
+    const voteMap = new Map(votes.map(v => [v.forum_id, v.type]));
 
-  const replyMap = new Map<string, any[]>();
-  for (const r of replies) {
-    const u = replyUserMap.get(r.user_id);
-    const formatted = {
-      id: r.id,
-      forum_id: r.forum_id,
-      comment: r.comment,
-      created_at: r.created_at,
-      user_name: u?.name ?? "Ismeretlen felhasználó",
-      profile_image: u?.profile_image ?? "/profile/default.png",
-    };
+    const replies = postIds.length
+      ? await prisma.forumReply.findMany({
+          where: { forum_id: { in: postIds } },
+          orderBy: { created_at: "asc" },
+        })
+      : [];
 
-    replyMap.set(r.forum_id, [...(replyMap.get(r.forum_id) ?? []), formatted]);
+    const replyUserIds = replies.map(r => r.user_id);
+
+    const replyUsers = replyUserIds.length
+      ? await prisma.user.findMany({
+          where: { id: { in: replyUserIds } },
+          select: { id: true, name: true, profile_image: true },
+        })
+      : [];
+
+    const replyUserMap = new Map(replyUsers.map(u => [u.id, u]));
+
+    const replyMap = new Map<string, any[]>();
+
+    for (const r of replies) {
+
+      const u = replyUserMap.get(r.user_id);
+
+      const formatted = {
+        id: r.id,
+        forum_id: r.forum_id,
+        comment: r.comment,
+        created_at: r.created_at,
+        user_name: u?.name ?? "Ismeretlen felhasználó",
+        profile_image: u?.profile_image ?? "/profile/default.png",
+      };
+
+      replyMap.set(r.forum_id, [...(replyMap.get(r.forum_id) ?? []), formatted]);
+    }
+
+    const formatted = posts.map((p) => {
+
+      const user = users.find(u => u.id === p.user_id);
+
+      return {
+        id: p.id,
+        user_name: user?.name ?? "Ismeretlen felhasználó",
+        profile_image: user?.profile_image ?? "/profile/default.png",
+        comment: p.comment,
+        review: p.review,
+        likes: p.likes ?? 0,
+        dislikes: p.dislikes ?? 0,
+        myVote: voteMap.get(p.id) ?? null,
+        replies: replyMap.get(p.id) ?? []
+      };
+    });
+
+    return NextResponse.json(formatted);
+
+  } catch (err) {
+
+    console.error("FORUM GET ERROR:", err);
+
+    return NextResponse.json([], { status: 500 });
   }
-
-  const formatted = posts.map((p) => {
-    const user = users.find((u) => u.id === p.user_id);
-
-    return {
-      id: p.id,
-      user_name: user?.name ?? "Ismeretlen felhasználó",
-      profile_image: user?.profile_image ?? "/profile/default.png",
-      comment: p.comment,
-      review: p.review,
-      likes: p.likes ?? 0,
-      dislikes: p.dislikes ?? 0,
-      myVote: voteMap.get(p.id) ?? null, // "LIKE" | "DISLIKE" | null
-      replies: replyMap.get(p.id) ?? []
-    };
-  });
-
-  return NextResponse.json(formatted);
 }
 
 export async function POST(req: Request) {

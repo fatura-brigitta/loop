@@ -84,7 +84,14 @@ export default function ForumPage() {
     setSelectedMovie(movieId);
 
     const res = await fetch(`/api/forum?movie=${movieId}`);
-    const data = await res.json();
+
+    let data = [];
+
+    try {
+      data = await res.json();
+    } catch {
+      data = [];
+    }
     setComments(
     (data ?? []).map((c: any) => ({
       ...c,

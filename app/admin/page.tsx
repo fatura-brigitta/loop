@@ -49,7 +49,13 @@ type ScreeningType = {
 };
 
 
-type Tab = "movies" | "halls" | "screenings" | "screening_types";
+type Tab =
+  | "movies"
+  | "halls"
+  | "screenings"
+  | "screening_types"
+  | "bad_words"
+  | "flagged_comments";
 
 async function api(entity: Tab, method: string, body?: any) {
   const res = await fetch(`/api/admin?entity=${entity}`, {
@@ -80,6 +86,11 @@ export default function AdminPage() {
   const [sHallId, setSHallId] = useState<string>("");
 
   const [editingId, setEditingId] = useState<string | null>(null);
+
+  const [badWords, setBadWords] = useState<{id:string,word:string}[]>([]);
+  const [badWordInput, setBadWordInput] = useState("");
+  const [badWordsText,setBadWordsText] = useState("");
+  const [flaggedComments,setFlaggedComments] = useState<any[]>([]);
 
   const [movieForm, setMovieForm] = useState({
     title: "",
@@ -195,11 +206,30 @@ export default function AdminPage() {
     } catch (e: any) {
       setErr(e.message || "Betöltési hiba");
     }
+    const bw = await api("bad_words","GET");
+    setBadWords(bw);
   }
+
+async function loadModeration() {
+  try {
+    const words = await api("bad_words", "GET");
+
+    setBadWordsText(
+      words.map((w: any) => w.word).join(", ")
+    );
+
+    const comments = await api("flagged_comments", "GET");
+
+    setFlaggedComments(comments);
+
+  } catch (e: any) {
+    console.error("Moderation load error", e);
+  }
+}
 
   useEffect(() => {
     loadAll();
-     
+    loadModeration();
   }, []);
 
   // default dropdown values
@@ -253,13 +283,18 @@ export default function AdminPage() {
             Vetítések
           </button>
 
-          <Link
-            className="mt-4 flex items-center gap-3 text-slate-300 hover:text-white transition px-3 py-2 cursor-pointer"
-            href="/forum"
+
+          <button
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
+              tab === "bad_words"
+                ? "bg-white/10 text-white"
+                : "text-slate-300 hover:text-white"
+            }`}
+            onClick={() => setTab("bad_words")}
           >
             <MessageSquare size={18} />
             Fórum
-          </Link>
+          </button>
         </nav>
 
         <div className="border-t border-white/10 pt-4 text-slate-300 text-sm flex flex-col items-end">
@@ -985,6 +1020,130 @@ export default function AdminPage() {
               </div>
             </section>
           </div>
+        )}
+
+        {/* FORUM */}
+        {tab === "bad_words" && (
+        <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        {/* BAD WORD TEXTBOX */}
+          <section className="p-5 rounded-xl bg-white/5 border border-white/10">
+
+          <h2 className="font-semibold mb-4">Tiltott szavak</h2>
+
+          <textarea
+          className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+          rows={4}
+          value={badWordsText}
+          onChange={(e)=>setBadWordsText(e.target.value)}
+          />
+
+          <div className="text-xs text-slate-400 mt-1">
+          Vesszővel elválasztva
+          </div>
+
+          <button
+          className="mt-3 px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30"
+          onClick={async()=>{
+
+          const words = badWordsText
+          .split(",")
+          .map(w=>w.trim())
+          .filter(Boolean);
+
+          await fetch("/api/admin?entity=bad_words",{
+          method:"POST",
+          headers:{
+          "Content-Type":"application/json"
+          },
+          body:JSON.stringify({words})
+          });
+
+          await loadModeration();
+
+          }}
+          >
+          Mentés
+          </button>
+
+          </section>
+
+
+        {/* FLAGGED COMMENTS */}
+        <section className="p-5 rounded-xl bg-white/5 border border-white/10 flex flex-col">
+
+        <h2 className="font-semibold mb-4">Problémás kommentek</h2>
+
+        <div className="space-y-2 max-h-[320px] overflow-y-auto pr-2 custom-scroll">
+
+          {flaggedComments.map(c=>{
+
+          let text = c.comment;
+
+          badWordsText.split(",").forEach(w=>{
+
+          const word = w.trim();
+          if(!word) return;
+
+          const regex = new RegExp(`(${word})`,"gi");
+          text = text.replace(regex,"<mark>$1</mark>");
+
+          });
+
+          return(
+
+          <div
+          key={c.id}
+          className="flex items-start justify-between p-3 rounded-lg bg-slate-900/40 border border-white/10"
+          >
+
+          <div className="text-sm">
+
+          <div className="text-xs text-slate-400 mb-1">
+          {c.user} • {c.movie}
+          {c.type === "reply" && (
+          <span className="ml-2 text-yellow-400">(válasz)</span>
+          )}
+          </div>
+
+          <div
+          dangerouslySetInnerHTML={{__html:text}}
+          />
+
+          </div>
+
+          <button
+          className="ml-4 px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm whitespace-nowrap"
+          onClick={async()=>{
+
+          await fetch("/api/admin?entity=flagged_comments",{
+          method:"DELETE",
+          headers:{
+          "Content-Type":"application/json"
+          },
+          body:JSON.stringify({
+          id:c.id,
+          type:c.type
+          })
+          });
+
+          await loadModeration();
+
+          }}
+          >
+          Törlés
+          </button>
+
+          </div>
+
+          );
+
+          })}
+
+        </div>
+
+        </section>
+        </div>
         )}
       </main>
     </div>

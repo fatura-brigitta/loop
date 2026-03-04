@@ -61,7 +61,7 @@ export async function GET() {
     profile_image: user.profile_image,
     gender: user.gender,
     phone_number: user.phone_number,
-
+    password_hash: user.password_hash,
     points: user.points,
     rank: user.ranks,
     nextRank,
@@ -77,21 +77,33 @@ export async function PATCH(req: Request) {
   const userId = cookieStore.get("userId")?.value;
 
   if (!userId) {
-    return NextResponse.json({ message: "Nem vagy bejelentkezve" }, { status: 401 });
+    return NextResponse.json(
+      { message: "Nem vagy bejelentkezve" },
+      { status: 401 }
+    );
   }
 
-  const { name } = await req.json();
+  const { name, phone_number, gender } = await req.json();
 
   if (!name || name.length < 2) {
-    return NextResponse.json({ message: "Érvénytelen név" }, { status: 400 });
+    return NextResponse.json(
+      { message: "Érvénytelen név" },
+      { status: 400 }
+    );
   }
 
-  await prisma.user.update({
+  const updatedUser = await prisma.user.update({
     where: { id: userId },
-    data: { name },
+    data: {
+      name,
+      phone_number,
+      gender,
+    },
   });
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({
+    updatedUser,
+  });
 }
 
 /* =========================
@@ -102,13 +114,19 @@ export async function PUT(req: Request) {
   const userId = cookieStore.get("userId")?.value;
 
   if (!userId) {
-    return NextResponse.json({ message: "Nem vagy bejelentkezve" }, { status: 401 });
+    return NextResponse.json(
+      { message: "Nem vagy bejelentkezve" },
+      { status: 401 }
+    );
   }
 
   const { oldPassword, newPassword } = await req.json();
 
-  if (!oldPassword || !newPassword) {
-    return NextResponse.json({ message: "Hiányzó mezők" }, { status: 400 });
+  if (!newPassword || newPassword.length < 5) {
+    return NextResponse.json(
+      { message: "A jelszó legalább 5 karakter hosszú kell legyen" },
+      { status: 400 }
+    );
   }
 
   const user = await prisma.user.findUnique({
@@ -116,27 +134,29 @@ export async function PUT(req: Request) {
   });
 
   if (!user) {
-    return NextResponse.json({ message: "Felhasználó nem található" }, { status: 404 });
-  }
-
-  const valid = await bcrypt.compare(oldPassword, user.password_hash);
-
-  if (!valid) {
-    return NextResponse.json({ message: "Hibás jelszó" }, { status: 400 });
-  }
-
-  if (oldPassword === newPassword) {
     return NextResponse.json(
-      { message: "Az új jelszó nem lehet ugyanaz, mint a régi" },
-      { status: 400 }
+      { message: "Felhasználó nem található" },
+      { status: 404 }
     );
   }
 
-  if (newPassword.length < 5) {
-    return NextResponse.json(
-      { message: "A jelszó legalább 5 karakter hosszú kell legyen" },
-      { status: 400 }
-    );
+  // Ha már volt jelszava (nem Google only user)
+  if (user.password_hash) {
+    if (!oldPassword) {
+      return NextResponse.json(
+        { message: "Hiányzik a régi jelszó" },
+        { status: 400 }
+      );
+    }
+
+    const valid = await bcrypt.compare(oldPassword, user.password_hash);
+
+    if (!valid) {
+      return NextResponse.json(
+        { message: "Hibás jelszó" },
+        { status: 400 }
+      );
+    }
   }
 
   const hashed = await bcrypt.hash(newPassword, 10);

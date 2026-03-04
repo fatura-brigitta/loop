@@ -16,6 +16,7 @@ const nextConfig = {
         hostname: "img.youtube.com",
       },
     ],
+    domains: ["lh3.googleusercontent.com"],
   },
 };
 

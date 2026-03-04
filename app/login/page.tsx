@@ -1,11 +1,11 @@
 "use client";
 
-import Navbar from "@/app/components/navbar";
 import { Eye, EyeOff, LogIn } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import Navbar from "@/app/components/navbar";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -52,7 +52,6 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (!res.ok) {
-
         if (data.needsVerification) {
           router.push(`/verify-email?email=${encodeURIComponent(data.email)}`);
           return;
@@ -65,7 +64,6 @@ export default function LoginPage() {
 
       router.replace(redirect);
       router.refresh();
-
     } catch {
       setError("Hiba történt a bejelentkezés során. Kérem próbálja újra.");
       setLoading(false);
@@ -76,9 +74,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-[#060b14] text-slate-100">
       <div className="flex items-center justify-center py-20">
         <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur">
-          <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">
-            Bejelentkezés
-          </h1>
+          <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Bejelentkezés</h1>
 
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
@@ -105,7 +101,7 @@ export default function LoginPage() {
                 />
 
                 <button
-                  className="absolute top-1/2 right-3 -translate-y-1/2 text-white/60 transition hover:text-white cursor-pointer"
+                  className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-white/60 transition hover:text-white"
                   type="button"
                   onClick={() => setShowPassword((prev) => !prev)}
                 >
@@ -114,10 +110,7 @@ export default function LoginPage() {
               </div>
 
               <div className="mt-2 text-right text-sm">
-                <Link
-                  className="text-cyan-300 hover:underline"
-                  href="/forgot-password"
-                >
+                <Link className="text-cyan-300 hover:underline" href="/forgot-password">
                   Elfelejtetted a jelszavad?
                 </Link>
               </div>
@@ -130,13 +123,26 @@ export default function LoginPage() {
             )}
 
             <button
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-white transition hover:bg-cyan-500 disabled:opacity-50 cursor-pointer"
+              className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-white transition hover:bg-cyan-500 disabled:opacity-50"
               disabled={loading}
               type="submit"
             >
-              <LogIn size={18}/>
+              <LogIn size={18} />
               {loading ? "Bejelentkezés..." : "Bejelentkezés"}
             </button>
+            <div className="mt-6">
+              <button
+                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-white transition hover:bg-cyan-500 disabled:opacity-50"
+              disabled={loading}
+              type="submit"
+                onClick={() => {
+                  window.location.href = "/api/auth/signin/google";
+                }}
+              >
+                <LogIn size={18} />
+                {loading ? "Bejelentkezés..." : "Bejelentkezés Google fiókkal"}
+              </button>
+            </div>
           </form>
 
           <p className="mt-6 text-center text-sm text-white/60">

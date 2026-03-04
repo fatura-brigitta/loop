@@ -87,6 +87,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    if (!user.password_hash) {
+      return NextResponse.json(
+        {
+          message:
+            "Ehhez a fiókhoz még nincs jelszó beállítva. Jelentkezzen be Google-lel, és állítson be jelszót a profilban.",
+        },
+        { status: 400 }
+      );
+    }
+
     const ok = await bcrypt.compare(password, user.password_hash);
 
     if (!ok) {

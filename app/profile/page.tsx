@@ -3,8 +3,6 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import Navbar from "@/app/components/navbar";
-import { set } from "mongoose";
 import Footer from "@/app/components/footer";
 
 type Ticket = {
@@ -51,19 +49,13 @@ type Coupon = {
   };
 };
 
-function formatGender(g?: string) {
-  if (!g) return "Inkább nem adom meg";
-  if (g === "MALE") return "Férfi";
-  if (g === "FEMALE") return "Nő";
-  return "Inkább nem adom meg";
-}
-
 export default function ProfilePage() {
   const router = useRouter();
 
   const [name, setUserName] = useState("");
 
   const [user, setUser] = useState<any>(null);
+  const [isGoogleUser, setIsGoogleUser] = useState(false);
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [showTickets, setShowTickets] = useState(false);
   const [history, setHistory] = useState<Ticket[]>([]);
@@ -123,6 +115,8 @@ export default function ProfilePage() {
 
       setGender(profile.gender || "RATHER_NOT_SAY");
 
+      setIsGoogleUser(!profile.password_hash);
+
       const ticketRes = await fetch("/api/profile", {
         method: "POST",
         credentials: "include",
@@ -170,38 +164,12 @@ export default function ProfilePage() {
     return () => clearTimeout(t);
   }, [rankUp]);
 
-  const updateName = async () => {
-    setError("");
-    setMessage("");
-
-    const res = await fetch("/api/profile", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: newName }),
-    });
-
-    if (!res.ok) {
-      setError("Hiba a név frissítése közben!");
-      return;
-    }
-
-    setMessage("Név sikeresen frissítve!");
-    setUserName(newName);
-
-    setUser((prev: any) => (prev ? { ...prev, name: newName } : prev));
-  };
-
   const changePassword = async () => {
     setError("");
     setMessage("");
 
-    if (!oldPassword || !newPassword || !newPassword2) {
-      setError("Kérlek töltse ki az összes jelszó mezőt!");
-      return;
-    }
-
-    if (oldPassword.trim() === "" || newPassword.trim() === "" || newPassword2.trim() === "") {
-      setError("Jelszó mezők nem lehetnek üresek!");
+    if (!newPassword || !newPassword2) {
+      setError("Kérlek töltsd ki az új jelszó mezőket!");
       return;
     }
 
@@ -210,8 +178,8 @@ export default function ProfilePage() {
       return;
     }
 
-    if (oldPassword === newPassword) {
-      setError("Az új jelszó nem lehet ugyanaz, mint a régi jelszó.");
+    if (!isGoogleUser && !oldPassword) {
+      setError("Add meg a régi jelszót!");
       return;
     }
 
@@ -220,18 +188,11 @@ export default function ProfilePage() {
       return;
     }
 
-    if (oldPassword.length < 5) {
-      setError("A jelszónak legalább 5 karakter hosszúnak kell lennie!");
-      return;
-    }
-
     const res = await fetch("/api/profile", {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        oldPassword,
+        oldPassword: isGoogleUser ? null : oldPassword,
         newPassword,
       }),
     });
@@ -247,7 +208,13 @@ export default function ProfilePage() {
     setNewPassword("");
     setNewPassword2("");
 
-    setMessage("Jelszó sikeresen megváltoztatva!");
+    setMessage(
+      isGoogleUser
+        ? "Jelszó sikeresen beállítva!"
+        : "Jelszó sikeresen megváltoztatva!"
+    );
+
+    setIsGoogleUser(false);
   };
 
   const updateProfileImage = async (base64: string) => {
@@ -294,13 +261,6 @@ export default function ProfilePage() {
     } catch {
       setError("Nem sikerült beolvasni a képet.");
     }
-  };
-
-  const onDrop = async (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    const file = e.dataTransfer.files?.[0];
-    await handlePickFile(file);
   };
 
   if (!user) {
@@ -396,99 +356,7 @@ export default function ProfilePage() {
 
       <div className="mx-auto max-w-5xl px-4 py-16">
         <div className="w-full rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur transition-all">
-          <h1 className="mb-8 text-3xl font-bold text-cyan-300">Profil</h1>
-
-          <div className="mb-8">
-            <label className="text-sm text-white/60">Profilkép</label>
-
-            <div className="mt-3 flex flex-col gap-4">
-              <div
-                className={`relative rounded-2xl border p-4 transition ${
-                  isDragging ? "border-cyan-400 bg-cyan-500/10" : "border-white/10 bg-black/20"
-                }`}
-                onDragLeave={() => setIsDragging(false)}
-                onDragOver={(e) => {
-                  e.preventDefault();
-                  setIsDragging(true);
-                }}
-                onDrop={onDrop}
-              >
-                <div className="flex items-center gap-4">
-                  <div className="group relative h-32 w-32 overflow-hidden rounded-full border border-white/20">
-                    <Image
-                      alt="Profilkép"
-                      className="object-cover"
-                      fill
-                      src={profileImage || "/profile/default.png"}
-                    />
-
-                    <label className="absolute inset-0 flex cursor-pointer items-center justify-center rounded-full bg-black/60 opacity-0 transition group-hover:opacity-100">
-                      <span className="text-sm text-white">Módosítás</span>
-                      <input
-                        accept="image/*"
-                        className="hidden"
-                        type="file"
-                        onChange={async (e) => {
-                          const file = e.target.files?.[0];
-                          if (!file) return;
-
-                          await handlePickFile(file);
-
-                          if (fileInputRef.current) {
-                            fileInputRef.current.value = "";
-                          }
-                        }}
-                      />
-                    </label>
-                  </div>
-
-                  <div className="flex flex-col gap-2">
-                    <div className="text-sm text-white/80">
-                      Húzd ide a képet, vagy{" "}
-                      <button
-                        className="cursor-pointer text-cyan-300 underline hover:text-cyan-200"
-                        type="button"
-                        onClick={() => fileInputRef.current?.click()}
-                      >
-                        válassz fájlt
-                      </button>
-                      .
-                      {profileImage && profileImage !== "/profile/default.png" && (
-                        <button
-                          className="mt-3 w-fit cursor-pointer rounded-lg bg-white/10 px-3 py-1 text-xs hover:bg-white/15"
-                          type="button"
-                          onClick={async () => {
-                            const defaultImg = "/profile/default.png";
-                            setProfileImage(defaultImg);
-                            await updateProfileImage(defaultImg);
-                          }}
-                        >
-                          Vissza az alapértelmezettre
-                        </button>
-                      )}
-                    </div>
-
-                    <input
-                      accept="image/*"
-                      className="hidden"
-                      ref={fileInputRef}
-                      type="file"
-                      onChange={async (e) => {
-                        const file = e.target.files?.[0];
-                        if (!file) return;
-
-                        await handlePickFile(file);
-
-                        if (fileInputRef.current) {
-                          fileInputRef.current.value = "";
-                        }
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <h1 className="mb-8 text-3xl font-bold text-cyan-300">Profil adatok</h1>
 
           <div className="mb-6">
             <label className="text-sm text-white/60">Email</label>
@@ -500,48 +368,86 @@ export default function ProfilePage() {
           </div>
 
           <div className="mb-6">
-            <label className="text-sm text-white/60">Telefonszám</label>
-            <input
-              className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
-              disabled
-              value={phone}
-            />
-          </div>
-
-          <div className="mb-6">
-            <label className="text-sm text-white/60">Nem</label>
-            <input
-              className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
-              disabled
-              value={formatGender(gender)}
-            />
-          </div>
-
-          <div className="mb-6">
             <label className="text-sm text-white/60">Név</label>
             <input
               className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
             />
-            <button
-              className="mt-3 cursor-pointer rounded-lg bg-cyan-600 px-4 py-2 font-semibold text-white hover:bg-cyan-400"
-              onClick={updateName}
-            >
-              Név frissítése
-            </button>
           </div>
 
-          <div className="border-t border-white/10 pt-6">
-            <h2 className="mb-4 text-xl font-semibold text-cyan-300">Jelszó módosítása</h2>
-
+          <div className="mb-6">
+            <label className="text-sm text-white/60">Telefonszám</label>
             <input
-              className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
-              placeholder="Régi jelszó"
-              type="password"
-              value={oldPassword}
-              onChange={(e) => setOldPassword(e.target.value)}
+              className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+              placeholder="+36123456789"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
             />
+          </div>
+
+          <div className="mb-6">
+            <label className="text-sm text-white/60">Nem</label>
+            <select
+              className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+            >
+              <option value="MALE">Férfi</option>
+              <option value="FEMALE">Nő</option>
+              <option value="RATHER_NOT_SAY">Inkább nem adom meg</option>
+            </select>
+          </div>
+
+          <button
+            className="mt-4 cursor-pointer rounded-lg bg-cyan-600 px-6 py-2 font-semibold text-white transition hover:bg-cyan-400"
+            onClick={async () => {
+              setError("");
+              setMessage("");
+
+              const res = await fetch("/api/profile", {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  name: newName,
+                  phone_number: phone,
+                  gender,
+                }),
+              });
+
+              const data = await res.json();
+
+              if (!res.ok) {
+                setError(data.message || "Hiba az adatok mentésekor!");
+                return;
+              }
+
+              setMessage("Profil adatok sikeresen frissítve!");
+
+              setUser(data.updatedUser);
+              setNewName(data.updatedUser.name);
+              setPhone(data.updatedUser.phone_number);
+              setGender(data.updatedUser.gender);
+            }}
+          >
+            Adatok mentése
+          </button>
+
+          <div className="mt-12 border-t border-white/10 pt-8">
+            <h2 className="mb-4 text-xl font-semibold text-cyan-300">
+              {isGoogleUser ? "Jelszó beállítása" : "Jelszó módosítása"}
+            </h2>
+
+            {!isGoogleUser && (
+              <input
+                className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+                placeholder="Régi jelszó"
+                type="password"
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+              />
+            )}
+
             <input
               className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
               placeholder="Új jelszó"
@@ -549,6 +455,7 @@ export default function ProfilePage() {
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
             />
+
             <input
               className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
               placeholder="Új jelszó megerősítése"
@@ -561,7 +468,7 @@ export default function ProfilePage() {
               className="mt-2 cursor-pointer rounded-lg bg-cyan-600 px-4 py-2 font-semibold text-white hover:bg-cyan-400"
               onClick={changePassword}
             >
-              Jelszó módosítása
+              {isGoogleUser ? "Jelszó beállítása" : "Jelszó módosítása"}
             </button>
           </div>
 

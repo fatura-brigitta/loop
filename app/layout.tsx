@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/app/components/navbar";
+import NavbarWrapper from "@/app/components/navbarWrapper";
 
 export const metadata: Metadata = {
   title: "Loop",
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
+        <NavbarWrapper/>
         {children}
       </body>
     </html>

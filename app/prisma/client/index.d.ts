@@ -13516,7 +13516,7 @@ export namespace Prisma {
     forum_id: string | null
     user_id: string | null
     comment: string | null
-    createdAt: Date | null
+    created_at: Date | null
   }
 
   export type ForumReplyMaxAggregateOutputType = {
@@ -13524,7 +13524,7 @@ export namespace Prisma {
     forum_id: string | null
     user_id: string | null
     comment: string | null
-    createdAt: Date | null
+    created_at: Date | null
   }
 
   export type ForumReplyCountAggregateOutputType = {
@@ -13532,7 +13532,7 @@ export namespace Prisma {
     forum_id: number
     user_id: number
     comment: number
-    createdAt: number
+    created_at: number
     _all: number
   }
 
@@ -13542,7 +13542,7 @@ export namespace Prisma {
     forum_id?: true
     user_id?: true
     comment?: true
-    createdAt?: true
+    created_at?: true
   }
 
   export type ForumReplyMaxAggregateInputType = {
@@ -13550,7 +13550,7 @@ export namespace Prisma {
     forum_id?: true
     user_id?: true
     comment?: true
-    createdAt?: true
+    created_at?: true
   }
 
   export type ForumReplyCountAggregateInputType = {
@@ -13558,7 +13558,7 @@ export namespace Prisma {
     forum_id?: true
     user_id?: true
     comment?: true
-    createdAt?: true
+    created_at?: true
     _all?: true
   }
 
@@ -13639,7 +13639,7 @@ export namespace Prisma {
     forum_id: string
     user_id: string
     comment: string
-    createdAt: Date
+    created_at: Date
     _count: ForumReplyCountAggregateOutputType | null
     _min: ForumReplyMinAggregateOutputType | null
     _max: ForumReplyMaxAggregateOutputType | null
@@ -13664,7 +13664,7 @@ export namespace Prisma {
     forum_id?: boolean
     user_id?: boolean
     comment?: boolean
-    createdAt?: boolean
+    created_at?: boolean
     forum?: boolean | ForumReply$forumArgs<ExtArgs>
     user?: boolean | ForumReply$userArgs<ExtArgs>
   }, ExtArgs["result"]["forumReply"]>
@@ -13676,10 +13676,10 @@ export namespace Prisma {
     forum_id?: boolean
     user_id?: boolean
     comment?: boolean
-    createdAt?: boolean
+    created_at?: boolean
   }
 
-  export type ForumReplyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "forum_id" | "user_id" | "comment" | "createdAt", ExtArgs["result"]["forumReply"]>
+  export type ForumReplyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "forum_id" | "user_id" | "comment" | "created_at", ExtArgs["result"]["forumReply"]>
   export type ForumReplyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     forum?: boolean | ForumReply$forumArgs<ExtArgs>
     user?: boolean | ForumReply$userArgs<ExtArgs>
@@ -13696,7 +13696,7 @@ export namespace Prisma {
       forum_id: string
       user_id: string
       comment: string
-      createdAt: Date
+      created_at: Date
     }, ExtArgs["result"]["forumReply"]>
     composites: {}
   }
@@ -14095,7 +14095,7 @@ export namespace Prisma {
     readonly forum_id: FieldRef<"ForumReply", 'String'>
     readonly user_id: FieldRef<"ForumReply", 'String'>
     readonly comment: FieldRef<"ForumReply", 'String'>
-    readonly createdAt: FieldRef<"ForumReply", 'DateTime'>
+    readonly created_at: FieldRef<"ForumReply", 'DateTime'>
   }
     
 
@@ -17795,7 +17795,7 @@ export namespace Prisma {
     user_id: string | null
     screening_id: string | null
     status: string | null
-    createdAt: Date | null
+    created_at: Date | null
     ticket_type_id: string | null
   }
 
@@ -17804,7 +17804,7 @@ export namespace Prisma {
     user_id: string | null
     screening_id: string | null
     status: string | null
-    createdAt: Date | null
+    created_at: Date | null
     ticket_type_id: string | null
   }
 
@@ -17814,7 +17814,7 @@ export namespace Prisma {
     screening_id: number
     chair_ids: number
     status: number
-    createdAt: number
+    created_at: number
     ticket_type_id: number
     _all: number
   }
@@ -17825,7 +17825,7 @@ export namespace Prisma {
     user_id?: true
     screening_id?: true
     status?: true
-    createdAt?: true
+    created_at?: true
     ticket_type_id?: true
   }
 
@@ -17834,7 +17834,7 @@ export namespace Prisma {
     user_id?: true
     screening_id?: true
     status?: true
-    createdAt?: true
+    created_at?: true
     ticket_type_id?: true
   }
 
@@ -17844,7 +17844,7 @@ export namespace Prisma {
     screening_id?: true
     chair_ids?: true
     status?: true
-    createdAt?: true
+    created_at?: true
     ticket_type_id?: true
     _all?: true
   }
@@ -17927,7 +17927,7 @@ export namespace Prisma {
     screening_id: string
     chair_ids: JsonValue
     status: string
-    createdAt: Date
+    created_at: Date
     ticket_type_id: string | null
     _count: Payment_sessionCountAggregateOutputType | null
     _min: Payment_sessionMinAggregateOutputType | null
@@ -17954,7 +17954,7 @@ export namespace Prisma {
     screening_id?: boolean
     chair_ids?: boolean
     status?: boolean
-    createdAt?: boolean
+    created_at?: boolean
     ticket_type_id?: boolean
     ticket_types?: boolean | Payment_session$ticket_typesArgs<ExtArgs>
     users?: boolean | UserDefaultArgs<ExtArgs>
@@ -17969,11 +17969,11 @@ export namespace Prisma {
     screening_id?: boolean
     chair_ids?: boolean
     status?: boolean
-    createdAt?: boolean
+    created_at?: boolean
     ticket_type_id?: boolean
   }
 
-  export type Payment_sessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "screening_id" | "chair_ids" | "status" | "createdAt" | "ticket_type_id", ExtArgs["result"]["payment_session"]>
+  export type Payment_sessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "screening_id" | "chair_ids" | "status" | "created_at" | "ticket_type_id", ExtArgs["result"]["payment_session"]>
   export type Payment_sessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ticket_types?: boolean | Payment_session$ticket_typesArgs<ExtArgs>
     users?: boolean | UserDefaultArgs<ExtArgs>
@@ -17993,7 +17993,7 @@ export namespace Prisma {
       screening_id: string
       chair_ids: Prisma.JsonValue
       status: string
-      createdAt: Date
+      created_at: Date
       ticket_type_id: string | null
     }, ExtArgs["result"]["payment_session"]>
     composites: {}
@@ -18395,7 +18395,7 @@ export namespace Prisma {
     readonly screening_id: FieldRef<"Payment_session", 'String'>
     readonly chair_ids: FieldRef<"Payment_session", 'Json'>
     readonly status: FieldRef<"Payment_session", 'String'>
-    readonly createdAt: FieldRef<"Payment_session", 'DateTime'>
+    readonly created_at: FieldRef<"Payment_session", 'DateTime'>
     readonly ticket_type_id: FieldRef<"Payment_session", 'String'>
   }
     
@@ -19933,7 +19933,7 @@ export namespace Prisma {
     forum_id: 'forum_id',
     user_id: 'user_id',
     comment: 'comment',
-    createdAt: 'createdAt'
+    created_at: 'created_at'
   };
 
   export type ForumReplyScalarFieldEnum = (typeof ForumReplyScalarFieldEnum)[keyof typeof ForumReplyScalarFieldEnum]
@@ -19978,7 +19978,7 @@ export namespace Prisma {
     screening_id: 'screening_id',
     chair_ids: 'chair_ids',
     status: 'status',
-    createdAt: 'createdAt',
+    created_at: 'created_at',
     ticket_type_id: 'ticket_type_id'
   };
 
@@ -20812,7 +20812,7 @@ export namespace Prisma {
     forum_id?: StringFilter<"ForumReply"> | string
     user_id?: StringFilter<"ForumReply"> | string
     comment?: StringFilter<"ForumReply"> | string
-    createdAt?: DateTimeFilter<"ForumReply"> | Date | string
+    created_at?: DateTimeFilter<"ForumReply"> | Date | string
     forum?: XOR<ForumNullableScalarRelationFilter, ForumWhereInput> | null
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
@@ -20822,7 +20822,7 @@ export namespace Prisma {
     forum_id?: SortOrder
     user_id?: SortOrder
     comment?: SortOrder
-    createdAt?: SortOrder
+    created_at?: SortOrder
     forum?: ForumOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
   }
@@ -20835,7 +20835,7 @@ export namespace Prisma {
     forum_id?: StringFilter<"ForumReply"> | string
     user_id?: StringFilter<"ForumReply"> | string
     comment?: StringFilter<"ForumReply"> | string
-    createdAt?: DateTimeFilter<"ForumReply"> | Date | string
+    created_at?: DateTimeFilter<"ForumReply"> | Date | string
     forum?: XOR<ForumNullableScalarRelationFilter, ForumWhereInput> | null
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id">
@@ -20845,7 +20845,7 @@ export namespace Prisma {
     forum_id?: SortOrder
     user_id?: SortOrder
     comment?: SortOrder
-    createdAt?: SortOrder
+    created_at?: SortOrder
     _count?: ForumReplyCountOrderByAggregateInput
     _max?: ForumReplyMaxOrderByAggregateInput
     _min?: ForumReplyMinOrderByAggregateInput
@@ -20859,7 +20859,7 @@ export namespace Prisma {
     forum_id?: StringWithAggregatesFilter<"ForumReply"> | string
     user_id?: StringWithAggregatesFilter<"ForumReply"> | string
     comment?: StringWithAggregatesFilter<"ForumReply"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"ForumReply"> | Date | string
+    created_at?: DateTimeWithAggregatesFilter<"ForumReply"> | Date | string
   }
 
   export type TicketWhereInput = {
@@ -21060,7 +21060,7 @@ export namespace Prisma {
     screening_id?: StringFilter<"Payment_session"> | string
     chair_ids?: JsonFilter<"Payment_session">
     status?: StringFilter<"Payment_session"> | string
-    createdAt?: DateTimeFilter<"Payment_session"> | Date | string
+    created_at?: DateTimeFilter<"Payment_session"> | Date | string
     ticket_type_id?: StringNullableFilter<"Payment_session"> | string | null
     ticket_types?: XOR<Ticket_typeNullableScalarRelationFilter, Ticket_typeWhereInput> | null
     users?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -21073,7 +21073,7 @@ export namespace Prisma {
     screening_id?: SortOrder
     chair_ids?: SortOrder
     status?: SortOrder
-    createdAt?: SortOrder
+    created_at?: SortOrder
     ticket_type_id?: SortOrder
     ticket_types?: Ticket_typeOrderByWithRelationInput
     users?: UserOrderByWithRelationInput
@@ -21089,7 +21089,7 @@ export namespace Prisma {
     screening_id?: StringFilter<"Payment_session"> | string
     chair_ids?: JsonFilter<"Payment_session">
     status?: StringFilter<"Payment_session"> | string
-    createdAt?: DateTimeFilter<"Payment_session"> | Date | string
+    created_at?: DateTimeFilter<"Payment_session"> | Date | string
     ticket_type_id?: StringNullableFilter<"Payment_session"> | string | null
     ticket_types?: XOR<Ticket_typeNullableScalarRelationFilter, Ticket_typeWhereInput> | null
     users?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -21102,7 +21102,7 @@ export namespace Prisma {
     screening_id?: SortOrder
     chair_ids?: SortOrder
     status?: SortOrder
-    createdAt?: SortOrder
+    created_at?: SortOrder
     ticket_type_id?: SortOrder
     _count?: Payment_sessionCountOrderByAggregateInput
     _max?: Payment_sessionMaxOrderByAggregateInput
@@ -21118,7 +21118,7 @@ export namespace Prisma {
     screening_id?: StringWithAggregatesFilter<"Payment_session"> | string
     chair_ids?: JsonWithAggregatesFilter<"Payment_session">
     status?: StringWithAggregatesFilter<"Payment_session"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Payment_session"> | Date | string
+    created_at?: DateTimeWithAggregatesFilter<"Payment_session"> | Date | string
     ticket_type_id?: StringNullableWithAggregatesFilter<"Payment_session"> | string | null
   }
 
@@ -21882,7 +21882,7 @@ export namespace Prisma {
   export type ForumReplyCreateInput = {
     id?: string
     comment: string
-    createdAt?: Date | string
+    created_at?: Date | string
     forum?: ForumCreateNestedOneWithoutRepliesInput
     user?: UserCreateNestedOneWithoutForum_repliesInput
   }
@@ -21892,12 +21892,12 @@ export namespace Prisma {
     forum_id: string
     user_id: string
     comment: string
-    createdAt?: Date | string
+    created_at?: Date | string
   }
 
   export type ForumReplyUpdateInput = {
     comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     forum?: ForumUpdateOneWithoutRepliesNestedInput
     user?: UserUpdateOneWithoutForum_repliesNestedInput
   }
@@ -21906,7 +21906,7 @@ export namespace Prisma {
     forum_id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
     comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ForumReplyCreateManyInput = {
@@ -21914,19 +21914,19 @@ export namespace Prisma {
     forum_id: string
     user_id: string
     comment: string
-    createdAt?: Date | string
+    created_at?: Date | string
   }
 
   export type ForumReplyUpdateManyMutationInput = {
     comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ForumReplyUncheckedUpdateManyInput = {
     forum_id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
     comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TicketCreateInput = {
@@ -22100,7 +22100,7 @@ export namespace Prisma {
     id?: string
     chair_ids: InputJsonValue
     status: string
-    createdAt?: Date | string
+    created_at?: Date | string
     ticket_types?: Ticket_typeCreateNestedOneWithoutPayment_sessionsInput
     users: UserCreateNestedOneWithoutPayment_sessionsInput
     screenings: ScreeningCreateNestedOneWithoutPayment_sessionsInput
@@ -22112,14 +22112,14 @@ export namespace Prisma {
     screening_id: string
     chair_ids: InputJsonValue
     status: string
-    createdAt?: Date | string
+    created_at?: Date | string
     ticket_type_id?: string | null
   }
 
   export type Payment_sessionUpdateInput = {
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     ticket_types?: Ticket_typeUpdateOneWithoutPayment_sessionsNestedInput
     users?: UserUpdateOneRequiredWithoutPayment_sessionsNestedInput
     screenings?: ScreeningUpdateOneRequiredWithoutPayment_sessionsNestedInput
@@ -22130,7 +22130,7 @@ export namespace Prisma {
     screening_id?: StringFieldUpdateOperationsInput | string
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     ticket_type_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -22140,14 +22140,14 @@ export namespace Prisma {
     screening_id: string
     chair_ids: InputJsonValue
     status: string
-    createdAt?: Date | string
+    created_at?: Date | string
     ticket_type_id?: string | null
   }
 
   export type Payment_sessionUpdateManyMutationInput = {
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type Payment_sessionUncheckedUpdateManyInput = {
@@ -22155,7 +22155,7 @@ export namespace Prisma {
     screening_id?: StringFieldUpdateOperationsInput | string
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     ticket_type_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -22948,7 +22948,7 @@ export namespace Prisma {
     forum_id?: SortOrder
     user_id?: SortOrder
     comment?: SortOrder
-    createdAt?: SortOrder
+    created_at?: SortOrder
   }
 
   export type ForumReplyMaxOrderByAggregateInput = {
@@ -22956,7 +22956,7 @@ export namespace Prisma {
     forum_id?: SortOrder
     user_id?: SortOrder
     comment?: SortOrder
-    createdAt?: SortOrder
+    created_at?: SortOrder
   }
 
   export type ForumReplyMinOrderByAggregateInput = {
@@ -22964,7 +22964,7 @@ export namespace Prisma {
     forum_id?: SortOrder
     user_id?: SortOrder
     comment?: SortOrder
-    createdAt?: SortOrder
+    created_at?: SortOrder
   }
 
   export type Ticket_typeNullableScalarRelationFilter = {
@@ -23105,7 +23105,7 @@ export namespace Prisma {
     screening_id?: SortOrder
     chair_ids?: SortOrder
     status?: SortOrder
-    createdAt?: SortOrder
+    created_at?: SortOrder
     ticket_type_id?: SortOrder
   }
 
@@ -23114,7 +23114,7 @@ export namespace Prisma {
     user_id?: SortOrder
     screening_id?: SortOrder
     status?: SortOrder
-    createdAt?: SortOrder
+    created_at?: SortOrder
     ticket_type_id?: SortOrder
   }
 
@@ -23123,7 +23123,7 @@ export namespace Prisma {
     user_id?: SortOrder
     screening_id?: SortOrder
     status?: SortOrder
-    createdAt?: SortOrder
+    created_at?: SortOrder
     ticket_type_id?: SortOrder
   }
   export type JsonWithAggregatesFilter<$PrismaModel = never> =
@@ -24865,7 +24865,7 @@ export namespace Prisma {
     id?: string
     chair_ids: InputJsonValue
     status: string
-    createdAt?: Date | string
+    created_at?: Date | string
     ticket_types?: Ticket_typeCreateNestedOneWithoutPayment_sessionsInput
     users: UserCreateNestedOneWithoutPayment_sessionsInput
   }
@@ -24875,7 +24875,7 @@ export namespace Prisma {
     user_id: string
     chair_ids: InputJsonValue
     status: string
-    createdAt?: Date | string
+    created_at?: Date | string
     ticket_type_id?: string | null
   }
 
@@ -25023,7 +25023,7 @@ export namespace Prisma {
     screening_id?: StringFilter<"Payment_session"> | string
     chair_ids?: JsonFilter<"Payment_session">
     status?: StringFilter<"Payment_session"> | string
-    createdAt?: DateTimeFilter<"Payment_session"> | Date | string
+    created_at?: DateTimeFilter<"Payment_session"> | Date | string
     ticket_type_id?: StringNullableFilter<"Payment_session"> | string | null
   }
 
@@ -25236,7 +25236,7 @@ export namespace Prisma {
     id?: string
     chair_ids: InputJsonValue
     status: string
-    createdAt?: Date | string
+    created_at?: Date | string
     ticket_types?: Ticket_typeCreateNestedOneWithoutPayment_sessionsInput
     screenings: ScreeningCreateNestedOneWithoutPayment_sessionsInput
   }
@@ -25246,7 +25246,7 @@ export namespace Prisma {
     screening_id: string
     chair_ids: InputJsonValue
     status: string
-    createdAt?: Date | string
+    created_at?: Date | string
     ticket_type_id?: string | null
   }
 
@@ -25308,7 +25308,7 @@ export namespace Prisma {
   export type ForumReplyCreateWithoutUserInput = {
     id?: string
     comment: string
-    createdAt?: Date | string
+    created_at?: Date | string
     forum?: ForumCreateNestedOneWithoutRepliesInput
   }
 
@@ -25316,7 +25316,7 @@ export namespace Prisma {
     id?: string
     forum_id: string
     comment: string
-    createdAt?: Date | string
+    created_at?: Date | string
   }
 
   export type ForumReplyCreateOrConnectWithoutUserInput = {
@@ -25479,7 +25479,7 @@ export namespace Prisma {
     forum_id?: StringFilter<"ForumReply"> | string
     user_id?: StringFilter<"ForumReply"> | string
     comment?: StringFilter<"ForumReply"> | string
-    createdAt?: DateTimeFilter<"ForumReply"> | Date | string
+    created_at?: DateTimeFilter<"ForumReply"> | Date | string
   }
 
   export type TicketCreateWithoutChairsInput = {
@@ -26095,7 +26095,7 @@ export namespace Prisma {
   export type ForumReplyCreateWithoutForumInput = {
     id?: string
     comment: string
-    createdAt?: Date | string
+    created_at?: Date | string
     user?: UserCreateNestedOneWithoutForum_repliesInput
   }
 
@@ -26103,7 +26103,7 @@ export namespace Prisma {
     id?: string
     user_id: string
     comment: string
-    createdAt?: Date | string
+    created_at?: Date | string
   }
 
   export type ForumReplyCreateOrConnectWithoutForumInput = {
@@ -26832,7 +26832,7 @@ export namespace Prisma {
     id?: string
     chair_ids: InputJsonValue
     status: string
-    createdAt?: Date | string
+    created_at?: Date | string
     users: UserCreateNestedOneWithoutPayment_sessionsInput
     screenings: ScreeningCreateNestedOneWithoutPayment_sessionsInput
   }
@@ -26843,7 +26843,7 @@ export namespace Prisma {
     screening_id: string
     chair_ids: InputJsonValue
     status: string
-    createdAt?: Date | string
+    created_at?: Date | string
   }
 
   export type Payment_sessionCreateOrConnectWithoutTicket_typesInput = {
@@ -27416,7 +27416,7 @@ export namespace Prisma {
     user_id: string
     chair_ids: InputJsonValue
     status: string
-    createdAt?: Date | string
+    created_at?: Date | string
     ticket_type_id?: string | null
   }
 
@@ -27434,7 +27434,7 @@ export namespace Prisma {
   export type Payment_sessionUpdateWithoutScreeningsInput = {
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     ticket_types?: Ticket_typeUpdateOneWithoutPayment_sessionsNestedInput
     users?: UserUpdateOneRequiredWithoutPayment_sessionsNestedInput
   }
@@ -27443,7 +27443,7 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     ticket_type_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -27451,7 +27451,7 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     ticket_type_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -27510,7 +27510,7 @@ export namespace Prisma {
     screening_id: string
     chair_ids: InputJsonValue
     status: string
-    createdAt?: Date | string
+    created_at?: Date | string
     ticket_type_id?: string | null
   }
 
@@ -27532,7 +27532,7 @@ export namespace Prisma {
     id?: string
     forum_id: string
     comment: string
-    createdAt?: Date | string
+    created_at?: Date | string
   }
 
   export type TicketUpdateWithoutUsersInput = {
@@ -27596,7 +27596,7 @@ export namespace Prisma {
   export type Payment_sessionUpdateWithoutUsersInput = {
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     ticket_types?: Ticket_typeUpdateOneWithoutPayment_sessionsNestedInput
     screenings?: ScreeningUpdateOneRequiredWithoutPayment_sessionsNestedInput
   }
@@ -27605,7 +27605,7 @@ export namespace Prisma {
     screening_id?: StringFieldUpdateOperationsInput | string
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     ticket_type_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -27613,7 +27613,7 @@ export namespace Prisma {
     screening_id?: StringFieldUpdateOperationsInput | string
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     ticket_type_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -27655,20 +27655,20 @@ export namespace Prisma {
 
   export type ForumReplyUpdateWithoutUserInput = {
     comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     forum?: ForumUpdateOneWithoutRepliesNestedInput
   }
 
   export type ForumReplyUncheckedUpdateWithoutUserInput = {
     forum_id?: StringFieldUpdateOperationsInput | string
     comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ForumReplyUncheckedUpdateManyWithoutUserInput = {
     forum_id?: StringFieldUpdateOperationsInput | string
     comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TicketCreateManyChairsInput = {
@@ -27915,7 +27915,7 @@ export namespace Prisma {
     id?: string
     user_id: string
     comment: string
-    createdAt?: Date | string
+    created_at?: Date | string
   }
 
   export type ForumVoteUpdateWithoutForumInput = {
@@ -27935,20 +27935,20 @@ export namespace Prisma {
 
   export type ForumReplyUpdateWithoutForumInput = {
     comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutForum_repliesNestedInput
   }
 
   export type ForumReplyUncheckedUpdateWithoutForumInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ForumReplyUncheckedUpdateManyWithoutForumInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TicketCreateManyTicket_typesInput = {
@@ -27968,7 +27968,7 @@ export namespace Prisma {
     screening_id: string
     chair_ids: InputJsonValue
     status: string
-    createdAt?: Date | string
+    created_at?: Date | string
   }
 
   export type TicketUpdateWithoutTicket_typesInput = {
@@ -28004,7 +28004,7 @@ export namespace Prisma {
   export type Payment_sessionUpdateWithoutTicket_typesInput = {
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateOneRequiredWithoutPayment_sessionsNestedInput
     screenings?: ScreeningUpdateOneRequiredWithoutPayment_sessionsNestedInput
   }
@@ -28014,7 +28014,7 @@ export namespace Prisma {
     screening_id?: StringFieldUpdateOperationsInput | string
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type Payment_sessionUncheckedUpdateManyWithoutTicket_typesInput = {
@@ -28022,7 +28022,7 @@ export namespace Prisma {
     screening_id?: StringFieldUpdateOperationsInput | string
     chair_ids?: InputJsonValue | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TicketCreateManyScreening_typesInput = {

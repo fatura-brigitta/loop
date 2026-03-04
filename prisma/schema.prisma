@@ -178,7 +178,7 @@ model ForumReply {
   forum_id  String   @db.ObjectId
   user_id   String   @db.ObjectId
   comment   String
-  createdAt DateTime @default(now())
+  created_at DateTime @default(now())
 
   forum Forum? @relation(fields: [forum_id], references: [id], onDelete: Cascade)
   user  User?  @relation(fields: [user_id], references: [id], onDelete: Cascade)
@@ -234,7 +234,7 @@ model Payment_session {
   screening_id   String   @db.ObjectId
   chair_ids      Json
   status         String
-  createdAt      DateTime @default(now())
+  created_at     DateTime @default(now())
   ticket_type_id String?  @db.ObjectId
 
   ticket_types Ticket_type? @relation(fields: [ticket_type_id], references: [id])

@@ -29,7 +29,7 @@ export async function POST(req: Request) {
         id: true,
         forum_id: true,
         comment: true,
-        createdAt: true,
+        created_at: true,
       },
     });
 
@@ -43,7 +43,7 @@ export async function POST(req: Request) {
       id: reply.id,
       forum_id: reply.forum_id,
       comment: reply.comment,
-      createdAt: reply.createdAt,
+      created_at: reply.created_at,
       user_name: user?.name ?? "Ismeretlen felhasználó",
       profile_image: user?.profile_image ?? "/profile/default.png",
     });

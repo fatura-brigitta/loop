@@ -215,7 +215,7 @@ exports.Prisma.ForumReplyScalarFieldEnum = {
   forum_id: 'forum_id',
   user_id: 'user_id',
   comment: 'comment',
-  createdAt: 'createdAt'
+  created_at: 'created_at'
 };
 
 exports.Prisma.TicketScalarFieldEnum = {
@@ -248,7 +248,7 @@ exports.Prisma.Payment_sessionScalarFieldEnum = {
   screening_id: 'screening_id',
   chair_ids: 'chair_ids',
   status: 'status',
-  createdAt: 'createdAt',
+  created_at: 'created_at',
   ticket_type_id: 'ticket_type_id'
 };
 

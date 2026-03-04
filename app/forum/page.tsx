@@ -25,7 +25,7 @@ type Reply = {
   user_name: string;
   profile_image: string;
   comment: string;
-  createdAt: string;
+  created_at: string;
 };
 
 type ForumComment = {

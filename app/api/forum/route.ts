@@ -31,7 +31,7 @@ export async function GET(req: Request) {
   const voteMap = new Map(votes.map((v) => [v.forum_id, v.type]));
   const replies = await prisma.forumReply.findMany({
     where: { forum_id: { in: posts.map((p) => p.id) } },
-    orderBy: { createdAt: "asc" },
+    orderBy: { created_at: "asc" },
   });
 
   const replyUsers = await prisma.user.findMany({
@@ -48,7 +48,7 @@ export async function GET(req: Request) {
       id: r.id,
       forum_id: r.forum_id,
       comment: r.comment,
-      createdAt: r.createdAt,
+      created_at: r.created_at,
       user_name: u?.name ?? "Ismeretlen felhasználó",
       profile_image: u?.profile_image ?? "/profile/default.png",
     };

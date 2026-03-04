@@ -61,7 +61,7 @@ model User {
   email                String    @unique
   password_hash        String
   points               Int       @default(0)
-  phone_number         String    @unique
+  phone_number         String?   @unique
   profile_image        String    @default("/profile/default.png")
   gender               String
   email_verified       Boolean   @default(false)

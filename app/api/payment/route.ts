@@ -323,7 +323,12 @@ async function handleConfirm(req: NextRequest) {
       });
 
     } catch (err) {
-      NextResponse.json({ message: "Nem sikerült elküldeni a jegyeket" }, { status: 500 });
+      console.error("EMAIL SEND ERROR:", err);
+
+      return NextResponse.json(
+        { message: "Nem sikerült elküldeni a jegyeket" },
+        { status: 500 }
+      );
     }
 
     const res = NextResponse.json({ ok: true });
@@ -332,8 +337,11 @@ async function handleConfirm(req: NextRequest) {
     return res;
 
   } catch (err) {
-    if(err instanceof Error) {
-      NextResponse.json({ message: `Fizetési hiba: ${err.message}` }, { status: 500 });
+    if (err instanceof Error) {
+      return NextResponse.json(
+        { message: `Fizetési hiba: ${err.message}` },
+        { status: 500 }
+      );
     }
     return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
   }

@@ -62,7 +62,7 @@ model User {
   password_hash        String
   points               Int       @default(0)
   phone_number         String?   @unique
-  profile_image        String    @default("/profile/default.png")
+  profile_image        String?    @default("/profile/default.png")
   gender               String
   email_verified       Boolean   @default(false)
   email_code           String?
@@ -112,10 +112,11 @@ model Rank {
 }
 
 model Discount {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  name    String
-  image   String
-  percent Int
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  image       String
+  percent     Int
 
   ranks   Rank[]
   coupons Coupon[]

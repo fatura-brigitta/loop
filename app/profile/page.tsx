@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import Footer from "@/app/components/footer";
+import { Trash2 } from "lucide-react";
 
 type Ticket = {
   id: string;
@@ -46,6 +46,7 @@ type Coupon = {
     name: string;
     percent: number;
     image: string;
+    description: string;
   };
 };
 
@@ -73,6 +74,8 @@ export default function ProfilePage() {
 
   const [phone, setPhone] = useState("");
   const [profileImage, setProfileImage] = useState("");
+  const [imageMessage, setImageMessage] = useState("");
+  const [imageError, setImageError] = useState("");
 
   const [gender, setGender] = useState<string>("RATHER_NOT_SAY");
 
@@ -80,69 +83,84 @@ export default function ProfilePage() {
   const [error, setError] = useState("");
   const [warning, setWarning] = useState(false);
 
+  const [historyMessage, setHistoryMessage] = useState("");
+  const [deleteTicketId, setDeleteTicketId] = useState<string | null>(null);
+  const [confirmDeleteAll, setConfirmDeleteAll] = useState(false);
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  const loadUser = async () => {
+    const userRes = await fetch("/api/auth", { cache: "no-store" });
+
+    if (userRes.status !== 200) {
+      router.push("/login");
+      return;
+    }
+
+    const active = await userRes.json();
+    setUserName(active.name);
+
+    const profileRes = await fetch("/api/profile", {
+      method: "GET",
+      cache: "no-store",
+      credentials: "include"
+    });
+
+    const profile = await profileRes.json();
+
+    setUser(profile);
+    setRankData(profile);
+
+    setNewName(profile.name);
+    setPhone(profile.phone_number);
+    setProfileImage(profile.profile_image || "");
+    setGender(profile.gender || "RATHER_NOT_SAY");
+    setIsGoogleUser(!profile.hasPassword);
+    setWarning(profile.inactivityWarning);
+
+    const lastRank = localStorage.getItem("lastRankName");
+
+    if (profile.rank && profile.rank.name !== lastRank) {
+      setRankUp({
+        name: profile.rank.name,
+        image: profile.rank.image,
+      });
+
+      localStorage.setItem("lastRankName", profile.rank.name);
+    }
+
+    const ticketRes = await fetch("/api/profile", {
+      method: "POST",
+      credentials: "include",
+      cache: "no-store",
+    });
+
+    if (ticketRes.ok) {
+      const ticketData = await ticketRes.json();
+      setTickets(ticketData.active);
+      setHistory(ticketData.history);
+    }
+
+    const couponRes = await fetch("/api/coupons", {
+      cache: "no-store",
+      credentials: "include",
+    });
+
+    if (couponRes.ok) {
+      const couponData = await couponRes.json();
+      setCoupons(couponData);
+    }
+  };
+
   useEffect(() => {
-    const loadUser = async () => {
-      const userRes = await fetch("/api/auth", { cache: "no-store" });
 
-      if (userRes.status !== 200) {
-        router.push("/login");
-        return;
-      }
-
-      const active = await userRes.json();
-      setUserName(active.name);
-
-      const profileRes = await fetch("/api/profile", { cache: "no-store" });
-      const profile = await profileRes.json();
-
-      setUser(profile);
-      setRankData(profile);
-      const lastRank = localStorage.getItem("lastRankName");
-
-      if (profile.rank && profile.rank.name !== lastRank) {
-        setRankUp({
-          name: profile.rank.name,
-          image: profile.rank.image,
-        });
-        localStorage.setItem("lastRankName", profile.rank.name);
-      }
-      setNewName(profile.name);
-
-      setPhone(profile.phone_number);
-      setProfileImage(profile.profile_image);
-
-      setGender(profile.gender || "RATHER_NOT_SAY");
-
-      setIsGoogleUser(!profile.hasPassword);
-      setWarning(profile.inactivityWarning);
-
-      const ticketRes = await fetch("/api/profile", {
-        method: "POST",
-        credentials: "include",
-        cache: "no-store",
-      });
-
-      if (ticketRes.ok) {
-        const ticketData = await ticketRes.json();
-        setTickets(ticketData.active);
-        setHistory(ticketData.history);
-      }
-
-      const couponRes = await fetch("/api/coupons", {
-        cache: "no-store",
-        credentials: "include",
-      });
-
-      if (couponRes.ok) {
-        const couponData = await couponRes.json();
-        setCoupons(couponData);
-      }
+    const init = async () => {
+      await loadUser();
     };
 
-    loadUser();
-  }, [router]);
+    init();
+
+  }, []);
 
   useEffect(() => {
     if (!message && !error) return;
@@ -154,6 +172,16 @@ export default function ProfilePage() {
 
     return () => clearTimeout(timer);
   }, [message, error]);
+
+  useEffect(() => {
+    if (!historyMessage) return;
+
+    const timer = setTimeout(() => {
+      setHistoryMessage("");
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [historyMessage]);
 
   useEffect(() => {
     if (!rankUp) return;
@@ -218,21 +246,6 @@ export default function ProfilePage() {
     setIsGoogleUser(false);
   };
 
-  const updateProfileImage = async (base64: string) => {
-    const res = await fetch("/api/profile-image", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ profile_image: base64 }),
-    });
-
-    if (!res.ok) {
-      setError("Hiba a profilkép frissítése közben!");
-      return;
-    }
-
-    setMessage("Profilkép frissítve!");
-  };
-
   const readFileAsBase64 = (file: File) =>
     new Promise<string>((resolve, reject) => {
       const reader = new FileReader();
@@ -244,24 +257,30 @@ export default function ProfilePage() {
   const handlePickFile = async (file?: File) => {
     if (!file) return;
 
-    if (!file.type.startsWith("image/")) {
-      setError("Csak képfájl tölthető fel!");
+    const base64 = await readFileAsBase64(file);
+
+    const res = await fetch("/api/profile-image", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        profile_image: base64
+      })
+    });
+
+    if (!res.ok) {
+      setImageError("Hiba a profilkép frissítése közben!");
+      setImageMessage("");
       return;
     }
 
-    const maxBytes = 2 * 1024 * 1024;
-    if (file.size > maxBytes) {
-      setError("A kép túl nagy (max 2MB)!");
-      return;
-    }
+    setProfileImage(base64);
 
-    try {
-      const base64 = await readFileAsBase64(file);
-      setProfileImage(base64);
-      await updateProfileImage(base64);
-    } catch {
-      setError("Nem sikerült beolvasni a képet.");
-    }
+    setImageMessage("Profilkép frissítve!");
+    setImageError("");
+
+    router.refresh();
+
+    window.dispatchEvent(new Event("profile-updated"));
   };
 
   if (!user) {
@@ -276,6 +295,68 @@ export default function ProfilePage() {
     rankData?.nextRank && typeof rankData?.points === "number"
       ? Math.max(0, (rankData.nextRank?.point_limit || 0) - rankData.points)
       : 0;
+
+  const deleteTicket = async (id: string) => {
+    const res = await fetch("/api/tickets/delete", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        ticketId: id
+      })
+    });
+
+    if (res.ok) {
+      setHistory(prev => prev.filter(t => t.id !== id));
+      setHistoryMessage("Jegy törölve az előzményekből.");
+    } else {
+      setHistoryMessage("Hiba történt a törlés során.");
+    }
+
+    setDeleteTicketId(null);
+  };
+
+  const deleteAllHistory = async () => {
+    const res = await fetch("/api/tickets/delete-all", {
+      method: "DELETE"
+    });
+
+    if (res.ok) {
+      setHistory([]);
+      setHistoryMessage("Az összes vásárlási előzmény törölve.");
+    } else {
+      setHistoryMessage("Hiba történt a törlés során.");
+    }
+
+    setConfirmDeleteAll(false);
+  };
+
+  const resetProfileImage = async () => {
+
+    const res = await fetch("/api/profile-image", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        profile_image: null
+      })
+    });
+
+    if (!res.ok) {
+      setImageMessage("Hiba történt.");
+      setImageError("");
+      return;
+    }
+
+    setProfileImage("");
+
+    setImageMessage("Profilkép visszaállítva!");
+    setImageError("");
+
+    router.refresh();
+
+    window.dispatchEvent(new Event("profile-updated"));
+  };
 
   return (
     <div className="min-h-screen bg-[#060b14] text-slate-100">
@@ -363,10 +444,77 @@ export default function ProfilePage() {
         )}
       </div>
 
-
       <div className="mx-auto max-w-5xl px-4 py-8">
         <div className="w-full rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur transition-all">
           <h1 className="mb-8 text-3xl font-bold text-cyan-300">Profil adatok</h1>
+
+          <div className="mb-8 flex items-center gap-6">
+
+            <div className="relative h-24 w-24 overflow-hidden rounded-full border border-white/20">
+              <Image
+                alt="Profilkép"
+                className="object-cover"
+                fill
+                key={profileImage || "default"}
+                priority
+                sizes="96px"
+                src={profileImage || "/profile/default.png"}
+                unoptimized
+              />
+            </div>
+            <div
+              className="flex-1 rounded-xl border border-dashed border-white/15 bg-black/20 px-4 py-4 text-sm"
+              onDragEnter={(e) => e.preventDefault()}
+              onDragLeave={(e) => e.preventDefault()}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={async (e) => {
+                e.preventDefault();
+                const file = e.dataTransfer.files?.[0];
+                await handlePickFile(file);
+              }}
+            >
+              <div className="flex flex-col gap-2">
+
+                <div className="text-white/80">
+                  Húzd ide a képet vagy{" "}
+                  <button
+                    className="text-cyan-300 underline hover:text-cyan-200 cursor-pointer"
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    válassz fájlt
+                  </button>
+                </div>
+
+                <input
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  type="file"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    handlePickFile(file);
+                  }}
+                />
+
+                {profileImage && (
+                  <button
+                    className="w-fit rounded-lg bg-white/10 px-3 py-1 text-xs hover:bg-white/20"
+                    type="button"
+                    onClick={resetProfileImage}
+                  >
+                    Alapértelmezett kép
+                  </button>
+                )}
+
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-2 h-5 text-sm mb-5">
+              {imageError && <div className="text-red-400">{imageError}</div>}
+              {imageMessage && <div className="text-green-400">{imageMessage}</div>}
+          </div>
 
           <div className="mb-6">
             <label className="text-sm text-white/60">Email</label>
@@ -536,9 +684,15 @@ export default function ProfilePage() {
                       />
 
                       <div className="flex-1">
-                        <div className="text-xl font-bold text-white">{coupon.discounts.name}</div>
+                        <div className="text-xl font-bold text-white">
+                          {coupon.discounts.name}
+                        </div>
 
-                        <div className="font-semibold text-cyan-300">
+                        <div className="text-sm text-white/60 mt-1">
+                          {coupon.discounts.description}
+                        </div>
+
+                        <div className="absolute top-3 right-3 bg-cyan-500 text-black text-xs font-bold px-2 py-1 rounded">
                           -{coupon.discounts.percent}%
                         </div>
 
@@ -664,6 +818,16 @@ export default function ProfilePage() {
               : "max-h-0 opacity-0 overflow-hidden"
           }`}
         >
+          {history.length > 0 && (
+            <div className="flex justify-end mb-4">
+              <button
+                className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-500 transition cursor-pointer"
+                onClick={() => setConfirmDeleteAll(true)}
+              >
+                Összes előzmény törlése
+              </button>
+            </div>
+          )}
           {history.length === 0 && (
             <div className="mb-6 text-white/60">Még nincs lezárt vetítésed.</div>
           )}
@@ -674,7 +838,8 @@ export default function ProfilePage() {
                 className="rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:bg-white/10"
                 key={ticket.id}
               >
-                <div className="flex flex-wrap items-center justify-between gap-4">
+                <div className="flex items-center justify-between">
+
                   <div>
                     <div className="text-lg font-semibold text-white">
                       {ticket.screenings.movies.title}
@@ -688,16 +853,107 @@ export default function ProfilePage() {
                       Terem: {ticket.screenings.halls.name}
                     </div>
 
-                    <div className="text-sm text-white/60">Jegy: {ticket.ticket_types.type}</div>
+                    <div className="text-sm text-white/60">
+                      Jegy: {ticket.ticket_types.type}
+                    </div>
                   </div>
 
-                  <div className="text-right text-lg font-bold text-green-400">
-                    {ticket.price} Ft
+                  <div className="flex items-center gap-4">
+
+                    <div className="text-lg font-bold text-green-400">
+                      {ticket.price} Ft
+                    </div>
+
+                    <button
+                      className="flex items-center justify-center rounded-lg bg-red-500/20 p-2 text-red-400 hover:bg-red-500/40 hover:text-red-300 transition cursor-pointer"
+                      onClick={() => setDeleteTicketId(ticket.id)}
+                    >
+                      <Trash2 size={18} />
+                    </button>
                   </div>
                 </div>
               </div>
             ))}
           </div>
+          <div className="mt-4 text-center text-sm h-5">
+            {historyMessage && (
+              <span className={historyMessage.includes("Hiba") ? "text-red-400" : "text-green-400"}>
+                {historyMessage}
+              </span>
+            )}
+          </div>
+
+          {deleteTicketId && (
+            <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm">
+
+              <div className="w-[380px] rounded-2xl border border-white/10 bg-[#0b1220] p-6 shadow-2xl">
+
+                <h2 className="text-xl font-bold text-white mb-4">
+                  Jegy törlése
+                </h2>
+
+                <p className="text-white/70 mb-6">
+                  Biztos törölni szeretnéd ezt a jegyet a vásárlási előzményekből?
+                </p>
+
+                <div className="flex justify-end gap-3">
+
+                  <button
+                    className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition"
+                    onClick={() => setDeleteTicketId(null)}
+                  >
+                    Mégse
+                  </button>
+
+                  <button
+                    className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 transition text-white"
+                    onClick={() => deleteTicket(deleteTicketId)}
+                  >
+                    Törlés
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+          )}
+
+          {confirmDeleteAll && (
+            <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm">
+
+              <div className="w-[380px] rounded-2xl border border-white/10 bg-[#0b1220] p-6 shadow-2xl">
+
+                <h2 className="text-xl font-bold text-white mb-4">
+                  Összes előzmény törlése
+                </h2>
+
+                <p className="text-white/70 mb-6">
+                  Biztos törölni szeretnéd az összes vásárlási előzményt?
+                </p>
+
+                <div className="flex justify-end gap-3">
+
+                  <button
+                    className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition"
+                    onClick={() => setConfirmDeleteAll(false)}
+                  >
+                    Mégse
+                  </button>
+
+                  <button
+                    className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 transition text-white"
+                    onClick={deleteAllHistory}
+                  >
+                    Törlés
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+          )}
         </div>
       </div>
     </div>

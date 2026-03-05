@@ -82,6 +82,31 @@ export default function Navbar() {
          : "text-slate-300 hover:text-white"
      }`;
 
+  useEffect(() => {
+    const reload = async () => {
+
+      const profileRes = await fetch("/api/profile", {
+        credentials: "include",
+        cache: "no-store",
+      });
+
+      if (!profileRes.ok) return;
+
+      const data = await profileRes.json();
+
+      setUser({
+        name: data.name,
+        profile_image: data.profile_image ? data.profile_image : "/profile/default.png"
+      });
+
+    };
+
+    window.addEventListener("profile-updated", reload);
+
+    return () => window.removeEventListener("profile-updated", reload);
+
+  }, []);
+
   return (
     <header className="sticky top-0 z-50 h-14 border-b border-white/10 bg-[#060b14]/90 backdrop-blur">
       <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
@@ -116,7 +141,9 @@ export default function Navbar() {
                         alt="Profil"
                         className="object-cover"
                         fill
+                        key={user.profile_image || "default"}
                         src={user.profile_image || "/profile/default.png"}
+                        unoptimized
                       />
                     </div>
                     <span>{user.name}</span>

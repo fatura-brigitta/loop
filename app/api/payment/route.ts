@@ -83,17 +83,9 @@ async function handleSession() {
         orderBy: [{ row: "asc" }, { column: "asc" }],
       });
 
-      let selectedType;
-
-      if (session.ticket_type_id) {
-        selectedType = await prisma.ticket_type.findUnique({
-          where: { id: session.ticket_type_id },
-        });
-      } else {
-        selectedType = await prisma.ticket_type.findFirst({
-          where: { type: "Normál" },
-        });
-      }
+      const selectedType = await prisma.ticket_type.findFirst({
+        where: { type: "Normál" },
+      });
 
       if (!selectedType)
         return NextResponse.json({ message: "A jegytípus hiányzik" }, { status: 500 });
@@ -132,22 +124,10 @@ async function handleSession() {
       if (!paymentId)
         return NextResponse.json({ message: "Nincs fizetési munkamenet" }, { status: 400 });
 
-      const { ticketType } = await req.json();
-      const type = await prisma.ticket_type.findFirst({
-        where: { type: ticketType },
-      });
+      const { ticketTypes } = await req.json();
 
-      if (!type)
-        return NextResponse.json({ message: "A jegytípus hiányzik" }, { status: 400 });
-      await prisma.payment_session.update({
-        where: { id: paymentId },
-        data: {
-          ticket_type_id: type.id
-        }
-      });
-
-      if (!ticketType)
-        return NextResponse.json({ message: "Hiányzó jegytípus" }, { status: 400 });
+      if (!ticketTypes || !Array.isArray(ticketTypes))
+        return NextResponse.json({ message: "Hiányzó jegytípusok" }, { status: 400 });
 
       const session = await prisma.payment_session.findUnique({
         where: { id: paymentId },
@@ -158,20 +138,29 @@ async function handleSession() {
         },
       });
 
-      if (!session || !session.screenings || !session.screenings.screening_types)
+      if (!session || !session.screenings)
         return NextResponse.json({ message: "Érvénytelen munkamenet" }, { status: 400 });
 
+      let totalPrice = 0;
 
-      const chairIds = session.chair_ids as unknown as string[];
+      for (const typeName of ticketTypes) {
 
-      const pricePerSeat = calculateTicketPrice(
-        session.screenings.screening_types.percent,
-        type.percent
-      );
+        const type = await prisma.ticket_type.findFirst({
+          where: { type: typeName },
+        });
 
-      const totalPrice = pricePerSeat * chairIds.length;
+        if (!type) continue;
+
+        const price = calculateTicketPrice(
+          session.screenings.screening_types!.percent,
+          type.percent
+        );
+
+        totalPrice += price;
+      }
 
       return NextResponse.json({ totalPrice });
+
     } catch (err) {
       console.error("PRICE ERROR:", err);
       return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
@@ -186,7 +175,7 @@ async function handleConfirm(req: NextRequest) {
     if (!paymentId)
       return NextResponse.json({ message: "Nincs fizetési munkamenet" }, { status: 400 });
 
-    const { ticketType } = await req.json();
+    const { ticketTypes } = await req.json();
 
     const session = await prisma.payment_session.findUnique({
       where: { id: paymentId },
@@ -218,23 +207,30 @@ async function handleConfirm(req: NextRequest) {
       },
     });
 
-    const type = await prisma.ticket_type.findFirst({
-      where: { type: ticketType },
-    });
-
-    if (!screening || !type)
+    if (!screening)
       return NextResponse.json({ message: "Hiányzó adatok" }, { status: 500 });
 
     const chairIds = session.chair_ids as string[];
 
-    const price = calculateTicketPrice(
-      screening.screening_types!.percent,
-      type.percent
-    );
-
     const createdTicketIds: string[] = [];
 
-    for (const chairId of chairIds) {
+    let totalSpent = 0;
+
+    for (let i = 0; i < chairIds.length; i++) {
+      const chairId = chairIds[i];
+      const typeName = ticketTypes[i];
+
+      const type = await prisma.ticket_type.findFirst({
+        where: { type: typeName },
+      });
+
+      if (!type) continue;
+
+      const price = calculateTicketPrice(
+        screening.screening_types!.percent,
+        type.percent
+      );
+
       const ticket = await prisma.ticket.create({
         data: {
           user_id: userBefore.id,
@@ -247,10 +243,11 @@ async function handleConfirm(req: NextRequest) {
         },
       });
 
+      totalSpent += price;
       createdTicketIds.push(ticket.id);
     }
 
-    const gainedPoints = Math.floor((price * chairIds.length) / 50);
+    const gainedPoints = Math.floor(totalSpent / 50);
 
     const userAfter = await prisma.user.update({
       where: { id: userBefore.id },

@@ -21,8 +21,9 @@ export default function PaymentPage() {
   const [loading, setLoading] = useState(true);
   const [paying, setPaying] = useState(false);
   const [error, setError] = useState("");
-  const [ticketType, setTicketType] = useState("Normál");
   const [price, setPrice] = useState<number | null>(null);
+  const [ticketTypes, setTicketTypes] = useState<Record<number, string>>({});
+  const [seatPrices, setSeatPrices] = useState<Record<number, number>>({});
 
   useEffect(() => {
     const load = async () => {
@@ -40,10 +41,7 @@ export default function PaymentPage() {
 
         const json = await res.json();
         setData(json);
-        if (json.ticketType) {
-          setTicketType(json.ticketType);
-          setPrice(json.totalPrice);
-        }
+        setPrice(json.totalPrice)
         setLoading(false);
       } catch {
         setError("Fizetési adatok betöltése sikertelen");
@@ -53,6 +51,74 @@ export default function PaymentPage() {
 
     load();
   }, []);
+
+  useEffect(() => {
+    if (!data) return;
+
+    const initial: Record<number, string> = {};
+    data.seats.forEach((_, i) => {
+      initial[i] = data.ticketType || "Normál";
+    });
+
+    setTicketTypes(initial);
+
+    const loadSeatPrices = async () => {
+      const prices: Record<number, number> = {};
+
+      for (let i = 0; i < data.seats.length; i++) {
+        const res = await fetch("/api/payment?action=price", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ticketTypes: [initial[i]],
+          }),
+        });
+
+        const json = await res.json();
+        if (res.ok) prices[i] = json.totalPrice;
+      }
+
+      setSeatPrices(prices);
+    };
+
+    loadSeatPrices();
+  }, [data]);
+
+  const recalcPrice = async (types: Record<number, string>) => {
+    const res = await fetch("/api/payment?action=price", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ticketTypes: Object.values(types),
+      }),
+    });
+
+    const json = await res.json();
+
+    if (res.ok) {
+      setPrice(json.totalPrice);
+    }
+  };
+
+  const getSeatPrice = async (type: string) => {
+    const res = await fetch("/api/payment?action=price", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ticketTypes: [type],
+      }),
+    });
+
+    const json = await res.json();
+    if (res.ok) return json.totalPrice;
+    return 0;
+  };
 
   const simulatePayment = async () => {
     if (!data) return;
@@ -67,8 +133,7 @@ export default function PaymentPage() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        paymentId: data.sessionId,
-        ticketType,
+        ticketTypes: Object.values(ticketTypes),
       }),
     });
 
@@ -130,40 +195,65 @@ export default function PaymentPage() {
           <div>
             <span className="mb-1 block">Székek</span>
             <div className="text-cyan-300">
-              {data.seats.map((s, i) => (
-                <div key={i}>
-                  Sor {s.row} Szék {s.column}
-                </div>
-              ))}
-            </div>
+              <div className="space-y-3">
+                {data.seats.map((s, i) => {
+                  const type = ticketTypes[i] || "Normál";
 
-            <div className="mt-4">
-              <span className="block mb-2">Jegytípus</span>
+                  return (
+                    <div
+                      key={i}
+                      className="flex items-center justify-between rounded-lg bg-black/30 p-3"
+                    >
+                      <div className="flex flex-col">
+                        <div className="text-cyan-300 font-semibold">
+                          {i + 1}. jegy
+                        </div>
 
-              <select
-                className="w-full rounded-lg bg-[#060b14] border border-white/20 p-2 cursor-pointer"
-                value={ticketType}
-                onChange={async (e) => {
-                  const newType = e.target.value;
-                  setTicketType(newType);
+                        <div className="text-white/80 text-sm">
+                          Sor {s.row} Szék {s.column}
+                        </div>
+                      </div>
 
-                  const res = await fetch("/api/payment?action=price", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ ticketType: newType }),
-                  });
+                      <div className="flex items-center gap-3">
+                        <span className="text-green-400 font-semibold text-sm">
+                          {seatPrices[i] ?? ""} Ft
+                        </span>
+                        <select
+                          className="w-[110px] rounded-lg bg-[#060b14] border border-white/20 p-2 cursor-pointer"
+                          value={type}
+                          onChange={async (e) => {
+                            const newType = e.target.value;
 
-                  const json = await res.json();
-                  if (res.ok) setPrice(json.totalPrice);
-                }}
-              >
-                <option value="Normál">Normál</option>
-                <option value="Diák">Diák</option>
-                <option value="Senior">Senior</option>
-                <option value="Gyerek">Gyerek</option>
-              </select>
+                            const updated = {
+                              ...ticketTypes,
+                              [i]: newType,
+                            };
+
+                            setTicketTypes(updated);
+                            recalcPrice(updated);
+
+                            const seatPrice = await getSeatPrice(newType);
+
+                            setSeatPrices((prev) => ({
+                              ...prev,
+                              [i]: seatPrice,
+                            }));
+
+                            setTicketTypes(updated);
+                            recalcPrice(updated);
+                          }}
+                        >
+                          <option value="Normál">Normál</option>
+                          <option value="Diák">Diák</option>
+                          <option value="Senior">Senior</option>
+                          <option value="Gyerek">Gyerek</option>
+                        </select>
+
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 

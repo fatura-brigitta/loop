@@ -37,13 +37,14 @@ export default function Leaderboard() {
           <div className="podium-card podium-left text-center">
             <div className="mb-3 text-4xl">🥈</div>
 
-            <Image
-              alt="profil"
-              className="mx-auto mb-4 rounded-full border-4 border-slate-400 object-cover hover:scale-105 hover:border-cyan-400 transition hover:cursor-pointer"
-              height={90}
-              src={second.profile_image || "/profile/default.png"}
-              width={90}
-            />
+            <div className="relative mx-auto mb-4 h-[90px] w-[90px] overflow-hidden rounded-full border-4 border-slate-400 transition hover:scale-105 hover:border-cyan-400 cursor-pointer">
+              <Image
+                alt="profil"
+                src={second.profile_image || "/profile/default.png"}
+                fill
+                className="object-cover"
+              />
+            </div>
 
             <div className="text-xl font-bold">{second.name}</div>
             <div className="text-[--text-soft]">{second.points} pont</div>
@@ -54,13 +55,14 @@ export default function Leaderboard() {
           <div className="podium-card podium-center z-10 scale-110 text-center">
             <div className="mb-3 text-5xl">🥇</div>
 
-            <Image
-              alt="profil"
-              className="mx-auto mb-4 rounded-full border-4 border-yellow-400 object-cover shadow-[0_0_30px_rgba(255,215,0,0.45)] hover:scale-105 hover:border-cyan-400 transition hover:cursor-pointer"
-              height={110}
-              src={first.profile_image || "/profile/default.png"}
-              width={110}
-            />
+            <div className="relative mx-auto mb-4 h-[100px] w-[100px] overflow-hidden rounded-full border-4 border-yellow-400 shadow-[0_0_30px_rgba(255,215,0,0.45)] transition hover:scale-105 hover:border-cyan-400 cursor-pointer">
+              <Image
+                alt="profil"
+                src={first.profile_image || "/profile/default.png"}
+                fill
+                className="object-cover"
+              />
+            </div>
 
             <div className="text-2xl font-extrabold">{first.name}</div>
             <div className="text-lg font-semibold text-yellow-300">{first.points} pont</div>
@@ -71,13 +73,14 @@ export default function Leaderboard() {
           <div className="podium-card podium-right text-center">
             <div className="mb-3 text-4xl">🥉</div>
 
-            <Image
-              alt="profil"
-              className="mx-auto mb-4 rounded-full border-4 border-amber-700 object-cover hover:scale-105 hover:border-cyan-400 transition hover:cursor-pointer"
-              height={90}
-              src={third.profile_image || "/profile/default.png"}
-              width={90}
-            />
+            <div className="relative mx-auto mb-4 h-[90px] w-[90px] overflow-hidden rounded-full border-4 border-amber-700 transition hover:scale-105 hover:border-cyan-400 cursor-pointer">
+              <Image
+                alt="profil"
+                src={third.profile_image || "/profile/default.png"}
+                fill
+                className="object-cover"
+              />
+            </div>
 
             <div className="text-xl font-bold">{third.name}</div>
             <div className="text-[--text-soft]">{third.points} pont</div>

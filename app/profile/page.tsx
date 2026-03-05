@@ -505,8 +505,10 @@ export default function ProfilePage() {
           </button>
 
           <div
-            className={`overflow-hidden transition-all duration-500 ease-in-out ${
-              showCoupons ? "mt-4 mb-4 max-h-[1200px] opacity-100" : "max-h-0 opacity-0"
+            className={`transition-all duration-500 ease-in-out ${
+              showCoupons
+                ? "mt-4 mb-4 max-h-[70vh] opacity-100 overflow-y-auto"
+                : "max-h-0 opacity-0 overflow-hidden"
             }`}
           >
             <div>
@@ -583,8 +585,8 @@ export default function ProfilePage() {
         </button>
 
         <div
-          className={`overflow-hidden transition-all duration-500 ease-in-out ${
-            showTickets ? "mt-4 mb-4 max-h-[1400px] opacity-100" : "max-h-0 opacity-0"
+          className={`transition-all duration-500 ease-in-out ${
+            showTickets ? "mt-4 mb-4 max-h-[70vh] opacity-100 overflow-y-auto" : "max-h-0 opacity-0 overflow-hidden"
           }`}
         >
           <div className="overflow-hidden">
@@ -656,8 +658,10 @@ export default function ProfilePage() {
         </button>
 
         <div
-          className={`overflow-hidden transition-all duration-500 ease-in-out ${
-            showHistory ? "mt-4 max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
+          className={`transition-all duration-500 ease-in-out ${
+            showHistory
+              ? "mt-4 max-h-[70vh] opacity-100 overflow-y-auto"
+              : "max-h-0 opacity-0 overflow-hidden"
           }`}
         >
           {history.length === 0 && (

@@ -132,14 +132,14 @@ export default function LoginPage() {
             <div className="mt-6 flex flex-col gap-3">
               <button
                 className="flex w-full items-center justify-center gap-3 rounded-lg bg-white px-4 py-3 font-semibold text-black hover:bg-gray-100 cursor-pointer"
-                type="button" onClick={() => signIn("google")}
+                type="button" onClick={() => signIn("google", {callbackUrl: "/"})}
               >
                 <img alt="Google" height={22} src="/google.svg" width={22}/>
                 Sign in with Google
               </button>
               <button
                 className="flex w-full items-center justify-center gap-3 rounded-lg bg-[#1877F2] px-4 py-3 font-semibold text-white hover:bg-[#166fe5] cursor-pointer"
-                type="button" onClick={() => signIn("facebook")}
+                type="button" onClick={() => signIn("facebook", {callbackUrl: "/"})}
               >
                 <img alt="Facebook" height={16} src="/facebook.svg" width={16}/>
                 Sign in with Facebook

@@ -549,7 +549,6 @@ export default function ForumPage() {
           )}
         </div>
       )}
-      <Footer />
     </div>
   );
 

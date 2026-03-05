@@ -71,17 +71,17 @@ export default function ResetPasswordPage() {
         </h1>
 
         <input
-          type="password"
-          placeholder="Új jelszó"
           className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white mb-4"
+          placeholder="Új jelszó"
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 
         <input
-          type="password"
-          placeholder="Új jelszó újra"
           className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+          placeholder="Új jelszó újra"
+          type="password"
           value={password2}
           onChange={(e) => setPassword2(e.target.value)}
         />

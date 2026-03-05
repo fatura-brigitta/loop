@@ -1,5 +1,3 @@
-// session kezelés iron-session könyvtárral - cookie alapú
-
 import { getIronSession } from "iron-session";
 import type { SessionOptions } from "iron-session";
 

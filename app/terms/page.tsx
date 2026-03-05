@@ -1,6 +1,6 @@
 export default function Terms() {
     return (
-        <main>
+        <main className="text-center">
             <h1>Terms of Service</h1>
             <p>By using this application, you agree to the following terms and conditions:</p>
             <ul>

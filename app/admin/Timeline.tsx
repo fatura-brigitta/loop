@@ -29,7 +29,6 @@ function minutesFromOpen(dateISO: string, date: string) {
   return Math.floor((new Date(dateISO).getTime() - o) / 60000);
 }
 
-// datetime-local érték kell: "YYYY-MM-DDTHH:mm"
 function toLocalInputValue(d: Date) {
   const pad = (n: number) => String(n).padStart(2, "0");
   const yyyy = d.getFullYear();
@@ -54,17 +53,14 @@ export default function Timeline({
   const totalMinutes = (CLOSE - OPEN) * 60;
   const width = totalMinutes * PX_PER_MIN;
 
-  // kattintás -> local datetime-local érték
   function handleClick(e: React.MouseEvent<HTMLDivElement>) {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
 
     let minutes = Math.floor(x / PX_PER_MIN);
 
-    // 10:00 előtt
     if (minutes < 0) minutes = 0;
 
-    // 21:45 után ne lehessen kezdeni
     const LAST_START = (22 - 10) * 60 - 15;
     if (minutes > LAST_START) minutes = LAST_START;
 
@@ -75,10 +71,8 @@ export default function Timeline({
     onPickStart(toLocalInputValue(start));
   }
 
-  // preview: film+tak
   const preview = (() => {
     if (!movie) return null;
-    // a preview-t a kiválasztott kattintás után a form startból rajzolod, itt nincs start -> ezért csak ütközést mutatunk, ha onPick után van
     return null;
   })();
 
@@ -89,18 +83,16 @@ export default function Timeline({
         style={{ width }}
         onClick={handleClick}
       >
-        {/* órák */}
         {Array.from({ length: CLOSE - OPEN + 1 }).map((_, i) => (
           <div
-            key={i}
             className="absolute top-1 text-xs text-slate-500"
+            key={i}
             style={{ left: i * 60 * PX_PER_MIN }}
           >
             {OPEN + i}:00
           </div>
         ))}
 
-        {/* meglévő blokkok: zöld = vetítés (end már tartalmazza a takarítást a backend módosítás után) */}
         {screenings.map((s) => {
           const leftMin = minutesFromOpen(s.start, date);
           const durMin =
@@ -108,8 +100,8 @@ export default function Timeline({
 
           return (
             <div
-              key={s.id}
               className="absolute top-8 h-12 rounded-md bg-emerald-500/70 border border-emerald-400 text-xs px-2 py-1 overflow-hidden"
+              key={s.id}
               style={{
                 left: leftMin * PX_PER_MIN,
                 width: Math.max(6, durMin * PX_PER_MIN),

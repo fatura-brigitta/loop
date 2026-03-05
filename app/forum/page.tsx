@@ -133,14 +133,12 @@ export default function ForumPage() {
     });
 
     if (!res.ok) {
-      // ha nem ment, visszavesszük a temp kommentet
       setComments((prev) => prev.filter((c) => c.id !== tempId));
       return;
     }
 
     const real = await res.json();
 
-    // temp csere valódi rekordra (biztos mezőkkel)
     setComments((prev) =>
       prev.map((c) =>
         c.id === tempId
@@ -193,24 +191,20 @@ export default function ForumPage() {
   const vote = async (postId: string, type: "LIKE" | "DISLIKE") => {
     if (postId.startsWith("temp-")) return;
 
-    // optimistic azonnali növelés
     setComments((prev) =>
       prev.map((c) => {
         if (c.id !== postId) return c;
 
-        // ha váltasz, akkor egyik nő, másik csökkenhet
         const already = c.myVote;
         let likes = c.likes ?? 0;
         let dislikes = c.dislikes ?? 0;
 
         if (already === type) {
-          // toggle off
           if (type === "LIKE") likes = Math.max(0, likes - 1);
           else dislikes = Math.max(0, dislikes - 1);
           return { ...c, likes, dislikes, myVote: null };
         }
 
-        // switch / new
         if (type === "LIKE") {
           likes += 1;
           if (already === "DISLIKE") dislikes = Math.max(0, dislikes - 1);
@@ -231,7 +225,6 @@ export default function ForumPage() {
     });
 
     if (!res.ok) {
-      // hiba esetén visszaszinkron a szerverről
       if (selectedMovie) {
         const r = await fetch(`/api/forum?movie=${selectedMovie}`, {
           cache: "no-store",
@@ -242,7 +235,7 @@ export default function ForumPage() {
       return;
     }
 
-    const updated = await res.json(); // { id, likes, dislikes, myVote }
+    const updated = await res.json();
 
     setComments((prev) =>
       prev.map((c) =>
@@ -391,7 +384,6 @@ export default function ForumPage() {
                     />
 
                     <div className="flex-1">
-                      {/* HEADER: name+rating left, votes right */}
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0">
                           <div className="flex flex-wrap items-center gap-2">
@@ -438,12 +430,10 @@ export default function ForumPage() {
                         </div>
                       </div>
 
-                      {/* BODY */}
                       <div className="mt-2 text-slate-100 leading-relaxed break-words">
                         {c.comment}
                       </div>
 
-                      {/* ACTIONS */}
                       <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
                         <button
                           className="text-slate-300 hover:text-cyan-300 transition cursor-pointer"
@@ -464,7 +454,6 @@ export default function ForumPage() {
                         )}
                       </div>
 
-                      {/* Reply input */}
                       {replyOpenFor === c.id && (
                         <div className="mt-4 flex gap-3 rounded-xl border border-white/10 bg-[#060b14]/40 p-3">
                           <Image
@@ -501,7 +490,6 @@ export default function ForumPage() {
                         </div>
                       )}
 
-                      {/* Replies list */}
                       {repliesOpen[c.id] && (c.replies?.length ?? 0) > 0 && (
                         <div className="mt-4 space-y-3 border-l border-white/10 pl-4">
                           {(c.replies ?? []).map((r) => (
@@ -553,7 +541,7 @@ export default function ForumPage() {
   );
 
   type StarRatingProps = {
-    value: number; // 0..10 (0.5 step)
+    value: number;
     onChange: (v: number) => void;
     disabled?: boolean;
   };
@@ -562,20 +550,18 @@ export default function ForumPage() {
     const [hover, setHover] = useState<number | null>(null);
     const display = hover ?? value;
 
-    // display: 0..10 -> csillag index 1..10
     const fillForStar = (i: number) => {
-      // i: 1..10
-      const d = display - (i - 1); // 0..?
-      if (d >= 1) return 1; // full
-      if (d >= 0.5) return 0.5; // half
-      return 0; // empty
+      const d = display - (i - 1);
+      if (d >= 1) return 1;
+      if (d >= 0.5) return 0.5;
+      return 0;
     };
 
     const pickValueFromClick = (e: React.MouseEvent<HTMLButtonElement>, i: number) => {
       const rect = e.currentTarget.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const half = x < rect.width / 2 ? 0.5 : 1;
-      const next = (i - 1) + half; // 0.5..10
+      const next = (i - 1) + half;
       return Math.max(0, Math.min(10, next));
     };
 
@@ -608,15 +594,12 @@ export default function ForumPage() {
                   setHover((i - 1) + (x < rect.width / 2 ? 0.5 : 1));
                 }}
               >
-                {/* base (empty) */}
                 <Star className="h-5 w-5 text-slate-600" />
 
-                {/* full overlay */}
                 {fill === 1 && (
                   <Star className="absolute left-0 top-0 h-5 w-5 text-yellow-400 fill-yellow-400" />
                 )}
 
-                {/* half overlay */}
                 {fill === 0.5 && (
                   <span className="absolute left-0 top-0 h-5 w-2.5 overflow-hidden">
                     <Star className="h-5 w-5 text-yellow-400 fill-yellow-400" />
@@ -634,7 +617,6 @@ export default function ForumPage() {
     );
   }
 
-  // kis helper (nem kötelező, csak hogy TS ne kötözködjön)
   function valueForHover(i: number, full: number) {
     return (i - 1) + full;
   }

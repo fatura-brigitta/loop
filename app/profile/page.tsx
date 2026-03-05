@@ -968,11 +968,8 @@ export default function ProfilePage() {
                   >
                     Törlés
                   </button>
-
                 </div>
-
               </div>
-
             </div>
           )}
         </div>

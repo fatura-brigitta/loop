@@ -30,25 +30,21 @@ export async function POST(req: Request) {
       let myVote: Vote | null = type;
 
       if (!existing) {
-        // új vote
         await tx.forumVote.create({
           data: { user_id: userId, forum_id: post_id, type },
         });
       } else if (existing.type === type) {
-        // ugyanarra nyomott -> toggle off
         await tx.forumVote.delete({
           where: { user_id_forum_id: { user_id: userId, forum_id: post_id } },
         });
         myVote = null;
       } else {
-        // váltás LIKE <-> DISLIKE
         await tx.forumVote.update({
           where: { user_id_forum_id: { user_id: userId, forum_id: post_id } },
           data: { type },
         });
       }
 
-      // ✅ VALÓS SZÁMOK ÚJRASZÁMOLÁSA
       const likes = await tx.forumVote.count({ where: { forum_id: post_id, type: "LIKE" } });
       const dislikes = await tx.forumVote.count({ where: { forum_id: post_id, type: "DISLIKE" } });
 

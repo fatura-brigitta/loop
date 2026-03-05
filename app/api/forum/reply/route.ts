@@ -33,7 +33,6 @@ export async function POST(req: Request) {
       },
     });
 
-    // user adatok vissza (név + profilkép)
     const user = await prisma.user.findUnique({
       where: { id: userId },
       select: { name: true, profile_image: true },

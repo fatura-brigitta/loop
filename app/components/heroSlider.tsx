@@ -118,23 +118,23 @@ export default function HeroSlider() {
   return (
     <div
       className="relative h-[80vh] min-h-[520px] w-full overflow-hidden"
+      onMouseDown={handleMouseDown}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
+      onTouchEnd={handleTouchEnd}
+      onTouchStart={handleTouchStart}
     >
 
       <div className="absolute inset-0">
         {movies.map((m, i) => (
           <div
-            key={m.id}
             className={`absolute inset-0 bg-cover bg-top bg-no-repeat transition-[opacity,transform] duration-[1200ms] ease-out ${
               i === index
                 ? "opacity-100 scale-105 animate-heroZoom"
                 : "opacity-0 scale-100"
             }`}
+            key={m.id}
             style={{
               backgroundImage: `url(${m.backdrop || m.poster})`,
             }}
@@ -162,8 +162,8 @@ export default function HeroSlider() {
         <div className="max-w-4xl px-6">
 
           <h1
-            key={movie.id}
             className="text-5xl font-extrabold text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.8)] md:text-6xl animate-heroText"
+            key={movie.id}
           >
             {movie.title}
           </h1>
@@ -189,11 +189,11 @@ export default function HeroSlider() {
       <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-3">
         {movies.map((_, i) => (
           <div
-            key={i}
-            onClick={() => setIndex(i)}
             className={`h-3 w-3 cursor-pointer rounded-full transition-all duration-300 ${
               i === index ? "scale-125 bg-white" : "bg-white/40"
             }`}
+            key={i}
+            onClick={() => setIndex(i)}
           />
         ))}
       </div>

@@ -42,9 +42,6 @@ function opt<T>(v: T | null | undefined | ""): T | undefined {
   return v;
 }
 
-//
-// ================= GET =================
-//
 export async function GET(req: Request) {
   try {
     const entity = getEntity(req);
@@ -143,9 +140,6 @@ export async function GET(req: Request) {
   }
 }
 
-//
-// ================= PUT =================
-//
 export async function PUT(req: Request) {
   try {
     const entity = getEntity(req);
@@ -156,7 +150,6 @@ export async function PUT(req: Request) {
 
     const id = parseId(body.id);
 
-    // ---------- MOVIES ----------
     if (entity === "movies") {
       const updated = await prisma.movie.update({
         where: { id },
@@ -178,7 +171,6 @@ export async function PUT(req: Request) {
       return NextResponse.json(updated);
     }
 
-    // ---------- HALLS ----------
     if (entity === "halls") {
       const hallId = parseId(body.id);
       const rows = Number(body.row);
@@ -258,10 +250,6 @@ export async function PUT(req: Request) {
   }
 }
 
-
-//
-// ================= POST =================
-//
 export async function POST(req: Request) {
   try {
     const entity = getEntity(req);
@@ -269,7 +257,6 @@ export async function POST(req: Request) {
 
     const body = await req.json();
 
-    // ---------- MOVIES ----------
     if (entity === "movies") {
       if (!body.title) return jsonError("Cím megadása kötelező");
 
@@ -292,7 +279,6 @@ export async function POST(req: Request) {
       return NextResponse.json(created, { status: 201 });
     }
 
-    // ---------- HALLS ----------
     if (entity === "halls") {
       if (!body.name) return jsonError("Terem nevének megadása kötelező");
 
@@ -331,8 +317,6 @@ export async function POST(req: Request) {
       return NextResponse.json(createdHall, { status: 201 });
     }
 
-
-    // ---------- SCREENINGS ----------
     if (entity === "screenings") {
       if (!body.movie_id || !body.hall_id || !body.start || !body.screening_type_id)
         return jsonError("Minden mező kitöltése kötelező");
@@ -359,10 +343,8 @@ export async function POST(req: Request) {
 
       const CLEANING_MINUTES = 15;
 
-      // film vége
       const movieEnd = new Date(startDate.getTime() + movie.playtime * 60000);
 
-      // terem foglalás vége (film + takarítás)
       const endDate = new Date(movieEnd.getTime() + CLEANING_MINUTES * 60000);
 
       if(startDate < open)
@@ -371,7 +353,6 @@ export async function POST(req: Request) {
       if(endDate > close)
         return jsonError("A vetítés a zárás után érne véget");
 
-      // overlap check
       const conflict = await prisma.screening.findFirst({
         where: {
           hall_id,
@@ -418,9 +399,6 @@ export async function POST(req: Request) {
   }
 }
 
-//
-// ================= DELETE =================
-//
 export async function DELETE(req: Request) {
   try {
     const entity = getEntity(req);

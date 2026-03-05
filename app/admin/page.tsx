@@ -173,7 +173,6 @@ export default function AdminPage() {
 
       setDayHallScreenings(hallOnly);
     } catch (e: any) {
-      // timeline ne ölje meg az oldalt
       setDayHallScreenings([]);
     }
   }
@@ -234,23 +233,18 @@ async function loadModeration() {
     loadModeration();
   }, []);
 
-  // default dropdown values
   useEffect(() => {
     if (!sMovieId && movies.length) setSMovieId(movies[0].id);
     if (!sHallId && halls.length) setSHallId(halls[0].id);
   }, [movies, halls, sMovieId, sHallId]);
 
-  // NOTE: datetime-local -> Date
-  // A böngésző helyi időt ad, JS Date ezt helyi időnek veszi -> ISO-ra alakítjuk küldés előtt.
   const localToISO = (local: string) => {
-    // local: "2026-02-18T14:30"
     const d = new Date(local);
     return d.toISOString();
   };
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
-      {/* Sidebar */}
       <aside className="fixed left-0 top-0 h-screen w-64 bg-slate-900 border-r border-white/10 p-6 flex flex-col">
         <div className="mb-10 text-white text-xl font-semibold">Admin Panel</div>
 
@@ -307,7 +301,6 @@ async function loadModeration() {
         </div>
       </aside>
 
-      {/* Content */}
       <main className="ml-64 p-8">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold">
@@ -330,10 +323,9 @@ async function loadModeration() {
           </div>
         )}
 
-        {/* MOVIES */}
         {tab === "movies" && (
           <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* FORM */}
+
             <section className="lg:col-span-1 p-5 rounded-xl bg-white/5 border border-white/10">
               <h2 className="font-semibold mb-4">
                 {editingId ? "Film szerkesztése" : "Új film létrehozása"}
@@ -341,7 +333,6 @@ async function loadModeration() {
 
               <div className="grid grid-cols-2 gap-4">
 
-              {/* LEFT COLUMN */}
               <div className="space-y-3">
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Cím</label>
@@ -379,7 +370,6 @@ async function loadModeration() {
                 </div>
               </div>
 
-              {/* RIGHT COLUMN */}
               <div className="space-y-3">
 
                 <div>
@@ -413,7 +403,6 @@ async function loadModeration() {
               </div>
             </div>
 
-            {/* DESCRIPTION FULL WIDTH */}
             <div className="mt-4">
               <label className="block text-sm text-slate-300 mb-1">Leírás</label>
               <textarea
@@ -501,7 +490,6 @@ async function loadModeration() {
               )}
             </section>
 
-            {/* LIST */}
             <section className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10">
               <div className="flex items-center justify-between mb-4 gap-3">
                 <h2 className="font-semibold">Filmek</h2>
@@ -569,18 +557,14 @@ async function loadModeration() {
           </div>
         )}
 
-
-        {/* HALLS */}
         {tab === "halls" && (
           <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            {/* CREATE / EDIT FORM */}
             <section>
               <h2 className="font-semibold mb-4">
                 {hallEditingId ? "Terem szerkesztése" : "Új terem létrehozása"}
               </h2>
 
-              {/* NAME */}
               <div className="mb-3">
                 <label className="block text-sm text-slate-300 mb-1">
                   Terem neve
@@ -594,7 +578,6 @@ async function loadModeration() {
                 />
               </div>
 
-              {/* ROWS */}
               <div className="mb-3">
                 <label className="block text-sm text-slate-300 mb-1">
                   Sorok száma
@@ -610,7 +593,6 @@ async function loadModeration() {
                 />
               </div>
 
-              {/* COLUMNS */}
               <div className="mb-4">
                 <label className="block text-sm text-slate-300 mb-1">
                   Oszlopok száma (soronkénti ülőhelyek)
@@ -626,8 +608,6 @@ async function loadModeration() {
                 />
               </div>
 
-
-              {/* SAVE BUTTON */}
               <button
                 className="w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
                 onClick={async () => {
@@ -668,7 +648,6 @@ async function loadModeration() {
                 {hallEditingId ? "Mentés" : "Új terem létrehozása"}
               </button>
 
-              {/* CANCEL EDIT */}
               {hallEditingId && (
                 <button
                   className="w-full mt-2 px-4 py-2 rounded-xl bg-red-500/15 border border-red-500/40 hover:bg-red-500/25 transition"
@@ -679,7 +658,6 @@ async function loadModeration() {
               )}
             </section>
 
-            {/* HALL LIST */}
             <section className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10">
               <h2 className="font-semibold mb-4">Termek</h2>
 
@@ -699,7 +677,6 @@ async function loadModeration() {
 
                     <div className="flex gap-2">
 
-                      {/* EDIT */}
                       <button
                         className="px-3 py-2 rounded-lg bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500/25 transition text-sm cursor-pointer"
                         onClick={() => {
@@ -714,7 +691,6 @@ async function loadModeration() {
                         Szerkesztés
                       </button>
 
-                      {/* DELETE */}
                       <button
                         className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
                         onClick={async () => {
@@ -734,17 +710,13 @@ async function loadModeration() {
           </div>
         )}
 
-
-        {/* SCREENINGS */}
         {tab === "screenings" && (
           <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            {/* CREATE FORM */}
             <section className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10">
 
               <h2 className="font-semibold mb-4">Vetítés létrehozása</h2>
 
-              {/* DAY */}
               <div className="mb-3">
                 <label className="block text-sm text-slate-300 mb-1">Nap</label>
                 <input
@@ -755,9 +727,6 @@ async function loadModeration() {
                 />
               </div>
 
-
-
-              {/* HALL */}
               <div className="mb-3">
                 <label className="block text-sm text-slate-300 mb-1">
                   Terem
@@ -776,7 +745,6 @@ async function loadModeration() {
                 </select>
               </div>
 
-              {/* MOVIE */}
               <div className="mb-3">
                 <label className="block text-sm text-slate-300 mb-1">
                   Film
@@ -797,7 +765,6 @@ async function loadModeration() {
                 </select>
               </div>
 
-              {/* SCREENING TYPE */}
               <div className="mb-3">
                 <label className="block text-sm text-slate-300 mb-1">
                   Vetítés típusa
@@ -823,7 +790,6 @@ async function loadModeration() {
                 </select>
               </div>
 
-              {/* START TIME */}
               <div className="mb-4">
                 <label className="block text-sm text-slate-300 mb-1">
                   Vetítés kezdete
@@ -840,7 +806,6 @@ async function loadModeration() {
                   }
                 />
 
-                {/* TIMELINE */}
                 <div className="mt-5">
                   <div className="text-sm text-slate-300 mb-2">
                     Idővonal (a kiválasztott teremhez) — kattints egy pontra a kezdés beállításához
@@ -860,7 +825,6 @@ async function loadModeration() {
                   const movie = movies.find((m) => m.id === screeningForm.movie_id);
                   if (!movie || !screeningForm.startTime) return null;
 
-                  // idő összerakása nap + óra
                   const [hour, minute] = screeningForm.startTime.split(":").map(Number);
                   const start = new Date(selectedDate);
                   start.setHours(hour, minute, 0, 0);
@@ -868,7 +832,6 @@ async function loadModeration() {
                   const CLEANING = 15;
                   const end = new Date(start.getTime() + (movie.playtime + CLEANING) * 60000);
 
-                  // mozi nyitvatartás
                   const open = new Date(selectedDate);
                   open.setHours(10, 0, 0, 0);
 
@@ -877,7 +840,6 @@ async function loadModeration() {
 
                   const outsideOpening = start < open || end > close;
 
-                  // terem ütközés
                   const conflict = dayHallScreenings.some((s) => {
                     const sStart = new Date(s.start);
                     const sEnd = new Date(s.end);
@@ -905,11 +867,8 @@ async function loadModeration() {
                   );
                 })()}
 
-
-
               </div>
 
-              {/* SAVE */}
               <button
                 className="w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
                 onClick={async()=>{
@@ -957,7 +916,6 @@ async function loadModeration() {
               </button>
             </section>
 
-            {/* LIST */}
             <section className="lg:col-span-1 p-5 rounded-xl bg-white/5 border border-white/10">
 
               <h2 className="font-semibold mb-4">Vetítések</h2>
@@ -967,13 +925,11 @@ async function loadModeration() {
                 {screenings
                   .filter(s => {
 
-                    // nap szűrés
                     if(selectedDate){
                       const d = new Date(s.start).toISOString().slice(0,10);
                       if(d !== selectedDate) return false;
                     }
 
-                    // terem szűrés
                     if(screeningForm.hall_id){
                       if(s.hall_id !== screeningForm.hall_id) return false;
                     }
@@ -1024,10 +980,9 @@ async function loadModeration() {
           </div>
         )}
 
-        {/* FORUM */}
         {tab === "bad_words" && (
         <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-          {/* FLAGGED COMMENTS */}
+
           <section className="p-5 rounded-xl bg-white/5 border border-white/10 flex flex-col">
   
           <h2 className="font-semibold mb-4">Problémás kommentek</h2>
@@ -1051,8 +1006,8 @@ async function loadModeration() {
             return(
   
             <div
-            key={c.id}
             className="flex items-start justify-between p-3 rounded-lg bg-slate-900/40 border border-white/10"
+            key={c.id}
             >
   
             <div className="text-sm">
@@ -1064,11 +1019,7 @@ async function loadModeration() {
             )}
             </div>
   
-            <div
-            dangerouslySetInnerHTML={{__html:text}}
-            />
-  
-            </div>
+            <div dangerouslySetInnerHTML={{__html:text}}/></div>
   
             <button
             className="ml-4 px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm whitespace-nowrap"
@@ -1099,10 +1050,8 @@ async function loadModeration() {
             })}
   
           </div>
-  
           </section>
 
-        {/* BAD WORD TEXTBOX */}
           <section className="p-5 rounded-xl bg-white/5 border border-white/10">
 
           <div
@@ -1157,7 +1106,6 @@ async function loadModeration() {
             </>
             )}
           </section>
-
 
         </div>
         )}

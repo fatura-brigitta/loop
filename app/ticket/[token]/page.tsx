@@ -1,62 +1,87 @@
-import { notFound } from "next/navigation";
-import prisma from "@/lib/prisma";
+"use client";
 
-export default async function TicketPage({ params }: { params: Promise<{ token: string }> }) {
-  const { token } = await params;
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
-  const ticket = await prisma.ticket.findUnique({
-    where: { qr_token: token },
-    include: {
-      screenings: {
-        include: {
-          movies: true,
-          halls: true,
-        },
-      },
-      chairs: true,
-      ticket_types: true,
-      screening_types: true,
-    },
-  });
+export default function TicketPage() {
 
-  if (!ticket || !ticket.screenings || !ticket.chairs) return notFound();
+  const params = useParams();
+  const token = params.token as string;
+
+  const [data,setData] = useState<any>(null);
+  const [loading,setLoading] = useState(true);
+
+  useEffect(()=>{
+
+    if(!token) return;
+
+    const load = async()=>{
+
+      const res = await fetch(`/api/ticket/scan/${token}`);
+
+      const json = await res.json();
+
+      setData(json);
+      setLoading(false);
+
+    };
+
+    load();
+
+  },[token]);
+
+  if(loading){
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black text-white">
+        Jegy ellenőrzése...
+      </div>
+    );
+  }
+
+  if(data.error){
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black text-red-500 text-xl">
+        Érvénytelen jegy
+      </div>
+    );
+  }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#060b14] p-6 text-white">
-      <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#0b1220] p-6 text-center shadow-2xl">
-        <h1 className="mb-4 text-2xl font-bold text-cyan-300">{ticket.screenings.movies?.title}</h1>
+    <div className="min-h-screen flex items-center justify-center bg-[#060b14] text-white">
 
-        <div className="space-y-2 text-lg">
-          <div>
-            <span className="text-white/60">Terem:</span> {ticket.screenings.halls?.name}
+      <div className="bg-[#0b1220] p-10 rounded-xl shadow-xl w-[420px]">
+
+        <h1 className="text-2xl font-bold mb-6 text-center">
+          Loop Cinema 🎬
+        </h1>
+
+        {data.used ? (
+
+          <div className="text-center text-red-400 text-xl font-bold mb-6">
+            ❌ Jegy már beváltva
           </div>
 
-          <div>
-            <span className="text-white/60">Időpont:</span>{" "}
-            {new Date(ticket.screenings.start).toLocaleString("hu-HU")}
+        ) : (
+
+          <div className="text-center text-green-400 text-xl font-bold mb-6">
+            ✔ Érvényes jegy
           </div>
 
-          <div>
-            <span className="text-white/60">Sor:</span> {ticket.chairs.row}
-          </div>
+        )}
 
-          <div>
-            <span className="text-white/60">Szék:</span> {ticket.chairs.column}
-          </div>
+        <div className="space-y-2">
 
-          <div>
-            <span className="text-white/60">Jegytípus:</span> {ticket.ticket_types?.type}
-          </div>
+          <div>Film: <b>{data.movie}</b></div>
+          <div>Terem: {data.hall}</div>
+          <div>Idő: {new Date(data.start).toLocaleString()}</div>
+          <div>Sor: {data.row}</div>
+          <div>Szék: {data.seat}</div>
+          <div>Típus: {data.type}</div>
 
-          <div>
-            <span className="text-white/60">Vetítés típusa:</span> {ticket.screening_types?.type}
-          </div>
         </div>
 
-        <div className="mt-6 text-xl font-semibold text-green-400">Érvényes mozijegy 🎟</div>
-
-        <p className="mt-4 text-sm text-white/50">Kérjük mutasd fel a jegyellenőrnek.</p>
       </div>
+
     </div>
   );
 }

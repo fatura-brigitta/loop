@@ -26,7 +26,7 @@ export async function generateTicketsPdf(tickets: any[]): Promise<Buffer> {
     const date = new Date(screening.start).toLocaleString("hu-HU");
     const screeningType = screening.screening_types.type;
 
-    const qrContent = `LOOP-TICKET:${t.qr_token}`;
+    const qrContent = `${process.env.NEXT_PUBLIC_APP_URL}/ticket/${t.qr_token}`;
 
     const qrDataUrl = await QRCode.toDataURL(qrContent);
 

@@ -50,7 +50,6 @@ export default function HomePage() {
         <PricingSection/>
         <Leaderboard/>
       </main>
-      <Footer/>
     </div>
   );
 }

@@ -3,11 +3,20 @@ import { NextRequest, NextResponse } from "next/server";
 export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  const auth = req.cookies.get("admin-auth");
+  const adminAuth = req.cookies.get("admin-auth");
+  const userAuth = req.cookies.get("userId");
+
   const isAdmin = pathname.toLowerCase().includes("admin");
   const isLogin = pathname === "/adminLogin";
 
-  // allow internals + api
+  const protectedUserRoutes = [
+    "/profile"
+  ];
+
+  const isUserRoute = protectedUserRoutes.some((route) =>
+    pathname.startsWith(route)
+  );
+
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api")
@@ -15,19 +24,20 @@ export function proxy(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // nincs auth + admin oldal → login
-  if (!auth && isAdmin && !isLogin) {
+  if (!adminAuth && isAdmin && !isLogin) {
     return NextResponse.redirect(new URL("/adminLogin", req.url));
   }
 
-  // van auth + login → admin
-  if (auth && isLogin) {
+  if (adminAuth && isLogin) {
     return NextResponse.redirect(new URL("/admin", req.url));
   }
 
-  // VAN AUTH, DE NEM ADMIN OLDAL → vissza adminra
-  if (auth && !isAdmin) {
+  if (adminAuth && !isAdmin) {
     return NextResponse.redirect(new URL("/admin", req.url));
+  }
+
+  if (!userAuth && isUserRoute) {
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
   return NextResponse.next();

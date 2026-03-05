@@ -397,7 +397,6 @@ export default function ScreeningsPage() {
           </div>
         )}
       </div>
-      <Footer />
     </div>
   );
 }

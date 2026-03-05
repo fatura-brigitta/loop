@@ -119,7 +119,6 @@ export default function MoviesPage() {
             ))}
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

@@ -280,8 +280,6 @@ export default function ForumPage() {
               <div className="film-scroll flex gap-6 overflow-x-auto px-6 py-4 scroll-smooth">
                 {movies.map((movie) => (
                   <div
-                    key={movie.id}
-                    onClick={() => selectMovie(movie.id)}
                     className={`min-w-[150px] transition duration-300 cursor-pointer
                       ${
                         selectedMovie === movie.id
@@ -289,14 +287,16 @@ export default function ForumPage() {
                           : "opacity-70 hover:opacity-100 hover:scale-105"
                       }
                     `}
+                    key={movie.id}
+                    onClick={() => selectMovie(movie.id)}
                   >
                     <div className="rounded-xl overflow-hidden border border-white/10 bg-[#0b1320]">
                       <Image
-                        src={movie.poster}
                         alt={movie.title}
-                        width={150}
-                        height={220}
                         className="w-[150px] h-[220px] object-cover"
+                        height={220}
+                        src={movie.poster}
+                        width={150}
                       />
                     </div>
 
@@ -325,17 +325,19 @@ export default function ForumPage() {
              <div className="bg-[#0b1320] border border-white/10 rounded-xl p-4 mb-6 flex gap-4">
 
                 <Image
-                  src={profileImage || "/profile/default.png"}
                   alt="profil"
-                  width={42}
-                  height={42}
                   className="rounded-full h-10 w-10 object-cover"
+                  height={42}
+                  src={profileImage || "/profile/default.png"}
+                  width={42}
                 />
 
                 <div className="flex-1">
                   <div className="text-sm text-cyan-300 mb-1">{name}</div>
 
                   <textarea
+                    className="w-full h-28 resize-none rounded-lg bg-[#060b14] border border-white/10 p-3 text-sm outline-none focus:border-cyan-400"
+                    placeholder="Írd le a véleményed a filmről..."
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     onKeyDown={(e) => {
@@ -344,8 +346,6 @@ export default function ForumPage() {
                         sendComment();
                       }
                     }}
-                    placeholder="Írd le a véleményed a filmről..."
-                    className="w-full h-28 resize-none rounded-lg bg-[#060b14] border border-white/10 p-3 text-sm outline-none focus:border-cyan-400"
                   />
 
                   <div className="flex items-center justify-between mt-3">
@@ -363,8 +363,8 @@ export default function ForumPage() {
                     </div>
 
                     <button
-                      onClick={sendComment}
                       className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold px-4 py-2 rounded-lg cursor-pointer"
+                      onClick={sendComment}
                     >
                       Küldés
                     </button>
@@ -379,15 +379,15 @@ export default function ForumPage() {
 
                 {shownComments.map((c) => (
                   <div
-                    key={c.id}
                     className="rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5 flex gap-4"
+                    key={c.id}
                   >
                     <Image
-                      src={c.profile_image || "/profile/default.png"}
                       alt="profil"
-                      width={40}
-                      height={40}
                       className="rounded-full h-10 w-10 object-cover border border-white/10"
+                      height={40}
+                      src={c.profile_image || "/profile/default.png"}
+                      width={40}
                     />
 
                     <div className="flex-1">
@@ -409,7 +409,6 @@ export default function ForumPage() {
 
                         <div className="flex items-center gap-2 shrink-0">
                           <button
-                            onClick={() => vote(c.id, "LIKE")}
                             className={`inline-flex items-center gap-2 rounded-xl border px-3 py-1.5 text-sm transition cursor-pointer
                               ${
                                 c.myVote === "LIKE"
@@ -417,13 +416,13 @@ export default function ForumPage() {
                                   : "border-white/10 bg-[#060b14]/40 text-slate-200 hover:border-green-400/60 hover:text-green-200"
                               }`}
                             title="Like"
+                            onClick={() => vote(c.id, "LIKE")}
                           >
                             <span className="text-base leading-none">👍</span>
                             <span className="tabular-nums">{c.likes ?? 0}</span>
                           </button>
 
                           <button
-                            onClick={() => vote(c.id, "DISLIKE")}
                             className={`inline-flex items-center gap-2 rounded-xl border px-3 py-1.5 text-sm transition cursor-pointer
                               ${
                                 c.myVote === "DISLIKE"
@@ -431,6 +430,7 @@ export default function ForumPage() {
                                   : "border-white/10 bg-[#060b14]/40 text-slate-200 hover:border-red-400/60 hover:text-red-200"
                               }`}
                             title="Dislike"
+                            onClick={() => vote(c.id, "DISLIKE")}
                           >
                             <span className="text-base leading-none">👎</span>
                             <span className="tabular-nums">{c.dislikes ?? 0}</span>
@@ -446,16 +446,16 @@ export default function ForumPage() {
                       {/* ACTIONS */}
                       <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
                         <button
-                          onClick={() => setReplyOpenFor(replyOpenFor === c.id ? null : c.id)}
                           className="text-slate-300 hover:text-cyan-300 transition cursor-pointer"
+                          onClick={() => setReplyOpenFor(replyOpenFor === c.id ? null : c.id)}
                         >
                           Válasz
                         </button>
 
                         {(c.replies?.length ?? 0) > 0 && (
                           <button
-                            onClick={() => toggleReplies(c.id)}
                             className="text-slate-400 hover:text-cyan-300 transition cursor-pointer"
+                            onClick={() => toggleReplies(c.id)}
                           >
                             {repliesOpen[c.id]
                               ? "Válaszok elrejtése"
@@ -468,15 +468,17 @@ export default function ForumPage() {
                       {replyOpenFor === c.id && (
                         <div className="mt-4 flex gap-3 rounded-xl border border-white/10 bg-[#060b14]/40 p-3">
                           <Image
-                            src={profileImage || "/profile/default.png"}
                             alt="profil"
-                            width={32}
-                            height={32}
                             className="rounded-full h-8 w-8 object-cover border border-white/10"
+                            height={32}
+                            src={profileImage || "/profile/default.png"}
+                            width={32}
                           />
 
                           <div className="flex-1">
                             <input
+                              className="w-full rounded-lg bg-[#060b14] border border-white/10 px-3 py-2 text-sm outline-none focus:border-cyan-400 text-slate-100"
+                              placeholder="Írj választ..."
                               value={replyText}
                               onChange={(e) => setReplyText(e.target.value)}
                               onKeyDown={(e) => {
@@ -485,14 +487,12 @@ export default function ForumPage() {
                                   sendReply(c.id);
                                 }
                               }}
-                              placeholder="Írj választ..."
-                              className="w-full rounded-lg bg-[#060b14] border border-white/10 px-3 py-2 text-sm outline-none focus:border-cyan-400 text-slate-100"
                             />
 
                             <div className="mt-2 flex justify-end">
                               <button
-                                onClick={() => sendReply(c.id)}
                                 className="rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black font-semibold px-3 py-1 text-sm cursor-pointer"
+                                onClick={() => sendReply(c.id)}
                               >
                                 Küldés
                               </button>
@@ -506,15 +506,15 @@ export default function ForumPage() {
                         <div className="mt-4 space-y-3 border-l border-white/10 pl-4">
                           {(c.replies ?? []).map((r) => (
                             <div
-                              key={r.id}
                               className="flex gap-3 rounded-xl border border-white/10 bg-[#060b14]/35 p-3"
+                              key={r.id}
                             >
                               <Image
-                                src={r.profile_image || "/profile/default.png"}
                                 alt="profil"
-                                width={32}
-                                height={32}
                                 className="rounded-full h-8 w-8 object-cover border border-white/10"
+                                height={32}
+                                src={r.profile_image || "/profile/default.png"}
+                                width={32}
                               />
                               <div className="flex-1 min-w-0">
                                 <div className="text-sm text-cyan-300 font-semibold truncate">
@@ -535,10 +535,10 @@ export default function ForumPage() {
                 {hasMore && (
                   <div className="mt-6 flex justify-center">
                     <button
+                      className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-200 hover:border-cyan-400 hover:text-cyan-300 transition cursor-pointer"
                       onClick={() =>
                         setVisibleCount((v) => Math.min(v + 5, comments.length))
                       }
-                      className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-200 hover:border-cyan-400 hover:text-cyan-300 transition cursor-pointer"
                     >
                       További kommentek megjelenítése
                     </button>
@@ -589,25 +589,25 @@ export default function ForumPage() {
 
             return (
               <button
+                aria-label={`Értékelés: ${i} csillag`}
+                className={`relative p-0.5 transition ${
+                  disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"
+                }`}
+                disabled={disabled}
                 key={i}
                 type="button"
-                disabled={disabled}
+                onClick={(e) => {
+                  if (disabled) return;
+                  onChange(pickValueFromClick(e, i));
+                }}
                 onMouseEnter={() => setHover(valueForHover(i, 1))}
+                onMouseLeave={() => setHover(null)}
                 onMouseMove={(e) => {
                   if (disabled) return;
                   const rect = (e.currentTarget as HTMLButtonElement).getBoundingClientRect();
                   const x = e.clientX - rect.left;
                   setHover((i - 1) + (x < rect.width / 2 ? 0.5 : 1));
                 }}
-                onMouseLeave={() => setHover(null)}
-                onClick={(e) => {
-                  if (disabled) return;
-                  onChange(pickValueFromClick(e, i));
-                }}
-                className={`relative p-0.5 transition ${
-                  disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"
-                }`}
-                aria-label={`Értékelés: ${i} csillag`}
               >
                 {/* base (empty) */}
                 <Star className="h-5 w-5 text-slate-600" />

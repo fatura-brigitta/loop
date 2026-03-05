@@ -1,9 +1,10 @@
 "use client";
 
-import { Eye, EyeOff, LogIn } from "lucide-react";
+import { Eye, EyeOff, LogIn, SignalIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -128,31 +129,22 @@ export default function LoginPage() {
               <LogIn size={18} />
               {loading ? "Bejelentkezés..." : "Bejelentkezés"}
             </button>
-            <div className="mt-6">
+            <div className="mt-6 flex flex-col gap-3">
               <button
-                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-white transition hover:bg-cyan-500 disabled:opacity-50"
-                disabled={loading}
-                type="button"
-                onClick={() => {
-                  window.location.href = "/api/auth/signin/google";
-                }}
+                className="flex w-full items-center justify-center gap-3 rounded-lg bg-white px-4 py-3 font-semibold text-black hover:bg-gray-100 cursor-pointer"
+                type="button" onClick={() => signIn("google")}
               >
-                <LogIn size={18} />
-                {loading ? "Bejelentkezés..." : "Bejelentkezés Google fiókkal"}
+                <img alt="Google" height={22} src="/google.svg" width={22}/>
+                Sign in with Google
               </button>
-            </div>
-            <div className="mt-6">
               <button
-                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-white transition hover:bg-cyan-500 disabled:opacity-50"
-                disabled={loading}
-                type="button"
-                onClick={() => {
-                  window.location.href = "/api/auth/signin/facebook";
-                }}
+                className="flex w-full items-center justify-center gap-3 rounded-lg bg-[#1877F2] px-4 py-3 font-semibold text-white hover:bg-[#166fe5] cursor-pointer"
+                type="button" onClick={() => signIn("facebook")}
               >
-                <LogIn size={18} />
-                {loading ? "Bejelentkezés..." : "Bejelentkezés Facebook fiókkal"}
+                <img alt="Facebook" height={16} src="/facebook.svg" width={16}/>
+                Sign in with Facebook
               </button>
+
             </div>
           </form>
 

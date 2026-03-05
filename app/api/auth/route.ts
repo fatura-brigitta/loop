@@ -118,7 +118,7 @@ export async function POST(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
-    const { name, email, password, phone_number, profile_image, gender } =
+    const { name, email, password, phone_number, profile_image, gender, consent } =
       await req.json();
 
     if (!name || !email || !password || !phone_number || !gender) {
@@ -171,6 +171,7 @@ export async function PUT(req: NextRequest) {
         profile_image: profile_image || "/profile/default.png",
         gender: safeGender,
         points: 0,
+        consent: !!consent,
         rank_id: baseRank.id,
         email_verified: false,
       },

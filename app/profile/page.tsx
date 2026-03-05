@@ -54,6 +54,7 @@ export default function ProfilePage() {
   const router = useRouter();
 
   const [name, setUserName] = useState("");
+  const [consent, setConsent] = useState(false);
 
   const [user, setUser] = useState<any>(null);
   const [isGoogleUser, setIsGoogleUser] = useState(false);
@@ -628,12 +629,32 @@ export default function ProfilePage() {
             >
               {isGoogleUser ? "Jelszó beállítása" : "Jelszó módosítása"}
             </button>
+            <label className="flex items-center gap-3 mt-4">
+              <input
+                checked={consent}
+                type="checkbox"
+                onChange={async (e) => {
+                  const value = e.target.checked;
+
+                  setConsent(value);
+
+                  await fetch("/api/profile/consent", {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ consent: value })
+                  });
+                }}
+              />
+
+              Megjelenek a ranglistán
+            </label>
           </div>
 
           <div className="mt-6 h-6 text-center">
             {error && <div className="text-red-400">{error}</div>}
             {message && <div className="text-green-400">{message}</div>}
           </div>
+
         </div>
       </div>
 

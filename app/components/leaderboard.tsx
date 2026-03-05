@@ -25,6 +25,12 @@ export default function Leaderboard() {
   const second = users[1];
   const third = users[2];
 
+  const safeImg = (s?: string | null) => {
+  const v = (s ?? "").trim();
+    if (!v || v === "null" || v === "undefined") return "/profile/default.png";
+    return v;
+  };
+
   return (
     <section className="py-28">
       <Reveal>
@@ -40,9 +46,10 @@ export default function Leaderboard() {
             <div className="relative mx-auto mb-4 h-[90px] w-[90px] overflow-hidden rounded-full border-4 border-slate-400 transition hover:scale-105 hover:border-cyan-400 cursor-pointer">
               <Image
                 alt="profil"
-                src={second.profile_image || "/profile/default.png"}
-                fill
                 className="object-cover"
+                fill
+                src={second.profile_image || "/profile/default.png"}
+                unoptimized
               />
             </div>
 
@@ -58,9 +65,10 @@ export default function Leaderboard() {
             <div className="relative mx-auto mb-4 h-[100px] w-[100px] overflow-hidden rounded-full border-4 border-yellow-400 shadow-[0_0_30px_rgba(255,215,0,0.45)] transition hover:scale-105 hover:border-cyan-400 cursor-pointer">
               <Image
                 alt="profil"
-                src={first.profile_image || "/profile/default.png"}
-                fill
                 className="object-cover"
+                fill
+                src={first.profile_image || "/profile/default.png"}
+                unoptimized
               />
             </div>
 
@@ -76,9 +84,10 @@ export default function Leaderboard() {
             <div className="relative mx-auto mb-4 h-[90px] w-[90px] overflow-hidden rounded-full border-4 border-amber-700 transition hover:scale-105 hover:border-cyan-400 cursor-pointer">
               <Image
                 alt="profil"
-                src={third.profile_image || "/profile/default.png"}
-                fill
                 className="object-cover"
+                fill
+                src={third.profile_image || "/profile/default.png"}
+                unoptimized
               />
             </div>
 

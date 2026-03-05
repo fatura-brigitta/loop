@@ -9,13 +9,8 @@ export function proxy(req: NextRequest) {
   const isAdmin = pathname.toLowerCase().includes("admin");
   const isLogin = pathname === "/adminLogin";
 
-  const protectedUserRoutes = [
-    "/profile"
-  ];
-
-  const isUserRoute = protectedUserRoutes.some((route) =>
-    pathname.startsWith(route)
-  );
+  const protectedUserRoutes = ["/profile"];
+  const isUserRoute = protectedUserRoutes.includes(pathname);
 
   if (
     pathname.startsWith("/_next") ||

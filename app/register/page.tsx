@@ -15,6 +15,7 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [phone_number, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+  const [consent, setConsent] = useState(false);
 
   const [gender, setGender] = useState<Gender>("RATHER_NOT_SAY");
 
@@ -23,8 +24,9 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
 
   const [isDragging, setIsDragging] = useState(false);
-  const [profileImageBase64, setProfileImageBase64] = useState<string>(""); // ezt küldjük
+  const [profileImageBase64, setProfileImageBase64] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
 
   const previewSrc = useMemo(() => {
     return profileImageBase64 || "/profile/default.png";
@@ -108,6 +110,7 @@ export default function RegisterPage() {
           phone_number,
           password,
           gender,
+          consent,
           profile_image: profileImageBase64 || undefined,
         }),
       });
@@ -157,13 +160,18 @@ export default function RegisterPage() {
           <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Fiók létrehozása</h1>
 
           <form className="space-y-5" onSubmit={handleSubmit}>
-            {/* PROFILKÉP */}
             <div>
               <label className="text-sm text-white/60">Profilkép</label>
 
               <div className="mt-2 flex items-center gap-4">
                 <div className="relative h-20 w-20 overflow-hidden rounded-full border border-white/15">
-                  <Image alt="Profilkép előnézet" className="object-cover" fill src={previewSrc} />
+                  <Image
+                    alt="Profilkép előnézet"
+                    className="object-cover"
+                    fill
+                    src={previewSrc}
+                    unoptimized
+                  />
                 </div>
 
                 <div
@@ -304,6 +312,20 @@ export default function RegisterPage() {
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
+            </div>
+
+            <div className="flex items-start gap-3 rounded-lg border border-white/10 bg-black/30 p-3 text-sm">
+              <input
+                checked={consent}
+                className="mt-1 h-4 w-4"
+                type="checkbox"
+                onChange={(e) => setConsent(e.target.checked)}
+              />
+
+              <span className="text-white/80">
+                Hozzájárulok, hogy a nevem és profilképem megjelenjen a nyilvános
+                ranglistán (leaderboard).
+              </span>
             </div>
 
             {error && (

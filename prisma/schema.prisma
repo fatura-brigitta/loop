@@ -62,8 +62,9 @@ model User {
   password_hash        String
   points               Int       @default(0)
   phone_number         String?   @unique
-  profile_image        String?    @default("/profile/default.png")
+  profile_image        String?   @default("/profile/default.png")
   gender               String
+  consent              Boolean   @default(false)
   email_verified       Boolean   @default(false)
   email_code           String?
   email_code_exp       DateTime?

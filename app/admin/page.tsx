@@ -87,10 +87,9 @@ export default function AdminPage() {
 
   const [editingId, setEditingId] = useState<string | null>(null);
 
-  const [badWords, setBadWords] = useState<{id:string,word:string}[]>([]);
-  const [badWordInput, setBadWordInput] = useState("");
   const [badWordsText,setBadWordsText] = useState("");
   const [flaggedComments,setFlaggedComments] = useState<any[]>([]);
+  const [showBadWords, setShowBadWords] = useState(false);
 
   const [movieForm, setMovieForm] = useState({
     title: "",
@@ -191,24 +190,27 @@ export default function AdminPage() {
   };
 
   async function loadAll() {
-    setErr("");
-    try {
-      const [ms, hs, ss, st] = await Promise.all([
-        api("movies", "GET"),
-        api("halls", "GET"),
-        api("screenings", "GET"),
-        api("screening_types", "GET")
-      ]);
-      setMovies(ms);
-      setHalls(hs);
-      setScreenings(ss);
-      setScreeningTypes(st);
-    } catch (e: any) {
-      setErr(e.message || "Betöltési hiba");
-    }
-    const bw = await api("bad_words","GET");
-    setBadWords(bw);
+  setErr("");
+
+  try {
+    const [ms, hs, ss, st] = await Promise.all([
+      api("movies", "GET"),
+      api("halls", "GET"),
+      api("screenings", "GET"),
+      api("screening_types", "GET"),
+    ]);
+
+    setMovies(ms);
+    setHalls(hs);
+    setScreenings(ss);
+    setScreeningTypes(st);
+
+    await loadModeration();
+
+  } catch (e: any) {
+    setErr(e.message || "Betöltési hiba");
   }
+}
 
 async function loadModeration() {
   try {
@@ -1024,125 +1026,139 @@ async function loadModeration() {
 
         {/* FORUM */}
         {tab === "bad_words" && (
-        <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+          {/* FLAGGED COMMENTS */}
+          <section className="p-5 rounded-xl bg-white/5 border border-white/10 flex flex-col">
+  
+          <h2 className="font-semibold mb-4">Problémás kommentek</h2>
+  
+          <div className="space-y-2 max-h-[520px] overflow-y-auto pr-2 custom-scroll">
+  
+            {flaggedComments.map(c=>{
+  
+            let text = c.comment;
+  
+            badWordsText.split(",").forEach(w=>{
+  
+            const word = w.trim();
+            if(!word) return;
+  
+            const regex = new RegExp(`(${word})`,"gi");
+            text = text.replace(regex,"<mark>$1</mark>");
+  
+            });
+  
+            return(
+  
+            <div
+            key={c.id}
+            className="flex items-start justify-between p-3 rounded-lg bg-slate-900/40 border border-white/10"
+            >
+  
+            <div className="text-sm">
+  
+            <div className="text-xs text-slate-400 mb-1">
+            {c.user} • {c.movie}
+            {c.type === "reply" && (
+            <span className="ml-2 text-yellow-400">(válasz)</span>
+            )}
+            </div>
+  
+            <div
+            dangerouslySetInnerHTML={{__html:text}}
+            />
+  
+            </div>
+  
+            <button
+            className="ml-4 px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm whitespace-nowrap"
+            onClick={async()=>{
+  
+            await fetch("/api/admin?entity=flagged_comments",{
+            method:"DELETE",
+            headers:{
+            "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+            id:c.id,
+            type:c.type
+            })
+            });
+  
+            await loadModeration();
+  
+            }}
+            >
+            Törlés
+            </button>
+  
+            </div>
+  
+            );
+  
+            })}
+  
+          </div>
+  
+          </section>
 
         {/* BAD WORD TEXTBOX */}
           <section className="p-5 rounded-xl bg-white/5 border border-white/10">
 
-          <h2 className="font-semibold mb-4">Tiltott szavak</h2>
+          <div
+          className="flex items-center justify-between cursor-pointer mb-4"
+          onClick={()=>setShowBadWords(!showBadWords)}
+          >
 
-          <textarea
-          className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
-          rows={4}
-          value={badWordsText}
-          onChange={(e)=>setBadWordsText(e.target.value)}
-          />
+            <h2 className="font-semibold">Tiltott szavak</h2>
 
-          <div className="text-xs text-slate-400 mt-1">
-          Vesszővel elválasztva
+            <span className={`transition ${showBadWords ? "rotate-180" : ""}`}>
+            ▼
+            </span>
+
           </div>
 
-          <button
-          className="mt-3 px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30"
-          onClick={async()=>{
+          {showBadWords && (
+            <>
+            <textarea
+            className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+            rows={4}
+            value={badWordsText}
+            onChange={(e)=>setBadWordsText(e.target.value)}
+            />
 
-          const words = badWordsText
-          .split(",")
-          .map(w=>w.trim())
-          .filter(Boolean);
+            <div className="text-xs text-slate-400 mt-1">
+            Vesszővel elválasztva
+            </div>
 
-          await fetch("/api/admin?entity=bad_words",{
-          method:"POST",
-          headers:{
-          "Content-Type":"application/json"
-          },
-          body:JSON.stringify({words})
-          });
+            <button
+            className="mt-3 px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30"
+            onClick={async()=>{
 
-          await loadModeration();
+            const words = badWordsText
+            .split(",")
+            .map(w=>w.trim())
+            .filter(Boolean);
 
-          }}
-          >
-          Mentés
-          </button>
+            await fetch("/api/admin?entity=bad_words",{
+            method:"POST",
+            headers:{
+            "Content-Type":"application/json"
+            },
+            body:JSON.stringify({words})
+            });
 
+            await loadModeration();
+
+            }}
+            >
+            Mentés
+            </button>
+            </>
+            )}
           </section>
 
 
-        {/* FLAGGED COMMENTS */}
-        <section className="p-5 rounded-xl bg-white/5 border border-white/10 flex flex-col">
-
-        <h2 className="font-semibold mb-4">Problémás kommentek</h2>
-
-        <div className="space-y-2 max-h-[320px] overflow-y-auto pr-2 custom-scroll">
-
-          {flaggedComments.map(c=>{
-
-          let text = c.comment;
-
-          badWordsText.split(",").forEach(w=>{
-
-          const word = w.trim();
-          if(!word) return;
-
-          const regex = new RegExp(`(${word})`,"gi");
-          text = text.replace(regex,"<mark>$1</mark>");
-
-          });
-
-          return(
-
-          <div
-          key={c.id}
-          className="flex items-start justify-between p-3 rounded-lg bg-slate-900/40 border border-white/10"
-          >
-
-          <div className="text-sm">
-
-          <div className="text-xs text-slate-400 mb-1">
-          {c.user} • {c.movie}
-          {c.type === "reply" && (
-          <span className="ml-2 text-yellow-400">(válasz)</span>
-          )}
-          </div>
-
-          <div
-          dangerouslySetInnerHTML={{__html:text}}
-          />
-
-          </div>
-
-          <button
-          className="ml-4 px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm whitespace-nowrap"
-          onClick={async()=>{
-
-          await fetch("/api/admin?entity=flagged_comments",{
-          method:"DELETE",
-          headers:{
-          "Content-Type":"application/json"
-          },
-          body:JSON.stringify({
-          id:c.id,
-          type:c.type
-          })
-          });
-
-          await loadModeration();
-
-          }}
-          >
-          Törlés
-          </button>
-
-          </div>
-
-          );
-
-          })}
-
-        </div>
-
-        </section>
         </div>
         )}
       </main>

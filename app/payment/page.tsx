@@ -120,30 +120,44 @@ export default function PaymentPage() {
     return 0;
   };
 
-  const simulatePayment = async () => {
-    if (!data) return;
+  // const simulatePayment = async () => {
+  //   if (!data) return;
 
-    setPaying(true);
+  //   setPaying(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+  //   await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    const res = await fetch("/api/payment?action=confirm", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ticketTypes: Object.values(ticketTypes),
-      }),
+  //   const res = await fetch("/api/payment?action=confirm", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       ticketTypes: Object.values(ticketTypes),
+  //     }),
+  //   });
+
+  //   if (!res.ok) {
+  //     setError("Fizetés sikertelen");
+  //     setPaying(false);
+  //     return;
+  //   }
+
+  //   router.push("/profile");
+  // };
+
+  const startPayment = async () => {
+
+    const res = await fetch("/api/payment/checkout", {
+      method: "POST"
     });
 
-    if (!res.ok) {
-      setError("Fizetés sikertelen");
-      setPaying(false);
-      return;
+    const json = await res.json();
+
+    if (json.url) {
+      window.location.href = json.url;
     }
 
-    router.push("/profile");
   };
 
   if (loading) {
@@ -266,7 +280,7 @@ export default function PaymentPage() {
         <button
           className="mt-6 w-full rounded-lg bg-green-500 py-3 font-bold transition hover:bg-green-600 disabled:opacity-50 cursor-pointer"
           disabled={paying}
-          onClick={simulatePayment}
+          onClick={startPayment}
         >
           {paying ? "Processing payment..." : "Pay now"}
         </button>

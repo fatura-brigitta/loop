@@ -34,3 +34,5 @@ export function calculateTicketPrice(
 
   return Math.round(price);
 }
+
+export const base_price = 2000;

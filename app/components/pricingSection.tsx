@@ -29,23 +29,21 @@ export default function PricingSection() {
   }, []);
 
   return (
-    <section className="bg-[--bg-soft2] py-28">
+    <section className="bg-[--bg-soft2] py-14">
       <div className="mx-auto mb-16 max-w-6xl text-center">
         <Reveal>
           <>
             <h2 className="mb-4 text-4xl font-bold">Jegyárak</h2>
             <p className="text-[--text-soft]">
-              A végső jegyár a vetítés típusa és a kedvezmény kombinációjából számolódik.
+              A végső jegyár a vetítés típusa és a kedvezmény összesítése.
             </p>
           </>
         </Reveal>
       </div>
 
-      <div className="mx-auto mb-20 max-w-6xl">
+      <div className="mx-auto mb-10 max-w-6xl">
         <Reveal>
           <>
-            <h3 className="mb-8 text-center text-2xl font-semibold">Vetítés típus felárak</h3>
-
             <div className="grid gap-6 md:grid-cols-5">
               {screenings.map((s) => (
                 <div
@@ -75,8 +73,6 @@ export default function PricingSection() {
       <div className="mx-auto mb-20 max-w-6xl">
         <Reveal>
           <>
-            <h3 className="mb-8 text-center text-2xl font-semibold">Kedvezmények</h3>
-
             <div className="grid gap-6 md:grid-cols-4">
               {tickets.map((t) => (
                 <div

@@ -4,10 +4,11 @@ export const dynamic = "force-dynamic";
 
 import { useEffect, useState } from "react";
 import HeroSlider from "@/app/components/heroSlider";
-import Reveal from "@/app/components/reveal";
-import Footer from "@/app/components/footer";
 import PricingSection from "@/app/components/pricingSection";
 import Leaderboard from "@/app/components/leaderboard";
+import WelcomeSection from "@/app/components/welcomeSection";
+import OffersSection from "@/app/components/offersSection";
+import PointsInfoSection from "@/app/components/pointsInfoSection";
 
 export default function HomePage() {
 
@@ -36,18 +37,10 @@ export default function HomePage() {
     <div className="min-h-screen bg-[#060b14] text-slate-100">
       <HeroSlider/>
       <main className="mx-auto max-w-6xl px-4 py-8">
-        <section className="py-24 text-center max-w-5xl mx-auto">
-          <Reveal>
-            <h2 className="text-4xl font-bold mb-6">
-              Jegyvásárlás <span className="text-[--accent]">30 másodperc alatt</span>
-            </h2>
-            <p className="text-lg text-[--text-soft] leading-relaxed">
-              Válassz filmet, kattints az időpontra, válaszd ki a helyed és már kész is.
-              Nincs sorban állás. Nincs nyomtatás. A jegyed a telefonodon lesz.
-            </p>
-          </Reveal>
-        </section>
+        <WelcomeSection />
+        <OffersSection/>
         <PricingSection/>
+        <PointsInfoSection/>
         <Leaderboard/>
       </main>
     </div>

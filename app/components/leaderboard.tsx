@@ -32,7 +32,7 @@ export default function Leaderboard() {
   };
 
   return (
-    <section className="py-28">
+    <section>
       <Reveal>
         <h2 className="mb-20 text-center text-4xl font-bold">Top mozirajongók</h2>
       </Reveal>

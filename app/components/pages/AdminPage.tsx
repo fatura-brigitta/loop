@@ -1,6 +1,6 @@
 "use client";
 
-import Timeline from "@/app/components/timeline";
+// import Timeline from "@/app/components/timeline";
 import { LogOut, Film, Calendar, MessageSquare, Building2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -810,14 +810,14 @@ async function loadModeration() {
                     Idővonal (a kiválasztott teremhez) — kattints egy pontra a kezdés beállításához
                   </div>
 
-                  <Timeline data-cy="movie-search"
+                  {/* <Timeline data-cy="movie-search"
                     date={selectedDate}
                     movie={movies.find((m) => m.id === screeningForm.movie_id) || null}
                     screenings={dayHallScreenings}
                     onPickStart={(localISO) =>
                       setScreeningForm((prev) => ({ ...prev, start: localISO }))
                     }
-                  />
+                  /> */}
                 </div>
 
                 {(() => {

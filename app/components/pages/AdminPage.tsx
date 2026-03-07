@@ -1,6 +1,6 @@
 "use client";
 
-import Timeline from "@/app/components/Timeline";
+import Timeline from "@/app/components/timeline";
 import { LogOut, Film, Calendar, MessageSquare, Building2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

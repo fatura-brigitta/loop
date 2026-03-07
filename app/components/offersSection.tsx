@@ -1,6 +1,6 @@
 "use client";
 
-import Reveal from "@/app/components/Reveal";
+import Reveal from "@/app/components/reveal";
 
 export default function OffersSection() {
   return (

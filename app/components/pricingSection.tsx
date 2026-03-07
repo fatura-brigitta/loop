@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import Reveal from "@/app/components/Reveal";
+import Reveal from "@/app/components/reveal";
 
 type ScreeningType = {
   type: string;

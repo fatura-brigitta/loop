@@ -3,12 +3,12 @@
 export const dynamic = "force-dynamic";
 
 import { useEffect, useState } from "react";
-import HeroSlider from "@/app/components/HeroSlider";
-import PricingSection from "@/app/components/PricingSection";
-import Leaderboard from "@/app/components/Leaderboard";
-import WelcomeSection from "@/app/components/WelcomeSection";
-import OffersSection from "@/app/components/OffersSection";
-import PointsInfoSection from "@/app/components/PointsInfoSection";
+import HeroSlider from "@/app/components/heroSlider";
+import PricingSection from "@/app/components/pricingSection";
+import Leaderboard from "@/app/components/leaderboard";
+import WelcomeSection from "@/app/components/welcomeSection";
+import OffersSection from "@/app/components/offersSection";
+import PointsInfoSection from "@/app/components/pointsInfoSection";
 
 export default function HomePage() {
 

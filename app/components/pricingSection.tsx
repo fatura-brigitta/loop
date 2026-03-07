@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Reveal from "@/app/components/reveal";
+import Reveal from "@/app/components/Reveal";
 
 type ScreeningType = {
   type: string;
@@ -47,7 +47,7 @@ export default function PricingSection() {
             <div className="grid gap-6 md:grid-cols-5">
               {screenings.map((s) => (
                 <div
-                  className="rounded-xl border border-[--border-color] bg-[--card-bg] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:bg-white/10 hover:cursor-pointer"
+                  className="rounded-xl border border-[--border-color] bg-[--card-bg] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:cursor-pointer hover:bg-white/10"
                   key={s.type}
                 >
                   <div className="text-xl font-bold">{s.type}</div>
@@ -76,7 +76,7 @@ export default function PricingSection() {
             <div className="grid gap-6 md:grid-cols-4">
               {tickets.map((t) => (
                 <div
-                  className="rounded-xl border border-[--border-color] bg-[--card-bg] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:bg-white/10 hover:cursor-pointer"
+                  className="rounded-xl border border-[--border-color] bg-[--card-bg] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:cursor-pointer hover:bg-white/10"
                   key={t.type}
                 >
                   <div className="text-xl font-bold">{t.type}</div>
@@ -86,9 +86,7 @@ export default function PricingSection() {
                       Nincs kedvezmény
                     </div>
                   ) : (
-                    <div className="mt-2 text-3xl font-extrabold text-cyan-400">
-                      -{t.percent}%
-                    </div>
+                    <div className="mt-2 text-3xl font-extrabold text-cyan-400">-{t.percent}%</div>
                   )}
                 </div>
               ))}

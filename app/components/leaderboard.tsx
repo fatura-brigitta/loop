@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import Reveal from "@/app/components/reveal";
+import Reveal from "@/app/components/Reveal";
 
 type User = {
   name: string;
@@ -26,7 +26,7 @@ export default function Leaderboard() {
   const third = users[2];
 
   const safeImg = (s?: string | null) => {
-  const v = (s ?? "").trim();
+    const v = (s ?? "").trim();
     if (!v || v === "null" || v === "undefined") return "/profile/default.png";
     return v;
   };
@@ -39,11 +39,10 @@ export default function Leaderboard() {
 
       <Reveal className="reveal-parent">
         <div className="relative mx-auto flex max-w-5xl items-end justify-center gap-10">
-
           <div className="podium-card podium-left text-center">
             <div className="mb-3 text-4xl">🥈</div>
 
-            <div className="relative mx-auto mb-4 h-[90px] w-[90px] overflow-hidden rounded-full border-4 border-slate-400 transition hover:scale-105 hover:border-cyan-400 cursor-pointer">
+            <div className="relative mx-auto mb-4 h-[90px] w-[90px] cursor-pointer overflow-hidden rounded-full border-4 border-slate-400 transition hover:scale-105 hover:border-cyan-400">
               <Image
                 alt="profil"
                 className="object-cover"
@@ -62,7 +61,7 @@ export default function Leaderboard() {
           <div className="podium-card podium-center z-10 scale-110 text-center">
             <div className="mb-3 text-5xl">🥇</div>
 
-            <div className="relative mx-auto mb-4 h-[100px] w-[100px] overflow-hidden rounded-full border-4 border-yellow-400 shadow-[0_0_30px_rgba(255,215,0,0.45)] transition hover:scale-105 hover:border-cyan-400 cursor-pointer">
+            <div className="relative mx-auto mb-4 h-[100px] w-[100px] cursor-pointer overflow-hidden rounded-full border-4 border-yellow-400 shadow-[0_0_30px_rgba(255,215,0,0.45)] transition hover:scale-105 hover:border-cyan-400">
               <Image
                 alt="profil"
                 className="object-cover"
@@ -81,7 +80,7 @@ export default function Leaderboard() {
           <div className="podium-card podium-right text-center">
             <div className="mb-3 text-4xl">🥉</div>
 
-            <div className="relative mx-auto mb-4 h-[90px] w-[90px] overflow-hidden rounded-full border-4 border-amber-700 transition hover:scale-105 hover:border-cyan-400 cursor-pointer">
+            <div className="relative mx-auto mb-4 h-[90px] w-[90px] cursor-pointer overflow-hidden rounded-full border-4 border-amber-700 transition hover:scale-105 hover:border-cyan-400">
               <Image
                 alt="profil"
                 className="object-cover"

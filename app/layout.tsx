@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NavbarWrapper from "@/app/components/navbarWrapper";
-import FooterWrapper from "@/app/components/footerWrapper";
+import NavbarWrapper from "@/app/components/NavbarWrapper";
+import FooterWrapper from "@/app/components/FooterWrapper";
 
 export const metadata: Metadata = {
   title: "Loop",

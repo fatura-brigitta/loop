@@ -1105,7 +1105,6 @@ async function loadModeration() {
             </>
             )}
           </section>
-
         </div>
         )}
       </main>

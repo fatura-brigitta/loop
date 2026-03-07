@@ -286,7 +286,7 @@ export default function ProfilePage() {
 
   if (!user) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
+      <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white" data-cy="profile-loading">
         Betöltés...
       </div>
     );
@@ -360,9 +360,9 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#060b14] text-slate-100">
+    <div className="min-h-screen bg-[#060b14] text-slate-100" data-cy="profile-page">
       {rankUp && (
-        <div className="rank-overlay fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm">
+        <div className="rank-overlay fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm" data-cy="rank-up-modal">
           <div className="rank-popup flex flex-col items-center gap-6 rounded-2xl border border-white/10 bg-[#060b14]/90 p-10 shadow-2xl">
             <div className="text-sm tracking-[0.3em] text-white/60">RANG LÉPÉS</div>
 
@@ -378,8 +378,8 @@ export default function ProfilePage() {
 
             <div className="text-sm text-white/70">Gratulálunk! Új kuponokat oldottál fel.</div>
 
-            <button
-              className="mt-2 cursor-pointer rounded-lg bg-cyan-600 px-6 py-2 font-semibold text-white transition hover:bg-cyan-400"
+            <button className="mt-2 cursor-pointer rounded-lg bg-cyan-600 px-6 py-2 font-semibold text-white transition hover:bg-cyan-400"
+              data-cy="rank-up-close"
               onClick={() => setRankUp(null)}
             >
               Folytatás
@@ -389,7 +389,7 @@ export default function ProfilePage() {
       )}
 
       {rankData?.rank && (
-        <div className="mx-auto max-w-5xl px-4 pt-12">
+        <div className="mx-auto max-w-5xl px-4 pt-12" data-cy="profile-rank-section">
           <div className="mb-10 w-full rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur">
             <div className="relative flex flex-col gap-6 md:flex-row md:items-center">
               <div className="flex items-center gap-5">
@@ -404,18 +404,18 @@ export default function ProfilePage() {
                 </div>
 
                 <div>
-                  <h2 className="text-2xl font-bold text-cyan-300">{rankData.rank.name} rang</h2>
+                  <h2 className="text-2xl font-bold text-cyan-300" data-cy="profile-rank-name">{rankData.rank.name} rang</h2>
 
                   <div className="mt-1 text-sm text-white/70">
-                    Összes pont: <span className="font-bold text-white">{rankData.points}</span>
+                    Összes pont: <span className="font-bold text-white" data-cy="profile-rank-points">{rankData.points}</span>
                   </div>
                 </div>
               </div>
 
               <div className="flex-1">
                 <div className="mt-2 h-4 w-full overflow-hidden rounded-full bg-white/10">
-                  <div
-                    className="h-full rounded-full bg-cyan-400 transition-all duration-700"
+                  <div className="h-full rounded-full bg-cyan-400 transition-all duration-700"
+                    data-cy="profile-rank-progress"
                     style={{ width: `${rankData.progress ?? 0}%` }}
                   />
                 </div>
@@ -439,22 +439,22 @@ export default function ProfilePage() {
 
       <div className="mx-auto max-w-5xl px-4 py-2">
         {warning && (
-          <div className="mb-6 rounded-lg border border-yellow-400/40 bg-yellow-500/20 p-4 text-yellow-300">
+          <div className="mb-6 rounded-lg border border-yellow-400/40 bg-yellow-500/20 p-4 text-yellow-300" data-cy="rank-warning">
             ⚠️ Ha 24 órán belül nem vásárolsz jegyet, visszaesel egy rangot.
           </div>
         )}
       </div>
 
       <div className="mx-auto max-w-5xl px-4 py-8">
-        <div className="w-full rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur transition-all">
+        <div className="w-full rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur transition-all" data-cy="profile-info-section">
           <h1 className="mb-8 text-3xl font-bold text-cyan-300">Profil adatok</h1>
 
           <div className="mb-8 flex items-center gap-6">
 
             <div className="relative h-24 w-24 overflow-hidden rounded-full border border-white/20">
-              <Image
-                alt="Profilkép"
+              <Image alt="Profilkép"
                 className="object-cover"
+                data-cy="profile-image"
                 fill
                 key={profileImage || "default"}
                 priority
@@ -478,8 +478,8 @@ export default function ProfilePage() {
 
                 <div className="text-white/80">
                   Húzd ide a képet vagy{" "}
-                  <button
-                    className="text-cyan-300 underline hover:text-cyan-200 cursor-pointer"
+                  <button className="text-cyan-300 underline hover:text-cyan-200 cursor-pointer"
+                    data-cy="profile-image-upload-button"
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
                   >
@@ -499,8 +499,8 @@ export default function ProfilePage() {
                 />
 
                 {profileImage && (
-                  <button
-                    className="w-fit rounded-lg bg-white/10 px-3 py-1 text-xs hover:bg-white/20"
+                  <button className="w-fit rounded-lg bg-white/10 px-3 py-1 text-xs hover:bg-white/20"
+                    data-cy="profile-image-reset"
                     type="button"
                     onClick={resetProfileImage}
                   >
@@ -513,14 +513,14 @@ export default function ProfilePage() {
           </div>
 
           <div className="mt-2 h-5 text-sm mb-5">
-              {imageError && <div className="text-red-400">{imageError}</div>}
-              {imageMessage && <div className="text-green-400">{imageMessage}</div>}
+              {imageError && <div className="text-red-400" data-cy="profile-image-error">{imageError}</div>}
+              {imageMessage && <div className="text-green-400" data-cy="profile-image-success">{imageMessage}</div>}
           </div>
 
           <div className="mb-6">
             <label className="text-sm text-white/60">Email</label>
-            <input
-              className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+            <input className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+              data-cy="profile-email"
               disabled
               value={user.email}
             />
@@ -528,8 +528,8 @@ export default function ProfilePage() {
 
           <div className="mb-6">
             <label className="text-sm text-white/60">Név</label>
-            <input
-              className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+            <input className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+              data-cy="profile-name-input"
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
             />
@@ -537,8 +537,8 @@ export default function ProfilePage() {
 
           <div className="mb-6">
             <label className="text-sm text-white/60">Telefonszám</label>
-            <input
-              className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+            <input className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+              data-cy="profile-phone-input"
               placeholder="+36123456789"
               value={phone || ""}
               onChange={(e) => setPhone(e.target.value)}
@@ -547,8 +547,8 @@ export default function ProfilePage() {
 
           <div className="mb-6">
             <label className="text-sm text-white/60">Nem</label>
-            <select
-              className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+            <select className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+              data-cy="profile-gender-select"
               value={gender}
               onChange={(e) => setGender(e.target.value)}
             >
@@ -558,8 +558,8 @@ export default function ProfilePage() {
             </select>
           </div>
 
-          <button
-            className="mt-4 cursor-pointer rounded-lg bg-cyan-600 px-6 py-2 font-semibold text-white transition hover:bg-cyan-400"
+          <button className="mt-4 cursor-pointer rounded-lg bg-cyan-600 px-6 py-2 font-semibold text-white transition hover:bg-cyan-400"
+            data-cy="profile-save-button"
             onClick={async () => {
               setError("");
               setMessage("");
@@ -598,8 +598,8 @@ export default function ProfilePage() {
             </h2>
 
             {!isGoogleUser && (
-              <input
-                className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+              <input className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+                data-cy="profile-old-password"
                 placeholder="Régi jelszó"
                 type="password"
                 value={oldPassword}
@@ -607,31 +607,31 @@ export default function ProfilePage() {
               />
             )}
 
-            <input
-              className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+            <input className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+              data-cy="profile-new-password"
               placeholder="Új jelszó"
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
             />
 
-            <input
-              className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+            <input className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+              data-cy="profile-new-password-confirm"
               placeholder="Új jelszó megerősítése"
               type="password"
               value={newPassword2}
               onChange={(e) => setNewPassword2(e.target.value)}
             />
 
-            <button
-              className="mt-2 cursor-pointer rounded-lg bg-cyan-600 px-4 py-2 font-semibold text-white hover:bg-cyan-400"
+            <button className="mt-2 cursor-pointer rounded-lg bg-cyan-600 px-4 py-2 font-semibold text-white hover:bg-cyan-400"
+              data-cy="profile-password-button"
               onClick={changePassword}
             >
               {isGoogleUser ? "Jelszó beállítása" : "Jelszó módosítása"}
             </button>
             <label className="flex items-center gap-3 mt-4">
-              <input
-                checked={consent}
+              <input checked={consent}
+                data-cy="profile-leaderboard-consent"
                 type="checkbox"
                 onChange={async (e) => {
                   const value = e.target.checked;
@@ -651,8 +651,8 @@ export default function ProfilePage() {
           </div>
 
           <div className="mt-6 h-6 text-center">
-            {error && <div className="text-red-400">{error}</div>}
-            {message && <div className="text-green-400">{message}</div>}
+            {error && <div className="text-red-400" data-cy="profile-error-message">{error}</div>}
+            {message && <div className="text-green-400" data-cy="profile-success-message">{message}</div>}
           </div>
 
         </div>
@@ -660,8 +660,8 @@ export default function ProfilePage() {
 
       <div className="mx-auto max-w-5xl px-4">
         <div className="mx-auto max-w-5xl">
-          <button
-            className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-white/10"
+          <button className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-white/10"
+            data-cy="profile-coupons-toggle"
             onClick={() => {
               setShowCoupons((v) => !v);
               setShowTickets(false);
@@ -673,12 +673,12 @@ export default function ProfilePage() {
             <span className={`text-xl transition ${showCoupons ? "rotate-180" : ""}`}>▼</span>
           </button>
 
-          <div
-            className={`transition-all duration-500 ease-in-out ${
+          <div className={`transition-all duration-500 ease-in-out ${
               showCoupons
                 ? "mt-4 mb-4 max-h-[70vh] opacity-100 overflow-y-auto"
                 : "max-h-0 opacity-0 overflow-hidden"
             }`}
+            data-cy="profile-coupons-section"
           >
             <div>
               {coupons.length === 0 && (
@@ -689,10 +689,11 @@ export default function ProfilePage() {
 
               <div className="grid gap-6 md:grid-cols-2">
                 {coupons.map((coupon) => (
-                  <div
-                    className={`relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur ${
+                  <div className={`relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur ${
                       coupon.used ? "opacity-40" : ""
                     }`}
+                    data-coupon-id={coupon.id}
+                    data-cy="coupon-card"
                     key={coupon.id}
                   >
                     <div className="flex items-center gap-5">
@@ -723,9 +724,10 @@ export default function ProfilePage() {
                       </div>
 
                       {!coupon.used && (
-                        <Image
-                          alt="qr"
+                        <Image alt="qr"
                           className="w-28 rounded-lg bg-white p-2"
+                          data-coupon-id={coupon.id}
+                          data-cy="coupon-qr"
                           height={112}
                           src={`/api/qr/${coupon.qr_token}`}
                           width={112}
@@ -747,8 +749,8 @@ export default function ProfilePage() {
       </div>
 
       <div className="mx-auto max-w-5xl px-4">
-        <button
-          className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-white/10"
+        <button className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-white/10"
+          data-cy="profile-tickets-toggle"
           onClick={() => {
             setShowTickets((v) => !v);
             setShowCoupons(false);
@@ -763,6 +765,7 @@ export default function ProfilePage() {
           className={`transition-all duration-500 ease-in-out ${
             showTickets ? "mt-4 mb-4 max-h-[70vh] opacity-100 overflow-y-auto" : "max-h-0 opacity-0 overflow-hidden"
           }`}
+          data-cy="profile-tickets-section"
         >
           <div className="overflow-hidden">
             {tickets.length === 0 && (
@@ -771,8 +774,9 @@ export default function ProfilePage() {
 
             <div className="grid gap-6">
               {tickets.map((ticket) => (
-                <div
-                  className="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur"
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur"
+                  data-cy="active-ticket-card"
+                  data-ticket-id={ticket.id}
                   key={ticket.id}
                 >
                   <div className="flex flex-wrap justify-between gap-6 md:flex-nowrap">
@@ -799,9 +803,10 @@ export default function ProfilePage() {
                       <div className="text-xl font-semibold text-cyan-300">{ticket.price} Ft</div>
 
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        alt="qr"
+                      <img alt="qr"
                         className="w-32 rounded-lg bg-white p-2"
+                        data-cy="ticket-qr"
+                        data-ticket-id={ticket.id}
                         src={`/api/qr/${ticket.qr_token}`}
                       />
                     </div>
@@ -814,8 +819,8 @@ export default function ProfilePage() {
       </div>
 
       <div className="mx-auto max-w-5xl px-4 pb-32">
-        <button
-          className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-white/10"
+        <button className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-white/10"
+          data-cy="profile-history-toggle"
           onClick={() => {
             setShowHistory((v) => !v);
             setShowCoupons(false);
@@ -832,17 +837,17 @@ export default function ProfilePage() {
           </span>
         </button>
 
-        <div
-          className={`transition-all duration-500 ease-in-out ${
+        <div className={`transition-all duration-500 ease-in-out ${
             showHistory
               ? "mt-4 max-h-[70vh] opacity-100 overflow-y-auto"
               : "max-h-0 opacity-0 overflow-hidden"
           }`}
+          data-cy="profile-history-section"
         >
           {history.length > 0 && (
             <div className="flex justify-end mb-4">
-              <button
-                className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-500 transition cursor-pointer"
+              <button className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-500 transition cursor-pointer"
+                data-cy="history-delete-all"
                 onClick={() => setConfirmDeleteAll(true)}
               >
                 Összes előzmény törlése
@@ -855,8 +860,9 @@ export default function ProfilePage() {
 
           <div className="grid gap-4">
             {history.map((ticket) => (
-              <div
-                className="rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:bg-white/10"
+              <div className="rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:bg-white/10" 
+                data-cy="history-ticket-card"
+                data-ticket-id={ticket.id}
                 key={ticket.id}
               >
                 <div className="flex items-center justify-between">
@@ -885,8 +891,8 @@ export default function ProfilePage() {
                       {ticket.price} Ft
                     </div>
 
-                    <button
-                      className="flex items-center justify-center rounded-lg bg-red-500/20 p-2 text-red-400 hover:bg-red-500/40 hover:text-red-300 transition cursor-pointer"
+                    <button className="flex items-center justify-center rounded-lg bg-red-500/20 p-2 text-red-400 hover:bg-red-500/40 hover:text-red-300 transition cursor-pointer"
+                      data-cy="history-delete-ticket"
                       onClick={() => setDeleteTicketId(ticket.id)}
                     >
                       <Trash2 size={18} />
@@ -898,14 +904,14 @@ export default function ProfilePage() {
           </div>
           <div className="mt-4 text-center text-sm h-5">
             {historyMessage && (
-              <span className={historyMessage.includes("Hiba") ? "text-red-400" : "text-green-400"}>
+              <span className={historyMessage.includes("Hiba") ? "text-red-400" : "text-green-400"} data-cy="history-message">
                 {historyMessage}
               </span>
             )}
           </div>
 
-          {deleteTicketId && (
-            <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm">
+          {deleteTicketId && ( 
+            <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm" data-cy="history-delete-modal">
 
               <div className="w-[380px] rounded-2xl border border-white/10 bg-[#0b1220] p-6 shadow-2xl">
 
@@ -919,15 +925,15 @@ export default function ProfilePage() {
 
                 <div className="flex justify-end gap-3">
 
-                  <button
-                    className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition"
+                  <button className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition"
+                    data-cy="history-delete-cancel"
                     onClick={() => setDeleteTicketId(null)}
                   >
                     Mégse
                   </button>
 
-                  <button
-                    className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 transition text-white"
+                  <button className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 transition text-white"
+                    data-cy="history-delete-confirm"
                     onClick={() => deleteTicket(deleteTicketId)}
                   >
                     Törlés
@@ -941,7 +947,7 @@ export default function ProfilePage() {
           )}
 
           {confirmDeleteAll && (
-            <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm">
+            <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm" data-cy="history-delete-all-modal">
 
               <div className="w-[380px] rounded-2xl border border-white/10 bg-[#0b1220] p-6 shadow-2xl">
 
@@ -955,15 +961,15 @@ export default function ProfilePage() {
 
                 <div className="flex justify-end gap-3">
 
-                  <button
-                    className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition"
+                  <button className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition"
+                    data-cy="history-delete-all-cancel"
                     onClick={() => setConfirmDeleteAll(false)}
                   >
                     Mégse
                   </button>
 
-                  <button
-                    className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 transition text-white"
+                  <button className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 transition text-white"
+                    data-cy="history-delete-all-confirm"
                     onClick={deleteAllHistory}
                   >
                     Törlés

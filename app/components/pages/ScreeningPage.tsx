@@ -202,30 +202,30 @@ export default function ScreeningsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#060b14] text-slate-100">
-      <div className="mx-auto max-w-6xl p-4">
+    <div className="min-h-screen bg-[#060b14] text-slate-100" data-cy="screenings-page">
+      <div className="mx-auto max-w-6xl p-4" data-cy="screenings-container">
         <h1 className="mb-6 text-2xl font-bold">Műsoron</h1>
 
         <div className="mb-8 flex flex-wrap items-center gap-4">
-          <div className="flex gap-2 overflow-x-auto pb-1">
-            <button
-              className={`cursor-pointer rounded-lg border px-4 py-2 ${
+          <div className="flex gap-2 overflow-x-auto pb-1" data-cy="screenings-date-filter">
+            <button className={`cursor-pointer rounded-lg border px-4 py-2 ${
                 selectedDate === "all"
                   ? "border-cyan-500 bg-cyan-500 text-white"
                   : "border-white/10 bg-white/5 hover:bg-white/10"
               }`}
+              data-cy="screenings-date-all"
               onClick={() => setSelectedDate("all")}
             >
               Összes
             </button>
 
             {nextDays.map((d) => (
-              <button
-                className={`flex min-w-[70px] cursor-pointer flex-col items-center rounded-lg border px-4 py-2 ${
+              <button className={`flex min-w-[70px] cursor-pointer flex-col items-center rounded-lg border px-4 py-2 ${
                   selectedDate === d.iso
                     ? "border-cyan-500 bg-cyan-500 text-white"
                     : "border-white/10 bg-white/5 hover:bg-white/10"
                 }`}
+                data-cy={`screenings-date-${d.iso}`}
                 key={d.iso}
                 onClick={() => setSelectedDate(d.iso)}
               >
@@ -237,8 +237,8 @@ export default function ScreeningsPage() {
 
           <div className="flex items-center gap-2">
             <div className="relative" ref={dropdownRef}>
-              <button
-                className="flex cursor-pointer items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-2 hover:bg-white/10"
+              <button className="flex cursor-pointer items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-2 hover:bg-white/10"
+                data-cy="screenings-type-dropdown"
                 onClick={() => setDropdownOpen((p) => !p)}
               >
                 {selectedType === "all" ? "Előadás-típus" : selectedType}
@@ -246,9 +246,9 @@ export default function ScreeningsPage() {
               </button>
 
               {dropdownOpen && (
-                <div className="absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-xl border border-white/10 bg-[#0b1220] shadow-xl">
-                  <div
-                    className="cursor-pointer px-4 py-2 hover:bg-white/10"
+                <div className="absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-xl border border-white/10 bg-[#0b1220] shadow-xl" data-cy="screenings-type-dropdown-menu">
+                  <div className="cursor-pointer px-4 py-2 hover:bg-white/10"
+                    data-cy="screenings-type-all"
                     onClick={() => {
                       setSelectedType("all");
                       setDropdownOpen(false);
@@ -258,8 +258,8 @@ export default function ScreeningsPage() {
                   </div>
 
                   {availableTypes.map((type) => (
-                    <div
-                      className="cursor-pointer px-4 py-2 hover:bg-white/10"
+                    <div className="cursor-pointer px-4 py-2 hover:bg-white/10"
+                      data-cy={`screenings-type-${type}`}
                       key={type}
                       onClick={() => {
                         setSelectedType(type);
@@ -272,8 +272,8 @@ export default function ScreeningsPage() {
                 </div>
               )}
             </div>
-            <button
-              className="flex cursor-pointer items-center justify-center rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10"
+            <button className="flex cursor-pointer items-center justify-center rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10"
+              data-cy="screenings-reset-filters"
               title="Szűrők törlése"
               onClick={resetFilters}
             >
@@ -282,16 +282,17 @@ export default function ScreeningsPage() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6" data-cy="screenings-movie-list">
           {filteredGrouped.map((g, index) => (
-            <div
-              className="flex items-stretch gap-6 rounded-xl border border-white/10 bg-white/5 p-4"
+            <div className="flex items-stretch gap-6 rounded-xl border border-white/10 bg-white/5 p-4"
+              data-cy="screenings-movie-card"
+              data-movie-title={g.movie.title}
               key={index}
             >
               <div className="shrink-0 self-start">
-                <Image
-                  alt={g.movie.title}
+                <Image alt={g.movie.title}
                   className="rounded-lg object-cover"
+                  data-cy="screenings-movie-poster"
                   height={300}
                   src={g.movie.poster}
                   width={200}
@@ -299,7 +300,7 @@ export default function ScreeningsPage() {
               </div>
 
               <div className="flex flex-1 flex-col">
-                <h2 className="text-xl font-semibold">{g.movie.title}</h2>
+                <h2 className="text-xl font-semibold" data-cy="screenings-movie-title">{g.movie.title}</h2>
 
                 <p className="text-xs text-slate-400">
                   {g.movie.genre} • {g.movie.playtime} perc • {g.movie.language}
@@ -309,13 +310,15 @@ export default function ScreeningsPage() {
 
                 <div className="mt-4 flex flex-col gap-4">
                   {Object.entries(groupByType(g.screenings)).map(([type, screenings]) => (
-                    <div key={type}>
+                    <div data-cy="screenings-type-group"
+                      data-screening-type={type} key={type}>
                       <div className="mb-2 text-sm font-semibold text-cyan-300">{type}</div>
 
                       <div className="flex flex-wrap gap-2">
                         {screenings.map((s) => (
-                          <button
-                            className="cursor-pointer rounded-lg bg-gray-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-cyan-500"
+                          <button className="cursor-pointer rounded-lg bg-gray-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-cyan-500"
+                            data-cy="screening-time-button"
+                            data-screening-id={s.id}
                             key={s.id}
                             onClick={() => openScreening(s.id)}
                           >
@@ -333,8 +336,8 @@ export default function ScreeningsPage() {
 
               {g.movie.trailer && (
                 <div className="flex w-[340px] shrink-0 items-center">
-                  <div
-                    className="relative aspect-video w-full overflow-hidden rounded-lg bg-black"
+                  <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black"
+                    data-cy="screenings-trailer"
                     onMouseEnter={() => {
                       if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
                       hoverTimer.current = window.setTimeout(() => {
@@ -358,8 +361,8 @@ export default function ScreeningsPage() {
                         )}?autoplay=1&mute=1&rel=0&modestbranding=1`}
                       />
                     ) : (
-                      <button
-                        className="absolute inset-0"
+                      <button className="absolute inset-0"
+                        data-cy="screenings-trailer-play"
                         onClick={() => setOpenTrailer(g.movie.trailer)}
                       >
                         <Image
@@ -388,7 +391,7 @@ export default function ScreeningsPage() {
         </div>
 
         {filteredGrouped.length === 0 && (
-          <div className="mt-10 text-center text-white/60">
+          <div className="mt-10 text-center text-white/60" data-cy="screenings-empty">
             Nincs találat a kiválasztott szűrőkre.
           </div>
         )}

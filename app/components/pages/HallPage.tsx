@@ -51,8 +51,12 @@ function SeatGrid({
             }
 
             return (
-              <div
-                className={`h-8 w-8 rounded transition-all duration-150 ${color} ${chair && !chair.state ? "cursor-pointer hover:scale-110" : ""} `}
+              <div className={`h-8 w-8 rounded transition-all duration-150 ${color} ${chair && !chair.state ? "cursor-pointer hover:scale-110" : ""} `}
+                data-cy="hall-seat"
+                data-seat-col={c + 1}
+                data-seat-id={chair?.id}
+                data-seat-row={r + 1}
+                data-seat-state={chair?.state ? "reserved" : "free"}
                 key={c}
                 title={`Sor ${r + 1}, Szék ${c + 1}`}
                 onClick={() => onSeatClick(chair)}
@@ -236,34 +240,36 @@ export default function HallPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#020617] via-[#060b14] to-black text-slate-100">
+    <div className="min-h-screen bg-gradient-to-b from-[#020617] via-[#060b14] to-black text-slate-100" data-cy="hall-page">
       {!showLogin && (
-        <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
+        <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white" data-cy="hall-login-required">
           A terem megtekintéséhez kérjük jelentkezzen be.
         </div>
       )}
 
       {showLogin && !loadingHall && error && (
-        <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
+        <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white" data-cy="hall-error">
           {error}
         </div>
       )}
 
       {showLogin && !loadingHall && !error && hall && (
-        <div className="mx-auto max-w-6xl px-4 py-8 pb-40 text-center">
-          <h1 className="mb-6 text-center text-2xl font-bold">{hall.name}</h1>
+        <div className="mx-auto max-w-6xl px-4 py-8 pb-40 text-center" data-cy="hall-container">
+          <h1 className="mb-6 text-center text-2xl font-bold" data-cy="hall-name">{hall.name}</h1>
 
           <CinemaScreen />
 
-          <SeatGrid
-            chairs={seats}
-            columns={hall.column}
-            rows={hall.row}
-            selectedSeats={selectedSeats}
-            onSeatClick={toggleSeat}
-          />
+          <div data-cy="hall-seat-grid">
+            <SeatGrid
+              chairs={seats}
+              columns={hall.column}
+              rows={hall.row}
+              selectedSeats={selectedSeats}
+              onSeatClick={toggleSeat}
+            />
+          </div>
 
-          <div className="mt-10 flex flex-col items-center gap-4 text-sm text-white/80">
+          <div className="mt-10 flex flex-col items-center gap-4 text-sm text-white/80" data-cy="hall-seat-legend">
             <div className="flex items-center gap-8">
               <div className="flex items-center gap-2">
                 <div className="h-4 w-4 rounded bg-green-500" />
@@ -285,24 +291,24 @@ export default function HallPage() {
       )}
 
       {seatError && (
-        <div className="fixed bottom-28 left-1/2 z-50 -translate-x-1/2 animate-pulse rounded-lg bg-red-600 px-6 py-3 text-white shadow-2xl">
+        <div className="fixed bottom-28 left-1/2 z-50 -translate-x-1/2 animate-pulse rounded-lg bg-red-600 px-6 py-3 text-white shadow-2xl" data-cy="hall-seat-error">
           {seatError}
         </div>
       )}
 
       {successMessage && (
-        <div className="fixed bottom-44 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-6 py-3 text-white shadow-2xl">
+        <div className="fixed bottom-44 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-6 py-3 text-white shadow-2xl" data-cy="hall-success">
           {successMessage}
         </div>
       )}
 
       {selectedChairs.length > 0 && (
-        <div className="fixed right-0 bottom-0 left-0 z-40 border-t border-white/10 bg-[#020617]/95 backdrop-blur">
+        <div className="fixed right-0 bottom-0 left-0 z-40 border-t border-white/10 bg-[#020617]/95 backdrop-blur" data-cy="hall-selected-panel">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 text-white">
             <div className="flex flex-col text-left">
-              <span className="text-sm text-white/60">Kiválasztott székek</span>
+              <span className="text-sm text-white/60" data-cy="hall-selected-title">Kiválasztott székek</span>
 
-              <div className="mt-1 text-sm font-medium">
+              <div className="mt-1 text-sm font-medium" data-cy="hall-selected-seats">
                 {Object.entries(groupedSeats)
                   .sort((a, b) => Number(a[0]) - Number(b[0]))
                   .map(([row, cols]) => {
@@ -319,10 +325,10 @@ export default function HallPage() {
             </div>
 
             <div className="flex flex-col items-end gap-2 text-right">
-              <div className="text-2xl font-bold text-orange-400">🎟 {selectedChairs.length}</div>
+              <div className="text-2xl font-bold text-orange-400" data-cy="hall-seat-count">🎟 {selectedChairs.length}</div>
 
-              <button
-                className="cursor-pointer rounded-lg bg-blue-500 px-5 py-2 font-semibold text-white transition hover:bg-blue-600"
+              <button className="cursor-pointer rounded-lg bg-blue-500 px-5 py-2 font-semibold text-white transition hover:bg-blue-600"
+                data-cy="hall-reserve-button"
                 onClick={reserveSeats}
               >
                 Székek foglalása

@@ -179,61 +179,64 @@ export default function PaymentPage() {
   if (!data) return null;
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
-      <div className="w-full max-w-xl rounded-xl bg-[#0b1220] p-8 shadow-2xl">
+    <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white" data-cy="payment-page">
+      <div className="w-full max-w-xl rounded-xl bg-[#0b1220] p-8 shadow-2xl" data-cy="payment-card">
         <h1 className="mb-6 text-center text-2xl font-bold text-cyan-300">Fizetés</h1>
 
         <div className="space-y-3 text-sm">
           <div className="flex justify-between">
             <span>Film</span>
-            <span className="font-semibold">{data.movieTitle}</span>
+            <span className="font-semibold" data-cy="payment-movie">{data.movieTitle}</span>
           </div>
 
           <div className="flex justify-between">
             <span>Terem</span>
-            <span>{data.hallName}</span>
+            <span data-cy="payment-hall">{data.hallName}</span>
           </div>
 
           <div className="flex justify-between">
             <span>Vetítés típusa</span>
-            <span className="text-white font-semibold">
+            <span className="text-white font-semibold" data-cy="payment-screening-type">
               {data.screeningType}
             </span>
           </div>
 
           <div className="flex justify-between">
             <span>Kezdés</span>
-            <span>{new Date(data.start).toLocaleString()}</span>
+            <span data-cy="payment-start">{new Date(data.start).toLocaleString()}</span>
           </div>
 
           <div>
             <span className="mb-1 block">Székek</span>
             <div className="text-cyan-300">
-              <div className="space-y-3">
+              <div className="space-y-3" data-cy="payment-tickets">
                 {data.seats.map((s, i) => {
                   const type = ticketTypes[i] || "Normál";
 
                   return (
-                    <div
+                    <div className="flex items-center justify-between rounded-lg bg-black/30 p-3"
+                      data-cy="payment-ticket"
+                      data-seat-index={i}
                       key={i}
-                      className="flex items-center justify-between rounded-lg bg-black/30 p-3"
                     >
                       <div className="flex flex-col">
-                        <div className="text-cyan-300 font-semibold">
+                        <div className="text-cyan-300 font-semibold" data-cy="ticket-number">
                           {i + 1}. jegy
                         </div>
 
-                        <div className="text-white/80 text-sm">
+                        <div className="text-white/80 text-sm" data-cy="ticket-seat">
                           Sor {s.row} Szék {s.column}
                         </div>
                       </div>
 
                       <div className="flex items-center gap-3">
-                        <span className="text-green-400 font-semibold text-sm">
+                        <span className="text-green-400 font-semibold text-sm" data-cy="ticket-price">
                           {seatPrices[i] ?? ""} Ft
                         </span>
                         <select
                           className="w-[110px] rounded-lg bg-[#060b14] border border-white/20 p-2 cursor-pointer"
+                          data-cy="ticket-type-select"
+                          data-seat-index={i}
                           value={type}
                           onChange={async (e) => {
                             const newType = e.target.value;
@@ -273,12 +276,12 @@ export default function PaymentPage() {
 
           <div className="mt-4 flex justify-between border-t border-white/10 pt-4 text-lg">
             <span>Összesen</span>
-            <span className="font-bold text-green-400">{(price ?? data.totalPrice)} Ft</span>
+            <span className="font-bold text-green-400" data-cy="payment-total">{(price ?? data.totalPrice)} Ft</span>
           </div>
         </div>
 
-        <button
-          className="mt-6 w-full rounded-lg bg-green-500 py-3 font-bold transition hover:bg-green-600 disabled:opacity-50 cursor-pointer"
+        <button className="mt-6 w-full rounded-lg bg-green-500 py-3 font-bold transition hover:bg-green-600 disabled:opacity-50 cursor-pointer"
+          data-cy="payment-button"
           disabled={paying}
           onClick={startPayment}
         >

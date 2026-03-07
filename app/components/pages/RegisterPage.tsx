@@ -136,7 +136,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#060b14] text-slate-100">
+    <div className="min-h-screen bg-[#060b14] text-slate-100" data-cy="register-page">
       <header className="sticky top-0 z-50 h-14 border-b border-white/10 bg-[#060b14]/90 backdrop-blur">
         <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
           <Link className="flex items-center gap-2" href="/">
@@ -159,15 +159,15 @@ export default function RegisterPage() {
         <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur">
           <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Fiók létrehozása</h1>
 
-          <form className="space-y-5" onSubmit={handleSubmit}>
+          <form className="space-y-5" data-cy="register-form" onSubmit={handleSubmit}>
             <div>
               <label className="text-sm text-white/60">Profilkép</label>
 
               <div className="mt-2 flex items-center gap-4">
                 <div className="relative h-20 w-20 overflow-hidden rounded-full border border-white/15">
-                  <Image
-                    alt="Profilkép előnézet"
+                  <Image alt="Profilkép előnézet"
                     className="object-cover"
+                    data-cy="register-profile-image"
                     fill
                     src={previewSrc}
                     unoptimized
@@ -190,8 +190,8 @@ export default function RegisterPage() {
                   <div className="flex flex-col gap-2">
                     <div className="text-white/80">
                       Húzd ide a képet, vagy{" "}
-                      <button
-                        className="text-cyan-300 underline hover:text-cyan-200 cursor-pointer"
+                      <button className="text-cyan-300 underline hover:text-cyan-200 cursor-pointer"
+                        data-cy="register-image-upload-button"
                         type="button"
                         onClick={() => fileInputRef.current?.click()}
                       >
@@ -203,6 +203,7 @@ export default function RegisterPage() {
                     <input
                       accept="image/*"
                       className="hidden"
+                      data-cy="register-image-input"
                       ref={fileInputRef}
                       type="file"
                       onChange={async (e) => {
@@ -218,8 +219,8 @@ export default function RegisterPage() {
                     />
 
                     {profileImageBase64 && (
-                      <button
-                        className="w-fit rounded-lg bg-white/10 px-3 py-1 text-xs hover:bg-white/15 cursor-pointer"
+                      <button className="w-fit rounded-lg bg-white/10 px-3 py-1 text-xs hover:bg-white/15 cursor-pointer"
+                        data-cy="register-image-reset"
                         type="button"
                         onClick={() => setProfileImageBase64("")}
                       >
@@ -233,8 +234,8 @@ export default function RegisterPage() {
 
             <div>
               <label className="text-sm text-white/60">Név</label>
-              <input
-                className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+              <input className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+                data-cy="register-name-input"
                 placeholder="John Doe"
                 type="text"
                 value={name}
@@ -244,8 +245,8 @@ export default function RegisterPage() {
 
             <div>
               <label className="text-sm text-white/60">Email</label>
-              <input
-                className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+              <input className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+                data-cy="register-email-input"
                 placeholder="johndoe@example.com"
                 type="email"
                 value={email}
@@ -255,8 +256,8 @@ export default function RegisterPage() {
 
             <div>
               <label className="text-sm text-white/60">Telefonszám</label>
-              <input
-                className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+              <input className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+                data-cy="register-phone-input"
                 placeholder="+36 30 123 4567"
                 type="text"
                 value={phone_number}
@@ -280,9 +281,9 @@ export default function RegisterPage() {
                     }`}
                     key={opt.value}
                   >
-                    <input
-                      checked={gender === (opt.value as Gender)}
+                    <input checked={gender === (opt.value as Gender)} 
                       className="h-4 w-4"
+                      data-cy={`register-gender-${opt.value}`}
                       name="gender"
                       type="radio"
                       value={opt.value}
@@ -297,15 +298,15 @@ export default function RegisterPage() {
             <div>
               <label className="text-sm text-white/60">Jelszó</label>
               <div className="relative mt-2">
-                <input
-                  className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 pr-11 text-white outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+                <input className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 pr-11 text-white outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+                  data-cy="register-password-input"
                   placeholder="Válasszon jelszót"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <button
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white cursor-pointer"
+                <button className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white cursor-pointer"
+                  data-cy="register-password-toggle"
                   type="button"
                   onClick={() => setShowPassword((prev) => !prev)}
                 >
@@ -315,9 +316,9 @@ export default function RegisterPage() {
             </div>
 
             <div className="flex items-start gap-3 rounded-lg border border-white/10 bg-black/30 p-3 text-sm">
-              <input
-                checked={consent}
+              <input checked={consent}
                 className="mt-1 h-4 w-4"
+                data-cy="register-leaderboard-consent"
                 type="checkbox"
                 onChange={(e) => setConsent(e.target.checked)}
               />
@@ -329,13 +330,13 @@ export default function RegisterPage() {
             </div>
 
             {error && (
-              <div className="rounded-lg border border-red-500/40 bg-red-500/20 px-4 py-2 text-center text-sm text-red-300">
+              <div className="rounded-lg border border-red-500/40 bg-red-500/20 px-4 py-2 text-center text-sm text-red-300" data-cy="register-error-message">
                 {error}
               </div>
             )}
 
-            <button
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-white transition hover:bg-cyan-500 disabled:opacity-50 cursor-pointer"
+            <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-white transition hover:bg-cyan-500 disabled:opacity-50 cursor-pointer"
+              data-cy="register-submit-button"
               disabled={loading}
               type="submit"
             >

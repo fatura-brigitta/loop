@@ -243,35 +243,35 @@ async function loadModeration() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
-      <aside className="fixed left-0 top-0 h-screen w-64 bg-slate-900 border-r border-white/10 p-6 flex flex-col">
+    <div className="min-h-screen bg-slate-950 text-white" data-cy="admin-page">
+      <aside className="fixed left-0 top-0 h-screen w-64 bg-slate-900 border-r border-white/10 p-6 flex flex-col" data-cy="admin-sidebar">
         <div className="mb-10 text-white text-xl font-semibold">Admin Panel</div>
 
         <nav className="flex flex-col gap-2 text-sm flex-1">
-          <button
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
+          <button className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
               tab === "movies" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white "
             }`}
+            data-cy="nav-movies"
             onClick={() => setTab("movies")}
           >
             <Film size={18} />
             Filmek
           </button>
 
-          <button
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
+          <button className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
               tab === "halls" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white"
             }`}
+            data-cy="nav-halls"
             onClick={() => setTab("halls")}
           >
             <Building2 size={18} />
             Termek
           </button>
 
-          <button
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
+          <button className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
               tab === "screenings" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white"
             }`}
+            data-cy="nav-screenings"
             onClick={() => setTab("screenings")}
           >
             <Calendar size={18} />
@@ -279,12 +279,12 @@ async function loadModeration() {
           </button>
 
 
-          <button
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
+          <button className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
               tab === "bad_words"
                 ? "bg-white/10 text-white"
                 : "text-slate-300 hover:text-white"
             }`}
+            data-cy="nav-forum"
             onClick={() => setTab("bad_words")}
           >
             <MessageSquare size={18} />
@@ -293,7 +293,7 @@ async function loadModeration() {
         </nav>
 
         <div className="border-t border-white/10 pt-4 text-slate-300 text-sm flex flex-col items-end">
-          <button className="flex items-center gap-2 hover:text-white transition cursor-pointer" onClick={handleLogout}>
+          <button className="flex items-center gap-2 hover:text-white transition cursor-pointer" data-cy="admin-logout" onClick={handleLogout}>
             <LogOut size={18} />
             Kijelentkezés
           </button>
@@ -308,8 +308,8 @@ async function loadModeration() {
             {tab === "screenings" && "Vetítések kezelése"}
           </h1>
 
-          <button
-            className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 transition text-sm cursor-pointer"
+          <button className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 transition text-sm cursor-pointer"
+            data-cy="admin-refresh"
             onClick={loadAll}
           >
             Frissítés
@@ -317,7 +317,7 @@ async function loadModeration() {
         </div>
 
         {err && (
-          <div className="mt-4 p-3 rounded-lg bg-red-500/15 border border-red-500/30 text-red-200 text-sm">
+          <div className="mt-4 p-3 rounded-lg bg-red-500/15 border border-red-500/30 text-red-200 text-sm" data-cy="admin-error">
             {err}
           </div>
         )}
@@ -325,7 +325,7 @@ async function loadModeration() {
         {tab === "movies" && (
           <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            <section className="lg:col-span-1 p-5 rounded-xl bg-white/5 border border-white/10">
+            <section className="lg:col-span-1 p-5 rounded-xl bg-white/5 border border-white/10" data-cy="movie-form">
               <h2 className="font-semibold mb-4">
                 {editingId ? "Film szerkesztése" : "Új film létrehozása"}
               </h2>
@@ -335,35 +335,35 @@ async function loadModeration() {
               <div className="space-y-3">
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Cím</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-title-input"
                     value={movieForm.title}
                     onChange={(e)=>setMovieForm({...movieForm,title:e.target.value})} />
                 </div>
 
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Rendező</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-director-input"
                     value={movieForm.director}
                     onChange={(e)=>setMovieForm({...movieForm,director:e.target.value})} />
                 </div>
 
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Színészek</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-actor-input"
                     value={movieForm.actors}
                     onChange={(e)=>setMovieForm({...movieForm,actors:e.target.value})} />
                 </div>
 
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Nyelv</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-language-input"
                     value={movieForm.language}
                     onChange={(e)=>setMovieForm({...movieForm,language:e.target.value})} />
                 </div>
 
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Hossz (perc)</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" type="number"
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-length-input" type="number"
                     value={movieForm.playtime}
                     onChange={(e)=>setMovieForm({...movieForm,playtime:e.target.value})} />
                 </div>
@@ -373,28 +373,28 @@ async function loadModeration() {
 
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Műfaj</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-genre-input"
                     value={movieForm.genre}
                     onChange={(e)=>setMovieForm({...movieForm,genre:e.target.value})} />
                 </div>
 
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Poszter URL</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-poster-input"
                     value={movieForm.poster}
                     onChange={(e)=>setMovieForm({...movieForm,poster:e.target.value})} />
                 </div>
 
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Előzetes URL</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-trailer-input"
                     value={movieForm.trailer}
                     onChange={(e)=>setMovieForm({...movieForm,trailer:e.target.value})} />
                 </div>
 
                 <div>
                   <label className="block text-sm text-slate-300 mb-1">Értékelés</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" step="0.1"
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-rating-input" step="0.1"
                     type="number"
                     value={movieForm.review ?? ""}
                     onChange={(e)=>setMovieForm({...movieForm,review:e.target.value})} />
@@ -404,8 +404,8 @@ async function loadModeration() {
 
             <div className="mt-4">
               <label className="block text-sm text-slate-300 mb-1">Leírás</label>
-              <textarea
-                className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+              <textarea className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+                data-cy="movie-description-input"
                 rows={4}
                 value={movieForm.description}
                 onChange={(e)=>setMovieForm({...movieForm,description:e.target.value})}
@@ -414,8 +414,8 @@ async function loadModeration() {
 
 
               <label className="flex items-center gap-2 text-sm text-slate-200 mb-4">
-                <input
-                  checked={movieForm.onscreen}
+                <input checked={movieForm.onscreen}
+                  data-cy="movie-onscreen-input"
                   type="checkbox"
                   onChange={(e) =>
                     setMovieForm({ ...movieForm, onscreen: e.target.checked })
@@ -424,8 +424,8 @@ async function loadModeration() {
                 Műsoron
               </label>
 
-              <button
-                className="w-full px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30 hover:bg-emerald-500/25 transition cursor-pointer"
+              <button className="w-full px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30 hover:bg-emerald-500/25 transition cursor-pointer"
+                data-cy="movie-save"
                 onClick={async () => {
                   setErr("");
 
@@ -480,8 +480,8 @@ async function loadModeration() {
               </button>
 
               {editingId && (
-                <button
-                  className="w-full mt-2 px-4 py-2 rounded-lg bg-red-500/15 border border-red-500/30 hover:bg-red-500/25 transition cursor-pointer"
+                <button className="w-full mt-2 px-4 py-2 rounded-lg bg-red-500/15 border border-red-500/30 hover:bg-red-500/25 transition cursor-pointer"
+                  data-cy="movie-cancel"
                   onClick={() => resetForm()}
                 >
                   Mégse
@@ -489,11 +489,11 @@ async function loadModeration() {
               )}
             </section>
 
-            <section className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10">
+            <section className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10" data-cy="movie-list">
               <div className="flex items-center justify-between mb-4 gap-3">
                 <h2 className="font-semibold">Filmek</h2>
-                <input
-                  className="px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none text-sm w-60"
+                <input className="px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none text-sm w-60"
+                  data-cy="movie-item"
                   placeholder="Keresés cím szerint..."
                   type="text"
                   value={search}
@@ -504,8 +504,8 @@ async function loadModeration() {
 
               <div className="space-y-2 max-h-[520px] overflow-y-auto pr-2 custom-scroll">
                 {filteredMovies.map((m) => (
-                  <div
-                    className="flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-white/10"
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-white/10"
+                    data-cy="movie-item"
                     key={m.id}
                   >
                     <div>
@@ -516,8 +516,8 @@ async function loadModeration() {
                     </div>
 
                     <div className="flex gap-2">
-                      <button
-                        className="px-3 py-2 rounded-lg bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500/25 transition text-sm cursor-pointer"
+                      <button className="px-3 py-2 rounded-lg bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500/25 transition text-sm cursor-pointer"
+                        data-cy="movie-edit"
                         onClick={() => {
                           setEditingId(m.id);
                           setMovieForm({
@@ -539,8 +539,8 @@ async function loadModeration() {
                         Szerkesztés
                       </button>
 
-                      <button
-                        className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
+                      <button className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
+                        data-cy="movie-delete"
                         onClick={async () => {
                           await api("movies", "DELETE", { id: m.id });
                           await loadAll();
@@ -559,7 +559,7 @@ async function loadModeration() {
         {tab === "halls" && (
           <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            <section>
+            <section data-cy="hall-form">
               <h2 className="font-semibold mb-4">
                 {hallEditingId ? "Terem szerkesztése" : "Új terem létrehozása"}
               </h2>
@@ -568,8 +568,8 @@ async function loadModeration() {
                 <label className="block text-sm text-slate-300 mb-1">
                   Terem neve
                 </label>
-                <input
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20"
+                <input className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20"
+                  data-cy="hall-name-input"
                   value={hallForm.name}
                   onChange={(e) =>
                     setHallForm({ ...hallForm, name: e.target.value })
@@ -581,8 +581,8 @@ async function loadModeration() {
                 <label className="block text-sm text-slate-300 mb-1">
                   Sorok száma
                 </label>
-                <input
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20"
+                <input className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20"
+                  data-cy="hall-rows-input"
                   min={1}
                   type="number"
                   value={hallForm.row}
@@ -596,8 +596,8 @@ async function loadModeration() {
                 <label className="block text-sm text-slate-300 mb-1">
                   Oszlopok száma (soronkénti ülőhelyek)
                 </label>
-                <input
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20"
+                <input className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20"
+                  data-cy="hall-cols-input"
                   min={1}
                   type="number"
                   value={hallForm.column}
@@ -607,8 +607,8 @@ async function loadModeration() {
                 />
               </div>
 
-              <button
-                className="w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
+              <button className="w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
+                data-cy="hall-create"
                 onClick={async () => {
                   setErr("");
 
@@ -648,8 +648,8 @@ async function loadModeration() {
               </button>
 
               {hallEditingId && (
-                <button
-                  className="w-full mt-2 px-4 py-2 rounded-xl bg-red-500/15 border border-red-500/40 hover:bg-red-500/25 transition"
+                <button className="w-full mt-2 px-4 py-2 rounded-xl bg-red-500/15 border border-red-500/40 hover:bg-red-500/25 transition"
+                  data-cy="hall-create-cancel"
                   onClick={resetHallForm}
                 >
                   Cancel Edit
@@ -657,7 +657,7 @@ async function loadModeration() {
               )}
             </section>
 
-            <section className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10">
+            <section className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10" data-cy="hall-list">
               <h2 className="font-semibold mb-4">Termek</h2>
 
               <div className="space-y-2 max-h-[520px] overflow-y-auto pr-2">
@@ -676,8 +676,8 @@ async function loadModeration() {
 
                     <div className="flex gap-2">
 
-                      <button
-                        className="px-3 py-2 rounded-lg bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500/25 transition text-sm cursor-pointer"
+                      <button className="px-3 py-2 rounded-lg bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500/25 transition text-sm cursor-pointer"
+                        data-cy="hall-edit"
                         onClick={() => {
                           setHallEditingId(h.id);
                           setHallForm({
@@ -690,8 +690,8 @@ async function loadModeration() {
                         Szerkesztés
                       </button>
 
-                      <button
-                        className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
+                      <button className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
+                        data-cy="hall-delete"
                         onClick={async () => {
                           await api("halls", "DELETE", { id: h.id });
                           await loadAll();
@@ -712,14 +712,14 @@ async function loadModeration() {
         {tab === "screenings" && (
           <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            <section className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10">
+            <section className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10" data-cy="screening-form">
 
               <h2 className="font-semibold mb-4">Vetítés létrehozása</h2>
 
               <div className="mb-3">
                 <label className="block text-sm text-slate-300 mb-1">Nap</label>
-                <input
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
+                <input className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
+                  data-cy="screening-day-input"
                   type="date"
                   value={selectedDate}
                   onChange={(e) => setSelectedDate(e.target.value)}
@@ -730,8 +730,8 @@ async function loadModeration() {
                 <label className="block text-sm text-slate-300 mb-1">
                   Terem
                 </label>
-                <select
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
+                <select className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
+                  data-cy="screening-hall-select"
                   value={screeningForm.hall_id}
                   onChange={(e)=>setScreeningForm({...screeningForm,hall_id:e.target.value})}
                 >
@@ -748,8 +748,8 @@ async function loadModeration() {
                 <label className="block text-sm text-slate-300 mb-1">
                   Film
                 </label>
-                <select
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
+                <select className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
+                  data-cy="screening-movie-select"
                   value={screeningForm.movie_id}
                   onChange={(e)=>setScreeningForm({...screeningForm,movie_id:e.target.value})}
                 >
@@ -769,8 +769,8 @@ async function loadModeration() {
                   Vetítés típusa
                 </label>
 
-                <select
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
+                <select className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
+                  data-cy="screening-type-select"
                   value={screeningForm.screening_type_id}
                   onChange={(e) =>
                     setScreeningForm({
@@ -793,8 +793,8 @@ async function loadModeration() {
                 <label className="block text-sm text-slate-300 mb-1">
                   Vetítés kezdete
                 </label>
-                <input
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
+                <input className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
+                  data-cy="screening-start-input"
                   max="21:45"
                   min="10:00"
                   step="900"
@@ -810,7 +810,7 @@ async function loadModeration() {
                     Idővonal (a kiválasztott teremhez) — kattints egy pontra a kezdés beállításához
                   </div>
 
-                  <Timeline
+                  <Timeline data-cy="movie-search"
                     date={selectedDate}
                     movie={movies.find((m) => m.id === screeningForm.movie_id) || null}
                     screenings={dayHallScreenings}
@@ -868,8 +868,8 @@ async function loadModeration() {
 
               </div>
 
-              <button
-                className="w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
+              <button className="w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
+                data-cy="screening-create"
                 onClick={async()=>{
 
                  if (
@@ -915,7 +915,7 @@ async function loadModeration() {
               </button>
             </section>
 
-            <section className="lg:col-span-1 p-5 rounded-xl bg-white/5 border border-white/10">
+            <section className="lg:col-span-1 p-5 rounded-xl bg-white/5 border border-white/10" data-cy="screening-list">
 
               <h2 className="font-semibold mb-4">Vetítések</h2>
 
@@ -962,8 +962,8 @@ async function loadModeration() {
                         </div>
                       </div>
 
-                      <button
-                        className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
+                      <button className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
+                        data-cy="screening-delete"
                         onClick={async () => {
                           await api("screenings", "DELETE", { id: s.id });
                           await loadAll();
@@ -982,7 +982,7 @@ async function loadModeration() {
         {tab === "bad_words" && (
         <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
 
-          <section className="p-5 rounded-xl bg-white/5 border border-white/10 flex flex-col">
+          <section className="p-5 rounded-xl bg-white/5 border border-white/10 flex flex-col" data-cy="flagged-comments">
   
           <h2 className="font-semibold mb-4">Problémás kommentek</h2>
   
@@ -1020,8 +1020,8 @@ async function loadModeration() {
   
             <div dangerouslySetInnerHTML={{__html:text}}/></div>
   
-            <button
-            className="ml-4 px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm whitespace-nowrap"
+            <button className="ml-4 px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm whitespace-nowrap"
+            data-cy="flagged-comments-delete"
             onClick={async()=>{
   
             await fetch("/api/admin?entity=flagged_comments",{
@@ -1051,7 +1051,7 @@ async function loadModeration() {
           </div>
           </section>
 
-          <section className="p-5 rounded-xl bg-white/5 border border-white/10">
+          <section className="p-5 rounded-xl bg-white/5 border border-white/10" data-cy="bad-words-panel">
 
           <div
           className="flex items-center justify-between cursor-pointer mb-4"
@@ -1068,8 +1068,8 @@ async function loadModeration() {
 
           {showBadWords && (
             <>
-            <textarea
-            className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+            <textarea className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+            data-cy="bad-words-input"
             rows={4}
             value={badWordsText}
             onChange={(e)=>setBadWordsText(e.target.value)}
@@ -1079,8 +1079,8 @@ async function loadModeration() {
             Vesszővel elválasztva
             </div>
 
-            <button
-            className="mt-3 px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30"
+            <button className="mt-3 px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30"
+            data-cy="bad-words-save"
             onClick={async()=>{
 
             const words = badWordsText

@@ -56,45 +56,45 @@ export default function ResetPasswordPage() {
 
   if (!token) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-red-400">
+      <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-red-400" data-cy="reset-password-invalid-token">
         Érvénytelen link.
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
-      <div className="w-full max-w-md rounded-xl bg-[#0b1220] p-8 shadow-2xl">
+    <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white" data-cy="reset-password-page">
+      <div className="w-full max-w-md rounded-xl bg-[#0b1220] p-8 shadow-2xl" data-cy="reset-password-card">
 
         <h1 className="text-2xl font-bold text-cyan-300 text-center mb-6">
           Új jelszó beállítása
         </h1>
 
-        <input
-          className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white mb-4"
+        <input className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white mb-4"
+          data-cy="reset-password-input"
           placeholder="Új jelszó"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <input
-          className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+        <input className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+          data-cy="reset-password-confirm-input"
           placeholder="Új jelszó újra"
           type="password"
           value={password2}
           onChange={(e) => setPassword2(e.target.value)}
         />
 
-        <button
-          className="mt-6 w-full rounded-lg bg-cyan-600 py-3 font-bold hover:bg-cyan-500"
+        <button className="mt-6 w-full rounded-lg bg-cyan-600 py-3 font-bold hover:bg-cyan-500"
+          data-cy="reset-password-submit-button"
           onClick={submit}
         >
           Jelszó módosítása
         </button>
 
-        {error && <div className="mt-4 text-red-400 text-center">{error}</div>}
-        {ok && <div className="mt-4 text-green-400 text-center">Sikeres! Átirányítás...</div>}
+        {error && <div className="mt-4 text-red-400 text-center" data-cy="reset-password-error-message">{error}</div>}
+        {ok && <div className="mt-4 text-green-400 text-center" data-cy="reset-password-success-message">Sikeres! Átirányítás...</div>}
       </div>
     </div>
   );

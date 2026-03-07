@@ -3,8 +3,6 @@ import { Star } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Footer from "@/app/components/Footer";
-import Navbar from "@/app/components/Navbar";
 
 type Movie = {
   id: string;
@@ -253,7 +251,7 @@ export default function ForumPage() {
   const hasMore = visibleCount < comments.length;
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-[#020617] via-[#060b14] to-black text-slate-100">
+    <div className="min-h-screen bg-linear-to-b from-[#020617] via-[#060b14] to-black text-slate-100" data-cy="forum-page">
       {!showLogin && (
         <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
           A fórum megtekintéséhez kérjük jelentkezzen be.
@@ -268,14 +266,15 @@ export default function ForumPage() {
           </p>
           <div className="mt-2">
             <div className="relative">
-              <div className="film-scroll flex gap-6 overflow-x-auto scroll-smooth px-6 py-4">
+              <div className="film-scroll flex gap-6 overflow-x-auto scroll-smooth px-6 py-4" data-cy="forum-movie-list">
                 {movies.map((movie) => (
-                  <div
-                    className={`min-w-[150px] cursor-pointer transition duration-300 ${
+                  <div className={`min-w-[150px] cursor-pointer transition duration-300 ${
                       selectedMovie === movie.id
                         ? "scale-105"
                         : "opacity-70 hover:scale-105 hover:opacity-100"
                     } `}
+                    data-cy="forum-movie-card"
+                    data-movie-id={movie.id}
                     key={movie.id}
                     onClick={() => selectMovie(movie.id)}
                   >
@@ -309,7 +308,7 @@ export default function ForumPage() {
                 )}
               </h2>
 
-              <div className="mb-6 flex gap-4 rounded-xl border border-white/10 bg-[#0b1320] p-4">
+              <div className="mb-6 flex gap-4 rounded-xl border border-white/10 bg-[#0b1320] p-4" data-cy="forum-comment-form">
                 <Image
                   alt="profil"
                   className="h-10 w-10 rounded-full object-cover"
@@ -321,8 +320,8 @@ export default function ForumPage() {
                 <div className="flex-1">
                   <div className="mb-1 text-sm text-cyan-300">{name}</div>
 
-                  <textarea
-                    className="h-28 w-full resize-none rounded-lg border border-white/10 bg-[#060b14] p-3 text-sm outline-none focus:border-cyan-400"
+                  <textarea className="h-28 w-full resize-none rounded-lg border border-white/10 bg-[#060b14] p-3 text-sm outline-none focus:border-cyan-400"
+                    data-cy="forum-comment-input"
                     placeholder="Írd le a véleményed a filmről..."
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
@@ -337,14 +336,14 @@ export default function ForumPage() {
                   <div className="mt-3 flex items-center justify-between">
                     <div className="flex items-center gap-4">
                       <div className="flex flex-col gap-2">
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2"       data-cy="forum-rating">
                           <StarRating10 value={newReview} onChange={(v) => setNewReview(v)} />
                         </div>
                       </div>
                     </div>
 
-                    <button
-                      className="cursor-pointer rounded-lg bg-cyan-500 px-4 py-2 font-semibold text-black hover:bg-cyan-400"
+                    <button className="cursor-pointer rounded-lg bg-cyan-500 px-4 py-2 font-semibold text-black hover:bg-cyan-400"
+                      data-cy="forum-comment-submit"
                       onClick={sendComment}
                     >
                       Küldés
@@ -353,14 +352,15 @@ export default function ForumPage() {
                 </div>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-4" data-cy="forum-comments">
                 {comments.length === 0 && (
                   <div className="text-slate-400">Még nincs hozzászólás ehhez a filmhez.</div>
                 )}
 
                 {shownComments.map((c) => (
-                  <div
-                    className="flex gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5"
+                  <div className="flex gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5"
+                    data-comment-id={c.id}
+                    data-cy="forum-comment"
                     key={c.id}
                   >
                     <Image
@@ -388,12 +388,12 @@ export default function ForumPage() {
                         </div>
 
                         <div className="flex shrink-0 items-center gap-2">
-                          <button
-                            className={`inline-flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-1.5 text-sm transition ${
+                          <button className={`inline-flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-1.5 text-sm transition ${
                               c.myVote === "LIKE"
                                 ? "border-green-400/70 bg-green-400/10 text-green-200"
                                 : "border-white/10 bg-[#060b14]/40 text-slate-200 hover:border-green-400/60 hover:text-green-200"
                             }`}
+                            data-cy="forum-like"
                             title="Like"
                             onClick={() => vote(c.id, "LIKE")}
                           >
@@ -401,12 +401,12 @@ export default function ForumPage() {
                             <span className="tabular-nums">{c.likes ?? 0}</span>
                           </button>
 
-                          <button
-                            className={`inline-flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-1.5 text-sm transition ${
+                          <button className={`inline-flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-1.5 text-sm transition ${
                               c.myVote === "DISLIKE"
                                 ? "border-red-400/70 bg-red-400/10 text-red-200"
                                 : "border-white/10 bg-[#060b14]/40 text-slate-200 hover:border-red-400/60 hover:text-red-200"
                             }`}
+                            data-cy="forum-dislike"
                             title="Dislike"
                             onClick={() => vote(c.id, "DISLIKE")}
                           >
@@ -416,21 +416,21 @@ export default function ForumPage() {
                         </div>
                       </div>
 
-                      <div className="mt-2 leading-relaxed break-words text-slate-100">
+                      <div className="mt-2 leading-relaxed break-words text-slate-100" data-cy="forum-comment-text">
                         {c.comment}
                       </div>
 
                       <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
-                        <button
-                          className="cursor-pointer text-slate-300 transition hover:text-cyan-300"
+                        <button className="cursor-pointer text-slate-300 transition hover:text-cyan-300"
+                          data-cy="forum-reply-toggle"
                           onClick={() => setReplyOpenFor(replyOpenFor === c.id ? null : c.id)}
                         >
                           Válasz
                         </button>
 
                         {(c.replies?.length ?? 0) > 0 && (
-                          <button
-                            className="cursor-pointer text-slate-400 transition hover:text-cyan-300"
+                          <button className="cursor-pointer text-slate-400 transition hover:text-cyan-300"
+                            data-cy="forum-replies-toggle"
                             onClick={() => toggleReplies(c.id)}
                           >
                             {repliesOpen[c.id]
@@ -451,8 +451,8 @@ export default function ForumPage() {
                           />
 
                           <div className="flex-1">
-                            <input
-                              className="w-full rounded-lg border border-white/10 bg-[#060b14] px-3 py-2 text-sm text-slate-100 outline-none focus:border-cyan-400"
+                            <input className="w-full rounded-lg border border-white/10 bg-[#060b14] px-3 py-2 text-sm text-slate-100 outline-none focus:border-cyan-400"
+                              data-cy="forum-reply-input"
                               placeholder="Írj választ..."
                               value={replyText}
                               onChange={(e) => setReplyText(e.target.value)}
@@ -465,8 +465,8 @@ export default function ForumPage() {
                             />
 
                             <div className="mt-2 flex justify-end">
-                              <button
-                                className="cursor-pointer rounded-lg bg-cyan-500 px-3 py-1 text-sm font-semibold text-black hover:bg-cyan-400"
+                              <button className="cursor-pointer rounded-lg bg-cyan-500 px-3 py-1 text-sm font-semibold text-black hover:bg-cyan-400"
+                                data-cy="forum-reply-submit"
                                 onClick={() => sendReply(c.id)}
                               >
                                 Küldés
@@ -477,7 +477,7 @@ export default function ForumPage() {
                       )}
 
                       {repliesOpen[c.id] && (c.replies?.length ?? 0) > 0 && (
-                        <div className="mt-4 space-y-3 border-l border-white/10 pl-4">
+                        <div className="mt-4 space-y-3 border-l border-white/10 pl-4" data-cy="forum-replies">
                           {(c.replies ?? []).map((r) => (
                             <div
                               className="flex gap-3 rounded-xl border border-white/10 bg-[#060b14]/35 p-3"
@@ -494,7 +494,7 @@ export default function ForumPage() {
                                 <div className="truncate text-sm font-semibold text-cyan-300">
                                   {r.user_name}
                                 </div>
-                                <div className="text-sm break-words text-slate-100">
+                                <div className="text-sm break-words text-slate-100" data-cy="forum-reply-text">
                                   {r.comment}
                                 </div>
                               </div>
@@ -508,8 +508,8 @@ export default function ForumPage() {
 
                 {hasMore && (
                   <div className="mt-6 flex justify-center">
-                    <button
-                      className="cursor-pointer rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-200 transition hover:border-cyan-400 hover:text-cyan-300"
+                    <button className="cursor-pointer rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-200 transition hover:border-cyan-400 hover:text-cyan-300"
+                      data-cy="forum-load-more"
                       onClick={() => setVisibleCount((v) => Math.min(v + 5, comments.length))}
                     >
                       További kommentek megjelenítése

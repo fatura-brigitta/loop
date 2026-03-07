@@ -41,21 +41,22 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#060b14] text-white flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#060b14] text-white flex items-center justify-center px-4" data-cy="admin-login-page">
 
-      <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl">
+      <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl" data-cy="admin-login-card">
 
         <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">
           Admin Bejelentkezés
         </h1>
 
-        <form className="space-y-5" onSubmit={handleSubmit}>
+        <form className="space-y-5" data-cy="admin-login-form" onSubmit={handleSubmit}>
           <div>
             <label className="text-sm text-white/60">Admin név</label>
 
             <input
               className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white outline-none transition
               focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+              data-cy="admin-name-input"
               required
               type="text"
               value={name}
@@ -70,6 +71,7 @@ export default function AdminLoginPage() {
               <input
                 className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 pr-11 text-white outline-none transition
                 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+                data-cy="admin-password-input"
                 required
                 type={showPassword ? "text" : "password"}
                 value={password}
@@ -78,6 +80,7 @@ export default function AdminLoginPage() {
 
               <button
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition cursor-pointer"
+                data-cy="admin-password-toggle"
                 type="button"
                 onClick={() => setShowPassword(prev => !prev)}
               >
@@ -87,7 +90,7 @@ export default function AdminLoginPage() {
           </div>
 
           {error && (
-            <div className="animate-pulse rounded-lg border border-red-500/40 bg-red-500/20 px-4 py-2 text-center text-sm text-red-300">
+            <div className="animate-pulse rounded-lg border border-red-500/40 bg-red-500/20 px-4 py-2 text-center text-sm text-red-300" data-cy="admin-login-error">
               {error}
             </div>
           )}
@@ -95,6 +98,7 @@ export default function AdminLoginPage() {
           <button
             className="flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-white transition
             hover:bg-cyan-500 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+            data-cy="admin-login-submit"
             disabled={loading}
             type="submit"
           >

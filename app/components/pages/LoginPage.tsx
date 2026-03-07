@@ -1,6 +1,6 @@
 "use client";
 
-import { Eye, EyeOff, LogIn, SignalIcon } from "lucide-react";
+import { Eye, EyeOff, LogIn} from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -70,15 +70,15 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#060b14] text-slate-100">
+    <div data-cy="login-page" className="min-h-screen bg-[#060b14] text-slate-100">
       <div className="flex items-center justify-center py-20">
         <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur">
           <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Bejelentkezés</h1>
 
-          <form className="space-y-5" onSubmit={handleSubmit}>
+          <form data-cy="login-form" className="space-y-5" onSubmit={handleSubmit}>
             <div>
               <label className="text-sm text-white/60">Email</label>
-              <input
+              <input data-cy="login-email-input"
                 className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white transition outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
                 placeholder="email@valami.hu"
                 type="email"
@@ -91,7 +91,7 @@ export default function LoginPage() {
               <label className="text-sm text-white/60">Jelszó</label>
 
               <div className="relative mt-2">
-                <input
+                <input data-cy="login-password-input"
                   className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 pr-11 text-white transition outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
                   placeholder="••••••••"
                   type={showPassword ? "text" : "password"}
@@ -99,7 +99,7 @@ export default function LoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <button
+                <button data-cy="login-password-toggle"
                   className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-white/60 transition hover:text-white"
                   type="button"
                   onClick={() => setShowPassword((prev) => !prev)}
@@ -109,19 +109,19 @@ export default function LoginPage() {
               </div>
 
               <div className="mt-2 text-right text-sm">
-                <Link className="text-cyan-300 hover:underline" href="/forgot-password">
+                <Link data-cy="login-forgot-password" className="text-cyan-300 hover:underline" href="/forgot-password">
                   Elfelejtetted a jelszavad?
                 </Link>
               </div>
             </div>
 
             {error && (
-              <div className="animate-pulse rounded-lg border border-red-500/40 bg-red-500/20 px-4 py-2 text-center text-sm text-red-300">
+              <div data-cy="login-error" className="animate-pulse rounded-lg border border-red-500/40 bg-red-500/20 px-4 py-2 text-center text-sm text-red-300">
                 {error}
               </div>
             )}
 
-            <button
+            <button data-cy="login-submit"
               className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-white transition hover:bg-cyan-500 disabled:opacity-50"
               disabled={loading}
               type="submit"
@@ -130,14 +130,14 @@ export default function LoginPage() {
               {loading ? "Bejelentkezés..." : "Bejelentkezés"}
             </button>
             <div className="mt-6 flex flex-col gap-3">
-              <button
+              <button data-cy="login-google"
                 className="flex w-full items-center justify-center gap-3 rounded-lg bg-white px-4 py-3 font-semibold text-black hover:bg-gray-100 cursor-pointer"
                 type="button" onClick={() => signIn("google", {callbackUrl: "/"})}
               >
                 <img alt="Google" height={22} src="/google.svg" width={22}/>
                 Sign in with Google
               </button>
-              <button
+              <button data-cy="login-facebook"
                 className="flex w-full items-center justify-center gap-3 rounded-lg bg-[#1877F2] px-4 py-3 font-semibold text-white hover:bg-[#166fe5] cursor-pointer"
                 type="button" onClick={() => signIn("facebook", {callbackUrl: "/"})}
               >
@@ -150,7 +150,7 @@ export default function LoginPage() {
 
           <p className="mt-6 text-center text-sm text-white/60">
             Nincs még fiókod?{" "}
-            <Link className="text-cyan-300 hover:underline" href="/register">
+            <Link data-cy="login-register-link" className="text-cyan-300 hover:underline" href="/register">
               Regisztráció
             </Link>
           </p>

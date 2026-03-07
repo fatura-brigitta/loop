@@ -61,7 +61,7 @@ export default function PaymentSuccessPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
+      <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white" data-cy="payment-success-loading">
         Fizetés feldolgozása...
       </div>
     );
@@ -69,7 +69,7 @@ export default function PaymentSuccessPage() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-red-400">
+      <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-red-400" data-cy="payment-success-error">
         {error}
       </div>
     );

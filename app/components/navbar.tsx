@@ -108,23 +108,23 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 h-14 border-b border-white/10 bg-[#060b14]/90 backdrop-blur">
+    <header className="sticky top-0 z-50 h-14 border-b border-white/10 bg-[#060b14]/90 backdrop-blur" data-cy="navbar">
       <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
-        <Link className="flex items-center gap-2" href="/">
+        <Link className="flex items-center gap-2" data-cy="navbar-logo" href="/">
           <Image alt="Logo" height={40} src="/favicon.ico" width={40} />
           <span className="text-lg font-extrabold tracking-wide text-cyan-300">Loop</span>
         </Link>
 
-        <nav className="flex items-center gap-6 text-sm">
-          <Link className={navLinkClass(isActive("/movies"))} href="/movies">
+        <nav className="flex items-center gap-6 text-sm" data-cy="navbar-links">
+          <Link className={navLinkClass(isActive("/movies"))} data-cy="navbar-movies" href="/movies">
             Filmek
           </Link>
 
-          <Link className={navLinkClass(isActive("/screenings"))} href="/screenings">
+          <Link className={navLinkClass(isActive("/screenings"))} data-cy="navbar-screenings" href="/screenings">
             Vetítések
           </Link>
 
-          <Link className={navLinkClass(isActive("/forum"))} href="/forum">
+          <Link className={navLinkClass(isActive("/forum"))} data-cy="navbar-forum" href="/forum">
             Fórum
           </Link>
 
@@ -132,33 +132,33 @@ export default function Navbar() {
             <>
               {user ? (
                 <div className="flex items-center gap-4">
-                  <Link
-                    className={`flex items-center gap-2 ${navLinkClass(isActive("/profile"))}`}
+                  <Link className={`flex items-center gap-2 ${navLinkClass(isActive("/profile"))}`}
+                    data-cy="navbar-profile"
                     href="/profile"
                   >
                     <div className="relative h-9 w-9 overflow-hidden rounded-full border border-white/20">
-                      <Image
-                        alt="Profil"
+                      <Image alt="Profil"
                         className="object-cover"
+                        data-cy="navbar-profile-image"
                         fill
                         key={user.profile_image || "default"}
                         src={user.profile_image || "/profile/default.png"}
                         unoptimized
                       />
                     </div>
-                    <span>{user.name}</span>
+                    <span data-cy="navbar-username">{user.name}</span>
                   </Link>
 
-                  <button
-                    className="cursor-pointer text-slate-300 transition hover:text-white"
+                  <button className="cursor-pointer text-slate-300 transition hover:text-white"
+                    data-cy="navbar-logout"
                     onClick={handleLogout}
                   >
                     <LogOut size={22} />
                   </button>
                 </div>
               ) : (
-                <button
-                  className="cursor-pointer rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
+                <button className="cursor-pointer rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
+                  data-cy="navbar-login"
                   onClick={handleLogin}
                 >
                   Bejelentkezés

@@ -21,9 +21,9 @@ export default function WelcomeSection() {
           </p>
 
           <img
-            src="/loopmozi.png"
             alt="LOOP Mozi"
             className="mx-auto mt-15 rounded-lg shadow-lg"
+            src="/loopmozi.png"
             width={800}
           />
         </>

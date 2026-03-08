@@ -58,34 +58,24 @@ export async function POST(req: NextRequest) {
       throw new Error("No seats selected");
     }
 
-    const defaultTicketType = await prisma.ticket_type.findFirst({
-      where: { type: "Normál" }
-    });
+    const { ticketTypes } = await req.json();
 
-    console.log("ticketType:", defaultTicketType);
+    let totalPrice = 0;
 
-    if (!defaultTicketType) {
-      throw new Error("Ticket type 'normal' not found");
-    }
+    for (const typeName of ticketTypes) {
 
-    const screeningPercent = session.screenings.screening_types.percent;
-    const ticketDiscount = defaultTicketType.percent;
+      const type = await prisma.ticket_type.findFirst({
+        where: { type: typeName }
+      });
 
-    console.log("screeningPercent:", screeningPercent);
-    console.log("ticketDiscount:", ticketDiscount);
-    
-    const pricePerSeat = calculateTicketPrice(
-        screeningPercent,
-        ticketDiscount
-    );
-    console.log("Stripe unit_amount:", Math.round(pricePerSeat));
-    console.log("Stripe quantity:", chairIds.length);
-    console.log("Stripe total:", Math.round(pricePerSeat) * chairIds.length);
-    
-    console.log("pricePerSeat:", pricePerSeat);
+      if (!type) continue;
 
-    if (!pricePerSeat || pricePerSeat < 175) {
-      throw new Error("Price too small for Stripe");
+      const price = calculateTicketPrice(
+        session.screenings.screening_types.percent,
+        type.percent
+      );
+
+      totalPrice += price;
     }
 
     const stripeSession = await stripe.checkout.sessions.create({
@@ -96,11 +86,11 @@ export async function POST(req: NextRequest) {
             price_data: {
                 currency: "eur",
                 product_data: {
-                name: `${session.screenings.movies?.title} mozijegy`,
+                name: `${session.screenings.movies?.title} mozijegy(ek)`,
                 },
-                unit_amount: Math.round(pricePerSeat),
+                unit_amount: totalPrice,
             },
-            quantity: chairIds.length,
+            quantity: 1,
             },
         ],
 

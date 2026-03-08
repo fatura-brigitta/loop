@@ -43,7 +43,7 @@ export async function sendTicketEmail(data: TicketEmailData) {
 
     <p>A mozijegyeid csatolva találod PDF formátumban.</p>
 
-    <h3>Összesen fizetve: ${total} Ft</h3>
+    <h3>Összesen fizetve: ${total} €</h3>
 
     <p>Jó szórakozást kíván a Loop mozi! 🍿</p>
 

@@ -800,7 +800,7 @@ export default function ProfilePage() {
                     </div>
 
                     <div className="flex flex-col items-end gap-3">
-                      <div className="text-xl font-semibold text-cyan-300">{ticket.price} Ft</div>
+                      <div className="text-xl font-semibold text-cyan-300">{ticket.price} €</div>
 
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img alt="qr"
@@ -888,7 +888,7 @@ export default function ProfilePage() {
                   <div className="flex items-center gap-4">
 
                     <div className="text-lg font-bold text-green-400">
-                      {ticket.price} Ft
+                      {ticket.price} €
                     </div>
 
                     <button className="flex items-center justify-center rounded-lg bg-red-500/20 p-2 text-red-400 hover:bg-red-500/40 hover:text-red-300 transition cursor-pointer"

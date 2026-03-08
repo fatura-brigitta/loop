@@ -15,7 +15,7 @@ export async function GET() {
     return NextResponse.json({
       screeningTypes,
       ticketTypes,
-      basePrice: 2000,
+      basePrice: 500,
     });
 
   } catch (e) {

@@ -14,6 +14,11 @@ type PaymentData = {
   totalPrice: number;
 };
 
+const formatPrice = (cents?: number) => {
+  if (!cents) return "0.00";
+  return (cents / 100).toFixed(2);
+};
+
 export default function PaymentPage() {
   const router = useRouter();
 
@@ -148,16 +153,19 @@ export default function PaymentPage() {
 
   const startPayment = async () => {
 
-    const res = await fetch("/api/payment/checkout", {
-      method: "POST"
+  const res = await fetch("/api/payment/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        ticketTypes: Object.values(ticketTypes)
+      })
     });
 
     const json = await res.json();
 
-    if (json.url) {
-      window.location.href = json.url;
-    }
-
+    window.location.href = json.url;
   };
 
   if (loading) {
@@ -231,7 +239,7 @@ export default function PaymentPage() {
 
                       <div className="flex items-center gap-3">
                         <span className="text-green-400 font-semibold text-sm" data-cy="ticket-price">
-                          {seatPrices[i] ?? ""} Ft
+                          {seatPrices[i] ? `${formatPrice(seatPrices[i])} €` : ""}
                         </span>
                         <select
                           className="w-[110px] rounded-lg bg-[#060b14] border border-white/20 p-2 cursor-pointer"
@@ -276,7 +284,9 @@ export default function PaymentPage() {
 
           <div className="mt-4 flex justify-between border-t border-white/10 pt-4 text-lg">
             <span>Összesen</span>
-            <span className="font-bold text-green-400" data-cy="payment-total">{(price ?? data.totalPrice)} Ft</span>
+            <span className="font-bold text-green-400" data-cy="payment-total">
+              {formatPrice(price ?? data.totalPrice)} €
+            </span>
           </div>
         </div>
 
@@ -285,7 +295,7 @@ export default function PaymentPage() {
           disabled={paying}
           onClick={startPayment}
         >
-          {paying ? "Processing payment..." : "Pay now"}
+          {paying ? "Fizetés feldolgozása..." : "Fizetés"}
         </button>
       </div>
     </div>

@@ -13,6 +13,9 @@ export async function POST(req: NextRequest) {
 
   try {
 
+    const body = await req.json();
+    const ticketTypes = body.ticketTypes ?? [];
+
     console.log("---- STRIPE CHECKOUT START ----");
 
     const cookieStore = await cookies();
@@ -33,6 +36,13 @@ export async function POST(req: NextRequest) {
             screening_types: true
           }
         }
+      }
+    });
+
+    await prisma.payment_session.update({
+      where: { id: paymentId },
+      data: {
+        selected_ticket_types: ticketTypes
       }
     });
 
@@ -58,24 +68,28 @@ export async function POST(req: NextRequest) {
       throw new Error("No seats selected");
     }
 
-    const { ticketTypes } = await req.json();
+    const selectedTicketTypes = ticketTypes;
 
     let totalPrice = 0;
 
-    for (const typeName of ticketTypes) {
+      for (const typeName of ticketTypes) {
 
-      const type = await prisma.ticket_type.findFirst({
-        where: { type: typeName }
-      });
+        const type = await prisma.ticket_type.findFirst({
+          where: { type: typeName }
+        });
 
-      if (!type) continue;
+        if (!type) continue;
 
-      const price = calculateTicketPrice(
-        session.screenings.screening_types.percent,
-        type.percent
-      );
+        const price = calculateTicketPrice(
+          session.screenings.screening_types.percent,
+          type.percent
+        );
 
-      totalPrice += price;
+        totalPrice += price;
+      }
+
+    if (selectedTicketTypes.length === 0) {
+      throw new Error("Nincsenek mentett jegytípusok a payment sessionben");
     }
 
     const stripeSession = await stripe.checkout.sessions.create({

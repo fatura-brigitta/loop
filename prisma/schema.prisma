@@ -244,6 +244,7 @@ model Payment_session {
   status         String
   created_at     DateTime @default(now())
   ticket_type_id String?  @db.ObjectId
+  selected_ticket_types Json?
 
   ticket_types Ticket_type? @relation(fields: [ticket_type_id], references: [id])
   users        User         @relation(fields: [user_id], references: [id], onDelete: Cascade)

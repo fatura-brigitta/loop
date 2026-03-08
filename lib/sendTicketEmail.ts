@@ -14,6 +14,10 @@ export async function sendTicketEmail(data: TicketEmailData) {
 
   const { to, name, tickets } = data;
 
+  const formatPrice = (cents: number) => {
+    return (cents / 100).toFixed(2);
+  };
+
   if (!tickets || tickets.length === 0) return;
 
   const transporter = nodemailer.createTransport({
@@ -43,7 +47,7 @@ export async function sendTicketEmail(data: TicketEmailData) {
 
     <p>A mozijegyeid csatolva találod PDF formátumban.</p>
 
-    <h3>Összesen fizetve: ${total} €</h3>
+    <h3>Összesen fizetve: ${formatPrice(total)} €</h3>
 
     <p>Jó szórakozást kíván a Loop mozi! 🍿</p>
 

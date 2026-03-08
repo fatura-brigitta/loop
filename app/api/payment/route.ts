@@ -12,7 +12,10 @@ import { generateQrToken } from "@/lib/generateQrToken";
 async function handleCreate(req: NextRequest) {
   try {
     const cookieStore = await cookies();
-    const { seatIds } = await req.json();
+    const body = await req.json();
+
+    const seatIds = body.seatIds;
+    const ticketTypes = body.ticketTypes;
 
     const userId = cookieStore.get("userId")?.value;
     const screeningId = cookieStore.get("screeningId")?.value;
@@ -28,6 +31,7 @@ async function handleCreate(req: NextRequest) {
         user_id: userId,
         screening_id: screeningId,
         chair_ids: seatIds,
+        selected_ticket_types: ticketTypes ?? [],
         status: "pending",
       },
     });
@@ -41,7 +45,6 @@ async function handleCreate(req: NextRequest) {
     });
 
     return res;
-
   } catch (err) {
     console.error("PAYMENT CREATE ERROR:", err);
     return NextResponse.json({ message: "Nem sikerült elindítani a fizetést" }, { status: 500 });
@@ -180,14 +183,17 @@ async function handleConfirm(req: NextRequest) {
     if (!paymentId)
       return NextResponse.json({ message: "Nincs fizetési munkamenet" }, { status: 400 });
 
-    const { ticketTypes } = await req.json();
-
     const session = await prisma.payment_session.findUnique({
       where: { id: paymentId },
     });
 
     if (!session || session.status === "paid")
       return NextResponse.json({ message: "Érvénytelen munkamenet" }, { status: 400 });
+
+    const ticketTypes = (session.selected_ticket_types as string[]) ?? [];
+
+    if (ticketTypes.length === 0)
+      return NextResponse.json({ message: "Hiányzó jegytípusok" }, { status: 400 });
 
     const screening = await prisma.screening.findUnique({
       where: { id: session.screening_id },

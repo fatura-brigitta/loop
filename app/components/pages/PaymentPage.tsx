@@ -153,7 +153,7 @@ export default function PaymentPage() {
 
   const startPayment = async () => {
 
-  const res = await fetch("/api/payment/checkout", {
+    const res = await fetch("/api/payment/checkout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

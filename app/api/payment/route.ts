@@ -7,8 +7,6 @@ import { calculateTicketPrice } from "@/lib/price";
 import { sendTicketEmail } from "@/lib/sendTicketEmail";
 import { generateQrToken } from "@/lib/generateQrToken";
 
-/* ---------------- CREATE PAYMENT SESSION ---------------- */
-
 async function handleCreate(req: NextRequest) {
   try {
     const cookieStore = await cookies();
@@ -50,8 +48,6 @@ async function handleCreate(req: NextRequest) {
     return NextResponse.json({ message: "Nem sikerült elindítani a fizetést" }, { status: 500 });
   }
 }
-
-/* ---------------- GET SESSION DATA ---------------- */
 
 async function handleSession() {
 
@@ -119,8 +115,6 @@ async function handleSession() {
   }
 }
 
-/* ---------------- PRICE CALCULATION ---------------- */
-
 async function handlePrice(req: NextRequest) {
 
   try {
@@ -171,8 +165,6 @@ async function handlePrice(req: NextRequest) {
   }
 }
 
-/* ---------------- CONFIRM PAYMENT ---------------- */
-
 async function handleConfirm(req: NextRequest) {
 
   try {
@@ -206,7 +198,6 @@ async function handleConfirm(req: NextRequest) {
 
     const chairIds = session.chair_ids as string[];
 
-    // ellenőrizzük hogy a székek már foglaltak-e
     const existingTickets = await prisma.ticket.findMany({
       where: {
         screening_id: session.screening_id,
@@ -265,6 +256,19 @@ async function handleConfirm(req: NextRequest) {
       data: { status: "paid" },
     });
 
+    const totalEuro = totalSpent / 100;
+    const gainedPoints = Math.round(totalEuro * 4);
+
+    await prisma.user.update({
+      where: { id: session.user_id },
+      data: {
+        points: {
+          increment: gainedPoints
+        },
+        last_ticket_at: new Date()
+      }
+    });
+
     const tickets = await prisma.ticket.findMany({
       where: { id: { in: createdTicketIds } },
       include: {
@@ -297,8 +301,6 @@ async function handleConfirm(req: NextRequest) {
     return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
   }
 }
-
-/* ---------------- ROUTES ---------------- */
 
 export async function POST(req: NextRequest) {
 

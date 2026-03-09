@@ -15,7 +15,7 @@ type TicketType = {
 export default function PricingSection() {
   const [screenings, setScreenings] = useState<ScreeningType[]>([]);
   const [tickets, setTickets] = useState<TicketType[]>([]);
-  const [basePrice, setBasePrice] = useState(2500);
+  const [basePrice, setBasePrice] = useState(500);
 
   useEffect(() => {
     fetch("/api/pricing")
@@ -60,7 +60,7 @@ export default function PricingSection() {
                   )}
 
                   <div className="mt-2 text-sm text-[--text-soft]">
-                    {Math.round(basePrice * (s.percent / 100))} Ft alapáron
+                    {((basePrice * (s.percent / 100)) / 100).toFixed(2)} € alapáron
                   </div>
                 </div>
               ))}

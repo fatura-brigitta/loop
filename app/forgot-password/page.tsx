@@ -16,7 +16,7 @@ export default function ForgotPasswordPage() {
         return;
     }
 
-    const res = await fetch("/api/forgot-password", {
+    const res = await fetch("/api/password/forgot-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

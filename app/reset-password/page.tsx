@@ -32,7 +32,7 @@ export default function ResetPasswordPage() {
       return;
     }
 
-    const res = await fetch("/api/reset-password", {
+    const res = await fetch("/api/password/reset-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

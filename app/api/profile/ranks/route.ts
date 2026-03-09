@@ -18,7 +18,7 @@ export async function GET() {
 
     return NextResponse.json(ranks);
   } catch (error) {
-    console.error("GET /api/ranks error:", error);
+    console.error("GET /api/profile/ranks error:", error);
     return NextResponse.json(
       { error: "Nem sikerült lekérni a rangokat." },
       { status: 500 },

@@ -163,7 +163,7 @@ export default function AdminPage() {
   }
 
   try {
-      const res = await fetch(`/api/adminSchedule?date=${selectedDate}`);
+      const res = await fetch(`/api/admin/adminSchedule?date=${selectedDate}`);
       const data = await res.json();
 
       const hallOnly = (data.screenings as Screening[]).filter(
@@ -183,7 +183,7 @@ export default function AdminPage() {
 
 
   const handleLogout = async () => {
-    await fetch("/api/adminLogout", { method: "POST" });
+    await fetch("/api/admin/adminLogout", { method: "POST" });
     router.replace("/adminLogin");
   };
 

@@ -39,7 +39,7 @@ export default function VerifyEmailPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/verify-email", {
+      const res = await fetch("/api/email/verify-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, code }),
@@ -69,7 +69,7 @@ export default function VerifyEmailPage() {
 
     setCooldown(30);
 
-    await fetch("/api/resend-code", {
+    await fetch("/api/password/resend-code", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),

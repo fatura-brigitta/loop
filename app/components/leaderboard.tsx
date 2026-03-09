@@ -14,7 +14,7 @@ export default function Leaderboard() {
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
-    fetch("/api/leaderboard")
+    fetch("/api/home/leaderboard")
       .then((r) => r.json())
       .then(setUsers);
   }, []);

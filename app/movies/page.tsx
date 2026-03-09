@@ -97,7 +97,7 @@ export default function MoviesPage() {
                     data-cy="movie-screenings-button"
                     data-movie-id={movie.id}
                     onClick={async () => {
-                      await fetch("/api/selected-movie", {
+                      await fetch("/api/movies/selected-movie", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ movieId: movie.id }),

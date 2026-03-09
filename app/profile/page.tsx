@@ -144,7 +144,7 @@ export default function ProfilePage() {
       setHistory(ticketData.history);
     }
 
-    const couponRes = await fetch("/api/coupons", {
+    const couponRes = await fetch("/api/profile/coupons", {
       cache: "no-store",
       credentials: "include",
     });
@@ -270,7 +270,7 @@ export default function ProfilePage() {
 
     const base64 = await readFileAsBase64(file);
 
-    const res = await fetch("/api/profile-image", {
+    const res = await fetch("/api/profile/profile-image", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -345,7 +345,7 @@ export default function ProfilePage() {
 
   const resetProfileImage = async () => {
 
-    const res = await fetch("/api/profile-image", {
+    const res = await fetch("/api/profile/profile-image", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -784,7 +784,7 @@ export default function ProfilePage() {
                           data-coupon-id={coupon.id}
                           data-cy="coupon-qr"
                           height={112}
-                          src={`/api/qr/${coupon.qr_token}`}
+                          src={`/api/email/qr/${coupon.qr_token}`}
                           width={112}
                         />
                       )}
@@ -862,7 +862,7 @@ export default function ProfilePage() {
                         className="w-32 rounded-lg bg-white p-2"
                         data-cy="ticket-qr"
                         data-ticket-id={ticket.id}
-                        src={`/api/qr/${ticket.qr_token}`}
+                        src={`/api/email/qr/${ticket.qr_token}`}
                       />
                     </div>
                   </div>

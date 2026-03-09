@@ -18,7 +18,7 @@ export default function PricingSection() {
   const [basePrice, setBasePrice] = useState(500);
 
   useEffect(() => {
-    fetch("/api/pricing")
+    fetch("/api/home/pricing")
       .then((r) => r.json())
       .then((data) => {
         setScreenings(data.screeningTypes);

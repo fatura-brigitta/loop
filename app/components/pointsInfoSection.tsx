@@ -26,8 +26,8 @@ export default function PointsInfoSection() {
     const load = async () => {
       try {
         const [ranksRes, discountsRes] = await Promise.all([
-          fetch("/api/ranks"),
-          fetch("/api/discounts"),
+          fetch("/api/profile/ranks"),
+          fetch("/api/profile/discounts"),
         ]);
 
         const ranksData = await ranksRes.json();

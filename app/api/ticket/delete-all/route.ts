@@ -14,9 +14,16 @@ export async function DELETE() {
     );
   }
 
+  const now = new Date();
+
   await prisma.ticket.deleteMany({
     where: {
-      user_id: userId
+      user_id: userId,
+      screenings: {
+        start: {
+          lt: now
+        }
+      }
     }
   });
 

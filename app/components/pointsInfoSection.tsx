@@ -74,7 +74,7 @@ export default function PointsInfoSection() {
                 );
                 return (
                   <div
-                    className="rounded-xl border border-[--border-color]  bg-[var(--card-bg)] p-6 text-center backdrop-blur transition hover:scale-[1.05] hover:bg-slate-100 dark:hover:bg-white/10"
+                    className="rounded-xl border border-[--border-color]  bg-[var(--card-bg)] p-6 text-center backdrop-blur transition hover:scale-[1.05] hover:bg-slate-100 dark:hover:bg-white/10 hover:cursor-pointer"
                     key={r.id}
                   >
                     <div className="relative mx-auto mb-4 h-16 w-16">

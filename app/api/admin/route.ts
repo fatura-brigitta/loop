@@ -79,18 +79,30 @@ export async function GET(req: Request) {
       const bad = words.map(w => w.word.toLowerCase());
 
       const posts = await prisma.forum.findMany({
-        include:{
-          users:true,
-          movies:true
+        select: {
+          id: true,
+          comment: true,
+          users: {
+            select: { name: true }
+          },
+          movies: {
+            select: { title: true }
+          }
         }
       });
 
       const replies = await prisma.forumReply.findMany({
-        include:{
-          user:true,
-          forum:{
-            include:{
-              movies:true
+        select: {
+          id: true,
+          comment: true,
+          user: {
+            select: { name: true }
+          },
+          forum: {
+            select: {
+              movies: {
+                select: { title: true }
+              }
             }
           }
         }

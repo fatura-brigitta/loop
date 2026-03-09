@@ -210,7 +210,7 @@ export default function AdminPage() {
     if (!selectedDate) return;
 
     try {
-      const openRes = await fetch(`/api/opening?date=${selectedDate}`);
+      const openRes = await fetch(`/api/admin/opening?date=${selectedDate}`);
       const openData = await openRes.json();
 
       console.log("API result:", openData);

@@ -11,6 +11,7 @@ export default function FooterWrapper() {
   if (pathname.startsWith("/login")) return null;
   if (pathname.startsWith("/payment")) return null;
   if (pathname.startsWith("/ticket")) return null;
+  if (pathname.startsWith("/docs")) return null;
 
   return <Footer />;
 }

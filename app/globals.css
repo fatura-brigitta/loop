@@ -180,3 +180,20 @@ filter: blur(0);
 .reveal-visible .podium-left { transition-delay: 150ms; }
 .reveal-visible .podium-center { transition-delay: 350ms; }
 .reveal-visible .podium-right { transition-delay: 550ms; }
+
+.swagger-ui,
+.swagger-ui * {
+  color-scheme: light !important;
+}
+
+.swagger-ui {
+  background-color: white !important;
+}
+
+.swagger-ui .scheme-container {
+  background: white !important;
+}
+
+.swagger-ui .opblock {
+  background: white !important;
+}

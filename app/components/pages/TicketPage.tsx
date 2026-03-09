@@ -32,7 +32,7 @@ export default function TicketPage() {
 
   if(loading){
     return (
-      <div className="min-h-screen flex items-center justify-center bg-black text-white">
+      <div className="min-h-screen flex items-center justify-center bg-black text-[var(--text-main)]">
         Jegy ellenőrzése...
       </div>
     );
@@ -47,9 +47,9 @@ export default function TicketPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#060b14] text-white">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]">
 
-      <div className="bg-[#0b1220] p-10 rounded-xl shadow-xl w-[420px]">
+      <div className="bg-[var(--card-bg)] p-10 rounded-xl shadow-xl w-[420px]">
 
         <h1 className="text-2xl font-bold mb-6 text-center">
           Loop Cinema 🎬

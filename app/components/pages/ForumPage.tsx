@@ -251,9 +251,9 @@ export default function ForumPage() {
   const hasMore = visibleCount < comments.length;
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-[#020617] via-[#060b14] to-black text-slate-100" data-cy="forum-page">
+    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="forum-page">
       {!showLogin && (
-        <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
+        <div className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]">
           A fórum megtekintéséhez kérjük jelentkezzen be.
         </div>
       )}
@@ -278,7 +278,7 @@ export default function ForumPage() {
                     key={movie.id}
                     onClick={() => selectMovie(movie.id)}
                   >
-                    <div className="overflow-hidden rounded-xl border border-white/10 bg-[#0b1320]">
+                    <div className="overflow-hidden rounded-xl border border-[var(--border-color)] bg-[#0b1320]">
                       <Image
                         alt={movie.title}
                         className="h-[220px] w-[150px] object-cover"
@@ -308,7 +308,7 @@ export default function ForumPage() {
                 )}
               </h2>
 
-              <div className="mb-6 flex gap-4 rounded-xl border border-white/10 bg-[#0b1320] p-4" data-cy="forum-comment-form">
+              <div className="mb-6 flex gap-4 rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)] p-4" data-cy="forum-comment-form">
                 <Image
                   alt="profil"
                   className="h-10 w-10 rounded-full object-cover"
@@ -320,7 +320,7 @@ export default function ForumPage() {
                 <div className="flex-1">
                   <div className="mb-1 text-sm text-cyan-300">{name}</div>
 
-                  <textarea className="h-28 w-full resize-none rounded-lg border border-white/10 bg-[#060b14] p-3 text-sm outline-none focus:border-cyan-400"
+                  <textarea className="h-28 w-full resize-none rounded-lg border border-[var(--border-color)] bg-[var(--bg-main)] p-3 text-sm outline-none focus:border-cyan-400"
                     data-cy="forum-comment-input"
                     placeholder="Írd le a véleményed a filmről..."
                     value={newComment}
@@ -358,14 +358,14 @@ export default function ForumPage() {
                 )}
 
                 {shownComments.map((c) => (
-                  <div className="flex gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5"
+                  <div className="flex gap-4 rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-4 md:p-5"
                     data-comment-id={c.id}
                     data-cy="forum-comment"
                     key={c.id}
                   >
                     <Image
                       alt="profil"
-                      className="h-10 w-10 rounded-full border border-white/10 object-cover"
+                      className="h-10 w-10 rounded-full border border-[var(--border-color)] object-cover"
                       height={40}
                       src={c.profile_image || "/profile/default.png"}
                       width={40}
@@ -391,7 +391,7 @@ export default function ForumPage() {
                           <button className={`inline-flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-1.5 text-sm transition ${
                               c.myVote === "LIKE"
                                 ? "border-green-400/70 bg-green-400/10 text-green-200"
-                                : "border-white/10 bg-[#060b14]/40 text-slate-200 hover:border-green-400/60 hover:text-green-200"
+                                : "border-[var(--border-color)] bg-[var(--bg-main)]/40 text-slate-200 hover:border-green-400/60 hover:text-green-200"
                             }`}
                             data-cy="forum-like"
                             title="Like"
@@ -404,7 +404,7 @@ export default function ForumPage() {
                           <button className={`inline-flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-1.5 text-sm transition ${
                               c.myVote === "DISLIKE"
                                 ? "border-red-400/70 bg-red-400/10 text-red-200"
-                                : "border-white/10 bg-[#060b14]/40 text-slate-200 hover:border-red-400/60 hover:text-red-200"
+                                : "border-[var(--border-color)] bg-[var(--bg-main)]/40 text-slate-200 hover:border-red-400/60 hover:text-red-200"
                             }`}
                             data-cy="forum-dislike"
                             title="Dislike"
@@ -416,7 +416,7 @@ export default function ForumPage() {
                         </div>
                       </div>
 
-                      <div className="mt-2 leading-relaxed break-words text-slate-100" data-cy="forum-comment-text">
+                      <div className="mt-2 leading-relaxed break-words text-[var(--text-main)]" data-cy="forum-comment-text">
                         {c.comment}
                       </div>
 
@@ -441,17 +441,17 @@ export default function ForumPage() {
                       </div>
 
                       {replyOpenFor === c.id && (
-                        <div className="mt-4 flex gap-3 rounded-xl border border-white/10 bg-[#060b14]/40 p-3">
+                        <div className="mt-4 flex gap-3 rounded-xl border border-[var(--border-color)] bg-[var(--bg-main)]/40 p-3">
                           <Image
                             alt="profil"
-                            className="h-8 w-8 rounded-full border border-white/10 object-cover"
+                            className="h-8 w-8 rounded-full border border-[var(--border-color)] object-cover"
                             height={32}
                             src={profileImage || "/profile/default.png"}
                             width={32}
                           />
 
                           <div className="flex-1">
-                            <input className="w-full rounded-lg border border-white/10 bg-[#060b14] px-3 py-2 text-sm text-slate-100 outline-none focus:border-cyan-400"
+                            <input className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--bg-main)] px-3 py-2 text-sm text-[var(--text-main)] outline-none focus:border-cyan-400"
                               data-cy="forum-reply-input"
                               placeholder="Írj választ..."
                               value={replyText}
@@ -477,15 +477,15 @@ export default function ForumPage() {
                       )}
 
                       {repliesOpen[c.id] && (c.replies?.length ?? 0) > 0 && (
-                        <div className="mt-4 space-y-3 border-l border-white/10 pl-4" data-cy="forum-replies">
+                        <div className="mt-4 space-y-3 border-l border-[var(--border-color)] pl-4" data-cy="forum-replies">
                           {(c.replies ?? []).map((r) => (
                             <div
-                              className="flex gap-3 rounded-xl border border-white/10 bg-[#060b14]/35 p-3"
+                              className="flex gap-3 rounded-xl border border-[var(--border-color)] bg-[var(--bg-main)]/35 p-3"
                               key={r.id}
                             >
                               <Image
                                 alt="profil"
-                                className="h-8 w-8 rounded-full border border-white/10 object-cover"
+                                className="h-8 w-8 rounded-full border border-[var(--border-color)] object-cover"
                                 height={32}
                                 src={r.profile_image || "/profile/default.png"}
                                 width={32}
@@ -494,7 +494,7 @@ export default function ForumPage() {
                                 <div className="truncate text-sm font-semibold text-cyan-300">
                                   {r.user_name}
                                 </div>
-                                <div className="text-sm break-words text-slate-100" data-cy="forum-reply-text">
+                                <div className="text-sm break-words text-[var(--text-main)]" data-cy="forum-reply-text">
                                   {r.comment}
                                 </div>
                               </div>
@@ -508,7 +508,7 @@ export default function ForumPage() {
 
                 {hasMore && (
                   <div className="mt-6 flex justify-center">
-                    <button className="cursor-pointer rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-200 transition hover:border-cyan-400 hover:text-cyan-300"
+                    <button className="cursor-pointer rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-sm text-slate-200 transition hover:border-cyan-400 hover:text-cyan-300"
                       data-cy="forum-load-more"
                       onClick={() => setVisibleCount((v) => Math.min(v + 5, comments.length))}
                     >

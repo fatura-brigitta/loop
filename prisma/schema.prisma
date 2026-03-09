@@ -73,6 +73,7 @@ model User {
   auth_provider        String    @default("local")
   last_ticket_at       DateTime?
   rank_id              String    @db.ObjectId
+  theme                String    @default("dark")
 
   ranks Rank? @relation(fields: [rank_id], references: [id], onDelete: Cascade)
 

@@ -49,12 +49,12 @@ export default function MoviesPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#060b14] text-slate-100" data-cy="movies-page">
+    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="movies-page">
       <div className="mx-auto h-full max-w-6xl items-center p-4" data-cy="movies-container">
-        <h1 className="mb-6 text-2xl font-bold text-white">Műsoron</h1>
+        <h1 className="mb-6 text-2xl font-bold text-[var(--text-main)]">Műsoron</h1>
         <div className="grid gap-5 sm:grid-cols-1 lg:grid-cols-2" data-cy="movies-grid">
           {movies.map((movie) => (
-            <div className="flex w-full rounded-lg border border-white/10 bg-white/5"
+            <div className="flex w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)]"
               data-cy="movie-card"
               data-movie-id={movie.id}
               key={movie.id}
@@ -72,7 +72,7 @@ export default function MoviesPage() {
               <div className="flex flex-1 flex-col justify-between px-4 py-3" data-cy="movie-info">
                 <div>
                   <div className="flex items-center justify-between">
-                    <h2 className="text-base font-semibold text-white" data-cy="movie-title">{movie.title}</h2>
+                    <h2 className="text-base font-semibold text-[var(--text-main)]" data-cy="movie-title">{movie.title}</h2>
 
                     <span className="text-sm text-blue-300" data-cy="movie-rating">⭐ {movie.review}</span>
                   </div>
@@ -93,7 +93,7 @@ export default function MoviesPage() {
                 </div>
 
                 <div className="flex justify-end gap-2">
-                  <button className="h-8 w-30 cursor-pointer rounded bg-blue-500 px-3 py-1 text-xs text-white hover:bg-blue-600"
+                  <button className="h-8 w-30 cursor-pointer rounded bg-blue-500 px-3 py-1 text-xs text-[var(--text-main)] hover:bg-blue-600"
                     data-cy="movie-screenings-button"
                     data-movie-id={movie.id}
                     onClick={async () => {

@@ -145,14 +145,14 @@ export default function HeroSlider() {
       <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.9)_0%,rgba(0,0,0,0.5)_35%,transparent_70%)]" />
 
       <button
-        className="absolute top-1/2 left-6 z-20 -translate-y-1/2 text-5xl text-white/60 hover:text-white cursor-pointer"
+        className="absolute top-1/2 left-6 z-20 -translate-y-1/2 text-5xl text-[var(--text-main)]/60 hover:text-[var(--text-main)] cursor-pointer"
         onClick={prev}
       >
         ‹
       </button>
 
       <button
-        className="absolute top-1/2 right-6 z-20 -translate-y-1/2 text-5xl text-white/60 hover:text-white cursor-pointer"
+        className="absolute top-1/2 right-6 z-20 -translate-y-1/2 text-5xl text-[var(--text-main)]/60 hover:text-[var(--text-main)] cursor-pointer"
         onClick={next}
       >
         ›
@@ -162,13 +162,13 @@ export default function HeroSlider() {
         <div className="max-w-4xl px-6">
 
           <h1
-            className="text-5xl font-extrabold text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.8)] md:text-6xl animate-heroText"
+            className="text-5xl font-extrabold text-[var(--text-main)] drop-shadow-[0_0_30px_rgba(0,0,0,0.8)] md:text-6xl animate-heroText"
             key={movie.id}
           >
             {movie.title}
           </h1>
 
-          <div className="mt-4 text-lg text-white/80">
+          <div className="mt-4 text-lg text-[var(--text-main)]/80">
             {movie.genre} • {movie.playtime} perc
           </div>
 

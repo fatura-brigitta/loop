@@ -79,7 +79,7 @@ export default function Navbar() {
      ${
        active
          ? "text-cyan-300 after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-full after:bg-cyan-400"
-         : "text-slate-300 hover:text-white"
+         : "text-slate-300 hover:text-[var(--text-main)]"
      }`;
 
   useEffect(() => {
@@ -108,7 +108,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 h-14 border-b border-white/10 bg-[#060b14]/90 backdrop-blur" data-cy="navbar">
+    <header className="sticky top-0 z-50 h-16 border-b border-[var(--border-color)] bg-[var(--card-bg)]/90 backdrop-blur-xl shadow-sm transition-colors" data-cy="navbar">
       <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
         <Link className="flex items-center gap-2" data-cy="navbar-logo" href="/">
           <Image alt="Logo" height={40} src="/favicon.ico" width={40} />
@@ -136,7 +136,7 @@ export default function Navbar() {
                     data-cy="navbar-profile"
                     href="/profile"
                   >
-                    <div className="relative h-9 w-9 overflow-hidden rounded-full border border-white/20">
+                    <div className="relative h-9 w-9 overflow-hidden rounded-full border border-[var(--border-color)]">
                       <Image alt="Profil"
                         className="object-cover"
                         data-cy="navbar-profile-image"
@@ -149,7 +149,7 @@ export default function Navbar() {
                     <span data-cy="navbar-username">{user.name}</span>
                   </Link>
 
-                  <button className="cursor-pointer text-slate-300 transition hover:text-white"
+                  <button className="cursor-pointer text-slate-300 transition hover:text-[var(--text-main)]"
                     data-cy="navbar-logout"
                     onClick={handleLogout}
                   >
@@ -157,7 +157,7 @@ export default function Navbar() {
                   </button>
                 </div>
               ) : (
-                <button className="cursor-pointer rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
+                <button className="cursor-pointer rounded-full bg-blue-500 px-4 py-2 text-[var(--text-main)] shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
                   data-cy="navbar-login"
                   onClick={handleLogin}
                 >

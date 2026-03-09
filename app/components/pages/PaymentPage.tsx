@@ -170,7 +170,7 @@ export default function PaymentPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white">
+      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]">
         Fizetési adatok betöltése...
       </div>
     );
@@ -178,7 +178,7 @@ export default function PaymentPage() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-red-400">
+      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-red-400">
         {error}
       </div>
     );
@@ -187,8 +187,8 @@ export default function PaymentPage() {
   if (!data) return null;
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white" data-cy="payment-page">
-      <div className="w-full max-w-xl rounded-xl bg-[#0b1220] p-8 shadow-2xl" data-cy="payment-card">
+    <div className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="payment-page">
+      <div className="w-full max-w-xl rounded-xl bg-[var(--card-bg)] p-8 shadow-2xl" data-cy="payment-card">
         <h1 className="mb-6 text-center text-2xl font-bold text-cyan-300">Fizetés</h1>
 
         <div className="space-y-3 text-sm">
@@ -204,7 +204,7 @@ export default function PaymentPage() {
 
           <div className="flex justify-between">
             <span>Vetítés típusa</span>
-            <span className="text-white font-semibold" data-cy="payment-screening-type">
+            <span className="text-[var(--text-main)] font-semibold" data-cy="payment-screening-type">
               {data.screeningType}
             </span>
           </div>
@@ -232,7 +232,7 @@ export default function PaymentPage() {
                           {i + 1}. jegy
                         </div>
 
-                        <div className="text-white/80 text-sm" data-cy="ticket-seat">
+                        <div className="text-[var(--text-main)]/80 text-sm" data-cy="ticket-seat">
                           Sor {s.row} Szék {s.column}
                         </div>
                       </div>
@@ -242,7 +242,7 @@ export default function PaymentPage() {
                           {seatPrices[i] ? `${formatPrice(seatPrices[i])} €` : ""}
                         </span>
                         <select
-                          className="w-[110px] rounded-lg bg-[#060b14] border border-white/20 p-2 cursor-pointer"
+                          className="w-[110px] rounded-lg bg-[var(--bg-main)] border border-white/20 p-2 cursor-pointer"
                           data-cy="ticket-type-select"
                           data-seat-index={i}
                           value={type}
@@ -282,7 +282,7 @@ export default function PaymentPage() {
             </div>
           </div>
 
-          <div className="mt-4 flex justify-between border-t border-white/10 pt-4 text-lg">
+          <div className="mt-4 flex justify-between border-t border-[var(--border-color)] pt-4 text-lg">
             <span>Összesen</span>
             <span className="font-bold text-green-400" data-cy="payment-total">
               {formatPrice(price ?? data.totalPrice)} €

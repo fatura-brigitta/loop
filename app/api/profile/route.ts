@@ -112,6 +112,7 @@ export async function GET() {
     profile_image: user.profile_image,
     gender: user.gender,
     phone_number: user.phone_number,
+    theme: user.theme,
     hasPassword: !!user.password_hash,
     points: user.points,
     rank: user.ranks,

@@ -33,8 +33,8 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white" data-cy="forgot-password-page">
-      <div data-cy="forgot-password-form" className="w-full max-w-md rounded-xl bg-[#0b1220] p-8 shadow-2xl">
+    <div className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="forgot-password-page">
+      <div data-cy="forgot-password-form" className="w-full max-w-md rounded-xl bg-[var(--card-bg)] p-8 shadow-2xl">
 
         <h1 className="text-2xl font-bold text-cyan-300 text-center mb-6">
           Elfelejtett jelszó
@@ -42,11 +42,11 @@ export default function ForgotPasswordPage() {
 
         {!sent ? (
           <>
-            <p className="text-sm text-white/70 text-center mb-4">
+            <p className="text-sm text-[var(--text-main)]/70 text-center mb-4">
               Kérjük add meg a fiókhoz tartozó email címet, és küldünk egy jelszócsere linket.
             </p>
 
-            <input className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+            <input className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
               data-cy="forgot-password-email"
               placeholder="email@valami.hu"
               value={email}

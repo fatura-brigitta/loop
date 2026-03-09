@@ -56,21 +56,21 @@ export default function ResetPasswordPage() {
 
   if (!token) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-red-400" data-cy="reset-password-invalid-token">
+      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-red-400" data-cy="reset-password-invalid-token">
         Érvénytelen link.
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white" data-cy="reset-password-page">
-      <div className="w-full max-w-md rounded-xl bg-[#0b1220] p-8 shadow-2xl" data-cy="reset-password-card">
+    <div className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="reset-password-page">
+      <div className="w-full max-w-md rounded-xl bg-[var(--card-bg)] p-8 shadow-2xl" data-cy="reset-password-card">
 
         <h1 className="text-2xl font-bold text-cyan-300 text-center mb-6">
           Új jelszó beállítása
         </h1>
 
-        <input className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white mb-4"
+        <input className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)] mb-4"
           data-cy="reset-password-input"
           placeholder="Új jelszó"
           type="password"
@@ -78,7 +78,7 @@ export default function ResetPasswordPage() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <input className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+        <input className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
           data-cy="reset-password-confirm-input"
           placeholder="Új jelszó újra"
           type="password"

@@ -109,7 +109,7 @@ export default function Timeline({
               title={`${s.movies?.title || "Film"} (foglalás: film+takarítás)`}
             >
               <div className="font-semibold truncate">{s.movies?.title}</div>
-              <div className="text-[11px] text-white/80">film + takarítás</div>
+              <div className="text-[11px] text-[var(--text-main)]/80">film + takarítás</div>
             </div>
           );
         })}

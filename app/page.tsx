@@ -34,7 +34,7 @@ export default function HomePage() {
 
 
   return (
-    <div className="min-h-screen bg-[#060b14] text-slate-100">
+    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]">
       <HeroSlider/>
       <main className="mx-auto max-w-6xl px-4 py-8">
         <WelcomeSection />

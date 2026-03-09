@@ -1,8 +1,28 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+:root {
+
+  --bg-main: #dde1e5;
+  --card-bg: #ffffff;
+  --text-main: #0f172a;
+  --text-soft: #4f688a;
+  --border-color: #858c96;
+
+}
+
+.dark {
+
+  --bg-main: #060b14;
+  --card-bg: rgba(255,255,255,0.05);
+  --text-main: #f1f5f9;
+  --text-soft: rgba(255, 255, 255, 0.6);
+  --border-color: rgba(255,255,255,0.1);
+
+}
+
 html {
-  data-scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 @keyframes rankFadeIn {

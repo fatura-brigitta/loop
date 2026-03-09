@@ -136,8 +136,8 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#060b14] text-slate-100" data-cy="register-page">
-      <header className="sticky top-0 z-50 h-14 border-b border-white/10 bg-[#060b14]/90 backdrop-blur">
+    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="register-page">
+      <header className="sticky top-0 z-50 h-14 border-b border-[var(--border-color)] bg-[var(--bg-main)]/90 backdrop-blur">
         <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
           <Link className="flex items-center gap-2" href="/">
             <Image alt="Logo" height={28} src="/favicon.ico" width={28} />
@@ -146,7 +146,7 @@ export default function RegisterPage() {
 
           <nav className="flex items-center gap-5 text-sm">
             <Link
-              className="ml-2 rounded-full bg-blue-500 px-4 py-2 text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
+              className="ml-2 rounded-full bg-blue-500 px-4 py-2 text-[var(--text-main)] shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
               href="/login"
             >
               Bejelentkezés
@@ -156,15 +156,15 @@ export default function RegisterPage() {
       </header>
 
       <div className="flex items-center justify-center py-20">
-        <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur">
+        <div className="w-full max-w-md rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-8 shadow-2xl backdrop-blur">
           <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Fiók létrehozása</h1>
 
           <form className="space-y-5" data-cy="register-form" onSubmit={handleSubmit}>
             <div>
-              <label className="text-sm text-white/60">Profilkép</label>
+              <label className="text-sm text-[var(--text-main)]/60">Profilkép</label>
 
               <div className="mt-2 flex items-center gap-4">
-                <div className="relative h-20 w-20 overflow-hidden rounded-full border border-white/15">
+                <div className="relative h-20 w-20 overflow-hidden rounded-full border border-[var(--border-color)]">
                   <Image alt="Profilkép előnézet"
                     className="object-cover"
                     data-cy="register-profile-image"
@@ -178,7 +178,7 @@ export default function RegisterPage() {
                   className={`flex-1 rounded-xl border border-dashed px-4 py-4 text-sm transition ${
                     isDragging
                       ? "border-cyan-400 bg-cyan-500/10"
-                      : "border-white/15 bg-black/20"
+                      : "border-[var(--border-color)] bg-[var(--card-bg)]"
                   }`}
                   onDragLeave={() => setIsDragging(false)}
                   onDragOver={(e) => {
@@ -188,7 +188,7 @@ export default function RegisterPage() {
                   onDrop={onDrop}
                 >
                   <div className="flex flex-col gap-2">
-                    <div className="text-white/80">
+                    <div className="text-[var(--text-main)]/80">
                       Húzd ide a képet, vagy{" "}
                       <button className="text-cyan-300 underline hover:text-cyan-200 cursor-pointer"
                         data-cy="register-image-upload-button"
@@ -233,8 +233,8 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="text-sm text-white/60">Név</label>
-              <input className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+              <label className="text-sm text-[var(--text-main)]/60">Név</label>
+              <input className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)] outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
                 data-cy="register-name-input"
                 placeholder="John Doe"
                 type="text"
@@ -244,8 +244,8 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="text-sm text-white/60">Email</label>
-              <input className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+              <label className="text-sm text-[var(--text-main)]/60">Email</label>
+              <input className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)] outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
                 data-cy="register-email-input"
                 placeholder="johndoe@example.com"
                 type="email"
@@ -255,8 +255,8 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="text-sm text-white/60">Telefonszám</label>
-              <input className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+              <label className="text-sm text-[var(--text-main)]/60">Telefonszám</label>
+              <input className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)] outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
                 data-cy="register-phone-input"
                 placeholder="+36 30 123 4567"
                 type="text"
@@ -266,7 +266,7 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="text-sm text-white/60">Nem (opcionális)</label>
+              <label className="text-sm text-[var(--text-main)]/60">Nem (opcionális)</label>
               <div className="mt-2 grid grid-cols-1 gap-2">
                 {[
                   { value: "MALE", label: "Férfi" },
@@ -277,7 +277,7 @@ export default function RegisterPage() {
                     className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-2 transition ${
                       gender === opt.value
                         ? "border-cyan-400 bg-cyan-500/10"
-                        : "border-white/10 bg-black/20 hover:bg-white/5"
+                        : "border-[var(--border-color)] bg-[var(--card-bg)] hover:bg-[var(--card-bg)]"
                     }`}
                     key={opt.value}
                   >
@@ -289,23 +289,23 @@ export default function RegisterPage() {
                       value={opt.value}
                       onChange={() => setGender(opt.value as Gender)}
                     />
-                    <span className="text-sm text-white/80">{opt.label}</span>
+                    <span className="text-sm text-[var(--text-main)]/80">{opt.label}</span>
                   </label>
                 ))}
               </div>
             </div>
 
             <div>
-              <label className="text-sm text-white/60">Jelszó</label>
+              <label className="text-sm text-[var(--text-main)]/60">Jelszó</label>
               <div className="relative mt-2">
-                <input className="w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 pr-11 text-white outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+                <input className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 pr-11 text-[var(--text-main)] outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
                   data-cy="register-password-input"
                   placeholder="Válasszon jelszót"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <button className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white cursor-pointer"
+                <button className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-main)]/60 hover:text-[var(--text-main)] cursor-pointer"
                   data-cy="register-password-toggle"
                   type="button"
                   onClick={() => setShowPassword((prev) => !prev)}
@@ -315,7 +315,7 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            <div className="flex items-start gap-3 rounded-lg border border-white/10 bg-black/30 p-3 text-sm">
+            <div className="flex items-start gap-3 rounded-lg border border-[var(--border-color)] bg-black/30 p-3 text-sm">
               <input checked={consent}
                 className="mt-1 h-4 w-4"
                 data-cy="register-leaderboard-consent"
@@ -323,7 +323,7 @@ export default function RegisterPage() {
                 onChange={(e) => setConsent(e.target.checked)}
               />
 
-              <span className="text-white/80">
+              <span className="text-[var(--text-main)]/80">
                 Hozzájárulok, hogy a nevem és profilképem megjelenjen a nyilvános
                 ranglistán (leaderboard).
               </span>
@@ -335,7 +335,7 @@ export default function RegisterPage() {
               </div>
             )}
 
-            <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-white transition hover:bg-cyan-500 disabled:opacity-50 cursor-pointer"
+            <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-[var(--text-main)] transition hover:bg-cyan-500 disabled:opacity-50 cursor-pointer"
               data-cy="register-submit-button"
               disabled={loading}
               type="submit"
@@ -345,7 +345,7 @@ export default function RegisterPage() {
             </button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-white/60">
+          <p className="mt-6 text-center text-sm text-[var(--text-main)]/60">
             Már van fiókod?{" "}
             <Link className="text-cyan-300 hover:underline" href="/login">
               Bejelentkezés

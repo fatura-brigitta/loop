@@ -20,7 +20,7 @@ export default function OffersSection() {
       <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3">
         <Reveal>
           <>
-            <div className="rounded-xl border border-[--border-color] bg-[--card-bg] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:cursor-pointer hover:bg-white/10">
+            <div className="rounded-xl border border-[--border-color] bg-[--card-bg] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:cursor-pointer hover:bg-slate-100 dark:hover:bg-white/10">
               <div className="mb-3 text-3xl">🍿</div>
               <h3 className="mb-2 text-xl font-bold">Friss popcorn & snackek</h3>
               <p className="text-[--text-soft]">
@@ -33,7 +33,7 @@ export default function OffersSection() {
 
         <Reveal>
           <>
-            <div className="rounded-xl border border-[--border-color] bg-[--card-bg] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:cursor-pointer hover:bg-white/10">
+            <div className="rounded-xl border border-[--border-color] bg-[--card-bg] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:cursor-pointer hover:bg-slate-100 dark:hover:bg-white/10">
               <div className="mb-3 text-3xl">🎬</div>
               <h3 className="mb-2 text-xl font-bold">Különleges vetítések</h3>
               <p className="text-[--text-soft]">
@@ -46,7 +46,7 @@ export default function OffersSection() {
 
         <Reveal>
           <>
-            <div className="rounded-xl border border-[--border-color] bg-[--card-bg] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:cursor-pointer hover:bg-white/10">
+            <div className="rounded-xl border border-[--border-color] bg-[--card-bg] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:cursor-pointer hover:bg-slate-100 dark:hover:bg-white/10">
               <div className="mb-3 text-3xl">👑</div>
               <h3 className="mb-2 text-xl font-bold">VIP élmény</h3>
               <p className="text-[--text-soft]">

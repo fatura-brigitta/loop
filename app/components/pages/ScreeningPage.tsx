@@ -201,7 +201,7 @@ export default function ScreeningsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#060b14] text-slate-100" data-cy="screenings-page">
+    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="screenings-page">
       <div className="mx-auto max-w-6xl p-4" data-cy="screenings-container">
         <h1 className="mb-6 text-2xl font-bold">Műsoron</h1>
 
@@ -209,8 +209,8 @@ export default function ScreeningsPage() {
           <div className="flex gap-2 overflow-x-auto pb-1" data-cy="screenings-date-filter">
             <button className={`cursor-pointer rounded-lg border px-4 py-2 ${
                 selectedDate === "all"
-                  ? "border-cyan-500 bg-cyan-500 text-white"
-                  : "border-white/10 bg-white/5 hover:bg-white/10"
+                  ? "border-cyan-500 bg-cyan-500 text-[var(--text-main)]"
+                  : "border-[var(--border-color)] bg-[var(--card-bg)] hover:bg-slate-100 dark:hover:bg-white/10"
               }`}
               data-cy="screenings-date-all"
               onClick={() => setSelectedDate("all")}
@@ -221,8 +221,8 @@ export default function ScreeningsPage() {
             {nextDays.map((d) => (
               <button className={`flex min-w-[70px] cursor-pointer flex-col items-center rounded-lg border px-4 py-2 ${
                   selectedDate === d.iso
-                    ? "border-cyan-500 bg-cyan-500 text-white"
-                    : "border-white/10 bg-white/5 hover:bg-white/10"
+                    ? "border-cyan-500 bg-cyan-500 text-[var(--text-main)]"
+                    : "border-[var(--border-color)] bg-[var(--card-bg)] hover:bg-slate-100 dark:hover:bg-white/10"
                 }`}
                 data-cy={`screenings-date-${d.iso}`}
                 key={d.iso}
@@ -236,7 +236,7 @@ export default function ScreeningsPage() {
 
           <div className="flex items-center gap-2">
             <div className="relative" ref={dropdownRef}>
-              <button className="flex cursor-pointer items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-2 hover:bg-white/10"
+              <button className="flex cursor-pointer items-center gap-2 rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 hover:bg-slate-100 dark:hover:bg-white/10"
                 data-cy="screenings-type-dropdown"
                 onClick={() => setDropdownOpen((p) => !p)}
               >
@@ -245,8 +245,8 @@ export default function ScreeningsPage() {
               </button>
 
               {dropdownOpen && (
-                <div className="absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-xl border border-white/10 bg-[#0b1220] shadow-xl" data-cy="screenings-type-dropdown-menu">
-                  <div className="cursor-pointer px-4 py-2 hover:bg-white/10"
+                <div className="absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)] shadow-xl" data-cy="screenings-type-dropdown-menu">
+                  <div className="cursor-pointer px-4 py-2 hover:bg-slate-100 dark:hover:bg-white/10"
                     data-cy="screenings-type-all"
                     onClick={() => {
                       setSelectedType("all");
@@ -257,7 +257,7 @@ export default function ScreeningsPage() {
                   </div>
 
                   {availableTypes.map((type) => (
-                    <div className="cursor-pointer px-4 py-2 hover:bg-white/10"
+                    <div className="cursor-pointer px-4 py-2 hover:bg-slate-100 dark:hover:bg-white/10"
                       data-cy={`screenings-type-${type}`}
                       key={type}
                       onClick={() => {
@@ -271,7 +271,7 @@ export default function ScreeningsPage() {
                 </div>
               )}
             </div>
-            <button className="flex cursor-pointer items-center justify-center rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10"
+            <button className="flex cursor-pointer items-center justify-center rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-3 py-2 hover:bg-slate-100 dark:hover:bg-white/10"
               data-cy="screenings-reset-filters"
               title="Szűrők törlése"
               onClick={resetFilters}
@@ -283,7 +283,7 @@ export default function ScreeningsPage() {
 
         <div className="flex flex-col gap-6" data-cy="screenings-movie-list">
           {filteredGrouped.map((g, index) => (
-            <div className="flex items-stretch gap-6 rounded-xl border border-white/10 bg-white/5 p-4"
+            <div className="flex items-stretch gap-6 rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)] p-4"
               data-cy="screenings-movie-card"
               data-movie-title={g.movie.title}
               key={index}
@@ -315,7 +315,7 @@ export default function ScreeningsPage() {
 
                       <div className="flex flex-wrap gap-2">
                         {screenings.map((s) => (
-                          <button className="cursor-pointer rounded-lg bg-gray-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-cyan-500"
+                          <button className="cursor-pointer rounded-lg bg-gray-500 px-4 py-2 text-sm font-semibold text-[var(--text-main)] transition hover:bg-cyan-500"
                             data-cy="screening-time-button"
                             data-screening-id={s.id}
                             key={s.id}
@@ -375,7 +375,7 @@ export default function ScreeningsPage() {
                         />
 
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="flex cursor-pointer items-center gap-2 rounded-full bg-black/70 px-5 py-3 text-white">
+                          <div className="flex cursor-pointer items-center gap-2 rounded-full bg-black/70 px-5 py-3 text-[var(--text-main)]">
                             <Play size={18} />
                             Trailer
                           </div>
@@ -390,7 +390,7 @@ export default function ScreeningsPage() {
         </div>
 
         {filteredGrouped.length === 0 && (
-          <div className="mt-10 text-center text-white/60" data-cy="screenings-empty">
+          <div className="mt-10 text-center text-[var(--text-main)]/60" data-cy="screenings-empty">
             Nincs találat a kiválasztott szűrőkre.
           </div>
         )}

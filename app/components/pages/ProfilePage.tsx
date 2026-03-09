@@ -89,6 +89,7 @@ export default function ProfilePage() {
   const [confirmDeleteAll, setConfirmDeleteAll] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [theme, setTheme] = useState("dark");
 
   const loadUser = async () => {
     const userRes = await fetch("/api/auth", { cache: "no-store" });
@@ -118,6 +119,7 @@ export default function ProfilePage() {
     setGender(profile.gender || "RATHER_NOT_SAY");
     setIsGoogleUser(!profile.hasPassword);
     setWarning(profile.inactivityWarning);
+    setTheme(profile.theme || "dark");
 
     const lastRank = localStorage.getItem("lastRankName");
 
@@ -286,7 +288,7 @@ export default function ProfilePage() {
 
   if (!user) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#060b14] text-white" data-cy="profile-loading">
+      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="profile-loading">
         Betöltés...
       </div>
     );
@@ -359,12 +361,31 @@ export default function ProfilePage() {
     window.dispatchEvent(new Event("profile-updated"));
   };
 
+  const changeTheme = async (newTheme: string) => {
+
+      setTheme(newTheme);
+
+      if (newTheme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+
+      localStorage.setItem("theme", newTheme);
+
+      await fetch("/api/profile/theme", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ theme: newTheme }),
+      });
+    };
+
   return (
-    <div className="min-h-screen bg-[#060b14] text-slate-100" data-cy="profile-page">
+    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="profile-page">
       {rankUp && (
         <div className="rank-overlay fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm" data-cy="rank-up-modal">
-          <div className="rank-popup flex flex-col items-center gap-6 rounded-2xl border border-white/10 bg-[#060b14]/90 p-10 shadow-2xl">
-            <div className="text-sm tracking-[0.3em] text-white/60">RANG LÉPÉS</div>
+          <div className="rank-popup flex flex-col items-center gap-6 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-main)]/90 p-10 shadow-2xl">
+            <div className="text-sm tracking-[0.3em] text-[var(--text-main)]/60">RANG LÉPÉS</div>
 
             <Image
               alt="rank up"
@@ -376,9 +397,9 @@ export default function ProfilePage() {
 
             <div className="text-4xl font-extrabold text-cyan-300">{rankUp.name}</div>
 
-            <div className="text-sm text-white/70">Gratulálunk! Új kuponokat oldottál fel.</div>
+            <div className="text-sm text-[var(--text-main)]/70">Gratulálunk! Új kuponokat oldottál fel.</div>
 
-            <button className="mt-2 cursor-pointer rounded-lg bg-cyan-600 px-6 py-2 font-semibold text-white transition hover:bg-cyan-400"
+            <button className="mt-2 cursor-pointer rounded-lg bg-cyan-600 px-6 py-2 font-semibold text-[var(--text-main)] transition hover:bg-cyan-400"
               data-cy="rank-up-close"
               onClick={() => setRankUp(null)}
             >
@@ -390,7 +411,7 @@ export default function ProfilePage() {
 
       {rankData?.rank && (
         <div className="mx-auto max-w-5xl px-4 pt-12" data-cy="profile-rank-section">
-          <div className="mb-10 w-full rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur">
+          <div className="mb-10 w-full rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-8 shadow-2xl backdrop-blur">
             <div className="relative flex flex-col gap-6 md:flex-row md:items-center">
               <div className="flex items-center gap-5">
                 <div className="relative h-24 w-24 shrink-0">
@@ -406,8 +427,8 @@ export default function ProfilePage() {
                 <div>
                   <h2 className="text-2xl font-bold text-cyan-300" data-cy="profile-rank-name">{rankData.rank.name} rang</h2>
 
-                  <div className="mt-1 text-sm text-white/70">
-                    Összes pont: <span className="font-bold text-white" data-cy="profile-rank-points">{rankData.points}</span>
+                  <div className="mt-1 text-sm text-[var(--text-main)]/70">
+                    Összes pont: <span className="font-bold text-[var(--text-main)]" data-cy="profile-rank-points">{rankData.points}</span>
                   </div>
                 </div>
               </div>
@@ -421,10 +442,10 @@ export default function ProfilePage() {
                 </div>
 
                 {rankData.nextRank ? (
-                  <div className="mt-3 text-sm text-white/70">
+                  <div className="mt-3 text-sm text-[var(--text-main)]/70">
                     Következő rang:{" "}
                     <span className="font-semibold text-cyan-300">{rankData.nextRank.name}</span> •
-                    még <span className="font-bold text-white">{pointsNeeded}</span> pont
+                    még <span className="font-bold text-[var(--text-main)]">{pointsNeeded}</span> pont
                   </div>
                 ) : (
                   <div className="mt-3 text-sm font-semibold text-green-400">
@@ -446,7 +467,7 @@ export default function ProfilePage() {
       </div>
 
       <div className="mx-auto max-w-5xl px-4 py-8">
-        <div className="w-full rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur transition-all" data-cy="profile-info-section">
+        <div className="w-full rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-8 shadow-2xl backdrop-blur transition-all" data-cy="profile-info-section">
           <h1 className="mb-8 text-3xl font-bold text-cyan-300">Profil adatok</h1>
 
           <div className="mb-8 flex items-center gap-6">
@@ -464,7 +485,7 @@ export default function ProfilePage() {
               />
             </div>
             <div
-              className="flex-1 rounded-xl border border-dashed border-white/15 bg-black/20 px-4 py-4 text-sm"
+              className="flex-1 rounded-xl border border-dashed border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-4 text-sm"
               onDragEnter={(e) => e.preventDefault()}
               onDragLeave={(e) => e.preventDefault()}
               onDragOver={(e) => e.preventDefault()}
@@ -476,7 +497,7 @@ export default function ProfilePage() {
             >
               <div className="flex flex-col gap-2">
 
-                <div className="text-white/80">
+                <div className="text-[var(--text-main)]/80">
                   Húzd ide a képet vagy{" "}
                   <button className="text-cyan-300 underline hover:text-cyan-200 cursor-pointer"
                     data-cy="profile-image-upload-button"
@@ -518,8 +539,8 @@ export default function ProfilePage() {
           </div>
 
           <div className="mb-6">
-            <label className="text-sm text-white/60">Email</label>
-            <input className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+            <label className="text-sm text-[var(--text-main)]/60">Email</label>
+            <input className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
               data-cy="profile-email"
               disabled
               value={user.email}
@@ -527,8 +548,8 @@ export default function ProfilePage() {
           </div>
 
           <div className="mb-6">
-            <label className="text-sm text-white/60">Név</label>
-            <input className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+            <label className="text-sm text-[var(--text-main)]/60">Név</label>
+            <input className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
               data-cy="profile-name-input"
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
@@ -536,8 +557,8 @@ export default function ProfilePage() {
           </div>
 
           <div className="mb-6">
-            <label className="text-sm text-white/60">Telefonszám</label>
-            <input className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+            <label className="text-sm text-[var(--text-main)]/60">Telefonszám</label>
+            <input className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
               data-cy="profile-phone-input"
               placeholder="+36123456789"
               value={phone || ""}
@@ -546,8 +567,8 @@ export default function ProfilePage() {
           </div>
 
           <div className="mb-6">
-            <label className="text-sm text-white/60">Nem</label>
-            <select className="mt-2 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+            <label className="text-sm text-[var(--text-main)]/60">Nem</label>
+            <select className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
               data-cy="profile-gender-select"
               value={gender}
               onChange={(e) => setGender(e.target.value)}
@@ -558,7 +579,29 @@ export default function ProfilePage() {
             </select>
           </div>
 
-          <button className="mt-4 cursor-pointer rounded-lg bg-cyan-600 px-6 py-2 font-semibold text-white transition hover:bg-cyan-400"
+          <div className="mb-6">
+            <label className="text-sm text-[var(--text-main)]/60">Téma</label>
+
+            <div className="flex gap-3 mt-2">
+
+              <button
+                onClick={() => changeTheme("light")}
+                className="px-4 py-2 rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] cursor-pointer"
+              >
+                ☀️ Világos
+              </button>
+
+              <button
+                onClick={() => changeTheme("dark")}
+                className="px-4 py-2 rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] cursor-pointer"
+              >
+                🌙 Sötét
+              </button>
+
+            </div>
+          </div>
+
+          <button className="mt-4 cursor-pointer rounded-lg bg-cyan-600 px-6 py-2 font-semibold text-[var(--text-main)] transition hover:bg-cyan-400"
             data-cy="profile-save-button"
             onClick={async () => {
               setError("");
@@ -592,13 +635,13 @@ export default function ProfilePage() {
             Adatok mentése
           </button>
 
-          <div className="mt-12 border-t border-white/10 pt-8">
+          <div className="mt-12 border-t border-[var(--border-color)] pt-8">
             <h2 className="mb-4 text-xl font-semibold text-cyan-300">
               {isGoogleUser ? "Jelszó beállítása" : "Jelszó módosítása"}
             </h2>
 
             {!isGoogleUser && (
-              <input className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+              <input className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
                 data-cy="profile-old-password"
                 placeholder="Régi jelszó"
                 type="password"
@@ -607,7 +650,7 @@ export default function ProfilePage() {
               />
             )}
 
-            <input className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+            <input className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
               data-cy="profile-new-password"
               placeholder="Új jelszó"
               type="password"
@@ -615,7 +658,7 @@ export default function ProfilePage() {
               onChange={(e) => setNewPassword(e.target.value)}
             />
 
-            <input className="mb-3 w-full rounded-lg border border-white/10 bg-black/40 px-4 py-2 text-white"
+            <input className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
               data-cy="profile-new-password-confirm"
               placeholder="Új jelszó megerősítése"
               type="password"
@@ -623,7 +666,7 @@ export default function ProfilePage() {
               onChange={(e) => setNewPassword2(e.target.value)}
             />
 
-            <button className="mt-2 cursor-pointer rounded-lg bg-cyan-600 px-4 py-2 font-semibold text-white hover:bg-cyan-400"
+            <button className="mt-2 cursor-pointer rounded-lg bg-cyan-600 px-4 py-2 font-semibold text-[var(--text-main)] hover:bg-cyan-400"
               data-cy="profile-password-button"
               onClick={changePassword}
             >
@@ -660,7 +703,7 @@ export default function ProfilePage() {
 
       <div className="mx-auto max-w-5xl px-4">
         <div className="mx-auto max-w-5xl">
-          <button className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-white/10"
+          <button className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
             data-cy="profile-coupons-toggle"
             onClick={() => {
               setShowCoupons((v) => !v);
@@ -682,14 +725,14 @@ export default function ProfilePage() {
           >
             <div>
               {coupons.length === 0 && (
-                <div className="mb-6 text-white/60">
+                <div className="mb-6 text-[var(--text-main)]/60">
                   Még nincs kuponod. Szerezz pontokat jegyvásárlással!
                 </div>
               )}
 
               <div className="grid gap-6 md:grid-cols-2">
                 {coupons.map((coupon) => (
-                  <div className={`relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur ${
+                  <div className={`relative overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-5 shadow-xl backdrop-blur ${
                       coupon.used ? "opacity-40" : ""
                     }`}
                     data-coupon-id={coupon.id}
@@ -706,11 +749,11 @@ export default function ProfilePage() {
                       />
 
                       <div className="flex-1">
-                        <div className="text-xl font-bold text-white">
+                        <div className="text-xl font-bold text-[var(--text-main)]">
                           {coupon.discounts.name}
                         </div>
 
-                        <div className="text-sm text-white/60 mt-1">
+                        <div className="text-sm text-[var(--text-main)]/60 mt-1">
                           {coupon.discounts.description}
                         </div>
 
@@ -749,7 +792,7 @@ export default function ProfilePage() {
       </div>
 
       <div className="mx-auto max-w-5xl px-4">
-        <button className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-white/10"
+        <button className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
           data-cy="profile-tickets-toggle"
           onClick={() => {
             setShowTickets((v) => !v);
@@ -769,12 +812,12 @@ export default function ProfilePage() {
         >
           <div className="overflow-hidden">
             {tickets.length === 0 && (
-              <div className="mb-6 text-white/60">Még nem vásároltál jegyet.</div>
+              <div className="mb-6 text-[var(--text-main)]/60">Még nem vásároltál jegyet.</div>
             )}
 
             <div className="grid gap-6">
               {tickets.map((ticket) => (
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur"
+                <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 shadow-2xl backdrop-blur"
                   data-cy="active-ticket-card"
                   data-ticket-id={ticket.id}
                   key={ticket.id}
@@ -785,7 +828,7 @@ export default function ProfilePage() {
                         {ticket.screenings.movies.title}
                       </h3>
 
-                      <div className="mt-1 text-sm text-white/70">
+                      <div className="mt-1 text-sm text-[var(--text-main)]/70">
                         {new Date(ticket.screenings.start).toLocaleString()}
                       </div>
 
@@ -819,7 +862,7 @@ export default function ProfilePage() {
       </div>
 
       <div className="mx-auto max-w-5xl px-4 pb-32">
-        <button className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-white/10"
+        <button className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
           data-cy="profile-history-toggle"
           onClick={() => {
             setShowHistory((v) => !v);
@@ -846,7 +889,7 @@ export default function ProfilePage() {
         >
           {history.length > 0 && (
             <div className="flex justify-end mb-4">
-              <button className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-500 transition cursor-pointer"
+              <button className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-[var(--text-main)] hover:bg-red-500 transition cursor-pointer"
                 data-cy="history-delete-all"
                 onClick={() => setConfirmDeleteAll(true)}
               >
@@ -855,12 +898,12 @@ export default function ProfilePage() {
             </div>
           )}
           {history.length === 0 && (
-            <div className="mb-6 text-white/60">Még nincs lezárt vetítésed.</div>
+            <div className="mb-6 text-[var(--text-main)]/60">Még nincs lezárt vetítésed.</div>
           )}
 
           <div className="grid gap-4">
             {history.map((ticket) => (
-              <div className="rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:bg-white/10" 
+              <div className="rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)] p-5 backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10" 
                 data-cy="history-ticket-card"
                 data-ticket-id={ticket.id}
                 key={ticket.id}
@@ -868,19 +911,19 @@ export default function ProfilePage() {
                 <div className="flex items-center justify-between">
 
                   <div>
-                    <div className="text-lg font-semibold text-white">
+                    <div className="text-lg font-semibold text-[var(--text-main)]">
                       {ticket.screenings.movies.title}
                     </div>
 
-                    <div className="mt-1 text-sm text-white/60">
+                    <div className="mt-1 text-sm text-[var(--text-main)]/60">
                       {new Date(ticket.screenings.start).toLocaleString()}
                     </div>
 
-                    <div className="text-sm text-white/60">
+                    <div className="text-sm text-[var(--text-main)]/60">
                       Terem: {ticket.screenings.halls.name}
                     </div>
 
-                    <div className="text-sm text-white/60">
+                    <div className="text-sm text-[var(--text-main)]/60">
                       Jegy: {ticket.ticket_types.type}
                     </div>
                   </div>
@@ -913,13 +956,13 @@ export default function ProfilePage() {
           {deleteTicketId && ( 
             <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm" data-cy="history-delete-modal">
 
-              <div className="w-[380px] rounded-2xl border border-white/10 bg-[#0b1220] p-6 shadow-2xl">
+              <div className="w-[380px] rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 shadow-2xl">
 
-                <h2 className="text-xl font-bold text-white mb-4">
+                <h2 className="text-xl font-bold text-[var(--text-main)] mb-4">
                   Jegy törlése
                 </h2>
 
-                <p className="text-white/70 mb-6">
+                <p className="text-[var(--text-main)]/70 mb-6">
                   Biztos törölni szeretnéd ezt a jegyet a vásárlási előzményekből?
                 </p>
 
@@ -932,7 +975,7 @@ export default function ProfilePage() {
                     Mégse
                   </button>
 
-                  <button className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 transition text-white"
+                  <button className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 transition text-[var(--text-main)]"
                     data-cy="history-delete-confirm"
                     onClick={() => deleteTicket(deleteTicketId)}
                   >
@@ -949,13 +992,13 @@ export default function ProfilePage() {
           {confirmDeleteAll && (
             <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm" data-cy="history-delete-all-modal">
 
-              <div className="w-[380px] rounded-2xl border border-white/10 bg-[#0b1220] p-6 shadow-2xl">
+              <div className="w-[380px] rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 shadow-2xl">
 
-                <h2 className="text-xl font-bold text-white mb-4">
+                <h2 className="text-xl font-bold text-[var(--text-main)] mb-4">
                   Összes előzmény törlése
                 </h2>
 
-                <p className="text-white/70 mb-6">
+                <p className="text-[var(--text-main)]/70 mb-6">
                   Biztos törölni szeretnéd az összes vásárlási előzményt?
                 </p>
 
@@ -968,7 +1011,7 @@ export default function ProfilePage() {
                     Mégse
                   </button>
 
-                  <button className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 transition text-white"
+                  <button className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 transition text-[var(--text-main)]"
                     data-cy="history-delete-all-confirm"
                     onClick={deleteAllHistory}
                   >

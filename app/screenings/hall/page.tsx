@@ -72,7 +72,7 @@ function SeatGrid({
 function CinemaScreen() {
   return (
     <div className="mb-10 flex w-full flex-col items-center">
-      <div className="h-9 w-[70%] rounded-t-[100%] bg-gradient-to-b from-white/80 via-white/40 to-transparent blur-[2px]" />
+      <div className="h-9 w-[70%] rounded-t-[100%] bg-gradient-to-b from-[var(--text-main)]/80 via-[var(--text-main)]/40 to-transparent blur-[2px]" />
     </div>
   );
 }

@@ -242,7 +242,7 @@ export default function PaymentPage() {
                           {seatPrices[i] ? `${formatPrice(seatPrices[i])} €` : ""}
                         </span>
                         <select
-                          className="w-[110px] rounded-lg bg-[var(--card-bg)] border border-[var(--border-color)]/20 p-2 cursor-pointer"
+                          className="w-[110px] rounded-lg bg-[var(--card-bg)] text-[var(--text-main3)] border border-[var(--border-color)]/20 p-2 cursor-pointer"
                           data-cy="ticket-type-select"
                           data-seat-index={i}
                           value={type}
@@ -268,7 +268,7 @@ export default function PaymentPage() {
                             recalcPrice(updated);
                           }}
                         >
-                          <option value="Normál">Normál</option>
+                          <option value="Normál" >Normál</option>
                           <option value="Diák">Diák</option>
                           <option value="Senior">Senior</option>
                           <option value="Gyerek">Gyerek</option>

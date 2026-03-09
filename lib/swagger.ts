@@ -11,11 +11,14 @@ const options = {
     },
     servers: [
       {
-        url: "https://loop-sooty.vercel.app",
+        url: process.env.NEXT_PUBLIC_URL || "http://localhost:3000",
       },
     ],
   },
-  apis: [path.join(process.cwd(), "swagger/**/*.ts")],
+
+  apis: [
+    path.join(process.cwd(), "swagger/**/*.ts")
+  ],
 };
 
 export const swaggerSpec = swaggerJsdoc(options);

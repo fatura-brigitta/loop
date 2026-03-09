@@ -153,6 +153,14 @@ export default function ProfilePage() {
       const couponData = await couponRes.json();
       setCoupons(couponData);
     }
+
+    if (profile.theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+    localStorage.setItem("theme", profile.theme);
   };
 
   useEffect(() => {
@@ -363,22 +371,23 @@ export default function ProfilePage() {
 
   const changeTheme = async (newTheme: string) => {
 
-      setTheme(newTheme);
+    setTheme(newTheme);
 
-      if (newTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
+    document.documentElement.classList.remove("dark");
 
-      localStorage.setItem("theme", newTheme);
+    if (newTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    }
 
-      await fetch("/api/profile/theme", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ theme: newTheme }),
-      });
-    };
+    localStorage.setItem("theme", newTheme);
+
+    await fetch("/api/profile/theme", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ theme: newTheme }),
+    });
+
+  };
 
   return (
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="profile-page">
@@ -395,7 +404,7 @@ export default function ProfilePage() {
               width={160}
             />
 
-            <div className="text-4xl font-extrabold text-cyan-300">{rankUp.name}</div>
+            <div className="text-4xl font-extrabold text-[var(--text-main2)]">{rankUp.name}</div>
 
             <div className="text-sm text-[var(--text-main)]/70">Gratulálunk! Új kuponokat oldottál fel.</div>
 
@@ -425,7 +434,7 @@ export default function ProfilePage() {
                 </div>
 
                 <div>
-                  <h2 className="text-2xl font-bold text-cyan-300" data-cy="profile-rank-name">{rankData.rank.name} rang</h2>
+                  <h2 className="text-2xl font-bold text-[var(--text-main2)]" data-cy="profile-rank-name">{rankData.rank.name} rang</h2>
 
                   <div className="mt-1 text-sm text-[var(--text-main)]/70">
                     Összes pont: <span className="font-bold text-[var(--text-main)]" data-cy="profile-rank-points">{rankData.points}</span>
@@ -434,7 +443,7 @@ export default function ProfilePage() {
               </div>
 
               <div className="flex-1">
-                <div className="mt-2 h-4 w-full overflow-hidden rounded-full bg-white/10">
+                <div className="mt-2 h-4 w-full overflow-hidden rounded-full border border-[var(--border-color)] bg-white/10">
                   <div className="h-full rounded-full bg-cyan-400 transition-all duration-700"
                     data-cy="profile-rank-progress"
                     style={{ width: `${rankData.progress ?? 0}%` }}
@@ -444,7 +453,7 @@ export default function ProfilePage() {
                 {rankData.nextRank ? (
                   <div className="mt-3 text-sm text-[var(--text-main)]/70">
                     Következő rang:{" "}
-                    <span className="font-semibold text-cyan-300">{rankData.nextRank.name}</span> •
+                    <span className="font-semibold text-[var(--text-main2)]">{rankData.nextRank.name}</span> •
                     még <span className="font-bold text-[var(--text-main)]">{pointsNeeded}</span> pont
                   </div>
                 ) : (
@@ -468,7 +477,7 @@ export default function ProfilePage() {
 
       <div className="mx-auto max-w-5xl px-4 py-8">
         <div className="w-full rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-8 shadow-2xl backdrop-blur transition-all" data-cy="profile-info-section">
-          <h1 className="mb-8 text-3xl font-bold text-cyan-300">Profil adatok</h1>
+          <h1 className="mb-8 text-3xl font-bold text-[var(--text-main2)]">Profil adatok</h1>
 
           <div className="mb-8 flex items-center gap-6">
 
@@ -499,7 +508,7 @@ export default function ProfilePage() {
 
                 <div className="text-[var(--text-main)]/80">
                   Húzd ide a képet vagy{" "}
-                  <button className="text-cyan-300 underline hover:text-cyan-200 cursor-pointer"
+                  <button className="text-[var(--text-main2)] underline hover:text-cyan-200 cursor-pointer"
                     data-cy="profile-image-upload-button"
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
@@ -582,26 +591,29 @@ export default function ProfilePage() {
           <div className="mb-6">
             <label className="text-sm text-[var(--text-main)]/60">Téma</label>
 
-            <div className="flex gap-3 mt-2">
+            <div className="flex items-center gap-3">
 
+              <span className="text-sm text-[var(--text-soft)]">☀️</span>
               <button
-                onClick={() => changeTheme("light")}
-                className="px-4 py-2 rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] cursor-pointer"
+                onClick={() => changeTheme(theme === "dark" ? "light" : "dark")}
+                className={`relative h-7 w-14 rounded-full transition ${
+                  theme === "dark" ? "bg-cyan-500" : "bg-gray-300"
+                }`}
               >
-                ☀️ Világos
-              </button>
 
-              <button
-                onClick={() => changeTheme("dark")}
-                className="px-4 py-2 rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] cursor-pointer"
-              >
-                🌙 Sötét
-              </button>
+              <span
+                className={`absolute top-1 h-5 w-5 rounded-full bg-white transition ${
+                  theme === "dark" ? "left-8" : "left-1"
+                }`}
+              />
 
-            </div>
+              </button>
+              <span className="text-sm text-[var(--text-soft)]">🌙</span>
+
+              </div>
           </div>
 
-          <button className="mt-4 cursor-pointer rounded-lg bg-cyan-600 px-6 py-2 font-semibold text-[var(--text-main)] transition hover:bg-cyan-400"
+          <button className="mt-4 cursor-pointer rounded-lg bg-[var(--button-bg)] px-6 py-2 font-semibold text-[var(--text-light)] transition hover:bg-cyan-400"
             data-cy="profile-save-button"
             onClick={async () => {
               setError("");
@@ -636,7 +648,7 @@ export default function ProfilePage() {
           </button>
 
           <div className="mt-12 border-t border-[var(--border-color)] pt-8">
-            <h2 className="mb-4 text-xl font-semibold text-cyan-300">
+            <h2 className="mb-4 text-xl font-semibold text-[var(--text-main2)]">
               {isGoogleUser ? "Jelszó beállítása" : "Jelszó módosítása"}
             </h2>
 
@@ -666,7 +678,7 @@ export default function ProfilePage() {
               onChange={(e) => setNewPassword2(e.target.value)}
             />
 
-            <button className="mt-2 cursor-pointer rounded-lg bg-cyan-600 px-4 py-2 font-semibold text-[var(--text-main)] hover:bg-cyan-400"
+            <button className="mt-2 cursor-pointer rounded-lg bg-[var(--button-bg)] px-4 py-2 font-semibold text-[var(--text-light)] hover:bg-cyan-400"
               data-cy="profile-password-button"
               onClick={changePassword}
             >
@@ -703,7 +715,7 @@ export default function ProfilePage() {
 
       <div className="mx-auto max-w-5xl px-4">
         <div className="mx-auto max-w-5xl">
-          <button className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
+          <button className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
             data-cy="profile-coupons-toggle"
             onClick={() => {
               setShowCoupons((v) => !v);
@@ -792,7 +804,7 @@ export default function ProfilePage() {
       </div>
 
       <div className="mx-auto max-w-5xl px-4">
-        <button className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
+        <button className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
           data-cy="profile-tickets-toggle"
           onClick={() => {
             setShowTickets((v) => !v);
@@ -824,7 +836,7 @@ export default function ProfilePage() {
                 >
                   <div className="flex flex-wrap justify-between gap-6 md:flex-nowrap">
                     <div>
-                      <h3 className="text-lg font-bold text-cyan-300">
+                      <h3 className="text-lg font-bold text-[var(--text-main2)]">
                         {ticket.screenings.movies.title}
                       </h3>
 
@@ -843,7 +855,7 @@ export default function ProfilePage() {
                     </div>
 
                     <div className="flex flex-col items-end gap-3">
-                      <div className="text-xl font-semibold text-cyan-300">{ticket.price} €</div>
+                      <div className="text-xl font-semibold text-[var(--text-main2)]">{ticket.price} €</div>
 
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img alt="qr"
@@ -862,7 +874,7 @@ export default function ProfilePage() {
       </div>
 
       <div className="mx-auto max-w-5xl px-4 pb-32">
-        <button className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-cyan-300 shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
+        <button className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
           data-cy="profile-history-toggle"
           onClick={() => {
             setShowHistory((v) => !v);
@@ -889,7 +901,7 @@ export default function ProfilePage() {
         >
           {history.length > 0 && (
             <div className="flex justify-end mb-4">
-              <button className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-[var(--text-main)] hover:bg-red-500 transition cursor-pointer"
+              <button className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-[var(--text-light)] hover:bg-red-500 transition cursor-pointer"
                 data-cy="history-delete-all"
                 onClick={() => setConfirmDeleteAll(true)}
               >

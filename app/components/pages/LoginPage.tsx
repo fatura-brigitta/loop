@@ -73,7 +73,7 @@ export default function LoginPage() {
     <div data-cy="login-page" className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]">
       <div className="flex items-center justify-center py-20">
         <div className="w-full max-w-md rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-8 shadow-2xl backdrop-blur">
-          <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Bejelentkezés</h1>
+          <h1 className="mb-8 text-center text-3xl font-bold text-[var(--text-main2)]">Bejelentkezés</h1>
 
           <form data-cy="login-form" className="space-y-5" onSubmit={handleSubmit}>
             <div>
@@ -109,7 +109,7 @@ export default function LoginPage() {
               </div>
 
               <div className="mt-2 text-right text-sm">
-                <Link data-cy="login-forgot-password" className="text-cyan-300 hover:underline" href="/forgot-password">
+                <Link data-cy="login-forgot-password" className="text-[var(--text-main2)] hover:underline" href="/forgot-password">
                   Elfelejtetted a jelszavad?
                 </Link>
               </div>
@@ -122,7 +122,7 @@ export default function LoginPage() {
             )}
 
             <button data-cy="login-submit"
-              className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-[var(--text-main)] transition hover:bg-cyan-500 disabled:opacity-50"
+              className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-[var(--text-main2)] py-3 font-semibold text-[var(--text-light)] transition hover:bg-cyan-500 disabled:opacity-50"
               disabled={loading}
               type="submit"
             >
@@ -131,18 +131,18 @@ export default function LoginPage() {
             </button>
             <div className="mt-6 flex flex-col gap-3">
               <button data-cy="login-google"
-                className="flex w-full items-center justify-center gap-3 rounded-lg bg-white px-4 py-3 font-semibold text-black hover:bg-gray-100 cursor-pointer"
+                className="flex w-full items-center justify-center gap-3 rounded-lg bg-white px-4 py-3 font-semibold text-black hover:bg-gray-100 cursor-pointer border border-[var(--border-color)]"
                 type="button" onClick={() => signIn("google", {callbackUrl: "/"})}
               >
                 <img alt="Google" height={22} src="/google.svg" width={22}/>
-                Sign in with Google
+                Bejelentkezés Google fiókkal
               </button>
               <button data-cy="login-facebook"
-                className="flex w-full items-center justify-center gap-3 rounded-lg bg-[#1877F2] px-4 py-3 font-semibold text-[var(--text-main)] hover:bg-[#166fe5] cursor-pointer"
+                className="flex w-full items-center justify-center gap-3 rounded-lg bg-[#1877F2] px-4 py-3 font-semibold text-[var(--text-light)] hover:bg-[#166fe5] cursor-pointer"
                 type="button" onClick={() => signIn("facebook", {callbackUrl: "/"})}
               >
                 <img alt="Facebook" height={16} src="/facebook.svg" width={16}/>
-                Sign in with Facebook
+                Bejelentkezés Facebook fiókkal
               </button>
 
             </div>
@@ -150,7 +150,7 @@ export default function LoginPage() {
 
           <p className="mt-6 text-center text-sm text-[var(--text-main)]/60">
             Nincs még fiókod?{" "}
-            <Link data-cy="login-register-link" className="text-cyan-300 hover:underline" href="/register">
+            <Link data-cy="login-register-link" className="text-[var(--text-main2)] hover:underline" href="/register">
               Regisztráció
             </Link>
           </p>

@@ -74,7 +74,7 @@ export default function Leaderboard() {
             <div className="text-2xl font-extrabold">{first.name}</div>
             <div className="text-lg font-semibold text-yellow-300">{first.points} pont</div>
 
-            <div className="mt-6 h-44 w-44 rounded-t-2xl border border-yellow-400/40 bg-yellow-400/20" />
+            <div className="mt-6 h-44 w-44 rounded-t-2xl border border-yellow-800/40 bg-yellow-400/20" />
           </div>
 
           <div className="podium-card podium-right text-center">

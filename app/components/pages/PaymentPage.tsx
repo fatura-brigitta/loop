@@ -189,7 +189,7 @@ export default function PaymentPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="payment-page">
       <div className="w-full max-w-xl rounded-xl bg-[var(--card-bg)] p-8 shadow-2xl" data-cy="payment-card">
-        <h1 className="mb-6 text-center text-2xl font-bold text-cyan-300">Fizetés</h1>
+        <h1 className="mb-6 text-center text-2xl font-bold text-[var(--text-main2)]">Fizetés</h1>
 
         <div className="space-y-3 text-sm">
           <div className="flex justify-between">
@@ -216,19 +216,19 @@ export default function PaymentPage() {
 
           <div>
             <span className="mb-1 block">Székek</span>
-            <div className="text-cyan-300">
+            <div className="text-[var(--text-main2)]">
               <div className="space-y-3" data-cy="payment-tickets">
                 {data.seats.map((s, i) => {
                   const type = ticketTypes[i] || "Normál";
 
                   return (
-                    <div className="flex items-center justify-between rounded-lg bg-black/30 p-3"
+                    <div className="flex items-center justify-between rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)]/30 p-3"
                       data-cy="payment-ticket"
                       data-seat-index={i}
                       key={i}
                     >
                       <div className="flex flex-col">
-                        <div className="text-cyan-300 font-semibold" data-cy="ticket-number">
+                        <div className="text-[var(--text-main2)] font-semibold" data-cy="ticket-number">
                           {i + 1}. jegy
                         </div>
 
@@ -242,7 +242,7 @@ export default function PaymentPage() {
                           {seatPrices[i] ? `${formatPrice(seatPrices[i])} €` : ""}
                         </span>
                         <select
-                          className="w-[110px] rounded-lg bg-[var(--bg-main)] border border-white/20 p-2 cursor-pointer"
+                          className="w-[110px] rounded-lg bg-[var(--card-bg)] border border-[var(--border-color)]/20 p-2 cursor-pointer"
                           data-cy="ticket-type-select"
                           data-seat-index={i}
                           value={type}
@@ -290,7 +290,7 @@ export default function PaymentPage() {
           </div>
         </div>
 
-        <button className="mt-6 w-full rounded-lg bg-green-500 py-3 font-bold transition hover:bg-green-600 disabled:opacity-50 cursor-pointer"
+        <button className="mt-6 w-full rounded-lg bg-green-500 py-3 font-bold transition text-[var(--text-light)] hover:bg-green-600 disabled:opacity-50 cursor-pointer"
           data-cy="payment-button"
           disabled={paying}
           onClick={startPayment}

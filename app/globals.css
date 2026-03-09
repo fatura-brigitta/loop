@@ -6,9 +6,12 @@
   --bg-main: #dde1e5;
   --card-bg: #ffffff;
   --text-main: #0f172a;
-  --text-soft: #4f688a;
+  --text-soft: #11151c;
   --border-color: #858c96;
-
+  --text-main2: #2fbdcd;
+  --button-bg: #2289a9;
+  --text-light: #f1f5f9;
+  --text-white: #ffffff;
 }
 
 .dark {
@@ -18,7 +21,16 @@
   --text-main: #f1f5f9;
   --text-soft: rgba(255, 255, 255, 0.6);
   --border-color: rgba(255,255,255,0.1);
+  --text-main2: #79d9e0;
+  --button-bg: #63d8e1;
+  --text-light: #0f0e0e;
+  --text-white: #ffffff;
+}
 
+body {
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
 }
 
 html {

@@ -315,9 +315,9 @@ export default function HallPage() {
                     const seatWord = cols.length === 1 ? "SZÉK" : "SZÉKEK";
 
                     return (
-                      <div className="text-cyan-300" key={row}>
+                      <div className="text-[var(--text-main2)]" key={row}>
                         SOR: {row} {seatWord}:{" "}
-                        <span className="text-cyan-300">{cols.join(", ")}</span>
+                        <span className="text-[var(--text-main2)]">{cols.join(", ")}</span>
                       </div>
                     );
                   })}
@@ -327,7 +327,7 @@ export default function HallPage() {
             <div className="flex flex-col items-end gap-2 text-right">
               <div className="text-2xl font-bold text-orange-400" data-cy="hall-seat-count">🎟 {selectedChairs.length}</div>
 
-              <button className="cursor-pointer rounded-lg bg-blue-500 px-5 py-2 font-semibold text-[var(--text-main)] transition hover:bg-blue-600"
+              <button className="cursor-pointer rounded-lg bg-[var(--button-bg)] px-5 py-2 font-semibold text-[var(--text-light)] transition hover:bg-blue-600"
                 data-cy="hall-reserve-button"
                 onClick={reserveSeats}
               >

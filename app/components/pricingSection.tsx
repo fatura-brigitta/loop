@@ -46,7 +46,7 @@ export default function PricingSection() {
             <div className="grid gap-6 md:grid-cols-5">
               {screenings.map((s) => (
                 <div
-                  className="rounded-xl border border-[--border-color] bg-[--card-bg] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:cursor-pointer hover:bg-slate-100 dark:hover:bg-white/10"
+                  className="rounded-xl border border-[--border-color]  bg-[var(--card-bg)] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:cursor-pointer hover:bg-slate-100 dark:hover:bg-white/10"
                   key={s.type}
                 >
                   <div className="text-xl font-bold">{s.type}</div>
@@ -75,7 +75,7 @@ export default function PricingSection() {
             <div className="grid gap-6 md:grid-cols-4">
               {tickets.map((t) => (
                 <div
-                  className="rounded-xl border border-[--border-color] bg-[--card-bg] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:cursor-pointer hover:bg-slate-100 dark:hover:bg-white/10"
+                  className="rounded-xl border border-[--border-color]  bg-[var(--card-bg)] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:cursor-pointer hover:bg-slate-100 dark:hover:bg-white/10"
                   key={t.type}
                 >
                   <div className="text-xl font-bold">{t.type}</div>
@@ -96,7 +96,7 @@ export default function PricingSection() {
 
       <div className="mx-auto max-w-3xl text-center">
         <Reveal>
-          <div className="rounded-2xl border border-[--border-color] bg-[--card-bg] p-8 backdrop-blur">
+          <div className="rounded-2xl border border-[--border-color] bg-[var(--card-bg)] p-8 backdrop-blur">
             A kedvezmények és a vetítési felárak <b>egyszerre</b> érvényesek.
           </div>
         </Reveal>

@@ -86,7 +86,7 @@ export default function VerifyEmailPage() {
         data-cy="verify-email-card"
       >
         <h1
-          className="mb-2 text-center text-2xl font-bold text-cyan-300"
+          className="mb-2 text-center text-2xl font-bold text-[var(--text-main2)]"
           data-cy="verify-email-title"
         >
           Email megerősítés
@@ -97,7 +97,7 @@ export default function VerifyEmailPage() {
         </p>
 
         <div
-          className="mb-6 text-center font-semibold text-cyan-300"
+          className="mb-6 text-center font-semibold text-[var(--text-main2)]"
           data-cy="verify-email-address"
         >
           {email}
@@ -119,7 +119,7 @@ export default function VerifyEmailPage() {
         />
 
         <button
-          className="mt-6 w-full rounded-lg bg-cyan-600 py-3 font-bold transition hover:bg-cyan-500 disabled:opacity-50 cursor-pointer"
+          className="mt-6 w-full rounded-lg bg-[var(--text-main2)] text-[var(--text-light)] py-3 font-bold transition hover:bg-cyan-500 disabled:opacity-50 cursor-pointer"
           data-cy="verify-email-submit-button"
           disabled={loading}
           onClick={submit}

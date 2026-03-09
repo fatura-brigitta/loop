@@ -8,7 +8,7 @@ export async function PUT(req: Request) {
   const userId = cookieStore.get("userId")?.value;
 
   if (!userId) {
-    return NextResponse.json({ message: "Not logged in" }, { status: 401 });
+    return NextResponse.json({ error: "Not logged in" }, { status: 401 });
   }
 
   const { theme } = await req.json();

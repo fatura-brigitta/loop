@@ -305,17 +305,17 @@ export default function ScreeningsPage() {
                   {g.movie.genre} • {g.movie.playtime} perc • {g.movie.language}
                 </p>
 
-                <p className="mt-3 line-clamp-3 text-sm text-slate-300">{g.movie.description}</p>
+                <p className="mt-3 line-clamp-3 text-sm text-[var(--text-soft)]">{g.movie.description}</p>
 
                 <div className="mt-4 flex flex-col gap-4">
                   {Object.entries(groupByType(g.screenings)).map(([type, screenings]) => (
                     <div data-cy="screenings-type-group"
                       data-screening-type={type} key={type}>
-                      <div className="mb-2 text-sm font-semibold text-cyan-300">{type}</div>
+                      <div className="mb-2 text-sm font-semibold text-[var(--text-main2)]">{type}</div>
 
                       <div className="flex flex-wrap gap-2">
                         {screenings.map((s) => (
-                          <button className="cursor-pointer rounded-lg bg-gray-500 px-4 py-2 text-sm font-semibold text-[var(--text-main)] transition hover:bg-cyan-500"
+                          <button className="cursor-pointer rounded-lg bg-[var(--button-bg)] px-4 py-2 text-sm font-semibold text-[var(--text-light)] transition hover:bg-cyan-500"
                             data-cy="screening-time-button"
                             data-screening-id={s.id}
                             key={s.id}
@@ -375,7 +375,7 @@ export default function ScreeningsPage() {
                         />
 
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="flex cursor-pointer items-center gap-2 rounded-full bg-black/70 px-5 py-3 text-[var(--text-main)]">
+                          <div className="flex cursor-pointer items-center gap-2 rounded-full bg-[var(--bg-main)]/70 px-5 py-3 text-[var(--text-main)]">
                             <Play size={18} />
                             Trailer
                           </div>

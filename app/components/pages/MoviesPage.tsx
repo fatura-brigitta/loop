@@ -74,26 +74,26 @@ export default function MoviesPage() {
                   <div className="flex items-center justify-between">
                     <h2 className="text-base font-semibold text-[var(--text-main)]" data-cy="movie-title">{movie.title}</h2>
 
-                    <span className="text-sm text-blue-300" data-cy="movie-rating">⭐ {movie.review}</span>
+                    <span className="text-sm text-[var(--text-main2)]" data-cy="movie-rating">⭐ {movie.review}</span>
                   </div>
 
                   <p className="mt-1 text-xs text-slate-400">
                     {movie.genre} • {movie.playtime} perc • {movie.language}
                   </p>
 
-                  <p className="mt-2 line-clamp-2 text-sm text-slate-300" data-cy="movie-director">
+                  <p className="mt-2 line-clamp-2 text-sm text-[var(--text-soft)]" data-cy="movie-director">
                     Rendező: {movie.director}
                   </p>
 
-                  <p className="mt-2 line-clamp-2 text-sm text-slate-300" data-cy="movie-actors">
+                  <p className="mt-2 line-clamp-2 text-sm text-[var(--text-soft)]" data-cy="movie-actors">
                     Szereplők: {movie.actors}
                   </p>
 
-                  <p className="mt-2 line-clamp-2 text-sm text-slate-300" data-cy="movie-description">{movie.description}</p>
+                  <p className="mt-2 line-clamp-2 text-sm text-[var(--text-soft)]" data-cy="movie-description">{movie.description}</p>
                 </div>
 
                 <div className="flex justify-end gap-2">
-                  <button className="h-8 w-30 cursor-pointer rounded bg-blue-500 px-3 py-1 text-xs text-[var(--text-main)] hover:bg-blue-600"
+                  <button className="h-8 w-30 cursor-pointer rounded bg-[var(--button-bg)] px-3 py-1 text-xs text-[var(--text-light)] hover:bg-cyan-500"
                     data-cy="movie-screenings-button"
                     data-movie-id={movie.id}
                     onClick={async () => {

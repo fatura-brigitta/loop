@@ -162,13 +162,13 @@ export default function HeroSlider() {
         <div className="max-w-4xl px-6">
 
           <h1
-            className="text-5xl font-extrabold text-[var(--text-main)] drop-shadow-[0_0_30px_rgba(0,0,0,0.8)] md:text-6xl animate-heroText"
+            className="text-5xl font-extrabold text-[var(--text-white)] drop-shadow-[0_0_30px_rgba(0,0,0,0.8)] md:text-6xl animate-heroText"
             key={movie.id}
           >
             {movie.title}
           </h1>
 
-          <div className="mt-4 text-lg text-[var(--text-main)]/80">
+          <div className="mt-4 text-lg text-[var(--text-white)]/80">
             {movie.genre} • {movie.playtime} perc
           </div>
 

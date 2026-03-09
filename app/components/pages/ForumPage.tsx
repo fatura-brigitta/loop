@@ -289,10 +289,10 @@ export default function ForumPage() {
                     </div>
 
                     <div className="mt-2 text-center">
-                      <p className="line-clamp-2 text-sm font-semibold text-slate-200">
+                      <p className="line-clamp-2 text-sm font-semibold text-[var(--text-soft)]" data-cy="forum-movie-title">
                         {movie.title}
                       </p>
-                      <p className="mt-1 text-xs text-cyan-300">⭐ {movie.review}</p>
+                      <p className="mt-1 text-xs text-[var(--text-main2)]">⭐ {movie.review}</p>
                     </div>
                   </div>
                 ))}
@@ -304,7 +304,7 @@ export default function ForumPage() {
               <h2 className="mb-4 flex flex-wrap items-end gap-2 text-xl font-semibold">
                 <span>Hozzászólások -</span>
                 {currentMovie && (
-                  <span className="font-semibold text-cyan-300">{currentMovie.title}</span>
+                  <span className="font-semibold text-[var(--text-main2)]">{currentMovie.title}</span>
                 )}
               </h2>
 
@@ -318,7 +318,7 @@ export default function ForumPage() {
                 />
 
                 <div className="flex-1">
-                  <div className="mb-1 text-sm text-cyan-300">{name}</div>
+                  <div className="mb-3 text-sm text-[var(--text-main2)]">{name}</div>
 
                   <textarea className="h-28 w-full resize-none rounded-lg border border-[var(--border-color)] bg-[var(--bg-main)] p-3 text-sm outline-none focus:border-cyan-400"
                     data-cy="forum-comment-input"
@@ -336,13 +336,13 @@ export default function ForumPage() {
                   <div className="mt-3 flex items-center justify-between">
                     <div className="flex items-center gap-4">
                       <div className="flex flex-col gap-2">
-                        <div className="flex flex-col gap-2"       data-cy="forum-rating">
+                        <div className="flex flex-col gap-2"      data-cy="forum-rating">
                           <StarRating10 value={newReview} onChange={(v) => setNewReview(v)} />
                         </div>
                       </div>
                     </div>
 
-                    <button className="cursor-pointer rounded-lg bg-cyan-500 px-4 py-2 font-semibold text-black hover:bg-cyan-400"
+                    <button className="cursor-pointer rounded-lg bg-[var(--text-main2)] px-4 py-2 font-semibold text-[var(--text-light)] hover:bg-cyan-400"
                       data-cy="forum-comment-submit"
                       onClick={sendComment}
                     >
@@ -375,13 +375,13 @@ export default function ForumPage() {
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0">
                           <div className="flex flex-wrap items-center gap-2">
-                            <span className="truncate font-semibold text-cyan-300">
+                            <span className="truncate font-semibold text-[var(--text-main2)]">
                               {c.user_name}
                             </span>
 
-                            <span className="text-slate-500">•</span>
+                            <span className="text-[var(--text-soft)]">•</span>
 
-                            <span className="text-sm text-slate-200">
+                            <span className="text-sm text-[var(--text-soft)]">
                               ⭐ {Number(c.review).toFixed(1)}
                             </span>
                           </div>
@@ -390,8 +390,8 @@ export default function ForumPage() {
                         <div className="flex shrink-0 items-center gap-2">
                           <button className={`inline-flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-1.5 text-sm transition ${
                               c.myVote === "LIKE"
-                                ? "border-green-400/70 bg-green-400/10 text-green-200"
-                                : "border-[var(--border-color)] bg-[var(--bg-main)]/40 text-slate-200 hover:border-green-400/60 hover:text-green-200"
+                                ? "border-green-800/70 bg-green-800/10 text-green-800"
+                                : "border-[var(--border-color)] bg-[var(--bg-main)]/40 text-[var(--text-soft)] hover:border-green-800/60 hover:text-green-800"
                             }`}
                             data-cy="forum-like"
                             title="Like"
@@ -403,8 +403,8 @@ export default function ForumPage() {
 
                           <button className={`inline-flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-1.5 text-sm transition ${
                               c.myVote === "DISLIKE"
-                                ? "border-red-400/70 bg-red-400/10 text-red-200"
-                                : "border-[var(--border-color)] bg-[var(--bg-main)]/40 text-slate-200 hover:border-red-400/60 hover:text-red-200"
+                                ? "border-red-800/70 bg-red-800/10 text-red-800"
+                                : "border-[var(--border-color)] bg-[var(--bg-main)]/40 text-[var(--text-soft)] hover:border-red-800/60 hover:text-red-800"
                             }`}
                             data-cy="forum-dislike"
                             title="Dislike"
@@ -508,7 +508,7 @@ export default function ForumPage() {
 
                 {hasMore && (
                   <div className="mt-6 flex justify-center">
-                    <button className="cursor-pointer rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-sm text-slate-200 transition hover:border-cyan-400 hover:text-cyan-300"
+                    <button className="cursor-pointer rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-sm text-[var(--text-soft)] transition hover:border-cyan-400 hover:text-cyan-300"
                       data-cy="forum-load-more"
                       onClick={() => setVisibleCount((v) => Math.min(v + 5, comments.length))}
                     >

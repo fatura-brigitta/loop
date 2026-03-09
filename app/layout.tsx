@@ -17,16 +17,17 @@ export default function RootLayout({
   return (
     <html lang="hu" suppressHydrationWarning>
       <body className="flex min-h-screen flex-col bg-[var(--bg-main)] text-[var(--text-main)] transition-colors duration-300">
-      <Script
-        dangerouslySetInnerHTML={{
-          __html: `
-            const theme = localStorage.getItem("theme");
-            if(theme === "dark"){
-              document.documentElement.classList.add("dark");
-            }
-          `,
-        }}
-      />
+      <Script id="theme-loader" strategy="beforeInteractive">
+      {`
+        const savedTheme = localStorage.getItem("theme");
+
+        if (!savedTheme) {
+          document.documentElement.classList.add("dark");
+        } else if (savedTheme === "dark") {
+          document.documentElement.classList.add("dark");
+        }
+      `}
+      </Script>
         <NavbarWrapper />
 
         <main className="flex-1">

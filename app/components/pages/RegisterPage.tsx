@@ -137,11 +137,11 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="register-page">
-      <header className="sticky top-0 z-50 h-14 border-b border-[var(--border-color)] bg-[var(--bg-main)]/90 backdrop-blur">
+      {/* <header className="sticky top-0 z-50 h-14 border-b border-[var(--border-color)] bg-[var(--bg-main)]/90 backdrop-blur">
         <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
           <Link className="flex items-center gap-2" href="/">
             <Image alt="Logo" height={28} src="/favicon.ico" width={28} />
-            <span className="text-lg font-extrabold tracking-wide text-cyan-300">Loop</span>
+            <span className="text-lg font-extrabold tracking-wide text-[var(--text-main2)]">Loop</span>
           </Link>
 
           <nav className="flex items-center gap-5 text-sm">
@@ -153,11 +153,11 @@ export default function RegisterPage() {
             </Link>
           </nav>
         </div>
-      </header>
+      </header> */}
 
       <div className="flex items-center justify-center py-20">
         <div className="w-full max-w-md rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-8 shadow-2xl backdrop-blur">
-          <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">Fiók létrehozása</h1>
+          <h1 className="mb-8 text-center text-3xl font-bold text-[var(--text-main2)]">Fiók létrehozása</h1>
 
           <form className="space-y-5" data-cy="register-form" onSubmit={handleSubmit}>
             <div>
@@ -190,7 +190,7 @@ export default function RegisterPage() {
                   <div className="flex flex-col gap-2">
                     <div className="text-[var(--text-main)]/80">
                       Húzd ide a képet, vagy{" "}
-                      <button className="text-cyan-300 underline hover:text-cyan-200 cursor-pointer"
+                      <button className="text-[var(--text-main2)] underline hover:text-cyan-200 cursor-pointer"
                         data-cy="register-image-upload-button"
                         type="button"
                         onClick={() => fileInputRef.current?.click()}
@@ -315,7 +315,7 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            <div className="flex items-start gap-3 rounded-lg border border-[var(--border-color)] bg-black/30 p-3 text-sm">
+            <div className="flex items-start gap-3 rounded-lg border border-[var(--border-color)] bg-[var(--bg-main)]/30 p-3 text-sm">
               <input checked={consent}
                 className="mt-1 h-4 w-4"
                 data-cy="register-leaderboard-consent"
@@ -335,7 +335,7 @@ export default function RegisterPage() {
               </div>
             )}
 
-            <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 py-3 font-semibold text-[var(--text-main)] transition hover:bg-cyan-500 disabled:opacity-50 cursor-pointer"
+            <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--text-main2)] py-3 font-semibold text-[var(--text-light)] transition hover:bg-cyan-500 disabled:opacity-50 cursor-pointer"
               data-cy="register-submit-button"
               disabled={loading}
               type="submit"
@@ -347,7 +347,7 @@ export default function RegisterPage() {
 
           <p className="mt-6 text-center text-sm text-[var(--text-main)]/60">
             Már van fiókod?{" "}
-            <Link className="text-cyan-300 hover:underline" href="/login">
+            <Link className="text-[var(--text-main2)] hover:underline" href="/login">
               Bejelentkezés
             </Link>
           </p>

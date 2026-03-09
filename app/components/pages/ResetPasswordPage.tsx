@@ -66,7 +66,7 @@ export default function ResetPasswordPage() {
     <div className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="reset-password-page">
       <div className="w-full max-w-md rounded-xl bg-[var(--card-bg)] p-8 shadow-2xl" data-cy="reset-password-card">
 
-        <h1 className="text-2xl font-bold text-cyan-300 text-center mb-6">
+        <h1 className="text-2xl font-bold text-[var(--text-main2)] text-center mb-6">
           Új jelszó beállítása
         </h1>
 

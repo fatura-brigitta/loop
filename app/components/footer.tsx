@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="border-t border-[--border-color] py-4 text-center text-sm text-[--text-soft]">
+    <footer className="border-t border-[--border-color] py-4 text-center text-sm text-[--text-soft] bg-[var(--card-bg)]" data-cy="footer">
       <div className="max-w-6xl mx-auto space-y-3">
         <div className="text-lg font-semibold text-[--text-main]">
           Loop Mozi

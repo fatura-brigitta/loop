@@ -47,6 +47,22 @@ type ScreeningType = {
   percent: number;
 };
 
+type OpeningHours = {
+  id?: string
+  weekday: number
+  open_time: string
+  close_time: string
+  closed: boolean
+}
+
+type OpeningOverride = {
+  id: string
+  date: string
+  open_time: string | null
+  close_time: string | null
+  closed: boolean
+}
+
 
 type Tab =
   | "movies"
@@ -54,7 +70,16 @@ type Tab =
   | "screenings"
   | "screening_types"
   | "bad_words"
-  | "flagged_comments";
+  | "flagged_comments"
+  | "opening_hours"
+  | "opening_overrides";
+
+function escapeHtml(text: string) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
 
 async function api(entity: Tab, method: string, body?: any) {
   const res = await fetch(`/api/admin?entity=${entity}`, {
@@ -77,6 +102,8 @@ export default function AdminPage() {
   const [halls, setHalls] = useState<Hall[]>([]);
   const [screenings, setScreenings] = useState<Screening[]>([]);
   const [screeningTypes, setScreeningTypes] = useState<ScreeningType[]>([]);
+  const [openingHours,setOpeningHours] = useState<OpeningHours[]>([])
+  const [openingOverrides,setOpeningOverrides] = useState<OpeningOverride[]>([])
 
 
   const [err, setErr] = useState<string>("");
@@ -121,6 +148,21 @@ export default function AdminPage() {
     });
   }
 
+  const days = [
+  "Vasárnap",
+  "Hétfő",
+  "Kedd",
+  "Szerda",
+  "Csütörtök",
+  "Péntek",
+  "Szombat"
+  ]
+
+  const [opening,setOpening] = useState<{
+    open:string
+    close:string
+  } | null>(null)
+
   const [search, setSearch] = useState("");
   const filteredMovies = movies.filter((m) =>
     m.title?.toLowerCase().includes(search.toLowerCase())
@@ -154,15 +196,44 @@ export default function AdminPage() {
     new Date().toISOString().slice(0, 10)
   );
 
+  const [overrideForm,setOverrideForm]=useState({
+      date:"",
+      open_time:null as string | null,
+      close_time:null as string | null,
+      closed:false
+  })
+
   const [dayHallScreenings, setDayHallScreenings] = useState<Screening[]>([]);
 
   async function loadScheduleDay() {
-  if (!selectedDate || !screeningForm.hall_id) {
-    setDayHallScreenings([]);
-    return;
-  }
 
-  try {
+    if (!selectedDate) return;
+
+    try {
+      const openRes = await fetch(`/api/opening?date=${selectedDate}`);
+      const openData = await openRes.json();
+
+      console.log("API result:", openData);
+
+      if (openData && openData.open && openData.close) {
+        setOpening({
+          open: openData.open,
+          close: openData.close
+        });
+      } else {
+        setOpening(null);
+      }
+    } catch {
+      setOpening(null);
+    }
+
+    if (!screeningForm.hall_id) {
+      setDayHallScreenings([]);
+      return;
+    }
+
+    try {
+
       const res = await fetch(`/api/admin/adminSchedule?date=${selectedDate}`);
       const data = await res.json();
 
@@ -171,9 +242,11 @@ export default function AdminPage() {
       );
 
       setDayHallScreenings(hallOnly);
-    } catch (e: any) {
+
+    } catch {
       setDayHallScreenings([]);
     }
+
   }
 
   useEffect(() => {
@@ -191,17 +264,22 @@ export default function AdminPage() {
   setErr("");
 
   try {
-    const [ms, hs, ss, st] = await Promise.all([
-      api("movies", "GET"),
-      api("halls", "GET"),
-      api("screenings", "GET"),
-      api("screening_types", "GET"),
-    ]);
+    const [ms, hs, ss, st, oh, oo] = await Promise.all([
+      api("movies","GET"),
+      api("halls","GET"),
+      api("screenings","GET"),
+      api("screening_types","GET"),
+      api("opening_hours","GET"),
+      api("opening_overrides","GET")
+    ])
 
-    setMovies(ms);
-    setHalls(hs);
-    setScreenings(ss);
-    setScreeningTypes(st);
+    setMovies(ms)
+    setHalls(hs)
+    setScreenings(ss)
+    setScreeningTypes(st)
+
+    setOpeningHours(oh)
+    setOpeningOverrides(oo)
 
     await loadModeration();
 
@@ -229,13 +307,29 @@ async function loadModeration() {
 
   useEffect(() => {
     loadAll();
-    loadModeration();
   }, []);
 
   useEffect(() => {
     if (!sMovieId && movies.length) setSMovieId(movies[0].id);
     if (!sHallId && halls.length) setSHallId(halls[0].id);
   }, [movies, halls, sMovieId, sHallId]);
+
+  useEffect(()=>{
+
+    if(openingHours.length === 0){
+
+      setOpeningHours(
+        Array.from({length:7}).map((_,i)=>({
+          weekday:i,
+          open_time:"10:00",
+          close_time:"22:00",
+          closed:false
+        }))
+      )
+
+    }
+
+  },[openingHours])
 
   const localToISO = (local: string) => {
     const d = new Date(local);
@@ -289,6 +383,18 @@ async function loadModeration() {
           >
             <MessageSquare size={18} />
             Fórum
+          </button>
+
+          <button
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
+              tab === "opening_hours"
+                ? "bg-white/10 text-white"
+                : "text-slate-300 hover:text-white"
+            }`}
+            onClick={() => setTab("opening_hours")}
+          >
+            <Calendar size={18} />
+            Nyitvatartás
           </button>
         </nav>
 
@@ -810,13 +916,20 @@ async function loadModeration() {
                     Idővonal (a kiválasztott teremhez) — kattints egy pontra a kezdés beállításához
                   </div>
 
-                 <Timeline data-cy="movie-search"
+                 <Timeline
                     date={selectedDate}
                     movie={movies.find((m) => m.id === screeningForm.movie_id) || null}
                     screenings={dayHallScreenings}
-                    onPickStart={(localISO) =>
-                      setScreeningForm((prev) => ({ ...prev, start: localISO }))
-                    }
+                    opening={opening}
+                    onPickStart={(localISO) => {
+                      const d = new Date(localISO)
+                      const time = d.toTimeString().slice(0,5)
+
+                      setScreeningForm(prev => ({
+                        ...prev,
+                        startTime: time
+                      }))
+                    }}
                   />
                 </div>
 
@@ -831,11 +944,26 @@ async function loadModeration() {
                   const CLEANING = 15;
                   const end = new Date(start.getTime() + (movie.playtime + CLEANING) * 60000);
 
+                  if (!opening) {
+                    return (
+                      <div className="mt-3 text-sm rounded-lg p-2 border bg-red-500/15 border-red-500/30 text-red-200">
+                        A mozi ezen a napon zárva tart.
+                      </div>
+                    );
+                  }
+
+                  const [openH, openM] = opening.open.split(":").map(Number);
+                  const [closeH, closeM] = opening.close.split(":").map(Number);
+
                   const open = new Date(selectedDate);
-                  open.setHours(10, 0, 0, 0);
+                  open.setHours(openH, openM, 0, 0);
 
                   const close = new Date(selectedDate);
-                  close.setHours(22, 0, 0, 0);
+                  close.setHours(closeH, closeM, 0, 0);
+
+                  if (close <= open) {
+                    close.setDate(close.getDate() + 1);
+                  }
 
                   const outsideOpening = start < open || end > close;
 
@@ -990,7 +1118,7 @@ async function loadModeration() {
   
             {flaggedComments.map(c=>{
   
-            let text = c.comment;
+            let text = escapeHtml(c.comment);
   
             badWordsText.split(",").forEach(w=>{
   
@@ -1020,7 +1148,7 @@ async function loadModeration() {
   
             <div dangerouslySetInnerHTML={{__html:text}}/></div>
   
-            <button className="ml-4 px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm whitespace-nowrap"
+            <button className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
             data-cy="flagged-comments-delete"
             onClick={async()=>{
   
@@ -1106,6 +1234,212 @@ async function loadModeration() {
             )}
           </section>
         </div>
+        )}
+
+        {tab === "opening_hours" && (
+        <>
+        <h1 className="text-2xl font-semibold">Nyitvatartás kezelése</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+        <section className="p-5 bg-white/5 border border-white/10 rounded-xl">
+
+        <h2 className="font-semibold mb-4">Általános nyitvatartás</h2>
+        {openingHours.map((d,i)=>(
+
+        <div key={i} className="flex gap-3 mb-3 items-center">
+
+        <div className="w-28 text-sm">{days[d.weekday]}</div>
+
+        <input
+        type="time"
+        value={d.open_time}
+        disabled={d.closed}
+        onChange={(e)=>{
+
+          const copy=[...openingHours]
+          copy[i].open_time=e.target.value
+          setOpeningHours(copy)
+
+        }}
+        className="bg-slate-900 border border-white/10 px-2 py-1 rounded"
+        />
+
+        <input
+        type="time"
+        value={d.close_time}
+        disabled={d.closed}
+        onChange={(e)=>{
+
+          const copy=[...openingHours]
+          copy[i].close_time=e.target.value
+          setOpeningHours(copy)
+
+        }}
+        className="bg-slate-900 border border-white/10 px-2 py-1 rounded"
+        />
+
+        <label className="text-sm flex items-center gap-1">
+
+        <input
+        type="checkbox"
+        checked={d.closed}
+        onChange={(e)=>{
+
+          const checked = e.target.checked
+
+          const copy=[...openingHours]
+
+          copy[i].closed = checked
+
+          if(checked){
+            copy[i].open_time = "00:00"
+            copy[i].close_time = "00:00"
+          }
+
+          setOpeningHours(copy)
+
+        }}
+        />
+
+        zárva
+
+        </label>
+
+        </div>
+
+        ))}
+
+        <button
+        className="w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
+        onClick={async()=>{
+          for(const day of openingHours){
+            await api("opening_hours","POST",day)
+          }
+          await loadAll()
+        }}
+        >
+        Heti nyitvatartás mentése
+        </button>
+
+        </section>
+
+        <section className="p-5 bg-white/5 border border-white/10 rounded-xl">
+          <h2 className="font-semibold mb-4">Speciális napok</h2>
+          <div className="grid grid-cols-4 gap-4 mb-4 items-end">
+
+          <div>
+            <label className="text-xs text-slate-400">Dátum</label>
+            <input
+            type="date"
+            value={overrideForm.date}
+            onChange={(e)=>setOverrideForm({...overrideForm,date:e.target.value})}
+            className="bg-slate-900 border border-white/10 px-3 py-2 rounded w-full"
+            />
+          </div>
+
+          <div>
+            <label className="text-xs text-slate-400">Nyitás</label>
+            <input
+            type="time"
+            value={overrideForm.open_time ?? ""}
+            disabled={overrideForm.closed}
+            onChange={(e)=>setOverrideForm({...overrideForm,open_time:e.target.value})}
+            className="bg-slate-900 border border-white/10 px-3 py-2 rounded w-full"
+            />
+          </div>
+
+          <div>
+            <label className="text-xs text-slate-400">Zárás</label>
+            <input
+            type="time"
+            value={overrideForm.close_time ?? ""}
+            disabled={overrideForm.closed}
+            onChange={(e)=>setOverrideForm({...overrideForm,close_time:e.target.value})}
+            className="bg-slate-900 border border-white/10 px-3 py-2 rounded w-full"
+            />
+          </div>
+
+          <div className="flex items-center gap-2 h-[38px]">
+            <input
+            type="checkbox"
+            checked={overrideForm.closed}
+            onChange={(e)=>setOverrideForm({...overrideForm,closed:e.target.checked})}
+            />
+            <span className="text-sm">Zárva</span>
+          </div>
+
+          <button
+          className="w-full mt-4 w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
+          onClick={async()=>{
+
+          if(!overrideForm.date){
+            setErr("Dátum kötelező")
+            return
+          }
+
+          if(!overrideForm.closed && (!overrideForm.open_time || !overrideForm.close_time)){
+            setErr("Nyitási és zárási idő kell")
+            return
+          }
+
+          await api("opening_overrides","POST",{
+            ...overrideForm,
+            open_time: overrideForm.closed ? null : overrideForm.open_time,
+            close_time: overrideForm.closed ? null : overrideForm.close_time
+          })
+
+          setOverrideForm({
+          date:"",
+          open_time:"",
+          close_time:"",
+          closed:false
+          })
+
+          await loadAll()
+
+          }}
+          >
+
+          Hozzáadás
+
+          </button>
+
+          </div>
+          {openingOverrides.map(o=>(
+
+            <div
+            key={o.id}
+            className="flex items-center justify-between p-3 border border-white/10 rounded-lg mb-2 bg-slate-900/40"
+            >
+
+            <div>
+
+            {o.date.slice(0,10)} — {o.closed
+              ? <span className="text-red-400 font-semibold">ZÁRVA</span>
+              : <span className="text-emerald-400">{o.open_time} - {o.close_time}</span>
+            }
+
+            </div>
+
+            <button
+            className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
+            onClick={async()=>{
+
+            await api("opening_overrides","DELETE",{id:o.id})
+            await loadAll()
+
+            }}
+            >
+
+            Törlés
+
+            </button>
+
+            </div>
+
+            ))}
+        </section>
+        </div>
+        </>
         )}
       </main>
     </div>

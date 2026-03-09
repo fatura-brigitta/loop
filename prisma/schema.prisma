@@ -37,6 +37,28 @@ model Movie {
   @@map("movies")
 }
 
+model OpeningHours {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  weekday   Int
+  open_time String
+  close_time String
+  closed    Boolean @default(false)
+
+  @@unique([weekday])
+  @@map("opening_hours")
+}
+
+model OpeningOverride {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  date       DateTime
+  open_time  String?
+  close_time String?
+  closed     Boolean @default(false)
+
+  @@unique([date])
+  @@map("opening_overrides")
+}
+
 model Screening {
   id                String   @id @default(auto()) @map("_id") @db.ObjectId
   hall_id           String   @db.ObjectId

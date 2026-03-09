@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { ObjectId } from "bson";
+import { getOpeningHours } from "@/lib/openingHours";
 
 type Entity =
   | "movies"
@@ -8,7 +9,9 @@ type Entity =
   | "screenings"
   | "screening_types"
   | "bad_words"
-  | "flagged_comments";
+  | "flagged_comments"
+  | "opening_hours"
+  | "opening_overrides";;
 
 function jsonError(message: string, status = 400) {
   return NextResponse.json({ error: message }, { status });
@@ -17,15 +20,19 @@ function jsonError(message: string, status = 400) {
 function getEntity(req: Request): Entity | null {
   const { searchParams } = new URL(req.url);
   const e = searchParams.get("entity");
+
   if (
     e === "movies" ||
     e === "halls" ||
     e === "screenings" ||
     e === "screening_types" ||
     e === "bad_words" ||
-    e === "flagged_comments"
+    e === "flagged_comments" ||
+    e === "opening_hours" ||
+    e === "opening_overrides"
   )
     return e;
+
   return null;
 }
 
@@ -136,6 +143,22 @@ export async function GET(req: Request) {
       ]);
     }
 
+    if (entity === "opening_hours") {
+      return NextResponse.json(
+        await prisma.openingHours.findMany({
+          orderBy: { weekday: "asc" }
+        })
+      );
+    }
+
+    if (entity === "opening_overrides") {
+      return NextResponse.json(
+        await prisma.openingOverride.findMany({
+          orderBy: { date: "asc" }
+        })
+      );
+    }
+
     const screenings = await prisma.screening.findMany({
       orderBy: { start: "desc" },
       include: {
@@ -213,9 +236,11 @@ export async function PUT(req: Request) {
         for (let r = 1; r <= rows; r++) {
           for (let c = 1; c <= columns; c++) {
 
-            const existing = existingChairs.find(
-              ch => ch.row === r && ch.column === c
-            );
+           const chairMap = new Map(
+            existingChairs.map(c => [`${c.row}-${c.column}`, c])
+          );
+
+          const existing = chairMap.get(`${r}-${c}`);
 
             if (existing) {
               keepIds.add(existing.id);
@@ -344,14 +369,24 @@ export async function POST(req: Request) {
       const startDate = new Date(body.start);
       if (isNaN(startDate.getTime())) return jsonError("Érvénytelen vetítési idő");
 
-      const OPEN_HOUR = 10;
-      const CLOSE_HOUR = 22;
+      const hours = await getOpeningHours(startDate)
 
-      const open = new Date(startDate);
-      open.setHours(OPEN_HOUR,0,0,0);
+      if (!hours) {
+        return jsonError("A mozi ezen a napon zárva tart")
+      }
 
-      const close = new Date(startDate);
-      close.setHours(CLOSE_HOUR,0,0,0);
+      const [openH, openM] = hours.open.split(":").map(Number)
+      const [closeH, closeM] = hours.close.split(":").map(Number)
+
+      const open = new Date(startDate)
+      open.setHours(openH, openM, 0, 0)
+
+      const close = new Date(startDate)
+      close.setHours(closeH, closeM, 0, 0)
+
+      if (close <= open) {
+        close.setDate(close.getDate() + 1)
+      }
 
       const CLEANING_MINUTES = 15;
 
@@ -404,6 +439,40 @@ export async function POST(req: Request) {
       return NextResponse.json({ok:true});
     }
 
+    if (entity === "opening_hours") {
+
+      const created = await prisma.openingHours.upsert({
+        where: { weekday: body.weekday },
+        update: {
+          open_time: body.open_time,
+          close_time: body.close_time,
+          closed: body.closed
+        },
+        create: {
+          weekday: body.weekday,
+          open_time: body.open_time,
+          close_time: body.close_time,
+          closed: body.closed
+        }
+      });
+
+      return NextResponse.json(created);
+    }
+
+    if (entity === "opening_overrides") {
+
+      const created = await prisma.openingOverride.create({
+        data: {
+          date: new Date(body.date),
+          open_time: body.open_time,
+          close_time: body.close_time,
+          closed: body.closed
+        }
+      });
+
+      return NextResponse.json(created);
+    }
+
     return jsonError("Nem támogatott bemenet");
   } catch (e) {
     console.error(e);
@@ -449,6 +518,14 @@ export async function DELETE(req: Request) {
       }
 
       return NextResponse.json({ok:true});
+    }
+
+    if (entity === "opening_overrides") {
+      await prisma.openingOverride.delete({
+        where: { id }
+      });
+
+      return NextResponse.json({ ok: true });
     }
     return jsonError("Nem támogatott bemenet");
   } catch (e) {

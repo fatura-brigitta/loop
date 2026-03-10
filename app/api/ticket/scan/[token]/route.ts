@@ -35,16 +35,29 @@ export async function GET(
         throw new Error("INVALID");
       }
 
-      const used = !!ticket.used_at;
+      const now = new Date();
+      const start = new Date(ticket.screenings!.start);
 
-      if (!used) {
-        await tx.ticket.update({
-          where: { id: ticket.id },
-          data: { used_at: new Date() }
-        });
+      const oneHourBefore = new Date(start);
+      oneHourBefore.setHours(oneHourBefore.getHours() - 1);
+
+      const fifteenMinutesAfter = new Date(start);
+      fifteenMinutesAfter.setMinutes(fifteenMinutesAfter.getMinutes() + 15);
+
+      if (now < oneHourBefore) {
+        throw new Error("TOO_EARLY");
       }
 
-      return { ticket, used };
+      if (now > fifteenMinutesAfter) {
+        throw new Error("EXPIRED");
+      }
+
+      await tx.ticket.update({
+        where: { id: ticket.id },
+        data: { used_at: new Date() }
+      });
+
+      return { ticket, used: false };
     });
 
     const { ticket, used } = result;
@@ -65,6 +78,20 @@ export async function GET(
       return NextResponse.json(
         { message: t.invalidTicket },
         { status: 404 }
+      );
+    }
+
+    if (err.message === "TOO_EARLY") {
+      return NextResponse.json(
+        { message: t.ticketScanTooEarly },
+        { status: 400 }
+      );
+    }
+
+    if (err.message === "EXPIRED") {
+      return NextResponse.json(
+        { message: t.ticketExpired },
+        { status: 400 }
       );
     }
 

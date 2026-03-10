@@ -59,6 +59,8 @@ export const messages = {
     ticketNotFoundOrUnauthorized: "Jegy nem található vagy nincs jogosultság!",
     missingTicketId: "Hiányzó jegyazonosító!",
     invalidTicket: "Érvénytelen jegy!",
+    ticketScanTooEarly: "A jegy még nem érvényes!",
+    ticketExpired: "A vetítés már elkezdődött vagy véget ért.",
 
     missingDate: "Hiányzó dátum!",
     missingOrInvalidEntity: "Hiányzó vagy érvénytelen entitás!",
@@ -142,6 +144,8 @@ export const messages = {
     ticketNotFoundOrUnauthorized: "Ticket not found or no permission!",
     missingTicketId: "Missing ticketId!",
     invalidTicket: "Invalid ticket!",
+    ticketScanTooEarly: "The ticket is not valid yet!",
+    ticketExpired: "The screening already started or its over!",
 
     missingDate: "Missing date!",
     missingOrInvalidEntity: "Missing or invalid entity!",

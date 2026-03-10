@@ -14,6 +14,7 @@ type Movie = {
   language: string | null;
   trailer: string | null;
   poster: string | null;
+  backdrop: string | null;
   genre: string | null;
   review: number | null;
   description: string | null;
@@ -125,6 +126,7 @@ export default function AdminPage() {
     language: "",
     trailer: "",
     poster: "",
+    backdrop: "",
     genre: "",
     review: "",
     description: "",
@@ -141,6 +143,7 @@ export default function AdminPage() {
       language: "",
       trailer: "",
       poster: "",
+      backdrop: "",
       genre: "",
       review: "",
       description: "",
@@ -492,6 +495,13 @@ async function loadModeration() {
                 </div>
 
                 <div>
+                  <label className="block text-sm text-slate-300 mb-1">Háttér URL</label>
+                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-backdrop-input"
+                    value={movieForm.backdrop}
+                    onChange={(e)=>setMovieForm({...movieForm,backdrop:e.target.value})} />
+                </div>
+
+                <div>
                   <label className="block text-sm text-slate-300 mb-1">Előzetes URL</label>
                   <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-trailer-input"
                     value={movieForm.trailer}
@@ -634,6 +644,7 @@ async function loadModeration() {
                             language: m.language ?? "",
                             trailer: m.trailer ?? "",
                             poster: m.poster ?? "",
+                            backdrop: m.backdrop ?? "",
                             genre: m.genre ?? "",
                             review: String(m.review ?? ""),
                             description: m.description ?? "",

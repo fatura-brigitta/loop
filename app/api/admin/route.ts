@@ -83,7 +83,7 @@ export async function GET(req: Request) {
     if(entity === "flagged_comments"){
 
       const words = await prisma.badWord.findMany();
-      const bad = words.map(w => w.word.toLowerCase());
+      const bad = words.map(w => w.word.toLowerCase().trim());
 
       const posts = await prisma.forum.findMany({
         select: {
@@ -116,7 +116,11 @@ export async function GET(req: Request) {
       });
 
       const flaggedPosts = posts
-      .filter(p => bad.some(w => p.comment.toLowerCase().includes(w)))
+      .filter(p =>
+        bad.some(w =>
+          (p.comment ?? "").toLowerCase().includes(w)
+        )
+      )
       .map(p => ({
         id:p.id,
         comment:p.comment,
@@ -128,7 +132,11 @@ export async function GET(req: Request) {
 
       
       const flaggedReplies = replies
-      .filter(r => bad.some(w => r.comment.toLowerCase().includes(w)))
+      .filter(r =>
+        bad.some(w =>
+          (r.comment ?? "").toLowerCase().includes(w)
+        )
+      )
       .map(r => ({
         id:r.id,
         comment:r.comment,
@@ -196,6 +204,7 @@ export async function PUT(req: Request) {
           language: opt(body.language),
           trailer: opt(body.trailer),
           poster: opt(body.poster),
+          backdrop: opt(body.backdrop),
           onscreen: Boolean(body.onscreen),
           genre: opt(body.genre),
           review: body.review !== undefined ? Number(body.review) : undefined,
@@ -306,6 +315,7 @@ export async function POST(req: Request) {
           language: opt(body.language),
           trailer: opt(body.trailer),
           poster: opt(body.poster),
+          backdrop: opt(body.backdrop),
           onscreen: Boolean(body.onscreen),
           genre: opt(body.genre),
           review: body.review !== undefined ? Number(body.review) : undefined,

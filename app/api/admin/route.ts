@@ -363,7 +363,6 @@ export async function POST(req: Request) {
             hall_id: createdHall.id,
             row: r,
             column: c,
-            state: false,
           });
         }
       }

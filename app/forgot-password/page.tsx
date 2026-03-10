@@ -34,7 +34,7 @@ export default function ForgotPasswordPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="forgot-password-page">
-      <div data-cy="forgot-password-form" className="w-full max-w-md rounded-xl bg-[var(--card-bg)] p-8 shadow-2xl">
+      <div className="w-full max-w-md rounded-xl bg-[var(--card-bg)] p-8 shadow-2xl" data-cy="forgot-password-form">
 
         <h1 className="text-2xl font-bold text-[var(--text-main2)] text-center mb-6">
           Elfelejtett jelszó
@@ -54,14 +54,14 @@ export default function ForgotPasswordPage() {
             />
 
             <button className="mt-6 w-full rounded-lg bg-[var(--text-main2)] py-3 text-[var(--text-light)] font-bold hover:bg-cyan-500"
-              data-cy="forgot-password-submit"
+              data-cy="forgot-password-submit cursor-pointer"
               onClick={submit}
             >
               Küldés
             </button>
 
             {error && (
-              <div data-cy="forgot-password-error" className="mt-4 text-red-400 text-center">{error}</div>
+              <div className="mt-4 text-red-400 text-center" data-cy="forgot-password-error">{error}</div>
             )}
           </>
         ) : (

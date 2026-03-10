@@ -211,8 +211,13 @@ export async function PUT(req: NextRequest) {
 
     });
 
-    sendVerificationEmail(newUser.user.email, newUser.user.name, newUser.code)
-      .catch(err => console.error("EMAIL SEND ERROR:", err));
+    const { user, code } = newUser;
+
+    try {
+      await sendVerificationEmail(user.email, user.name, code);
+    } catch (err) {
+      console.error("EMAIL SEND ERROR:", err);
+    }
 
     return NextResponse.json(
       {

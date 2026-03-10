@@ -1,18 +1,24 @@
 import dns from "dns";
 dns.setDefaultResultOrder("ipv4first");
+
 import nodemailer from "nodemailer";
 
-export async function sendVerificationEmail(to: string, name: string, code: string) {
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+  auth: {
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
+  },
+});
+
+export async function sendVerificationEmail(
+  to: string,
+  name: string,
+  code: string
+) {
   const safeName = name?.trim() || "Felhasználó";
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASS,
-    },
-  });
 
   const html = `
   <div style="font-family:Arial;padding:20px">

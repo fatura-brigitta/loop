@@ -69,7 +69,7 @@ export default function VerifyEmailPage() {
 
     setCooldown(30);
 
-    await fetch("/api/password/resend-code", {
+    await fetch("/api/email/resend-code", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),

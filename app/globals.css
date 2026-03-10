@@ -187,13 +187,21 @@ filter: blur(0);
 }
 
 .swagger-ui {
-  background-color: white !important;
+  background: #ffffff !important;
+}
+
+.swagger-ui .wrapper {
+  background: #ffffff !important;
 }
 
 .swagger-ui .scheme-container {
-  background: white !important;
+  background: #ffffff !important;
 }
 
 .swagger-ui .opblock {
-  background: white !important;
+  background: #ffffff !important;
+}
+
+.swagger-ui .topbar {
+  background: #ffffff !important;
 }

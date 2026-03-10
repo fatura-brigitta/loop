@@ -1,17 +1,5 @@
 import swaggerJsdoc from "swagger-jsdoc";
 
-import "../swagger/admin.swagger";
-import "../swagger/auth.swagger";
-import "../swagger/email.swagger";
-import "../swagger/forum.swagger";
-import "../swagger/home.swagger";
-import "../swagger/movies.swagger";
-import "../swagger/password.swagger";
-import "../swagger/payment.swagger";
-import "../swagger/profile.swagger";
-import "../swagger/screenings.swagger";
-import "../swagger/ticket.swagger";
-
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -22,12 +10,12 @@ const options = {
     },
     servers: [
       {
-        url: process.env.NEXT_PUBLIC_URL || "http://localhost:3000" || "https://loop-sooty.vercel.app",
+        url: process.env.NEXT_PUBLIC_URL || "http://localhost:3000",
       },
     ],
   },
 
-  apis: ["./swagger/*.ts"]
+  apis: ["./swagger/**/*.ts"],
 };
 
 export const swaggerSpec = swaggerJsdoc(options);

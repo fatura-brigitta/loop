@@ -1,8 +1,13 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
+import { getLang } from "@/lib/lang";
+import { messages } from "@/lib/messages";
 
 export async function GET(req: Request) {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
 
     const { searchParams } = new URL(req.url);
@@ -96,23 +101,35 @@ export async function GET(req: Request) {
 
     console.error("FORUM GET ERROR:", err);
 
-    return NextResponse.json([], { status: 500 });
+    return NextResponse.json(
+      { message: t.serverError },
+      { status: 500 }
+    );
   }
 }
 
 export async function POST(req: Request) {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
     const cookieStore = await cookies();
     const userCookie = cookieStore.get("userId");
 
     if (!userCookie) {
-      return NextResponse.json({ error: "Nincs bejelentkezve" }, { status: 401 });
+      return NextResponse.json(
+        { message: t.notLoggedIn },
+        { status: 401 }
+      );
     }
 
     const { movie_id, comment, review } = await req.json();
 
     if (!movie_id || !comment) {
-      return NextResponse.json({ error: "Hiányzó adatok" }, { status: 400 });
+      return NextResponse.json(
+        { message: t.missingData },
+        { status: 400 }
+      );
     }
 
     const newPost = await prisma.forum.create({
@@ -127,6 +144,9 @@ export async function POST(req: Request) {
     return NextResponse.json(newPost);
   } catch (err) {
     console.error("FORUM POST ERROR:", err);
-    return NextResponse.json({ error: "Szerver hiba" }, { status: 500 });
+    return NextResponse.json(
+      { message: t.serverError },
+      { status: 500 }
+    );
   }
 }

@@ -1,8 +1,13 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import prisma from "@/lib/prisma";
+import { getLang } from "@/lib/lang";
+import { messages } from "@/lib/messages";
 
 export async function DELETE(req: Request) {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
 
     const cookieStore = await cookies();
@@ -10,7 +15,7 @@ export async function DELETE(req: Request) {
 
     if (!userId) {
       return NextResponse.json(
-        { message: "Nem vagy bejelentkezve" },
+        { message: t.notLoggedIn },
         { status: 401 }
       );
     }
@@ -19,7 +24,7 @@ export async function DELETE(req: Request) {
 
     if (!ticketId) {
       return NextResponse.json(
-        { message: "Hiányzó ticketId" },
+        { message: t.missingTicketId },
         { status: 400 }
       );
     }
@@ -33,7 +38,7 @@ export async function DELETE(req: Request) {
 
     if (deleted.count === 0) {
       return NextResponse.json(
-        { message: "Jegy nem található vagy nincs jogosultság" },
+        { message: t.ticketNotFoundOrUnauthorized },
         { status: 404 }
       );
     }
@@ -45,7 +50,7 @@ export async function DELETE(req: Request) {
     console.error("DELETE TICKET ERROR:", error);
 
     return NextResponse.json(
-      { message: "Szerver hiba" },
+      { message: t.serverError },
       { status: 500 }
     );
   }

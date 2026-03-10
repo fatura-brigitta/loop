@@ -1,15 +1,20 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getLang } from "@/lib/lang";
+import { messages } from "@/lib/messages";
 
 const OPEN_HOUR = 10;
 const CLOSE_HOUR = 22;
 
 export async function GET(req: Request) {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
     const { searchParams } = new URL(req.url);
     const date = searchParams.get("date");
     if (!date) {
-      return NextResponse.json({ error: "Hiányzó dátum" }, { status: 400 });
+      return NextResponse.json({ message: t.missingDate }, { status: 400 });
     }
 
     const dayStart = new Date(date);
@@ -36,6 +41,6 @@ export async function GET(req: Request) {
     return NextResponse.json({ halls, screenings, dayStart, dayEnd });
   } catch (e) {
     console.error(e);
-    return NextResponse.json({ error: "Szerver hiba" }, { status: 500 });
+    return NextResponse.json({ message: t.serverError }, { status: 500 });
   }
 }

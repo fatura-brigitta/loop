@@ -2,13 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { generate4DigitCode, codeExpiry } from "@/lib/emailVerification";
 import { sendVerificationEmail } from "@/lib/sendVerificationEmail";
+import { getLang } from "@/lib/lang";
+import { messages } from "@/lib/messages";
 
 export async function POST(req: NextRequest) {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
     let { email } = await req.json();
 
     if (!email) {
-      return NextResponse.json({ message: "Hiányzó email" }, { status: 400 });
+      return NextResponse.json(
+        { message: t.missingEmail },
+        { status: 400 }
+      );
     }
 
     email = String(email).trim().toLowerCase();
@@ -41,6 +49,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("RESEND CODE ERROR:", err);
-    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
+    return NextResponse.json(
+      { message: t.serverError },
+      { status: 500 }
+    );
   }
 }

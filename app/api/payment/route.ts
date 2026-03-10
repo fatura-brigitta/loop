@@ -7,7 +7,12 @@ import { calculateTicketPrice } from "@/lib/price";
 import { sendTicketEmail } from "@/lib/sendTicketEmail";
 import { generateQrToken } from "@/lib/generateQrToken";
 
+import { getLang } from "@/lib/lang";
+import { messages } from "@/lib/messages";
+
 async function handleCreate(req: NextRequest) {
+  const lang = await getLang();
+  const t = messages[lang];
   try {
     const cookieStore = await cookies();
     const body = await req.json();
@@ -19,10 +24,10 @@ async function handleCreate(req: NextRequest) {
     const screeningId = cookieStore.get("screeningId")?.value;
 
     if (!userId || !screeningId)
-      return NextResponse.json({ message: "Nem megfelelő azonosító" }, { status: 401 });
+      return NextResponse.json({ message: t.invalidId }, { status: 401 });
 
     if (!seatIds || seatIds.length === 0)
-      return NextResponse.json({ message: "Nincs kiválasztott szék" }, { status: 400 });
+      return NextResponse.json({ message: t.noSeatSelected }, { status: 400 });
 
     const session = await prisma.payment_session.create({
       data: {
@@ -45,11 +50,13 @@ async function handleCreate(req: NextRequest) {
     return res;
   } catch (err) {
     console.error("PAYMENT CREATE ERROR:", err);
-    return NextResponse.json({ message: "Nem sikerült elindítani a fizetést" }, { status: 500 });
+    return NextResponse.json({ message: t.paymentStartError }, { status: 500 });
   }
 }
 
 async function handleSession() {
+  const lang = await getLang();
+  const t = messages[lang];
 
   try {
 
@@ -57,7 +64,7 @@ async function handleSession() {
     const paymentId = cookieStore.get("paymentSessionId")?.value;
 
     if (!paymentId)
-      return NextResponse.json({ message: "Nincs fizetési munkamenet" }, { status: 400 });
+      return NextResponse.json({ message: t.noSession }, { status: 400 });
 
     const session = await prisma.payment_session.findUnique({
       where: { id: paymentId },
@@ -73,7 +80,7 @@ async function handleSession() {
     });
 
     if (!session || !session.screenings)
-      return NextResponse.json({ message: "Érvénytelen munkamenet" }, { status: 400 });
+      return NextResponse.json({ message: t.invalidSession }, { status: 400 });
 
     const chairIds = session.chair_ids as string[];
 
@@ -111,11 +118,13 @@ async function handleSession() {
 
   } catch (err) {
     console.error("PAYMENT SESSION ERROR:", err);
-    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
+    return NextResponse.json({ message: t.serverError }, { status: 500 });
   }
 }
 
 async function handlePrice(req: NextRequest) {
+  const lang = await getLang();
+  const t = messages[lang];
 
   try {
 
@@ -123,7 +132,7 @@ async function handlePrice(req: NextRequest) {
     const paymentId = cookieStore.get("paymentSessionId")?.value;
 
     if (!paymentId)
-      return NextResponse.json({ message: "Nincs fizetési munkamenet" }, { status: 400 });
+      return NextResponse.json({ message: t.noSession }, { status: 400 });
 
     const { ticketTypes } = await req.json();
 
@@ -137,7 +146,7 @@ async function handlePrice(req: NextRequest) {
     });
 
     if (!session || !session.screenings)
-      return NextResponse.json({ message: "Érvénytelen munkamenet" }, { status: 400 });
+      return NextResponse.json({ message: t.invalidSession }, { status: 400 });
 
     let totalPrice = 0;
 
@@ -161,11 +170,13 @@ async function handlePrice(req: NextRequest) {
 
   } catch (err) {
     console.error("PRICE ERROR:", err);
-    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
+    return NextResponse.json({ message: t.serverError }, { status: 500 });
   }
 }
 
 async function handleConfirm(req: NextRequest) {
+  const lang = await getLang();
+  const t = messages[lang];
 
   try {
 
@@ -173,19 +184,19 @@ async function handleConfirm(req: NextRequest) {
     const paymentId = cookieStore.get("paymentSessionId")?.value;
 
     if (!paymentId)
-      return NextResponse.json({ message: "Nincs fizetési munkamenet" }, { status: 400 });
+      return NextResponse.json({ message: t.noSession }, { status: 400 });
 
     const session = await prisma.payment_session.findUnique({
       where: { id: paymentId },
     });
 
     if (!session || session.status === "paid")
-      return NextResponse.json({ message: "Érvénytelen munkamenet" }, { status: 400 });
+      return NextResponse.json({ message: t.invalidSession }, { status: 400 });
 
     const ticketTypes = (session.selected_ticket_types as string[]) ?? [];
 
     if (ticketTypes.length === 0)
-      return NextResponse.json({ message: "Hiányzó jegytípusok" }, { status: 400 });
+      return NextResponse.json({ message: t.missingTicketTypes }, { status: 400 });
 
     const screening = await prisma.screening.findUnique({
       where: { id: session.screening_id },
@@ -296,7 +307,7 @@ async function handleConfirm(req: NextRequest) {
   } catch (err: any) {
       if(err.message === "SEAT_TAKEN"){
         return NextResponse.json(
-          { message: "Az egyik kiválasztott szék már foglalt." },
+          { message: t.seatTaken },
           { status: 400 }
         );
       }
@@ -307,6 +318,8 @@ async function handleConfirm(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const lang = await getLang();
+  const t = messages[lang];
 
   const action = req.nextUrl.searchParams.get("action");
 
@@ -314,14 +327,16 @@ export async function POST(req: NextRequest) {
   if (action === "confirm") return handleConfirm(req);
   if (action === "price") return handlePrice(req);
 
-  return NextResponse.json({ message: "Érvénytelen művelet" }, { status: 400 });
+  return NextResponse.json({ message: t.invalidAction }, { status: 400 });
 }
 
 export async function GET(req: NextRequest) {
+  const lang = await getLang();
+  const t = messages[lang];
 
   const action = req.nextUrl.searchParams.get("action");
 
   if (action === "session") return handleSession();
 
-  return NextResponse.json({ message: "Érvénytelen művelet" }, { status: 400 });
+  return NextResponse.json({ message: t.invalidAction }, { status: 400 });
 }

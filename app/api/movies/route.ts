@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getLang } from "@/lib/lang";
+import { messages } from "@/lib/messages";
 
 export async function GET() {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
     const movies = await prisma.movie.findMany({
       where: {
@@ -24,16 +29,25 @@ export async function GET() {
     return NextResponse.json(movies);
   } catch (err) {
     console.error("MOVIES ERROR:", err);
-    return NextResponse.json({ error: "Sikertelen lekérés" }, { status: 500 });
+    return NextResponse.json(
+      { message: t.movieFetchError },
+      { status: 500 }
+    );
   }
 }
 
 export async function POST(req: Request) {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
     const { movieId } = await req.json();
 
     if (!movieId) {
-      return NextResponse.json({ message: "Hiányzó film azonosító" }, { status: 400 });
+      return NextResponse.json(
+        { message: t.missingMovieId },
+        { status: 400 }
+      );
     }
 
     const res = NextResponse.json({ ok: true });
@@ -47,11 +61,17 @@ export async function POST(req: Request) {
     return res;
   } catch (err) {
     console.error("SET MOVIE ERROR:", err);
-    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
+    return NextResponse.json(
+      { message: t.serverError },
+      { status: 500 }
+    );
   }
 }
 
 export async function DELETE() {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
     const res = NextResponse.json({ ok: true });
 
@@ -63,6 +83,9 @@ export async function DELETE() {
     return res;
   } catch (err) {
     console.error("CLEAR MOVIE ERROR:", err);
-    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
+    return NextResponse.json(
+      { message: t.serverError },
+      { status: 500 }
+    );
   }
 }

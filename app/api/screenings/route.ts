@@ -1,8 +1,13 @@
 import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { getLang } from "@/lib/lang";
+import { messages } from "@/lib/messages";
 
 export async function GET() {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
 
     const cookieStore = await cookies();
@@ -49,16 +54,25 @@ export async function GET() {
 
   } catch (err) {
     console.error("SCREENINGS ERROR:", err);
-    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
+    return NextResponse.json(
+      { message: t.serverError },
+      { status: 500 }
+    );
   }
 }
 
 export async function POST(req: Request) {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
     const { id } = await req.json();
 
     if (!id) {
-      return NextResponse.json({ message: "Hiányzó azonosító" }, { status: 400 });
+      return NextResponse.json(
+        { message: t.missingId },
+        { status: 400 }
+      );
     }
 
     const res = NextResponse.json({ ok: true });
@@ -72,17 +86,26 @@ export async function POST(req: Request) {
     return res;
   } catch (err) {
     console.error("SELECT SCREENING ERROR:", err);
-    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
+    return NextResponse.json(
+      { message: t.serverError },
+      { status: 500 }
+    );
   }
 }
 
 export async function PUT() {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
     const cookieStore = await cookies();
     const screeningId = cookieStore.get("screeningId")?.value;
 
     if (!screeningId) {
-      return NextResponse.json({ message: "Hiányzó vetítés" }, { status: 400 });
+      return NextResponse.json(
+        { message: t.missingScreening },
+        { status: 400 }
+      );
     }
 
     const screening = await prisma.screening.findUnique({
@@ -90,7 +113,10 @@ export async function PUT() {
     });
 
     if (!screening) {
-      return NextResponse.json({ message: "Vetítés nem található" }, { status: 404 });
+      return NextResponse.json(
+        { message: t.screeningNotFound },
+        { status: 404 }
+      );
     }
 
     const hall = await prisma.hall.findUnique({
@@ -98,7 +124,10 @@ export async function PUT() {
     });
 
     if (!hall) {
-      return NextResponse.json({ message: "Terem nem található" }, { status: 404 });
+      return NextResponse.json(
+        { message: t.hallNotFound },
+        { status: 404 }
+      );
     }
 
     const chairs = await prisma.chair.findMany({
@@ -125,6 +154,9 @@ export async function PUT() {
 
   } catch (err) {
     console.error("HALL LOAD ERROR:", err);
-    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
+    return NextResponse.json(
+        { message: t.hallNotFound },
+        { status: 404 }
+    );
   }
 }

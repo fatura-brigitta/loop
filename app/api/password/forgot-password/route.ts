@@ -2,12 +2,17 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { generateResetToken, resetTokenExpiry } from "@/lib/resetPasswordToken";
 import { sendResetPasswordEmail } from "@/lib/sendResetPasswordEmail";
+import { getLang } from "@/lib/lang";
+import { messages } from "@/lib/messages";
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 export async function POST(req: NextRequest) {
+  const lang = await getLang();
+  const t = messages[lang];
+  
   try {
     const { email } = await req.json();
 
@@ -17,7 +22,7 @@ export async function POST(req: NextRequest) {
 
     if (!email) {
       return NextResponse.json(
-        { message: "Hiányzó email" },
+        { message: t.missingEmail },
         { status: 400 }
       );
     }
@@ -51,7 +56,7 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     console.error("FORGOT PASSWORD ERROR:", err);
     return NextResponse.json(
-      { message: "Szerver hiba" },
+      { message: t.serverError },
       { status: 500 }
     );
   }

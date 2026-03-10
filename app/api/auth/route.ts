@@ -6,16 +6,22 @@ import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 import { generate4DigitCode, codeExpiry } from "@/lib/emailVerification";
 import { sendVerificationEmail } from "@/lib/sendVerificationEmail";
-import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import { parsePhoneNumberFromString } from "libphonenumber-js";
+
+import { getLang } from "@/lib/lang";
+import { messages } from "@/lib/messages";
 
 export async function GET() {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
     const cookieStore = await cookies();
     const userId = cookieStore.get("userId")?.value;
 
     if (!userId) {
       return NextResponse.json(
-        { message: "Nem vagy bejelentkezve" },
+        { message: t.notLoggedIn },
         { status: 401 }
       );
     }
@@ -34,7 +40,7 @@ export async function GET() {
 
     if (!user) {
       return NextResponse.json(
-        { message: "Érvénytelen felhasználói azonosító" },
+        { message: t.invalidCredentials },
         { status: 401 }
       );
     }
@@ -42,17 +48,23 @@ export async function GET() {
     return NextResponse.json(user);
   } catch (err) {
     console.error("AUTH GET ERROR:", err);
-    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
+    return NextResponse.json(
+      { message: t.serverError },
+      { status: 500 }
+    );
   }
 }
 
 export async function POST(req: NextRequest) {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
     const { email, password } = await req.json();
 
     if (!email || !password) {
       return NextResponse.json(
-        { message: "Hiányzó email vagy jelszó" },
+        { message: t.missingEmailPassword },
         { status: 400 }
       );
     }
@@ -63,7 +75,7 @@ export async function POST(req: NextRequest) {
 
     if (!user) {
       return NextResponse.json(
-        { message: "Érvénytelen email vagy jelszó" },
+        { message: t.invalidCredentials },
         { status: 401 }
       );
     }
@@ -71,7 +83,7 @@ export async function POST(req: NextRequest) {
     if (!user.email_verified) {
       return NextResponse.json(
         {
-          message: "Az email címed még nincs megerősítve!",
+          message: t.emailNotVerified,
           needsVerification: true,
           email,
         },
@@ -81,10 +93,7 @@ export async function POST(req: NextRequest) {
 
     if (!user.password_hash) {
       return NextResponse.json(
-        {
-          message:
-            "Ehhez a fiókhoz még nincs jelszó beállítva. Jelentkezzen be Google-lel vagy Facebookal, és állítson be jelszót a profilban.",
-        },
+        { message: t.invalidCredentials },
         { status: 400 }
       );
     }
@@ -93,7 +102,7 @@ export async function POST(req: NextRequest) {
 
     if (!ok) {
       return NextResponse.json(
-        { message: "Érvénytelen email vagy jelszó" },
+        { message: t.invalidCredentials },
         { status: 401 }
       );
     }
@@ -112,18 +121,24 @@ export async function POST(req: NextRequest) {
     return res;
   } catch (err) {
     console.error("AUTH POST ERROR:", err);
-    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
+    return NextResponse.json(
+      { message: t.serverError },
+      { status: 500 }
+    );
   }
 }
 
 export async function PUT(req: NextRequest) {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
     const { name, email, password, phone_number, profile_image, gender, consent } =
       await req.json();
 
     if (!name || !email || !password || !phone_number || !gender) {
       return NextResponse.json(
-        { message: "Hiányzó kötelező mezők" },
+        { message: t.missingFields },
         { status: 400 }
       );
     }
@@ -132,7 +147,7 @@ export async function PUT(req: NextRequest) {
 
     if (!phone || !phone.isValid()) {
       return NextResponse.json(
-        { message: "Érvénytelen telefonszám formátum!" },
+        { message: t.invalidPhone },
         { status: 400 }
       );
     }
@@ -141,7 +156,7 @@ export async function PUT(req: NextRequest) {
 
     if (password.length < 5) {
       return NextResponse.json(
-        { message: "A jelszó túl rövid" },
+        { message: t.shortPassword },
         { status: 400 }
       );
     }
@@ -157,44 +172,44 @@ export async function PUT(req: NextRequest) {
 
     if (!baseRank) {
       return NextResponse.json(
-        { message: "Alap rang (0 pontos) nem található!" },
+        { message: t.serverError },
         { status: 500 }
       );
     }
 
     const newUser = await prisma.$transaction(async (tx) => {
 
-    const createdUser = await tx.user.create({
-      data: {
-        name,
-        email,
-        password_hash,
-        phone_number: normalizedPhone,
-        profile_image: profile_image || "/profile/default.png",
-        gender: safeGender,
-        points: 0,
-        consent: !!consent,
-        rank_id: baseRank.id,
-        email_verified: false,
-      },
+      const createdUser = await tx.user.create({
+        data: {
+          name,
+          email,
+          password_hash,
+          phone_number: normalizedPhone,
+          profile_image: profile_image || "/profile/default.png",
+          gender: safeGender,
+          points: 0,
+          consent: !!consent,
+          rank_id: baseRank.id,
+          email_verified: false,
+        },
+      });
+
+      const code = generate4DigitCode();
+
+      await tx.user.update({
+        where: { id: createdUser.id },
+        data: {
+          email_code: code,
+          email_code_exp: codeExpiry(10),
+        },
+      });
+
+      return {
+        user: createdUser,
+        code
+      };
+
     });
-
-    const code = generate4DigitCode();
-
-    await tx.user.update({
-      where: { id: createdUser.id },
-      data: {
-        email_code: code,
-        email_code_exp: codeExpiry(10),
-      },
-    });
-
-    return {
-      user: createdUser,
-      code
-    };
-
-  });
 
     sendVerificationEmail(newUser.user.email, newUser.user.name, newUser.code)
       .catch(err => console.error("EMAIL SEND ERROR:", err));
@@ -207,26 +222,33 @@ export async function PUT(req: NextRequest) {
       },
       { status: 201 }
     );
+
   } catch (err: any) {
     console.error("AUTH REGISTER ERROR:", err);
+
+    const lang = await getLang();
+    const t = messages[lang];
 
     if (err.code === "P2002") {
       if (err.meta?.target?.includes("email")) {
         return NextResponse.json(
-          { message: "Ez az email már regisztrálva van!" },
+          { message: t.emailExists },
           { status: 409 }
         );
       }
 
       if (err.meta?.target?.includes("phone_number")) {
         return NextResponse.json(
-          { message: "Ez a telefonszám már regisztrálva van!" },
+          { message: t.phoneExists },
           { status: 409 }
         );
       }
     }
 
-    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
+    return NextResponse.json(
+      { message: t.serverError },
+      { status: 500 }
+    );
   }
 }
 

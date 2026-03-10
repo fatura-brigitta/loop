@@ -1,13 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
+import { getLang } from "@/lib/lang";
+import { messages } from "@/lib/messages";
+
 export async function POST(req: NextRequest) {
+
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
+
     let { email, code } = await req.json();
 
     if (!email || !code) {
       return NextResponse.json(
-        { message: "Hiányzó email vagy kód" },
+        { message: t.missingEmailCode },
         { status: 400 }
       );
     }
@@ -17,7 +25,7 @@ export async function POST(req: NextRequest) {
 
     if (code.length !== 4 || !/^\d{4}$/.test(code)) {
       return NextResponse.json(
-        { message: "A kód 4 számjegyből áll!" },
+        { message: t.codeFormat },
         { status: 400 }
       );
     }
@@ -59,31 +67,32 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
 
   } catch (err: any) {
+
     console.error("VERIFY ERROR:", err);
 
     if (err.message === "INVALID_CODE") {
       return NextResponse.json(
-        { message: "Érvénytelen email vagy kód" },
+        { message: t.invalidCode },
         { status: 400 }
       );
     }
 
     if (err.message === "EXPIRED_CODE") {
       return NextResponse.json(
-        { message: "A kód lejárt. Regisztrálj újra!" },
+        { message: t.expiredCode },
         { status: 400 }
       );
     }
 
     if (err.message === "WRONG_CODE") {
       return NextResponse.json(
-        { message: "Hibás megerősítő kód!" },
+        { message: t.wrongCode },
         { status: 400 }
       );
     }
 
     return NextResponse.json(
-      { message: "Szerver hiba" },
+      { message: t.serverError },
       { status: 500 }
     );
   }

@@ -1,14 +1,24 @@
 import { NextResponse, NextRequest } from "next/server";
 import QRCode from "qrcode";
 
+import { getLang } from "@/lib/lang";
+import { messages } from "@/lib/messages";
+
 export async function GET(
   req: NextRequest,
   context: { params: Promise<{ token: string }> }
 ) {
+
+  const lang = await getLang();
+  const t = messages[lang];
+
   const { token } = await context.params;
 
   if (!token) {
-    return NextResponse.json({ error: "Hiányzó token" }, { status: 400 });
+    return NextResponse.json(
+      { message: t.missingToken },
+      { status: 400 }
+    );
   }
 
   const qrContent = `LOOP-TICKET:${token}`;

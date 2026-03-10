@@ -4,13 +4,21 @@ import { cookies } from "next/headers";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import parsePhoneNumberFromString from "libphonenumber-js";
+import { getLang } from "@/lib/lang";
+import { messages } from "@/lib/messages";
 
 export async function GET() {
+  const lang = await getLang();
+  const t = messages[lang];
+
   const cookieStore = await cookies();
   const userId = cookieStore.get("userId")?.value;
 
   if (!userId) {
-    return NextResponse.json({ message: "Nem vagy bejelentkezve" }, { status: 401 });
+    return NextResponse.json(
+      { message: t.notLoggedIn },
+      { status: 401 }
+    );
   }
 
   const user = await prisma.user.findUnique({
@@ -21,7 +29,10 @@ export async function GET() {
   });
 
   if (!user) {
-    return NextResponse.json({ message: "Felhasználó nem található" }, { status: 404 });
+    return NextResponse.json(
+    { message: t.userNotFound },
+    { status: 404 }
+  );
   }
 
   const now = new Date();
@@ -123,12 +134,15 @@ export async function GET() {
 }
 
 export async function PATCH(req: Request) {
+  const lang = await getLang();
+  const t = messages[lang];
+
   const cookieStore = await cookies();
   const userId = cookieStore.get("userId")?.value;
 
   if (!userId) {
     return NextResponse.json(
-      { message: "Nem vagy bejelentkezve" },
+      { message: t.notLoggedIn },
       { status: 401 }
     );
   }
@@ -137,7 +151,7 @@ export async function PATCH(req: Request) {
 
   if (!name || name.length < 2) {
     return NextResponse.json(
-      { message: "A név túl rövid" },
+      { message: t.nameTooShort },
       { status: 400 }
     );
   }
@@ -146,7 +160,7 @@ export async function PATCH(req: Request) {
 
   if (!phone || !phone.isValid()) {
     return NextResponse.json(
-      { message: "Érvénytelen telefonszám formátum!" },
+      { message: t.invalidPhone },
       { status: 400 }
     );
   }
@@ -162,7 +176,7 @@ export async function PATCH(req: Request) {
 
   if (existingPhone) {
     return NextResponse.json(
-      { message: "Ez a telefonszám már használatban van!" },
+      { message: t.phoneInUse },
       { status: 409 }
     );
   }
@@ -183,12 +197,15 @@ export async function PATCH(req: Request) {
 }
 
 export async function PUT(req: Request) {
+  const lang = await getLang();
+  const t = messages[lang];
+
   const cookieStore = await cookies();
   const userId = cookieStore.get("userId")?.value;
 
   if (!userId) {
     return NextResponse.json(
-      { message: "Nem vagy bejelentkezve" },
+      { message: t.notLoggedIn },
       { status: 401 }
     );
   }
@@ -197,7 +214,7 @@ export async function PUT(req: Request) {
 
   if (!newPassword || newPassword.length < 5) {
     return NextResponse.json(
-      { message: "A jelszó legalább 5 karakter hosszú kell legyen" },
+      { message: t.passwordTooShort },
       { status: 400 }
     );
   }
@@ -208,15 +225,15 @@ export async function PUT(req: Request) {
 
   if (!user) {
     return NextResponse.json(
-      { message: "Felhasználó nem található" },
-      { status: 404 }
+      { message: t.notLoggedIn },
+      { status: 401 }
     );
   }
 
   if (user.password_hash) {
     if (!oldPassword) {
       return NextResponse.json(
-        { message: "Hiányzik a régi jelszó" },
+        { message: t.missingOldPassword },
         { status: 400 }
       );
     }
@@ -225,7 +242,7 @@ export async function PUT(req: Request) {
 
     if (!valid) {
       return NextResponse.json(
-        { message: "Hibás jelszó" },
+        { message: t.wrongPassword },
         { status: 400 }
       );
     }
@@ -242,12 +259,18 @@ export async function PUT(req: Request) {
 }
 
 export async function POST() {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
     const cookieStore = await cookies();
     const userId = cookieStore.get("userId")?.value;
 
     if (!userId) {
-      return NextResponse.json({ message: "Nem vagy bejelentkezve" }, { status: 401 });
+      return NextResponse.json(
+        { message: t.notLoggedIn },
+        { status: 401 }
+      );
     }
 
     const now = new Date();
@@ -309,6 +332,6 @@ export async function POST() {
 
   } catch (err) {
     console.error("PROFILE TICKETS ERROR:", err);
-    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
+    return NextResponse.json({ message: t.serverError }, { status: 500 });
   }
 }

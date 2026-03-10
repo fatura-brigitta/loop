@@ -3,22 +3,27 @@ export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
+import { getLang } from "@/lib/lang";
+import { messages } from "@/lib/messages";
 
 type Vote = "LIKE" | "DISLIKE";
 
 export async function POST(req: Request) {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
     const cookieStore = await cookies();
     const userId = cookieStore.get("userId")?.value;
 
     if (!userId) {
-      return NextResponse.json({ error: "Nincs bejelentkezve" }, { status: 401 });
+      return NextResponse.json({ message: t.notLoggedIn }, { status: 401 });
     }
 
     const { post_id, type } = (await req.json()) as { post_id?: string; type?: Vote };
 
     if (!post_id || (type !== "LIKE" && type !== "DISLIKE")) {
-      return NextResponse.json({ error: "Hibás kérés" }, { status: 400 });
+      return NextResponse.json({ message: t.badRequest }, { status: 400 });
     }
 
     const result = await prisma.$transaction(async (tx) => {
@@ -59,6 +64,6 @@ export async function POST(req: Request) {
     return NextResponse.json(result);
   } catch (err) {
     console.error("VOTE ERROR:", err);
-    return NextResponse.json({ error: "Szerver hiba" }, { status: 500 });
+    return NextResponse.json({ message: t.serverError }, { status: 500 });
   }
 }

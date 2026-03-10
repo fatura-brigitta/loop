@@ -1,10 +1,14 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { getLang } from "@/lib/lang";
+import { messages } from "@/lib/messages";
 
 export async function GET(
   req: Request,
   { params }: { params: Promise<{ token: string }> }
 ) {
+  const lang = await getLang();
+  const t = messages[lang];
 
   const { token } = await params;
 
@@ -59,7 +63,7 @@ export async function GET(
 
     if (err.message === "INVALID") {
       return NextResponse.json(
-        { error: "Érvénytelen jegy" },
+        { message: t.invalidTicket },
         { status: 404 }
       );
     }
@@ -67,7 +71,7 @@ export async function GET(
     console.error("SCAN ERROR:", err);
 
     return NextResponse.json(
-      { error: "Szerver hiba" },
+      { error: t.serverError },
       { status: 500 }
     );
   }

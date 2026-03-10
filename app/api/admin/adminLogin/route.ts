@@ -1,13 +1,22 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
-import { cookies } from "next/headers";
+
+import { getLang } from "@/lib/lang";
+import { messages } from "@/lib/messages";
 
 export async function POST(req: Request) {
+
+  const lang = await getLang();
+  const t = messages[lang];
+
   const { name, password } = await req.json();
 
   if (!name || !password) {
-    return NextResponse.json({ message: "Hiányzó vagy érvénytelen adatok" }, { status: 400 });
+    return NextResponse.json(
+      { message: t.invalidData },
+      { status: 400 }
+    );
   }
 
   const adminUser = await prisma.admin.findFirst({
@@ -15,20 +24,27 @@ export async function POST(req: Request) {
   });
 
   if (!adminUser) {
-    return NextResponse.json({ message: "Érvénytelen felhasználónév vagy jelszó" }, { status: 404 });
+    return NextResponse.json(
+      { message: t.invalidAdminCredentials },
+      { status: 404 }
+    );
   }
 
   const valid = await bcrypt.compare(password, adminUser.password_hash);
+
   if (!valid) {
-    return NextResponse.json({ message: "Érvénytelen felhasználónév vagy jelszó" }, { status: 401 });
+    return NextResponse.json(
+      { message: t.invalidAdminCredentials },
+      { status: 401 }
+    );
   }
 
   const res = NextResponse.json({ ok: true });
 
-    res.cookies.set("admin-auth", "true", {
-        httpOnly: true,
-        path: "/",
-    });
+  res.cookies.set("admin-auth", "true", {
+    httpOnly: true,
+    path: "/",
+  });
 
   return res;
 }

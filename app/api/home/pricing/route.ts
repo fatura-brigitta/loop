@@ -1,7 +1,12 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { getLang } from "@/lib/lang";
+import { messages } from "@/lib/messages";
 
 export async function GET() {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
 
     const screeningTypes = await prisma.screening_type.findMany({
@@ -19,6 +24,6 @@ export async function GET() {
     });
 
   } catch (e) {
-    return NextResponse.json({ message: "Hiba" }, { status: 500 });
+    return NextResponse.json({ message: t.serverError }, { status: 500 });
   }
 }

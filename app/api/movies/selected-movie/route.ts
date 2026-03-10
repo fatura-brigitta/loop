@@ -1,11 +1,19 @@
 import { NextResponse } from "next/server";
+import { getLang } from "@/lib/lang";
+import { messages } from "@/lib/messages";
 
 export async function POST(req: Request) {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
     const { movieId } = await req.json();
 
     if (!movieId) {
-      return NextResponse.json({ message: "Hiányzó film" }, { status: 400 });
+      return NextResponse.json(
+        { message: t.missingMovie },
+        { status: 400 }
+      );
     }
 
     const res = NextResponse.json({ ok: true });
@@ -19,6 +27,9 @@ export async function POST(req: Request) {
 
     return res;
   } catch {
-    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
+    return NextResponse.json(
+      { message: t.serverError },
+      { status: 500 }
+    );
   }
 }

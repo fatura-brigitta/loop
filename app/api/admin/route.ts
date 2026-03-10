@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { ObjectId } from "bson";
 import { getOpeningHours } from "@/lib/openingHours";
+import { getLang } from "@/lib/lang";
+import { messages} from "@/lib/messages";
 
 type Entity =
   | "movies"
@@ -50,9 +52,12 @@ function opt<T>(v: T | null | undefined | ""): T | undefined {
 }
 
 export async function GET(req: Request) {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
     const entity = getEntity(req);
-    if (!entity) return jsonError("Hiányzó vagy érvénytelen entitás");
+    if (!entity) return jsonError(t.missingOrInvalidEntity);
 
     if (entity === "movies") {
       return NextResponse.json(
@@ -179,17 +184,20 @@ export async function GET(req: Request) {
     return NextResponse.json(screenings);
   } catch (e) {
     console.error(e);
-    return jsonError("Szerver hiba történt", 500);
+    return jsonError(t.serverError, 500);
   }
 }
 
 export async function PUT(req: Request) {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
     const entity = getEntity(req);
-    if (!entity) return jsonError("Hiányzó vagy érvénytelen bemenet");
+    if (!entity) return jsonError(t.missingOrInvalidEntity);
 
     const body = await req.json();
-    if (!body.id) return jsonError("Hiányzó azonosító");
+    if (!body.id) return jsonError(t.missingId);
 
     const id = parseId(body.id);
 
@@ -221,7 +229,7 @@ export async function PUT(req: Request) {
       const columns = Number(body.column);
 
       if (!body.name || rows <= 0 || columns <= 0)
-        return jsonError("Invalid hall data");
+        return jsonError(t.invalidHallData);
 
       const result = await prisma.$transaction(async (tx) => {
 
@@ -263,7 +271,7 @@ export async function PUT(req: Request) {
 
         if (toDelete.some(ch => ch.tickets.length > 0)) {
           throw new Error(
-            "Nem csökkenthető a terem mérete, mert léteznek jegyek a megszűnő székekre."
+            t.hallResizeBlocked
           );
         }
 
@@ -289,22 +297,25 @@ export async function PUT(req: Request) {
       return NextResponse.json(result);
     }
     
-    return jsonError("Nem támogatott PUT entitás");
+    return jsonError(t.unsupportedPutEntity);
   } catch (e) {
     console.error(e);
-    return jsonError("Szerver hiba történt", 500);
+    return jsonError(t.serverError, 500);
   }
 }
 
 export async function POST(req: Request) {
+  const lang = await getLang();
+  const t = messages[lang];
+
   try {
     const entity = getEntity(req);
-    if (!entity) return jsonError("Hiányzó vagy érvénytelen bemenet");
+    if (!entity) return jsonError(t.missingOrInvalidInput);
 
     const body = await req.json();
 
     if (entity === "movies") {
-      if (!body.title) return jsonError("Cím megadása kötelező");
+      if (!body.title) return jsonError(t.titleRequired);
 
       const created = await prisma.movie.create({
         data: {
@@ -327,13 +338,13 @@ export async function POST(req: Request) {
     }
 
     if (entity === "halls") {
-      if (!body.name) return jsonError("Terem nevének megadása kötelező");
+      if (!body.name) return jsonError(t.hallNameRequired);
 
       const rows = Number(body.row);
       const columns = Number(body.column);
 
       if (!rows || rows <= 0 || !columns || columns <= 0) {
-        return jsonError("A sorok és oszlopok számának pozitív számnak kell lennie");
+        return jsonError(t.positiveRowsColumns);
       }
 
       const createdHall = await prisma.hall.create({
@@ -366,23 +377,23 @@ export async function POST(req: Request) {
 
     if (entity === "screenings") {
       if (!body.movie_id || !body.hall_id || !body.start || !body.screening_type_id)
-        return jsonError("Minden mező kitöltése kötelező");
+        return jsonError(t.allFieldsRequired);
 
       const movie_id = parseId(body.movie_id);
       const hall_id = parseId(body.hall_id);
       const screening_type_id = parseId(body.screening_type_id);
 
       const movie = await prisma.movie.findUnique({ where: { id: movie_id } });
-      if (!movie) return jsonError("Film nem található");
-      if (!movie.onscreen) return jsonError("A film nem vetítendő");
+      if (!movie) return jsonError(t.movieNotFound);
+      if (!movie.onscreen) return jsonError(t.movieNotScreened);
 
       const startDate = new Date(body.start);
-      if (isNaN(startDate.getTime())) return jsonError("Érvénytelen vetítési idő");
+      if (isNaN(startDate.getTime())) return jsonError(t.invalidScreeningTime);
 
       const hours = await getOpeningHours(startDate)
 
       if (!hours) {
-        return jsonError("A mozi ezen a napon zárva tart")
+        return jsonError(t.cinemaClosedThatDay)
       }
 
       const [openH, openM] = hours.open.split(":").map(Number)
@@ -405,10 +416,10 @@ export async function POST(req: Request) {
       const endDate = new Date(movieEnd.getTime() + CLEANING_MINUTES * 60000);
 
       if(startDate < open)
-        return jsonError("A mozi még nincs nyitva ebben az időpontban");
+        return jsonError(t.cinemaNotOpenYet);
 
       if(endDate > close)
-        return jsonError("A vetítés a zárás után érne véget");
+        return jsonError(t.screeningEndsAfterClose);
 
       const created = await prisma.$transaction(async (tx) => {
 
@@ -423,7 +434,7 @@ export async function POST(req: Request) {
       });
 
       if (conflict) {
-        throw new Error("Egy másik vetítés már foglalja ezt a termet ebben az időpontban");
+        throw new Error(t.screeningConflict);
       }
 
       return await tx.screening.create({
@@ -492,20 +503,23 @@ export async function POST(req: Request) {
       return NextResponse.json(created);
     }
 
-    return jsonError("Nem támogatott bemenet");
+    return jsonError(t.unsupportedInput);
   } catch (e) {
     console.error(e);
-    return jsonError("Szerver hiba történt", 500);
+    return jsonError(t.serverError, 500);
   }
 }
 
 export async function DELETE(req: Request) {
+  const lang = await getLang();
+  const t = messages[lang];
+  
   try {
     const entity = getEntity(req);
-    if (!entity) return jsonError("Hiányzó vagy érvénytelen bemenet");
+    if (!entity) return jsonError(t.missingOrInvalidInput);
 
     const body = await req.json();
-    if (!body.id) return jsonError("Hiányzó azonosító");
+    if (!body.id) return jsonError(t.invalidId);
 
     const id = parseId(body.id);
 
@@ -546,9 +560,9 @@ export async function DELETE(req: Request) {
 
       return NextResponse.json({ ok: true });
     }
-    return jsonError("Nem támogatott bemenet");
+    return jsonError(t.unsupportedInput);
   } catch (e) {
     console.error(e);
-    return jsonError("Szerver hiba történt", 500);
+    return jsonError(t.serverError, 500);
   }
 }

@@ -22,12 +22,12 @@ const options = {
     },
     servers: [
       {
-        url: process.env.NEXT_PUBLIC_URL || "http://localhost:3000",
+        url: process.env.NEXT_PUBLIC_URL || "http://localhost:3000" || "https://loop-sooty.vercel.app",
       },
     ],
   },
 
-  apis: ["swagger/**/*.ts"],
+  apis: ["./swagger/*.ts"]
 };
 
 export const swaggerSpec = swaggerJsdoc(options);

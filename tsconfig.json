@@ -37,7 +37,7 @@
     "**/*.mts",
     ".next\\dev/types/**/*.ts",
     ".next\\dev/types/**/*.ts"
-  ],
+, "swagger/forum.swagger.ts", "swagger/email.swagger.ts", "swagger/auth.swagger.ts", "swagger/home.swagger.ts", "swagger/movies.swagger.ts", "swagger/admin.swagger.ts", "swagger/password.swagger.ts", "swagger/payment.swagger.ts", "swagger/profile.swagger.ts", "swagger/screenings.swagger.ts", "swagger/ticket.swagger.ts"  ],
   "exclude": [
     "node_modules"
   ]

@@ -265,16 +265,55 @@ async function handleConfirm(req: NextRequest) {
       const totalEuro = totalSpent / 100;
       const gainedPoints = Math.round(totalEuro * 4);
 
+      const user = await tx.user.findUnique({
+        where: { id: session.user_id },
+        include: { ranks: true }
+      });
+
+      const newPoints = user!.points + gainedPoints;
+
       await tx.user.update({
         where: { id: session.user_id },
         data: {
-          points: {
-            increment: gainedPoints
-          },
+          points: newPoints,
           last_ticket_at: new Date()
         }
       });
 
+      const newRanks = await tx.rank.findMany({
+        where: {
+          point_limit: {
+            lte: newPoints,
+            gt: user!.points
+          }
+        },
+        orderBy: {
+          point_limit: "asc"
+        }
+      });
+
+      for (const rank of newRanks) {
+        if (rank.discount_id) {
+          await tx.coupon.create({
+            data: {
+              user_id: session.user_id,
+              discount_id: rank.discount_id,
+              qr_token: generateQrToken()
+            }
+          });
+        }
+      }
+
+      if (newRanks.length > 0) {
+        const highestRank = newRanks[newRanks.length - 1];
+
+        await tx.user.update({
+          where: { id: session.user_id },
+          data: {
+            rank_id: highestRank.id
+          }
+        });
+      }
     });
 
     const tickets = await prisma.ticket.findMany({

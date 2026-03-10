@@ -1,5 +1,6 @@
 "use client";
 
+import { Chair, Hall } from "@prisma/client";
 import { ChevronDown, Play } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -30,6 +31,20 @@ type Screening = {
 type GroupedMovie = {
   movie: Movie;
   screenings: Screening[];
+};
+
+type ScreeningInfo = {
+  start: string;
+  type: string;
+  movie: {
+    title: string;
+  };
+};
+
+type HallResponse = {
+  hall: Hall;
+  chairs: Chair[];
+  screening: ScreeningInfo;
 };
 
 const getYoutubeId = (url: string) => {
@@ -78,6 +93,49 @@ const groupByType = (screenings: Screening[]) => {
   return map;
 };
 
+const getDateLabel = (dateStr: string) => {
+  const today = new Date();
+  const date = new Date(dateStr);
+
+  const todayStr = today.toISOString().split("T")[0];
+
+  const tomorrow = new Date();
+  tomorrow.setDate(today.getDate() + 1);
+  const tomorrowStr = tomorrow.toISOString().split("T")[0];
+
+  if (dateStr === todayStr) return "Ma";
+  if (dateStr === tomorrowStr) return "Holnap";
+
+  return date.toLocaleDateString("hu-HU", {
+    month: "numeric",
+    day: "numeric",
+  });
+};
+
+const groupByDateAndType = (screenings: Screening[]) => {
+  const map: Record<string, Record<string, Screening[]>> = {};
+
+  screenings.forEach((s) => {
+    const date = new Date(s.start).toISOString().split("T")[0];
+    const type = s.screening_types?.type || "Egyéb";
+
+    if (!map[date]) map[date] = {};
+    if (!map[date][type]) map[date][type] = [];
+
+    map[date][type].push(s);
+  });
+
+  Object.values(map).forEach((types) => {
+    Object.values(types).forEach((list) => {
+      list.sort(
+        (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime()
+      );
+    });
+  });
+
+  return map;
+};
+
 export default function ScreeningsPage() {
   const router = useRouter();
 
@@ -87,7 +145,9 @@ export default function ScreeningsPage() {
   const [grouped, setGrouped] = useState<GroupedMovie[]>([]);
   const [openTrailer, setOpenTrailer] = useState<string | null>(null);
 
-  const [selectedDate, setSelectedDate] = useState<string>("all");
+  const [selectedDate, setSelectedDate] = useState<string>(
+    new Date().toISOString().split("T")[0]
+  );
   const [selectedType, setSelectedType] = useState<string>("all");
   const [availableTypes, setAvailableTypes] = useState<string[]>([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -167,11 +227,9 @@ export default function ScreeningsPage() {
 
       screenings = screenings.filter((s) => new Date(s.start).getTime() > Date.now());
 
-      if (selectedDate !== "all") {
-        screenings = screenings.filter(
-          (s) => new Date(s.start).toISOString().split("T")[0] === selectedDate,
-        );
-      }
+      screenings = screenings.filter(
+        (s) => new Date(s.start).toISOString().split("T")[0] === selectedDate
+      );
 
       if (selectedType !== "all") {
         screenings = screenings.filter((s) => s.screening_types?.type === selectedType);
@@ -193,7 +251,7 @@ export default function ScreeningsPage() {
   };
 
   const resetFilters = () => {
-    setSelectedDate("all");
+    setSelectedDate(new Date().toISOString().split("T")[0]);
     setSelectedType("all");
     setDropdownOpen(false);
 
@@ -207,17 +265,6 @@ export default function ScreeningsPage() {
 
         <div className="mb-8 flex flex-wrap items-center gap-4">
           <div className="flex gap-2 overflow-x-auto pb-1" data-cy="screenings-date-filter">
-            <button className={`cursor-pointer rounded-lg border px-4 py-2 ${
-                selectedDate === "all"
-                  ? "border-cyan-500 bg-cyan-500 text-[var(--text-main)]"
-                  : "border-[var(--border-color)] bg-[var(--card-bg)] hover:bg-slate-100 dark:hover:bg-white/10"
-              }`}
-              data-cy="screenings-date-all"
-              onClick={() => setSelectedDate("all")}
-            >
-              Összes
-            </button>
-
             {nextDays.map((d) => (
               <button className={`flex min-w-[70px] cursor-pointer flex-col items-center rounded-lg border px-4 py-2 ${
                   selectedDate === d.iso
@@ -288,7 +335,7 @@ export default function ScreeningsPage() {
               data-movie-title={g.movie.title}
               key={index}
             >
-              <div className="shrink-0 self-start">
+              <div className="shrink-0 flex items-center">
                 <Image alt={g.movie.title}
                   className="rounded-lg object-cover"
                   data-cy="screenings-movie-poster"
@@ -308,28 +355,64 @@ export default function ScreeningsPage() {
                 <p className="mt-3 line-clamp-3 text-sm text-[var(--text-soft)]">{g.movie.description}</p>
 
                 <div className="mt-4 flex flex-col gap-4">
-                  {Object.entries(groupByType(g.screenings)).map(([type, screenings]) => (
-                    <div data-cy="screenings-type-group"
-                      data-screening-type={type} key={type}>
-                      <div className="mb-2 text-sm font-semibold text-[var(--text-main2)]">{type}</div>
+                  {selectedDate === "all" ? (
+                    Object.entries(groupByDateAndType(g.screenings)).map(([date, types]) => (
+                      <div className="mb-4" key={date}>
 
-                      <div className="flex flex-wrap gap-2">
-                        {screenings.map((s) => (
-                          <button className="cursor-pointer rounded-lg bg-[var(--button-bg)] px-4 py-2 text-sm font-semibold text-[var(--text-light)] transition hover:bg-cyan-500"
-                            data-cy="screening-time-button"
-                            data-screening-id={s.id}
-                            key={s.id}
-                            onClick={() => openScreening(s.id)}
-                          >
-                            {new Date(s.start).toLocaleTimeString("hu-HU", {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
-                          </button>
+                        <div className="mb-2 text-sm font-bold text-[var(--text-main2)]">
+                          {getDateLabel(date)}
+                        </div>
+
+                        {Object.entries(types).map(([type, screenings]) => (
+                          <div className="mb-2" key={type}>
+
+                            <div className="text-xs font-semibold opacity-70 mb-1">
+                              {type}
+                            </div>
+
+                            <div className="flex flex-wrap gap-2">
+                              {screenings.map((s) => (
+                                <button
+                                  className="cursor-pointer rounded-lg bg-[var(--button-bg)] px-4 py-2 text-sm font-semibold text-[var(--text-light)] transition hover:bg-cyan-500"
+                                  key={s.id}
+                                  onClick={() => openScreening(s.id)}
+                                >
+                                  {new Date(s.start).toLocaleTimeString("hu-HU", {
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                  })}
+                                </button>
+                              ))}
+                            </div>
+
+                          </div>
                         ))}
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  ) : (
+                    Object.entries(groupByType(g.screenings)).map(([type, screenings]) => (
+                      <div key={type}>
+                        <div className="mb-2 text-sm font-semibold text-[var(--text-main2)]">
+                          {type}
+                        </div>
+
+                        <div className="flex flex-wrap gap-2">
+                          {screenings.map((s) => (
+                            <button
+                              className="cursor-pointer rounded-lg bg-[var(--button-bg)] px-4 py-2 text-sm font-semibold text-[var(--text-light)] transition hover:bg-cyan-500"
+                              key={s.id}
+                              onClick={() => openScreening(s.id)}
+                            >
+                              {new Date(s.start).toLocaleTimeString("hu-HU", {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
 

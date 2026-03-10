@@ -110,6 +110,10 @@ export async function PUT() {
 
     const screening = await prisma.screening.findUnique({
       where: { id: screeningId },
+      include: {
+        movies: true,
+        screening_types: true
+      }
     });
 
     if (!screening) {
@@ -150,6 +154,13 @@ export async function PUT() {
     return NextResponse.json({
       hall,
       chairs: chairsWithState,
+      screening: {
+        start: screening.start,
+        type: screening.screening_types?.type,
+        movie: {
+          title: screening?.movies?.title
+        }
+      }
     });
 
   } catch (err) {

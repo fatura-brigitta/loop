@@ -17,9 +17,18 @@ type Hall = {
   column: number;
 };
 
+type ScreeningInfo = {
+  start: string;
+  type: string;
+  movie: {
+    title: string;
+  };
+};
+
 type HallResponse = {
   hall: Hall;
   chairs: Chair[];
+  screening: ScreeningInfo;
 };
 
 function SeatGrid({
@@ -82,6 +91,7 @@ export default function HallPage() {
 
   const [name, setUserName] = useState("");
   const [showLogin, setShowLogin] = useState(false);
+  const [screeningInfo, setScreeningInfo] = useState<ScreeningInfo | null>(null);
 
   const [seats, setSeats] = useState<Chair[]>([]);
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
@@ -149,6 +159,9 @@ export default function HallPage() {
 
         setHall(data.hall);
         setSeats(data.chairs ?? []);
+        setHall(data.hall);
+        setSeats(data.chairs ?? []);
+        setScreeningInfo(data.screening);
       } catch {
         setError("Hálózati hiba a terem betöltése során!");
       }
@@ -239,6 +252,22 @@ export default function HallPage() {
     router.push("/payment");
   };
 
+  const formatDateTime = (dateStr: string) => {
+    const d = new Date(dateStr);
+
+    return {
+      date: d.toLocaleDateString("hu-HU", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }),
+      time: d.toLocaleTimeString("hu-HU", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    };
+  };
+
   return (
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="hall-page">
       {!showLogin && (
@@ -255,7 +284,25 @@ export default function HallPage() {
 
       {showLogin && !loadingHall && !error && hall && (
         <div className="mx-auto max-w-6xl px-4 py-8 pb-40 text-center" data-cy="hall-container">
-          <h1 className="mb-6 text-center text-2xl font-bold" data-cy="hall-name">{hall.name}</h1>
+          {screeningInfo && (
+            <div className="mx-auto mb-8 max-w-xl rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] px-6 py-4 shadow-lg">
+              
+              <div className="text-lg font-semibold text-[var(--text-main2)]">
+                🎬 {screeningInfo.movie.title}
+              </div>
+
+              <div className="mt-2 flex items-center justify-center gap-3 text-sm text-[var(--text-main)]/70">
+                <span>📍 {hall?.name}</span>
+                <span className="opacity-40">•</span>
+                <span>{screeningInfo.type}</span>
+              </div>
+
+              <div className="mt-1 text-sm text-[var(--text-main)]/70">
+                📅 {formatDateTime(screeningInfo.start).date} • {formatDateTime(screeningInfo.start).time}
+              </div>
+
+            </div>
+          )}
 
           <CinemaScreen />
 

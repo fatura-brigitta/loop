@@ -3,53 +3,53 @@
         "_id": {
             "$oid": "aa0000000000000000000001"
         },
-        "name":"Bronze",
-        "point_limit":0,
+        "name": "Bronze",
+        "point_limit": 0,
         "discount_id": null,
-        "image":"/ranks/bronze.png"
+        "image": "/ranks/bronze.png"
     },
     {
         "_id": {
             "$oid": "aa0000000000000000000002"
         },
-        "name":"Silver",
-        "point_limit":200,
+        "name": "Silver",
+        "point_limit": 200,
         "discount_id": {
             "$oid": "c00000000000000000000001"
         },
-        "image":"/ranks/silver.png"
+        "image": "/ranks/silver.png"
     },
     {
         "_id": {
             "$oid": "aa0000000000000000000003"
         },
-        "name":"Gold",
-        "point_limit":400,
+        "name": "Gold",
+        "point_limit": 400,
         "discount_id": {
             "$oid": "c00000000000000000000002"
         },
-        "image":"/ranks/gold.png"
+        "image": "/ranks/gold.png"
     },
     {
         "_id": {
             "$oid": "aa0000000000000000000004"
         },
-        "name":"Platinum",
-        "point_limit":600,
+        "name": "Platinum",
+        "point_limit": 600,
         "discount_id": {
             "$oid": "c00000000000000000000003"
         },
-        "image":"/ranks/platinum.png"
+        "image": "/ranks/platinum.png"
     },
     {
         "_id": {
             "$oid": "aa0000000000000000000005"
         },
-        "name":"Diamond",
-        "point_limit":800,
+        "name": "Diamond",
+        "point_limit": 800,
         "discount_id": {
             "$oid": "c00000000000000000000004"
         },
-        "image":"/ranks/diamond.png"
+        "image": "/ranks/diamond.png"
     }
 ]

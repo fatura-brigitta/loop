@@ -1,0 +1,186 @@
+[
+  {
+    "id": "69a8168e08a9cf41dd0dfbd1",
+    "user_id": "69a8139008a9cf41dd0dfbca",
+    "discount_id": "c00000000000000000000001",
+    "qr_token": "3a6215cbba9bc5ac4ecfbcabf88ee3a3449232bda29dd603c0eb729171faa467",
+    "used": false,
+    "created_at": "2026-03-04T11:25:02.737Z"
+  },
+  {
+    "id": "69a8538e0819792e797a9123",
+    "user_id": "69a8139008a9cf41dd0dfbca",
+    "discount_id": "c00000000000000000000001",
+    "qr_token": "1d6823be220c6962e2adbb7ee10c1729bf3d728f7a820bf0733cfffc05049374",
+    "used": false,
+    "created_at": "2026-03-04T15:45:18.020Z"
+  },
+  {
+    "id": "69a856200819792e797a912a",
+    "user_id": "69a8139008a9cf41dd0dfbca",
+    "discount_id": "c00000000000000000000003",
+    "qr_token": "d511361133c8ebe8a5178a17d9439c8275b780ccfc45209ff20fff040700910b",
+    "used": false,
+    "created_at": "2026-03-04T15:56:16.800Z"
+  },
+  {
+    "id": "69a85fa50819792e797a9130",
+    "user_id": "69a8139008a9cf41dd0dfbca",
+    "discount_id": "c00000000000000000000001",
+    "qr_token": "f4c0a9ed8365eb569fda1f24291f00d860b04393da52c36674d8138834d46fa7",
+    "used": false,
+    "created_at": "2026-03-04T16:36:53.619Z"
+  },
+  {
+    "id": "69a864880819792e797a9137",
+    "user_id": "69a8139008a9cf41dd0dfbca",
+    "discount_id": "c00000000000000000000002",
+    "qr_token": "3523a436e168120ac218aafc70ddf8603a1306c650eb168395220514b82c73d2",
+    "used": false,
+    "created_at": "2026-03-04T16:57:44.030Z"
+  },
+  {
+    "id": "69a8692b7d74f07691b7386e",
+    "user_id": "69a8139008a9cf41dd0dfbca",
+    "discount_id": "c00000000000000000000003",
+    "qr_token": "07351789d30fe940d787f2379d06004cf129ac82691a701b9fa3e3b60a602b1f",
+    "used": false,
+    "created_at": "2026-03-04T17:17:31.014Z"
+  },
+  {
+    "id": "69a8760dae85b231335d631b",
+    "user_id": "69a8139008a9cf41dd0dfbca",
+    "discount_id": "c00000000000000000000004",
+    "qr_token": "afad5f45b3db631fb0c1998979925a195372630b63bb934a053e8dc6fcf79897",
+    "used": false,
+    "created_at": "2026-03-04T18:12:29.991Z"
+  },
+  {
+    "id": "69a8b7cfa7bdec2a94fda15d",
+    "user_id": "69a88c5be625258936d50c1a",
+    "discount_id": "c00000000000000000000001",
+    "qr_token": "de8bb7b7aaeb340ffad9ee159b27320b81e2eb958c399d41fe4f590e9017a3c8",
+    "used": false,
+    "created_at": "2026-03-04T22:53:03.979Z"
+  },
+  {
+    "id": "69a8b8e60be9deae59d32d8e",
+    "user_id": "69a08424223cb1c5a0fa3bc2",
+    "discount_id": "c00000000000000000000001",
+    "qr_token": "c7681d8ec9b04c404d079fa180178cc157c61bce37ac785c298630d32605ebb7",
+    "used": false,
+    "created_at": "2026-03-04T22:57:42.772Z"
+  },
+  {
+    "id": "69a8bce521e17a66ffda6c22",
+    "user_id": "69a8bac00be9deae59d32d8f",
+    "discount_id": "c00000000000000000000002",
+    "qr_token": "ab410cff3869ecaafe12e33d0aa78d8f4a2b9fa07c9bc39bc61f6a8f3a880cec",
+    "used": false,
+    "created_at": "2026-03-04T23:14:45.789Z"
+  },
+  {
+    "id": "69a949d54ed97b60b74ed8cf",
+    "user_id": "69a88c5be625258936d50c1a",
+    "discount_id": "c00000000000000000000002",
+    "qr_token": "8e775b5c744431896c39e31f217aea89ad46a3037f1af4c30c1755b210c6ec17",
+    "used": false,
+    "created_at": "2026-03-05T09:16:05.855Z"
+  },
+  {
+    "id": "69a94d814ed97b60b74ed8d4",
+    "user_id": "69a88c5be625258936d50c1a",
+    "discount_id": "c00000000000000000000003",
+    "qr_token": "2a4ac28a36f651c8239d6d1f0f4c963d172a47528b753beb2479bafec5710770",
+    "used": false,
+    "created_at": "2026-03-05T09:31:45.490Z"
+  },
+  {
+    "id": "69a96025eaab0e103fbd1af4",
+    "user_id": "69a88c5be625258936d50c1a",
+    "discount_id": "c00000000000000000000004",
+    "qr_token": "9bab2b02d0a9acaccf8d8cbd25155d4487d16e82e4554bad14fc11a0e9df3f9e",
+    "used": false,
+    "created_at": "2026-03-05T10:51:17.965Z"
+  },
+  {
+    "id": "69ac95df632352f544dcb819",
+    "user_id": "69a8bac00be9deae59d32d8f",
+    "discount_id": "c00000000000000000000003",
+    "qr_token": "8cb23168b847845df96575f55fb4ff26d5d76029eae0bef1bb1ec2700f4187e6",
+    "used": false,
+    "created_at": "2026-03-07T21:17:19.909Z"
+  },
+  {
+    "id": "69b0805a5ac15f8d20718d2a",
+    "user_id": "69b07c4b0856480c26492b60",
+    "discount_id": "c00000000000000000000001",
+    "qr_token": "8b227cc608f8772b11afd0ef5f0a65cb7f68729abc2fdb5820e54520dbc5f6a5",
+    "used": false,
+    "created_at": "2026-03-10T20:34:34.634Z"
+  },
+  {
+    "id": "69b0853b32e963512e9aeb3d",
+    "user_id": "69b081b6fd79b8a73d843538",
+    "discount_id": "c00000000000000000000001",
+    "qr_token": "3b6db6035192d63919d71189721b50f492c29dfdb8f4702b8c894f6190747c7c",
+    "used": false,
+    "created_at": "2026-03-10T20:55:23.305Z"
+  },
+  {
+    "id": "69b085d3d614794c47fb73c5",
+    "user_id": "69b081b6fd79b8a73d843538",
+    "discount_id": "c00000000000000000000002",
+    "qr_token": "9507fa277517d18579ea978c5c02cc552a688f468cb1d3d9cfd6090d027d483b",
+    "used": false,
+    "created_at": "2026-03-10T20:57:55.670Z"
+  },
+  {
+    "id": "69b08b8c6811233d79173f11",
+    "user_id": "69b088bee91d367d72802ca2",
+    "discount_id": "c00000000000000000000001",
+    "qr_token": "08cf9138553c88a6662727598829df034f2280e69497b72f4540ea97a87e9d54",
+    "used": false,
+    "created_at": "2026-03-10T21:22:20.287Z"
+  },
+  {
+    "id": "69b092339174915e0e896697",
+    "user_id": "69a08424223cb1c5a0fa3bc2",
+    "discount_id": "c00000000000000000000002",
+    "qr_token": "f51651bbf27529b9a274382861452d73af7129ade5f2fa5ac75ba6f512694d07",
+    "used": false,
+    "created_at": "2026-03-10T21:50:43.921Z"
+  },
+  {
+    "id": "69b092a9138625a3bcb6fcbc",
+    "user_id": "69a08424223cb1c5a0fa3bc2",
+    "discount_id": "c00000000000000000000003",
+    "qr_token": "9cf1e78205006a7eec07312377edf578e1678637aff2a0a81f04448883155592",
+    "used": false,
+    "created_at": "2026-03-10T21:52:41.831Z"
+  },
+  {
+    "id": "69b094524a56653344142570",
+    "user_id": "69b05a5773454b614262f505",
+    "discount_id": "c00000000000000000000001",
+    "qr_token": "6c204b9796c4fef2fa148a06da85846974b19ffe361f7fec61b7947de3645ea5",
+    "used": false,
+    "created_at": "2026-03-10T21:59:46.300Z"
+  },
+  {
+    "id": "69b094f9d0712ca83aea4c8e",
+    "user_id": "69b05a5773454b614262f505",
+    "discount_id": "c00000000000000000000002",
+    "qr_token": "a53722d80cd796044b8db4f833fbc0473b1cabc6db49c2ee011ee6982354ee2e",
+    "used": false,
+    "created_at": "2026-03-10T22:02:33.267Z"
+  },
+  {
+    "id": "69b097c122b28d7ee42799a6",
+    "user_id": "69b07ac15ac15f8d20718d20",
+    "discount_id": "c00000000000000000000001",
+    "qr_token": "7dcd78560144c170ff375f4420824e97104e90e23605549f940d1bd34792a598",
+    "used": false,
+    "created_at": "2026-03-10T22:14:25.785Z"
+  }
+]

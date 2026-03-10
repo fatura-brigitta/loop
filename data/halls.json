@@ -1,18 +1,74 @@
 [
     {
         "_id": {
-            "$oid": "e00000000000000000000001"
+            "$oid": "e00000000000000000000002"
         },
-        "name": "VIP Hall",
-        "row": 2,
-        "column": 3
+        "name": "1. terem",
+        "row": {
+            "$numberLong": "10"
+        },
+        "column": {
+            "$numberLong": "8"
+        }
     },
     {
         "_id": {
-            "$oid": "e00000000000000000000002"
+            "$oid": "69b039ca9d983dfbdbf98b67"
         },
-        "name": "Normal Hall",
-        "row": 1,
-        "column": 2
+        "name": "2. terem",
+        "row": {
+            "$numberLong": "8"
+        },
+        "column": {
+            "$numberLong": "8"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "name": "3. terem",
+        "row": {
+            "$numberLong": "6"
+        },
+        "column": {
+            "$numberLong": "5"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "name": "4. terem",
+        "row": {
+            "$numberLong": "12"
+        },
+        "column": {
+            "$numberLong": "8"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "name": "5. terem - 4DX",
+        "row": {
+            "$numberLong": "6"
+        },
+        "column": {
+            "$numberLong": "8"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "name": "6. terem - VIP",
+        "row": {
+            "$numberLong": "4"
+        },
+        "column": {
+            "$numberLong": "5"
+        }
     }
 ]

@@ -400,7 +400,9 @@ export async function POST(req: Request) {
       if(endDate > close)
         return jsonError("A vetítés a zárás után érne véget");
 
-      const conflict = await prisma.screening.findFirst({
+      const created = await prisma.$transaction(async (tx) => {
+
+      const conflict = await tx.screening.findFirst({
         where: {
           hall_id,
           AND: [
@@ -410,10 +412,11 @@ export async function POST(req: Request) {
         },
       });
 
-      if (conflict)
-        return jsonError("Egy másik vetítés már foglalja ezt a termet ebben az időpontban", 409);
+      if (conflict) {
+        throw new Error("Egy másik vetítés már foglalja ezt a termet ebben az időpontban");
+      }
 
-      const created = await prisma.screening.create({
+      return await tx.screening.create({
         data: {
           movie_id,
           hall_id,
@@ -422,20 +425,26 @@ export async function POST(req: Request) {
           end: endDate,
         },
       });
+    });
 
       return NextResponse.json(created, { status: 201 });
     }
 
     if (entity === "bad_words") {
       const words:string[] = body.words;
-      await prisma.badWord.deleteMany();
+      await prisma.$transaction(async (tx) => {
+
+      await tx.badWord.deleteMany();
+
       if(words.length){
-        await prisma.badWord.createMany({
-          data: words.map(w=>({
+        await tx.badWord.createMany({
+          data: words.map(w => ({
             word: w.toLowerCase().trim()
           }))
         });
       }
+
+    });
       return NextResponse.json({ok:true});
     }
 

@@ -234,6 +234,7 @@ model Ticket {
   users           User?           @relation(fields: [user_id], references: [id], onDelete: Cascade)
   chairs          Chair?          @relation(fields: [chair_id], references: [id], onDelete: Cascade)
 
+  @@unique([screening_id, chair_id])
   @@map("tickets")
 }
 

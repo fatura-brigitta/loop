@@ -24,27 +24,19 @@ export async function DELETE(req: Request) {
       );
     }
 
-    const ticket = await prisma.ticket.findUnique({
-      where: { id: ticketId }
+    const deleted = await prisma.ticket.deleteMany({
+      where: {
+        id: ticketId,
+        user_id: userId
+      }
     });
 
-    if (!ticket) {
+    if (deleted.count === 0) {
       return NextResponse.json(
-        { message: "Jegy nem található" },
+        { message: "Jegy nem található vagy nincs jogosultság" },
         { status: 404 }
       );
     }
-
-    if (String(ticket.user_id) !== String(userId)) {
-      return NextResponse.json(
-        { message: "Nincs jogosultság" },
-        { status: 403 }
-      );
-    }
-
-    await prisma.ticket.delete({
-      where: { id: ticketId }
-    });
 
     return NextResponse.json({ ok: true });
 

@@ -162,7 +162,9 @@ export async function PUT(req: NextRequest) {
       );
     }
 
-    const newUser = await prisma.user.create({
+    const newUser = await prisma.$transaction(async (tx) => {
+
+    const createdUser = await tx.user.create({
       data: {
         name,
         email,
@@ -179,22 +181,29 @@ export async function PUT(req: NextRequest) {
 
     const code = generate4DigitCode();
 
-    await prisma.user.update({
-      where: { id: newUser.id },
+    await tx.user.update({
+      where: { id: createdUser.id },
       data: {
         email_code: code,
         email_code_exp: codeExpiry(10),
       },
     });
 
-    sendVerificationEmail(newUser.email, newUser.name, code)
+    return {
+      user: createdUser,
+      code
+    };
+
+  });
+
+    sendVerificationEmail(newUser.user.email, newUser.user.name, newUser.code)
       .catch(err => console.error("EMAIL SEND ERROR:", err));
 
     return NextResponse.json(
       {
         ok: true,
         needsVerification: true,
-        email: newUser.email,
+        email: newUser.user.email,
       },
       { status: 201 }
     );

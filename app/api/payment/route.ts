@@ -198,24 +198,21 @@ async function handleConfirm(req: NextRequest) {
 
     const chairIds = session.chair_ids as string[];
 
-    const existingTickets = await prisma.ticket.findMany({
-      where: {
-        screening_id: session.screening_id,
-        chair_id: { in: chairIds }
-      }
-    });
-
-    if (existingTickets.length > 0) {
-      return NextResponse.json(
-        { message: "Az egyik kiválasztott szék már foglalt." },
-        { status: 400 }
-      );
-    }
-
     const createdTicketIds: string[] = [];
     let totalSpent = 0;
 
     await prisma.$transaction(async (tx) => {
+
+      const existingTickets = await tx.ticket.findMany({
+        where: {
+          screening_id: session.screening_id,
+          chair_id: { in: chairIds }
+        }
+      });
+
+      if (existingTickets.length > 0) {
+        throw new Error("SEAT_TAKEN");
+      }
 
       for (let i = 0; i < chairIds.length; i++) {
 
@@ -249,24 +246,24 @@ async function handleConfirm(req: NextRequest) {
         createdTicketIds.push(ticket.id);
       }
 
-    });
+      await tx.payment_session.update({
+        where: { id: paymentId },
+        data: { status: "paid" }
+      });
 
-    await prisma.payment_session.update({
-      where: { id: paymentId },
-      data: { status: "paid" },
-    });
+      const totalEuro = totalSpent / 100;
+      const gainedPoints = Math.round(totalEuro * 4);
 
-    const totalEuro = totalSpent / 100;
-    const gainedPoints = Math.round(totalEuro * 4);
+      await tx.user.update({
+        where: { id: session.user_id },
+        data: {
+          points: {
+            increment: gainedPoints
+          },
+          last_ticket_at: new Date()
+        }
+      });
 
-    await prisma.user.update({
-      where: { id: session.user_id },
-      data: {
-        points: {
-          increment: gainedPoints
-        },
-        last_ticket_at: new Date()
-      }
     });
 
     const tickets = await prisma.ticket.findMany({
@@ -296,7 +293,14 @@ async function handleConfirm(req: NextRequest) {
 
     return res;
 
-  } catch (err) {
+  } catch (err: any) {
+      if(err.message === "SEAT_TAKEN"){
+        return NextResponse.json(
+          { message: "Az egyik kiválasztott szék már foglalt." },
+          { status: 400 }
+        );
+      }
+
     console.error("CONFIRM ERROR:", err);
     return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
   }

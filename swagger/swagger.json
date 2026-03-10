@@ -1,0 +1,1113 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Loop API",
+    "version": "1.0.0",
+    "description": "Loop mozi backend API dokumentáció"
+  },
+  "servers": [
+    {
+      "url": "https://loop-sooty.vercel.app"
+    }
+  ],
+  "tags": [
+    { "name": "Admin", "description": "Admin műveletek" },
+    { "name": "Auth", "description": "Felhasználó hitelesítés" },
+    { "name": "Email", "description": "Email és QR funkciók" },
+    { "name": "Forum", "description": "Fórum posztok és hozzászólások" },
+    { "name": "Home", "description": "Kezdőoldal adatai" },
+    { "name": "Movies", "description": "Filmek kezelése" },
+    { "name": "Password", "description": "Jelszó visszaállítás és email kód kezelés" },
+    { "name": "Payment", "description": "Fizetés és jegyvásárlás" },
+    { "name": "Profile", "description": "Felhasználói profil műveletek" },
+    { "name": "Screenings", "description": "Vetítések kezelése" },
+    { "name": "Ticket", "description": "Jegyek kezelése és ellenőrzése" }
+  ],
+  "paths": {
+    "/api/admin": {
+      "get": {
+        "summary": "Admin adatok lekérése",
+        "tags": ["Admin"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "entity",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "movies",
+                "halls",
+                "screenings",
+                "screening_types",
+                "bad_words",
+                "flagged_comments",
+                "opening_hours",
+                "opening_overrides"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Sikeres lekérés" }
+        }
+      },
+      "post": {
+        "summary": "Új admin adat létrehozása",
+        "tags": ["Admin"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "entity",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "movies",
+                "halls",
+                "screenings",
+                "bad_words",
+                "opening_hours",
+                "opening_overrides"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "title": "Interstellar",
+                "director": "Christopher Nolan",
+                "playtime": 169
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Létrehozva" }
+        }
+      },
+      "put": {
+        "summary": "Admin adat frissítése",
+        "tags": ["Admin"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "entity",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["movies", "halls"]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "id": "65f2e2d0b93d9c3d9f1a1111",
+                "title": "Interstellar",
+                "playtime": 169
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Frissítve" }
+        }
+      },
+      "delete": {
+        "summary": "Admin adat törlése",
+        "tags": ["Admin"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "entity",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["movies", "halls", "screenings", "flagged_comments", "opening_overrides"]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "id": "65f2e2d0b93d9c3d9f1a1111"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Törölve" }
+        }
+      }
+    },
+
+    "/api/admin/adminLogin": {
+      "post": {
+        "summary": "Admin bejelentkezés",
+        "tags": ["Admin"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "name": "admin",
+                "password": "password123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Sikeres login" }
+        }
+      }
+    },
+
+    "/api/admin/adminLogout": {
+      "post": {
+        "summary": "Admin kijelentkezés",
+        "tags": ["Admin"],
+        "responses": {
+          "200": { "description": "Sikeres logout" }
+        }
+      }
+    },
+
+    "/api/admin/adminSchedule": {
+      "get": {
+        "summary": "Napi vetítési schedule",
+        "tags": ["Admin"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2026-03-10"
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Vetítések listája" }
+        }
+      }
+    },
+
+    "/api/admin/opening": {
+      "get": {
+        "summary": "Mozi nyitvatartás lekérése egy adott napra",
+        "tags": ["Admin"],
+        "description": "A megadott dátum alapján visszaadja a mozi nyitási és zárási idejét, figyelembe véve az override napokat is.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2026-03-10"
+            },
+            "description": "A lekérdezni kívánt nap dátuma"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Nyitvatartási idő",
+            "content": {
+              "application/json": {
+                "example": {
+                  "open": "10:00",
+                  "close": "22:00"
+                }
+              }
+            }
+          },
+          "400": { "description": "Hiányzó vagy hibás dátum" },
+          "500": { "description": "Szerver hiba" }
+        }
+      }
+    },
+
+    "/api/auth": {
+      "get": {
+        "summary": "Bejelentkezett felhasználó adatai",
+        "tags": ["Auth"],
+        "responses": {
+          "200": { "description": "Felhasználó adatai" },
+          "401": { "description": "Nem vagy bejelentkezve" },
+          "500": { "description": "Szerver hiba" }
+        }
+      },
+      "post": {
+        "summary": "Bejelentkezés",
+        "tags": ["Auth"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "email": "user@email.com",
+                "password": "password123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Sikeres login" },
+          "401": { "description": "Hibás email vagy jelszó" },
+          "403": { "description": "Email nincs megerősítve" }
+        }
+      },
+      "put": {
+        "summary": "Regisztráció",
+        "tags": ["Auth"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "name": "Teszt Elek",
+                "email": "user@email.com",
+                "password": "password123",
+                "phone_number": "+36301234567",
+                "gender": "MALE",
+                "profile_image": "/profile/default.png",
+                "consent": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Sikeres regisztráció" },
+          "400": { "description": "Hibás bemenet" },
+          "409": { "description": "Email vagy telefonszám már használatban" }
+        }
+      },
+      "delete": {
+        "summary": "Kijelentkezés",
+        "tags": ["Auth"],
+        "responses": {
+          "200": { "description": "Sikeres logout" }
+        }
+      }
+    },
+
+    "/api/email/qr/{token}": {
+      "get": {
+        "summary": "QR kód generálása jegyhez",
+        "tags": ["Email"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Jegy token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "QR kód PNG formátumban",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": { "description": "Hiányzó token" }
+        }
+      }
+    },
+
+    "/api/email/verify-email": {
+      "post": {
+        "summary": "Email cím megerősítése",
+        "tags": ["Email"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "email": "user@email.com",
+                "code": "1234"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Email sikeresen megerősítve" },
+          "400": { "description": "Hibás vagy lejárt kód" },
+          "500": { "description": "Szerver hiba" }
+        }
+      }
+    },
+
+    "/api/forum": {
+      "get": {
+        "summary": "Fórum posztok lekérése egy filmhez",
+        "tags": ["Forum"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "movie",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Film azonosító"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Posztok listája" },
+          "500": { "description": "Szerver hiba" }
+        }
+      },
+      "post": {
+        "summary": "Új fórum poszt létrehozása",
+        "tags": ["Forum"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "movie_id": "65f2e2d0b93d9c3d9f1a1111",
+                "comment": "Nagyon jó film volt!",
+                "review": 9
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Poszt létrehozva" },
+          "401": { "description": "Nincs bejelentkezve" },
+          "400": { "description": "Hiányzó adatok" }
+        }
+      }
+    },
+
+    "/api/forum/reply": {
+      "post": {
+        "summary": "Válasz írása fórum posztra",
+        "tags": ["Forum"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "forum_id": "65f2e2d0b93d9c3d9f1a2222",
+                "comment": "Egyetértek!"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Válasz létrehozva" },
+          "401": { "description": "Nincs bejelentkezve" },
+          "400": { "description": "Hiányzó adatok" }
+        }
+      }
+    },
+
+    "/api/forum/vote": {
+      "post": {
+        "summary": "Reakció fórum posztra",
+        "tags": ["Forum"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "post_id": "65f2e2d0b93d9c3d9f1a2222",
+                "type": "LIKE"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Reakció rögzítve" },
+          "401": { "description": "Nincs bejelentkezve" },
+          "400": { "description": "Hibás kérés" }
+        }
+      }
+    },
+
+    "/api/home/leaderboard": {
+      "get": {
+        "summary": "Top 3 felhasználó pontszám alapján",
+        "tags": ["Home"],
+        "responses": {
+          "200": {
+            "description": "Legjobb felhasználók",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "name": "Teszt Elek",
+                    "points": 320,
+                    "profile_image": "/profile/default.png"
+                  },
+                  {
+                    "name": "Anna",
+                    "points": 250,
+                    "profile_image": "/profile/default.png"
+                  },
+                  {
+                    "name": "Béla",
+                    "points": 200,
+                    "profile_image": "/profile/default.png"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/api/home/movies": {
+      "get": {
+        "summary": "Véletlenszerűen kiválasztott filmek a kezdőoldalra",
+        "tags": ["Home"],
+        "responses": {
+          "200": {
+            "description": "Film lista",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": "65f2e2d0b93d9c3d9f1a1111",
+                    "title": "Interstellar",
+                    "backdrop": "/movies/interstellar-bg.jpg",
+                    "poster": "/movies/interstellar.jpg",
+                    "genre": "Sci-Fi",
+                    "review": 9,
+                    "playtime": 169
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/api/home/pricing": {
+      "get": {
+        "summary": "Jegy árak és szorzók",
+        "tags": ["Home"],
+        "responses": {
+          "200": {
+            "description": "Ár információk",
+            "content": {
+              "application/json": {
+                "example": {
+                  "basePrice": 500,
+                  "screeningTypes": [
+                    {
+                      "id": "1",
+                      "type": "2D",
+                      "percent": 100
+                    },
+                    {
+                      "id": "2",
+                      "type": "3D",
+                      "percent": 120
+                    }
+                  ],
+                  "ticketTypes": [
+                    {
+                      "id": "1",
+                      "type": "Diák",
+                      "percent": 80
+                    },
+                    {
+                      "id": "2",
+                      "type": "Felnőtt",
+                      "percent": 100
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": { "description": "Szerver hiba" }
+        }
+      }
+    },
+
+    "/api/movies": {
+      "get": {
+        "summary": "Vetített filmek listája",
+        "tags": ["Movies"],
+        "responses": {
+          "200": {
+            "description": "Film lista",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": "65f2e2d0b93d9c3d9f1a1111",
+                    "title": "Interstellar",
+                    "director": "Christopher Nolan",
+                    "actors": "Matthew McConaughey",
+                    "poster": "/movies/interstellar.jpg",
+                    "playtime": 169,
+                    "language": "English",
+                    "genre": "Sci-Fi",
+                    "review": 9,
+                    "description": "Űrutazás a túlélésért"
+                  }
+                ]
+              }
+            }
+          },
+          "500": { "description": "Sikertelen lekérés" }
+        }
+      },
+      "post": {
+        "summary": "Kiválasztott film mentése cookie-ba",
+        "tags": ["Movies"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "movieId": "65f2e2d0b93d9c3d9f1a1111"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Film kiválasztva" },
+          "400": { "description": "Hiányzó film azonosító" }
+        }
+      },
+      "delete": {
+        "summary": "Kiválasztott film törlése cookie-ból",
+        "tags": ["Movies"],
+        "responses": {
+          "200": { "description": "Cookie törölve" }
+        }
+      }
+    },
+
+    "/api/movies/selected-movie": {
+      "post": {
+        "summary": "Film kiválasztása ideiglenes cookie-val",
+        "tags": ["Movies"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "movieId": "65f2e2d0b93d9c3d9f1a1111"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Film kiválasztva" },
+          "400": { "description": "Hiányzó film" },
+          "500": { "description": "Szerver hiba" }
+        }
+      }
+    },
+
+    "/api/password/forgot-password": {
+      "post": {
+        "summary": "Jelszó visszaállító email küldése",
+        "tags": ["Password"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "email": "user@email.com"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Email elküldve" },
+          "400": { "description": "Hiányzó email" },
+          "500": { "description": "Szerver hiba" }
+        }
+      }
+    },
+
+    "/api/password/resend-code": {
+      "post": {
+        "summary": "Email megerősítő kód újraküldése",
+        "tags": ["Password"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "email": "user@email.com"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Kód elküldve" },
+          "400": { "description": "Hiányzó email" },
+          "500": { "description": "Szerver hiba" }
+        }
+      }
+    },
+
+    "/api/password/reset-password": {
+      "post": {
+        "summary": "Jelszó visszaállítása token segítségével",
+        "tags": ["Password"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "token": "abc123def456",
+                "password": "newPassword123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Jelszó sikeresen frissítve" },
+          "400": { "description": "Érvénytelen vagy lejárt token" },
+          "500": { "description": "Szerver hiba" }
+        }
+      }
+    },
+
+    "/api/payment": {
+      "post": {
+        "summary": "Fizetési művelet (create / price / confirm)",
+        "tags": ["Payment"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "action",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["create", "price", "confirm"]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "seatIds": ["chair1", "chair2"],
+                "ticketTypes": ["Normál", "Diák"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Sikeres művelet" },
+          "400": { "description": "Hibás kérés" },
+          "401": { "description": "Nincs bejelentkezve" },
+          "500": { "description": "Szerver hiba" }
+        }
+      },
+      "get": {
+        "summary": "Fizetési session lekérése",
+        "tags": ["Payment"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "action",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["session"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session adatok",
+            "content": {
+              "application/json": {
+                "example": {
+                  "sessionId": "abc123",
+                  "movieTitle": "Interstellar",
+                  "hallName": "Terem 1",
+                  "start": "2026-03-10T18:00:00Z",
+                  "screeningType": "2D",
+                  "seats": [
+                    { "row": 3, "column": 5 },
+                    { "row": 3, "column": 6 }
+                  ],
+                  "ticketTypes": [
+                    { "type": "Normál", "percent": 100 }
+                  ],
+                  "totalPrice": 1200
+                }
+              }
+            }
+          },
+          "400": { "description": "Érvénytelen session" },
+          "500": { "description": "Szerver hiba" }
+        }
+      }
+    },
+
+    "/api/payment/checkout": {
+      "post": {
+        "summary": "Stripe fizetés indítása",
+        "tags": ["Payment"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "ticketTypes": ["Normál", "Diák"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Stripe checkout URL",
+            "content": {
+              "application/json": {
+                "example": {
+                  "url": "https://checkout.stripe.com/session/abc123"
+                }
+              }
+            }
+          },
+          "500": { "description": "Stripe hiba" }
+        }
+      }
+    },
+
+    "/api/profile": {
+      "get": {
+        "summary": "Felhasználó profil adatai",
+        "tags": ["Profile"],
+        "responses": {
+          "200": { "description": "Profil adatok" },
+          "401": { "description": "Nem vagy bejelentkezve" }
+        }
+      },
+      "patch": {
+        "summary": "Profil adatok frissítése",
+        "tags": ["Profile"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "name": "Teszt Elek",
+                "phone_number": "+36301234567",
+                "gender": "MALE"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Profil frissítve" },
+          "400": { "description": "Hibás adat" },
+          "401": { "description": "Nem vagy bejelentkezve" }
+        }
+      },
+      "put": {
+        "summary": "Jelszó módosítása",
+        "tags": ["Profile"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "oldPassword": "oldPassword123",
+                "newPassword": "newPassword123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Jelszó frissítve" },
+          "400": { "description": "Hibás jelszó" }
+        }
+      },
+      "post": {
+        "summary": "Felhasználó jegyei (aktív és történet)",
+        "tags": ["Profile"],
+        "responses": {
+          "200": { "description": "Jegyek listája" },
+          "401": { "description": "Nem vagy bejelentkezve" }
+        }
+      }
+    },
+
+    "/api/profile/consent": {
+      "put": {
+        "summary": "Marketing hozzájárulás módosítása",
+        "tags": ["Profile"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "consent": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Consent frissítve" }
+        }
+      }
+    },
+
+    "/api/profile/coupons": {
+      "get": {
+        "summary": "Felhasználó kuponjai",
+        "tags": ["Profile"],
+        "responses": {
+          "200": { "description": "Kupon lista" },
+          "401": { "description": "Nem vagy bejelentkezve" }
+        }
+      }
+    },
+
+    "/api/profile/discounts": {
+      "get": {
+        "summary": "Elérhető kedvezmények",
+        "tags": ["Profile"],
+        "responses": {
+          "200": { "description": "Kedvezmények listája" },
+          "500": { "description": "Szerver hiba" }
+        }
+      }
+    },
+
+    "/api/profile/profile-image": {
+      "put": {
+        "summary": "Profilkép módosítása",
+        "tags": ["Profile"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "profile_image": "/profile/avatar1.png"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Profilkép frissítve" },
+          "401": { "description": "Nem vagy bejelentkezve" }
+        }
+      }
+    },
+
+    "/api/profile/ranks": {
+      "get": {
+        "summary": "Rangok listája",
+        "tags": ["Profile"],
+        "responses": {
+          "200": { "description": "Rang lista" }
+        }
+      }
+    },
+
+    "/api/profile/theme": {
+      "put": {
+        "summary": "Felhasználó témájának módosítása",
+        "tags": ["Profile"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "theme": "dark"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Téma frissítve" },
+          "401": { "description": "Nem vagy bejelentkezve" }
+        }
+      }
+    },
+
+    "/api/screenings": {
+      "get": {
+        "summary": "Vetítések lekérése",
+        "tags": ["Screenings"],
+        "responses": {
+          "200": {
+            "description": "Vetítések listája",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": "abc123",
+                    "start": "2026-03-10T18:00:00Z",
+                    "movies": {
+                      "title": "Interstellar"
+                    },
+                    "screening_types": {
+                      "type": "2D"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "500": { "description": "Szerver hiba" }
+        }
+      },
+      "post": {
+        "summary": "Vetítés kiválasztása",
+        "tags": ["Screenings"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "id": "65f2e2d0b93d9c3d9f1a1111"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Vetítés kiválasztva" },
+          "400": { "description": "Hiányzó azonosító" }
+        }
+      },
+      "put": {
+        "summary": "Terem és székek lekérése a kiválasztott vetítéshez",
+        "tags": ["Screenings"],
+        "responses": {
+          "200": {
+            "description": "Terem és szék adatok",
+            "content": {
+              "application/json": {
+                "example": {
+                  "hall": {
+                    "id": "hall123",
+                    "name": "Terem 1",
+                    "row": 10,
+                    "column": 12
+                  },
+                  "chairs": [
+                    {
+                      "id": "chair1",
+                      "row": 1,
+                      "column": 1,
+                      "state": false
+                    },
+                    {
+                      "id": "chair2",
+                      "row": 1,
+                      "column": 2,
+                      "state": true
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": { "description": "Hiányzó vetítés" },
+          "404": { "description": "Terem vagy vetítés nem található" },
+          "500": { "description": "Szerver hiba" }
+        }
+      }
+    },
+
+    "/api/ticket/delete": {
+      "delete": {
+        "summary": "Egy jegy törlése",
+        "tags": ["Ticket"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "ticketId": "65f2e2d0b93d9c3d9f1a1111"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Jegy törölve" },
+          "400": { "description": "Hiányzó ticketId" },
+          "401": { "description": "Nem vagy bejelentkezve" },
+          "403": { "description": "Nincs jogosultság" },
+          "404": { "description": "Jegy nem található" },
+          "500": { "description": "Szerver hiba" }
+        }
+      }
+    },
+
+    "/api/ticket/delete-all": {
+      "delete": {
+        "summary": "Régi jegyek törlése",
+        "tags": ["Ticket"],
+        "responses": {
+          "200": { "description": "Jegyek törölve" },
+          "401": { "description": "Nem vagy bejelentkezve" }
+        }
+      }
+    },
+
+    "/api/ticket/scan/{token}": {
+      "get": {
+        "summary": "Jegy QR token ellenőrzése",
+        "tags": ["Ticket"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "QR kód token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Jegy adatok",
+            "content": {
+              "application/json": {
+                "example": {
+                  "used": false,
+                  "movie": "Interstellar",
+                  "hall": "Terem 1",
+                  "start": "2026-03-10T18:00:00Z",
+                  "row": 5,
+                  "seat": 7,
+                  "type": "Normál"
+                }
+              }
+            }
+          },
+          "404": { "description": "Érvénytelen jegy" }
+        }
+      }
+    }
+  }
+}

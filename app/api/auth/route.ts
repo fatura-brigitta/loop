@@ -46,12 +46,15 @@ export async function GET() {
     }
 
     return NextResponse.json(user);
-  } catch (err) {
-    console.error("AUTH GET ERROR:", err);
+  } catch (err: any) {
+
+    console.error("AUTH ERROR:", err);
+
     return NextResponse.json(
-      { message: t.serverError },
+      { message: err?.message || "Server error" },
       { status: 500 }
     );
+
   }
 }
 

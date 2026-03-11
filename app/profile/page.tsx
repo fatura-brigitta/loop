@@ -266,6 +266,7 @@ export default function ProfilePage() {
     });
 
   const handlePickFile = async (file?: File) => {
+
     if (!file) return;
 
     const base64 = await readFileAsBase64(file);
@@ -278,13 +279,15 @@ export default function ProfilePage() {
       })
     });
 
+    const data = await res.json();
+
     if (!res.ok) {
       setImageError("Hiba a profilkép frissítése közben!");
       setImageMessage("");
       return;
     }
 
-    setProfileImage(base64);
+    setProfileImage(data.url);
 
     setImageMessage("Profilkép frissítve!");
     setImageError("");
@@ -292,6 +295,7 @@ export default function ProfilePage() {
     router.refresh();
 
     window.dispatchEvent(new Event("profile-updated"));
+
   };
 
   if (!user) {
@@ -367,6 +371,7 @@ export default function ProfilePage() {
     router.refresh();
 
     window.dispatchEvent(new Event("profile-updated"));
+
   };
 
   const changeTheme = async (newTheme: string) => {

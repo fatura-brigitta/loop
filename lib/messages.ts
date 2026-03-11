@@ -1,7 +1,7 @@
 export const messages = {
   hu: {
     notLoggedIn: "Nincs bejelentkezve!",
-    serverError: "Szerver hiba tortént!",
+    serverError: "Szerver hiba történt!",
     missingEmailPassword: "Hiányzó email vagy jelszó!",
     invalidCredentials: "Érvénytelen email vagy jelszó!",
     emailNotVerified: "Az email címed még nincs megerősítve!",
@@ -81,7 +81,11 @@ export const messages = {
     screeningConflict: "Egy másik vetítés már foglalja ezt a termet ebben az időpontban!",
     unsupportedInput: "Nem támogatott bemenet!",
     hallResizeBlocked: "Nem csökkenthető a terem mérete, mert léteznek jegyek a megszűnő székekre!",
-    invalidHallDataShort: "Érvénytelen terem adatok!"
+    invalidHallDataShort: "Érvénytelen terem adatok!",
+
+    zodError: "Érvénytelen adat!",
+    rateLimitError: "Túl sok kérés!",
+    csrfError: "Érvénytelen származás!",
   },
 
   en: {
@@ -166,7 +170,11 @@ export const messages = {
     screeningConflict: "Another screening already occupies this hall at this time!",
     unsupportedInput: "Unsupported input!",
     hallResizeBlocked: "Hall size cannot be reduced because tickets exist for seats that would be removed!",
-    invalidHallDataShort: "Invalid hall data!"
+    invalidHallDataShort: "Invalid hall data!",
+
+    zodError: "Invalid data!",
+    rateLimitError: "Too many requests!",
+    csrfError: "Invalid origin!",
   }
 };
 

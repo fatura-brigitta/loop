@@ -7,9 +7,18 @@ import { cookies } from "next/headers";
 import { generate4DigitCode, codeExpiry } from "@/lib/emailVerification";
 import { sendVerificationEmail } from "@/lib/sendVerificationEmail";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { ZodError } from "zod";
 
 import { getLang } from "@/lib/lang";
 import { messages } from "@/lib/messages";
+
+import { rateLimit } from "@/lib/rateLimit";
+import { getClientIp } from "@/lib/getClientIp";
+import { checkOrigin } from "@/lib/checkOrigin";
+import { loginSchema, registerSchema } from "@/lib/validators";
+import { sanitizeText } from "@/lib/sanitize";
+
+const isProd = process.env.NODE_ENV === "production";
 
 export async function GET() {
   const lang = await getLang();
@@ -22,7 +31,12 @@ export async function GET() {
     if (!userId) {
       return NextResponse.json(
         { message: t.notLoggedIn },
-        { status: 401 }
+        {
+          status: 401,
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        }
       );
     }
 
@@ -41,20 +55,27 @@ export async function GET() {
     if (!user) {
       return NextResponse.json(
         { message: t.invalidCredentials },
-        { status: 401 }
+        {
+          status: 401,
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        }
       );
     }
 
-    return NextResponse.json(user);
-  } catch (err: any) {
-
-    console.error("AUTH ERROR:", err);
+    return NextResponse.json(user, {
+      headers: {
+        "Cache-Control": "no-store",
+      },
+    });
+  } catch (err) {
+    console.error("AUTH GET ERROR:", err);
 
     return NextResponse.json(
-      { message: err?.message || "Server error" },
+      { message: t.serverError },
       { status: 500 }
     );
-
   }
 }
 
@@ -63,14 +84,14 @@ export async function POST(req: NextRequest) {
   const t = messages[lang];
 
   try {
-    const { email, password } = await req.json();
+    checkOrigin(req);
 
-    if (!email || !password) {
-      return NextResponse.json(
-        { message: t.missingEmailPassword },
-        { status: 400 }
-      );
-    }
+    const ip = getClientIp(req);
+    const { email, password } = loginSchema.parse(await req.json());
+
+    rateLimit(`auth:login:ip:${ip}`, 10, 60_000);
+    rateLimit(`auth:login:email:${email}`, 10, 60_000);
+    rateLimit(`auth:login:ip-email:${ip}:${email}`, 5, 60_000);
 
     const user = await prisma.user.findUnique({
       where: { email },
@@ -79,7 +100,12 @@ export async function POST(req: NextRequest) {
     if (!user) {
       return NextResponse.json(
         { message: t.invalidCredentials },
-        { status: 401 }
+        {
+          status: 401,
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        }
       );
     }
 
@@ -90,14 +116,24 @@ export async function POST(req: NextRequest) {
           needsVerification: true,
           email,
         },
-        { status: 403 }
+        {
+          status: 403,
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        }
       );
     }
 
     if (!user.password_hash) {
       return NextResponse.json(
         { message: t.invalidCredentials },
-        { status: 400 }
+        {
+          status: 401,
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        }
       );
     }
 
@@ -106,24 +142,59 @@ export async function POST(req: NextRequest) {
     if (!ok) {
       return NextResponse.json(
         { message: t.invalidCredentials },
-        { status: 401 }
+        {
+          status: 401,
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        }
       );
     }
 
-    const res = NextResponse.json({
-      ok: true,
-      name: user.name,
-    });
+    const res = NextResponse.json(
+      {
+        ok: true,
+        name: user.name,
+      },
+      {
+        headers: {
+          "Cache-Control": "no-store",
+        },
+      }
+    );
 
     res.cookies.set("userId", user.id, {
       httpOnly: true,
+      secure: isProd,
       sameSite: "lax",
       path: "/",
     });
 
     return res;
-  } catch (err) {
+  } catch (err: any) {
+    if (err instanceof ZodError) {
+      return NextResponse.json(
+        { message: t.zodError },
+        { status: 400 }
+      );
+    }
+
+    if (err.message === "RATE_LIMIT") {
+      return NextResponse.json(
+        { message: t.rateLimitError },
+        { status: 429 }
+      );
+    }
+
+    if (err.message === "CSRF") {
+      return NextResponse.json(
+        { message: t.csrfError },
+        { status: 403 }
+      );
+    }
+
     console.error("AUTH POST ERROR:", err);
+
     return NextResponse.json(
       { message: t.serverError },
       { status: 500 }
@@ -136,15 +207,25 @@ export async function PUT(req: NextRequest) {
   const t = messages[lang];
 
   try {
-    const { name, email, password, phone_number, profile_image, gender, consent } =
-      await req.json();
+    checkOrigin(req);
 
-    if (!name || !email || !password || !phone_number || !gender) {
-      return NextResponse.json(
-        { message: t.missingFields },
-        { status: 400 }
-      );
-    }
+    const ip = getClientIp(req);
+    rateLimit(`auth:register:ip:${ip}`, 5, 60_000);
+
+    const {
+      name,
+      email,
+      password,
+      phone_number,
+      profile_image,
+      gender,
+      consent,
+    } = registerSchema.parse(await req.json());
+
+    const cleanName = sanitizeText(name);
+    const cleanProfileImage = profile_image
+      ? sanitizeText(profile_image)
+      : null;
 
     const phone = parsePhoneNumberFromString(phone_number);
 
@@ -156,21 +237,11 @@ export async function PUT(req: NextRequest) {
     }
 
     const normalizedPhone = phone.number;
-
-    if (password.length < 5) {
-      return NextResponse.json(
-        { message: t.shortPassword },
-        { status: 400 }
-      );
-    }
-
-    const allowedGenders = new Set(["MALE", "FEMALE", "RATHER_NOT_SAY"]);
-    const safeGender = allowedGenders.has(gender) ? gender : "RATHER_NOT_SAY";
-
-    const password_hash = await bcrypt.hash(password, 10);
+    const password_hash = await bcrypt.hash(password, 12);
 
     const baseRank = await prisma.rank.findFirst({
       where: { point_limit: 0 },
+      select: { id: true },
     });
 
     if (!baseRank) {
@@ -181,15 +252,14 @@ export async function PUT(req: NextRequest) {
     }
 
     const newUser = await prisma.$transaction(async (tx) => {
-
       const createdUser = await tx.user.create({
         data: {
-          name,
+          name: cleanName,
           email,
           password_hash,
           phone_number: normalizedPhone,
-          profile_image: profile_image || "/profile/default.png",
-          gender: safeGender,
+          profile_image: cleanProfileImage || "/profile/default.png",
+          gender,
           points: 0,
           consent: !!consent,
           rank_id: baseRank.id,
@@ -209,9 +279,8 @@ export async function PUT(req: NextRequest) {
 
       return {
         user: createdUser,
-        code
+        code,
       };
-
     });
 
     const { user, code } = newUser;
@@ -226,16 +295,33 @@ export async function PUT(req: NextRequest) {
       {
         ok: true,
         needsVerification: true,
-        email: newUser.user.email,
+        email: user.email,
       },
       { status: 201 }
     );
-
   } catch (err: any) {
-    console.error("AUTH REGISTER ERROR:", err);
+    if (err instanceof ZodError) {
+      return NextResponse.json(
+        { message: t.zodError },
+        { status: 400 }
+      );
+    }
 
-    const lang = await getLang();
-    const t = messages[lang];
+    if (err.message === "RATE_LIMIT") {
+      return NextResponse.json(
+        { message: t.rateLimitError },
+        { status: 429 }
+      );
+    }
+
+    if (err.message === "CSRF") {
+      return NextResponse.json(
+        { message: t.csrfError },
+        { status: 403 }
+      );
+    }
+
+    console.error("AUTH REGISTER ERROR:", err);
 
     if (err.code === "P2002") {
       if (err.meta?.target?.includes("email")) {
@@ -260,13 +346,44 @@ export async function PUT(req: NextRequest) {
   }
 }
 
-export async function DELETE() {
-  const res = NextResponse.json({ ok: true });
+export async function DELETE(req: NextRequest) {
+  const lang = await getLang();
+  const t = messages[lang];
 
-  res.cookies.set("userId", "", {
-    maxAge: 0,
-    path: "/",
-  });
+  try {
+    checkOrigin(req);
 
-  return res;
+    const res = NextResponse.json(
+      { ok: true },
+      {
+        headers: {
+          "Cache-Control": "no-store",
+        },
+      }
+    );
+
+    res.cookies.set("userId", "", {
+      httpOnly: true,
+      secure: isProd,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 0,
+    });
+
+    return res;
+  } catch (err: any) {
+    if (err.message === "CSRF") {
+      return NextResponse.json(
+        { message: t.csrfError },
+        { status: 403 }
+      );
+    }
+
+    console.error("AUTH DELETE ERROR:", err);
+
+    return NextResponse.json(
+      { message: t.serverError },
+      { status: 500 }
+    );
+  }
 }

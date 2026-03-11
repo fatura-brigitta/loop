@@ -4,6 +4,13 @@ import prisma from "@/lib/prisma";
 import { getLang } from "@/lib/lang";
 import { messages } from "@/lib/messages";
 
+import { verifyEmailSchema } from "@/lib/validators";
+import { rateLimit } from "@/lib/rateLimit";
+import { getClientIp } from "@/lib/getClientIp";
+import { checkOrigin } from "@/lib/checkOrigin";
+
+import { ZodError } from "zod";
+
 export async function POST(req: NextRequest) {
 
   const lang = await getLang();
@@ -11,24 +18,14 @@ export async function POST(req: NextRequest) {
 
   try {
 
-    let { email, code } = await req.json();
+    checkOrigin(req);
 
-    if (!email || !code) {
-      return NextResponse.json(
-        { message: t.missingEmailCode },
-        { status: 400 }
-      );
-    }
+    const ip = getClientIp(req);
 
-    email = String(email).trim().toLowerCase();
-    code = String(code).trim();
+    const { email, code } = verifyEmailSchema.parse(await req.json());
 
-    if (code.length !== 4 || !/^\d{4}$/.test(code)) {
-      return NextResponse.json(
-        { message: t.codeFormat },
-        { status: 400 }
-      );
-    }
+    rateLimit(`verify-ip-${ip}`, 10, 60_000);
+    rateLimit(`verify-ip-email-${ip}-${email}`, 5, 60_000);
 
     await prisma.$transaction(async (tx) => {
 
@@ -44,7 +41,9 @@ export async function POST(req: NextRequest) {
         return;
       }
 
-      const expired = new Date(user.email_code_exp).getTime() < Date.now();
+      const expired =
+        new Date(user.email_code_exp).getTime() < Date.now();
+
       if (expired) {
         throw new Error("EXPIRED_CODE");
       }
@@ -64,11 +63,33 @@ export async function POST(req: NextRequest) {
 
     });
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json(
+      { ok: true },
+      { headers: { "Cache-Control": "no-store" } }
+    );
 
   } catch (err: any) {
 
-    console.error("VERIFY ERROR:", err);
+    if (err instanceof ZodError) {
+      return NextResponse.json(
+        { message: t.invalidData },
+        { status: 400 }
+      );
+    }
+
+    if (err.message === "RATE_LIMIT") {
+      return NextResponse.json(
+        { message: t.rateLimitError },
+        { status: 429 }
+      );
+    }
+
+    if (err.message === "CSRF") {
+      return NextResponse.json(
+        { message: t.csrfError },
+        { status: 403 }
+      );
+    }
 
     if (err.message === "INVALID_CODE") {
       return NextResponse.json(
@@ -90,6 +111,8 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+
+    console.error("VERIFY ERROR:", err);
 
     return NextResponse.json(
       { message: t.serverError },

@@ -1,10 +1,20 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
+
 import { getLang } from "@/lib/lang";
 import { messages } from "@/lib/messages";
 
-export async function GET(req: Request) {
+import { forumPostSchema } from "@/lib/validators";
+import { sanitizeText } from "@/lib/sanitize";
+import { rateLimit } from "@/lib/rateLimit";
+import { getClientIp } from "@/lib/getClientIp";
+import { checkOrigin } from "@/lib/checkOrigin";
+
+import { ZodError } from "zod";
+
+export async function GET(req: NextRequest) {
+
   const lang = await getLang();
   const t = messages[lang];
 
@@ -13,7 +23,11 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const movieId = searchParams.get("movie");
 
-    if (!movieId) return NextResponse.json([]);
+    if (!movieId) {
+      return NextResponse.json([], {
+        headers: { "Cache-Control": "no-store" },
+      });
+    }
 
     const cookieStore = await cookies();
     const userId = cookieStore.get("userId")?.value;
@@ -75,7 +89,10 @@ export async function GET(req: Request) {
         profile_image: u?.profile_image ?? "/profile/default.png",
       };
 
-      replyMap.set(r.forum_id, [...(replyMap.get(r.forum_id) ?? []), formatted]);
+      replyMap.set(
+        r.forum_id,
+        [...(replyMap.get(r.forum_id) ?? []), formatted]
+      );
     }
 
     const formatted = posts.map((p) => {
@@ -95,7 +112,10 @@ export async function GET(req: Request) {
       };
     });
 
-    return NextResponse.json(formatted);
+    return NextResponse.json(
+      formatted,
+      { headers: { "Cache-Control": "no-store" } }
+    );
 
   } catch (err) {
 
@@ -108,11 +128,18 @@ export async function GET(req: Request) {
   }
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+
   const lang = await getLang();
   const t = messages[lang];
 
   try {
+
+    checkOrigin(req);
+
+    const ip = getClientIp(req);
+    rateLimit(`forum-post-ip-${ip}`, 10, 60_000);
+
     const cookieStore = await cookies();
     const userCookie = cookieStore.get("userId");
 
@@ -123,27 +150,50 @@ export async function POST(req: Request) {
       );
     }
 
-    const { movie_id, comment, review } = await req.json();
+    const { movie_id, comment, review } =
+      forumPostSchema.parse(await req.json());
 
-    if (!movie_id || !comment) {
+    const cleanComment = sanitizeText(comment);
+
+    const newPost = await prisma.forum.create({
+      data: {
+        movie_id,
+        user_id: userCookie.value,
+        comment: cleanComment,
+        review: review ?? 0,
+      },
+    });
+
+    return NextResponse.json(
+      newPost,
+      { headers: { "Cache-Control": "no-store" } }
+    );
+
+  } catch (err: any) {
+
+    if (err instanceof ZodError) {
       return NextResponse.json(
-        { message: t.missingData },
+        { message: t.invalidData },
         { status: 400 }
       );
     }
 
-    const newPost = await prisma.forum.create({
-      data: {
-        movie_id: movie_id,
-        user_id: userCookie.value,
-        comment: comment,
-        review: Number(review) || 0,
-      },
-    });
+    if (err.message === "RATE_LIMIT") {
+      return NextResponse.json(
+        { message: t.rateLimitError },
+        { status: 429 }
+      );
+    }
 
-    return NextResponse.json(newPost);
-  } catch (err) {
+    if (err.message === "CSRF") {
+      return NextResponse.json(
+        { message: t.csrfError },
+        { status: 403 }
+      );
+    }
+
     console.error("FORUM POST ERROR:", err);
+
     return NextResponse.json(
       { message: t.serverError },
       { status: 500 }

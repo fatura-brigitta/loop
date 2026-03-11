@@ -10,24 +10,44 @@ import { generateQrToken } from "@/lib/generateQrToken";
 import { getLang } from "@/lib/lang";
 import { messages } from "@/lib/messages";
 
+import { rateLimit } from "@/lib/rateLimit";
+import { getClientIp } from "@/lib/getClientIp";
+import { checkOrigin } from "@/lib/checkOrigin";
+import { paymentCreateSchema, paymentPriceSchema } from "@/lib/validators";
+import { ZodError } from "zod";
+
 async function handleCreate(req: NextRequest) {
+
   const lang = await getLang();
   const t = messages[lang];
-  try {
-    const cookieStore = await cookies();
-    const body = await req.json();
 
-    const seatIds = body.seatIds;
-    const ticketTypes = body.ticketTypes;
+  try {
+
+    checkOrigin(req);
+
+    const ip = getClientIp(req);
+    rateLimit(`payment-create-${ip}`, 5, 60_000);
+
+    const cookieStore = await cookies();
+
+    const { seatIds, ticketTypes } =
+      paymentCreateSchema.parse(await req.json());
 
     const userId = cookieStore.get("userId")?.value;
     const screeningId = cookieStore.get("screeningId")?.value;
 
     if (!userId || !screeningId)
-      return NextResponse.json({ message: t.invalidId }, { status: 401 });
+      return NextResponse.json(
+        { message: t.invalidId },
+        { status: 401 }
+      );
 
-    if (!seatIds || seatIds.length === 0)
-      return NextResponse.json({ message: t.noSeatSelected }, { status: 400 });
+    if (ticketTypes && ticketTypes.length > 0 && ticketTypes.length !== seatIds.length) {
+      return NextResponse.json(
+        { message: t.missingTicketTypes },
+        { status: 400 }
+      );
+    }
 
     const session = await prisma.payment_session.create({
       data: {
@@ -39,22 +59,42 @@ async function handleCreate(req: NextRequest) {
       },
     });
 
-    const res = NextResponse.json({ ok: true });
+    const res = NextResponse.json(
+      { ok: true },
+      { headers: { "Cache-Control": "no-store" } }
+    );
 
     res.cookies.set("paymentSessionId", session.id, {
       httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
     });
 
     return res;
-  } catch (err) {
+
+  } catch (err: any) {
+
+    if (err instanceof ZodError)
+      return NextResponse.json({ message: t.invalidData }, { status: 400 });
+
+    if (err.message === "RATE_LIMIT")
+      return NextResponse.json({ message: t.rateLimitError }, { status: 429 });
+
+    if (err.message === "CSRF")
+      return NextResponse.json({ message: t.csrfError }, { status: 403 });
+
     console.error("PAYMENT CREATE ERROR:", err);
-    return NextResponse.json({ message: t.paymentStartError }, { status: 500 });
+
+    return NextResponse.json(
+      { message: t.paymentStartError },
+      { status: 500 }
+    );
   }
 }
 
 async function handleSession() {
+
   const lang = await getLang();
   const t = messages[lang];
 
@@ -62,9 +102,13 @@ async function handleSession() {
 
     const cookieStore = await cookies();
     const paymentId = cookieStore.get("paymentSessionId")?.value;
+    const userId = cookieStore.get("userId")?.value;
 
-    if (!paymentId)
-      return NextResponse.json({ message: t.noSession }, { status: 400 });
+    if (!paymentId || !userId)
+      return NextResponse.json(
+        { message: t.noSession },
+        { status: 400 }
+      );
 
     const session = await prisma.payment_session.findUnique({
       where: { id: paymentId },
@@ -79,8 +123,11 @@ async function handleSession() {
       },
     });
 
-    if (!session || !session.screenings)
-      return NextResponse.json({ message: t.invalidSession }, { status: 400 });
+    if (!session || !session.screenings || session.user_id !== userId)
+      return NextResponse.json(
+        { message: t.invalidSession },
+        { status: 400 }
+      );
 
     const chairIds = session.chair_ids as string[];
 
@@ -92,7 +139,7 @@ async function handleSession() {
     const ticketTypes = await prisma.ticket_type.findMany();
 
     const baseType = await prisma.ticket_type.findFirst({
-      where: { type: "Normál" }
+      where: { type: "Normál" },
     });
 
     const pricePerSeat = calculateTicketPrice(
@@ -102,39 +149,59 @@ async function handleSession() {
 
     const totalPrice = pricePerSeat * chairIds.length;
 
-    return NextResponse.json({
-      sessionId: session.id,
-      movieTitle: session.screenings.movies?.title,
-      hallName: session.screenings.halls?.name,
-      start: session.screenings.start,
-      screeningType: session.screenings.screening_types?.type,
-      seats: chairs.map((c) => ({
-        row: c.row,
-        column: c.column,
-      })),
-      ticketTypes,
-      totalPrice
-    });
+    return NextResponse.json(
+      {
+        sessionId: session.id,
+        movieTitle: session.screenings.movies?.title,
+        hallName: session.screenings.halls?.name,
+        start: session.screenings.start,
+        screeningType: session.screenings.screening_types?.type,
+        seats: chairs.map((c) => ({
+          row: c.row,
+          column: c.column,
+        })),
+        ticketTypes,
+        totalPrice
+      },
+      { headers: { "Cache-Control": "no-store" } }
+    );
 
   } catch (err) {
+
     console.error("PAYMENT SESSION ERROR:", err);
-    return NextResponse.json({ message: t.serverError }, { status: 500 });
+
+    return NextResponse.json(
+      { message: t.serverError },
+      { status: 500 }
+    );
   }
 }
 
 async function handlePrice(req: NextRequest) {
+
   const lang = await getLang();
   const t = messages[lang];
 
   try {
 
+    checkOrigin(req);
+
+    const ip = getClientIp(req);
+    rateLimit(`payment-price-${ip}`, 20, 60_000);
+
     const cookieStore = await cookies();
+
     const paymentId = cookieStore.get("paymentSessionId")?.value;
+    const userId = cookieStore.get("userId")?.value;
 
-    if (!paymentId)
-      return NextResponse.json({ message: t.noSession }, { status: 400 });
+    if (!paymentId || !userId)
+      return NextResponse.json(
+        { message: t.noSession },
+        { status: 400 }
+      );
 
-    const { ticketTypes } = await req.json();
+    const { ticketTypes } =
+      paymentPriceSchema.parse(await req.json());
 
     const session = await prisma.payment_session.findUnique({
       where: { id: paymentId },
@@ -145,15 +212,18 @@ async function handlePrice(req: NextRequest) {
       },
     });
 
-    if (!session || !session.screenings)
-      return NextResponse.json({ message: t.invalidSession }, { status: 400 });
+    if (!session || !session.screenings || session.user_id !== userId)
+      return NextResponse.json(
+        { message: t.invalidSession },
+        { status: 400 }
+      );
 
     let totalPrice = 0;
 
     for (const typeName of ticketTypes) {
 
       const type = await prisma.ticket_type.findFirst({
-        where: { type: typeName }
+        where: { type: typeName },
       });
 
       if (!type) continue;
@@ -166,37 +236,72 @@ async function handlePrice(req: NextRequest) {
       totalPrice += price;
     }
 
-    return NextResponse.json({ totalPrice });
+    return NextResponse.json(
+      { totalPrice },
+      { headers: { "Cache-Control": "no-store" } }
+    );
 
-  } catch (err) {
+  } catch (err: any) {
+
+    if (err instanceof ZodError)
+      return NextResponse.json({ message: t.invalidData }, { status: 400 });
+
+    if (err.message === "RATE_LIMIT")
+      return NextResponse.json({ message: t.rateLimitError }, { status: 429 });
+
+    if (err.message === "CSRF")
+      return NextResponse.json({ message: t.csrfError }, { status: 403 });
+
     console.error("PRICE ERROR:", err);
-    return NextResponse.json({ message: t.serverError }, { status: 500 });
+
+    return NextResponse.json(
+      { message: t.serverError },
+      { status: 500 }
+    );
   }
 }
 
 async function handleConfirm(req: NextRequest) {
+
   const lang = await getLang();
   const t = messages[lang];
 
   try {
 
-    const cookieStore = await cookies();
-    const paymentId = cookieStore.get("paymentSessionId")?.value;
+    checkOrigin(req);
 
-    if (!paymentId)
-      return NextResponse.json({ message: t.noSession }, { status: 400 });
+    const ip = getClientIp(req);
+    rateLimit(`payment-confirm-${ip}`, 5, 60_000);
+
+    const cookieStore = await cookies();
+
+    const paymentId = cookieStore.get("paymentSessionId")?.value;
+    const userId = cookieStore.get("userId")?.value;
+
+    if (!paymentId || !userId)
+      return NextResponse.json(
+        { message: t.noSession },
+        { status: 400 }
+      );
 
     const session = await prisma.payment_session.findUnique({
       where: { id: paymentId },
     });
 
-    if (!session || session.status === "paid")
-      return NextResponse.json({ message: t.invalidSession }, { status: 400 });
+    if (!session || session.status === "paid" || session.user_id !== userId)
+      return NextResponse.json(
+        { message: t.invalidSession },
+        { status: 400 }
+      );
 
+    const chairIds = session.chair_ids as string[];
     const ticketTypes = (session.selected_ticket_types as string[]) ?? [];
 
-    if (ticketTypes.length === 0)
-      return NextResponse.json({ message: t.missingTicketTypes }, { status: 400 });
+    if (ticketTypes.length === 0 || ticketTypes.length !== chairIds.length)
+      return NextResponse.json(
+        { message: t.missingTicketTypes },
+        { status: 400 }
+      );
 
     const screening = await prisma.screening.findUnique({
       where: { id: session.screening_id },
@@ -206,8 +311,6 @@ async function handleConfirm(req: NextRequest) {
         halls: true,
       },
     });
-
-    const chairIds = session.chair_ids as string[];
 
     const createdTicketIds: string[] = [];
     let totalSpent = 0;
@@ -221,9 +324,8 @@ async function handleConfirm(req: NextRequest) {
         }
       });
 
-      if (existingTickets.length > 0) {
+      if (existingTickets.length > 0)
         throw new Error("SEAT_TAKEN");
-      }
 
       for (let i = 0; i < chairIds.length; i++) {
 
@@ -287,9 +389,7 @@ async function handleConfirm(req: NextRequest) {
             gt: user!.points
           }
         },
-        orderBy: {
-          point_limit: "asc"
-        }
+        orderBy: { point_limit: "asc" }
       });
 
       for (const rank of newRanks) {
@@ -305,15 +405,15 @@ async function handleConfirm(req: NextRequest) {
       }
 
       if (newRanks.length > 0) {
+
         const highestRank = newRanks[newRanks.length - 1];
 
         await tx.user.update({
           where: { id: session.user_id },
-          data: {
-            rank_id: highestRank.id
-          }
+          data: { rank_id: highestRank.id }
         });
       }
+
     });
 
     const tickets = await prisma.ticket.findMany({
@@ -338,21 +438,47 @@ async function handleConfirm(req: NextRequest) {
       tickets
     });
 
-    const res = NextResponse.json({ ok: true });
-    res.cookies.set("paymentSessionId", "", { maxAge: 0, path: "/" });
+    const res = NextResponse.json(
+      { ok: true },
+      { headers: { "Cache-Control": "no-store" } }
+    );
+
+    res.cookies.set("paymentSessionId", "", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 0,
+      path: "/",
+    });
 
     return res;
 
   } catch (err: any) {
-      if(err.message === "SEAT_TAKEN"){
-        return NextResponse.json(
-          { message: t.seatTaken },
-          { status: 400 }
-        );
-      }
+
+    if (err.message === "SEAT_TAKEN")
+      return NextResponse.json(
+        { message: t.seatTaken },
+        { status: 400 }
+      );
+
+    if (err.message === "RATE_LIMIT")
+      return NextResponse.json(
+        { message: t.rateLimitError },
+        { status: 429 }
+      );
+
+    if (err.message === "CSRF")
+      return NextResponse.json(
+        { message: t.csrfError },
+        { status: 403 }
+      );
 
     console.error("CONFIRM ERROR:", err);
-    return NextResponse.json({ message: "Szerver hiba" }, { status: 500 });
+
+    return NextResponse.json(
+      { message: t.serverError },
+      { status: 500 }
+    );
   }
 }
 

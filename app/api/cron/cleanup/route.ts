@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+
 export const dynamic = "force-dynamic";
 
 export async function GET() {
 
   const limitDate = new Date();
-  limitDate.setDate(limitDate.getDate() - 30);
+  limitDate.setHours(limitDate.getHours() - 2);
 
   const result = await prisma.$transaction(async (tx) => {
 
@@ -27,9 +28,16 @@ export async function GET() {
       }
     });
 
+    const deletedUsers = await tx.user.deleteMany({
+      where: {
+        email_verified: false
+      }
+    });
+
     return {
       ticketsDeleted: deletedTickets.count,
-      screeningsDeleted: deletedScreenings.count
+      screeningsDeleted: deletedScreenings.count,
+      usersDeleted: deletedUsers.count
     };
 
   });

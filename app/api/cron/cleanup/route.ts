@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 export async function GET() {
 
   const limitDate = new Date();
-  limitDate.setHours(limitDate.getHours() - 2);
+  limitDate.setDate(limitDate.getDate() - 30);
 
   const result = await prisma.$transaction(async (tx) => {
 

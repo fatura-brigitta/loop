@@ -165,11 +165,12 @@ export default function RegisterPage() {
 
               <div className="mt-2 flex items-center gap-4">
                 <div className="relative h-20 w-20 overflow-hidden rounded-full border border-[var(--border-color)]">
-                  <Image alt="Profilkép előnézet"
+                  <Image
+                    alt="Profilkép előnézet"
                     className="object-cover"
                     data-cy="register-profile-image"
                     fill
-                    src={previewSrc}
+                    src={previewSrc || "/profile/default.png"}
                     unoptimized
                   />
                 </div>

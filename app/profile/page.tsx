@@ -494,7 +494,11 @@ export default function ProfilePage() {
                 key={profileImage || "default"}
                 priority
                 sizes="96px"
-                src={profileImage || "/profile/default.png"}
+                src={
+                  profileImage
+                    ? `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload/${profileImage}`
+                    : "/profile/default.png"
+                }
                 unoptimized
               />
             </div>

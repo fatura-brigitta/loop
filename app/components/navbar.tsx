@@ -155,12 +155,17 @@ export default function Navbar() {
                     href="/profile"
                   >
                     <div className="relative h-9 w-9 overflow-hidden rounded-full border border-[var(--border-color)]">
-                      <Image alt="Profil"
+                      <Image
+                        alt="Profil"
                         className="object-cover"
                         data-cy="navbar-profile-image"
                         fill
                         key={user.profile_image || "default"}
-                        src={user.profile_image || "/profile/default.png"}
+                        src={
+                          !user.profile_image || user.profile_image.startsWith("/profile")
+                            ? "/profile/default.png"
+                            : `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload/w_96,h_96,c_fill/${user.profile_image}`
+                        }
                         unoptimized
                       />
                     </div>

@@ -27,8 +27,12 @@ export default function Leaderboard() {
 
   const safeImg = (s?: string | null) => {
     const v = (s ?? "").trim();
-    if (!v || v === "null" || v === "undefined") return "/profile/default.png";
-    return v;
+
+    if (!v || v === "null" || v === "undefined" || v.startsWith("/profile")) {
+      return "/profile/default.png";
+    }
+
+    return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload/w_128,h_128,c_fill/${v}`;
   };
 
   return (
@@ -47,7 +51,7 @@ export default function Leaderboard() {
                 alt="profil"
                 className="object-cover"
                 fill
-                src={second.profile_image || "/profile/default.png"}
+                src={safeImg(second.profile_image)}
                 unoptimized
               />
             </div>
@@ -66,7 +70,7 @@ export default function Leaderboard() {
                 alt="profil"
                 className="object-cover"
                 fill
-                src={first.profile_image || "/profile/default.png"}
+                src={safeImg(first.profile_image)}
                 unoptimized
               />
             </div>
@@ -85,7 +89,7 @@ export default function Leaderboard() {
                 alt="profil"
                 className="object-cover"
                 fill
-                src={third.profile_image || "/profile/default.png"}
+                src={safeImg(third.profile_image)}
                 unoptimized
               />
             </div>

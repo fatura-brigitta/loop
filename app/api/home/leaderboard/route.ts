@@ -11,21 +11,22 @@ const normalizeProfileImage = (val: unknown) => {
   if (s.startsWith("http://") || s.startsWith("https://")) return s;
   if (s.startsWith("/")) return s;
 
-  return "/profile/default.png";
+  return null;
 };
 
 export async function GET() {
+
   const users = await prisma.user.findMany({
     where: { consent: true },
     orderBy: { points: "desc" },
     take: 3,
-    select: { name: true, points: true, profile_image: true },
+    select: {
+      name: true,
+      points: true,
+      profile_image: true
+    }
   });
 
-  const fixed = users.map((u) => ({
-    ...u,
-    profile_image: normalizeProfileImage(u.profile_image),
-  }));
+  return NextResponse.json(users);
 
-  return NextResponse.json(fixed);
 }

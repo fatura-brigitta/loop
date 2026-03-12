@@ -1,9 +1,10 @@
 "use client";
 
+import { Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Trash2 } from "lucide-react";
+import { profileImageUrl } from "@/lib/profileImage";
 
 type Ticket = {
   id: string;
@@ -87,6 +88,7 @@ export default function ProfilePage() {
   const [historyMessage, setHistoryMessage] = useState("");
   const [deleteTicketId, setDeleteTicketId] = useState<string | null>(null);
   const [confirmDeleteAll, setConfirmDeleteAll] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [theme, setTheme] = useState("dark");
@@ -105,7 +107,7 @@ export default function ProfilePage() {
     const profileRes = await fetch("/api/profile", {
       method: "GET",
       cache: "no-store",
-      credentials: "include"
+      credentials: "include",
     });
 
     const profile = await profileRes.json();
@@ -164,13 +166,11 @@ export default function ProfilePage() {
   };
 
   useEffect(() => {
-
     const init = async () => {
       await loadUser();
     };
 
     init();
-
   }, []);
 
   useEffect(() => {
@@ -248,11 +248,7 @@ export default function ProfilePage() {
     setNewPassword("");
     setNewPassword2("");
 
-    setMessage(
-      isGoogleUser
-        ? "Jelszó sikeresen beállítva!"
-        : "Jelszó sikeresen megváltoztatva!"
-    );
+    setMessage(isGoogleUser ? "Jelszó sikeresen beállítva!" : "Jelszó sikeresen megváltoztatva!");
 
     setIsGoogleUser(false);
   };
@@ -266,7 +262,6 @@ export default function ProfilePage() {
     });
 
   const handlePickFile = async (file?: File) => {
-
     if (!file) return;
 
     const base64 = await readFileAsBase64(file);
@@ -275,8 +270,8 @@ export default function ProfilePage() {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        profile_image: base64
-      })
+        profile_image: base64,
+      }),
     });
 
     const data = await res.json();
@@ -294,13 +289,17 @@ export default function ProfilePage() {
 
     router.refresh();
 
-    window.dispatchEvent(new Event("profile-updated"));
+    await loadUser();
 
+    window.dispatchEvent(new Event("profile-updated"));
   };
 
   if (!user) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="profile-loading">
+      <div
+        className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]"
+        data-cy="profile-loading"
+      >
         Betöltés...
       </div>
     );
@@ -315,15 +314,15 @@ export default function ProfilePage() {
     const res = await fetch("/api/ticket/delete", {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        ticketId: id
-      })
+        ticketId: id,
+      }),
     });
 
     if (res.ok) {
-      setHistory(prev => prev.filter(t => t.id !== id));
+      setHistory((prev) => prev.filter((t) => t.id !== id));
       setHistoryMessage("Jegy törölve az előzményekből.");
     } else {
       setHistoryMessage("Hiba történt a törlés során.");
@@ -334,7 +333,7 @@ export default function ProfilePage() {
 
   const deleteAllHistory = async () => {
     const res = await fetch("/api/ticket/delete-all", {
-      method: "DELETE"
+      method: "DELETE",
     });
 
     if (res.ok) {
@@ -348,13 +347,12 @@ export default function ProfilePage() {
   };
 
   const resetProfileImage = async () => {
-
     const res = await fetch("/api/profile/profile-image", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        profile_image: null
-      })
+        profile_image: null,
+      }),
     });
 
     if (!res.ok) {
@@ -366,16 +364,14 @@ export default function ProfilePage() {
     setProfileImage("");
 
     setImageMessage("Profilkép visszaállítva!");
-    setImageError("");
+    setProfileImage("");
 
-    router.refresh();
+    await loadUser();
 
     window.dispatchEvent(new Event("profile-updated"));
-
   };
 
   const changeTheme = async (newTheme: string) => {
-
     setTheme(newTheme);
 
     document.documentElement.classList.remove("dark");
@@ -391,13 +387,18 @@ export default function ProfilePage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ theme: newTheme }),
     });
-
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="profile-page">
+    <div
+      className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]"
+      data-cy="profile-page"
+    >
       {rankUp && (
-        <div className="rank-overlay fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm" data-cy="rank-up-modal">
+        <div
+          className="rank-overlay fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm"
+          data-cy="rank-up-modal"
+        >
           <div className="rank-popup flex flex-col items-center gap-6 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-main)]/90 p-10 shadow-2xl">
             <div className="text-sm tracking-[0.3em] text-[var(--text-main)]/60">RANG LÉPÉS</div>
 
@@ -411,9 +412,12 @@ export default function ProfilePage() {
 
             <div className="text-4xl font-extrabold text-[var(--text-main2)]">{rankUp.name}</div>
 
-            <div className="text-sm text-[var(--text-main)]/70">Gratulálunk! Új kuponokat oldottál fel.</div>
+            <div className="text-sm text-[var(--text-main)]/70">
+              Gratulálunk! Új kuponokat oldottál fel.
+            </div>
 
-            <button className="mt-2 cursor-pointer rounded-lg bg-cyan-600 px-6 py-2 font-semibold text-[var(--text-main)] transition hover:bg-cyan-400"
+            <button
+              className="mt-2 cursor-pointer rounded-lg bg-cyan-600 px-6 py-2 font-semibold text-[var(--text-main)] transition hover:bg-cyan-400"
               data-cy="rank-up-close"
               onClick={() => setRankUp(null)}
             >
@@ -439,17 +443,29 @@ export default function ProfilePage() {
                 </div>
 
                 <div>
-                  <h2 className="text-2xl font-bold text-[var(--text-main2)]" data-cy="profile-rank-name">{rankData.rank.name} rang</h2>
+                  <h2
+                    className="text-2xl font-bold text-[var(--text-main2)]"
+                    data-cy="profile-rank-name"
+                  >
+                    {rankData.rank.name} rang
+                  </h2>
 
                   <div className="mt-1 text-sm text-[var(--text-main)]/70">
-                    Összes pont: <span className="font-bold text-[var(--text-main)]" data-cy="profile-rank-points">{rankData.points}</span>
+                    Összes pont:{" "}
+                    <span
+                      className="font-bold text-[var(--text-main)]"
+                      data-cy="profile-rank-points"
+                    >
+                      {rankData.points}
+                    </span>
                   </div>
                 </div>
               </div>
 
               <div className="flex-1">
                 <div className="mt-2 h-4 w-full overflow-hidden rounded-full border border-[var(--border-color)] bg-white/10">
-                  <div className="h-full rounded-full bg-cyan-400 transition-all duration-700"
+                  <div
+                    className="h-full rounded-full bg-cyan-400 transition-all duration-700"
                     data-cy="profile-rank-progress"
                     style={{ width: `${rankData.progress ?? 0}%` }}
                   />
@@ -458,8 +474,11 @@ export default function ProfilePage() {
                 {rankData.nextRank ? (
                   <div className="mt-3 text-sm text-[var(--text-main)]/70">
                     Következő rang:{" "}
-                    <span className="font-semibold text-[var(--text-main2)]">{rankData.nextRank.name}</span> •
-                    még <span className="font-bold text-[var(--text-main)]">{pointsNeeded}</span> pont
+                    <span className="font-semibold text-[var(--text-main2)]">
+                      {rankData.nextRank.name}
+                    </span>{" "}
+                    • még <span className="font-bold text-[var(--text-main)]">{pointsNeeded}</span>{" "}
+                    pont
                   </div>
                 ) : (
                   <div className="mt-3 text-sm font-semibold text-green-400">
@@ -474,50 +493,67 @@ export default function ProfilePage() {
 
       <div className="mx-auto max-w-5xl px-4 py-2">
         {warning && (
-          <div className="mb-6 rounded-lg border border-yellow-400/40 bg-yellow-500/20 p-4 text-yellow-300" data-cy="rank-warning">
+          <div
+            className="mb-6 rounded-lg border border-yellow-400/40 bg-yellow-500/20 p-4 text-yellow-300"
+            data-cy="rank-warning"
+          >
             ⚠️ Ha 24 órán belül nem vásárolsz jegyet, visszaesel egy rangot.
           </div>
         )}
       </div>
 
       <div className="mx-auto max-w-5xl px-4 py-8">
-        <div className="w-full rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-8 shadow-2xl backdrop-blur transition-all" data-cy="profile-info-section">
+        <div
+          className="w-full rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-8 shadow-2xl backdrop-blur transition-all"
+          data-cy="profile-info-section"
+        >
           <h1 className="mb-8 text-3xl font-bold text-[var(--text-main2)]">Profil adatok</h1>
 
           <div className="mb-8 flex items-center gap-6">
-
             <div className="relative h-24 w-24 overflow-hidden rounded-full border border-white/20">
-              <Image alt="Profilkép"
+              <Image
+                alt="Profilkép"
                 className="object-cover"
                 data-cy="profile-image"
                 fill
-                key={profileImage || "default"}
+                key={profileImage ?? "/profile/default.png"}
                 priority
                 sizes="96px"
-                src={
-                  profileImage
-                    ? `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload/${profileImage}`
-                    : "/profile/default.png"
-                }
+                src={profileImageUrl(profileImage, 96)}
                 unoptimized
               />
             </div>
             <div
-              className="flex-1 rounded-xl border border-dashed border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-4 text-sm"
-              onDragEnter={(e) => e.preventDefault()}
-              onDragLeave={(e) => e.preventDefault()}
-              onDragOver={(e) => e.preventDefault()}
+              className={`flex-1 rounded-xl border border-dashed px-4 py-4 text-sm transition ${
+                  isDragging
+                    ? "border-cyan-400 bg-cyan-500/10"
+                    : "border-[var(--border-color)] bg-[var(--card-bg)]"
+                }`}
+              onDragEnter={(e) => {
+                e.preventDefault();
+                setIsDragging(true);
+              }}
+              onDragLeave={(e) => {
+                e.preventDefault();
+                setIsDragging(false);
+              }}
+              onDragOver={(e) => {
+                e.preventDefault();
+                setIsDragging(true);
+              }}
               onDrop={async (e) => {
                 e.preventDefault();
+                setIsDragging(false);
+
                 const file = e.dataTransfer.files?.[0];
                 await handlePickFile(file);
               }}
             >
               <div className="flex flex-col gap-2">
-
                 <div className="text-[var(--text-main)]/80">
                   Húzd ide a képet vagy{" "}
-                  <button className="text-[var(--text-main2)] underline hover:text-cyan-200 cursor-pointer"
+                  <button
+                    className="cursor-pointer text-[var(--text-main2)] underline hover:text-cyan-200"
                     data-cy="profile-image-upload-button"
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
@@ -534,11 +570,16 @@ export default function ProfilePage() {
                   onChange={(e) => {
                     const file = e.target.files?.[0];
                     handlePickFile(file);
+
+                    if (fileInputRef.current) {
+                      fileInputRef.current.value = "";
+                    }
                   }}
                 />
 
                 {profileImage && (
-                  <button className="w-fit rounded-lg bg-white/10 px-3 py-1 text-xs hover:bg-white/20"
+                  <button
+                    className="w-fit rounded-lg bg-white/10 px-3 py-1 text-xs hover:bg-white/20"
                     data-cy="profile-image-reset"
                     type="button"
                     onClick={resetProfileImage}
@@ -546,19 +587,27 @@ export default function ProfilePage() {
                     Alapértelmezett kép
                   </button>
                 )}
-
               </div>
             </div>
           </div>
 
-          <div className="mt-2 h-5 text-sm mb-5">
-              {imageError && <div className="text-red-400" data-cy="profile-image-error">{imageError}</div>}
-              {imageMessage && <div className="text-green-400" data-cy="profile-image-success">{imageMessage}</div>}
+          <div className="mt-2 mb-5 h-5 text-sm">
+            {imageError && (
+              <div className="text-red-400" data-cy="profile-image-error">
+                {imageError}
+              </div>
+            )}
+            {imageMessage && (
+              <div className="text-green-400" data-cy="profile-image-success">
+                {imageMessage}
+              </div>
+            )}
           </div>
 
           <div className="mb-6">
             <label className="text-sm text-[var(--text-main)]/60">Email</label>
-            <input className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
+            <input
+              className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
               data-cy="profile-email"
               disabled
               value={user.email}
@@ -567,7 +616,8 @@ export default function ProfilePage() {
 
           <div className="mb-6">
             <label className="text-sm text-[var(--text-main)]/60">Név</label>
-            <input className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
+            <input
+              className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
               data-cy="profile-name-input"
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
@@ -576,7 +626,8 @@ export default function ProfilePage() {
 
           <div className="mb-6">
             <label className="text-sm text-[var(--text-main)]/60">Telefonszám</label>
-            <input className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
+            <input
+              className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
               data-cy="profile-phone-input"
               placeholder="+36123456789"
               value={phone || ""}
@@ -586,7 +637,8 @@ export default function ProfilePage() {
 
           <div className="mb-6">
             <label className="text-sm text-[var(--text-main)]/60">Nem</label>
-            <select className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
+            <select
+              className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
               data-cy="profile-gender-select"
               value={gender}
               onChange={(e) => setGender(e.target.value)}
@@ -601,28 +653,25 @@ export default function ProfilePage() {
             <label className="text-sm text-[var(--text-main)]/60">Téma</label>
 
             <div className="flex items-center gap-3">
-
               <span className="text-sm text-[var(--text-soft)]">☀️</span>
               <button
-                onClick={() => changeTheme(theme === "dark" ? "light" : "dark")}
                 className={`relative h-7 w-14 rounded-full transition ${
                   theme === "dark" ? "bg-cyan-500" : "bg-gray-300"
                 }`}
+                onClick={() => changeTheme(theme === "dark" ? "light" : "dark")}
               >
-
-              <span
-                className={`absolute top-1 h-5 w-5 rounded-full bg-white transition ${
-                  theme === "dark" ? "left-8" : "left-1"
-                }`}
-              />
-
+                <span
+                  className={`absolute top-1 h-5 w-5 rounded-full bg-white transition ${
+                    theme === "dark" ? "left-8" : "left-1"
+                  }`}
+                />
               </button>
               <span className="text-sm text-[var(--text-soft)]">🌙</span>
-
-              </div>
+            </div>
           </div>
 
-          <button className="mt-4 cursor-pointer rounded-lg bg-[var(--button-bg)] px-6 py-2 font-semibold text-[var(--text-light)] transition hover:bg-cyan-400"
+          <button
+            className="mt-4 cursor-pointer rounded-lg bg-[var(--button-bg)] px-6 py-2 font-semibold text-[var(--text-light)] transition hover:bg-cyan-400"
             data-cy="profile-save-button"
             onClick={async () => {
               setError("");
@@ -662,7 +711,8 @@ export default function ProfilePage() {
             </h2>
 
             {!isGoogleUser && (
-              <input className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
+              <input
+                className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
                 data-cy="profile-old-password"
                 placeholder="Régi jelszó"
                 type="password"
@@ -671,7 +721,8 @@ export default function ProfilePage() {
               />
             )}
 
-            <input className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
+            <input
+              className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
               data-cy="profile-new-password"
               placeholder="Új jelszó"
               type="password"
@@ -679,7 +730,8 @@ export default function ProfilePage() {
               onChange={(e) => setNewPassword(e.target.value)}
             />
 
-            <input className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
+            <input
+              className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
               data-cy="profile-new-password-confirm"
               placeholder="Új jelszó megerősítése"
               type="password"
@@ -687,14 +739,16 @@ export default function ProfilePage() {
               onChange={(e) => setNewPassword2(e.target.value)}
             />
 
-            <button className="mt-2 cursor-pointer rounded-lg bg-[var(--button-bg)] px-4 py-2 font-semibold text-[var(--text-light)] hover:bg-cyan-400"
+            <button
+              className="mt-2 cursor-pointer rounded-lg bg-[var(--button-bg)] px-4 py-2 font-semibold text-[var(--text-light)] hover:bg-cyan-400"
               data-cy="profile-password-button"
               onClick={changePassword}
             >
               {isGoogleUser ? "Jelszó beállítása" : "Jelszó módosítása"}
             </button>
-            <label className="flex items-center gap-3 mt-4">
-              <input checked={consent}
+            <label className="mt-4 flex items-center gap-3">
+              <input
+                checked={consent}
                 data-cy="profile-leaderboard-consent"
                 type="checkbox"
                 onChange={async (e) => {
@@ -705,26 +759,33 @@ export default function ProfilePage() {
                   await fetch("/api/profile/consent", {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ consent: value })
+                    body: JSON.stringify({ consent: value }),
                   });
                 }}
               />
-
               Megjelenek a ranglistán
             </label>
           </div>
 
           <div className="mt-6 h-6 text-center">
-            {error && <div className="text-red-400" data-cy="profile-error-message">{error}</div>}
-            {message && <div className="text-green-400" data-cy="profile-success-message">{message}</div>}
+            {error && (
+              <div className="text-red-400" data-cy="profile-error-message">
+                {error}
+              </div>
+            )}
+            {message && (
+              <div className="text-green-400" data-cy="profile-success-message">
+                {message}
+              </div>
+            )}
           </div>
-
         </div>
       </div>
 
       <div className="mx-auto max-w-5xl px-4">
         <div className="mx-auto max-w-5xl">
-          <button className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
+          <button
+            className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
             data-cy="profile-coupons-toggle"
             onClick={() => {
               setShowCoupons((v) => !v);
@@ -737,10 +798,11 @@ export default function ProfilePage() {
             <span className={`text-xl transition ${showCoupons ? "rotate-180" : ""}`}>▼</span>
           </button>
 
-          <div className={`transition-all duration-500 ease-in-out ${
+          <div
+            className={`transition-all duration-500 ease-in-out ${
               showCoupons
-                ? "mt-4 mb-4 max-h-[70vh] opacity-100 overflow-y-auto"
-                : "max-h-0 opacity-0 overflow-hidden"
+                ? "mt-4 mb-4 max-h-[70vh] overflow-y-auto opacity-100"
+                : "max-h-0 overflow-hidden opacity-0"
             }`}
             data-cy="profile-coupons-section"
           >
@@ -753,7 +815,8 @@ export default function ProfilePage() {
 
               <div className="grid gap-6 md:grid-cols-2">
                 {coupons.map((coupon) => (
-                  <div className={`relative overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-5 shadow-xl backdrop-blur ${
+                  <div
+                    className={`relative overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-5 shadow-xl backdrop-blur ${
                       coupon.used ? "opacity-40" : ""
                     }`}
                     data-coupon-id={coupon.id}
@@ -774,11 +837,11 @@ export default function ProfilePage() {
                           {coupon.discounts.name}
                         </div>
 
-                        <div className="text-sm text-[var(--text-main)]/60 mt-1">
+                        <div className="mt-1 text-sm text-[var(--text-main)]/60">
                           {coupon.discounts.description}
                         </div>
 
-                        <div className="absolute top-3 right-3 bg-cyan-500 text-black text-xs font-bold px-2 py-1 rounded">
+                        <div className="absolute top-3 right-3 rounded bg-cyan-500 px-2 py-1 text-xs font-bold text-black">
                           -{coupon.discounts.percent}%
                         </div>
 
@@ -788,7 +851,8 @@ export default function ProfilePage() {
                       </div>
 
                       {!coupon.used && (
-                        <Image alt="qr"
+                        <Image
+                          alt="qr"
                           className="w-28 rounded-lg bg-white p-2"
                           data-coupon-id={coupon.id}
                           data-cy="coupon-qr"
@@ -813,7 +877,8 @@ export default function ProfilePage() {
       </div>
 
       <div className="mx-auto max-w-5xl px-4">
-        <button className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
+        <button
+          className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
           data-cy="profile-tickets-toggle"
           onClick={() => {
             setShowTickets((v) => !v);
@@ -827,7 +892,9 @@ export default function ProfilePage() {
 
         <div
           className={`transition-all duration-500 ease-in-out ${
-            showTickets ? "mt-4 mb-4 max-h-[70vh] opacity-100 overflow-y-auto" : "max-h-0 opacity-0 overflow-hidden"
+            showTickets
+              ? "mt-4 mb-4 max-h-[70vh] overflow-y-auto opacity-100"
+              : "max-h-0 overflow-hidden opacity-0"
           }`}
           data-cy="profile-tickets-section"
         >
@@ -838,7 +905,8 @@ export default function ProfilePage() {
 
             <div className="grid gap-6">
               {tickets.map((ticket) => (
-                <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 shadow-2xl backdrop-blur"
+                <div
+                  className="rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 shadow-2xl backdrop-blur"
                   data-cy="active-ticket-card"
                   data-ticket-id={ticket.id}
                   key={ticket.id}
@@ -864,10 +932,13 @@ export default function ProfilePage() {
                     </div>
 
                     <div className="flex flex-col items-end gap-3">
-                      <div className="text-xl font-semibold text-[var(--text-main2)]">{(ticket.price / 100).toFixed(2)} €</div>
+                      <div className="text-xl font-semibold text-[var(--text-main2)]">
+                        {(ticket.price / 100).toFixed(2)} €
+                      </div>
 
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img alt="qr"
+                      <img
+                        alt="qr"
                         className="w-32 rounded-lg bg-white p-2"
                         data-cy="ticket-qr"
                         data-ticket-id={ticket.id}
@@ -883,7 +954,8 @@ export default function ProfilePage() {
       </div>
 
       <div className="mx-auto max-w-5xl px-4 pb-32">
-        <button className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
+        <button
+          className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
           data-cy="profile-history-toggle"
           onClick={() => {
             setShowHistory((v) => !v);
@@ -901,16 +973,18 @@ export default function ProfilePage() {
           </span>
         </button>
 
-        <div className={`transition-all duration-500 ease-in-out ${
+        <div
+          className={`transition-all duration-500 ease-in-out ${
             showHistory
-              ? "mt-4 max-h-[70vh] opacity-100 overflow-y-auto"
-              : "max-h-0 opacity-0 overflow-hidden"
+              ? "mt-4 max-h-[70vh] overflow-y-auto opacity-100"
+              : "max-h-0 overflow-hidden opacity-0"
           }`}
           data-cy="profile-history-section"
         >
           {history.length > 0 && (
-            <div className="flex justify-end mb-4">
-              <button className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-[var(--text-light)] hover:bg-red-500 transition cursor-pointer"
+            <div className="mb-4 flex justify-end">
+              <button
+                className="cursor-pointer rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-[var(--text-light)] transition hover:bg-red-500"
                 data-cy="history-delete-all"
                 onClick={() => setConfirmDeleteAll(true)}
               >
@@ -924,13 +998,13 @@ export default function ProfilePage() {
 
           <div className="grid gap-4">
             {history.map((ticket) => (
-              <div className="rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)] p-5 backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10" 
+              <div
+                className="rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)] p-5 backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
                 data-cy="history-ticket-card"
                 data-ticket-id={ticket.id}
                 key={ticket.id}
               >
                 <div className="flex items-center justify-between">
-
                   <div>
                     <div className="text-lg font-semibold text-[var(--text-main)]">
                       {ticket.screenings.movies.title}
@@ -950,12 +1024,12 @@ export default function ProfilePage() {
                   </div>
 
                   <div className="flex items-center gap-4">
-
                     <div className="text-lg font-bold text-green-400">
                       {(ticket.price / 100).toFixed(2)} €
                     </div>
 
-                    <button className="flex items-center justify-center rounded-lg bg-red-500/20 p-2 text-red-400 hover:bg-red-500/40 hover:text-red-300 transition cursor-pointer"
+                    <button
+                      className="flex cursor-pointer items-center justify-center rounded-lg bg-red-500/20 p-2 text-red-400 transition hover:bg-red-500/40 hover:text-red-300"
                       data-cy="history-delete-ticket"
                       onClick={() => setDeleteTicketId(ticket.id)}
                     >
@@ -966,73 +1040,75 @@ export default function ProfilePage() {
               </div>
             ))}
           </div>
-          <div className="mt-4 text-center text-sm h-5">
+          <div className="mt-4 h-5 text-center text-sm">
             {historyMessage && (
-              <span className={historyMessage.includes("Hiba") ? "text-red-400" : "text-green-400"} data-cy="history-message">
+              <span
+                className={historyMessage.includes("Hiba") ? "text-red-400" : "text-green-400"}
+                data-cy="history-message"
+              >
                 {historyMessage}
               </span>
             )}
           </div>
 
-          {deleteTicketId && ( 
-            <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm" data-cy="history-delete-modal">
-
+          {deleteTicketId && (
+            <div
+              className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm"
+              data-cy="history-delete-modal"
+            >
               <div className="w-[380px] rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 shadow-2xl">
+                <h2 className="mb-4 text-xl font-bold text-[var(--text-main)]">Jegy törlése</h2>
 
-                <h2 className="text-xl font-bold text-[var(--text-main)] mb-4">
-                  Jegy törlése
-                </h2>
-
-                <p className="text-[var(--text-main)]/70 mb-6">
+                <p className="mb-6 text-[var(--text-main)]/70">
                   Biztos törölni szeretnéd ezt a jegyet a vásárlási előzményekből?
                 </p>
 
                 <div className="flex justify-end gap-3">
-
-                  <button className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition"
+                  <button
+                    className="rounded-lg bg-white/10 px-4 py-2 transition hover:bg-white/20"
                     data-cy="history-delete-cancel"
                     onClick={() => setDeleteTicketId(null)}
                   >
                     Mégse
                   </button>
 
-                  <button className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 transition text-[var(--text-main)]"
+                  <button
+                    className="rounded-lg bg-red-600 px-4 py-2 text-[var(--text-main)] transition hover:bg-red-500"
                     data-cy="history-delete-confirm"
                     onClick={() => deleteTicket(deleteTicketId)}
                   >
                     Törlés
                   </button>
-
                 </div>
-
               </div>
-
             </div>
           )}
 
           {confirmDeleteAll && (
-            <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm" data-cy="history-delete-all-modal">
-
+            <div
+              className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm"
+              data-cy="history-delete-all-modal"
+            >
               <div className="w-[380px] rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 shadow-2xl">
-
-                <h2 className="text-xl font-bold text-[var(--text-main)] mb-4">
+                <h2 className="mb-4 text-xl font-bold text-[var(--text-main)]">
                   Összes előzmény törlése
                 </h2>
 
-                <p className="text-[var(--text-main)]/70 mb-6">
+                <p className="mb-6 text-[var(--text-main)]/70">
                   Biztos törölni szeretnéd az összes vásárlási előzményt?
                 </p>
 
                 <div className="flex justify-end gap-3">
-
-                  <button className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition"
+                  <button
+                    className="rounded-lg bg-white/10 px-4 py-2 transition hover:bg-white/20"
                     data-cy="history-delete-all-cancel"
                     onClick={() => setConfirmDeleteAll(false)}
                   >
                     Mégse
                   </button>
 
-                  <button className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 transition text-[var(--text-main)]"
+                  <button
+                    className="rounded-lg bg-red-600 px-4 py-2 text-[var(--text-main)] transition hover:bg-red-500"
                     data-cy="history-delete-all-confirm"
                     onClick={deleteAllHistory}
                   >

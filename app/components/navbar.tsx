@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { profileImageUrl } from "@/lib/profileImage";
 
 type User = {
   name: string;
@@ -47,7 +48,7 @@ export default function Navbar() {
 
         setUser({
           name: data.name,
-          profile_image: data.profile_image || "/profile/default.png",
+          profile_image: data.profile_image,
         });
 
         if (data.theme) {
@@ -75,7 +76,6 @@ export default function Navbar() {
 
     await fetch("/api/auth", { method: "DELETE" });
 
-    // theme reset
     localStorage.removeItem("theme");
     document.documentElement.classList.add("dark");
 
@@ -160,12 +160,8 @@ export default function Navbar() {
                         className="object-cover"
                         data-cy="navbar-profile-image"
                         fill
-                        key={user.profile_image || "default"}
-                        src={
-                          !user.profile_image || user.profile_image.startsWith("/profile")
-                            ? "/profile/default.png"
-                            : `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload/w_96,h_96,c_fill/${user.profile_image}`
-                        }
+                        key={user.profile_image || "/profile/default.png"}
+                        src={profileImageUrl(user.profile_image, 96)}
                         unoptimized
                       />
                     </div>

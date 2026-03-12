@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Reveal from "@/app/components/reveal";
+import { profileImageUrl } from "@/lib/profileImage";
 
 type User = {
   name: string;
@@ -14,9 +15,24 @@ export default function Leaderboard() {
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
-    fetch("/api/home/leaderboard")
-      .then((r) => r.json())
-      .then(setUsers);
+    const load = async () => {
+      const res = await fetch("/api/home/leaderboard?ts=" + Date.now(), {
+        cache: "no-store",
+      });
+
+      if (!res.ok) return;
+
+      const data = await res.json();
+      setUsers(data);
+    };
+
+    load();
+
+    const reload = () => load();
+
+    window.addEventListener("profile-updated", reload);
+
+    return () => window.removeEventListener("profile-updated", reload);
   }, []);
 
   if (users.length < 3) return null;
@@ -24,16 +40,6 @@ export default function Leaderboard() {
   const first = users[0];
   const second = users[1];
   const third = users[2];
-
-  const safeImg = (s?: string | null) => {
-    const v = (s ?? "").trim();
-
-    if (!v || v === "null" || v === "undefined" || v.startsWith("/profile")) {
-      return "/profile/default.png";
-    }
-
-    return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload/w_128,h_128,c_fill/${v}`;
-  };
 
   return (
     <section>
@@ -51,7 +57,7 @@ export default function Leaderboard() {
                 alt="profil"
                 className="object-cover"
                 fill
-                src={safeImg(second.profile_image)}
+                src={profileImageUrl(second.profile_image, 128)}
                 unoptimized
               />
             </div>
@@ -70,7 +76,7 @@ export default function Leaderboard() {
                 alt="profil"
                 className="object-cover"
                 fill
-                src={safeImg(first.profile_image)}
+                src={profileImageUrl(first.profile_image, 128)}
                 unoptimized
               />
             </div>
@@ -89,7 +95,7 @@ export default function Leaderboard() {
                 alt="profil"
                 className="object-cover"
                 fill
-                src={safeImg(third.profile_image)}
+                src={profileImageUrl(third.profile_image, 128)}
                 unoptimized
               />
             </div>

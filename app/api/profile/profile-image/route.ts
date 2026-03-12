@@ -16,18 +16,27 @@ export async function PUT(req: NextRequest) {
   const base64 = body.profile_image;
 
   if (!base64) {
+
     await prisma.user.update({
       where: { id: userId },
       data: { profile_image: null }
     });
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({
+      ok: true,
+      url: null
+    });
+
   }
 
   const upload = await cloudinary.uploader.upload(base64, {
     folder: "loop/profile",
-    public_id: userId,
-    overwrite: true
+    public_id: `${userId}_${Date.now()}`,
+    overwrite: false,
+    transformation: [
+      { width: 256, height: 256, crop: "fill" },
+      { quality: "auto", fetch_format: "auto" }
+    ]
   });
 
   await prisma.user.update({

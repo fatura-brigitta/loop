@@ -52,16 +52,18 @@ export default function MoviesPage() {
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="movies-page">
       <div className="mx-auto h-full max-w-6xl items-center p-4" data-cy="movies-container">
         <h1 className="mb-6 text-2xl font-bold text-[var(--text-main)]">Műsoron</h1>
-        <div className="grid gap-5 sm:grid-cols-1 lg:grid-cols-2" data-cy="movies-grid">
+        <div className="grid gap-6 sm:grid-cols-1 lg:grid-cols-2" data-cy="movies-grid">
           {movies.map((movie) => (
-            <div className="flex w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)]"
+            <div
+              className="group flex w-full overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] transition-all duration-300 ease-out hover:-translate-y-[3.2px] hover:shadow-2xl hover:shadow-cyan-500/10 hover:border-cyan-500/40"
               data-cy="movie-card"
               data-movie-id={movie.id}
               key={movie.id}
             >
-              <div className="max relative h-auto w-auto shrink-0">
-                <Image alt={movie.title}
-                  className="object-cover"
+              <div className="relative shrink-0 overflow-hidden rounded-md">
+                <Image
+                  alt={movie.title}
+                  className="object-cover shadow-md transition duration-500 ease-out group-hover:scale-102"
                   data-cy="movie-poster"
                   height={300}
                   src={movie.poster}
@@ -72,28 +74,47 @@ export default function MoviesPage() {
               <div className="flex flex-1 flex-col justify-between px-4 py-3" data-cy="movie-info">
                 <div>
                   <div className="flex items-center justify-between">
-                    <h2 className="text-base font-semibold text-[var(--text-main)]" data-cy="movie-title">{movie.title}</h2>
+                    <h2
+                      className="text-base font-semibold text-[var(--text-main)]"
+                      data-cy="movie-title"
+                    >
+                      {movie.title}
+                    </h2>
 
-                    <span className="text-sm text-[var(--text-main2)]" data-cy="movie-rating">⭐ {movie.review}</span>
+                    <span className="text-sm text-[var(--text-main2)]" data-cy="movie-rating">
+                      ⭐ {movie.review}
+                    </span>
                   </div>
 
                   <p className="mt-1 text-xs text-slate-400">
                     {movie.genre} • {movie.playtime} perc • {movie.language}
                   </p>
 
-                  <p className="mt-2 line-clamp-2 text-sm text-[var(--text-soft)]" data-cy="movie-director">
+                  <p
+                    className="mt-2 line-clamp-3 text-sm text-[var(--text-soft)]"
+                    data-cy="movie-director"
+                  >
                     Rendező: {movie.director}
                   </p>
 
-                  <p className="mt-2 line-clamp-2 text-sm text-[var(--text-soft)]" data-cy="movie-actors">
+                  <p
+                    className="mt-2 line-clamp-3 text-sm text-[var(--text-soft)]"
+                    data-cy="movie-actors"
+                  >
                     Szereplők: {movie.actors}
                   </p>
 
-                  <p className="mt-2 line-clamp-2 text-sm text-[var(--text-soft)]" data-cy="movie-description">{movie.description}</p>
+                  <p
+                    className="mt-2 line-clamp-3 text-sm text-[var(--text-soft)]"
+                    data-cy="movie-description"
+                  >
+                    {movie.description}
+                  </p>
                 </div>
 
                 <div className="flex justify-end gap-2">
-                  <button className="h-8 w-30 cursor-pointer rounded bg-[var(--button-bg)] px-3 py-1 text-xs text-[var(--text-light)] hover:bg-cyan-500"
+                  <button
+                    className="h-8 cursor-pointer rounded bg-[var(--button-bg)] px-4 py-1 text-xs font-semibold text-[var(--text-light)] transition-all duration-200 hover:-translate-y-[0.8px] hover:bg-cyan-500 hover:shadow-lg"
                     data-cy="movie-screenings-button"
                     data-movie-id={movie.id}
                     onClick={async () => {

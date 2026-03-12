@@ -127,9 +127,7 @@ const groupByDateAndType = (screenings: Screening[]) => {
 
   Object.values(map).forEach((types) => {
     Object.values(types).forEach((list) => {
-      list.sort(
-        (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime()
-      );
+      list.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime());
     });
   });
 
@@ -151,9 +149,8 @@ export default function ScreeningsPage() {
   const [grouped, setGrouped] = useState<GroupedMovie[]>([]);
   const [openTrailer, setOpenTrailer] = useState<string | null>(null);
 
-  const [selectedDate, setSelectedDate] = useState<string>(
-    getLocalDate(new Date())
-  );
+  const [selectedDate, setSelectedDate] = useState<string>(getLocalDate(new Date()));
+  const [closedDay, setClosedDay] = useState(false);
   const [selectedType, setSelectedType] = useState<string>("all");
   const [availableTypes, setAvailableTypes] = useState<string[]>([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -177,17 +174,22 @@ export default function ScreeningsPage() {
   }, []);
 
   useEffect(() => {
-    fetch("/api/screenings", { cache: "no-store" })
+    fetch(`/api/screenings?date=${selectedDate}`, { cache: "no-store" })
       .then((res) => res.json())
-      .then((data: Screening[]) => {
+      .then((data) => {
+        setClosedDay(data.closedDay);
+
+        const screenings: Screening[] = data.screenings || [];
+
         const types = Array.from(
-          new Set(data.map((s) => s.screening_types?.type).filter(Boolean)),
+          new Set(screenings.map((s) => s.screening_types?.type).filter(Boolean)),
         ) as string[];
+
         setAvailableTypes(types);
 
         const map = new Map<string, GroupedMovie>();
 
-        data.forEach((screening) => {
+        screenings.forEach((screening) => {
           const key = screening.movies.title;
 
           if (!map.has(key)) {
@@ -209,7 +211,7 @@ export default function ScreeningsPage() {
 
         setGrouped(groupedMovies);
       });
-  }, []);
+  }, [selectedDate]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -233,9 +235,7 @@ export default function ScreeningsPage() {
 
       screenings = screenings.filter((s) => new Date(s.start).getTime() > Date.now());
 
-      screenings = screenings.filter(
-        (s) => getLocalDate(new Date(s.start)) === selectedDate
-      );
+      screenings = screenings.filter((s) => getLocalDate(new Date(s.start)) === selectedDate);
 
       if (selectedType !== "all") {
         screenings = screenings.filter((s) => s.screening_types?.type === selectedType);
@@ -265,14 +265,18 @@ export default function ScreeningsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="screenings-page">
+    <div
+      className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]"
+      data-cy="screenings-page"
+    >
       <div className="mx-auto max-w-6xl p-4" data-cy="screenings-container">
         <h1 className="mb-6 text-2xl font-bold">Műsoron</h1>
 
         <div className="mb-8 flex flex-wrap items-center gap-4">
           <div className="flex gap-2 overflow-x-auto pb-1" data-cy="screenings-date-filter">
             {nextDays.map((d) => (
-              <button className={`flex min-w-[70px] cursor-pointer flex-col items-center rounded-lg border px-4 py-2 ${
+              <button
+                className={`flex min-w-[70px] cursor-pointer flex-col items-center rounded-lg border px-4 py-2 ${
                   selectedDate === d.iso
                     ? "border-cyan-500 bg-cyan-500 text-[var(--text-main)]"
                     : "border-[var(--border-color)] bg-[var(--card-bg)] hover:bg-slate-100 dark:hover:bg-white/10"
@@ -289,7 +293,8 @@ export default function ScreeningsPage() {
 
           <div className="flex items-center gap-2">
             <div className="relative" ref={dropdownRef}>
-              <button className="flex cursor-pointer items-center gap-2 rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 hover:bg-slate-100 dark:hover:bg-white/10"
+              <button
+                className="flex w-44 cursor-pointer items-center justify-between rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 hover:bg-slate-100 dark:hover:bg-white/10"
                 data-cy="screenings-type-dropdown"
                 onClick={() => setDropdownOpen((p) => !p)}
               >
@@ -298,8 +303,12 @@ export default function ScreeningsPage() {
               </button>
 
               {dropdownOpen && (
-                <div className="absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)] shadow-xl" data-cy="screenings-type-dropdown-menu">
-                  <div className="cursor-pointer px-4 py-2 hover:bg-slate-100 dark:hover:bg-white/10"
+                <div
+                  className="animate-in fade-in slide-in-from-top-2 absolute right-0 z-50 mt-2 w-full overflow-hidden rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)]/95 shadow-xl backdrop-blur-md duration-200"
+                  data-cy="screenings-type-dropdown-menu"
+                >
+                  <div
+                    className="cursor-pointer px-4 py-2 hover:bg-slate-100 dark:hover:bg-white/10"
                     data-cy="screenings-type-all"
                     onClick={() => {
                       setSelectedType("all");
@@ -310,7 +319,8 @@ export default function ScreeningsPage() {
                   </div>
 
                   {availableTypes.map((type) => (
-                    <div className="cursor-pointer px-4 py-2 hover:bg-slate-100 dark:hover:bg-white/10"
+                    <div
+                      className="cursor-pointer px-4 py-2 hover:bg-slate-100 dark:hover:bg-white/10"
                       data-cy={`screenings-type-${type}`}
                       key={type}
                       onClick={() => {
@@ -324,7 +334,8 @@ export default function ScreeningsPage() {
                 </div>
               )}
             </div>
-            <button className="flex cursor-pointer items-center justify-center rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-3 py-2 hover:bg-slate-100 dark:hover:bg-white/10"
+            <button
+              className="flex cursor-pointer items-center justify-center rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-3 py-2 hover:bg-slate-100 dark:hover:bg-white/10"
               data-cy="screenings-reset-filters"
               title="Szűrők törlése"
               onClick={resetFilters}
@@ -336,13 +347,15 @@ export default function ScreeningsPage() {
 
         <div className="flex flex-col gap-6" data-cy="screenings-movie-list">
           {filteredGrouped.map((g, index) => (
-            <div className="flex items-stretch gap-6 rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)] p-4"
+            <div
+              className="flex items-stretch gap-6 rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)] p-4 transition-all duration-300 ease-out hover:-translate-y-[2.5px] hover:shadow-2xl hover:shadow-cyan-500/10 hover:border-cyan-500/40"
               data-cy="screenings-movie-card"
               data-movie-title={g.movie.title}
               key={index}
             >
-              <div className="shrink-0 flex items-center">
-                <Image alt={g.movie.title}
+              <div className="flex shrink-0 items-center">
+                <Image
+                  alt={g.movie.title}
                   className="rounded-lg object-cover"
                   data-cy="screenings-movie-poster"
                   height={300}
@@ -351,86 +364,84 @@ export default function ScreeningsPage() {
                 />
               </div>
 
-              <div className="flex flex-1 flex-col">
-                <h2 className="text-xl font-semibold" data-cy="screenings-movie-title">{g.movie.title}</h2>
+              <div className="mb-1 flex flex-1 flex-col">
+                <h2 className="text-xl font-semibold" data-cy="screenings-movie-title">
+                  {g.movie.title}
+                </h2>
 
                 <p className="text-xs text-slate-400">
                   {g.movie.genre} • {g.movie.playtime} perc • {g.movie.language}
                 </p>
 
-                <p className="mt-3 line-clamp-3 text-sm text-[var(--text-soft)]">{g.movie.description}</p>
+                <p className="mt-3 line-clamp-3 text-sm text-[var(--text-soft)]">
+                  {g.movie.description}
+                </p>
 
                 <div className="mt-4 flex flex-col gap-4">
-                  {selectedDate === "all" ? (
-                    Object.entries(groupByDateAndType(g.screenings)).map(([date, types]) => (
-                      <div className="mb-4" key={date}>
-
-                        <div className="mb-2 text-sm font-bold text-[var(--text-main2)]">
-                          {getDateLabel(date)}
-                        </div>
-
-                        {Object.entries(types).map(([type, screenings]) => (
-                          <div className="mb-2" key={type}>
-
-                            <div className="text-xs font-semibold opacity-70 mb-1">
-                              {type}
-                            </div>
-
-                            <div className="flex flex-wrap gap-2">
-                              {screenings.map((s) => (
-                                <button
-                                  className="cursor-pointer rounded-lg bg-[var(--button-bg)] px-4 py-2 text-sm font-semibold text-[var(--text-light)] transition hover:bg-cyan-500"
-                                  key={s.id}
-                                  onClick={() => openScreening(s.id)}
-                                >
-                                  {new Date(s.start).toLocaleTimeString("hu-HU", {
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                  })}
-                                </button>
-                              ))}
-                            </div>
-
+                  {selectedDate === "all"
+                    ? Object.entries(groupByDateAndType(g.screenings)).map(([date, types]) => (
+                        <div className="mb-4" key={date}>
+                          <div className="mb-2 text-sm font-bold text-[var(--text-main2)]">
+                            {getDateLabel(date)}
                           </div>
-                        ))}
-                      </div>
-                    ))
-                  ) : (
-                    Object.entries(groupByType(g.screenings)).map(([type, screenings]) => (
-                      <div key={type}>
-                        <div className="mb-2 text-sm font-semibold text-[var(--text-main2)]">
-                          {type}
-                        </div>
 
-                        <div className="flex flex-wrap gap-2">
-                          {screenings.map((s) => (
-                            <button
-                              className="cursor-pointer rounded-lg bg-[var(--button-bg)] px-4 py-2 text-sm font-semibold text-[var(--text-light)] transition hover:bg-cyan-500"
-                              key={s.id}
-                              onClick={() => openScreening(s.id)}
-                            >
-                              {new Date(s.start).toLocaleTimeString("hu-HU", {
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              })}
-                            </button>
+                          {Object.entries(types).map(([type, screenings]) => (
+                            <div className="mb-2" key={type}>
+                              <div className="mb-1 text-xs font-semibold opacity-70">{type}</div>
+
+                              <div className="flex flex-wrap gap-2">
+                                {screenings.map((s) => (
+                                  <button
+                                    className="cursor-pointer rounded-lg bg-[var(--button-bg)] px-4 py-2 text-sm font-semibold text-[var(--text-light)] transition hover:bg-cyan-500"
+                                    key={s.id}
+                                    onClick={() => openScreening(s.id)}
+                                  >
+                                    {new Date(s.start).toLocaleTimeString("hu-HU", {
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                    })}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
                           ))}
                         </div>
-                      </div>
-                    ))
-                  )}
+                      ))
+                    : Object.entries(groupByType(g.screenings)).map(([type, screenings]) => (
+                        <div key={type}>
+                          <div className="mb-2 text-sm font-semibold text-[var(--text-main2)]">
+                            {type}
+                          </div>
+
+                          <div className="flex flex-wrap gap-2">
+                            {screenings.map((s) => (
+                              <button
+                                className="cursor-pointer rounded-lg bg-[var(--button-bg)] px-4 py-2 text-sm font-semibold text-[var(--text-light)] transition duration-200 hover:-translate-y-[1px] hover:bg-cyan-500 hover:shadow-lg"
+                                key={s.id}
+                                onClick={() => openScreening(s.id)}
+                              >
+                                {new Date(s.start).toLocaleTimeString("hu-HU", {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                })}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
                 </div>
               </div>
 
               {g.movie.trailer && (
                 <div className="flex w-[340px] shrink-0 items-center">
-                  <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black"
+                  <div
+                    className="relative aspect-video w-full overflow-hidden rounded-lg bg-black shadow-md"
                     data-cy="screenings-trailer"
                     onMouseEnter={() => {
                       if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
                       hoverTimer.current = window.setTimeout(() => {
                         setOpenTrailer(g.movie.trailer);
-                      }, 2000);
+                      }, 1200);
                     }}
                     onMouseLeave={() => {
                       if (hoverTimer.current) {
@@ -449,7 +460,8 @@ export default function ScreeningsPage() {
                         )}?autoplay=1&mute=1&rel=0&modestbranding=1`}
                       />
                     ) : (
-                      <button className="absolute inset-0"
+                      <button
+                        className="absolute inset-0"
                         data-cy="screenings-trailer-play"
                         onClick={() => setOpenTrailer(g.movie.trailer)}
                       >
@@ -464,7 +476,7 @@ export default function ScreeningsPage() {
                         />
 
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="flex cursor-pointer items-center gap-2 rounded-full bg-[var(--bg-main)]/70 px-5 py-3 text-[var(--text-main)]">
+                          <div className="flex cursor-pointer items-center gap-2 rounded-full bg-[var(--bg-main)]/70 px-5 py-3 text-[var(--text-main)] transition group-hover:bg-cyan-500/80">
                             <Play size={18} />
                             Trailer
                           </div>
@@ -478,11 +490,16 @@ export default function ScreeningsPage() {
           ))}
         </div>
 
-        {filteredGrouped.length === 0 && (
-          <div className="mt-10 text-center text-[var(--text-main)]/60" data-cy="screenings-empty">
-            Nincs találat a kiválasztott szűrőkre.
-          </div>
-        )}
+        {filteredGrouped.length === 0 &&
+          (closedDay ? (
+            <div className="mx-auto mt-10 max-w-lg rounded-xl border border-red-500/40 bg-red-500/10 p-6 text-center text-red-300 shadow-xl backdrop-blur">
+              Mozink ünnepnap miatt ma zárva tart.
+            </div>
+          ) : (
+            <div className="mt-12 text-center text-[var(--text-main)]/60">
+              Nincs találat a kiválasztott szűrőkre.
+            </div>
+          ))}
       </div>
     </div>
   );

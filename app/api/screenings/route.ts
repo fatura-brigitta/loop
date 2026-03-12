@@ -25,6 +25,27 @@ export async function GET(req: Request) {
 
   try {
 
+    const { searchParams } = new URL(req.url);
+    const selectedDate = searchParams.get("date");
+
+    const date = selectedDate ? new Date(selectedDate) : new Date();
+
+    const startOfDay = new Date(date);
+    startOfDay.setHours(0, 0, 0, 0);
+
+    const endOfDay = new Date(date);
+    endOfDay.setHours(23, 59, 59, 999);
+
+    const override = await prisma.openingOverride.findFirst({
+      where: {
+        date: {
+          gte: startOfDay,
+          lte: endOfDay,
+        },
+        closed: true,
+      },
+    });
+
     const ip = getClientIp(req);
     rateLimit(`screenings-${ip}`, 60, 60_000);
 
@@ -62,7 +83,10 @@ export async function GET(req: Request) {
       .filter(Boolean);
 
     const res = NextResponse.json(
-      safeScreenings,
+      {
+        closedDay: !!override,
+        screenings: safeScreenings
+      },
       { headers: { "Cache-Control": "no-store" } }
     );
 

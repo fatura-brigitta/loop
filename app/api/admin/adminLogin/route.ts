@@ -56,7 +56,7 @@ export async function POST(req: Request) {
 
     res.cookies.set("admin-auth", "true", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: false,
       sameSite: "lax",
       path: "/",
     });

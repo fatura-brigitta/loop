@@ -111,7 +111,7 @@ export default function RegisterPage() {
           password,
           gender,
           consent,
-          profile_image: profileImageBase64 || undefined,
+          profile_image: profileImageBase64 || null,
         }),
       });
 
@@ -183,6 +183,10 @@ export default function RegisterPage() {
                   }`}
                   onDragLeave={() => setIsDragging(false)}
                   onDragOver={(e) => {
+                    e.preventDefault();
+                    setIsDragging(true);
+                  }}
+                  onDragEnter={(e) => {
                     e.preventDefault();
                     setIsDragging(true);
                   }}

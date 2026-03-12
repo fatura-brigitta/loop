@@ -8,7 +8,7 @@ export const loginSchema = z.object({
 export const registerSchema = z.object({
   name: z.string().trim().min(2).max(100),
   email: z.string().trim().toLowerCase().email(),
-  password: z.string().min(8).max(100),
+  password: z.string().min(5).max(100),
   phone_number: z.string().trim().min(8).max(30),
   profile_image: z.string().trim().max(500).optional().nullable(),
   gender: z.enum(["MALE", "FEMALE", "RATHER_NOT_SAY"]),

@@ -61,7 +61,12 @@ export default function LoginPage() {
         return;
       }
 
-      router.replace(redirect);
+      const safeRedirect =
+        redirect === "/login" || redirect === "/register"
+          ? "/"
+          : redirect;
+
+      router.replace(safeRedirect);
       router.refresh();
     } catch {
       setError("Hiba történt a bejelentkezés során. Kérem próbálja újra.");

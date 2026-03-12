@@ -17,6 +17,7 @@ import { getClientIp } from "@/lib/getClientIp";
 import { checkOrigin } from "@/lib/checkOrigin";
 import { loginSchema, registerSchema } from "@/lib/validators";
 import { sanitizeText } from "@/lib/sanitize";
+import cloudinary from "@/lib/cloudinary";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -223,9 +224,46 @@ export async function PUT(req: NextRequest) {
     } = registerSchema.parse(await req.json());
 
     const cleanName = sanitizeText(name);
-    const cleanProfileImage = profile_image
-      ? sanitizeText(profile_image)
-      : null;
+    let uploadedImageUrl: string | null = null;
+
+    if (profile_image) {
+
+      if (!profile_image.startsWith("data:image/")) {
+        return NextResponse.json(
+          { message: "Invalid image format" },
+          { status: 400 }
+        );
+      }
+
+      if (profile_image.length > 3_000_000) {
+        return NextResponse.json(
+          { message: "Image too large" },
+          { status: 400 }
+        );
+      }
+
+      try {
+
+        const upload = await cloudinary.uploader.upload(profile_image, {
+          folder: "profile_images",
+          transformation: [
+            { width: 256, height: 256, crop: "fill", gravity: "face" },
+            { quality: "auto", fetch_format: "auto" }
+          ]
+        });
+
+        uploadedImageUrl = upload.secure_url;
+
+      } catch (err) {
+
+        console.error("CLOUDINARY UPLOAD ERROR:", err);
+
+        return NextResponse.json(
+          { message: "Image upload failed" },
+          { status: 500 }
+        );
+      }
+    }
 
     const phone = parsePhoneNumberFromString(phone_number);
 
@@ -258,7 +296,7 @@ export async function PUT(req: NextRequest) {
           email,
           password_hash,
           phone_number: normalizedPhone,
-          profile_image: cleanProfileImage || "/profile/default.png",
+          profile_image: uploadedImageUrl,
           gender,
           points: 0,
           consent: !!consent,

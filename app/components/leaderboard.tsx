@@ -54,10 +54,11 @@ export default function Leaderboard() {
 
             <div className="relative mx-auto mb-4 h-[90px] w-[90px] cursor-pointer overflow-hidden rounded-full border-4 border-slate-400 transition hover:scale-105 hover:border-cyan-400">
               <Image
+                key={second.profile_image}
                 alt="profil"
                 className="object-cover"
                 fill
-                src={profileImageUrl(second.profile_image, 128)}
+                src={profileImageUrl(second.profile_image, 128) + "?v=" + second.profile_image}
                 unoptimized
               />
             </div>
@@ -73,10 +74,11 @@ export default function Leaderboard() {
 
             <div className="relative mx-auto mb-4 h-[100px] w-[100px] cursor-pointer overflow-hidden rounded-full border-4 border-yellow-400 shadow-[0_0_30px_rgba(255,215,0,0.45)] transition hover:scale-105 hover:border-cyan-400">
               <Image
+                key={first.profile_image}
                 alt="profil"
                 className="object-cover"
                 fill
-                src={profileImageUrl(first.profile_image, 128)}
+                src={profileImageUrl(first.profile_image, 128) + "?v=" + first.profile_image}
                 unoptimized
               />
             </div>
@@ -92,10 +94,11 @@ export default function Leaderboard() {
 
             <div className="relative mx-auto mb-4 h-[90px] w-[90px] cursor-pointer overflow-hidden rounded-full border-4 border-amber-700 transition hover:scale-105 hover:border-cyan-400">
               <Image
+                key={third.profile_image}
                 alt="profil"
                 className="object-cover"
                 fill
-                src={profileImageUrl(third.profile_image, 128)}
+                src={profileImageUrl(third.profile_image, 128) + "?v=" + third.profile_image}
                 unoptimized
               />
             </div>

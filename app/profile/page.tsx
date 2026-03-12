@@ -122,6 +122,7 @@ export default function ProfilePage() {
     setIsGoogleUser(!profile.hasPassword);
     setWarning(profile.inactivityWarning);
     setTheme(profile.theme || "dark");
+    setConsent(profile.consent);
 
     const lastRank = localStorage.getItem("lastRankName");
 

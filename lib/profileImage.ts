@@ -1,6 +1,6 @@
 export function profileImageUrl(id?: string | null, size = 96) {
 
-  if (!id || id === "null" || id === "undefined") {
+  if (!id || id === "null" || id === "undefined" || id === "") {
     return "/profile/default.png";
   }
 

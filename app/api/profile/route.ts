@@ -136,6 +136,7 @@ export async function GET() {
         gender: user.gender,
         phone_number: user.phone_number,
         theme: user.theme,
+        consent: user.consent,
         hasPassword: !!user.password_hash,
         points: user.points,
         rank: user.ranks,

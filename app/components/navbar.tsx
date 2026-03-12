@@ -76,11 +76,14 @@ export default function Navbar() {
 
     await fetch("/api/auth", { method: "DELETE" });
 
+    setUser(null);
+    setLoading(false);
+
     localStorage.removeItem("theme");
     document.documentElement.classList.add("dark");
 
-    router.push("/");
     router.refresh();
+    router.push("/");
   };
 
   const handleLogin = () => {

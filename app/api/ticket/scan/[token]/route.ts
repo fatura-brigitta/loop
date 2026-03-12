@@ -50,8 +50,20 @@ export async function GET(
       });
     }
 
+    const screening = ticket.screenings!;
+    const movie = screening.movies!.title;
+
+    const responseData = {
+      movie,
+      hall: screening.halls!.name,
+      start: screening.start,
+      row: ticket.chairs!.row,
+      seat: ticket.chairs!.column,
+      type: ticket.ticket_types!.type
+    };
+
     const now = new Date();
-    const start = new Date(ticket.screenings!.start);
+    const start = new Date(screening.start);
 
     const oneHourBefore = new Date(start);
     oneHourBefore.setHours(oneHourBefore.getHours() - 1);
@@ -62,14 +74,14 @@ export async function GET(
     if (now < oneHourBefore) {
       return NextResponse.json({
         status: "TOO_EARLY",
-        message: t.ticketScanTooEarly
+        ...responseData
       });
     }
 
     if (now > fifteenMinutesAfter) {
       return NextResponse.json({
         status: "EXPIRED",
-        message: t.ticketExpired
+        ...responseData
       });
     }
 
@@ -77,12 +89,7 @@ export async function GET(
       return NextResponse.json({
         status: "USED",
         used: true,
-        movie: ticket.screenings!.movies!.title,
-        hall: ticket.screenings!.halls!.name,
-        start: ticket.screenings!.start,
-        row: ticket.chairs!.row,
-        seat: ticket.chairs!.column,
-        type: ticket.ticket_types!.type
+        ...responseData
       });
     }
 
@@ -94,12 +101,7 @@ export async function GET(
     return NextResponse.json({
       status: "VALID",
       used: false,
-      movie: ticket.screenings!.movies!.title,
-      hall: ticket.screenings!.halls!.name,
-      start: ticket.screenings!.start,
-      row: ticket.chairs!.row,
-      seat: ticket.chairs!.column,
-      type: ticket.ticket_types!.type
+      ...responseData
     });
 
   } catch (err: any) {

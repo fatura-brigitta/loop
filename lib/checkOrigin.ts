@@ -9,8 +9,18 @@ function normalizeOrigin(value?: string | null) {
 }
 
 export function checkOrigin(req: Request) {
-  const origin = req.headers.get("origin");
+
+  const url = new URL(req.url);
+  const isAdminLogin = url.pathname === "/api/admin/adminLogin";
+
+  const origin = req.headers.get("origin") || req.headers.get("referer");
+
   if (!origin) {
+
+    if (isAdminLogin) {
+      return;
+    }
+
     throw new Error("CSRF");
   }
 
@@ -25,6 +35,11 @@ export function checkOrigin(req: Request) {
   );
 
   if (!allowed.has(origin)) {
+
+    if (isAdminLogin) {
+      return;
+    }
+
     throw new Error("CSRF");
   }
 }

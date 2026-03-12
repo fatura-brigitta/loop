@@ -20,69 +20,80 @@ export async function GET(
   const { token } = await params;
 
   if (!token || token.length < 20) {
-    return NextResponse.json(
-      { message: t.invalidTicket },
-      { status: 400 }
-    );
+    return NextResponse.json({
+      status: "INVALID",
+      message: t.invalidTicket
+    });
   }
 
   try {
 
-    const result = await prisma.$transaction(async (tx) => {
-
-      const ticket = await tx.ticket.findFirst({
-        where: { qr_token: token },
-        include: {
-          chairs: true,
-          ticket_types: true,
-          screenings: {
-            include: {
-              movies: true,
-              halls: true,
-              screening_types: true
-            }
+    const ticket = await prisma.ticket.findFirst({
+      where: { qr_token: token },
+      include: {
+        chairs: true,
+        ticket_types: true,
+        screenings: {
+          include: {
+            movies: true,
+            halls: true,
+            screening_types: true
           }
         }
-      });
-
-      if (!ticket) {
-        throw new Error("INVALID");
       }
-
-      const now = new Date();
-      const start = new Date(ticket.screenings!.start);
-
-      const oneHourBefore = new Date(start);
-      oneHourBefore.setHours(oneHourBefore.getHours() - 1);
-
-      const fifteenMinutesAfter = new Date(start);
-      fifteenMinutesAfter.setMinutes(fifteenMinutesAfter.getMinutes() + 15);
-
-      if (now < oneHourBefore) {
-        throw new Error("TOO_EARLY");
-      }
-
-      if (now > fifteenMinutesAfter) {
-        throw new Error("EXPIRED");
-      }
-
-      if (ticket.used_at) {
-        return { ticket, used: true };
-      }
-
-      await tx.ticket.update({
-        where: { id: ticket.id },
-        data: { used_at: new Date() }
-      });
-
-      return { ticket, used: false };
-
     });
 
-    const { ticket, used } = result;
+    if (!ticket) {
+      return NextResponse.json({
+        status: "INVALID",
+        message: t.invalidTicket
+      });
+    }
+
+    const now = new Date();
+    const start = new Date(ticket.screenings!.start);
+
+    const oneHourBefore = new Date(start);
+    oneHourBefore.setHours(oneHourBefore.getHours() - 1);
+
+    const fifteenMinutesAfter = new Date(start);
+    fifteenMinutesAfter.setMinutes(fifteenMinutesAfter.getMinutes() + 15);
+
+    if (now < oneHourBefore) {
+      return NextResponse.json({
+        status: "TOO_EARLY",
+        message: t.ticketScanTooEarly
+      });
+    }
+
+    if (now > fifteenMinutesAfter) {
+      return NextResponse.json({
+        status: "EXPIRED",
+        message: t.ticketExpired
+      });
+    }
+
+    if (ticket.used_at) {
+      return NextResponse.json({
+        status: "USED",
+        used: true,
+        movie: ticket.screenings!.movies!.title,
+        hall: ticket.screenings!.halls!.name,
+        start: ticket.screenings!.start,
+        row: ticket.chairs!.row,
+        seat: ticket.chairs!.column,
+        type: ticket.ticket_types!.type
+      });
+    }
+
+    await prisma.ticket.update({
+      where: { id: ticket.id },
+      data: { used_at: new Date() }
+    });
 
     return NextResponse.json({
-      used,
+      status: "VALID",
+      used: false,
       movie: ticket.screenings!.movies!.title,
       hall: ticket.screenings!.halls!.name,
       start: ticket.screenings!.start,
@@ -93,30 +104,9 @@ export async function GET(
 
   } catch (err: any) {
 
-    if (err.message === "INVALID") {
-      return NextResponse.json(
-        { message: t.invalidTicket },
-        { status: 404 }
-      );
-    }
-
-    if (err.message === "TOO_EARLY") {
-      return NextResponse.json(
-        { message: t.ticketScanTooEarly },
-        { status: 400 }
-      );
-    }
-
-    if (err.message === "EXPIRED") {
-      return NextResponse.json(
-        { message: t.ticketExpired },
-        { status: 400 }
-      );
-    }
-
     if (err.message === "RATE_LIMIT") {
       return NextResponse.json(
-        { message: "Too many scans" },
+        { status: "RATE_LIMIT", message: "Too many scans" },
         { status: 429 }
       );
     }
@@ -124,7 +114,7 @@ export async function GET(
     console.error("SCAN ERROR:", err);
 
     return NextResponse.json(
-      { error: t.serverError },
+      { status: "ERROR", message: t.serverError },
       { status: 500 }
     );
   }

@@ -4,6 +4,7 @@ import { Star } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { profileImageUrl } from "@/lib/profileImage";
 
 type Movie = {
   id: string;
@@ -348,7 +349,7 @@ export default function ForumPage() {
                   alt="profil"
                   className="h-10 w-10 rounded-full object-cover"
                   height={42}
-                  src={safeImage(profileImage)}
+                  src={profileImageUrl(profileImage, 80)}
                   width={42}
                 />
 
@@ -402,7 +403,7 @@ export default function ForumPage() {
                       alt="profil"
                       className="h-10 w-10 rounded-full border border-[var(--border-color)] object-cover"
                       height={40}
-                      src={safeImage(c.profile_image)}
+                      src={profileImageUrl(c.profile_image, 80)}
                       width={40}
                     />
 
@@ -481,7 +482,7 @@ export default function ForumPage() {
                               alt="profil"
                               className="h-8 w-8 rounded-full border border-[var(--border-color)] object-cover"
                               height={40}
-                              src={safeImage(profileImage)}
+                              src={profileImageUrl(profileImage, 80)}
                               width={40}
                             />
 
@@ -522,7 +523,7 @@ export default function ForumPage() {
                                 alt="profil"
                                 className="h-8 w-8 rounded-full border border-[var(--border-color)] object-cover"
                                 height={32}
-                                src={safeImage(r.profile_image)}
+                                src={profileImageUrl(r.profile_image, 80)}
                                 width={32}
                               />
                               <div className="min-w-0 flex-1">

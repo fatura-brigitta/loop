@@ -15,6 +15,21 @@ const handler = NextAuth({
     FacebookProvider({
       clientId: process.env.FACEBOOK_CLIENT_ID!,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
+
+      authorization: {
+        params: {
+          scope: "email public_profile",
+        },
+      },
+
+      profile(profile) {
+        return {
+          id: profile.id,
+          name: profile.name,
+          email: profile.email,
+          image: `https://graph.facebook.com/${profile.id}/picture?type=large`,
+        };
+      },
     }),
   ],
 
@@ -22,39 +37,44 @@ const handler = NextAuth({
 
   callbacks: {
     async signIn({ user, account }) {
-
       if (!user.email) return false;
 
       let existing = await prisma.user.findUnique({
         where: { email: user.email },
       });
 
+      let imageUrl = user.image || null;
+
+      if (!imageUrl && account?.provider === "facebook") {
+        imageUrl = `https://graph.facebook.com/${account.providerAccountId}/picture?type=large`;
+      }
+
+      let profileImage = null;
+
+      if (imageUrl) {
+        try {
+          const upload = await cloudinary.uploader.upload(imageUrl, {
+            folder: "loop/profile",
+            public_id: user.email,
+            overwrite: true,
+            transformation: [
+              { width: 256, height: 256, crop: "fill" },
+              { quality: "auto", fetch_format: "auto" }
+            ]
+          });
+
+          profileImage = upload.public_id;
+
+        } catch (err) {
+          console.error("Cloudinary upload failed:", err);
+        }
+      }
+
       if (!existing) {
 
         const baseRank = await prisma.rank.findFirst({
           where: { point_limit: 0 },
         });
-
-        let profileImage = "/profile/default.png";
-
-        if (user.image) {
-          try {
-            const upload = await cloudinary.uploader.upload(user.image, {
-              folder: "loop/profile",
-              public_id: user.email,
-              overwrite: true,
-              transformation: [
-                { width: 256, height: 256, crop: "fill" },
-                { quality: "auto", fetch_format: "auto" }
-              ]
-            });
-
-            profileImage = upload.public_id;
-
-          } catch (err) {
-            console.error("Cloudinary upload failed:", err);
-          }
-        }
 
         existing = await prisma.user.create({
           data: {
@@ -70,9 +90,24 @@ const handler = NextAuth({
             email_verified: true,
           },
         });
+
+      } else {
+
+        if (!existing.profile_image && profileImage) {
+
+          await prisma.user.update({
+            where: { id: existing.id },
+            data: {
+              profile_image: profileImage
+            }
+          });
+
+        }
+
       }
 
       const cookieStore = cookies();
+
       (await cookieStore).set("userId", existing.id, {
         httpOnly: true,
         sameSite: "lax",

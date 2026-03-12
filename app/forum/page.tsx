@@ -348,8 +348,8 @@ export default function ForumPage() {
                   alt="profil"
                   className="h-10 w-10 rounded-full object-cover"
                   height={42}
-                  width={42}
                   src={safeImage(profileImage)}
+                  width={42}
                 />
 
                 <div className="flex-1">
@@ -402,8 +402,8 @@ export default function ForumPage() {
                       alt="profil"
                       className="h-10 w-10 rounded-full border border-[var(--border-color)] object-cover"
                       height={40}
-                      width={40}
                       src={safeImage(c.profile_image)}
+                      width={40}
                     />
 
                     <div className="flex-1">
@@ -481,8 +481,8 @@ export default function ForumPage() {
                               alt="profil"
                               className="h-8 w-8 rounded-full border border-[var(--border-color)] object-cover"
                               height={40}
+                              src={safeImage(profileImage)}
                               width={40}
-                              src={safeImage(c.profile_image)}
                             />
 
                           <div className="flex-1">
@@ -522,8 +522,8 @@ export default function ForumPage() {
                                 alt="profil"
                                 className="h-8 w-8 rounded-full border border-[var(--border-color)] object-cover"
                                 height={32}
-                                width={32}
                                 src={safeImage(r.profile_image)}
+                                width={32}
                               />
                               <div className="min-w-0 flex-1">
                                 <div className="truncate text-sm font-semibold text-cyan-300">

@@ -1,4 +1,5 @@
-"use client";
+"use client"
+
 import { Star } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -63,7 +64,7 @@ export default function ForumPage() {
       if (userRes.status === 200) {
         const user = await userRes.json();
         setUserName(user.name);
-        setProfileImage(user.profile_image);
+        setProfileImage(user.profile_image || "/profile/default.png");
         setShowLogin(true);
       } else {
         setShowLogin(false);
@@ -175,7 +176,20 @@ export default function ForumPage() {
     const created = await res.json();
 
     setComments((prev) =>
-      prev.map((c) => (c.id === forumId ? { ...c, replies: [...(c.replies ?? []), created] } : c)),
+      prev.map((c) =>
+        c.id === forumId
+          ? {
+              ...c,
+              replies: [
+                ...(c.replies ?? []),
+                {
+                  ...created,
+                  profile_image: created.profile_image || "/profile/default.png"
+                }
+              ],
+            }
+          : c
+      ),
     );
 
     setReplyText("");
@@ -250,6 +264,27 @@ export default function ForumPage() {
   const shownComments = comments.slice(0, visibleCount);
   const hasMore = visibleCount < comments.length;
 
+  const safeImage = (src?: string | null) => {
+
+    if (!src || src === "null" || src === "undefined") {
+      return "/profile/default.png";
+    }
+
+    if (src.startsWith("http://") || src.startsWith("https://")) {
+      return src;
+    }
+
+    if (src.startsWith("/profile")) {
+      return src;
+    }
+
+    const cloud = process.env.NEXT_PUBLIC_CLOUD_NAME;
+
+    if (!cloud) return "/profile/default.png";
+
+    return `https://res.cloudinary.com/${cloud}/image/upload/c_fill,w_80,h_80,q_auto,f_auto/${src}`;
+  };
+
   return (
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="forum-page">
       {!showLogin && (
@@ -313,8 +348,8 @@ export default function ForumPage() {
                   alt="profil"
                   className="h-10 w-10 rounded-full object-cover"
                   height={42}
-                  src={profileImage || "/profile/default.png"}
                   width={42}
+                  src={safeImage(profileImage)}
                 />
 
                 <div className="flex-1">
@@ -367,8 +402,8 @@ export default function ForumPage() {
                       alt="profil"
                       className="h-10 w-10 rounded-full border border-[var(--border-color)] object-cover"
                       height={40}
-                      src={c.profile_image || "/profile/default.png"}
                       width={40}
+                      src={safeImage(c.profile_image)}
                     />
 
                     <div className="flex-1">
@@ -443,12 +478,12 @@ export default function ForumPage() {
                       {replyOpenFor === c.id && (
                         <div className="mt-4 flex gap-3 rounded-xl border border-[var(--border-color)] bg-[var(--bg-main)]/40 p-3">
                           <Image
-                            alt="profil"
-                            className="h-8 w-8 rounded-full border border-[var(--border-color)] object-cover"
-                            height={32}
-                            src={profileImage || "/profile/default.png"}
-                            width={32}
-                          />
+                              alt="profil"
+                              className="h-8 w-8 rounded-full border border-[var(--border-color)] object-cover"
+                              height={40}
+                              width={40}
+                              src={safeImage(c.profile_image)}
+                            />
 
                           <div className="flex-1">
                             <input className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--bg-main)] px-3 py-2 text-sm text-[var(--text-main)] outline-none focus:border-cyan-400"
@@ -487,8 +522,8 @@ export default function ForumPage() {
                                 alt="profil"
                                 className="h-8 w-8 rounded-full border border-[var(--border-color)] object-cover"
                                 height={32}
-                                src={r.profile_image || "/profile/default.png"}
                                 width={32}
+                                src={safeImage(r.profile_image)}
                               />
                               <div className="min-w-0 flex-1">
                                 <div className="truncate text-sm font-semibold text-cyan-300">
@@ -604,4 +639,4 @@ export default function ForumPage() {
   function valueForHover(i: number, full: number) {
     return i - 1 + full;
   }
-}
+} 

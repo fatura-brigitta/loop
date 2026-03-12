@@ -12,8 +12,22 @@ import { sanitizeText } from "@/lib/sanitize";
 import { rateLimit } from "@/lib/rateLimit";
 import { getClientIp } from "@/lib/getClientIp";
 import { checkOrigin } from "@/lib/checkOrigin";
-
 import { ZodError } from "zod";
+import cloudinary from "@/lib/cloudinary";
+
+const getProfileImage = (src?: string | null) => {
+  if (!src) return "/profile/default.png";
+
+  if (src.startsWith("http")) return src;
+
+  return cloudinary.url(src, {
+    width: 80,
+    height: 80,
+    crop: "fill",
+    quality: "auto",
+    fetch_format: "auto",
+  });
+};
 
 export async function POST(req: NextRequest) {
 
@@ -68,7 +82,7 @@ export async function POST(req: NextRequest) {
         comment: reply.comment,
         created_at: reply.created_at,
         user_name: user?.name ?? "Ismeretlen felhasználó",
-        profile_image: user?.profile_image ?? "/profile/default.png",
+        profile_image: getProfileImage(user?.profile_image)
       },
       {
         headers: { "Cache-Control": "no-store" }

@@ -12,6 +12,21 @@ import { getClientIp } from "@/lib/getClientIp";
 import { checkOrigin } from "@/lib/checkOrigin";
 
 import { ZodError } from "zod";
+import cloudinary from "@/lib/cloudinary";
+
+const getProfileImage = (src?: string | null) => {
+  if (!src) return "/profile/default.png";
+
+  if (src.startsWith("http")) return src;
+
+  return cloudinary.url(src, {
+    width: 80,
+    height: 80,
+    crop: "fill",
+    quality: "auto",
+    fetch_format: "auto",
+  });
+};
 
 export async function GET(req: NextRequest) {
 
@@ -86,7 +101,7 @@ export async function GET(req: NextRequest) {
         comment: r.comment,
         created_at: r.created_at,
         user_name: u?.name ?? "Ismeretlen felhasználó",
-        profile_image: u?.profile_image ?? "/profile/default.png",
+        profile_image: getProfileImage(u?.profile_image)
       };
 
       replyMap.set(
@@ -102,7 +117,7 @@ export async function GET(req: NextRequest) {
       return {
         id: p.id,
         user_name: user?.name ?? "Ismeretlen felhasználó",
-        profile_image: user?.profile_image ?? "/profile/default.png",
+        profile_image: getProfileImage(user?.profile_image),
         comment: p.comment,
         review: p.review,
         likes: p.likes ?? 0,

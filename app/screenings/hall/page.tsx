@@ -285,22 +285,20 @@ export default function HallPage() {
       {showLogin && !loadingHall && !error && hall && (
         <div className="mx-auto max-w-6xl px-4 py-8 pb-40 text-center" data-cy="hall-container">
           {screeningInfo && (
-            <div className="mx-auto mb-8 max-w-xl rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] px-6 py-4 shadow-lg">
-              
-              <div className="text-lg font-semibold text-[var(--text-main2)]">
-                🎬 {screeningInfo.movie.title}
+            <div className="mx-auto mb-10 max-w-xl text-center">
+              <div className="text-xl font-semibold text-[var(--text-main2)]">
+               {screeningInfo.movie.title}
               </div>
 
-              <div className="mt-2 flex items-center justify-center gap-3 text-sm text-[var(--text-main)]/70">
-                <span>📍 {hall?.name}</span>
-                <span className="opacity-40">•</span>
+              <div className="mt-2 flex items-center justify-center gap-3 text-sm text-[var(--text-main)]/60">
+                <span>{hall?.name}</span>
+                <span className="text-[var(--text-main)]/60">•</span>
                 <span>{screeningInfo.type}</span>
               </div>
 
-              <div className="mt-1 text-sm text-[var(--text-main)]/70">
-                📅 {formatDateTime(screeningInfo.start).date} • {formatDateTime(screeningInfo.start).time}
+              <div className="mt-1 text-sm text-[var(--text-main)]/60">
+                {formatDateTime(screeningInfo.start).date} • {formatDateTime(screeningInfo.start).time}
               </div>
-
             </div>
           )}
 

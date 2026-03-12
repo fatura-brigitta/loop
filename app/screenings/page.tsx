@@ -63,7 +63,7 @@ const getNext7Days = () => {
     days.push({
       label: i === 0 ? "Ma" : names[d.getDay()],
       date: new Date(d),
-      iso: d.toISOString().split("T")[0],
+      iso: getLocalDate(d),
     });
   }
   return days;
@@ -97,11 +97,11 @@ const getDateLabel = (dateStr: string) => {
   const today = new Date();
   const date = new Date(dateStr);
 
-  const todayStr = today.toISOString().split("T")[0];
+  const todayStr = getLocalDate(today);
 
   const tomorrow = new Date();
   tomorrow.setDate(today.getDate() + 1);
-  const tomorrowStr = tomorrow.toISOString().split("T")[0];
+  const tomorrowStr = getLocalDate(tomorrow);
 
   if (dateStr === todayStr) return "Ma";
   if (dateStr === tomorrowStr) return "Holnap";
@@ -116,7 +116,7 @@ const groupByDateAndType = (screenings: Screening[]) => {
   const map: Record<string, Record<string, Screening[]>> = {};
 
   screenings.forEach((s) => {
-    const date = new Date(s.start).toISOString().split("T")[0];
+    const date = getLocalDate(new Date(s.start));
     const type = s.screening_types?.type || "Egyéb";
 
     if (!map[date]) map[date] = {};
@@ -136,6 +136,12 @@ const groupByDateAndType = (screenings: Screening[]) => {
   return map;
 };
 
+const getLocalDate = (date: Date) => {
+  return new Intl.DateTimeFormat("sv-SE", {
+    timeZone: "Europe/Budapest",
+  }).format(date);
+};
+
 export default function ScreeningsPage() {
   const router = useRouter();
 
@@ -146,7 +152,7 @@ export default function ScreeningsPage() {
   const [openTrailer, setOpenTrailer] = useState<string | null>(null);
 
   const [selectedDate, setSelectedDate] = useState<string>(
-    new Date().toISOString().split("T")[0]
+    getLocalDate(new Date())
   );
   const [selectedType, setSelectedType] = useState<string>("all");
   const [availableTypes, setAvailableTypes] = useState<string[]>([]);
@@ -228,7 +234,7 @@ export default function ScreeningsPage() {
       screenings = screenings.filter((s) => new Date(s.start).getTime() > Date.now());
 
       screenings = screenings.filter(
-        (s) => new Date(s.start).toISOString().split("T")[0] === selectedDate
+        (s) => getLocalDate(new Date(s.start)) === selectedDate
       );
 
       if (selectedType !== "all") {
@@ -251,7 +257,7 @@ export default function ScreeningsPage() {
   };
 
   const resetFilters = () => {
-    setSelectedDate(new Date().toISOString().split("T")[0]);
+    setSelectedDate(getLocalDate(new Date()));
     setSelectedType("all");
     setDropdownOpen(false);
 

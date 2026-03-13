@@ -1,7 +1,23 @@
 "use client";
 import Reveal from "@/app/components/reveal";
 
-export default function PricingSection({pricing}:any) {
+type ScreeningType = {
+  type: string;
+  percent: number;
+};
+
+type TicketType = {
+  type: string;
+  percent: number;
+};
+
+type Pricing = {
+  screeningTypes: ScreeningType[];
+  ticketTypes: TicketType[];
+  basePrice: number;
+};
+
+export default function PricingSection({ pricing }: { pricing: Pricing }){
 
   if(!pricing) return null
 

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavbarWrapper from "@/app/components/navbarWrapper";
 import FooterWrapper from "@/app/components/footerWrapper";
+import ScrollReset from "@/app/components/scrollReset";
+import SessionGuard from "@/app/components/sessionGuard";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -17,6 +19,8 @@ export default function RootLayout({
   return (
     <html lang="hu" suppressHydrationWarning>
       <body className="flex min-h-screen flex-col bg-[var(--bg-main)] text-[var(--text-main)] transition-colors duration-300">
+        <ScrollReset/>
+        <SessionGuard/>
       <Script id="theme-loader" strategy="beforeInteractive">
       {`
         const savedTheme = localStorage.getItem("theme");

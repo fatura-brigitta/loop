@@ -4,7 +4,7 @@ import Reveal from "@/app/components/reveal";
 
 export default function WelcomeSection() {
   return (
-    <section className="mx-auto max-w-5xl py-10 text-center">
+    <section className="mx-auto max-w-5xl py-18 text-center">
       <Reveal>
         <>
           <h2 className="mb-6 text-4xl font-bold text-[--text-soft]"> Üdvözöl a LOOP Mozi! </h2>

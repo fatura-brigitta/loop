@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import Reveal from "@/app/components/reveal";
 import { profileImageUrl } from "@/lib/profileImage";
 
@@ -11,56 +10,7 @@ type User = {
   profile_image: string;
 };
 
-export default function Leaderboard() {
-  const [users, setUsers] = useState<User[]>([]);
-
-  useEffect(() => {
-    const load = async () => {
-      const res = await fetch("/api/home/leaderboard?ts=" + Date.now(), {
-        cache: "no-store",
-      });
-
-      if (!res.ok) return;
-
-      const data = await res.json();
-      setUsers(data);
-    };
-
-    load();
-
-    const reload = () => load();
-
-    window.addEventListener("profile-updated", reload);
-
-    return () => window.removeEventListener("profile-updated", reload);
-  }, []);
-
-  useEffect(() => {
-    const load = async () => {
-      const res = await fetch("/api/home/leaderboard?ts=" + Date.now(), {
-        cache: "no-store",
-      });
-
-      if (!res.ok) return;
-
-      const data = await res.json();
-      setUsers(data);
-    };
-
-    load();
-
-    const reload = () => load();
-
-    window.addEventListener("profile-updated", reload);
-
-    const interval = setInterval(load, 15000);
-
-    return () => {
-      window.removeEventListener("profile-updated", reload);
-      clearInterval(interval);
-    };
-
-  }, []);
+export default function Leaderboard({users}:{users:User[]}) {
 
   if (users.length < 3) return null;
 

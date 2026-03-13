@@ -400,16 +400,12 @@ export async function DELETE(req: NextRequest) {
       }
     );
 
-    res.cookies.set("userId", "", {
-      httpOnly: true,
-      secure: isProd,
-      sameSite: "lax",
-      path: "/",
-      maxAge: 0,
-    });
+    res.cookies.delete("userId");
 
     return res;
+
   } catch (err: any) {
+
     if (err.message === "CSRF") {
       return NextResponse.json(
         { message: t.csrfError },

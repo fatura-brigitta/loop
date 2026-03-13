@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import Reveal from "@/app/components/reveal";
 
 type RankType = {
@@ -18,33 +17,10 @@ type DiscountType = {
   percent: number;
 };
 
-export default function PointsInfoSection() {
-  const [ranks, setRanks] = useState<RankType[]>([]);
-  const [discounts, setDiscounts] = useState<DiscountType[]>([]);
-
-  useEffect(() => {
-    const load = async () => {
-      try {
-        const [ranksRes, discountsRes] = await Promise.all([
-          fetch("/api/profile/ranks"),
-          fetch("/api/profile/discounts"),
-        ]);
-
-        const ranksData = await ranksRes.json();
-        const discountsData = await discountsRes.json();
-
-        setRanks(ranksData);
-        setDiscounts(discountsData);
-      } catch (err) {
-        console.error("Load error:", err);
-      }
-    };
-
-    load();
-  }, []);
-
+export default function PointsInfoSection({ ranks, discounts,}: { ranks: RankType[]; discounts: DiscountType[];}) {
+  if (!ranks?.length) return null;
   return (
-    <section className="bg-[--bg-soft2] py-14">
+    <section className="bg-[--bg-soft2] py-18">
       <div className="mx-auto max-w-4xl text-center">
         <Reveal>
           <>
@@ -74,7 +50,7 @@ export default function PointsInfoSection() {
                 );
                 return (
                   <div
-                    className="rounded-xl border border-[--border-color]  bg-[var(--card-bg)] p-6 text-center backdrop-blur transition hover:scale-[1.05] hover:bg-slate-100 dark:hover:bg-white/10 hover:cursor-pointer"
+                    className="rounded-xl border border-[--border-color] bg-[var(--card-bg)] p-6 text-center backdrop-blur transition hover:scale-[1.05] hover:cursor-pointer hover:bg-slate-100 dark:hover:bg-white/10"
                     key={r.id}
                   >
                     <div className="relative mx-auto mb-4 h-16 w-16">

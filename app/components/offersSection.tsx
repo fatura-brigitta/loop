@@ -4,7 +4,7 @@ import Reveal from "@/app/components/reveal";
 
 export default function OffersSection() {
   return (
-    <section className="py-14">
+    <section className="py-18">
       <div className="mx-auto mb-16 max-w-6xl text-center">
         <Reveal>
           <>

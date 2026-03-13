@@ -1,34 +1,16 @@
 "use client";
-import { useEffect, useState } from "react";
 import Reveal from "@/app/components/reveal";
 
-type ScreeningType = {
-  type: string;
-  percent: number;
-};
+export default function PricingSection({pricing}:any) {
 
-type TicketType = {
-  type: string;
-  percent: number;
-};
+  if(!pricing) return null
 
-export default function PricingSection() {
-  const [screenings, setScreenings] = useState<ScreeningType[]>([]);
-  const [tickets, setTickets] = useState<TicketType[]>([]);
-  const [basePrice, setBasePrice] = useState(500);
-
-  useEffect(() => {
-    fetch("/api/home/pricing")
-      .then((r) => r.json())
-      .then((data) => {
-        setScreenings(data.screeningTypes);
-        setTickets(data.ticketTypes);
-        setBasePrice(data.basePrice);
-      });
-  }, []);
+  const screenings = pricing.screeningTypes
+  const tickets = pricing.ticketTypes
+  const basePrice = pricing.basePrice
 
   return (
-    <section className="bg-[--bg-soft2] py-14">
+    <section className="bg-[--bg-soft2] py-18">
       <div className="mx-auto mb-16 max-w-6xl text-center">
         <Reveal>
           <>

@@ -1,138 +1,81 @@
 "use client";
 
-import { Trash2 } from "lucide-react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { profileImageUrl } from "@/lib/profileImage";
-
-type Ticket = {
-  id: string;
-  price: number;
-  screenings: {
-    start: string;
-    movies: { title: string };
-    halls: { name: string };
-    screening_types: { type: string };
-  };
-  qr_token: string;
-  chairs: {
-    row: number;
-    column: number;
-  };
-  ticket_types: {
-    type: string;
-  };
-};
-
-type RankData = {
-  points: number;
-  progress: number;
-  rank: {
-    name: string;
-    image: string;
-    point_limit: number;
-  } | null;
-  nextRank?: {
-    name: string;
-    point_limit: number;
-  } | null;
-};
-
-type Coupon = {
-  id: string;
-  used: boolean;
-  qr_token: string;
-  discounts: {
-    name: string;
-    percent: number;
-    image: string;
-    description: string;
-  };
-};
+import AssetsSection from "@/app/components/profile/assetsSection";
+import ProfileInfoSection from "@/app/components/profile/profileInfoSection";
+import RankSection from "@/app/components/profile/rankSection";
 
 export default function ProfilePage() {
-  const router = useRouter();
-
-  const [name, setUserName] = useState("");
-  const [consent, setConsent] = useState(false);
 
   const [user, setUser] = useState<any>(null);
-  const [isGoogleUser, setIsGoogleUser] = useState(false);
-  const [tickets, setTickets] = useState<Ticket[]>([]);
-  const [showTickets, setShowTickets] = useState(false);
-  const [history, setHistory] = useState<Ticket[]>([]);
 
-  const [rankData, setRankData] = useState<RankData | null>(null);
-  const [rankUp, setRankUp] = useState<null | { name: string; image: string }>(null);
-  const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const [rankData, setRankData] = useState<any>(null);
+  const [warning, setWarning] = useState(false);
+
+  const [coupons, setCoupons] = useState<any[]>([]);
+  const [tickets, setTickets] = useState<any[]>([]);
+  const [history, setHistory] = useState<any[]>([]);
+
   const [showCoupons, setShowCoupons] = useState(false);
+  const [showTickets, setShowTickets] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
 
   const [newName, setNewName] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const [gender, setGender] = useState("RATHER_NOT_SAY");
+
+  const [theme, setTheme] = useState("dark");
+
+  const [profileImage, setProfileImage] = useState("");
+
+  const [isDragging, setIsDragging] = useState(false);
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const [imageError, setImageError] = useState("");
+  const [imageMessage, setImageMessage] = useState("");
+
+  const [isGoogleUser, setIsGoogleUser] = useState(false);
+
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
 
-  const [phone, setPhone] = useState("");
-  const [profileImage, setProfileImage] = useState("");
-  const [imageMessage, setImageMessage] = useState("");
-  const [imageError, setImageError] = useState("");
+  const [profileMessage, setProfileMessage] = useState("");
+  const [profileError, setProfileError] = useState("");
 
-  const [gender, setGender] = useState<string>("RATHER_NOT_SAY");
-
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
-  const [warning, setWarning] = useState(false);
-
+  const [passwordMessage, setPasswordMessage] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [historyMessage, setHistoryMessage] = useState("");
+
+  const [consent, setConsent] = useState(false);
   const [deleteTicketId, setDeleteTicketId] = useState<string | null>(null);
   const [confirmDeleteAll, setConfirmDeleteAll] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
-
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [theme, setTheme] = useState("dark");
+  const [rankUp, setRankUp] = useState<null | { name: string; image: string }>(null);
 
   const loadUser = async () => {
-    const userRes = await fetch("/api/auth", { cache: "no-store" });
+    const res = await fetch("/api/profile", { cache: "no-store" });
+    const data = await res.json();
 
-    if (userRes.status !== 200) {
-      router.push("/login");
-      return;
-    }
+    setUser(data);
+    setRankData(data);
 
-    const active = await userRes.json();
-    setUserName(active.name);
+    setNewName(data.name);
+    setPhone(data.phone_number || "");
+    setGender(data.gender || "RATHER_NOT_SAY");
 
-    const profileRes = await fetch("/api/profile", {
-      method: "GET",
-      cache: "no-store",
-      credentials: "include",
-    });
+    setProfileImage(data.profile_image || "");
+    setTheme(data.theme || "dark");
+    setConsent(data.consent);
 
-    const profile = await profileRes.json();
+    setIsGoogleUser(!data.hasPassword);
+    setWarning(data.inactivityWarning);
 
-    setUser(profile);
-    setRankData(profile);
-
-    setNewName(profile.name);
-    setPhone(profile.phone_number);
-    setProfileImage(profile.profile_image || "");
-    setGender(profile.gender || "RATHER_NOT_SAY");
-    setIsGoogleUser(!profile.hasPassword);
-    setWarning(profile.inactivityWarning);
-    setTheme(profile.theme || "dark");
-    setConsent(profile.consent);
-
-    const lastRank = localStorage.getItem("lastRankName");
-
-    if (profile.rank && profile.rank.name !== lastRank) {
-      setRankUp({
-        name: profile.rank.name,
-        image: profile.rank.image,
-      });
-
-      localStorage.setItem("lastRankName", profile.rank.name);
+    if (data.theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
     }
 
     const ticketRes = await fetch("/api/profile", {
@@ -156,102 +99,61 @@ export default function ProfilePage() {
       const couponData = await couponRes.json();
       setCoupons(couponData);
     }
-
-    if (profile.theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-
-    localStorage.setItem("theme", profile.theme);
   };
 
   useEffect(() => {
-    const init = async () => {
-      await loadUser();
-    };
+    const stored = sessionStorage.getItem("rankUp");
 
-    init();
-  }, []);
+    if (stored) {
 
-  useEffect(() => {
-    if (!message && !error) return;
+      const rank = JSON.parse(stored);
 
-    const timer = setTimeout(() => {
-      setMessage("");
-      setError("");
-    }, 5000);
+      queueMicrotask(() => {
+        setRankUp(rank);
+      });
 
-    return () => clearTimeout(timer);
-  }, [message, error]);
+      sessionStorage.removeItem("rankUp");
+    }
 
-  useEffect(() => {
-    if (!historyMessage) return;
+    const load = async () => {
+      await loadUser()
+    }
 
-    const timer = setTimeout(() => {
-      setHistoryMessage("");
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, [historyMessage]);
+    load()
+  }, [])
 
   useEffect(() => {
     if (!rankUp) return;
-
     const t = setTimeout(() => {
       setRankUp(null);
     }, 6000);
-
     return () => clearTimeout(t);
   }, [rankUp]);
 
-  const changePassword = async () => {
-    setError("");
-    setMessage("");
+  if (!user) {
+    return <div className="flex min-h-screen items-center justify-center">Betöltés...</div>;
+  }
 
-    if (!newPassword || !newPassword2) {
-      setError("Kérlek töltsd ki az új jelszó mezőket!");
-      return;
+  const pointsNeeded = rankData?.nextRank
+    ? Math.max(0, (rankData.nextRank.point_limit || 0) - rankData.points)
+    : 0;
+
+  const changeTheme = async (newTheme: string) => {
+    setTheme(newTheme);
+
+    document.documentElement.classList.remove("dark");
+
+    if (newTheme === "dark") {
+      document.documentElement.classList.add("dark");
     }
 
-    if (newPassword !== newPassword2) {
-      setError("A két új jelszó nem egyezik meg!");
-      return;
-    }
+    localStorage.setItem("theme", newTheme);
 
-    if (!isGoogleUser && !oldPassword) {
-      setError("Add meg a régi jelszót!");
-      return;
-    }
-
-    if (newPassword.length < 5) {
-      setError("A jelszónak legalább 5 karakter hosszúnak kell lennie!");
-      return;
-    }
-
-    const res = await fetch("/api/profile", {
+    await fetch("/api/profile/theme", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        oldPassword: isGoogleUser ? null : oldPassword,
-        newPassword,
-      }),
+      body: JSON.stringify({ theme: newTheme }),
     });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      setError(data.message || "Hiba történt a jelszó módosítása során");
-      return;
-    }
-
-    setOldPassword("");
-    setNewPassword("");
-    setNewPassword2("");
-
-    setMessage(isGoogleUser ? "Jelszó sikeresen beállítva!" : "Jelszó sikeresen megváltoztatva!");
-
-    setIsGoogleUser(false);
   };
 
   const readFileAsBase64 = (file: File) =>
@@ -288,63 +190,9 @@ export default function ProfilePage() {
     setImageMessage("Profilkép frissítve!");
     setImageError("");
 
-    router.refresh();
-
     await loadUser();
 
     window.dispatchEvent(new Event("profile-updated"));
-  };
-
-  if (!user) {
-    return (
-      <div
-        className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]"
-        data-cy="profile-loading"
-      >
-        Betöltés...
-      </div>
-    );
-  }
-
-  const pointsNeeded =
-    rankData?.nextRank && typeof rankData?.points === "number"
-      ? Math.max(0, (rankData.nextRank?.point_limit || 0) - rankData.points)
-      : 0;
-
-  const deleteTicket = async (id: string) => {
-    const res = await fetch("/api/ticket/delete", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ticketId: id,
-      }),
-    });
-
-    if (res.ok) {
-      setHistory((prev) => prev.filter((t) => t.id !== id));
-      setHistoryMessage("Jegy törölve az előzményekből.");
-    } else {
-      setHistoryMessage("Hiba történt a törlés során.");
-    }
-
-    setDeleteTicketId(null);
-  };
-
-  const deleteAllHistory = async () => {
-    const res = await fetch("/api/ticket/delete-all", {
-      method: "DELETE",
-    });
-
-    if (res.ok) {
-      setHistory([]);
-      setHistoryMessage("Az összes vásárlási előzmény törölve.");
-    } else {
-      setHistoryMessage("Hiba történt a törlés során.");
-    }
-
-    setConfirmDeleteAll(false);
   };
 
   const resetProfileImage = async () => {
@@ -365,53 +213,127 @@ export default function ProfilePage() {
     setProfileImage("");
 
     setImageMessage("Profilkép visszaállítva!");
-    setProfileImage("");
 
     await loadUser();
 
     window.dispatchEvent(new Event("profile-updated"));
   };
 
-  const changeTheme = async (newTheme: string) => {
-    setTheme(newTheme);
+  const changePassword = async () => {
+    setPasswordError("");
+    setPasswordMessage("");
 
-    document.documentElement.classList.remove("dark");
-
-    if (newTheme === "dark") {
-      document.documentElement.classList.add("dark");
+    if (!newPassword || !newPassword2) {
+      setPasswordError("Kérlek töltsd ki az új jelszó mezőket!");
+      return;
     }
 
-    localStorage.setItem("theme", newTheme);
+    if (newPassword !== newPassword2) {
+      setPasswordError("A két új jelszó nem egyezik meg!");
+      return;
+    }
 
-    await fetch("/api/profile/theme", {
+    if (!isGoogleUser && !oldPassword) {
+      setPasswordError("Add meg a régi jelszót!");
+      return;
+    }
+
+    if (newPassword.length < 5) {
+      setPasswordError("A jelszónak legalább 5 karakter hosszúnak kell lennie!");
+      return;
+    }
+
+    const res = await fetch("/api/profile", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ theme: newTheme }),
+      body: JSON.stringify({
+        ...(isGoogleUser ? {} : { oldPassword }),
+        newPassword
+      })
     });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      setPasswordError(data.message || "Hiba történt");
+      return;
+    }
+
+    setOldPassword("");
+    setNewPassword("");
+    setNewPassword2("");
+
+    setPasswordMessage(isGoogleUser ? "Jelszó sikeresen beállítva!" : "Jelszó sikeresen megváltoztatva!");
+
+    setIsGoogleUser(false);
   };
 
+  const deleteTicket = async (id: string) => {
+    const res = await fetch("/api/ticket/delete",{
+    method:"DELETE",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({ticketId:id})
+    })
+
+    if(res.ok){
+
+    setHistory(prev => prev.filter(t=>t.id !== id))
+
+    setHistoryMessage("Jegy törölve")
+
+    setTimeout(()=>{
+    setHistoryMessage("")
+    },3000)
+
+    }
+
+    setDeleteTicketId(null)
+
+  }
+
+  const deleteAllHistory = async () => {
+
+    const res = await fetch("/api/ticket/delete-all",{
+    method:"DELETE"
+    })
+
+    if(res.ok){
+
+    setHistory([])
+
+    setHistoryMessage("Előzmények törölve")
+
+    setTimeout(()=>{
+    setHistoryMessage("")
+    },3000)
+
+    }
+
+    setConfirmDeleteAll(false)
+
+  }
+
   return (
-    <div
-      className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]"
-      data-cy="profile-page"
-    >
+    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]">
       {rankUp && (
         <div
-          className="rank-overlay fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm"
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm"
           data-cy="rank-up-modal"
         >
-          <div className="rank-popup flex flex-col items-center gap-6 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-main)]/90 p-10 shadow-2xl">
-            <div className="text-sm tracking-[0.3em] text-[var(--text-main)]/60">RANG LÉPÉS</div>
+          <div className="flex flex-col items-center gap-6 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-main)]/90 p-10 shadow-2xl animate-[rankPop_0.45s_ease]">
 
-            <Image
-              alt="rank up"
-              className="h-40 w-40 object-contain drop-shadow-[0_0_70px_rgba(0,255,255,0.8)]"
-              height={160}
+            <div className="text-sm tracking-[0.3em] text-[var(--text-main)]/60">
+              RANG LÉPÉS
+            </div>
+
+            <img
+              className="h-40 w-40 object-contain animate-[glowPulse_2s_ease-in-out_infinite]"
               src={rankUp.image}
-              width={160}
             />
 
-            <div className="text-4xl font-extrabold text-[var(--text-main2)]">{rankUp.name}</div>
+            <div className="text-4xl font-extrabold text-[var(--text-main2)]">
+              {rankUp.name}
+            </div>
 
             <div className="text-sm text-[var(--text-main)]/70">
               Gratulálunk! Új kuponokat oldottál fel.
@@ -419,708 +341,73 @@ export default function ProfilePage() {
 
             <button
               className="mt-2 cursor-pointer rounded-lg bg-cyan-600 px-6 py-2 font-semibold text-[var(--text-main)] transition hover:bg-cyan-400"
-              data-cy="rank-up-close"
               onClick={() => setRankUp(null)}
             >
               Folytatás
             </button>
+
           </div>
         </div>
       )}
-
-      {rankData?.rank && (
-        <div className="mx-auto max-w-5xl px-4 pt-12" data-cy="profile-rank-section">
-          <div className="mb-10 w-full rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-8 shadow-2xl backdrop-blur">
-            <div className="relative flex flex-col gap-6 md:flex-row md:items-center">
-              <div className="flex items-center gap-5">
-                <div className="relative h-24 w-24 shrink-0">
-                  <Image
-                    alt="rank"
-                    className="h-full w-full object-contain drop-shadow-[0_0_35px_rgba(0,255,255,0.35)]"
-                    height={128}
-                    src={rankData.rank.image}
-                    width={128}
-                  />
-                </div>
-
-                <div>
-                  <h2
-                    className="text-2xl font-bold text-[var(--text-main2)]"
-                    data-cy="profile-rank-name"
-                  >
-                    {rankData.rank.name} rang
-                  </h2>
-
-                  <div className="mt-1 text-sm text-[var(--text-main)]/70">
-                    Összes pont:{" "}
-                    <span
-                      className="font-bold text-[var(--text-main)]"
-                      data-cy="profile-rank-points"
-                    >
-                      {rankData.points}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex-1">
-                <div className="mt-2 h-4 w-full overflow-hidden rounded-full border border-[var(--border-color)] bg-white/10">
-                  <div
-                    className="h-full rounded-full bg-cyan-400 transition-all duration-700"
-                    data-cy="profile-rank-progress"
-                    style={{ width: `${rankData.progress ?? 0}%` }}
-                  />
-                </div>
-
-                {rankData.nextRank ? (
-                  <div className="mt-3 text-sm text-[var(--text-main)]/70">
-                    Következő rang:{" "}
-                    <span className="font-semibold text-[var(--text-main2)]">
-                      {rankData.nextRank.name}
-                    </span>{" "}
-                    • még <span className="font-bold text-[var(--text-main)]">{pointsNeeded}</span>{" "}
-                    pont
-                  </div>
-                ) : (
-                  <div className="mt-3 text-sm font-semibold text-green-400">
-                    Elérted a maximális rangot 🎉
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <div className="mx-auto max-w-5xl px-4 py-2">
-        {warning && (
-          <div
-            className="mb-6 rounded-lg border border-yellow-400/40 bg-yellow-500/20 p-4 text-yellow-300"
-            data-cy="rank-warning"
-          >
-            ⚠️ Ha 24 órán belül nem vásárolsz jegyet, visszaesel egy rangot.
-          </div>
-        )}
-      </div>
-
-      <div className="mx-auto max-w-5xl px-4 py-8">
-        <div
-          className="w-full rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-8 shadow-2xl backdrop-blur transition-all"
-          data-cy="profile-info-section"
-        >
-          <h1 className="mb-8 text-3xl font-bold text-[var(--text-main2)]">Profil adatok</h1>
-
-          <div className="mb-8 flex items-center gap-6">
-            <div className="relative h-24 w-24 overflow-hidden rounded-full border border-white/20">
-              <Image
-                alt="Profilkép"
-                className="object-cover"
-                data-cy="profile-image"
-                fill
-                key={profileImage ?? "/profile/default.png"}
-                priority
-                sizes="96px"
-                src={profileImageUrl(profileImage, 96)}
-                unoptimized
-              />
-            </div>
-            <div
-              className={`flex-1 rounded-xl border border-dashed px-4 py-4 text-sm transition ${
-                  isDragging
-                    ? "border-cyan-400 bg-cyan-500/10"
-                    : "border-[var(--border-color)] bg-[var(--card-bg)]"
-                }`}
-              onDragEnter={(e) => {
-                e.preventDefault();
-                setIsDragging(true);
-              }}
-              onDragLeave={(e) => {
-                e.preventDefault();
-                setIsDragging(false);
-              }}
-              onDragOver={(e) => {
-                e.preventDefault();
-                setIsDragging(true);
-              }}
-              onDrop={async (e) => {
-                e.preventDefault();
-                setIsDragging(false);
-
-                const file = e.dataTransfer.files?.[0];
-                await handlePickFile(file);
-              }}
-            >
-              <div className="flex flex-col gap-2">
-                <div className="text-[var(--text-main)]/80">
-                  Húzd ide a képet vagy{" "}
-                  <button
-                    className="cursor-pointer text-[var(--text-main2)] underline hover:text-cyan-200"
-                    data-cy="profile-image-upload-button"
-                    type="button"
-                    onClick={() => fileInputRef.current?.click()}
-                  >
-                    válassz fájlt
-                  </button>
-                </div>
-
-                <input
-                  accept="image/*"
-                  className="hidden"
-                  ref={fileInputRef}
-                  type="file"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    handlePickFile(file);
-
-                    if (fileInputRef.current) {
-                      fileInputRef.current.value = "";
-                    }
-                  }}
-                />
-
-                {profileImage && (
-                  <button
-                    className="w-fit rounded-lg bg-white/10 px-3 py-1 text-xs hover:bg-white/20"
-                    data-cy="profile-image-reset"
-                    type="button"
-                    onClick={resetProfileImage}
-                  >
-                    Alapértelmezett kép
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-2 mb-5 h-5 text-sm">
-            {imageError && (
-              <div className="text-red-400" data-cy="profile-image-error">
-                {imageError}
-              </div>
-            )}
-            {imageMessage && (
-              <div className="text-green-400" data-cy="profile-image-success">
-                {imageMessage}
-              </div>
-            )}
-          </div>
-
-          <div className="mb-6">
-            <label className="text-sm text-[var(--text-main)]/60">Email</label>
-            <input
-              className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
-              data-cy="profile-email"
-              disabled
-              value={user.email}
-            />
-          </div>
-
-          <div className="mb-6">
-            <label className="text-sm text-[var(--text-main)]/60">Név</label>
-            <input
-              className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
-              data-cy="profile-name-input"
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-            />
-          </div>
-
-          <div className="mb-6">
-            <label className="text-sm text-[var(--text-main)]/60">Telefonszám</label>
-            <input
-              className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
-              data-cy="profile-phone-input"
-              placeholder="+36123456789"
-              value={phone || ""}
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </div>
-
-          <div className="mb-6">
-            <label className="text-sm text-[var(--text-main)]/60">Nem</label>
-            <select
-              className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
-              data-cy="profile-gender-select"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-            >
-              <option value="MALE">Férfi</option>
-              <option value="FEMALE">Nő</option>
-              <option value="RATHER_NOT_SAY">Inkább nem adom meg</option>
-            </select>
-          </div>
-
-          <div className="mb-6">
-            <label className="text-sm text-[var(--text-main)]/60">Téma</label>
-
-            <div className="flex items-center gap-3">
-              <span className="text-sm text-[var(--text-soft)]">☀️</span>
-              <button
-                className={`relative h-7 w-14 rounded-full transition ${
-                  theme === "dark" ? "bg-cyan-500" : "bg-gray-300"
-                }`}
-                onClick={() => changeTheme(theme === "dark" ? "light" : "dark")}
-              >
-                <span
-                  className={`absolute top-1 h-5 w-5 rounded-full bg-white transition ${
-                    theme === "dark" ? "left-8" : "left-1"
-                  }`}
-                />
-              </button>
-              <span className="text-sm text-[var(--text-soft)]">🌙</span>
-            </div>
-          </div>
-
-          <button
-            className="mt-4 cursor-pointer rounded-lg bg-[var(--button-bg)] px-6 py-2 font-semibold text-[var(--text-light)] transition hover:bg-cyan-400"
-            data-cy="profile-save-button"
-            onClick={async () => {
-              setError("");
-              setMessage("");
-
-              const res = await fetch("/api/profile", {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  name: newName,
-                  phone_number: phone,
-                  gender,
-                }),
-              });
-
-              const data = await res.json();
-
-              if (!res.ok) {
-                setError(data.message || "Hiba az adatok mentésekor!");
-                return;
-              }
-
-              setMessage("Profil adatok sikeresen frissítve!");
-
-              setUser(data.updatedUser);
-              setNewName(data.updatedUser.name);
-              setPhone(data.updatedUser.phone_number);
-              setGender(data.updatedUser.gender);
-            }}
-          >
-            Adatok mentése
-          </button>
-
-          <div className="mt-12 border-t border-[var(--border-color)] pt-8">
-            <h2 className="mb-4 text-xl font-semibold text-[var(--text-main2)]">
-              {isGoogleUser ? "Jelszó beállítása" : "Jelszó módosítása"}
-            </h2>
-
-            {!isGoogleUser && (
-              <input
-                className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
-                data-cy="profile-old-password"
-                placeholder="Régi jelszó"
-                type="password"
-                value={oldPassword}
-                onChange={(e) => setOldPassword(e.target.value)}
-              />
-            )}
-
-            <input
-              className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
-              data-cy="profile-new-password"
-              placeholder="Új jelszó"
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-            />
-
-            <input
-              className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
-              data-cy="profile-new-password-confirm"
-              placeholder="Új jelszó megerősítése"
-              type="password"
-              value={newPassword2}
-              onChange={(e) => setNewPassword2(e.target.value)}
-            />
-
-            <button
-              className="mt-2 cursor-pointer rounded-lg bg-[var(--button-bg)] px-4 py-2 font-semibold text-[var(--text-light)] hover:bg-cyan-400"
-              data-cy="profile-password-button"
-              onClick={changePassword}
-            >
-              {isGoogleUser ? "Jelszó beállítása" : "Jelszó módosítása"}
-            </button>
-            <label className="mt-4 flex items-center gap-3">
-              <input
-                checked={consent}
-                data-cy="profile-leaderboard-consent"
-                type="checkbox"
-                onChange={async (e) => {
-                  const value = e.target.checked;
-
-                  setConsent(value);
-
-                  await fetch("/api/profile/consent", {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ consent: value }),
-                  });
-                }}
-              />
-              Megjelenek a ranglistán
-            </label>
-          </div>
-
-          <div className="mt-6 h-6 text-center">
-            {error && (
-              <div className="text-red-400" data-cy="profile-error-message">
-                {error}
-              </div>
-            )}
-            {message && (
-              <div className="text-green-400" data-cy="profile-success-message">
-                {message}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      <div className="mx-auto max-w-5xl px-4">
-        <div className="mx-auto max-w-5xl">
-          <button
-            className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
-            data-cy="profile-coupons-toggle"
-            onClick={() => {
-              setShowCoupons((v) => !v);
-              setShowTickets(false);
-              setShowHistory(false);
-            }}
-          >
-            <span>Kuponjaim</span>
-
-            <span className={`text-xl transition ${showCoupons ? "rotate-180" : ""}`}>▼</span>
-          </button>
-
-          <div
-            className={`transition-all duration-500 ease-in-out ${
-              showCoupons
-                ? "mt-4 mb-4 max-h-[70vh] overflow-y-auto opacity-100"
-                : "max-h-0 overflow-hidden opacity-0"
-            }`}
-            data-cy="profile-coupons-section"
-          >
-            <div>
-              {coupons.length === 0 && (
-                <div className="mb-6 text-[var(--text-main)]/60">
-                  Még nincs kuponod. Szerezz pontokat jegyvásárlással!
-                </div>
-              )}
-
-              <div className="grid gap-6 md:grid-cols-2">
-                {coupons.map((coupon) => (
-                  <div
-                    className={`relative overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-5 shadow-xl backdrop-blur ${
-                      coupon.used ? "opacity-40" : ""
-                    }`}
-                    data-coupon-id={coupon.id}
-                    data-cy="coupon-card"
-                    key={coupon.id}
-                  >
-                    <div className="flex items-center gap-5">
-                      <Image
-                        alt="discount"
-                        className="h-24 w-24 object-contain"
-                        height={112}
-                        src={coupon.discounts.image}
-                        width={112}
-                      />
-
-                      <div className="flex-1">
-                        <div className="text-xl font-bold text-[var(--text-main)]">
-                          {coupon.discounts.name}
-                        </div>
-
-                        <div className="mt-1 text-sm text-[var(--text-main)]/60">
-                          {coupon.discounts.description}
-                        </div>
-
-                        <div className="absolute top-3 right-3 rounded bg-cyan-500 px-2 py-1 text-xs font-bold text-black">
-                          -{coupon.discounts.percent}%
-                        </div>
-
-                        {coupon.used && (
-                          <div className="mt-2 font-semibold text-red-400">Felhasználva</div>
-                        )}
-                      </div>
-
-                      {!coupon.used && (
-                        <Image
-                          alt="qr"
-                          className="w-28 rounded-lg bg-white p-2"
-                          data-coupon-id={coupon.id}
-                          data-cy="coupon-qr"
-                          height={112}
-                          src={`/api/email/qr/${coupon.qr_token}`}
-                          width={112}
-                        />
-                      )}
-                    </div>
-
-                    {coupon.used && (
-                      <div className="absolute inset-0 flex items-center justify-center text-4xl font-bold text-red-500/70">
-                        FELHASZNÁLVA
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="mx-auto max-w-5xl px-4">
-        <button
-          className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
-          data-cy="profile-tickets-toggle"
-          onClick={() => {
-            setShowTickets((v) => !v);
-            setShowCoupons(false);
-            setShowHistory(false);
-          }}
-        >
-          <span>Jegyeim</span>
-          <span className={`text-xl transition ${showTickets ? "rotate-180" : ""}`}>▼</span>
-        </button>
-
-        <div
-          className={`transition-all duration-500 ease-in-out ${
-            showTickets
-              ? "mt-4 mb-4 max-h-[70vh] overflow-y-auto opacity-100"
-              : "max-h-0 overflow-hidden opacity-0"
-          }`}
-          data-cy="profile-tickets-section"
-        >
-          <div className="overflow-hidden">
-            {tickets.length === 0 && (
-              <div className="mb-6 text-[var(--text-main)]/60">Még nem vásároltál jegyet.</div>
-            )}
-
-            <div className="grid gap-6">
-              {tickets.map((ticket) => (
-                <div
-                  className="rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 shadow-2xl backdrop-blur"
-                  data-cy="active-ticket-card"
-                  data-ticket-id={ticket.id}
-                  key={ticket.id}
-                >
-                  <div className="flex flex-wrap justify-between gap-6 md:flex-nowrap">
-                    <div>
-                      <h3 className="text-lg font-bold text-[var(--text-main2)]">
-                        {ticket.screenings.movies.title}
-                      </h3>
-
-                      <div className="mt-1 text-sm text-[var(--text-main)]/70">
-                        {new Date(ticket.screenings.start).toLocaleString()}
-                      </div>
-
-                      <div className="mt-3 space-y-1 text-sm">
-                        <div>Terem: {ticket.screenings.halls.name}</div>
-                        <div>Típus: {ticket.screenings.screening_types.type}</div>
-                        <div>
-                          Szék: Sor {ticket.chairs.row} Szék {ticket.chairs.column}
-                        </div>
-                        <div>Jegy típusa: {ticket.ticket_types.type}</div>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col items-end gap-3">
-                      <div className="text-xl font-semibold text-[var(--text-main2)]">
-                        {(ticket.price / 100).toFixed(2)} €
-                      </div>
-
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        alt="qr"
-                        className="w-32 rounded-lg bg-white p-2"
-                        data-cy="ticket-qr"
-                        data-ticket-id={ticket.id}
-                        src={`/api/email/qr/${ticket.qr_token}`}
-                      />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="mx-auto max-w-5xl px-4 pb-32">
-        <button
-          className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
-          data-cy="profile-history-toggle"
-          onClick={() => {
-            setShowHistory((v) => !v);
-            setShowCoupons(false);
-            setShowTickets(false);
-          }}
-        >
-          <span>Vásárlási előzmények</span>
-          <span
-            className={`text-xl transition-transform duration-300 ${
-              showHistory ? "rotate-180" : ""
-            }`}
-          >
-            ▼
-          </span>
-        </button>
-
-        <div
-          className={`transition-all duration-500 ease-in-out ${
-            showHistory
-              ? "mt-4 max-h-[70vh] overflow-y-auto opacity-100"
-              : "max-h-0 overflow-hidden opacity-0"
-          }`}
-          data-cy="profile-history-section"
-        >
-          {history.length > 0 && (
-            <div className="mb-4 flex justify-end">
-              <button
-                className="cursor-pointer rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-[var(--text-light)] transition hover:bg-red-500"
-                data-cy="history-delete-all"
-                onClick={() => setConfirmDeleteAll(true)}
-              >
-                Összes előzmény törlése
-              </button>
-            </div>
-          )}
-          {history.length === 0 && (
-            <div className="mb-6 text-[var(--text-main)]/60">Még nincs lezárt vetítésed.</div>
-          )}
-
-          <div className="grid gap-4">
-            {history.map((ticket) => (
-              <div
-                className="rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)] p-5 backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
-                data-cy="history-ticket-card"
-                data-ticket-id={ticket.id}
-                key={ticket.id}
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="text-lg font-semibold text-[var(--text-main)]">
-                      {ticket.screenings.movies.title}
-                    </div>
-
-                    <div className="mt-1 text-sm text-[var(--text-main)]/60">
-                      {new Date(ticket.screenings.start).toLocaleString()}
-                    </div>
-
-                    <div className="text-sm text-[var(--text-main)]/60">
-                      Terem: {ticket.screenings.halls.name}
-                    </div>
-
-                    <div className="text-sm text-[var(--text-main)]/60">
-                      Jegy: {ticket.ticket_types.type}
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-4">
-                    <div className="text-lg font-bold text-green-400">
-                      {(ticket.price / 100).toFixed(2)} €
-                    </div>
-
-                    <button
-                      className="flex cursor-pointer items-center justify-center rounded-lg bg-red-500/20 p-2 text-red-400 transition hover:bg-red-500/40 hover:text-red-300"
-                      data-cy="history-delete-ticket"
-                      onClick={() => setDeleteTicketId(ticket.id)}
-                    >
-                      <Trash2 size={18} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-4 h-5 text-center text-sm">
-            {historyMessage && (
-              <span
-                className={historyMessage.includes("Hiba") ? "text-red-400" : "text-green-400"}
-                data-cy="history-message"
-              >
-                {historyMessage}
-              </span>
-            )}
-          </div>
-
-          {deleteTicketId && (
-            <div
-              className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm"
-              data-cy="history-delete-modal"
-            >
-              <div className="w-[380px] rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 shadow-2xl">
-                <h2 className="mb-4 text-xl font-bold text-[var(--text-main)]">Jegy törlése</h2>
-
-                <p className="mb-6 text-[var(--text-main)]/70">
-                  Biztos törölni szeretnéd ezt a jegyet a vásárlási előzményekből?
-                </p>
-
-                <div className="flex justify-end gap-3">
-                  <button
-                    className="rounded-lg bg-white/10 px-4 py-2 transition hover:bg-white/20"
-                    data-cy="history-delete-cancel"
-                    onClick={() => setDeleteTicketId(null)}
-                  >
-                    Mégse
-                  </button>
-
-                  <button
-                    className="rounded-lg bg-red-600 px-4 py-2 text-[var(--text-main)] transition hover:bg-red-500"
-                    data-cy="history-delete-confirm"
-                    onClick={() => deleteTicket(deleteTicketId)}
-                  >
-                    Törlés
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {confirmDeleteAll && (
-            <div
-              className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm"
-              data-cy="history-delete-all-modal"
-            >
-              <div className="w-[380px] rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 shadow-2xl">
-                <h2 className="mb-4 text-xl font-bold text-[var(--text-main)]">
-                  Összes előzmény törlése
-                </h2>
-
-                <p className="mb-6 text-[var(--text-main)]/70">
-                  Biztos törölni szeretnéd az összes vásárlási előzményt?
-                </p>
-
-                <div className="flex justify-end gap-3">
-                  <button
-                    className="rounded-lg bg-white/10 px-4 py-2 transition hover:bg-white/20"
-                    data-cy="history-delete-all-cancel"
-                    onClick={() => setConfirmDeleteAll(false)}
-                  >
-                    Mégse
-                  </button>
-
-                  <button
-                    className="rounded-lg bg-red-600 px-4 py-2 text-[var(--text-main)] transition hover:bg-red-500"
-                    data-cy="history-delete-all-confirm"
-                    onClick={deleteAllHistory}
-                  >
-                    Törlés
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+      <RankSection pointsNeeded={pointsNeeded} rankData={rankData} warning={warning} />
+
+      <ProfileInfoSection
+        changePassword={changePassword}
+        changeTheme={changeTheme}
+        consent={consent}
+        fileInputRef={fileInputRef}
+        gender={gender}
+        handlePickFile={handlePickFile}
+        imageError={imageError}
+        imageMessage={imageMessage}
+        isDragging={isDragging}
+        isGoogleUser={isGoogleUser}
+        newName={newName}
+        newPassword={newPassword}
+        newPassword2={newPassword2}
+        oldPassword={oldPassword}
+        passwordError={passwordError}
+        passwordMessage={passwordMessage}
+        phone={phone}
+        profileError={profileError}
+        profileImage={profileImage}
+        profileMessage={profileMessage}
+        resetProfileImage={resetProfileImage}
+        setConsent={setConsent}
+        setGender={setGender}
+        setIsDragging={setIsDragging}
+        setNewName={setNewName}
+        setNewPassword={setNewPassword}
+        setNewPassword2={setNewPassword2}
+        setOldPassword={setOldPassword}
+        setPasswordError={setPasswordError}
+        setPasswordMessage={setPasswordMessage}
+        setPhone={setPhone}
+        setProfileError={setProfileError}
+        setProfileMessage={setProfileMessage}
+        theme={theme}
+        user={user}
+      />
+
+      <AssetsSection
+        confirmDeleteAll={confirmDeleteAll}
+        coupons={coupons}
+        deleteAllHistory={deleteAllHistory}
+        deleteTicket={deleteTicket}
+        deleteTicketId={deleteTicketId}
+        history={history}
+        historyMessage={historyMessage}
+        setConfirmDeleteAll={setConfirmDeleteAll}
+        setDeleteTicketId={setDeleteTicketId}
+        setHistoryMessage={setHistoryMessage}
+        setShowCoupons={setShowCoupons}
+        setShowHistory={setShowHistory}
+        setShowTickets={setShowTickets}
+        showCoupons={showCoupons}
+        showHistory={showHistory}
+        showTickets={showTickets}
+        tickets={tickets}
+      />
     </div>
   );
 }

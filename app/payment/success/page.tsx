@@ -46,6 +46,12 @@ export default function PaymentSuccessPage() {
           return;
         }
 
+        const data = await confirm.json();
+
+        if (data.rankUp) {
+          sessionStorage.setItem("rankUp", JSON.stringify(data.rankUp));
+        }
+
         router.push("/profile");
 
       } catch {

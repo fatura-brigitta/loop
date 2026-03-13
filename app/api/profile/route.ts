@@ -45,6 +45,27 @@ export async function GET() {
       );
     }
 
+    const correctRank = await prisma.rank.findFirst({
+      where: {
+        point_limit: {
+          lte: user.points
+        }
+      },
+      orderBy: {
+        point_limit: "desc"
+      }
+    });
+
+    if (correctRank && correctRank.id !== user.rank_id) {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          rank_id: correctRank.id
+        }
+      });
+      user.ranks = correctRank;
+    }
+
     const now = new Date();
 
     let diffDays = 0;

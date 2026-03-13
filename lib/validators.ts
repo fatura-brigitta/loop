@@ -61,7 +61,7 @@ export const profilePatchSchema = z.object({
 
 export const profilePasswordSchema = z.object({
   oldPassword: z.string().nullable().optional(),
-  newPassword: z.string().min(8).max(100),
+  newPassword: z.string().min(5).max(100),
 });
 
 export const adminLoginSchema = z.object({

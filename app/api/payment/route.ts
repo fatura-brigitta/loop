@@ -314,6 +314,7 @@ async function handleConfirm(req: NextRequest) {
 
     const createdTicketIds: string[] = [];
     let totalSpent = 0;
+    let rankUp: null | { name: string; image: string } = null;
 
     await prisma.$transaction(async (tx) => {
 
@@ -365,14 +366,15 @@ async function handleConfirm(req: NextRequest) {
       });
 
       const totalEuro = totalSpent / 100;
-      const gainedPoints = Math.round(totalEuro * 4);
+      const gainedPoints = Math.round(totalEuro * 6);
 
       const user = await tx.user.findUnique({
         where: { id: session.user_id },
         include: { ranks: true }
       });
 
-      const newPoints = user!.points + gainedPoints;
+      const oldPoints = user!.points;
+      const newPoints = oldPoints + gainedPoints;
 
       await tx.user.update({
         where: { id: session.user_id },
@@ -382,38 +384,42 @@ async function handleConfirm(req: NextRequest) {
         }
       });
 
-      const newRanks = await tx.rank.findMany({
+      const newRank = await tx.rank.findFirst({
         where: {
           point_limit: {
-            lte: newPoints,
-            gt: user!.points
+            lte: newPoints
           }
         },
-        orderBy: { point_limit: "asc" }
+        orderBy: {
+          point_limit: "desc"
+        }
       });
 
-      for (const rank of newRanks) {
-        if (rank.discount_id) {
-          await tx.coupon.create({
-            data: {
-              user_id: session.user_id,
-              discount_id: rank.discount_id,
-              qr_token: generateQrToken()
-            }
-          });
+      if (newRank && newRank.id !== user!.rank_id) {
+        const oldLimit = user!.ranks?.point_limit ?? 0;
+
+        if (newRank.point_limit > oldLimit) {
+          rankUp = {
+            name: newRank.name,
+            image: newRank.image
+          };
+
+          if (newRank.discount_id) {
+            await tx.coupon.create({
+              data: {
+                user_id: session.user_id,
+                discount_id: newRank.discount_id,
+                qr_token: generateQrToken()
+              }
+            });
+          }
         }
-      }
-
-      if (newRanks.length > 0) {
-
-        const highestRank = newRanks[newRanks.length - 1];
 
         await tx.user.update({
           where: { id: session.user_id },
-          data: { rank_id: highestRank.id }
+          data: { rank_id: newRank.id }
         });
       }
-
     });
 
     const tickets = await prisma.ticket.findMany({
@@ -439,8 +445,8 @@ async function handleConfirm(req: NextRequest) {
     });
 
     const res = NextResponse.json(
-      { ok: true },
-      { headers: { "Cache-Control": "no-store" } }
+      { ok: true, rankUp},
+      { headers: { "Cache-Control": "no-store" } },
     );
 
     res.cookies.set("paymentSessionId", "", {

@@ -35,6 +35,33 @@ export default function Leaderboard() {
     return () => window.removeEventListener("profile-updated", reload);
   }, []);
 
+  useEffect(() => {
+    const load = async () => {
+      const res = await fetch("/api/home/leaderboard?ts=" + Date.now(), {
+        cache: "no-store",
+      });
+
+      if (!res.ok) return;
+
+      const data = await res.json();
+      setUsers(data);
+    };
+
+    load();
+
+    const reload = () => load();
+
+    window.addEventListener("profile-updated", reload);
+
+    const interval = setInterval(load, 15000);
+
+    return () => {
+      window.removeEventListener("profile-updated", reload);
+      clearInterval(interval);
+    };
+
+  }, []);
+
   if (users.length < 3) return null;
 
   const first = users[0];

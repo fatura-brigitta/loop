@@ -461,7 +461,7 @@ export default function ForumPage() {
                           data-cy="forum-reply-toggle"
                           onClick={() => setReplyOpenFor(replyOpenFor === c.id ? null : c.id)}
                         >
-                          Válasz
+                          Válasz írása
                         </button>
 
                         {(c.replies?.length ?? 0) > 0 && (
@@ -512,9 +512,22 @@ export default function ForumPage() {
                         </div>
                       )}
 
-                      {repliesOpen[c.id] && (c.replies?.length ?? 0) > 0 && (
+                      {(c.replies?.length ?? 0) > 0 && (
                         <div className="mt-4 space-y-3 border-l border-[var(--border-color)] pl-4" data-cy="forum-replies">
-                          {(c.replies ?? []).map((r) => (
+
+                          {(c.replies?.length ?? 0) > 1 && !repliesOpen[c.id] && (
+                            <button
+                              className="cursor-pointer text-slate-400 hover:text-cyan-300"
+                              onClick={() => toggleReplies(c.id)}
+                            >
+                              {(c.replies?.length ?? 0) - 1} további válasz
+                            </button>
+                          )}
+
+                          {(repliesOpen[c.id]
+                            ? c.replies
+                            : c.replies?.slice(-1)
+                          )?.map((r) => (
                             <div
                               className="flex gap-3 rounded-xl border border-[var(--border-color)] bg-[var(--bg-main)]/35 p-3"
                               key={r.id}

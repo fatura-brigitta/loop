@@ -1251,7 +1251,7 @@ async function loadModeration() {
         <>
         <h1 className="text-2xl font-semibold">Nyitvatartás kezelése</h1>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-        <section className="p-5 bg-white/5 border border-white/10 rounded-xl">
+        <section className="p-5 bg-white/5 border border-white/10 rounded-xl self-start">
 
         <h2 className="font-semibold mb-4">Általános nyitvatartás</h2>
         {openingHours.map((d,i)=>(
@@ -1415,7 +1415,8 @@ async function loadModeration() {
           </button>
 
           </div>
-          {openingOverrides.map(o=>(
+          <div className="space-y-2 max-h-[520px] overflow-y-auto pr-2 custom-scroll">
+            {openingOverrides.map(o=>(
 
             <div
             key={o.id}
@@ -1448,6 +1449,7 @@ async function loadModeration() {
             </div>
 
             ))}
+          </div>
         </section>
         </div>
         </>

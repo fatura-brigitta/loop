@@ -1,1 +1,262 @@
-[{"_id":{"$oid":"69b05a5773454b614262f505"},"name":"Szabó Péter","email":"liszkai.dominik@students.jedlik.eu","password_hash":"$2b$10$OvGqsgGbG6f2/QOAJX0xwe2klHXyxv/8AFclQRue0DkUEDJP6st6O","points":418,"phone_number":"+36208231456","profile_image":"loop/profile/69b05a5773454b614262f505_1773401321234","gender":"FEMALE","consent":false,"email_verified":true,"email_code":null,"email_code_exp":null,"password_reset_token":null,"password_reset_exp":null,"auth_provider":"local","last_ticket_at":{"$date":"2026-03-10T22:02:32.873Z"},"rank_id":{"$oid":"aa0000000000000000000003"},"theme":"dark"},{"_id":{"$oid":"69b059a0022f50b53e8cd4bc"},"name":"Pongrácz Elvira","email":"dominikliszkai3@gmail.com","password_hash":"$2b$10$S8DRwgh9FWtOFU11Zzu1i.FtuTlPexTGDrgUGeKWP.Q4kNVOh6fLm","points":150,"phone_number":"+36308634582","profile_image":"loop/profile/69b059a0022f50b53e8cd4bc_1773687238332","gender":"FEMALE","consent":false,"email_verified":true,"email_code":null,"email_code_exp":null,"password_reset_token":null,"password_reset_exp":null,"auth_provider":"local","last_ticket_at":{"$date":"2026-03-10T21:34:39.337Z"},"rank_id":{"$oid":"aa0000000000000000000001"},"theme":"dark"},{"_id":{"$oid":"69a08424223cb1c5a0fa3bc2"},"name":"Ajsa Sándor","email":"sandor.ajsa2006@gmail.com","password_hash":"$2b$10$xeK88JiPE6PgAD1DvZd6WO5b9NPff0mGjwXaibTMDJJGMxzZr7ppC","points":729,"phone_number":"+36703448513","profile_image":"loop/profile/69a08424223cb1c5a0fa3bc2_1773687341024","gender":"FEMALE","consent":false,"email_verified":true,"email_code":null,"email_code_exp":null,"password_reset_token":null,"password_reset_exp":null,"auth_provider":"local","last_ticket_at":{"$date":"2026-03-10T21:52:41.447Z"},"rank_id":{"$oid":"aa0000000000000000000004"},"theme":"dark"},{"_id":{"$oid":"69a8bac00be9deae59d32d8f"},"name":"Brigi Fatura","email":"csibebrigi05@gmail.com","password_hash":"$2b$10$y/ZQkp5I/2tNVc1HgtaaIu/OT81ZIAhDcC0dTF83xzf.zGRYcmeuW","points":1305,"phone_number":"+421902585867","profile_image":"https://lh3.googleusercontent.com/a/ACg8ocImxEXvgT7sCxmxVOztT7D2Bv1NfGocVTvNKxGVffb0yFIF1inM=s96-c","gender":"FEMALE","consent":false,"email_verified":true,"email_code":null,"email_code_exp":null,"password_reset_token":null,"password_reset_exp":null,"auth_provider":"google","last_ticket_at":{"$date":"2026-03-10T19:54:27.028Z"},"rank_id":{"$oid":"aa0000000000000000000004"},"theme":"dark"},{"_id":{"$oid":"69b07ac15ac15f8d20718d20"},"name":"Martin","email":"liszkaimartin16@gmail.com","password_hash":"$2b$10$W.ngKucFaJVlyLADph6Z0OlN/WXNVa2rR.56E67KatbULAnncuyg2","points":215,"phone_number":"+36301239871","profile_image":"loop/profile/69b07ac15ac15f8d20718d20_1773331367084","gender":"MALE","consent":true,"email_verified":true,"email_code":null,"email_code_exp":null,"password_reset_token":null,"password_reset_exp":null,"auth_provider":"local","last_ticket_at":{"$date":"2026-03-10T22:14:25.396Z"},"rank_id":{"$oid":"aa0000000000000000000002"},"theme":"dark"},{"_id":{"$oid":"69b07c4b0856480c26492b60"},"name":"Liszkai Dominik","email":"dominikliszkai8@gmail.com","password_hash":"$2b$12$CccgbkZQD8OldGtBDzVA..OEkwhWR2S5scBPDUWEg1WDT2zVM65vi","points":250,"phone_number":"+36307564589","profile_image":"loop/profile/69b07c4b0856480c26492b60_1773417337673","gender":"MALE","consent":false,"email_verified":true,"email_code":null,"email_code_exp":null,"password_reset_token":null,"password_reset_exp":null,"auth_provider":"local","last_ticket_at":{"$date":"2026-03-10T20:34:34.49Z"},"rank_id":{"$oid":"aa0000000000000000000002"},"theme":"dark"},{"_id":{"$oid":"69b07c7d9d983dfbdbf98d5b"},"name":"Dobrí László","email":"faturabrigi@gmail.com","password_hash":"$2b$10$xw48H6qqE3hMzokSy/9jP.HL1/67PbRvNieN2GAko7gdO3Xouaow.","points":466,"phone_number":"+421902585869","profile_image":"loop/profile/69b07c7d9d983dfbdbf98d5b_1773318107682","gender":"MALE","consent":true,"email_verified":true,"email_code":null,"email_code_exp":null,"password_reset_token":null,"password_reset_exp":null,"auth_provider":"local","last_ticket_at":{"$date":"2026-03-10T20:24:10.545Z"},"rank_id":{"$oid":"aa0000000000000000000003"},"theme":"light"},{"_id":{"$oid":"69b07962962d6bd0372e0ab3"},"name":"Fatura Tomi","email":"loxsyabrawl5@gmail.com","password_hash":"$2b$10$XXd.tCncu1w3CiudQIVeWO4x4LC/qqiTND3IOg0ggFO/58S5rGPru","points":927,"phone_number":"+421904855049","profile_image":"loop/profile/69b07962962d6bd0372e0ab3_1773687552405","gender":"MALE","consent":true,"email_verified":true,"email_code":null,"email_code_exp":null,"password_reset_token":null,"password_reset_exp":null,"auth_provider":"local","last_ticket_at":{"$date":"2026-03-10T20:22:27.995Z"},"rank_id":{"$oid":"aa0000000000000000000005"},"theme":"light"},{"_id":{"$oid":"69b081b6fd79b8a73d843538"},"name":"Kovacs Lacika","email":"profocista2@gmail.com","password_hash":"$2b$10$souRNxOsqeRoKTjlUNi2puKrwB3h0SFgmB60OPG/d/COky0.2J7N.","points":431,"phone_number":"+421904855676","profile_image":"loop/profile/69b081b6fd79b8a73d843538_1773687601841","gender":"MALE","consent":false,"email_verified":true,"email_code":null,"email_code_exp":null,"password_reset_token":null,"password_reset_exp":null,"auth_provider":"local","last_ticket_at":{"$date":"2026-03-10T20:57:55.169Z"},"rank_id":{"$oid":"aa0000000000000000000003"},"theme":"light"},{"_id":{"$oid":"69b088bee91d367d72802ca2"},"name":"Laskó Patrícia","email":"fatura.brigitta@students.jedlik.eu","password_hash":"$2b$10$jc2okhsbDZfC3m3wxMkd.O5AH99HhahHjX26hAdVmnS7z943SGoD6","points":367,"phone_number":"+421902585367","profile_image":"loop/profile/69b088bee91d367d72802ca2_1773687656890","gender":"FEMALE","consent":false,"email_verified":true,"email_code":null,"email_code_exp":null,"password_reset_token":null,"password_reset_exp":null,"auth_provider":"local","last_ticket_at":{"$date":"2026-03-10T21:23:08.607Z"},"rank_id":{"$oid":"aa0000000000000000000002"},"theme":"dark"}]
+[
+    {
+        "_id": {
+            "$oid": "69b05a5773454b614262f505"
+        },
+        "name": "Szabó Péter",
+        "email": "liszkai.dominik@students.jedlik.eu",
+        "password_hash": "$2b$10$OvGqsgGbG6f2/QOAJX0xwe2klHXyxv/8AFclQRue0DkUEDJP6st6O",
+        "points": 418,
+        "phone_number": "+36208231456",
+        "profile_image": "loop/profile/69b05a5773454b614262f505_1773401321234",
+        "gender": "FEMALE",
+        "consent": false,
+        "email_verified": true,
+        "email_code": null,
+        "email_code_exp": null,
+        "password_reset_token": null,
+        "password_reset_exp": null,
+        "auth_provider": "local",
+        "last_ticket_at": {
+            "$date": "2026-03-10T22:02:32.873Z"
+        },
+        "rank_id": {
+            "$oid": "aa0000000000000000000003"
+        },
+        "theme": "dark"
+    },
+    {
+        "_id": {
+            "$oid": "69b059a0022f50b53e8cd4bc"
+        },
+        "name": "Pongrácz Elvira",
+        "email": "dominikliszkai3@gmail.com",
+        "password_hash": "$2b$10$S8DRwgh9FWtOFU11Zzu1i.FtuTlPexTGDrgUGeKWP.Q4kNVOh6fLm",
+        "points": 150,
+        "phone_number": "+36308634582",
+        "profile_image": "loop/profile/69b059a0022f50b53e8cd4bc_1773687238332",
+        "gender": "FEMALE",
+        "consent": false,
+        "email_verified": true,
+        "email_code": null,
+        "email_code_exp": null,
+        "password_reset_token": null,
+        "password_reset_exp": null,
+        "auth_provider": "local",
+        "last_ticket_at": {
+            "$date": "2026-03-10T21:34:39.337Z"
+        },
+        "rank_id": {
+            "$oid": "aa0000000000000000000001"
+        },
+        "theme": "dark"
+    },
+    {
+        "_id": {
+            "$oid": "69a08424223cb1c5a0fa3bc2"
+        },
+        "name": "Ajsa Sándor",
+        "email": "sandor.ajsa2006@gmail.com",
+        "password_hash": "$2b$10$xeK88JiPE6PgAD1DvZd6WO5b9NPff0mGjwXaibTMDJJGMxzZr7ppC",
+        "points": 729,
+        "phone_number": "+36703448513",
+        "profile_image": "loop/profile/69a08424223cb1c5a0fa3bc2_1773687341024",
+        "gender": "FEMALE",
+        "consent": false,
+        "email_verified": true,
+        "email_code": null,
+        "email_code_exp": null,
+        "password_reset_token": null,
+        "password_reset_exp": null,
+        "auth_provider": "local",
+        "last_ticket_at": {
+            "$date": "2026-03-10T21:52:41.447Z"
+        },
+        "rank_id": {
+            "$oid": "aa0000000000000000000004"
+        },
+        "theme": "dark"
+    },
+    {
+        "_id": {
+            "$oid": "69a8bac00be9deae59d32d8f"
+        },
+        "name": "Brigi Fatura",
+        "email": "csibebrigi05@gmail.com",
+        "password_hash": "$2b$10$y/ZQkp5I/2tNVc1HgtaaIu/OT81ZIAhDcC0dTF83xzf.zGRYcmeuW",
+        "points": 1305,
+        "phone_number": "+421902585867",
+        "profile_image": "https://lh3.googleusercontent.com/a/ACg8ocImxEXvgT7sCxmxVOztT7D2Bv1NfGocVTvNKxGVffb0yFIF1inM=s96-c",
+        "gender": "FEMALE",
+        "consent": false,
+        "email_verified": true,
+        "email_code": null,
+        "email_code_exp": null,
+        "password_reset_token": null,
+        "password_reset_exp": null,
+        "auth_provider": "google",
+        "last_ticket_at": {
+            "$date": "2026-03-10T19:54:27.028Z"
+        },
+        "rank_id": {
+            "$oid": "aa0000000000000000000004"
+        },
+        "theme": "dark"
+    },
+    {
+        "_id": {
+            "$oid": "69b07ac15ac15f8d20718d20"
+        },
+        "name": "Martin",
+        "email": "liszkaimartin16@gmail.com",
+        "password_hash": "$2b$10$W.ngKucFaJVlyLADph6Z0OlN/WXNVa2rR.56E67KatbULAnncuyg2",
+        "points": 215,
+        "phone_number": "+36301239871",
+        "profile_image": "loop/profile/69b07ac15ac15f8d20718d20_1773331367084",
+        "gender": "MALE",
+        "consent": true,
+        "email_verified": true,
+        "email_code": null,
+        "email_code_exp": null,
+        "password_reset_token": null,
+        "password_reset_exp": null,
+        "auth_provider": "local",
+        "last_ticket_at": {
+            "$date": "2026-03-10T22:14:25.396Z"
+        },
+        "rank_id": {
+            "$oid": "aa0000000000000000000002"
+        },
+        "theme": "dark"
+    },
+    {
+        "_id": {
+            "$oid": "69b07c4b0856480c26492b60"
+        },
+        "name": "Liszkai Dominik",
+        "email": "dominikliszkai8@gmail.com",
+        "password_hash": "$2b$12$CccgbkZQD8OldGtBDzVA..OEkwhWR2S5scBPDUWEg1WDT2zVM65vi",
+        "points": 250,
+        "phone_number": "+36307564589",
+        "profile_image": "loop/profile/69b07c4b0856480c26492b60_1773417337673",
+        "gender": "MALE",
+        "consent": false,
+        "email_verified": true,
+        "email_code": null,
+        "email_code_exp": null,
+        "password_reset_token": null,
+        "password_reset_exp": null,
+        "auth_provider": "local",
+        "last_ticket_at": {
+            "$date": "2026-03-10T20:34:34.49Z"
+        },
+        "rank_id": {
+            "$oid": "aa0000000000000000000002"
+        },
+        "theme": "dark"
+    },
+    {
+        "_id": {
+            "$oid": "69b07c7d9d983dfbdbf98d5b"
+        },
+        "name": "Dobrí László",
+        "email": "faturabrigi@gmail.com",
+        "password_hash": "$2b$10$xw48H6qqE3hMzokSy/9jP.HL1/67PbRvNieN2GAko7gdO3Xouaow.",
+        "points": 466,
+        "phone_number": "+421902585869",
+        "profile_image": "loop/profile/69b07c7d9d983dfbdbf98d5b_1773318107682",
+        "gender": "MALE",
+        "consent": true,
+        "email_verified": true,
+        "email_code": null,
+        "email_code_exp": null,
+        "password_reset_token": null,
+        "password_reset_exp": null,
+        "auth_provider": "local",
+        "last_ticket_at": {
+            "$date": "2026-03-10T20:24:10.545Z"
+        },
+        "rank_id": {
+            "$oid": "aa0000000000000000000003"
+        },
+        "theme": "light"
+    },
+    {
+        "_id": {
+            "$oid": "69b07962962d6bd0372e0ab3"
+        },
+        "name": "Fatura Tomi",
+        "email": "loxsyabrawl5@gmail.com",
+        "password_hash": "$2b$10$XXd.tCncu1w3CiudQIVeWO4x4LC/qqiTND3IOg0ggFO/58S5rGPru",
+        "points": 927,
+        "phone_number": "+421904855049",
+        "profile_image": "loop/profile/69b07962962d6bd0372e0ab3_1773687552405",
+        "gender": "MALE",
+        "consent": true,
+        "email_verified": true,
+        "email_code": null,
+        "email_code_exp": null,
+        "password_reset_token": null,
+        "password_reset_exp": null,
+        "auth_provider": "local",
+        "last_ticket_at": {
+            "$date": "2026-03-10T20:22:27.995Z"
+        },
+        "rank_id": {
+            "$oid": "aa0000000000000000000005"
+        },
+        "theme": "light"
+    },
+    {
+        "_id": {
+            "$oid": "69b081b6fd79b8a73d843538"
+        },
+        "name": "Kovacs Lacika",
+        "email": "profocista2@gmail.com",
+        "password_hash": "$2b$10$souRNxOsqeRoKTjlUNi2puKrwB3h0SFgmB60OPG/d/COky0.2J7N.",
+        "points": 431,
+        "phone_number": "+421904855676",
+        "profile_image": "loop/profile/69b081b6fd79b8a73d843538_1773687601841",
+        "gender": "MALE",
+        "consent": false,
+        "email_verified": true,
+        "email_code": null,
+        "email_code_exp": null,
+        "password_reset_token": null,
+        "password_reset_exp": null,
+        "auth_provider": "local",
+        "last_ticket_at": {
+            "$date": "2026-03-10T20:57:55.169Z"
+        },
+        "rank_id": {
+            "$oid": "aa0000000000000000000003"
+        },
+        "theme": "light"
+    },
+    {
+        "_id": {
+            "$oid": "69b088bee91d367d72802ca2"
+        },
+        "name": "Laskó Patrícia",
+        "email": "fatura.brigitta@students.jedlik.eu",
+        "password_hash": "$2b$10$jc2okhsbDZfC3m3wxMkd.O5AH99HhahHjX26hAdVmnS7z943SGoD6",
+        "points": 367,
+        "phone_number": "+421902585367",
+        "profile_image": "loop/profile/69b088bee91d367d72802ca2_1773687656890",
+        "gender": "FEMALE",
+        "consent": false,
+        "email_verified": true,
+        "email_code": null,
+        "email_code_exp": null,
+        "password_reset_token": null,
+        "password_reset_exp": null,
+        "auth_provider": "local",
+        "last_ticket_at": {
+            "$date": "2026-03-10T21:23:08.607Z"
+        },
+        "rank_id": {
+            "$oid": "aa0000000000000000000002"
+        },
+        "theme": "dark"
+    }
+]

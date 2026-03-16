@@ -1,1 +1,38 @@
-[{"_id":{"$oid":"c00000000000000000000002"},"name":"Nachos -20%","description":"20% kedvezmény nachos snackre és sajtszószra a moziban.","image":"/discounts/discount2.png","percent":20},{"_id":{"$oid":"c00000000000000000000001"},"name":"Popcorn -10%","description":"10% kedvezmény bármely popcorn vásárlásakor a Loop Mozi büféjében.","image":"/discounts/discount1.png","percent":10},{"_id":{"$oid":"c00000000000000000000004"},"name":"Ticket -80%","description":"80% kedvezmény egy választható vetítésre.","image":"/discounts/discount4.png","percent":80},{"_id":{"$oid":"c00000000000000000000003"},"name":"Üdítő -50%","description":"50% kedvezmény egy üdítőitalra a Loop Mozi büféjében.","image":"/discounts/discount3.png","percent":50}]
+[
+    {
+        "_id": {
+            "$oid": "c00000000000000000000002"
+        },
+        "name": "Nachos -20%",
+        "description": "20% kedvezmény nachos snackre és sajtszószra a moziban.",
+        "image": "/discounts/discount2.png",
+        "percent": 20
+    },
+    {
+        "_id": {
+            "$oid": "c00000000000000000000001"
+        },
+        "name": "Popcorn -10%",
+        "description": "10% kedvezmény bármely popcorn vásárlásakor a Loop Mozi büféjében.",
+        "image": "/discounts/discount1.png",
+        "percent": 10
+    },
+    {
+        "_id": {
+            "$oid": "c00000000000000000000004"
+        },
+        "name": "Ticket -80%",
+        "description": "80% kedvezmény egy választható vetítésre.",
+        "image": "/discounts/discount4.png",
+        "percent": 80
+    },
+    {
+        "_id": {
+            "$oid": "c00000000000000000000003"
+        },
+        "name": "Üdítő -50%",
+        "description": "50% kedvezmény egy üdítőitalra a Loop Mozi büféjében.",
+        "image": "/discounts/discount3.png",
+        "percent": 50
+    }
+]

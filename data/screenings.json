@@ -1,1 +1,3742 @@
-[{"_id":{"$oid":"69959bc4ce6af829da5e196c"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69959b9bce6af829da5e196b"},"start":{"$date":"2026-03-01T13:00:00Z"},"end":{"$date":"2026-03-01T15:22:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"699dbfd08ba23db6a1aa52d5"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69959b9bce6af829da5e196b"},"start":{"$date":"2026-02-25T13:50:00Z"},"end":{"$date":"2026-02-25T16:27:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69a08745223cb1c5a0fa3bcf"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69a086c0223cb1c5a0fa3bce"},"start":{"$date":"2026-02-26T15:00:00Z"},"end":{"$date":"2026-02-26T15:39:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"6996fac48b9cf2cad7e001a6"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"f00000000000000000000010"},"start":{"$date":"2026-02-20T11:30:00Z"},"end":{"$date":"2026-02-20T13:57:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000003"}},{"_id":{"$oid":"69adbda65ffc806f7ecff493"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"f00000000000000000000002"},"start":{"$date":"2026-03-09T11:00:00Z"},"end":{"$date":"2026-03-09T14:04:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b058459d983dfbdbf98c34"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b023729d983dfbdbf98b32"},"start":{"$date":"2026-03-11T09:00:00Z"},"end":{"$date":"2026-03-11T11:05:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b058619d983dfbdbf98c35"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-11T11:10:00Z"},"end":{"$date":"2026-03-11T13:19:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b0588f9d983dfbdbf98c36"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b02dba9d983dfbdbf98b3a"},"start":{"$date":"2026-03-11T13:25:00Z"},"end":{"$date":"2026-03-11T15:32:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"699dc2808ba23db6a1aa52d7"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69959b9bce6af829da5e196b"},"start":{"$date":"2026-02-25T14:00:00Z"},"end":{"$date":"2026-02-25T16:37:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b058ce9d983dfbdbf98c38"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b026e69d983dfbdbf98b33"},"start":{"$date":"2026-03-11T18:00:00Z"},"end":{"$date":"2026-03-11T20:31:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b058b39d983dfbdbf98c37"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b01f8d9d983dfbdbf98b2e"},"start":{"$date":"2026-03-11T15:35:00Z"},"end":{"$date":"2026-03-11T17:55:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b0590b9d983dfbdbf98c3a"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-11T12:15:00Z"},"end":{"$date":"2026-03-11T15:30:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b058f59d983dfbdbf98c39"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b02bd59d983dfbdbf98b38"},"start":{"$date":"2026-03-11T09:00:00Z"},"end":{"$date":"2026-03-11T12:14:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b059249d983dfbdbf98c3b"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"f00000000000000000000010"},"start":{"$date":"2026-03-11T15:30:00Z"},"end":{"$date":"2026-03-11T17:57:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000003"}},{"_id":{"$oid":"69982f9ddadc3c6d2632079c"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"f00000000000000000000010"},"start":{"$date":"2026-02-20T09:00:00Z"},"end":{"$date":"2026-02-20T11:27:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"699f6dab514aed9e44b454f3"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69959b9bce6af829da5e196b"},"start":{"$date":"2026-02-26T13:00:00Z"},"end":{"$date":"2026-02-26T15:37:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69982f35dadc3c6d2632079b"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"f00000000000000000000010"},"start":{"$date":"2026-02-20T13:30:00Z"},"end":{"$date":"2026-02-20T15:57:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b059749d983dfbdbf98c3c"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b027b79d983dfbdbf98b34"},"start":{"$date":"2026-03-11T18:00:00Z"},"end":{"$date":"2026-03-11T20:23:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b059a19d983dfbdbf98c3d"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-11T09:15:00Z"},"end":{"$date":"2026-03-11T11:24:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b059cc9d983dfbdbf98c3e"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b01f8d9d983dfbdbf98b2e"},"start":{"$date":"2026-03-11T11:30:00Z"},"end":{"$date":"2026-03-11T13:50:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b059da9d983dfbdbf98c3f"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b01b729d983dfbdbf98b2d"},"start":{"$date":"2026-03-11T13:55:00Z"},"end":{"$date":"2026-03-11T16:08:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000003"}},{"_id":{"$oid":"69b059f29d983dfbdbf98c40"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"f00000000000000000000010"},"start":{"$date":"2026-03-11T16:15:00Z"},"end":{"$date":"2026-03-11T18:42:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05a389d983dfbdbf98c42"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-11T09:10:00Z"},"end":{"$date":"2026-03-11T12:25:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b05a059d983dfbdbf98c41"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-11T18:50:00Z"},"end":{"$date":"2026-03-11T20:59:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05a509d983dfbdbf98c43"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b02bd59d983dfbdbf98b38"},"start":{"$date":"2026-03-11T12:30:00Z"},"end":{"$date":"2026-03-11T15:44:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b05a7c9d983dfbdbf98c45"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b027b79d983dfbdbf98b34"},"start":{"$date":"2026-03-11T17:55:00Z"},"end":{"$date":"2026-03-11T20:18:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b05a609d983dfbdbf98c44"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b02dba9d983dfbdbf98b3a"},"start":{"$date":"2026-03-11T15:45:00Z"},"end":{"$date":"2026-03-11T17:52:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05af69d983dfbdbf98c49"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b01b729d983dfbdbf98b2d"},"start":{"$date":"2026-03-11T17:10:00Z"},"end":{"$date":"2026-03-11T19:23:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b05b1c9d983dfbdbf98c4a"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b02bd59d983dfbdbf98b38"},"start":{"$date":"2026-03-11T09:05:00Z"},"end":{"$date":"2026-03-11T12:19:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b05a959d983dfbdbf98c46"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-11T09:20:00Z"},"end":{"$date":"2026-03-11T12:35:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b05adc9d983dfbdbf98c48"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-11T15:00:00Z"},"end":{"$date":"2026-03-11T17:09:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b05ab19d983dfbdbf98c47"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b01b729d983dfbdbf98b2d"},"start":{"$date":"2026-03-11T12:45:00Z"},"end":{"$date":"2026-03-11T14:58:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b05b669d983dfbdbf98c4c"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b02dba9d983dfbdbf98b3a"},"start":{"$date":"2026-03-11T15:05:00Z"},"end":{"$date":"2026-03-11T17:12:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b05b529d983dfbdbf98c4b"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b026e69d983dfbdbf98b33"},"start":{"$date":"2026-03-11T12:30:00Z"},"end":{"$date":"2026-03-11T15:01:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b05c089d983dfbdbf98c4e"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-12T09:00:00Z"},"end":{"$date":"2026-03-12T12:32:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05c189d983dfbdbf98c4f"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b023729d983dfbdbf98b32"},"start":{"$date":"2026-03-12T12:45:00Z"},"end":{"$date":"2026-03-12T14:50:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05c259d983dfbdbf98c50"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b01f8d9d983dfbdbf98b2e"},"start":{"$date":"2026-03-12T15:00:00Z"},"end":{"$date":"2026-03-12T17:20:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05c899d983dfbdbf98c52"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b023729d983dfbdbf98b32"},"start":{"$date":"2026-03-12T09:10:00Z"},"end":{"$date":"2026-03-12T11:15:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b05c699d983dfbdbf98c51"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b026e69d983dfbdbf98b33"},"start":{"$date":"2026-03-12T17:25:00Z"},"end":{"$date":"2026-03-12T19:56:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05b769d983dfbdbf98c4d"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-11T17:15:00Z"},"end":{"$date":"2026-03-11T20:30:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b05c979d983dfbdbf98c53"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-12T11:15:00Z"},"end":{"$date":"2026-03-12T13:24:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05ca79d983dfbdbf98c54"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-12T13:30:00Z"},"end":{"$date":"2026-03-12T17:02:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05cbc9d983dfbdbf98c55"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b02bd59d983dfbdbf98b38"},"start":{"$date":"2026-03-12T17:10:00Z"},"end":{"$date":"2026-03-12T20:24:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b05ccd9d983dfbdbf98c56"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b02dba9d983dfbdbf98b3a"},"start":{"$date":"2026-03-12T09:05:00Z"},"end":{"$date":"2026-03-12T11:12:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05d589d983dfbdbf98c5c"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b02bd59d983dfbdbf98b38"},"start":{"$date":"2026-03-12T12:15:00Z"},"end":{"$date":"2026-03-12T15:29:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05cf29d983dfbdbf98c58"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b01f8d9d983dfbdbf98b2e"},"start":{"$date":"2026-03-12T13:25:00Z"},"end":{"$date":"2026-03-12T15:45:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05d299d983dfbdbf98c5a"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b030b19d983dfbdbf98b3d"},"start":{"$date":"2026-03-12T18:00:00Z"},"end":{"$date":"2026-03-12T20:05:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b05d7a9d983dfbdbf98c5e"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-12T17:30:00Z"},"end":{"$date":"2026-03-12T19:39:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05da29d983dfbdbf98c61"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b02c7e9d983dfbdbf98b39"},"start":{"$date":"2026-03-12T13:25:00Z"},"end":{"$date":"2026-03-12T15:21:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b05d449d983dfbdbf98c5b"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-12T09:00:00Z"},"end":{"$date":"2026-03-12T12:15:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05d689d983dfbdbf98c5d"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b02c7e9d983dfbdbf98b39"},"start":{"$date":"2026-03-12T15:30:00Z"},"end":{"$date":"2026-03-12T17:26:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05d179d983dfbdbf98c59"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b01b729d983dfbdbf98b2d"},"start":{"$date":"2026-03-12T15:45:00Z"},"end":{"$date":"2026-03-12T17:58:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b05dc89d983dfbdbf98c63"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b030b19d983dfbdbf98b3d"},"start":{"$date":"2026-03-12T18:40:00Z"},"end":{"$date":"2026-03-12T20:45:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b05db39d983dfbdbf98c62"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-12T15:25:00Z"},"end":{"$date":"2026-03-12T18:40:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b05d959d983dfbdbf98c60"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b027b79d983dfbdbf98b34"},"start":{"$date":"2026-03-12T11:00:00Z"},"end":{"$date":"2026-03-12T13:23:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b05e0e9d983dfbdbf98c67"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-12T18:00:00Z"},"end":{"$date":"2026-03-12T20:09:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b05d8a9d983dfbdbf98c5f"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b020b69d983dfbdbf98b2f"},"start":{"$date":"2026-03-12T09:00:00Z"},"end":{"$date":"2026-03-12T10:59:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b05dfa9d983dfbdbf98c66"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b02bd59d983dfbdbf98b38"},"start":{"$date":"2026-03-12T14:25:00Z"},"end":{"$date":"2026-03-12T17:39:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b05dd59d983dfbdbf98c64"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-12T09:00:00Z"},"end":{"$date":"2026-03-12T12:15:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b05de69d983dfbdbf98c65"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b02dba9d983dfbdbf98b3a"},"start":{"$date":"2026-03-12T12:15:00Z"},"end":{"$date":"2026-03-12T14:22:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b05ce29d983dfbdbf98c57"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-12T11:15:00Z"},"end":{"$date":"2026-03-12T13:24:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05ebd9d983dfbdbf98c69"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b02dba9d983dfbdbf98b3a"},"start":{"$date":"2026-03-13T11:10:00Z"},"end":{"$date":"2026-03-13T13:17:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05e999d983dfbdbf98c68"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-13T09:00:00Z"},"end":{"$date":"2026-03-13T11:09:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b060699d983dfbdbf98c6e"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-13T15:55:00Z"},"end":{"$date":"2026-03-13T19:10:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b05fec9d983dfbdbf98c6b"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-13T15:30:00Z"},"end":{"$date":"2026-03-13T19:02:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b060459d983dfbdbf98c6d"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-13T12:15:00Z"},"end":{"$date":"2026-03-13T15:47:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b0603b9d983dfbdbf98c6c"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b02bd59d983dfbdbf98b38"},"start":{"$date":"2026-03-13T09:00:00Z"},"end":{"$date":"2026-03-13T12:14:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b05fe09d983dfbdbf98c6a"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b023729d983dfbdbf98b32"},"start":{"$date":"2026-03-13T13:20:00Z"},"end":{"$date":"2026-03-13T15:25:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b0607d9d983dfbdbf98c6f"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b02dba9d983dfbdbf98b3a"},"start":{"$date":"2026-03-13T09:05:00Z"},"end":{"$date":"2026-03-13T11:12:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b060a39d983dfbdbf98c71"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b023729d983dfbdbf98b32"},"start":{"$date":"2026-03-13T14:55:00Z"},"end":{"$date":"2026-03-13T17:00:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b060b89d983dfbdbf98c72"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-13T17:00:00Z"},"end":{"$date":"2026-03-13T20:15:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000003"}},{"_id":{"$oid":"69b060da9d983dfbdbf98c73"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b023729d983dfbdbf98b32"},"start":{"$date":"2026-03-13T09:00:00Z"},"end":{"$date":"2026-03-13T11:05:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b061109d983dfbdbf98c75"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-13T13:20:00Z"},"end":{"$date":"2026-03-13T15:29:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b060f69d983dfbdbf98c74"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b02dba9d983dfbdbf98b3a"},"start":{"$date":"2026-03-13T11:10:00Z"},"end":{"$date":"2026-03-13T13:17:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b061699d983dfbdbf98c79"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b030b19d983dfbdbf98b3d"},"start":{"$date":"2026-03-13T12:40:00Z"},"end":{"$date":"2026-03-13T14:45:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b061aa9d983dfbdbf98c7b"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b01b729d983dfbdbf98b2d"},"start":{"$date":"2026-03-13T17:00:00Z"},"end":{"$date":"2026-03-13T19:13:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b0619f9d983dfbdbf98c7a"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b02c7e9d983dfbdbf98b39"},"start":{"$date":"2026-03-13T15:00:00Z"},"end":{"$date":"2026-03-13T16:56:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b060909d983dfbdbf98c70"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-13T11:15:00Z"},"end":{"$date":"2026-03-13T14:47:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000003"}},{"_id":{"$oid":"69b061ce9d983dfbdbf98c7d"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-13T12:20:00Z"},"end":{"$date":"2026-03-13T14:29:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b061be9d983dfbdbf98c7c"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b02bd59d983dfbdbf98b38"},"start":{"$date":"2026-03-13T09:05:00Z"},"end":{"$date":"2026-03-13T12:19:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b062349d983dfbdbf98c80"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-14T09:00:00Z"},"end":{"$date":"2026-03-14T11:09:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b061219d983dfbdbf98c76"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b02c7e9d983dfbdbf98b39"},"start":{"$date":"2026-03-13T15:30:00Z"},"end":{"$date":"2026-03-13T17:26:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b061df9d983dfbdbf98c7e"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b01b729d983dfbdbf98b2d"},"start":{"$date":"2026-03-13T14:30:00Z"},"end":{"$date":"2026-03-13T16:43:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b0627b9d983dfbdbf98c83"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b01f8d9d983dfbdbf98b2e"},"start":{"$date":"2026-03-14T15:25:00Z"},"end":{"$date":"2026-03-14T17:45:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b062409d983dfbdbf98c81"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b02dba9d983dfbdbf98b3a"},"start":{"$date":"2026-03-14T11:10:00Z"},"end":{"$date":"2026-03-14T13:17:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b061f89d983dfbdbf98c7f"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-13T16:50:00Z"},"end":{"$date":"2026-03-13T20:22:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b063169d983dfbdbf98c86"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b023729d983dfbdbf98b32"},"start":{"$date":"2026-03-14T11:15:00Z"},"end":{"$date":"2026-03-14T13:20:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b0624f9d983dfbdbf98c82"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b023729d983dfbdbf98b32"},"start":{"$date":"2026-03-14T13:20:00Z"},"end":{"$date":"2026-03-14T15:25:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b063849d983dfbdbf98c89"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b01f8d9d983dfbdbf98b2e"},"start":{"$date":"2026-03-14T09:05:00Z"},"end":{"$date":"2026-03-14T11:25:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b062bd9d983dfbdbf98c85"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b02dba9d983dfbdbf98b3a"},"start":{"$date":"2026-03-14T09:05:00Z"},"end":{"$date":"2026-03-14T11:12:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b061499d983dfbdbf98c77"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-13T17:30:00Z"},"end":{"$date":"2026-03-13T20:45:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b0628b9d983dfbdbf98c84"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-14T17:45:00Z"},"end":{"$date":"2026-03-14T21:00:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b063399d983dfbdbf98c87"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b026e69d983dfbdbf98b33"},"start":{"$date":"2026-03-14T13:20:00Z"},"end":{"$date":"2026-03-14T15:51:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b063ca9d983dfbdbf98c8b"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b020b69d983dfbdbf98b2f"},"start":{"$date":"2026-03-14T13:30:00Z"},"end":{"$date":"2026-03-14T15:29:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b063469d983dfbdbf98c88"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b02bd59d983dfbdbf98b38"},"start":{"$date":"2026-03-14T16:00:00Z"},"end":{"$date":"2026-03-14T19:14:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b063d79d983dfbdbf98c8c"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b030b19d983dfbdbf98b3d"},"start":{"$date":"2026-03-14T15:30:00Z"},"end":{"$date":"2026-03-14T17:35:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b0639c9d983dfbdbf98c8a"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b023729d983dfbdbf98b32"},"start":{"$date":"2026-03-14T11:25:00Z"},"end":{"$date":"2026-03-14T13:30:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b063f39d983dfbdbf98c8e"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b01f8d9d983dfbdbf98b2e"},"start":{"$date":"2026-03-14T09:10:00Z"},"end":{"$date":"2026-03-14T11:30:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b063e69d983dfbdbf98c8d"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-14T17:35:00Z"},"end":{"$date":"2026-03-14T20:50:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b0615b9d983dfbdbf98c78"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-13T09:05:00Z"},"end":{"$date":"2026-03-13T12:37:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b0642d9d983dfbdbf98c8f"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b02dba9d983dfbdbf98b3a"},"start":{"$date":"2026-03-14T11:30:00Z"},"end":{"$date":"2026-03-14T13:37:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b0643a9d983dfbdbf98c90"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b023729d983dfbdbf98b32"},"start":{"$date":"2026-03-14T13:40:00Z"},"end":{"$date":"2026-03-14T15:45:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b064499d983dfbdbf98c91"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b01f8d9d983dfbdbf98b2e"},"start":{"$date":"2026-03-14T15:45:00Z"},"end":{"$date":"2026-03-14T18:05:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b0651e9d983dfbdbf98c96"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b027b79d983dfbdbf98b34"},"start":{"$date":"2026-03-14T18:00:00Z"},"end":{"$date":"2026-03-14T20:23:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b064909d983dfbdbf98c94"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b01b729d983dfbdbf98b2d"},"start":{"$date":"2026-03-14T15:35:00Z"},"end":{"$date":"2026-03-14T17:48:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b064b29d983dfbdbf98c95"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b02c7e9d983dfbdbf98b39"},"start":{"$date":"2026-03-14T12:45:00Z"},"end":{"$date":"2026-03-14T14:41:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b064639d983dfbdbf98c92"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b01b729d983dfbdbf98b2d"},"start":{"$date":"2026-03-14T18:20:00Z"},"end":{"$date":"2026-03-14T20:33:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b064729d983dfbdbf98c93"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-14T09:10:00Z"},"end":{"$date":"2026-03-14T12:42:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b065919d983dfbdbf98c99"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b02c7e9d983dfbdbf98b39"},"start":{"$date":"2026-03-14T13:45:00Z"},"end":{"$date":"2026-03-14T15:41:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b0669c9d983dfbdbf98c9e"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-16T16:00:00Z"},"end":{"$date":"2026-03-16T18:09:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b065669d983dfbdbf98c97"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-14T09:00:00Z"},"end":{"$date":"2026-03-14T11:09:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b0659e9d983dfbdbf98c9a"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-14T15:45:00Z"},"end":{"$date":"2026-03-14T19:00:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b066769d983dfbdbf98c9b"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-16T09:00:00Z"},"end":{"$date":"2026-03-16T11:09:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b065859d983dfbdbf98c98"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"f00000000000000000000010"},"start":{"$date":"2026-03-14T11:10:00Z"},"end":{"$date":"2026-03-14T13:37:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b066aa9d983dfbdbf98c9f"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b01b729d983dfbdbf98b2d"},"start":{"$date":"2026-03-16T18:10:00Z"},"end":{"$date":"2026-03-16T20:23:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b066939d983dfbdbf98c9d"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"f00000000000000000000010"},"start":{"$date":"2026-03-16T13:30:00Z"},"end":{"$date":"2026-03-16T15:57:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b066819d983dfbdbf98c9c"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b01f8d9d983dfbdbf98b2e"},"start":{"$date":"2026-03-16T11:10:00Z"},"end":{"$date":"2026-03-16T13:30:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b067389d983dfbdbf98ca4"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b02dba9d983dfbdbf98b3a"},"start":{"$date":"2026-03-16T09:10:00Z"},"end":{"$date":"2026-03-16T11:17:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b066d69d983dfbdbf98ca1"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-16T11:10:00Z"},"end":{"$date":"2026-03-16T14:42:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b066e89d983dfbdbf98ca2"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b027b79d983dfbdbf98b34"},"start":{"$date":"2026-03-16T14:45:00Z"},"end":{"$date":"2026-03-16T17:08:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b066c99d983dfbdbf98ca0"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b023729d983dfbdbf98b32"},"start":{"$date":"2026-03-16T09:05:00Z"},"end":{"$date":"2026-03-16T11:10:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b066f79d983dfbdbf98ca3"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-16T17:10:00Z"},"end":{"$date":"2026-03-16T20:25:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b067659d983dfbdbf98ca7"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b02bd59d983dfbdbf98b38"},"start":{"$date":"2026-03-16T17:25:00Z"},"end":{"$date":"2026-03-16T20:39:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b067769d983dfbdbf98ca8"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b023729d983dfbdbf98b32"},"start":{"$date":"2026-03-16T09:00:00Z"},"end":{"$date":"2026-03-16T11:05:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b067579d983dfbdbf98ca6"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"f00000000000000000000010"},"start":{"$date":"2026-03-16T14:45:00Z"},"end":{"$date":"2026-03-16T17:12:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b067439d983dfbdbf98ca5"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b02bd59d983dfbdbf98b38"},"start":{"$date":"2026-03-16T11:20:00Z"},"end":{"$date":"2026-03-16T14:34:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b067fa9d983dfbdbf98cab"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b02c7e9d983dfbdbf98b39"},"start":{"$date":"2026-03-16T17:05:00Z"},"end":{"$date":"2026-03-16T19:01:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b067e99d983dfbdbf98caa"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-16T13:30:00Z"},"end":{"$date":"2026-03-16T17:02:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b068649d983dfbdbf98cac"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b02c7e9d983dfbdbf98b39"},"start":{"$date":"2026-03-16T09:00:00Z"},"end":{"$date":"2026-03-16T10:56:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b068a19d983dfbdbf98cae"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b030b19d983dfbdbf98b3d"},"start":{"$date":"2026-03-16T13:25:00Z"},"end":{"$date":"2026-03-16T15:30:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b068939d983dfbdbf98cad"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b01b729d983dfbdbf98b2d"},"start":{"$date":"2026-03-16T11:00:00Z"},"end":{"$date":"2026-03-16T13:13:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b068b79d983dfbdbf98caf"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b020b69d983dfbdbf98b2f"},"start":{"$date":"2026-03-16T15:30:00Z"},"end":{"$date":"2026-03-16T17:29:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b068f49d983dfbdbf98cb1"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-16T09:00:00Z"},"end":{"$date":"2026-03-16T12:15:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b068e29d983dfbdbf98cb0"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-16T17:30:00Z"},"end":{"$date":"2026-03-16T20:45:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b069239d983dfbdbf98cb4"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"f00000000000000000000010"},"start":{"$date":"2026-03-16T18:20:00Z"},"end":{"$date":"2026-03-16T20:47:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b069049d983dfbdbf98cb2"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-16T12:15:00Z"},"end":{"$date":"2026-03-16T15:47:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b069129d983dfbdbf98cb3"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b02dba9d983dfbdbf98b3a"},"start":{"$date":"2026-03-16T16:00:00Z"},"end":{"$date":"2026-03-16T18:07:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b0694d9d983dfbdbf98cb5"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-17T09:10:00Z"},"end":{"$date":"2026-03-17T11:19:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b069689d983dfbdbf98cb7"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-17T15:00:00Z"},"end":{"$date":"2026-03-17T18:15:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b0695c9d983dfbdbf98cb6"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-17T11:25:00Z"},"end":{"$date":"2026-03-17T14:57:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b069879d983dfbdbf98cb9"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b02bd59d983dfbdbf98b38"},"start":{"$date":"2026-03-17T09:10:00Z"},"end":{"$date":"2026-03-17T12:24:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b069939d983dfbdbf98cba"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-17T12:30:00Z"},"end":{"$date":"2026-03-17T16:02:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b0697a9d983dfbdbf98cb8"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b01b729d983dfbdbf98b2d"},"start":{"$date":"2026-03-17T18:25:00Z"},"end":{"$date":"2026-03-17T20:38:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b06a909d983dfbdbf98cbd"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-17T12:25:00Z"},"end":{"$date":"2026-03-17T14:34:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b0699f9d983dfbdbf98cbb"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-17T16:10:00Z"},"end":{"$date":"2026-03-17T19:25:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b06a7e9d983dfbdbf98cbc"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b02bd59d983dfbdbf98b38"},"start":{"$date":"2026-03-17T09:10:00Z"},"end":{"$date":"2026-03-17T12:24:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b06a9b9d983dfbdbf98cbe"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b030b19d983dfbdbf98b3d"},"start":{"$date":"2026-03-17T14:35:00Z"},"end":{"$date":"2026-03-17T16:40:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b06b819d983dfbdbf98cc0"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b02c7e9d983dfbdbf98b39"},"start":{"$date":"2026-03-17T18:40:00Z"},"end":{"$date":"2026-03-17T20:36:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b06b0e9d983dfbdbf98cbf"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b020b69d983dfbdbf98b2f"},"start":{"$date":"2026-03-17T16:40:00Z"},"end":{"$date":"2026-03-17T18:39:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b06b969d983dfbdbf98cc1"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-17T09:10:00Z"},"end":{"$date":"2026-03-17T11:19:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b06d0f9d983dfbdbf98d02"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"f00000000000000000000010"},"start":{"$date":"2026-03-17T11:25:00Z"},"end":{"$date":"2026-03-17T13:52:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000003"}},{"_id":{"$oid":"69b06d1d9d983dfbdbf98d03"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b02bd59d983dfbdbf98b38"},"start":{"$date":"2026-03-17T14:00:00Z"},"end":{"$date":"2026-03-17T17:14:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b067b49d983dfbdbf98ca9"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b01f8d9d983dfbdbf98b2e"},"start":{"$date":"2026-03-16T11:10:00Z"},"end":{"$date":"2026-03-16T13:30:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b06d539d983dfbdbf98d07"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b030b19d983dfbdbf98b3d"},"start":{"$date":"2026-03-17T14:35:00Z"},"end":{"$date":"2026-03-17T16:40:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b06d389d983dfbdbf98d05"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-17T09:00:00Z"},"end":{"$date":"2026-03-17T12:32:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b06d619d983dfbdbf98d08"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b02c7e9d983dfbdbf98b39"},"start":{"$date":"2026-03-17T16:40:00Z"},"end":{"$date":"2026-03-17T18:36:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b06daa9d983dfbdbf98d0c"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-17T14:50:00Z"},"end":{"$date":"2026-03-17T18:05:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b06d459d983dfbdbf98d06"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b020b69d983dfbdbf98b2f"},"start":{"$date":"2026-03-17T12:35:00Z"},"end":{"$date":"2026-03-17T14:34:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b06e579d983dfbdbf98d10"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b01f8d9d983dfbdbf98b2e"},"start":{"$date":"2026-03-10T14:45:00Z"},"end":{"$date":"2026-03-10T17:05:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b06dbb9d983dfbdbf98d0d"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-17T18:10:00Z"},"end":{"$date":"2026-03-17T20:19:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b06d909d983dfbdbf98d0a"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b026e69d983dfbdbf98b33"},"start":{"$date":"2026-03-17T09:00:00Z"},"end":{"$date":"2026-03-17T11:31:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b06d2c9d983dfbdbf98d04"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b01b729d983dfbdbf98b2d"},"start":{"$date":"2026-03-17T17:15:00Z"},"end":{"$date":"2026-03-17T19:28:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b06ea99d983dfbdbf98d13"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b01f8d9d983dfbdbf98b2e"},"start":{"$date":"2026-03-10T11:15:00Z"},"end":{"$date":"2026-03-10T13:35:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b06e669d983dfbdbf98d11"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-10T17:25:00Z"},"end":{"$date":"2026-03-10T20:40:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b06e709d983dfbdbf98d12"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b023729d983dfbdbf98b32"},"start":{"$date":"2026-03-10T09:10:00Z"},"end":{"$date":"2026-03-10T11:15:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b06ebc9d983dfbdbf98d14"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-10T13:35:00Z"},"end":{"$date":"2026-03-10T17:07:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b06eca9d983dfbdbf98d15"},"hall_id":{"$oid":"69b039ca9d983dfbdbf98b67"},"movie_id":{"$oid":"69b02c7e9d983dfbdbf98b39"},"start":{"$date":"2026-03-10T17:10:00Z"},"end":{"$date":"2026-03-10T19:06:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b06e049d983dfbdbf98d0f"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-10T12:35:00Z"},"end":{"$date":"2026-03-10T14:44:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b06eec9d983dfbdbf98d16"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b02bd59d983dfbdbf98b38"},"start":{"$date":"2026-03-10T09:00:00Z"},"end":{"$date":"2026-03-10T12:14:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b06f069d983dfbdbf98d18"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-10T15:50:00Z"},"end":{"$date":"2026-03-10T19:05:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b06f389d983dfbdbf98d19"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b030b19d983dfbdbf98b3d"},"start":{"$date":"2026-03-10T09:05:00Z"},"end":{"$date":"2026-03-10T11:10:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000003"}},{"_id":{"$oid":"69b06f429d983dfbdbf98d1a"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b02bd59d983dfbdbf98b38"},"start":{"$date":"2026-03-10T11:10:00Z"},"end":{"$date":"2026-03-10T14:24:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b06ef79d983dfbdbf98d17"},"hall_id":{"$oid":"69b03a889d983dfbdbf98ba9"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-10T12:15:00Z"},"end":{"$date":"2026-03-10T15:47:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b06f4c9d983dfbdbf98d1b"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b030b19d983dfbdbf98b3d"},"start":{"$date":"2026-03-10T14:25:00Z"},"end":{"$date":"2026-03-10T16:30:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000002"}},{"_id":{"$oid":"69b06d9c9d983dfbdbf98d0b"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b02bd59d983dfbdbf98b38"},"start":{"$date":"2026-03-17T11:35:00Z"},"end":{"$date":"2026-03-17T14:49:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b06f6c9d983dfbdbf98d1d"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b02dba9d983dfbdbf98b3a"},"start":{"$date":"2026-03-10T18:30:00Z"},"end":{"$date":"2026-03-10T20:37:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000003"}},{"_id":{"$oid":"69b06f5e9d983dfbdbf98d1c"},"hall_id":{"$oid":"69b03a9b9d983dfbdbf98bc8"},"movie_id":{"$oid":"69b02c7e9d983dfbdbf98b39"},"start":{"$date":"2026-03-10T16:30:00Z"},"end":{"$date":"2026-03-10T18:26:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000003"}},{"_id":{"$oid":"69b06d839d983dfbdbf98d09"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b01b729d983dfbdbf98b2d"},"start":{"$date":"2026-03-17T18:45:00Z"},"end":{"$date":"2026-03-17T20:58:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b06f749d983dfbdbf98d1e"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-10T09:00:00Z"},"end":{"$date":"2026-03-10T12:32:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b06f899d983dfbdbf98d1f"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-10T12:35:00Z"},"end":{"$date":"2026-03-10T15:50:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b06df99d983dfbdbf98d0e"},"hall_id":{"$oid":"e00000000000000000000002"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-10T09:00:00Z"},"end":{"$date":"2026-03-10T12:32:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000001"}},{"_id":{"$oid":"69b06ffc9d983dfbdbf98d21"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"f00000000000000000000010"},"start":{"$date":"2026-03-10T18:00:00Z"},"end":{"$date":"2026-03-10T20:27:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b0701c9d983dfbdbf98d22"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b02ac19d983dfbdbf98b37"},"start":{"$date":"2026-03-10T09:10:00Z"},"end":{"$date":"2026-03-10T12:42:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b06f959d983dfbdbf98d20"},"hall_id":{"$oid":"69956dc95c97a29b5831a181"},"movie_id":{"$oid":"69b030b19d983dfbdbf98b3d"},"start":{"$date":"2026-03-10T15:50:00Z"},"end":{"$date":"2026-03-10T17:55:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000004"}},{"_id":{"$oid":"69b0705b9d983dfbdbf98d24"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b01b729d983dfbdbf98b2d"},"start":{"$date":"2026-03-10T15:00:00Z"},"end":{"$date":"2026-03-10T17:13:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b0706a9d983dfbdbf98d25"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b0225d9d983dfbdbf98b31"},"start":{"$date":"2026-03-10T17:25:00Z"},"end":{"$date":"2026-03-10T20:40:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}},{"_id":{"$oid":"69b070299d983dfbdbf98d23"},"hall_id":{"$oid":"e00000000000000000000001"},"movie_id":{"$oid":"69b021a59d983dfbdbf98b30"},"start":{"$date":"2026-03-10T12:45:00Z"},"end":{"$date":"2026-03-10T14:54:00Z"},"screening_type_id":{"$oid":"bb0000000000000000000005"}}]
+[
+    {
+        "_id": {
+            "$oid": "69959bc4ce6af829da5e196c"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69959b9bce6af829da5e196b"
+        },
+        "start": {
+            "$date": "2026-03-01T13:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-01T15:22:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "699dbfd08ba23db6a1aa52d5"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69959b9bce6af829da5e196b"
+        },
+        "start": {
+            "$date": "2026-02-25T13:50:00Z"
+        },
+        "end": {
+            "$date": "2026-02-25T16:27:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69a08745223cb1c5a0fa3bcf"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69a086c0223cb1c5a0fa3bce"
+        },
+        "start": {
+            "$date": "2026-02-26T15:00:00Z"
+        },
+        "end": {
+            "$date": "2026-02-26T15:39:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6996fac48b9cf2cad7e001a6"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "f00000000000000000000010"
+        },
+        "start": {
+            "$date": "2026-02-20T11:30:00Z"
+        },
+        "end": {
+            "$date": "2026-02-20T13:57:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000003"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69adbda65ffc806f7ecff493"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "f00000000000000000000002"
+        },
+        "start": {
+            "$date": "2026-03-09T11:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-09T14:04:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b058459d983dfbdbf98c34"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b023729d983dfbdbf98b32"
+        },
+        "start": {
+            "$date": "2026-03-11T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T11:05:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b058619d983dfbdbf98c35"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-11T11:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T13:19:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0588f9d983dfbdbf98c36"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b02dba9d983dfbdbf98b3a"
+        },
+        "start": {
+            "$date": "2026-03-11T13:25:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T15:32:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "699dc2808ba23db6a1aa52d7"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69959b9bce6af829da5e196b"
+        },
+        "start": {
+            "$date": "2026-02-25T14:00:00Z"
+        },
+        "end": {
+            "$date": "2026-02-25T16:37:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b058ce9d983dfbdbf98c38"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b026e69d983dfbdbf98b33"
+        },
+        "start": {
+            "$date": "2026-03-11T18:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T20:31:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b058b39d983dfbdbf98c37"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b01f8d9d983dfbdbf98b2e"
+        },
+        "start": {
+            "$date": "2026-03-11T15:35:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T17:55:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0590b9d983dfbdbf98c3a"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-11T12:15:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T15:30:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b058f59d983dfbdbf98c39"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b02bd59d983dfbdbf98b38"
+        },
+        "start": {
+            "$date": "2026-03-11T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T12:14:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b059249d983dfbdbf98c3b"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "f00000000000000000000010"
+        },
+        "start": {
+            "$date": "2026-03-11T15:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T17:57:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000003"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69982f9ddadc3c6d2632079c"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "f00000000000000000000010"
+        },
+        "start": {
+            "$date": "2026-02-20T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-02-20T11:27:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "699f6dab514aed9e44b454f3"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69959b9bce6af829da5e196b"
+        },
+        "start": {
+            "$date": "2026-02-26T13:00:00Z"
+        },
+        "end": {
+            "$date": "2026-02-26T15:37:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69982f35dadc3c6d2632079b"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "f00000000000000000000010"
+        },
+        "start": {
+            "$date": "2026-02-20T13:30:00Z"
+        },
+        "end": {
+            "$date": "2026-02-20T15:57:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b059749d983dfbdbf98c3c"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b027b79d983dfbdbf98b34"
+        },
+        "start": {
+            "$date": "2026-03-11T18:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T20:23:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b059a19d983dfbdbf98c3d"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-11T09:15:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T11:24:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b059cc9d983dfbdbf98c3e"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b01f8d9d983dfbdbf98b2e"
+        },
+        "start": {
+            "$date": "2026-03-11T11:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T13:50:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b059da9d983dfbdbf98c3f"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b01b729d983dfbdbf98b2d"
+        },
+        "start": {
+            "$date": "2026-03-11T13:55:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T16:08:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000003"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b059f29d983dfbdbf98c40"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "f00000000000000000000010"
+        },
+        "start": {
+            "$date": "2026-03-11T16:15:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T18:42:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05a389d983dfbdbf98c42"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-11T09:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T12:25:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05a059d983dfbdbf98c41"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-11T18:50:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T20:59:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05a509d983dfbdbf98c43"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b02bd59d983dfbdbf98b38"
+        },
+        "start": {
+            "$date": "2026-03-11T12:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T15:44:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05a7c9d983dfbdbf98c45"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b027b79d983dfbdbf98b34"
+        },
+        "start": {
+            "$date": "2026-03-11T17:55:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T20:18:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05a609d983dfbdbf98c44"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b02dba9d983dfbdbf98b3a"
+        },
+        "start": {
+            "$date": "2026-03-11T15:45:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T17:52:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05af69d983dfbdbf98c49"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b01b729d983dfbdbf98b2d"
+        },
+        "start": {
+            "$date": "2026-03-11T17:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T19:23:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05b1c9d983dfbdbf98c4a"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b02bd59d983dfbdbf98b38"
+        },
+        "start": {
+            "$date": "2026-03-11T09:05:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T12:19:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05a959d983dfbdbf98c46"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-11T09:20:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T12:35:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05adc9d983dfbdbf98c48"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-11T15:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T17:09:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05ab19d983dfbdbf98c47"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b01b729d983dfbdbf98b2d"
+        },
+        "start": {
+            "$date": "2026-03-11T12:45:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T14:58:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05b669d983dfbdbf98c4c"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b02dba9d983dfbdbf98b3a"
+        },
+        "start": {
+            "$date": "2026-03-11T15:05:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T17:12:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05b529d983dfbdbf98c4b"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b026e69d983dfbdbf98b33"
+        },
+        "start": {
+            "$date": "2026-03-11T12:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T15:01:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05c089d983dfbdbf98c4e"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-12T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T12:32:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05c189d983dfbdbf98c4f"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b023729d983dfbdbf98b32"
+        },
+        "start": {
+            "$date": "2026-03-12T12:45:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T14:50:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05c259d983dfbdbf98c50"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b01f8d9d983dfbdbf98b2e"
+        },
+        "start": {
+            "$date": "2026-03-12T15:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T17:20:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05c899d983dfbdbf98c52"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b023729d983dfbdbf98b32"
+        },
+        "start": {
+            "$date": "2026-03-12T09:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T11:15:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05c699d983dfbdbf98c51"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b026e69d983dfbdbf98b33"
+        },
+        "start": {
+            "$date": "2026-03-12T17:25:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T19:56:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05b769d983dfbdbf98c4d"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-11T17:15:00Z"
+        },
+        "end": {
+            "$date": "2026-03-11T20:30:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05c979d983dfbdbf98c53"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-12T11:15:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T13:24:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05ca79d983dfbdbf98c54"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-12T13:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T17:02:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05cbc9d983dfbdbf98c55"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b02bd59d983dfbdbf98b38"
+        },
+        "start": {
+            "$date": "2026-03-12T17:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T20:24:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05ccd9d983dfbdbf98c56"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b02dba9d983dfbdbf98b3a"
+        },
+        "start": {
+            "$date": "2026-03-12T09:05:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T11:12:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05d589d983dfbdbf98c5c"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b02bd59d983dfbdbf98b38"
+        },
+        "start": {
+            "$date": "2026-03-12T12:15:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T15:29:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05cf29d983dfbdbf98c58"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b01f8d9d983dfbdbf98b2e"
+        },
+        "start": {
+            "$date": "2026-03-12T13:25:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T15:45:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05d299d983dfbdbf98c5a"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b030b19d983dfbdbf98b3d"
+        },
+        "start": {
+            "$date": "2026-03-12T18:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T20:05:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05d7a9d983dfbdbf98c5e"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-12T17:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T19:39:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05da29d983dfbdbf98c61"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b02c7e9d983dfbdbf98b39"
+        },
+        "start": {
+            "$date": "2026-03-12T13:25:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T15:21:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05d449d983dfbdbf98c5b"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-12T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T12:15:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05d689d983dfbdbf98c5d"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b02c7e9d983dfbdbf98b39"
+        },
+        "start": {
+            "$date": "2026-03-12T15:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T17:26:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05d179d983dfbdbf98c59"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b01b729d983dfbdbf98b2d"
+        },
+        "start": {
+            "$date": "2026-03-12T15:45:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T17:58:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05dc89d983dfbdbf98c63"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b030b19d983dfbdbf98b3d"
+        },
+        "start": {
+            "$date": "2026-03-12T18:40:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T20:45:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05db39d983dfbdbf98c62"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-12T15:25:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T18:40:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05d959d983dfbdbf98c60"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b027b79d983dfbdbf98b34"
+        },
+        "start": {
+            "$date": "2026-03-12T11:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T13:23:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05e0e9d983dfbdbf98c67"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-12T18:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T20:09:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05d8a9d983dfbdbf98c5f"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b020b69d983dfbdbf98b2f"
+        },
+        "start": {
+            "$date": "2026-03-12T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T10:59:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05dfa9d983dfbdbf98c66"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b02bd59d983dfbdbf98b38"
+        },
+        "start": {
+            "$date": "2026-03-12T14:25:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T17:39:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05dd59d983dfbdbf98c64"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-12T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T12:15:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05de69d983dfbdbf98c65"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b02dba9d983dfbdbf98b3a"
+        },
+        "start": {
+            "$date": "2026-03-12T12:15:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T14:22:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05ce29d983dfbdbf98c57"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-12T11:15:00Z"
+        },
+        "end": {
+            "$date": "2026-03-12T13:24:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05ebd9d983dfbdbf98c69"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b02dba9d983dfbdbf98b3a"
+        },
+        "start": {
+            "$date": "2026-03-13T11:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T13:17:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05e999d983dfbdbf98c68"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-13T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T11:09:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b060699d983dfbdbf98c6e"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-13T15:55:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T19:10:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05fec9d983dfbdbf98c6b"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-13T15:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T19:02:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b060459d983dfbdbf98c6d"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-13T12:15:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T15:47:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0603b9d983dfbdbf98c6c"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b02bd59d983dfbdbf98b38"
+        },
+        "start": {
+            "$date": "2026-03-13T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T12:14:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b05fe09d983dfbdbf98c6a"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b023729d983dfbdbf98b32"
+        },
+        "start": {
+            "$date": "2026-03-13T13:20:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T15:25:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0607d9d983dfbdbf98c6f"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b02dba9d983dfbdbf98b3a"
+        },
+        "start": {
+            "$date": "2026-03-13T09:05:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T11:12:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b060a39d983dfbdbf98c71"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b023729d983dfbdbf98b32"
+        },
+        "start": {
+            "$date": "2026-03-13T14:55:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T17:00:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b060b89d983dfbdbf98c72"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-13T17:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T20:15:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000003"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b060da9d983dfbdbf98c73"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b023729d983dfbdbf98b32"
+        },
+        "start": {
+            "$date": "2026-03-13T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T11:05:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b061109d983dfbdbf98c75"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-13T13:20:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T15:29:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b060f69d983dfbdbf98c74"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b02dba9d983dfbdbf98b3a"
+        },
+        "start": {
+            "$date": "2026-03-13T11:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T13:17:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b061699d983dfbdbf98c79"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b030b19d983dfbdbf98b3d"
+        },
+        "start": {
+            "$date": "2026-03-13T12:40:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T14:45:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b061aa9d983dfbdbf98c7b"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b01b729d983dfbdbf98b2d"
+        },
+        "start": {
+            "$date": "2026-03-13T17:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T19:13:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0619f9d983dfbdbf98c7a"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b02c7e9d983dfbdbf98b39"
+        },
+        "start": {
+            "$date": "2026-03-13T15:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T16:56:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b060909d983dfbdbf98c70"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-13T11:15:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T14:47:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000003"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b061ce9d983dfbdbf98c7d"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-13T12:20:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T14:29:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b061be9d983dfbdbf98c7c"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b02bd59d983dfbdbf98b38"
+        },
+        "start": {
+            "$date": "2026-03-13T09:05:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T12:19:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b062349d983dfbdbf98c80"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-14T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T11:09:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b061219d983dfbdbf98c76"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b02c7e9d983dfbdbf98b39"
+        },
+        "start": {
+            "$date": "2026-03-13T15:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T17:26:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b061df9d983dfbdbf98c7e"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b01b729d983dfbdbf98b2d"
+        },
+        "start": {
+            "$date": "2026-03-13T14:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T16:43:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0627b9d983dfbdbf98c83"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b01f8d9d983dfbdbf98b2e"
+        },
+        "start": {
+            "$date": "2026-03-14T15:25:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T17:45:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b062409d983dfbdbf98c81"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b02dba9d983dfbdbf98b3a"
+        },
+        "start": {
+            "$date": "2026-03-14T11:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T13:17:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b061f89d983dfbdbf98c7f"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-13T16:50:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T20:22:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b063169d983dfbdbf98c86"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b023729d983dfbdbf98b32"
+        },
+        "start": {
+            "$date": "2026-03-14T11:15:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T13:20:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0624f9d983dfbdbf98c82"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b023729d983dfbdbf98b32"
+        },
+        "start": {
+            "$date": "2026-03-14T13:20:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T15:25:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b063849d983dfbdbf98c89"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b01f8d9d983dfbdbf98b2e"
+        },
+        "start": {
+            "$date": "2026-03-14T09:05:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T11:25:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b062bd9d983dfbdbf98c85"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b02dba9d983dfbdbf98b3a"
+        },
+        "start": {
+            "$date": "2026-03-14T09:05:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T11:12:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b061499d983dfbdbf98c77"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-13T17:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T20:45:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0628b9d983dfbdbf98c84"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-14T17:45:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T21:00:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b063399d983dfbdbf98c87"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b026e69d983dfbdbf98b33"
+        },
+        "start": {
+            "$date": "2026-03-14T13:20:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T15:51:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b063ca9d983dfbdbf98c8b"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b020b69d983dfbdbf98b2f"
+        },
+        "start": {
+            "$date": "2026-03-14T13:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T15:29:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b063469d983dfbdbf98c88"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b02bd59d983dfbdbf98b38"
+        },
+        "start": {
+            "$date": "2026-03-14T16:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T19:14:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b063d79d983dfbdbf98c8c"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b030b19d983dfbdbf98b3d"
+        },
+        "start": {
+            "$date": "2026-03-14T15:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T17:35:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0639c9d983dfbdbf98c8a"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b023729d983dfbdbf98b32"
+        },
+        "start": {
+            "$date": "2026-03-14T11:25:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T13:30:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b063f39d983dfbdbf98c8e"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b01f8d9d983dfbdbf98b2e"
+        },
+        "start": {
+            "$date": "2026-03-14T09:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T11:30:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b063e69d983dfbdbf98c8d"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-14T17:35:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T20:50:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0615b9d983dfbdbf98c78"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-13T09:05:00Z"
+        },
+        "end": {
+            "$date": "2026-03-13T12:37:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0642d9d983dfbdbf98c8f"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b02dba9d983dfbdbf98b3a"
+        },
+        "start": {
+            "$date": "2026-03-14T11:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T13:37:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0643a9d983dfbdbf98c90"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b023729d983dfbdbf98b32"
+        },
+        "start": {
+            "$date": "2026-03-14T13:40:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T15:45:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b064499d983dfbdbf98c91"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b01f8d9d983dfbdbf98b2e"
+        },
+        "start": {
+            "$date": "2026-03-14T15:45:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T18:05:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0651e9d983dfbdbf98c96"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b027b79d983dfbdbf98b34"
+        },
+        "start": {
+            "$date": "2026-03-14T18:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T20:23:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b064909d983dfbdbf98c94"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b01b729d983dfbdbf98b2d"
+        },
+        "start": {
+            "$date": "2026-03-14T15:35:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T17:48:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b064b29d983dfbdbf98c95"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b02c7e9d983dfbdbf98b39"
+        },
+        "start": {
+            "$date": "2026-03-14T12:45:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T14:41:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b064639d983dfbdbf98c92"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b01b729d983dfbdbf98b2d"
+        },
+        "start": {
+            "$date": "2026-03-14T18:20:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T20:33:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b064729d983dfbdbf98c93"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-14T09:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T12:42:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b065919d983dfbdbf98c99"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b02c7e9d983dfbdbf98b39"
+        },
+        "start": {
+            "$date": "2026-03-14T13:45:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T15:41:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0669c9d983dfbdbf98c9e"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-16T16:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T18:09:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b065669d983dfbdbf98c97"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-14T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T11:09:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0659e9d983dfbdbf98c9a"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-14T15:45:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T19:00:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b066769d983dfbdbf98c9b"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-16T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T11:09:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b065859d983dfbdbf98c98"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "f00000000000000000000010"
+        },
+        "start": {
+            "$date": "2026-03-14T11:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-14T13:37:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b066aa9d983dfbdbf98c9f"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b01b729d983dfbdbf98b2d"
+        },
+        "start": {
+            "$date": "2026-03-16T18:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T20:23:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b066939d983dfbdbf98c9d"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "f00000000000000000000010"
+        },
+        "start": {
+            "$date": "2026-03-16T13:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T15:57:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b066819d983dfbdbf98c9c"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b01f8d9d983dfbdbf98b2e"
+        },
+        "start": {
+            "$date": "2026-03-16T11:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T13:30:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b067389d983dfbdbf98ca4"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b02dba9d983dfbdbf98b3a"
+        },
+        "start": {
+            "$date": "2026-03-16T09:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T11:17:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b066d69d983dfbdbf98ca1"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-16T11:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T14:42:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b066e89d983dfbdbf98ca2"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b027b79d983dfbdbf98b34"
+        },
+        "start": {
+            "$date": "2026-03-16T14:45:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T17:08:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b066c99d983dfbdbf98ca0"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b023729d983dfbdbf98b32"
+        },
+        "start": {
+            "$date": "2026-03-16T09:05:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T11:10:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b066f79d983dfbdbf98ca3"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-16T17:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T20:25:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b067659d983dfbdbf98ca7"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b02bd59d983dfbdbf98b38"
+        },
+        "start": {
+            "$date": "2026-03-16T17:25:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T20:39:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b067769d983dfbdbf98ca8"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b023729d983dfbdbf98b32"
+        },
+        "start": {
+            "$date": "2026-03-16T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T11:05:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b067579d983dfbdbf98ca6"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "f00000000000000000000010"
+        },
+        "start": {
+            "$date": "2026-03-16T14:45:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T17:12:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b067439d983dfbdbf98ca5"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b02bd59d983dfbdbf98b38"
+        },
+        "start": {
+            "$date": "2026-03-16T11:20:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T14:34:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b067fa9d983dfbdbf98cab"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b02c7e9d983dfbdbf98b39"
+        },
+        "start": {
+            "$date": "2026-03-16T17:05:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T19:01:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b067e99d983dfbdbf98caa"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-16T13:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T17:02:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b068649d983dfbdbf98cac"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b02c7e9d983dfbdbf98b39"
+        },
+        "start": {
+            "$date": "2026-03-16T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T10:56:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b068a19d983dfbdbf98cae"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b030b19d983dfbdbf98b3d"
+        },
+        "start": {
+            "$date": "2026-03-16T13:25:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T15:30:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b068939d983dfbdbf98cad"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b01b729d983dfbdbf98b2d"
+        },
+        "start": {
+            "$date": "2026-03-16T11:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T13:13:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b068b79d983dfbdbf98caf"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b020b69d983dfbdbf98b2f"
+        },
+        "start": {
+            "$date": "2026-03-16T15:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T17:29:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b068f49d983dfbdbf98cb1"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-16T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T12:15:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b068e29d983dfbdbf98cb0"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-16T17:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T20:45:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b069239d983dfbdbf98cb4"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "f00000000000000000000010"
+        },
+        "start": {
+            "$date": "2026-03-16T18:20:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T20:47:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b069049d983dfbdbf98cb2"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-16T12:15:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T15:47:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b069129d983dfbdbf98cb3"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b02dba9d983dfbdbf98b3a"
+        },
+        "start": {
+            "$date": "2026-03-16T16:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T18:07:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0694d9d983dfbdbf98cb5"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-17T09:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T11:19:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b069689d983dfbdbf98cb7"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-17T15:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T18:15:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0695c9d983dfbdbf98cb6"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-17T11:25:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T14:57:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b069879d983dfbdbf98cb9"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b02bd59d983dfbdbf98b38"
+        },
+        "start": {
+            "$date": "2026-03-17T09:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T12:24:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b069939d983dfbdbf98cba"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-17T12:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T16:02:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0697a9d983dfbdbf98cb8"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b01b729d983dfbdbf98b2d"
+        },
+        "start": {
+            "$date": "2026-03-17T18:25:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T20:38:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06a909d983dfbdbf98cbd"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-17T12:25:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T14:34:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0699f9d983dfbdbf98cbb"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-17T16:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T19:25:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06a7e9d983dfbdbf98cbc"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b02bd59d983dfbdbf98b38"
+        },
+        "start": {
+            "$date": "2026-03-17T09:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T12:24:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06a9b9d983dfbdbf98cbe"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b030b19d983dfbdbf98b3d"
+        },
+        "start": {
+            "$date": "2026-03-17T14:35:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T16:40:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06b819d983dfbdbf98cc0"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b02c7e9d983dfbdbf98b39"
+        },
+        "start": {
+            "$date": "2026-03-17T18:40:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T20:36:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06b0e9d983dfbdbf98cbf"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b020b69d983dfbdbf98b2f"
+        },
+        "start": {
+            "$date": "2026-03-17T16:40:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T18:39:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06b969d983dfbdbf98cc1"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-17T09:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T11:19:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06d0f9d983dfbdbf98d02"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "f00000000000000000000010"
+        },
+        "start": {
+            "$date": "2026-03-17T11:25:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T13:52:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000003"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06d1d9d983dfbdbf98d03"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b02bd59d983dfbdbf98b38"
+        },
+        "start": {
+            "$date": "2026-03-17T14:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T17:14:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b067b49d983dfbdbf98ca9"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b01f8d9d983dfbdbf98b2e"
+        },
+        "start": {
+            "$date": "2026-03-16T11:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-16T13:30:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06d539d983dfbdbf98d07"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b030b19d983dfbdbf98b3d"
+        },
+        "start": {
+            "$date": "2026-03-17T14:35:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T16:40:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06d389d983dfbdbf98d05"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-17T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T12:32:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06d619d983dfbdbf98d08"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b02c7e9d983dfbdbf98b39"
+        },
+        "start": {
+            "$date": "2026-03-17T16:40:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T18:36:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06daa9d983dfbdbf98d0c"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-17T14:50:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T18:05:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06d459d983dfbdbf98d06"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b020b69d983dfbdbf98b2f"
+        },
+        "start": {
+            "$date": "2026-03-17T12:35:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T14:34:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06e579d983dfbdbf98d10"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b01f8d9d983dfbdbf98b2e"
+        },
+        "start": {
+            "$date": "2026-03-10T14:45:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T17:05:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06dbb9d983dfbdbf98d0d"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-17T18:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T20:19:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06d909d983dfbdbf98d0a"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b026e69d983dfbdbf98b33"
+        },
+        "start": {
+            "$date": "2026-03-17T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T11:31:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06d2c9d983dfbdbf98d04"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b01b729d983dfbdbf98b2d"
+        },
+        "start": {
+            "$date": "2026-03-17T17:15:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T19:28:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06ea99d983dfbdbf98d13"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b01f8d9d983dfbdbf98b2e"
+        },
+        "start": {
+            "$date": "2026-03-10T11:15:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T13:35:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06e669d983dfbdbf98d11"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-10T17:25:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T20:40:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06e709d983dfbdbf98d12"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b023729d983dfbdbf98b32"
+        },
+        "start": {
+            "$date": "2026-03-10T09:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T11:15:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06ebc9d983dfbdbf98d14"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-10T13:35:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T17:07:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06eca9d983dfbdbf98d15"
+        },
+        "hall_id": {
+            "$oid": "69b039ca9d983dfbdbf98b67"
+        },
+        "movie_id": {
+            "$oid": "69b02c7e9d983dfbdbf98b39"
+        },
+        "start": {
+            "$date": "2026-03-10T17:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T19:06:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06e049d983dfbdbf98d0f"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-10T12:35:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T14:44:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06eec9d983dfbdbf98d16"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b02bd59d983dfbdbf98b38"
+        },
+        "start": {
+            "$date": "2026-03-10T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T12:14:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06f069d983dfbdbf98d18"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-10T15:50:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T19:05:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06f389d983dfbdbf98d19"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b030b19d983dfbdbf98b3d"
+        },
+        "start": {
+            "$date": "2026-03-10T09:05:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T11:10:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000003"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06f429d983dfbdbf98d1a"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b02bd59d983dfbdbf98b38"
+        },
+        "start": {
+            "$date": "2026-03-10T11:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T14:24:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06ef79d983dfbdbf98d17"
+        },
+        "hall_id": {
+            "$oid": "69b03a889d983dfbdbf98ba9"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-10T12:15:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T15:47:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06f4c9d983dfbdbf98d1b"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b030b19d983dfbdbf98b3d"
+        },
+        "start": {
+            "$date": "2026-03-10T14:25:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T16:30:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000002"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06d9c9d983dfbdbf98d0b"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b02bd59d983dfbdbf98b38"
+        },
+        "start": {
+            "$date": "2026-03-17T11:35:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T14:49:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06f6c9d983dfbdbf98d1d"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b02dba9d983dfbdbf98b3a"
+        },
+        "start": {
+            "$date": "2026-03-10T18:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T20:37:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000003"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06f5e9d983dfbdbf98d1c"
+        },
+        "hall_id": {
+            "$oid": "69b03a9b9d983dfbdbf98bc8"
+        },
+        "movie_id": {
+            "$oid": "69b02c7e9d983dfbdbf98b39"
+        },
+        "start": {
+            "$date": "2026-03-10T16:30:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T18:26:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000003"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06d839d983dfbdbf98d09"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b01b729d983dfbdbf98b2d"
+        },
+        "start": {
+            "$date": "2026-03-17T18:45:00Z"
+        },
+        "end": {
+            "$date": "2026-03-17T20:58:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06f749d983dfbdbf98d1e"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-10T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T12:32:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06f899d983dfbdbf98d1f"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-10T12:35:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T15:50:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06df99d983dfbdbf98d0e"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000002"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-10T09:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T12:32:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000001"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06ffc9d983dfbdbf98d21"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "f00000000000000000000010"
+        },
+        "start": {
+            "$date": "2026-03-10T18:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T20:27:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0701c9d983dfbdbf98d22"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b02ac19d983dfbdbf98b37"
+        },
+        "start": {
+            "$date": "2026-03-10T09:10:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T12:42:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b06f959d983dfbdbf98d20"
+        },
+        "hall_id": {
+            "$oid": "69956dc95c97a29b5831a181"
+        },
+        "movie_id": {
+            "$oid": "69b030b19d983dfbdbf98b3d"
+        },
+        "start": {
+            "$date": "2026-03-10T15:50:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T17:55:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000004"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0705b9d983dfbdbf98d24"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b01b729d983dfbdbf98b2d"
+        },
+        "start": {
+            "$date": "2026-03-10T15:00:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T17:13:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b0706a9d983dfbdbf98d25"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b0225d9d983dfbdbf98b31"
+        },
+        "start": {
+            "$date": "2026-03-10T17:25:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T20:40:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "69b070299d983dfbdbf98d23"
+        },
+        "hall_id": {
+            "$oid": "e00000000000000000000001"
+        },
+        "movie_id": {
+            "$oid": "69b021a59d983dfbdbf98b30"
+        },
+        "start": {
+            "$date": "2026-03-10T12:45:00Z"
+        },
+        "end": {
+            "$date": "2026-03-10T14:54:00Z"
+        },
+        "screening_type_id": {
+            "$oid": "bb0000000000000000000005"
+        }
+    }
+]

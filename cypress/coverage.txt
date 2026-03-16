@@ -1,0 +1,19 @@
+A backend 36 API végpontot tartalmaz.
+
+A Cypress automatikus tesztek több mint 30 végpont működését ellenőrzik.
+
+Összesen 87 automatikus teszt fut, amelyek a backend végpontok kb. 92%-át fedik le.
+
+
+
+Teszt adatbázis
+
+A backend tesztek külön adatbázist használnak, amely a production
+adatbázistól teljesen elkülönítve működik.
+
+A teszt adatbázis ugyanazt a sémát és alap adatokat (seed)
+tartalmazza, azonban a tesztek szabadon módosíthatják az adatokat
+anélkül, hogy az éles rendszer adatait érintenék.
+
+A teszt adatbázist a Cypress tesztek használják az endpoint
+tesztek futtatása során.

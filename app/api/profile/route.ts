@@ -57,12 +57,33 @@ export async function GET() {
     });
 
     if (correctRank && correctRank.id !== user.rank_id) {
+
+      const oldRank = user.ranks;
+
       await prisma.user.update({
         where: { id: user.id },
         data: {
           rank_id: correctRank.id
         }
       });
+
+      if (oldRank && correctRank.point_limit < oldRank.point_limit) {
+        await prisma.coupon.deleteMany({
+          where: {
+            user_id: user.id,
+            discounts: {
+              ranks: {
+                some: {
+                  point_limit: {
+                    gt: correctRank.point_limit
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
       user.ranks = correctRank;
     }
 
@@ -108,6 +129,21 @@ export async function GET() {
             data: {
               rank_id: lowerRank.id,
               points: lowerRank.point_limit
+            }
+          });
+
+          await prisma.coupon.deleteMany({
+            where: {
+              user_id: user.id,
+              discounts: {
+                ranks: {
+                  some: {
+                    point_limit: {
+                      gt: lowerRank.point_limit
+                    }
+                  }
+                }
+              }
             }
           });
 

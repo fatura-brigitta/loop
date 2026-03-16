@@ -1,7 +1,7 @@
 "use client";
 
 import Timeline from "@/app/components/Timeline";
-import { LogOut, Film, Calendar, MessageSquare, Building2 } from "lucide-react";
+import { LogOut, Film, Calendar, MessageSquare, Building2, Menu, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -105,6 +105,7 @@ export default function AdminPage() {
   const [screeningTypes, setScreeningTypes] = useState<ScreeningType[]>([]);
   const [openingHours,setOpeningHours] = useState<OpeningHours[]>([])
   const [openingOverrides,setOpeningOverrides] = useState<OpeningOverride[]>([])
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
 
   const [err, setErr] = useState<string>("");
@@ -341,7 +342,16 @@ async function loadModeration() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white" data-cy="admin-page">
-      <aside className="fixed left-0 top-0 h-screen w-64 bg-slate-900 border-r border-white/10 p-6 flex flex-col" data-cy="admin-sidebar">
+      <aside
+        className={`fixed z-50 left-0 top-0 h-screen w-64 bg-slate-900 border-r border-white/10 p-6 flex flex-col transform transition-transform duration-300
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
+      >
+        {sidebarOpen && (
+          <div
+            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
         <div className="mb-10 text-white text-xl font-semibold">Admin Panel</div>
 
         <nav className="flex flex-col gap-2 text-sm flex-1">
@@ -409,7 +419,15 @@ async function loadModeration() {
         </div>
       </aside>
 
-      <main className="ml-64 p-8">
+      <main className="p-4 lg:ml-64 lg:p-8">
+        <div className="lg:hidden mb-4">
+          <button
+            className="p-2 rounded-lg bg-slate-800 border border-white/10"
+            onClick={() => setSidebarOpen(true)}
+          >
+            <Menu size={20} />
+          </button>
+        </div>
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold">
             {tab === "movies" && "Filmek kezelése"}
@@ -432,7 +450,7 @@ async function loadModeration() {
         )}
 
         {tab === "movies" && (
-          <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="mt-6 grid grid-cols-1 xl:grid-cols-3 gap-6">
 
             <section className="lg:col-span-1 p-5 rounded-xl bg-white/5 border border-white/10" data-cy="movie-form">
               <h2 className="font-semibold mb-4">
@@ -618,7 +636,7 @@ async function loadModeration() {
               </div>
 
 
-              <div className="space-y-2 max-h-[520px] overflow-y-auto pr-2 custom-scroll">
+              <div className="space-y-2 max-h-[520px] overflow-y-auto overflow-x-auto pr-2 custom-scroll">
                 {filteredMovies.map((m) => (
                   <div className="flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-white/10"
                     data-cy="movie-item"
@@ -674,7 +692,7 @@ async function loadModeration() {
         )}
 
         {tab === "halls" && (
-          <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="mt-6 grid grid-cols-1 xl:grid-cols-3 gap-6">
 
             <section data-cy="hall-form">
               <h2 className="font-semibold mb-4">
@@ -777,7 +795,7 @@ async function loadModeration() {
             <section className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10" data-cy="hall-list">
               <h2 className="font-semibold mb-4">Termek</h2>
 
-              <div className="space-y-2 max-h-[520px] overflow-y-auto pr-2">
+              <div className="space-y-2 max-h-[520px] overflow-y-auto overflow-x-auto pr-2">
 
                 {halls.map((h) => (
                   <div
@@ -827,7 +845,7 @@ async function loadModeration() {
         )}
 
         {tab === "screenings" && (
-          <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="mt-6 grid grid-cols-1 xl:grid-cols-3 gap-6">
 
             <section className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10" data-cy="screening-form">
 
@@ -1058,7 +1076,7 @@ async function loadModeration() {
 
               <h2 className="font-semibold mb-4">Vetítések</h2>
 
-              <div className="space-y-2 max-h-[520px] overflow-y-auto pr-2">
+              <div className="space-y-2 max-h-[520px] overflow-y-auto overflow-x-auto pr-2">
 
                 {screenings
                   .filter(s => {
@@ -1125,7 +1143,7 @@ async function loadModeration() {
   
           <h2 className="font-semibold mb-4">Problémás kommentek</h2>
   
-          <div className="space-y-2 max-h-[520px] overflow-y-auto pr-2 custom-scroll">
+          <div className="space-y-2 max-h-[520px] overflow-y-auto overflow-x-auto pr-2 custom-scroll">
   
             {flaggedComments.map(c=>{
   
@@ -1415,7 +1433,7 @@ async function loadModeration() {
           </button>
 
           </div>
-          <div className="space-y-2 max-h-[520px] overflow-y-auto pr-2 custom-scroll">
+          <div className="space-y-2 max-h-[520px] overflow-y-auto overflow-x-auto pr-2 custom-scroll">
             {openingOverrides.map(o=>(
 
             <div

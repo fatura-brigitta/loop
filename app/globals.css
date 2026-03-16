@@ -13,6 +13,7 @@
   --text-light: #f1f5f9;
   --text-white: #ffffff;
   --text-main3: #31b0b9;
+  --text-slate-hover: rgba(183, 210, 218, 0.815);
 }
 
 .dark {
@@ -27,6 +28,7 @@
   --button-bg: #63d8e1;
   --text-light: #0f0e0e;
   --text-white: #ffffff;
+  --text-slate-hover: rgb(83, 104, 122);
 }
 
 body {

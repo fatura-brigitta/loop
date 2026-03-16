@@ -279,7 +279,7 @@ export default function ScreeningsPage() {
                 className={`flex min-w-[70px] cursor-pointer flex-col items-center rounded-lg border px-4 py-2 ${
                   selectedDate === d.iso
                     ? "border-cyan-500 bg-cyan-500 text-[var(--text-main)]"
-                    : "border-[var(--border-color)] bg-[var(--card-bg)] hover:bg-slate-100 dark:hover:bg-white/10"
+                    : "border-[var(--border-color)] bg-[var(--card-bg)] hover:bg-[var(--text-slate-hover)]"
                 }`}
                 data-cy={`screenings-date-${d.iso}`}
                 key={d.iso}
@@ -294,7 +294,7 @@ export default function ScreeningsPage() {
           <div className="flex items-center gap-2">
             <div className="relative" ref={dropdownRef}>
               <button
-                className="flex w-44 cursor-pointer items-center justify-between rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 hover:bg-slate-100 dark:hover:bg-white/10"
+                className="flex w-44 cursor-pointer items-center justify-between rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 hover:bg-[var(--text-slate-hover)]"
                 data-cy="screenings-type-dropdown"
                 onClick={() => setDropdownOpen((p) => !p)}
               >
@@ -308,7 +308,7 @@ export default function ScreeningsPage() {
                   data-cy="screenings-type-dropdown-menu"
                 >
                   <div
-                    className="cursor-pointer px-4 py-2 hover:bg-slate-100 dark:hover:bg-white/10"
+                    className="cursor-pointer px-4 py-2 hover:bg-[var(--text-slate-hover)]"
                     data-cy="screenings-type-all"
                     onClick={() => {
                       setSelectedType("all");
@@ -320,7 +320,7 @@ export default function ScreeningsPage() {
 
                   {availableTypes.map((type) => (
                     <div
-                      className="cursor-pointer px-4 py-2 hover:bg-slate-100 dark:hover:bg-white/10"
+                      className="cursor-pointer px-4 py-2 hover:bg-[var(--text-slate-hover)]"
                       data-cy={`screenings-type-${type}`}
                       key={type}
                       onClick={() => {
@@ -335,7 +335,7 @@ export default function ScreeningsPage() {
               )}
             </div>
             <button
-              className="flex cursor-pointer items-center justify-center rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-3 py-2 hover:bg-slate-100 dark:hover:bg-white/10"
+              className="flex cursor-pointer items-center justify-center rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-3 py-2 hover:bg-[var(--text-slate-hover)]"
               data-cy="screenings-reset-filters"
               title="Szűrők törlése"
               onClick={resetFilters}

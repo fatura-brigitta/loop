@@ -44,7 +44,7 @@ export default function PricingSection({ pricing }: { pricing: Pricing }){
             <div className="grid gap-6 md:grid-cols-5">
               {screenings.map((s) => (
                 <div
-                  className="rounded-xl border border-[--border-color]  bg-[var(--card-bg)] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:cursor-pointer hover:bg-slate-100 dark:hover:bg-white/10"
+                  className="rounded-xl border border-[--border-color]  bg-[var(--card-bg)] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:cursor-pointer hover:bg-[var(--text-slate-hover)]"
                   key={s.type}
                 >
                   <div className="text-xl font-bold">{s.type}</div>
@@ -73,7 +73,7 @@ export default function PricingSection({ pricing }: { pricing: Pricing }){
             <div className="grid gap-6 md:grid-cols-4">
               {tickets.map((t) => (
                 <div
-                  className="rounded-xl border border-[--border-color]  bg-[var(--card-bg)] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:cursor-pointer hover:bg-slate-100 dark:hover:bg-white/10"
+                  className="rounded-xl border border-[--border-color]  bg-[var(--card-bg)] p-6 text-center backdrop-blur transition hover:scale-[1.03] hover:cursor-pointer hover:bg-[var(--text-slate-hover)]"
                   key={t.type}
                 >
                   <div className="text-xl font-bold">{t.type}</div>

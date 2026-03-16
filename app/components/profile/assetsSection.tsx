@@ -26,7 +26,7 @@ export default function AssetsSection({
       <div className="mx-auto max-w-5xl px-4">
         <div className="mx-auto max-w-5xl">
           <button
-            className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
+            className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-[var(--text-slate-hover)]"
             data-cy="profile-coupons-toggle"
             onClick={() => {
               setShowCoupons((v: boolean) => !v);
@@ -119,7 +119,7 @@ export default function AssetsSection({
 
       <div className="mx-auto max-w-5xl px-4">
         <button
-          className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
+          className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-[var(--text-slate-hover)]"
           data-cy="profile-tickets-toggle"
           onClick={() => {
             setShowTickets((v: boolean) => !v);
@@ -196,7 +196,7 @@ export default function AssetsSection({
 
       <div className="mx-auto max-w-5xl px-4 pb-32">
         <button
-          className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
+          className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-[var(--text-slate-hover)]"
           data-cy="profile-history-toggle"
           onClick={() => {
             setShowHistory((v: boolean) => !v);

@@ -50,7 +50,7 @@ export default function PointsInfoSection({ ranks, discounts,}: { ranks: RankTyp
                 );
                 return (
                   <div
-                    className="rounded-xl border border-[--border-color] bg-[var(--card-bg)] p-6 text-center backdrop-blur transition hover:scale-[1.05] hover:cursor-pointer hover:bg-slate-100 dark:hover:bg-white/10"
+                    className="rounded-xl border border-[--border-color] bg-[var(--card-bg)] p-6 text-center backdrop-blur transition hover:scale-[1.05] hover:cursor-pointer hover:bg-[var(--text-slate-hover)]"
                     key={r.id}
                   >
                     <div className="relative mx-auto mb-4 h-16 w-16">

@@ -2,6 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useRef } from "react";
+import { ChevronDown } from "lucide-react";
 
 type PaymentData = {
   sessionId: string;
@@ -29,6 +31,24 @@ export default function PaymentPage() {
   const [price, setPrice] = useState<number | null>(null);
   const [ticketTypes, setTicketTypes] = useState<Record<number, string>>({});
   const [seatPrices, setSeatPrices] = useState<Record<number, number>>({});
+  const [openDropdown, setOpenDropdown] = useState<number | null>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (!dropdownRef.current) return;
+
+      if (!dropdownRef.current.contains(e.target as Node)) {
+        setOpenDropdown(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, []);
 
   useEffect(() => {
     const load = async () => {
@@ -238,42 +258,60 @@ export default function PaymentPage() {
                       </div>
 
                       <div className="flex items-center gap-3">
-                        <span className="text-green-400 font-semibold text-sm" data-cy="ticket-price">
+                        <span
+                          className="text-green-400 font-semibold text-sm"
+                          data-cy="ticket-price"
+                        >
                           {seatPrices[i] ? `${formatPrice(seatPrices[i])} €` : ""}
                         </span>
-                        <select
-                          className="w-[110px] rounded-lg bg-[var(--card-bg)] text-[var(--text-main3)] border border-[var(--border-color)]/20 p-2 cursor-pointer"
-                          data-cy="ticket-type-select"
-                          data-seat-index={i}
-                          value={type}
-                          onChange={async (e) => {
-                            const newType = e.target.value;
 
-                            const updated = {
-                              ...ticketTypes,
-                              [i]: newType,
-                            };
+                        <div className="relative w-[110px]" ref={dropdownRef}>
+                          <button
+                            className="flex w-full cursor-pointer items-center justify-between rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-3 py-2 text-[var(--text-main3)] hover:bg-[var(--text-slate-hover)]"
+                            data-cy="ticket-type-dropdown"
+                            onClick={() =>
+                              setOpenDropdown((prev) => (prev === i ? null : i))
+                            }
+                          >
+                            {type}
+                            <ChevronDown size={14} />
+                          </button>
 
-                            setTicketTypes(updated);
-                            recalcPrice(updated);
+                          {openDropdown === i && (
+                            <div
+                              className="animate-in fade-in slide-in-from-top-2 absolute right-0 z-50 mt-2 w-full overflow-hidden rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)]/60 shadow-xl backdrop-blur-md duration-200"
+                              data-cy="ticket-type-dropdown-menu"
+                            >
+                              {["Normál", "Diák", "Senior", "Gyerek"].map((option) => (
+                                <div
+                                  key={option}
+                                  className="cursor-pointer px-3 py-2 hover:bg-[var(--text-slate-hover)]"
+                                  data-cy={`ticket-type-${option}`}
+                                  onClick={async () => {
+                                    const updated = {
+                                      ...ticketTypes,
+                                      [i]: option,
+                                    };
 
-                            const seatPrice = await getSeatPrice(newType);
+                                    setTicketTypes(updated);
+                                    recalcPrice(updated);
 
-                            setSeatPrices((prev) => ({
-                              ...prev,
-                              [i]: seatPrice,
-                            }));
+                                    const seatPrice = await getSeatPrice(option);
 
-                            setTicketTypes(updated);
-                            recalcPrice(updated);
-                          }}
-                        >
-                          <option value="Normál" >Normál</option>
-                          <option value="Diák">Diák</option>
-                          <option value="Senior">Senior</option>
-                          <option value="Gyerek">Gyerek</option>
-                        </select>
+                                    setSeatPrices((prev) => ({
+                                      ...prev,
+                                      [i]: seatPrice,
+                                    }));
 
+                                    setOpenDropdown(null);
+                                  }}
+                                >
+                                  {option}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   );

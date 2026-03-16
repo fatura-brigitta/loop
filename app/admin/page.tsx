@@ -264,6 +264,11 @@ export default function AdminPage() {
     router.replace("/adminLogin");
   };
 
+  const handleTabChange = (nextTab: Tab) => {
+    setTab(nextTab);
+    setSidebarOpen(false);
+  };
+
   async function loadAll() {
   setErr("");
 
@@ -342,24 +347,33 @@ async function loadModeration() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white" data-cy="admin-page">
-      <aside
-        className={`fixed z-50 left-0 top-0 h-screen w-64 bg-slate-900 border-r border-white/10 p-6 flex flex-col transform transition-transform duration-300
-        ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
-      >
         {sidebarOpen && (
           <div
             className="fixed inset-0 bg-black/50 z-40 lg:hidden"
             onClick={() => setSidebarOpen(false)}
           />
         )}
-        <div className="mb-10 text-white text-xl font-semibold">Admin Panel</div>
+      <aside
+        className={`fixed z-50 left-0 top-0 h-screen w-64 bg-slate-900 border-r border-white/10 p-6 flex flex-col transform transition-transform duration-300 overflow-y-auto
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
+      >
+        <div className="flex justify-between items-center mb-6 lg:hidden">
+          <div className="text-white text-xl font-semibold">Admin Panel</div>
+          <button type="button" onClick={() => setSidebarOpen(false)}>
+            <X size={20} />
+          </button>
+        </div>
 
         <nav className="flex flex-col gap-2 text-sm flex-1">
+          
           <button className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
               tab === "movies" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white "
             }`}
             data-cy="nav-movies"
-            onClick={() => setTab("movies")}
+            onClick={() => {
+              handleTabChange("movies");
+              setSidebarOpen(false);
+            }}
           >
             <Film size={18} />
             Filmek
@@ -369,7 +383,10 @@ async function loadModeration() {
               tab === "halls" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white"
             }`}
             data-cy="nav-halls"
-            onClick={() => setTab("halls")}
+            onClick={() => {
+              handleTabChange("halls");
+              setSidebarOpen(false);
+            }}
           >
             <Building2 size={18} />
             Termek
@@ -379,7 +396,10 @@ async function loadModeration() {
               tab === "screenings" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white"
             }`}
             data-cy="nav-screenings"
-            onClick={() => setTab("screenings")}
+            onClick={() => {
+              handleTabChange("screenings");
+              setSidebarOpen(false);
+            }}
           >
             <Calendar size={18} />
             Vetítések
@@ -392,7 +412,10 @@ async function loadModeration() {
                 : "text-slate-300 hover:text-white"
             }`}
             data-cy="nav-forum"
-            onClick={() => setTab("bad_words")}
+            onClick={() => {
+              handleTabChange("bad_words");
+              setSidebarOpen(false);
+            }}
           >
             <MessageSquare size={18} />
             Fórum
@@ -404,7 +427,10 @@ async function loadModeration() {
                 ? "bg-white/10 text-white"
                 : "text-slate-300 hover:text-white"
             }`}
-            onClick={() => setTab("opening_hours")}
+            onClick={() => {
+              handleTabChange("opening_hours");
+              setSidebarOpen(false);
+            }}
           >
             <Calendar size={18} />
             Nyitvatartás
@@ -412,7 +438,11 @@ async function loadModeration() {
         </nav>
 
         <div className="border-t border-white/10 pt-4 text-slate-300 text-sm flex flex-col items-end">
-          <button className="flex items-center gap-2 hover:text-white transition cursor-pointer" data-cy="admin-logout" onClick={handleLogout}>
+          <button className="flex items-center gap-2 hover:text-white transition cursor-pointer" data-cy="admin-logout" 
+          onClick={() => {
+            setSidebarOpen(false);
+            handleLogout();
+          }}>
             <LogOut size={18} />
             Kijelentkezés
           </button>
@@ -422,6 +452,7 @@ async function loadModeration() {
       <main className="p-4 lg:ml-64 lg:p-8">
         <div className="lg:hidden mb-4">
           <button
+            type="button"
             className="p-2 rounded-lg bg-slate-800 border border-white/10"
             onClick={() => setSidebarOpen(true)}
           >
@@ -433,6 +464,8 @@ async function loadModeration() {
             {tab === "movies" && "Filmek kezelése"}
             {tab === "halls" && "Termek kezelése"}
             {tab === "screenings" && "Vetítések kezelése"}
+            {tab === "bad_words" && "Fórum kezelése"}
+            {tab === "opening_hours" && "Nyitvatartás kezelése"}
           </h1>
 
           <button className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 transition text-sm cursor-pointer"
@@ -694,7 +727,10 @@ async function loadModeration() {
         {tab === "halls" && (
           <div className="mt-6 grid grid-cols-1 xl:grid-cols-3 gap-6">
 
-            <section data-cy="hall-form">
+            <section
+              className="lg:col-span-1 p-5 rounded-xl bg-white/5 border border-white/10"
+              data-cy="hall-form"
+            >
               <h2 className="font-semibold mb-4">
                 {hallEditingId ? "Terem szerkesztése" : "Új terem létrehozása"}
               </h2>
@@ -805,7 +841,8 @@ async function loadModeration() {
                     <div>
                       <div className="font-medium">{h.name}</div>
                       <div className="text-xs text-slate-300">
-                        {h.row} sor × {h.column} ülőhely ({h.row * h.column} összesen)
+                        <div>{h.row} sor × {h.column} ülőhely</div>
+                        <div>({h.row * h.column} összesen)</div>
                       </div>
                     </div>
 
@@ -1267,16 +1304,15 @@ async function loadModeration() {
 
         {tab === "opening_hours" && (
         <>
-        <h1 className="text-2xl font-semibold">Nyitvatartás kezelése</h1>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
         <section className="p-5 bg-white/5 border border-white/10 rounded-xl self-start">
 
         <h2 className="font-semibold mb-4">Általános nyitvatartás</h2>
         {openingHours.map((d,i)=>(
 
-        <div key={i} className="flex gap-3 mb-3 items-center">
+        <div key={i} className="grid grid-cols-[1fr_90px_90px_auto] gap-2 mb-3 items-center">
 
-        <div className="w-28 text-sm">{days[d.weekday]}</div>
+        <div className="text-sm">{days[d.weekday]}</div>
 
         <input
         type="time"
@@ -1289,7 +1325,7 @@ async function loadModeration() {
           setOpeningHours(copy)
 
         }}
-        className="bg-slate-900 border border-white/10 px-2 py-1 rounded"
+        className="w-full bg-slate-900 border border-white/10 px-2 py-1 rounded"
         />
 
         <input
@@ -1303,38 +1339,29 @@ async function loadModeration() {
           setOpeningHours(copy)
 
         }}
-        className="bg-slate-900 border border-white/10 px-2 py-1 rounded"
+        className="w-full bg-slate-900 border border-white/10 px-2 py-1 rounded"
         />
 
-        <label className="text-sm flex items-center gap-1">
+        <label className="text-xs flex items-center gap-1 whitespace-nowrap">
 
         <input
-        type="checkbox"
-        checked={d.closed}
-        onChange={(e)=>{
+          type="checkbox"
+          className="accent-emerald-500"
+          checked={d.closed}
+          onChange={(e)=>{
 
           const checked = e.target.checked
-
           const copy=[...openingHours]
-
           copy[i].closed = checked
 
           if(checked){
             copy[i].open_time = "00:00"
             copy[i].close_time = "00:00"
           }
-
           setOpeningHours(copy)
-
         }}
-        />
-
-        zárva
-
-        </label>
-
+        />zárva</label>
         </div>
-
         ))}
 
         <button
@@ -1353,9 +1380,9 @@ async function loadModeration() {
 
         <section className="p-5 bg-white/5 border border-white/10 rounded-xl">
           <h2 className="font-semibold mb-4">Speciális napok</h2>
-          <div className="grid grid-cols-4 gap-4 mb-4 items-end">
+          <div className="grid grid-cols-2 gap-4 mb-4">
 
-          <div>
+          <div className="col-span-1">
             <label className="text-xs text-slate-400">Dátum</label>
             <input
             type="date"
@@ -1387,53 +1414,49 @@ async function loadModeration() {
             />
           </div>
 
-          <div className="flex items-center gap-2 h-[38px]">
+          <div className="flex items-center gap-2 mt-5">
             <input
             type="checkbox"
+            className="accent-emerald-500"
             checked={overrideForm.closed}
             onChange={(e)=>setOverrideForm({...overrideForm,closed:e.target.checked})}
             />
-            <span className="text-sm">Zárva</span>
+            <span className="text-sm">zárva</span>
           </div>
 
+
+          </div>
           <button
-          className="w-full mt-4 w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
-          onClick={async()=>{
+            className="w-full mt-4 w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
+            onClick={async()=>{
 
-          if(!overrideForm.date){
-            setErr("Dátum kötelező")
-            return
-          }
+            if(!overrideForm.date){
+              setErr("Dátum kötelező")
+              return
+            }
 
-          if(!overrideForm.closed && (!overrideForm.open_time || !overrideForm.close_time)){
-            setErr("Nyitási és zárási idő kell")
-            return
-          }
+            if(!overrideForm.closed && (!overrideForm.open_time || !overrideForm.close_time)){
+              setErr("Nyitási és zárási idő kell")
+              return
+            }
 
-          await api("opening_overrides","POST",{
-            ...overrideForm,
-            open_time: overrideForm.closed ? null : overrideForm.open_time,
-            close_time: overrideForm.closed ? null : overrideForm.close_time
-          })
+            await api("opening_overrides","POST",{
+              ...overrideForm,
+              open_time: overrideForm.closed ? null : overrideForm.open_time,
+              close_time: overrideForm.closed ? null : overrideForm.close_time
+            })
 
-          setOverrideForm({
-          date:"",
-          open_time:"",
-          close_time:"",
-          closed:false
-          })
+            setOverrideForm({
+              date:"",
+              open_time:"",
+              close_time:"",
+              closed:false
+              })
+              await loadAll()
+            }}
+          >Hozzáadás</button>
 
-          await loadAll()
-
-          }}
-          >
-
-          Hozzáadás
-
-          </button>
-
-          </div>
-          <div className="space-y-2 max-h-[520px] overflow-y-auto overflow-x-auto pr-2 custom-scroll">
+          <div className="mt-10 space-y-2 max-h-[520px] overflow-y-auto overflow-x-auto pr-2 custom-scroll">
             {openingOverrides.map(o=>(
 
             <div

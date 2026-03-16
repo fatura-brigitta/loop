@@ -265,7 +265,10 @@ export default function PaymentPage() {
                           {seatPrices[i] ? `${formatPrice(seatPrices[i])} €` : ""}
                         </span>
 
-                        <div className="relative w-[110px]" ref={dropdownRef}>
+                        <div
+                          className="relative w-[110px]"
+                          ref={openDropdown === i ? dropdownRef : null}
+                        >
                           <button
                             className="flex w-full cursor-pointer items-center justify-between rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-3 py-2 text-[var(--text-main3)] hover:bg-[var(--text-slate-hover)]"
                             data-cy="ticket-type-dropdown"
@@ -287,23 +290,23 @@ export default function PaymentPage() {
                                   key={option}
                                   className="cursor-pointer px-3 py-2 hover:bg-[var(--text-slate-hover)]"
                                   data-cy={`ticket-type-${option}`}
-                                  onClick={async () => {
+                                  onClick={() => {
                                     const updated = {
                                       ...ticketTypes,
                                       [i]: option,
                                     };
 
                                     setTicketTypes(updated);
+                                    setOpenDropdown(null);
+
                                     recalcPrice(updated);
 
-                                    const seatPrice = await getSeatPrice(option);
-
-                                    setSeatPrices((prev) => ({
-                                      ...prev,
-                                      [i]: seatPrice,
-                                    }));
-
-                                    setOpenDropdown(null);
+                                    getSeatPrice(option).then((seatPrice) => {
+                                      setSeatPrices((prev) => ({
+                                        ...prev,
+                                        [i]: seatPrice,
+                                      }));
+                                    });
                                   }}
                                 >
                                   {option}

@@ -1,1 +1,0 @@
-[{"_id":{"$oid":"dd0000000000000000000004"},"type":"Gyerek","percent":50},{"_id":{"$oid":"dd0000000000000000000003"},"type":"Senior","percent":30},{"_id":{"$oid":"dd0000000000000000000001"},"type":"Normál","percent":0},{"_id":{"$oid":"dd0000000000000000000002"},"type":"Diák","percent":20}]

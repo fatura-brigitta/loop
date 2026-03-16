@@ -437,8 +437,8 @@ async function loadModeration() {
           </button>
         </nav>
 
-        <div className="border-t border-white/10 pt-4 text-slate-300 text-sm flex flex-col items-end">
-          <button className="flex items-center gap-2 hover:text-white transition cursor-pointer" data-cy="admin-logout" 
+        <div className="border-t border-white/10 pt-4 text-slate-300 text-sm mt-auto">
+          <button className="flex items-center gap-2 hover:text-white transition cursor-pointer w-full justify-end" data-cy="admin-logout" 
           onClick={() => {
             setSidebarOpen(false);
             handleLogout();

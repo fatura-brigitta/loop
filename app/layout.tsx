@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="hu" suppressHydrationWarning>
-      <body className="flex min-h-screen flex-col bg-[var(--bg-main)] text-[var(--text-main)] transition-colors duration-300">
+      <body className="flex min-h-screen flex-col bg-[var(--bg-main)] text-[var(--text-main)] transition-colors duration-300 overflow-x-hidden">
         <ScrollReset/>
         <SessionGuard/>
       <Script id="theme-loader" strategy="beforeInteractive">

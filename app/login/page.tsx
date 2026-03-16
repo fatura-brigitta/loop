@@ -24,6 +24,14 @@ export default function LoginPage() {
     return () => clearTimeout(t);
   }, [error]);
 
+  // useEffect(() => {
+  //   document.body.style.overflow = "hidden";
+
+  //   return () => {
+  //     document.body.style.overflow = "";
+  //   };
+  // }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -76,11 +84,9 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="login-page">
-      <div className="flex items-center justify-center py-20">
-        <div className="w-full max-w-md rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-8 shadow-2xl backdrop-blur">
-          <h1 className="mb-8 text-center text-3xl font-bold text-[var(--text-main2)]">
-            Bejelentkezés
-          </h1>
+      <div className="flex items-center justify-center px-4 py-12 sm:py-20">
+        <div className="w-full max-w-md rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 sm:p-8 shadow-2xl">
+          <h1 className="mb-6 text-center text-2xl sm:text-3xl font-bold text-[var(--text-main2)]">Bejelentkezés</h1>
 
           <form className="space-y-5" data-cy="login-form" onSubmit={handleSubmit}>
             <div>
@@ -147,9 +153,9 @@ export default function LoginPage() {
               <LogIn size={18} />
               {loading ? "Bejelentkezés..." : "Bejelentkezés"}
             </button>
-            <div className="mt-6 flex flex-col gap-3">
+            <div className="mt-6 flex flex-col gap-3 sm:gap-4">
               <button
-                className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-lg border border-[var(--border-color)] bg-white px-4 py-3 font-semibold text-black hover:bg-gray-100"
+                className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-lg border border-[var(--border-color)] bg-white px-4 py-3 text-sm sm:text-base font-semibold text-black hover:bg-gray-100"
                 data-cy="login-google"
                 type="button"
                 onClick={() => signIn("google", { callbackUrl: "/" })}
@@ -158,7 +164,7 @@ export default function LoginPage() {
                 Bejelentkezés Google fiókkal
               </button>
               <button
-                className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-lg bg-[#1877F2] px-4 py-3 font-semibold text-[var(--text-light)] hover:bg-[#166fe5]"
+                className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-lg bg-[#1877F2] px-4 py-3 text-sm sm:text-base font-semibold text-[var(--text-light)] hover:bg-[#166fe5]"
                 data-cy="login-facebook"
                 type="button"
                 onClick={() => signIn("facebook", { callbackUrl: "/" })}
@@ -169,7 +175,7 @@ export default function LoginPage() {
             </div>
           </form>
 
-          <p className="mt-6 text-center text-sm text-[var(--text-main)]/60">
+          <p className="mt-6 text-center text-xs sm:text-sm text-[var(--text-main)]/60">
             Nincs még fiókod?{" "}
             <Link
               className="text-[var(--text-main2)] hover:underline"

@@ -155,15 +155,15 @@ export default function RegisterPage() {
         </div>
       </header> */}
 
-      <div className="flex items-center justify-center py-20">
-        <div className="w-full max-w-md rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-8 shadow-2xl backdrop-blur">
-          <h1 className="mb-8 text-center text-3xl font-bold text-[var(--text-main2)]">Fiók létrehozása</h1>
+      <div className="flex items-center justify-center px-4 py-12 sm:py-20">
+        <div className="w-full max-w-md rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 sm:p-8 shadow-2xl">
+          <h1 className="mb-6 text-center text-2xl sm:text-3xl font-bold text-[var(--text-main2)]">Fiók létrehozása</h1>
 
           <form className="space-y-5" data-cy="register-form" onSubmit={handleSubmit}>
             <div>
               <label className="text-sm text-[var(--text-main)]/60">Profilkép</label>
 
-              <div className="mt-2 flex items-center gap-4">
+              <div className="mt-2 flex flex-col sm:flex-row items-start sm:items-center gap-4">
                 <div className="relative h-20 w-20 overflow-hidden rounded-full border border-[var(--border-color)]">
                   <Image
                     alt="Profilkép előnézet"
@@ -176,7 +176,7 @@ export default function RegisterPage() {
                 </div>
 
                 <div
-                  className={`flex-1 rounded-xl border border-dashed px-4 py-4 text-sm transition ${
+                  className={`w-full sm:flex-1 rounded-xl border border-dashed px-4 py-4 text-sm transition ${
                     isDragging
                       ? "border-cyan-400 bg-cyan-500/10"
                       : "border-[var(--border-color)] bg-[var(--card-bg)]"
@@ -272,7 +272,7 @@ export default function RegisterPage() {
 
             <div>
               <label className="text-sm text-[var(--text-main)]/60">Nem (opcionális)</label>
-              <div className="mt-2 grid grid-cols-1 gap-2">
+              <div className="mt-2 grid grid-cols-1 sm:grid-cols-3 gap-2">
                 {[
                   { value: "MALE", label: "Férfi" },
                   { value: "FEMALE", label: "Nő" },
@@ -320,7 +320,7 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            <div className="flex items-start gap-3 rounded-lg border border-[var(--border-color)] bg-[var(--bg-main)]/30 p-3 text-sm">
+            <div className="flex items-start gap-3 rounded-lg border border-[var(--border-color)] bg-[var(--bg-main)]/30 p-3 text-xs sm:text-sm">
               <input checked={consent}
                 className="mt-1 h-4 w-4"
                 data-cy="register-leaderboard-consent"
@@ -340,7 +340,7 @@ export default function RegisterPage() {
               </div>
             )}
 
-            <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--text-main2)] py-3 font-semibold text-[var(--text-light)] transition hover:bg-cyan-500 disabled:opacity-50 cursor-pointer"
+            <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--text-main2)] py-3 text-sm sm:text-base font-semibold text-[var(--text-light)] transition hover:bg-cyan-500 disabled:opacity-50 cursor-pointer"
               data-cy="register-submit-button"
               disabled={loading}
               type="submit"

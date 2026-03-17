@@ -52,22 +52,20 @@ export default function MoviesPage() {
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="movies-page">
       <div className="mx-auto h-full max-w-6xl items-center p-4" data-cy="movies-container">
         <h1 className="mb-6 text-2xl font-bold text-[var(--text-main)]">Műsoron</h1>
-        <div className="grid gap-6 sm:grid-cols-1 lg:grid-cols-2" data-cy="movies-grid">
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2" data-cy="movies-grid">
           {movies.map((movie) => (
             <div
-              className="group flex w-full overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] transition-all duration-300 ease-out hover:-translate-y-[3.2px] hover:shadow-2xl hover:shadow-cyan-500/10 hover:border-cyan-500/40"
+              className="group flex flex-col sm:flex-row w-full overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] transition-all duration-300 ease-out hover:-translate-y-[3.2px] hover:shadow-2xl hover:shadow-cyan-500/10 hover:border-cyan-500/40"
               data-cy="movie-card"
               data-movie-id={movie.id}
               key={movie.id}
             >
-              <div className="relative shrink-0 overflow-hidden rounded-md">
+              <div className="relative w-full sm:w-auto shrink-0 overflow-hidden">
                 <Image
                   alt={movie.title}
-                  className="object-cover shadow-md transition duration-500 ease-out group-hover:scale-102"
+                  className="object-cover w-full sm:w-[160px] md:w-[200px] h-[220px] sm:h-auto"
                   data-cy="movie-poster"
-                  height={300}
                   src={movie.poster}
-                  width={200}
                 />
               </div>
 

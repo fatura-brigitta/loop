@@ -3,7 +3,6 @@ import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
 import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
-import cloudinary from "@/lib/cloudinary";
 
 const handler = NextAuth({
   providers: [
@@ -15,20 +14,10 @@ const handler = NextAuth({
     FacebookProvider({
       clientId: process.env.FACEBOOK_CLIENT_ID!,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
-
       authorization: {
         params: {
           scope: "email public_profile",
         },
-      },
-
-      profile(profile) {
-        return {
-          id: profile.id,
-          name: profile.name,
-          email: profile.email,
-          image: `https://graph.facebook.com/${profile.id}/picture?type=large`,
-        };
       },
     }),
   ],
@@ -43,35 +32,9 @@ const handler = NextAuth({
         where: { email: user.email },
       });
 
-      let imageUrl = user.image || null;
-
-      if (!imageUrl && account?.provider === "facebook") {
-        imageUrl = `https://graph.facebook.com/${account.providerAccountId}/picture?type=large`;
-      }
-
-      let profileImage = null;
-
-      if (imageUrl) {
-        try {
-          const upload = await cloudinary.uploader.upload(imageUrl, {
-            folder: "loop/profile",
-            public_id: user.email,
-            overwrite: true,
-            transformation: [
-              { width: 256, height: 256, crop: "fill" },
-              { quality: "auto", fetch_format: "auto" }
-            ]
-          });
-
-          profileImage = upload.public_id;
-
-        } catch (err) {
-          console.error("Cloudinary upload failed:", err);
-        }
-      }
+      const profileImage = user.image ?? null;
 
       if (!existing) {
-
         const baseRank = await prisma.rank.findFirst({
           where: { point_limit: 0 },
         });
@@ -90,20 +53,15 @@ const handler = NextAuth({
             email_verified: true,
           },
         });
-
       } else {
-
-        if (!existing.profile_image && profileImage) {
-
+        if (profileImage && account?.provider !== "credentials") {
           await prisma.user.update({
             where: { id: existing.id },
             data: {
-              profile_image: profileImage
-            }
+              profile_image: profileImage,
+            },
           });
-
         }
-
       }
 
       const cookieStore = cookies();
@@ -116,7 +74,7 @@ const handler = NextAuth({
 
       return true;
     },
-  }
+  },
 });
 
 export { handler as GET, handler as POST };

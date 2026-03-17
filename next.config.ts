@@ -27,6 +27,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "res.cloudinary.com",
       },
+      {
+        protocol: "https",
+        hostname: "graph.facebook.com",
+      },
     ],
     domains: ["res.cloudinary.com"],
   },

@@ -49,10 +49,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] overflow-x-hidden">
-      <div className="pt-16">
         <HeroSlider />
-      </div>
-
       <main className="mx-auto max-w-6xl px-4 py-8">
         <WelcomeSection />
         <OffersSection />

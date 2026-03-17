@@ -145,8 +145,7 @@ export default function Navbar() {
         />
       )}
 
-      <header className="sticky top-0 z-50 h-16 border-b border-[var(--border-color)] bg-[var(--card-bg)] shadow-sm transition-colors" data-cy="navbar">
-        <div className="absolute inset-0 bg-[var(--card-bg)] -z-10" />
+      <header className="sticky top-0 z-50 h-16 border-b border-[var(--border-color)] bg-[var(--nav-bg)] shadow-sm transition-colors" data-cy="navbar">
         <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
           <Link className="flex items-center gap-2" data-cy="navbar-logo" href="/">
             <Image alt="Logo" height={40} src="/favicon.ico" width={40} />
@@ -227,7 +226,7 @@ export default function Navbar() {
       </header>
 
       <aside
-        className={`fixed inset-y-0 right-0 z-[100] flex w-[200px] flex-col border-l border-[var(--border-color)] bg-slate-950 p-6 shadow-xl transition-transform duration-300 md:hidden ${
+        className={`fixed inset-y-0 right-0 z-[100] flex w-[200px] flex-col border-l border-[var(--border-color)] bg-[var(--nav-bg)] p-6 shadow-xl transition-transform duration-300 md:hidden ${
           menuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -293,7 +292,7 @@ export default function Navbar() {
             <button
               onClick={handleLogout}
               type="button"
-              className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-[var(--text-soft)] transition hover:bg-[var(--border-color)]/30 hover:text-[var(--text-main2)]"
+              className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm sm:text-base text-[var(--text-soft)] transition hover:bg-[var(--border-color)]/30 hover:text-[var(--text-main2)] active:scale-[0.98]"
             >
               <LogOut size={20} />
               Kijelentkezés
@@ -302,7 +301,7 @@ export default function Navbar() {
             <button
               onClick={handleLogin}
               type="button"
-              className="w-full rounded-full bg-[var(--text-main2)] px-4 py-2 text-[var(--text-light)]"
+              className="w-full rounded-lg bg-[var(--text-main2)] px-4 py-3 text-sm sm:text-base font-semibold text-[var(--text-light)] transition hover:bg-cyan-500 active:scale-[0.98]"
             >
               Bejelentkezés
             </button>

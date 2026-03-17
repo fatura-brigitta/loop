@@ -72,11 +72,12 @@ export default function ProfileInfoSection({
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8">
-      <div className="w-full rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-8 shadow-2xl backdrop-blur">
-        <h1 className="mb-8 text-3xl font-bold text-[var(--text-main2)]">Profil adatok</h1>
+      <div className="w-full rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-5 sm:p-6 md:p-8 shadow-2xl">
+        <h1 className="mb-8 text-xl sm:text-2xl md:text-3xl font-bold text-[var(--text-main2)]">Profil adatok</h1>
 
-        <div className="mb-8 flex items-center gap-6">
-          <div className="relative h-24 w-24 overflow-hidden rounded-full border border-white/20">
+        <div className="mb-8 flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6">
+
+          <div className="relative h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 overflow-hidden rounded-full border border-white/20">
             <Image
               alt="Profilkép"
               className="object-cover"
@@ -89,7 +90,7 @@ export default function ProfileInfoSection({
           </div>
 
           <div
-            className={`flex-1 rounded-xl border border-dashed px-4 py-4 text-sm transition ${
+            className={`w-full sm:flex-1 rounded-xl border border-dashed px-4 py-3 text-sm transition ${
               isDragging
                 ? "border-cyan-400 bg-cyan-500/10"
                 : "border-[var(--border-color)] bg-[var(--card-bg)]"
@@ -154,11 +155,11 @@ export default function ProfileInfoSection({
           {imageMessage && <div className="text-green-400">{imageMessage}</div>}
         </div>
 
-        <div className="mb-6">
+        <div className="mb-4 sm:mb-6">
           <label className="text-sm text-[var(--text-main)]/60">Email</label>
 
           <input
-            className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)] opacity-70"
+            className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] text-sm px-3 py-2 sm:px-4 text-[var(--text-main)] opacity-70"
             disabled
             value={user.email}
           />
@@ -168,7 +169,7 @@ export default function ProfileInfoSection({
           <label className="text-sm text-[var(--text-main)]/60">Név</label>
 
           <input
-            className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
+            className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] text-sm px-3 py-2 sm:px-4 text-[var(--text-main)]"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
           />
@@ -178,7 +179,7 @@ export default function ProfileInfoSection({
           <label className="text-sm text-[var(--text-main)]/60">Telefonszám</label>
 
           <input
-            className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
+            className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] text-sm px-3 py-2 sm:px-4 text-[var(--text-main)]"
             value={phone || ""}
             onChange={(e) => setPhone(e.target.value)}
           />
@@ -188,7 +189,7 @@ export default function ProfileInfoSection({
           <label className="text-sm text-[var(--text-main)]/60">Nem</label>
 
           <select
-            className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
+            className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] text-sm px-3 py-2 sm:px-4 text-[var(--text-main)]"
             value={gender}
             onChange={(e) => setGender(e.target.value)}
           >
@@ -201,7 +202,7 @@ export default function ProfileInfoSection({
         <div className="mb-6">
           <label className="text-sm text-[var(--text-main)]/60">Téma</label>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <span>☀️</span>
 
             <button
@@ -222,7 +223,7 @@ export default function ProfileInfoSection({
         </div>
 
         <button
-          className="mt-4 cursor-pointer rounded-lg bg-[var(--button-bg)] px-6 py-2 font-semibold text-[var(--text-light)] transition hover:bg-cyan-400"
+          className="mt-4 cursor-pointer rounded-lg bg-[var(--button-bg)] w-full sm:w-auto px-4 sm:px-6 py-2 text-sm sm:text-base font-medium text-[var(--text-light)] transition hover:bg-cyan-400"
           onClick={saveProfile}
         >
           Adatok mentése
@@ -234,14 +235,14 @@ export default function ProfileInfoSection({
           {profileMessage && <div className="text-green-400">{profileMessage}</div>}
         </div>
 
-        <div className="mt-12 border-t border-[var(--border-color)] pt-8">
-          <h2 className="mb-4 text-xl font-semibold text-[var(--text-main2)]">
+        <div className="mt-8 pt-6 sm:mt-12 sm:pt-8 border-t border-[var(--border-color)]">
+          <h2 className="mb-4 text-xl text-sm sm:text-base font-medium text-[var(--text-main2)]">
             {isGoogleUser ? "Jelszó beállítása" : "Jelszó módosítása"}
           </h2>
 
           {!isGoogleUser && (
             <input
-              className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
+              className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] text-sm px-3 py-2 sm:px-4 text-[var(--text-main)]"
               placeholder="Régi jelszó"
               type="password"
               value={oldPassword}
@@ -250,7 +251,7 @@ export default function ProfileInfoSection({
           )}
 
           <input
-            className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
+            className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] text-sm px-3 py-2 sm:px-4 text-[var(--text-main)]"
             placeholder="Új jelszó"
             type="password"
             value={newPassword}
@@ -258,7 +259,7 @@ export default function ProfileInfoSection({
           />
 
           <input
-            className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
+            className="mb-3 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] text-sm px-3 py-2 sm:px-4 text-[var(--text-main)]"
             placeholder="Új jelszó megerősítése"
             type="password"
             value={newPassword2}
@@ -266,16 +267,17 @@ export default function ProfileInfoSection({
           />
 
           <button
-            className="mt-2 cursor-pointer rounded-lg bg-[var(--button-bg)] px-4 py-2 font-semibold text-[var(--text-light)] transition hover:bg-cyan-400"
+            className="mt-2 cursor-pointer rounded-lg bg-[var(--button-bg)] px-3 py-2 sm:px-4 text-sm sm:text-base font-medium text-[var(--text-light)] transition hover:bg-cyan-400"
             onClick={changePassword}
           >
             {isGoogleUser ? "Jelszó beállítása" : "Jelszó módosítása"}
           </button>
 
-          <label className="mt-6 flex items-center gap-3 text-[var(--text-main)]">
+          <label className="mt-6 flex items-center text-sm gap-3 text-[var(--text-main)]">
             <input
               checked={consent}
               type="checkbox"
+              className="h-4 w-4 accent-cyan-500"
               onChange={async (e) => {
                 const value = e.target.checked;
 

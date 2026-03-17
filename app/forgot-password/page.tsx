@@ -33,27 +33,27 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="forgot-password-page">
-      <div className="w-full max-w-md rounded-xl bg-[var(--card-bg)] p-8 shadow-2xl" data-cy="forgot-password-form">
+    <div className="flex min-h-screen items-center justify-center px-4 py-12 bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="forgot-password-page">
+      <div className="w-full mx-auto max-w-md rounded-xl bg-[var(--card-bg)] p-6 sm:p-8 shadow-2xl" data-cy="forgot-password-form">
 
-        <h1 className="text-2xl font-bold text-[var(--text-main2)] text-center mb-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-[var(--text-main2)] text-center mb-6">
           Elfelejtett jelszó
         </h1>
 
         {!sent ? (
           <>
-            <p className="text-sm text-[var(--text-main)]/70 text-center mb-4">
+            <p className="text-sm leading-relaxed text-[var(--text-main)]/70 text-center mb-4">
               Kérjük add meg a fiókhoz tartozó email címet, és küldünk egy jelszócsere linket.
             </p>
 
-            <input className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 text-[var(--text-main)]"
+            <input className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-3 text-sm sm:text-base"
               data-cy="forgot-password-email"
               placeholder="email@valami.hu"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
 
-            <button className="mt-6 w-full rounded-lg bg-[var(--text-main2)] py-3 text-[var(--text-light)] font-bold hover:bg-cyan-500"
+            <button className="mt-6 w-full rounded-lg bg-[var(--text-main2)] py-3 text-sm sm:text-base text-[var(--text-light)] font-bold hover:bg-cyan-500"
               data-cy="forgot-password-submit cursor-pointer"
               onClick={submit}
             >

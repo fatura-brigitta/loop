@@ -314,24 +314,25 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]">
+    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] px-4 sm:px-6 lg:px-8 py-6">
+      <div className="mx-auto w-full max-w-6xl space-y-6">
       {rankUp && (
         <div
           className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm"
           data-cy="rank-up-modal"
         >
-          <div className="flex flex-col items-center gap-6 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-main)]/90 p-10 shadow-2xl animate-[rankPop_0.45s_ease]">
+          <div className="flex flex-col items-center gap-6 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-main)] p-6 sm:p-10 shadow-2xl animate-[rankPop_0.45s_ease]">
 
             <div className="text-sm tracking-[0.3em] text-[var(--text-main)]/60">
               RANG LÉPÉS
             </div>
 
             <img
-              className="h-40 w-40 object-contain animate-[glowPulse_2s_ease-in-out_infinite]"
+              className="h-28 w-28 sm:h-40 sm:w-40 object-contain animate-[glowPulse_2s_ease-in-out_infinite]"
               src={rankUp.image}
             />
 
-            <div className="text-4xl font-extrabold text-[var(--text-main2)]">
+            <div className="text-2xl sm:text-4xl font-extrabold text-[var(--text-main2)]">
               {rankUp.name}
             </div>
 
@@ -349,65 +350,68 @@ export default function ProfilePage() {
           </div>
         </div>
       )}
-      <RankSection pointsNeeded={pointsNeeded} rankData={rankData} warning={warning} />
+      <div className="">
+        <RankSection pointsNeeded={pointsNeeded} rankData={rankData} warning={warning} />
 
-      <ProfileInfoSection
-        changePassword={changePassword}
-        changeTheme={changeTheme}
-        consent={consent}
-        fileInputRef={fileInputRef}
-        gender={gender}
-        handlePickFile={handlePickFile}
-        imageError={imageError}
-        imageMessage={imageMessage}
-        isDragging={isDragging}
-        isGoogleUser={isGoogleUser}
-        newName={newName}
-        newPassword={newPassword}
-        newPassword2={newPassword2}
-        oldPassword={oldPassword}
-        passwordError={passwordError}
-        passwordMessage={passwordMessage}
-        phone={phone}
-        profileError={profileError}
-        profileImage={profileImage}
-        profileMessage={profileMessage}
-        resetProfileImage={resetProfileImage}
-        setConsent={setConsent}
-        setGender={setGender}
-        setIsDragging={setIsDragging}
-        setNewName={setNewName}
-        setNewPassword={setNewPassword}
-        setNewPassword2={setNewPassword2}
-        setOldPassword={setOldPassword}
-        setPasswordError={setPasswordError}
-        setPasswordMessage={setPasswordMessage}
-        setPhone={setPhone}
-        setProfileError={setProfileError}
-        setProfileMessage={setProfileMessage}
-        theme={theme}
-        user={user}
-      />
+        <ProfileInfoSection
+          changePassword={changePassword}
+          changeTheme={changeTheme}
+          consent={consent}
+          fileInputRef={fileInputRef}
+          gender={gender}
+          handlePickFile={handlePickFile}
+          imageError={imageError}
+          imageMessage={imageMessage}
+          isDragging={isDragging}
+          isGoogleUser={isGoogleUser}
+          newName={newName}
+          newPassword={newPassword}
+          newPassword2={newPassword2}
+          oldPassword={oldPassword}
+          passwordError={passwordError}
+          passwordMessage={passwordMessage}
+          phone={phone}
+          profileError={profileError}
+          profileImage={profileImage}
+          profileMessage={profileMessage}
+          resetProfileImage={resetProfileImage}
+          setConsent={setConsent}
+          setGender={setGender}
+          setIsDragging={setIsDragging}
+          setNewName={setNewName}
+          setNewPassword={setNewPassword}
+          setNewPassword2={setNewPassword2}
+          setOldPassword={setOldPassword}
+          setPasswordError={setPasswordError}
+          setPasswordMessage={setPasswordMessage}
+          setPhone={setPhone}
+          setProfileError={setProfileError}
+          setProfileMessage={setProfileMessage}
+          theme={theme}
+          user={user}
+        />
 
-      <AssetsSection
-        confirmDeleteAll={confirmDeleteAll}
-        coupons={coupons}
-        deleteAllHistory={deleteAllHistory}
-        deleteTicket={deleteTicket}
-        deleteTicketId={deleteTicketId}
-        history={history}
-        historyMessage={historyMessage}
-        setConfirmDeleteAll={setConfirmDeleteAll}
-        setDeleteTicketId={setDeleteTicketId}
-        setHistoryMessage={setHistoryMessage}
-        setShowCoupons={setShowCoupons}
-        setShowHistory={setShowHistory}
-        setShowTickets={setShowTickets}
-        showCoupons={showCoupons}
-        showHistory={showHistory}
-        showTickets={showTickets}
-        tickets={tickets}
-      />
+        <AssetsSection
+          confirmDeleteAll={confirmDeleteAll}
+          coupons={coupons}
+          deleteAllHistory={deleteAllHistory}
+          deleteTicket={deleteTicket}
+          deleteTicketId={deleteTicketId}
+          history={history}
+          historyMessage={historyMessage}
+          setConfirmDeleteAll={setConfirmDeleteAll}
+          setDeleteTicketId={setDeleteTicketId}
+          setHistoryMessage={setHistoryMessage}
+          setShowCoupons={setShowCoupons}
+          setShowHistory={setShowHistory}
+          setShowTickets={setShowTickets}
+          showCoupons={showCoupons}
+          showHistory={showHistory}
+          showTickets={showTickets}
+          tickets={tickets}
+        />
+      </div>
+    </div>
     </div>
   );
 }

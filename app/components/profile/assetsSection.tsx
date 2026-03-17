@@ -24,9 +24,8 @@ export default function AssetsSection({
   return (
     <>
       <div className="mx-auto max-w-5xl px-4">
-        <div className="mx-auto max-w-5xl">
           <button
-            className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-[var(--text-slate-hover)]"
+            className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-4 sm:p-6 text-lg sm:text-2xl font-bold text-[var(--text-main2)] shadow-xl transition hover:bg-[var(--text-slate-hover)]"
             data-cy="profile-coupons-toggle"
             onClick={() => {
               setShowCoupons((v: boolean) => !v);
@@ -42,7 +41,7 @@ export default function AssetsSection({
           <div
             className={`transition-all duration-500 ease-in-out ${
               showCoupons
-                ? "mt-4 mb-4 max-h-[70vh] overflow-y-auto opacity-100"
+                ? "mt-4 mb-4 max-h-[calc(100vh-200px)] overflow-y-auto opacity-100"
                 : "max-h-0 overflow-hidden opacity-0"
             }`}
             data-cy="profile-coupons-section"
@@ -54,17 +53,17 @@ export default function AssetsSection({
                 </div>
               )}
 
-              <div className="grid gap-6 md:grid-cols-2">
+              <div className="grid gap-6 sm:grid-cols-2">
                 {coupons.map((coupon: any) => (
                   <div
-                    className={`relative overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-5 shadow-xl backdrop-blur ${
+                    className={`relative overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-5 shadow-xl ${
                       coupon.used ? "opacity-40" : ""
                     }`}
                     data-coupon-id={coupon.id}
                     data-cy="coupon-card"
                     key={coupon.id}
                   >
-                    <div className="flex items-center gap-5">
+                    <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5">
                       <Image
                         alt="discount"
                         className="h-24 w-24 object-contain"
@@ -94,7 +93,7 @@ export default function AssetsSection({
                       {!coupon.used && (
                         <Image
                           alt="qr"
-                          className="w-28 rounded-lg bg-white p-2"
+                          className="w-24 sm:w-28 rounded-lg bg-white p-2"
                           data-coupon-id={coupon.id}
                           data-cy="coupon-qr"
                           height={112}
@@ -114,12 +113,11 @@ export default function AssetsSection({
               </div>
             </div>
           </div>
-        </div>
       </div>
 
       <div className="mx-auto max-w-5xl px-4">
         <button
-          className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-[var(--text-slate-hover)]"
+          className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-4 sm:p-6 text-lg sm:text-2xl text-left font-bold text-[var(--text-main2)] shadow-xl transition hover:bg-[var(--text-slate-hover)]"
           data-cy="profile-tickets-toggle"
           onClick={() => {
             setShowTickets((v: boolean) => !v);
@@ -134,7 +132,7 @@ export default function AssetsSection({
         <div
           className={`transition-all duration-500 ease-in-out ${
             showTickets
-              ? "mt-4 mb-4 max-h-[70vh] overflow-y-auto opacity-100"
+              ? "mt-4 mb-4 max-h-[calc(100vh-200px)] overflow-y-auto opacity-100"
               : "max-h-0 overflow-hidden opacity-0"
           }`}
           data-cy="profile-tickets-section"
@@ -144,17 +142,19 @@ export default function AssetsSection({
               <div className="mb-6 text-[var(--text-main)]/60">Még nem vásároltál jegyet.</div>
             )}
 
-            <div className="grid gap-6">
+            <div className="flex flex-col gap-6">
               {tickets.map((ticket: any) => (
                 <div
-                  className="rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 shadow-2xl backdrop-blur"
+                  className="rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-4 sm:p-6 shadow-2xl"
                   data-cy="active-ticket-card"
                   data-ticket-id={ticket.id}
                   key={ticket.id}
                 >
-                  <div className="flex flex-wrap justify-between gap-6 md:flex-nowrap">
+                  <div className="grid grid-cols-[1fr_auto] gap-4 items-center">
+
+                    {/* LEFT */}
                     <div>
-                      <h3 className="text-lg font-bold text-[var(--text-main2)]">
+                      <h3 className="text-base sm:text-lg font-bold text-[var(--text-main2)]">
                         {ticket.screenings.movies.title}
                       </h3>
 
@@ -162,27 +162,23 @@ export default function AssetsSection({
                         {new Date(ticket.screenings.start).toLocaleString()}
                       </div>
 
-                      <div className="mt-3 space-y-1 text-sm">
+                      <div className="mt-2 space-y-0.5 text-sm">
                         <div>Terem: {ticket.screenings.halls.name}</div>
                         <div>Típus: {ticket.screenings.screening_types.type}</div>
-                        <div>
-                          Szék: Sor {ticket.chairs.row} Szék {ticket.chairs.column}
-                        </div>
+                        <div>Szék: Sor {ticket.chairs.row} Szék {ticket.chairs.column}</div>
                         <div>Jegy típusa: {ticket.ticket_types.type}</div>
+                      </div>
+
+                      <div className="mt-3 text-lg font-semibold text-[var(--text-main2)]">
+                        {(ticket.price / 100).toFixed(2)} €
                       </div>
                     </div>
 
-                    <div className="flex flex-col items-end gap-3">
-                      <div className="text-xl font-semibold text-[var(--text-main2)]">
-                        {(ticket.price / 100).toFixed(2)} €
-                      </div>
-
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                    {/* RIGHT */}
+                    <div className="flex justify-end">
                       <img
                         alt="qr"
-                        className="w-32 rounded-lg bg-white p-2"
-                        data-cy="ticket-qr"
-                        data-ticket-id={ticket.id}
+                        className="w-20 sm:w-24 md:w-28 rounded-lg bg-white p-2"
                         src={`/api/email/qr/${ticket.qr_token}`}
                       />
                     </div>
@@ -194,9 +190,9 @@ export default function AssetsSection({
         </div>
       </div>
 
-      <div className="mx-auto max-w-5xl px-4 pb-32">
+      <div className="mx-auto max-w-5xl px-4 pb-10 sm:pb-16">
         <button
-          className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 text-left text-2xl font-bold text-[var(--text-main2)] shadow-xl backdrop-blur transition hover:bg-[var(--text-slate-hover)]"
+          className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-4 sm:p-6 text-lg sm:text-2xl text-left font-bold text-[var(--text-main2)] shadow-xl transition hover:bg-[var(--text-slate-hover)]"
           data-cy="profile-history-toggle"
           onClick={() => {
             setShowHistory((v: boolean) => !v);
@@ -217,7 +213,7 @@ export default function AssetsSection({
         <div
           className={`transition-all duration-500 ease-in-out ${
             showHistory
-              ? "mt-4 max-h-[70vh] overflow-y-auto opacity-100"
+              ? "mt-4 max-h-[60vh] overflow-y-auto opacity-100"
               : "max-h-0 overflow-hidden opacity-0"
           }`}
           data-cy="profile-history-section"
@@ -241,12 +237,12 @@ export default function AssetsSection({
           <div className="grid gap-4">
             {history.map((ticket: any) => (
               <div
-                className="rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)] p-5 backdrop-blur transition hover:bg-slate-100 dark:hover:bg-white/10"
+                className="rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)] p-4 sm:p-5 transition hover:bg-[var(--text-slate-hover)]"
                 data-cy="history-ticket-card"
                 data-ticket-id={ticket.id}
                 key={ticket.id}
               >
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div>
                     <div className="text-lg font-semibold text-[var(--text-main)]">
                       {ticket.screenings.movies.title}
@@ -265,7 +261,7 @@ export default function AssetsSection({
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto">
                     <div className="text-lg font-bold text-green-400">
                       {(ticket.price / 100).toFixed(2)} €
                     </div>
@@ -296,10 +292,10 @@ export default function AssetsSection({
 
           {deleteTicketId && (
             <div
-              className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm"
+              className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70"
               data-cy="history-delete-modal"
             >
-              <div className="w-[380px] rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 shadow-2xl">
+              <div className="w-[90%] max-w-[380px] rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 shadow-2xl">
                 <h2 className="mb-4 text-xl font-bold text-[var(--text-main)]">Jegy törlése</h2>
 
                 <p className="mb-6 text-[var(--text-main)]/70">
@@ -329,10 +325,10 @@ export default function AssetsSection({
 
           {confirmDeleteAll && (
             <div
-              className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm"
+              className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70"
               data-cy="history-delete-all-modal"
             >
-              <div className="w-[380px] rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 shadow-2xl">
+              <div className="w-[90%] max-w-[380px] rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 shadow-2xl">
                 <h2 className="mb-4 text-xl font-bold text-[var(--text-main)]">
                   Összes előzmény törlése
                 </h2>

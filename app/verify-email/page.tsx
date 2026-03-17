@@ -78,11 +78,11 @@ export default function VerifyEmailPage() {
 
   return (
     <div
-      className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]"
+      className="flex min-h-screen items-center justify-center px-4 py-12 bg-[var(--bg-main)] text-[var(--text-main)]"
       data-cy="verify-email-page"
     >
       <div
-        className="w-full max-w-md rounded-xl bg-[var(--card-bg)] p-8 shadow-2xl"
+        className="w-full max-w-md rounded-xl bg-[var(--card-bg)] p-6 sm:p-8 shadow-2xl"
         data-cy="verify-email-card"
       >
         <h1
@@ -97,7 +97,7 @@ export default function VerifyEmailPage() {
         </p>
 
         <div
-          className="mb-6 text-center font-semibold text-[var(--text-main2)]"
+          className="mb-6 break-all text-center text-sm sm:text-base font-semibold text-[var(--text-main2)]"
           data-cy="verify-email-address"
         >
           {email}
@@ -106,7 +106,7 @@ export default function VerifyEmailPage() {
         <label className="text-sm text-[var(--text-main)]/70">4 jegyű kód</label>
 
         <input
-          className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-3 text-center text-2xl tracking-widest text-[var(--text-main)] outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+          className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-3 text-center text-xl sm:text-2xl tracking-[0.3em] text-[var(--text-main)] outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
           data-cy="verify-email-code-input"
           inputMode="numeric"
           maxLength={4}
@@ -119,7 +119,7 @@ export default function VerifyEmailPage() {
         />
 
         <button
-          className="mt-6 w-full rounded-lg bg-[var(--text-main2)] text-[var(--text-light)] py-3 font-bold transition hover:bg-cyan-500 disabled:opacity-50 cursor-pointer"
+          className="mt-6 w-full rounded-lg bg-[var(--text-main2)] text-[var(--text-light)] py-3 text-sm sm:text-base font-semibold transition hover:bg-cyan-500 active:scale-[0.98] disabled:opacity-50"
           data-cy="verify-email-submit-button"
           disabled={loading}
           onClick={submit}
@@ -129,7 +129,7 @@ export default function VerifyEmailPage() {
 
         {error && (
           <div
-            className="mt-4 animate-pulse text-center text-red-400"
+            className="mt-4 text-center text-sm text-red-400"
             data-cy="verify-email-error-message"
           >
             {error}
@@ -138,7 +138,7 @@ export default function VerifyEmailPage() {
 
         {ok && (
           <div
-            className="mt-4 text-center text-green-400"
+            className="mt-4 text-center text-sm text-green-400"
             data-cy="verify-email-success-message"
           >
             Sikeres megerősítés! Átirányítás...
@@ -150,7 +150,7 @@ export default function VerifyEmailPage() {
         </div>
 
         <button
-          className={`mt-2 w-full rounded-lg py-2 font-semibold transition cursor-pointer ${
+          className={`mt-2 w-full rounded-lg py-3 text-sm sm:text-base font-semibold transition active:scale-[0.98] ${
             canResend
               ? "bg-orange-500 text-[var(--text-main)] hover:bg-orange-400"
               : "cursor-not-allowed bg-gray-600 text-gray-300"

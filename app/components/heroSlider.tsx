@@ -117,7 +117,7 @@ export default function HeroSlider() {
 
   return (
     <div
-      className="relative h-[80vh] min-h-[520px] w-full overflow-hidden"
+      className="relative h-[60vh] min-h-[420px] sm:h-[70vh] md:h-[80vh] w-full overflow-hidden"
       onMouseDown={handleMouseDown}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -145,39 +145,39 @@ export default function HeroSlider() {
       <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.9)_0%,rgba(0,0,0,0.5)_35%,transparent_70%)]" />
 
       <button
-        className="absolute top-1/2 left-6 z-20 -translate-y-1/2 text-5xl text-[var(--text-main)]/60 hover:text-[var(--text-main)] cursor-pointer"
+        className="absolute top-1/2 text-2xl sm:text-4xl left-2 sm:left-6 z-20 -translate-y-1/2 text-[var(--text-main)]/60 hover:text-[var(--text-main)] cursor-pointer"
         onClick={prev}
       >
         ‹
       </button>
 
       <button
-        className="absolute top-1/2 right-6 z-20 -translate-y-1/2 text-5xl text-[var(--text-main)]/60 hover:text-[var(--text-main)] cursor-pointer"
+        className="absolute top-1/2 text-2xl sm:text-4xl right-2 sm:right-6 z-20 -translate-y-1/2 text-[var(--text-main)]/60 hover:text-[var(--text-main)] cursor-pointer"
         onClick={next}
       >
         ›
       </button>
 
       <div className="relative z-10 flex h-full items-center justify-center text-center">
-        <div className="max-w-4xl px-6">
+        <div className="max-w-xl sm:max-w-2xl md:max-w-4xl px-4 sm:px-6">
 
           <h1
-            className="text-5xl font-extrabold text-[var(--text-white)] drop-shadow-[0_0_30px_rgba(0,0,0,0.8)] md:text-6xl animate-heroText"
+            className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold text-[var(--text-white)] drop-shadow-[0_0_30px_rgba(0,0,0,0.8)] animate-heroText"
             key={movie.id}
           >
             {movie.title}
           </h1>
 
-          <div className="mt-4 text-lg text-[var(--text-white)]/80">
+          <div className="mt-4 text-sm sm:text-base md:text-lg text-[var(--text-white)]/80">
             {movie.genre} • {movie.playtime} perc
           </div>
 
-          <div className="mt-2 text-xl font-semibold text-yellow-400">
+          <div className="mt-2 text-base sm:text-lg md:text-xl font-semibold text-yellow-400">
             ⭐ {movie.review}
           </div>
 
           <button
-            className="mt-8 rounded-xl bg-white/90 px-10 py-4 text-lg font-bold text-black backdrop-blur transition hover:bg-white hover:scale-105 active:scale-95 cursor-pointer"
+            className="mt-8 rounded-xl bg-white/90 px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base font-bold text-black backdrop-blur transition hover:bg-white hover:scale-105 active:scale-95 cursor-pointer"
             onClick={() => router.push("/screenings")}
           >
             Jegyvásárlás
@@ -186,10 +186,10 @@ export default function HeroSlider() {
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-3">
+      <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-3">
         {movies.map((_, i) => (
           <div
-            className={`h-3 w-3 cursor-pointer rounded-full transition-all duration-300 ${
+            className={`h-2 w-2 sm:h-3 sm:w-3 cursor-pointer rounded-full transition-all duration-300 ${
               i === index ? "scale-125 bg-white" : "bg-white/40"
             }`}
             key={i}

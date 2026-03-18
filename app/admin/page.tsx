@@ -404,8 +404,8 @@ export default function AdminPage() {
 
 
           <button className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${tab === "bad_words"
-            ? "bg-white/10 text-white"
-            : "text-slate-300 hover:text-white"
+              ? "bg-white/10 text-white"
+              : "text-slate-300 hover:text-white"
             }`}
             data-cy="nav-forum"
             onClick={() => {
@@ -419,8 +419,8 @@ export default function AdminPage() {
 
           <button
             className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${tab === "opening_hours"
-              ? "bg-white/10 text-white"
-              : "text-slate-300 hover:text-white"
+                ? "bg-white/10 text-white"
+                : "text-slate-300 hover:text-white"
               }`}
             onClick={() => {
               handleTabChange("opening_hours");
@@ -1303,7 +1303,7 @@ export default function AdminPage() {
                 <h2 className="font-semibold mb-4">Általános nyitvatartás</h2>
                 {openingHours.map((d, i) => (
 
-                  <div key={i} className="grid grid-cols-[70px_1fr_1fr] gap-2 mb-3">
+                  <div key={i} className="grid grid-cols-[1fr_90px_90px_auto] gap-2 mb-3 items-center">
 
                     <div className="text-sm">{days[d.weekday]}</div>
 
@@ -1318,7 +1318,7 @@ export default function AdminPage() {
                         setOpeningHours(copy)
 
                       }}
-                      className="bg-slate-900 border border-white/10 px-2 py-1 rounded"
+                      className="w-full bg-slate-900 border border-white/10 px-2 py-1 rounded"
                     />
 
                     <input
@@ -1332,28 +1332,28 @@ export default function AdminPage() {
                         setOpeningHours(copy)
 
                       }}
-                      className="bg-slate-900 border border-white/10 px-2 py-1 rounded"
+                      className="w-full bg-slate-900 border border-white/10 px-2 py-1 rounded"
                     />
 
-                    {/* <input
-                      type="checkbox"
-                      className="accent-emerald-500"
-                      checked={d.closed}
-                      onChange={(e) => {
+                    <label className="text-xs flex items-center gap-1 whitespace-nowrap">
 
-                        const checked = e.target.checked
-                        const copy = [...openingHours]
-                        copy[i].closed = checked
+                      <input
+                        type="checkbox"
+                        className="accent-emerald-500"
+                        checked={d.closed}
+                        onChange={(e) => {
 
-                        if (checked) {
-                          copy[i].open_time = "00:00"
-                          copy[i].close_time = "00:00"
-                        }
-                        setOpeningHours(copy)
-                      }}
-                    />
+                          const checked = e.target.checked
+                          const copy = [...openingHours]
+                          copy[i].closed = checked
 
-                    <label className="text-xs flex items-center gap-1 whitespace-nowrap">zárva</label> */}
+                          if (checked) {
+                            copy[i].open_time = "00:00"
+                            copy[i].close_time = "00:00"
+                          }
+                          setOpeningHours(copy)
+                        }}
+                      />zárva</label>
                   </div>
                 ))}
 

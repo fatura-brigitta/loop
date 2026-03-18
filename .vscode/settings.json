@@ -30,5 +30,8 @@
     "**/components/**/index.tsx": "${dirname} - Component"
   },
   "prisma.pintoPrisma6": true,
-  "prisma.pinToPrisma6": true
+  "prisma.pinToPrisma6": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  }
 }

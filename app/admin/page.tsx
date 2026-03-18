@@ -103,8 +103,8 @@ export default function AdminPage() {
   const [halls, setHalls] = useState<Hall[]>([]);
   const [screenings, setScreenings] = useState<Screening[]>([]);
   const [screeningTypes, setScreeningTypes] = useState<ScreeningType[]>([]);
-  const [openingHours,setOpeningHours] = useState<OpeningHours[]>([])
-  const [openingOverrides,setOpeningOverrides] = useState<OpeningOverride[]>([])
+  const [openingHours, setOpeningHours] = useState<OpeningHours[]>([])
+  const [openingOverrides, setOpeningOverrides] = useState<OpeningOverride[]>([])
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
 
@@ -115,8 +115,8 @@ export default function AdminPage() {
 
   const [editingId, setEditingId] = useState<string | null>(null);
 
-  const [badWordsText,setBadWordsText] = useState("");
-  const [flaggedComments,setFlaggedComments] = useState<any[]>([]);
+  const [badWordsText, setBadWordsText] = useState("");
+  const [flaggedComments, setFlaggedComments] = useState<any[]>([]);
   const [showBadWords, setShowBadWords] = useState(false);
 
   const [movieForm, setMovieForm] = useState({
@@ -153,18 +153,18 @@ export default function AdminPage() {
   }
 
   const days = [
-  "Vasárnap",
-  "Hétfő",
-  "Kedd",
-  "Szerda",
-  "Csütörtök",
-  "Péntek",
-  "Szombat"
+    "Vasárnap",
+    "Hétfő",
+    "Kedd",
+    "Szerda",
+    "Csütörtök",
+    "Péntek",
+    "Szombat"
   ]
 
-  const [opening,setOpening] = useState<{
-    open:string
-    close:string
+  const [opening, setOpening] = useState<{
+    open: string
+    close: string
   } | null>(null)
 
   const [search, setSearch] = useState("");
@@ -200,11 +200,11 @@ export default function AdminPage() {
     new Date().toISOString().slice(0, 10)
   );
 
-  const [overrideForm,setOverrideForm]=useState({
-      date:"",
-      open_time:null as string | null,
-      close_time:null as string | null,
-      closed:false
+  const [overrideForm, setOverrideForm] = useState({
+    date: "",
+    open_time: null as string | null,
+    close_time: null as string | null,
+    closed: false
   })
 
   const [dayHallScreenings, setDayHallScreenings] = useState<Screening[]>([]);
@@ -270,49 +270,49 @@ export default function AdminPage() {
   };
 
   async function loadAll() {
-  setErr("");
+    setErr("");
 
-  try {
-    const [ms, hs, ss, st, oh, oo] = await Promise.all([
-      api("movies","GET"),
-      api("halls","GET"),
-      api("screenings","GET"),
-      api("screening_types","GET"),
-      api("opening_hours","GET"),
-      api("opening_overrides","GET")
-    ])
+    try {
+      const [ms, hs, ss, st, oh, oo] = await Promise.all([
+        api("movies", "GET"),
+        api("halls", "GET"),
+        api("screenings", "GET"),
+        api("screening_types", "GET"),
+        api("opening_hours", "GET"),
+        api("opening_overrides", "GET")
+      ])
 
-    setMovies(ms)
-    setHalls(hs)
-    setScreenings(ss)
-    setScreeningTypes(st)
+      setMovies(ms)
+      setHalls(hs)
+      setScreenings(ss)
+      setScreeningTypes(st)
 
-    setOpeningHours(oh)
-    setOpeningOverrides(oo)
+      setOpeningHours(oh)
+      setOpeningOverrides(oo)
 
-    await loadModeration();
+      await loadModeration();
 
-  } catch (e: any) {
-    setErr(e.message || "Betöltési hiba");
+    } catch (e: any) {
+      setErr(e.message || "Betöltési hiba");
+    }
   }
-}
 
-async function loadModeration() {
-  try {
-    const words = await api("bad_words", "GET");
+  async function loadModeration() {
+    try {
+      const words = await api("bad_words", "GET");
 
-    setBadWordsText(
-      words.map((w: any) => w.word).join(", ")
-    );
+      setBadWordsText(
+        words.map((w: any) => w.word).join(", ")
+      );
 
-    const comments = await api("flagged_comments", "GET");
+      const comments = await api("flagged_comments", "GET");
 
-    setFlaggedComments(comments);
+      setFlaggedComments(comments);
 
-  } catch (e: any) {
-    console.error("Moderation load error", e);
+    } catch (e: any) {
+      console.error("Moderation load error", e);
+    }
   }
-}
 
   useEffect(() => {
     loadAll();
@@ -323,22 +323,22 @@ async function loadModeration() {
     if (!sHallId && halls.length) setSHallId(halls[0].id);
   }, [movies, halls, sMovieId, sHallId]);
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    if(openingHours.length === 0){
+    if (openingHours.length === 0) {
 
       setOpeningHours(
-        Array.from({length:7}).map((_,i)=>({
-          weekday:i,
-          open_time:"10:00",
-          close_time:"22:00",
-          closed:false
+        Array.from({ length: 7 }).map((_, i) => ({
+          weekday: i,
+          open_time: "10:00",
+          close_time: "22:00",
+          closed: false
         }))
       )
 
     }
 
-  },[openingHours])
+  }, [openingHours])
 
   const localToISO = (local: string) => {
     const d = new Date(local);
@@ -347,12 +347,12 @@ async function loadModeration() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white" data-cy="admin-page">
-        {sidebarOpen && (
-          <div
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-            onClick={() => setSidebarOpen(false)}
-          />
-        )}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
       <aside
         className={`fixed z-50 left-0 top-0 h-screen w-64 bg-slate-900 border-r border-white/10 p-6 flex flex-col transform transition-transform duration-300 overflow-y-auto
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
@@ -365,9 +365,8 @@ async function loadModeration() {
         </div>
 
         <nav className="flex flex-col gap-2 text-sm flex-1">
-          
-          <button className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
-              tab === "movies" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white "
+
+          <button className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${tab === "movies" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white "
             }`}
             data-cy="nav-movies"
             onClick={() => {
@@ -379,8 +378,7 @@ async function loadModeration() {
             Filmek
           </button>
 
-          <button className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
-              tab === "halls" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white"
+          <button className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${tab === "halls" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white"
             }`}
             data-cy="nav-halls"
             onClick={() => {
@@ -392,8 +390,7 @@ async function loadModeration() {
             Termek
           </button>
 
-          <button className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
-              tab === "screenings" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white"
+          <button className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${tab === "screenings" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white"
             }`}
             data-cy="nav-screenings"
             onClick={() => {
@@ -406,10 +403,9 @@ async function loadModeration() {
           </button>
 
 
-          <button className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
-              tab === "bad_words"
-                ? "bg-white/10 text-white"
-                : "text-slate-300 hover:text-white"
+          <button className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${tab === "bad_words"
+            ? "bg-white/10 text-white"
+            : "text-slate-300 hover:text-white"
             }`}
             data-cy="nav-forum"
             onClick={() => {
@@ -422,11 +418,10 @@ async function loadModeration() {
           </button>
 
           <button
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${
-              tab === "opening_hours"
-                ? "bg-white/10 text-white"
-                : "text-slate-300 hover:text-white"
-            }`}
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${tab === "opening_hours"
+              ? "bg-white/10 text-white"
+              : "text-slate-300 hover:text-white"
+              }`}
             onClick={() => {
               handleTabChange("opening_hours");
               setSidebarOpen(false);
@@ -438,11 +433,11 @@ async function loadModeration() {
         </nav>
 
         <div className="border-t border-white/10 pt-4 text-slate-300 text-sm mt-auto">
-          <button className="flex items-center gap-2 hover:text-white transition cursor-pointer w-full justify-end" data-cy="admin-logout" 
-          onClick={() => {
-            setSidebarOpen(false);
-            handleLogout();
-          }}>
+          <button className="flex items-center gap-2 hover:text-white transition cursor-pointer w-full justify-end" data-cy="admin-logout"
+            onClick={() => {
+              setSidebarOpen(false);
+              handleLogout();
+            }}>
             <LogOut size={18} />
             Kijelentkezés
           </button>
@@ -492,92 +487,92 @@ async function loadModeration() {
 
               <div className="grid grid-cols-2 gap-4">
 
-              <div className="space-y-3">
-                <div>
-                  <label className="block text-sm text-slate-300 mb-1">Cím</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-title-input"
-                    value={movieForm.title}
-                    onChange={(e)=>setMovieForm({...movieForm,title:e.target.value})} />
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-sm text-slate-300 mb-1">Cím</label>
+                    <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-title-input"
+                      value={movieForm.title}
+                      onChange={(e) => setMovieForm({ ...movieForm, title: e.target.value })} />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm text-slate-300 mb-1">Rendező</label>
+                    <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-director-input"
+                      value={movieForm.director}
+                      onChange={(e) => setMovieForm({ ...movieForm, director: e.target.value })} />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm text-slate-300 mb-1">Színészek</label>
+                    <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-actor-input"
+                      value={movieForm.actors}
+                      onChange={(e) => setMovieForm({ ...movieForm, actors: e.target.value })} />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm text-slate-300 mb-1">Nyelv</label>
+                    <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-language-input"
+                      value={movieForm.language}
+                      onChange={(e) => setMovieForm({ ...movieForm, language: e.target.value })} />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm text-slate-300 mb-1">Hossz (perc)</label>
+                    <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-length-input" type="number"
+                      value={movieForm.playtime}
+                      onChange={(e) => setMovieForm({ ...movieForm, playtime: e.target.value })} />
+                  </div>
                 </div>
 
-                <div>
-                  <label className="block text-sm text-slate-300 mb-1">Rendező</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-director-input"
-                    value={movieForm.director}
-                    onChange={(e)=>setMovieForm({...movieForm,director:e.target.value})} />
-                </div>
+                <div className="space-y-3">
 
-                <div>
-                  <label className="block text-sm text-slate-300 mb-1">Színészek</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-actor-input"
-                    value={movieForm.actors}
-                    onChange={(e)=>setMovieForm({...movieForm,actors:e.target.value})} />
-                </div>
+                  <div>
+                    <label className="block text-sm text-slate-300 mb-1">Műfaj</label>
+                    <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-genre-input"
+                      value={movieForm.genre}
+                      onChange={(e) => setMovieForm({ ...movieForm, genre: e.target.value })} />
+                  </div>
 
-                <div>
-                  <label className="block text-sm text-slate-300 mb-1">Nyelv</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-language-input"
-                    value={movieForm.language}
-                    onChange={(e)=>setMovieForm({...movieForm,language:e.target.value})} />
-                </div>
+                  <div>
+                    <label className="block text-sm text-slate-300 mb-1">Poszter URL</label>
+                    <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-poster-input"
+                      value={movieForm.poster}
+                      onChange={(e) => setMovieForm({ ...movieForm, poster: e.target.value })} />
+                  </div>
 
-                <div>
-                  <label className="block text-sm text-slate-300 mb-1">Hossz (perc)</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-length-input" type="number"
-                    value={movieForm.playtime}
-                    onChange={(e)=>setMovieForm({...movieForm,playtime:e.target.value})} />
+                  <div>
+                    <label className="block text-sm text-slate-300 mb-1">Háttér URL</label>
+                    <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-backdrop-input"
+                      value={movieForm.backdrop}
+                      onChange={(e) => setMovieForm({ ...movieForm, backdrop: e.target.value })} />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm text-slate-300 mb-1">Előzetes URL</label>
+                    <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-trailer-input"
+                      value={movieForm.trailer}
+                      onChange={(e) => setMovieForm({ ...movieForm, trailer: e.target.value })} />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm text-slate-300 mb-1">Értékelés</label>
+                    <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-rating-input" step="0.1"
+                      type="number"
+                      value={movieForm.review ?? ""}
+                      onChange={(e) => setMovieForm({ ...movieForm, review: e.target.value })} />
+                  </div>
                 </div>
               </div>
 
-              <div className="space-y-3">
-
-                <div>
-                  <label className="block text-sm text-slate-300 mb-1">Műfaj</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-genre-input"
-                    value={movieForm.genre}
-                    onChange={(e)=>setMovieForm({...movieForm,genre:e.target.value})} />
-                </div>
-
-                <div>
-                  <label className="block text-sm text-slate-300 mb-1">Poszter URL</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-poster-input"
-                    value={movieForm.poster}
-                    onChange={(e)=>setMovieForm({...movieForm,poster:e.target.value})} />
-                </div>
-
-                <div>
-                  <label className="block text-sm text-slate-300 mb-1">Háttér URL</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-backdrop-input"
-                    value={movieForm.backdrop}
-                    onChange={(e)=>setMovieForm({...movieForm,backdrop:e.target.value})} />
-                </div>
-
-                <div>
-                  <label className="block text-sm text-slate-300 mb-1">Előzetes URL</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-trailer-input"
-                    value={movieForm.trailer}
-                    onChange={(e)=>setMovieForm({...movieForm,trailer:e.target.value})} />
-                </div>
-
-                <div>
-                  <label className="block text-sm text-slate-300 mb-1">Értékelés</label>
-                  <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-rating-input" step="0.1"
-                    type="number"
-                    value={movieForm.review ?? ""}
-                    onChange={(e)=>setMovieForm({...movieForm,review:e.target.value})} />
-                </div>
+              <div className="mt-4">
+                <label className="block text-sm text-slate-300 mb-1">Leírás</label>
+                <textarea className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+                  data-cy="movie-description-input"
+                  rows={4}
+                  value={movieForm.description}
+                  onChange={(e) => setMovieForm({ ...movieForm, description: e.target.value })}
+                />
               </div>
-            </div>
-
-            <div className="mt-4">
-              <label className="block text-sm text-slate-300 mb-1">Leírás</label>
-              <textarea className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
-                data-cy="movie-description-input"
-                rows={4}
-                value={movieForm.description}
-                onChange={(e)=>setMovieForm({...movieForm,description:e.target.value})}
-              />
-            </div>
 
 
               <label className="flex items-center gap-2 text-sm text-slate-200 mb-4">
@@ -905,12 +900,12 @@ async function loadModeration() {
                 <select className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
                   data-cy="screening-hall-select"
                   value={screeningForm.hall_id}
-                  onChange={(e)=>setScreeningForm({...screeningForm,hall_id:e.target.value})}
+                  onChange={(e) => setScreeningForm({ ...screeningForm, hall_id: e.target.value })}
                 >
                   <option value="">...</option>
-                  {halls.map(h=>(
+                  {halls.map(h => (
                     <option key={h.id} value={h.id}>
-                      {h.name} ({h.row*h.column} seats)
+                      {h.name} ({h.row * h.column} seats)
                     </option>
                   ))}
                 </select>
@@ -923,16 +918,16 @@ async function loadModeration() {
                 <select className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
                   data-cy="screening-movie-select"
                   value={screeningForm.movie_id}
-                  onChange={(e)=>setScreeningForm({...screeningForm,movie_id:e.target.value})}
+                  onChange={(e) => setScreeningForm({ ...screeningForm, movie_id: e.target.value })}
                 >
                   <option value="">...</option>
                   {movies
-                    .filter(m=>m.onscreen)
-                    .map(m=>(
+                    .filter(m => m.onscreen)
+                    .map(m => (
                       <option key={m.id} value={m.id}>
                         {m.title} ({m.playtime} min)
                       </option>
-                  ))}
+                    ))}
                 </select>
               </div>
 
@@ -972,8 +967,8 @@ async function loadModeration() {
                   step="900"
                   type="time"
                   value={screeningForm.startTime}
-                  onChange={(e)=>
-                    setScreeningForm({...screeningForm,startTime:e.target.value})
+                  onChange={(e) =>
+                    setScreeningForm({ ...screeningForm, startTime: e.target.value })
                   }
                 />
 
@@ -982,14 +977,14 @@ async function loadModeration() {
                     Idővonal (a kiválasztott teremhez) — kattints egy pontra a kezdés beállításához
                   </div>
 
-                 <Timeline
+                  <Timeline
                     date={selectedDate}
                     movie={movies.find((m) => m.id === screeningForm.movie_id) || null}
                     screenings={dayHallScreenings}
                     opening={opening}
                     onPickStart={(localISO) => {
                       const d = new Date(localISO)
-                      const time = d.toTimeString().slice(0,5)
+                      const time = d.toTimeString().slice(0, 5)
 
                       setScreeningForm(prev => ({
                         ...prev,
@@ -1064,27 +1059,25 @@ async function loadModeration() {
 
               <button className="w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
                 data-cy="screening-create"
-                onClick={async()=>{
+                onClick={async () => {
 
-                 if (
+                  if (
                     !screeningForm.movie_id ||
                     !screeningForm.hall_id ||
                     !screeningForm.screening_type_id ||
                     !screeningForm.startTime
-                  )
-
-                  {
+                  ) {
                     setErr("Az összes mező kitöltése kötelező.");
                     return;
                   }
 
-                  try{
+                  try {
                     const [hour, minute] = screeningForm.startTime.split(":").map(Number);
 
                     const startDate = new Date(selectedDate);
                     startDate.setHours(hour, minute, 0, 0);
 
-                    await api("screenings","POST",{
+                    await api("screenings", "POST", {
                       movie_id: screeningForm.movie_id,
                       hall_id: screeningForm.hall_id,
                       screening_type_id: screeningForm.screening_type_id,
@@ -1093,14 +1086,14 @@ async function loadModeration() {
 
 
                     setScreeningForm({
-                      movie_id:"",
-                      hall_id:"",
-                      screening_type_id:"",
-                      startTime:""
+                      movie_id: "",
+                      hall_id: "",
+                      screening_type_id: "",
+                      startTime: ""
                     });
                     await loadAll();
 
-                  }catch(e:any){
+                  } catch (e: any) {
                     setErr(e.message);
                   }
                 }}
@@ -1118,382 +1111,382 @@ async function loadModeration() {
                 {screenings
                   .filter(s => {
 
-                    if(selectedDate){
-                      const d = new Date(s.start).toISOString().slice(0,10);
-                      if(d !== selectedDate) return false;
+                    if (selectedDate) {
+                      const d = new Date(s.start).toISOString().slice(0, 10);
+                      if (d !== selectedDate) return false;
                     }
 
-                    if(screeningForm.hall_id){
-                      if(s.hall_id !== screeningForm.hall_id) return false;
+                    if (screeningForm.hall_id) {
+                      if (s.hall_id !== screeningForm.hall_id) return false;
                     }
 
                     return true;
                   })
                   .map((s) => {
 
-                  const start = new Date(s.start);
+                    const start = new Date(s.start);
 
-                  return (
-                    <div
-                      className="flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-white/10"
-                      key={s.id}
-                    >
-                      <div>
-                        <div className="font-medium">
-                          {s.movies?.title}
-                        </div>
-
-                        <div className="text-xs text-slate-300">
-                          {s.halls?.name}
-                        </div>
-
-                        <div className="text-xs text-slate-400">
-                          {s.screening_types?.type}
-                        </div>
-
-                        <div className="text-xs text-slate-400">
-                          {start.toLocaleString()}
-                        </div>
-                      </div>
-
-                      <button className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
-                        data-cy="screening-delete"
-                        onClick={async () => {
-                          await api("screenings", "DELETE", { id: s.id });
-                          await loadAll();
-                        }}
+                    return (
+                      <div
+                        className="flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-white/10"
+                        key={s.id}
                       >
-                        Törlés
-                      </button>
-                    </div>
-                  );
-                })}
+                        <div>
+                          <div className="font-medium">
+                            {s.movies?.title}
+                          </div>
+
+                          <div className="text-xs text-slate-300">
+                            {s.halls?.name}
+                          </div>
+
+                          <div className="text-xs text-slate-400">
+                            {s.screening_types?.type}
+                          </div>
+
+                          <div className="text-xs text-slate-400">
+                            {start.toLocaleString()}
+                          </div>
+                        </div>
+
+                        <button className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
+                          data-cy="screening-delete"
+                          onClick={async () => {
+                            await api("screenings", "DELETE", { id: s.id });
+                            await loadAll();
+                          }}
+                        >
+                          Törlés
+                        </button>
+                      </div>
+                    );
+                  })}
               </div>
             </section>
           </div>
         )}
 
         {tab === "bad_words" && (
-        <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+          <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
 
-          <section className="p-5 rounded-xl bg-white/5 border border-white/10 flex flex-col" data-cy="flagged-comments">
-  
-          <h2 className="font-semibold mb-4">Problémás kommentek</h2>
-  
-          <div className="space-y-2 max-h-[520px] overflow-y-auto overflow-x-auto pr-2 custom-scroll">
-  
-            {flaggedComments.map(c=>{
-  
-            let text = escapeHtml(c.comment);
-  
-            badWordsText.split(",").forEach(w=>{
-  
-            const word = w.trim();
-            if(!word) return;
-  
-            const regex = new RegExp(`(${word})`,"gi");
-            text = text.replace(regex,"<mark>$1</mark>");
-  
-            });
-  
-            return(
-  
-            <div
-            className="flex items-start justify-between p-3 rounded-lg bg-slate-900/40 border border-white/10"
-            key={c.id}
-            >
-  
-            <div className="text-sm">
-  
-            <div className="text-xs text-slate-400 mb-1">
-            {c.user} • {c.movie}
-            {c.type === "reply" && (
-            <span className="ml-2 text-yellow-400">(válasz)</span>
-            )}
-            </div>
-  
-            <div dangerouslySetInnerHTML={{__html:text}}/></div>
-  
-            <button className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
-            data-cy="flagged-comments-delete"
-            onClick={async()=>{
-  
-            await fetch("/api/admin?entity=flagged_comments",{
-            method:"DELETE",
-            headers:{
-            "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
-            id:c.id,
-            type:c.type
-            })
-            });
-  
-            await loadModeration();
-  
-            }}
-            >
-            Törlés
-            </button>
-  
-            </div>
-  
-            );
-  
-            })}
-  
+            <section className="p-5 rounded-xl bg-white/5 border border-white/10 flex flex-col" data-cy="flagged-comments">
+
+              <h2 className="font-semibold mb-4">Problémás kommentek</h2>
+
+              <div className="space-y-2 max-h-[520px] overflow-y-auto overflow-x-auto pr-2 custom-scroll">
+
+                {flaggedComments.map(c => {
+
+                  let text = escapeHtml(c.comment);
+
+                  badWordsText.split(",").forEach(w => {
+
+                    const word = w.trim();
+                    if (!word) return;
+
+                    const regex = new RegExp(`(${word})`, "gi");
+                    text = text.replace(regex, "<mark>$1</mark>");
+
+                  });
+
+                  return (
+
+                    <div
+                      className="flex items-start justify-between p-3 rounded-lg bg-slate-900/40 border border-white/10"
+                      key={c.id}
+                    >
+
+                      <div className="text-sm">
+
+                        <div className="text-xs text-slate-400 mb-1">
+                          {c.user} • {c.movie}
+                          {c.type === "reply" && (
+                            <span className="ml-2 text-yellow-400">(válasz)</span>
+                          )}
+                        </div>
+
+                        <div dangerouslySetInnerHTML={{ __html: text }} /></div>
+
+                      <button className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
+                        data-cy="flagged-comments-delete"
+                        onClick={async () => {
+
+                          await fetch("/api/admin?entity=flagged_comments", {
+                            method: "DELETE",
+                            headers: {
+                              "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                              id: c.id,
+                              type: c.type
+                            })
+                          });
+
+                          await loadModeration();
+
+                        }}
+                      >
+                        Törlés
+                      </button>
+
+                    </div>
+
+                  );
+
+                })}
+
+              </div>
+            </section>
+
+            <section className="p-5 rounded-xl bg-white/5 border border-white/10" data-cy="bad-words-panel">
+
+              <div
+                className="flex items-center justify-between cursor-pointer mb-4"
+                onClick={() => setShowBadWords(!showBadWords)}
+              >
+
+                <h2 className="font-semibold">Tiltott szavak</h2>
+
+                <span className={`transition ${showBadWords ? "rotate-180" : ""}`}>
+                  ▼
+                </span>
+
+              </div>
+
+              {showBadWords && (
+                <>
+                  <textarea className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
+                    data-cy="bad-words-input"
+                    rows={4}
+                    value={badWordsText}
+                    onChange={(e) => setBadWordsText(e.target.value)}
+                  />
+
+                  <div className="text-xs text-slate-400 mt-1">
+                    Vesszővel elválasztva
+                  </div>
+
+                  <button className="mt-3 px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30"
+                    data-cy="bad-words-save"
+                    onClick={async () => {
+
+                      const words = badWordsText
+                        .split(",")
+                        .map(w => w.trim())
+                        .filter(Boolean);
+
+                      await fetch("/api/admin?entity=bad_words", {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ words })
+                      });
+
+                      await loadModeration();
+
+                    }}
+                  >
+                    Mentés
+                  </button>
+                </>
+              )}
+            </section>
           </div>
-          </section>
-
-          <section className="p-5 rounded-xl bg-white/5 border border-white/10" data-cy="bad-words-panel">
-
-          <div
-          className="flex items-center justify-between cursor-pointer mb-4"
-          onClick={()=>setShowBadWords(!showBadWords)}
-          >
-
-            <h2 className="font-semibold">Tiltott szavak</h2>
-
-            <span className={`transition ${showBadWords ? "rotate-180" : ""}`}>
-            ▼
-            </span>
-
-          </div>
-
-          {showBadWords && (
-            <>
-            <textarea className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none"
-            data-cy="bad-words-input"
-            rows={4}
-            value={badWordsText}
-            onChange={(e)=>setBadWordsText(e.target.value)}
-            />
-
-            <div className="text-xs text-slate-400 mt-1">
-            Vesszővel elválasztva
-            </div>
-
-            <button className="mt-3 px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30"
-            data-cy="bad-words-save"
-            onClick={async()=>{
-
-            const words = badWordsText
-            .split(",")
-            .map(w=>w.trim())
-            .filter(Boolean);
-
-            await fetch("/api/admin?entity=bad_words",{
-            method:"POST",
-            headers:{
-            "Content-Type":"application/json"
-            },
-            body:JSON.stringify({words})
-            });
-
-            await loadModeration();
-
-            }}
-            >
-            Mentés
-            </button>
-            </>
-            )}
-          </section>
-        </div>
         )}
 
         {tab === "opening_hours" && (
-        <>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-        <section className="p-5 bg-white/5 border border-white/10 rounded-xl self-start">
+          <>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+              <section className="p-5 bg-white/5 border border-white/10 rounded-xl self-start">
 
-        <h2 className="font-semibold mb-4">Általános nyitvatartás</h2>
-        {openingHours.map((d,i)=>(
+                <h2 className="font-semibold mb-4">Általános nyitvatartás</h2>
+                {openingHours.map((d, i) => (
 
-        <div key={i} className="grid grid-cols-[70px_2fr_2fr_70px] gap-2 mb-3 items-center">
+                  <div key={i} className="grid grid-cols-[70px_2fr_2fr_70px] gap-2 mb-3 items-center">
 
-        <div className="text-sm">{days[d.weekday]}</div>
+                    <div className="text-sm">{days[d.weekday]}</div>
 
-        <input
-        type="time"
-        value={d.open_time}
-        disabled={d.closed}
-        onChange={(e)=>{
+                    <input
+                      type="time"
+                      value={d.open_time}
+                      disabled={d.closed}
+                      onChange={(e) => {
 
-          const copy=[...openingHours]
-          copy[i].open_time=e.target.value
-          setOpeningHours(copy)
+                        const copy = [...openingHours]
+                        copy[i].open_time = e.target.value
+                        setOpeningHours(copy)
 
-        }}
-        className="w-full bg-slate-900 border border-white/10 px-2 py-1 rounded"
-        />
+                      }}
+                      className="w-full bg-slate-900 border border-white/10 px-2 py-1 rounded"
+                    />
 
-        <input
-        type="time"
-        value={d.close_time}
-        disabled={d.closed}
-        onChange={(e)=>{
+                    <input
+                      type="time"
+                      value={d.close_time}
+                      disabled={d.closed}
+                      onChange={(e) => {
 
-          const copy=[...openingHours]
-          copy[i].close_time=e.target.value
-          setOpeningHours(copy)
+                        const copy = [...openingHours]
+                        copy[i].close_time = e.target.value
+                        setOpeningHours(copy)
 
-        }}
-        className="w-full bg-slate-900 border border-white/10 px-2 py-1 rounded"
-        />
+                      }}
+                      className="w-full bg-slate-900 border border-white/10 px-2 py-1 rounded"
+                    />
 
-        <label className="text-xs flex items-center gap-1 whitespace-nowrap">
+                    <label className="text-xs flex items-center gap-1 whitespace-nowrap">zárva</label>
 
-        <input
-          type="checkbox"
-          className="accent-emerald-500"
-          checked={d.closed}
-          onChange={(e)=>{
+                    <input
+                      type="checkbox"
+                      className="accent-emerald-500"
+                      checked={d.closed}
+                      onChange={(e) => {
 
-          const checked = e.target.checked
-          const copy=[...openingHours]
-          copy[i].closed = checked
+                        const checked = e.target.checked
+                        const copy = [...openingHours]
+                        copy[i].closed = checked
 
-          if(checked){
-            copy[i].open_time = "00:00"
-            copy[i].close_time = "00:00"
-          }
-          setOpeningHours(copy)
-        }}
-        />zárva</label>
-        </div>
-        ))}
+                        if (checked) {
+                          copy[i].open_time = "00:00"
+                          copy[i].close_time = "00:00"
+                        }
+                        setOpeningHours(copy)
+                      }}
+                    />
+                  </div>
+                ))}
 
-        <button
-        className="w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
-        onClick={async()=>{
-          for(const day of openingHours){
-            await api("opening_hours","POST",day)
-          }
-          await loadAll()
-        }}
-        >
-        Heti nyitvatartás mentése
-        </button>
+                <button
+                  className="w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
+                  onClick={async () => {
+                    for (const day of openingHours) {
+                      await api("opening_hours", "POST", day)
+                    }
+                    await loadAll()
+                  }}
+                >
+                  Heti nyitvatartás mentése
+                </button>
 
-        </section>
+              </section>
 
-        <section className="p-5 bg-white/5 border border-white/10 rounded-xl">
-          <h2 className="font-semibold mb-4">Speciális napok</h2>
-          <div className="grid grid-cols-2 gap-4 mb-4">
+              <section className="p-5 bg-white/5 border border-white/10 rounded-xl">
+                <h2 className="font-semibold mb-4">Speciális napok</h2>
+                <div className="grid grid-cols-2 gap-4 mb-4">
 
-          <div className="col-span-1">
-            <label className="text-xs text-slate-400">Dátum</label>
-            <input
-            type="date"
-            value={overrideForm.date}
-            onChange={(e)=>setOverrideForm({...overrideForm,date:e.target.value})}
-            className="bg-slate-900 border border-white/10 px-3 py-2 rounded w-full"
-            />
-          </div>
+                  <div className="col-span-1">
+                    <label className="text-xs text-slate-400">Dátum</label>
+                    <input
+                      type="date"
+                      value={overrideForm.date}
+                      onChange={(e) => setOverrideForm({ ...overrideForm, date: e.target.value })}
+                      className="bg-slate-900 border border-white/10 px-3 py-2 rounded w-full"
+                    />
+                  </div>
 
-          <div>
-            <label className="text-xs text-slate-400">Nyitás</label>
-            <input
-            type="time"
-            value={overrideForm.open_time ?? ""}
-            disabled={overrideForm.closed}
-            onChange={(e)=>setOverrideForm({...overrideForm,open_time:e.target.value})}
-            className="bg-slate-900 border border-white/10 px-3 py-2 rounded w-full"
-            />
-          </div>
+                  <div>
+                    <label className="text-xs text-slate-400">Nyitás</label>
+                    <input
+                      type="time"
+                      value={overrideForm.open_time ?? ""}
+                      disabled={overrideForm.closed}
+                      onChange={(e) => setOverrideForm({ ...overrideForm, open_time: e.target.value })}
+                      className="bg-slate-900 border border-white/10 px-3 py-2 rounded w-full"
+                    />
+                  </div>
 
-          <div>
-            <label className="text-xs text-slate-400">Zárás</label>
-            <input
-            type="time"
-            value={overrideForm.close_time ?? ""}
-            disabled={overrideForm.closed}
-            onChange={(e)=>setOverrideForm({...overrideForm,close_time:e.target.value})}
-            className="bg-slate-900 border border-white/10 px-3 py-2 rounded w-full"
-            />
-          </div>
+                  <div>
+                    <label className="text-xs text-slate-400">Zárás</label>
+                    <input
+                      type="time"
+                      value={overrideForm.close_time ?? ""}
+                      disabled={overrideForm.closed}
+                      onChange={(e) => setOverrideForm({ ...overrideForm, close_time: e.target.value })}
+                      className="bg-slate-900 border border-white/10 px-3 py-2 rounded w-full"
+                    />
+                  </div>
 
-          <div className="flex items-center gap-2 mt-5">
-            <input
-            type="checkbox"
-            className="accent-emerald-500"
-            checked={overrideForm.closed}
-            onChange={(e)=>setOverrideForm({...overrideForm,closed:e.target.checked})}
-            />
-            <span className="text-sm">zárva</span>
-          </div>
+                  <div className="flex items-center gap-2 mt-5">
+                    <input
+                      type="checkbox"
+                      className="accent-emerald-500"
+                      checked={overrideForm.closed}
+                      onChange={(e) => setOverrideForm({ ...overrideForm, closed: e.target.checked })}
+                    />
+                    <span className="text-sm">zárva</span>
+                  </div>
 
 
-          </div>
-          <button
-            className="w-full mt-4 w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
-            onClick={async()=>{
+                </div>
+                <button
+                  className="w-full mt-4 w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
+                  onClick={async () => {
 
-            if(!overrideForm.date){
-              setErr("Dátum kötelező")
-              return
-            }
+                    if (!overrideForm.date) {
+                      setErr("Dátum kötelező")
+                      return
+                    }
 
-            if(!overrideForm.closed && (!overrideForm.open_time || !overrideForm.close_time)){
-              setErr("Nyitási és zárási idő kell")
-              return
-            }
+                    if (!overrideForm.closed && (!overrideForm.open_time || !overrideForm.close_time)) {
+                      setErr("Nyitási és zárási idő kell")
+                      return
+                    }
 
-            await api("opening_overrides","POST",{
-              ...overrideForm,
-              open_time: overrideForm.closed ? null : overrideForm.open_time,
-              close_time: overrideForm.closed ? null : overrideForm.close_time
-            })
+                    await api("opening_overrides", "POST", {
+                      ...overrideForm,
+                      open_time: overrideForm.closed ? null : overrideForm.open_time,
+                      close_time: overrideForm.closed ? null : overrideForm.close_time
+                    })
 
-            setOverrideForm({
-              date:"",
-              open_time:"",
-              close_time:"",
-              closed:false
-              })
-              await loadAll()
-            }}
-          >Hozzáadás</button>
+                    setOverrideForm({
+                      date: "",
+                      open_time: "",
+                      close_time: "",
+                      closed: false
+                    })
+                    await loadAll()
+                  }}
+                >Hozzáadás</button>
 
-          <div className="mt-10 space-y-2 max-h-[520px] overflow-y-auto overflow-x-auto pr-2 custom-scroll">
-            {openingOverrides.map(o=>(
+                <div className="mt-10 space-y-2 max-h-[520px] overflow-y-auto overflow-x-auto pr-2 custom-scroll">
+                  {openingOverrides.map(o => (
 
-            <div
-            key={o.id}
-            className="flex items-center justify-between p-3 border border-white/10 rounded-lg mb-2 bg-slate-900/40"
-            >
+                    <div
+                      key={o.id}
+                      className="flex items-center justify-between p-3 border border-white/10 rounded-lg mb-2 bg-slate-900/40"
+                    >
 
-            <div>
+                      <div>
 
-            {o.date.slice(0,10)} — {o.closed
-              ? <span className="text-red-400 font-semibold">ZÁRVA</span>
-              : <span className="text-emerald-400">{o.open_time} - {o.close_time}</span>
-            }
+                        {o.date.slice(0, 10)} — {o.closed
+                          ? <span className="text-red-400 font-semibold">ZÁRVA</span>
+                          : <span className="text-emerald-400">{o.open_time} - {o.close_time}</span>
+                        }
 
+                      </div>
+
+                      <button
+                        className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
+                        onClick={async () => {
+
+                          await api("opening_overrides", "DELETE", { id: o.id })
+                          await loadAll()
+
+                        }}
+                      >
+
+                        Törlés
+
+                      </button>
+
+                    </div>
+
+                  ))}
+                </div>
+              </section>
             </div>
-
-            <button
-            className="px-3 py-2 rounded-lg bg-red-500/15 border border-red-500/25 hover:bg-red-500/20 transition text-sm cursor-pointer"
-            onClick={async()=>{
-
-            await api("opening_overrides","DELETE",{id:o.id})
-            await loadAll()
-
-            }}
-            >
-
-            Törlés
-
-            </button>
-
-            </div>
-
-            ))}
-          </div>
-        </section>
-        </div>
-        </>
+          </>
         )}
       </main>
     </div>

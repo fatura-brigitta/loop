@@ -1303,7 +1303,7 @@ export default function AdminPage() {
                 <h2 className="font-semibold mb-4">Általános nyitvatartás</h2>
                 {openingHours.map((d, i) => (
 
-                  <div key={i} className="grid grid-cols-[70px_2fr_2fr_70px] gap-2 mb-3 items-center">
+                  <div key={i} className="grid grid-cols-[70px_1fr_1fr_1fr_1fr] gap-2 mb-3 items-center">
 
                     <div className="text-sm">{days[d.weekday]}</div>
 
@@ -1335,8 +1335,6 @@ export default function AdminPage() {
                       className="w-full bg-slate-900 border border-white/10 px-2 py-1 rounded"
                     />
 
-                    <label className="text-xs flex items-center gap-1 whitespace-nowrap">zárva</label>
-
                     <input
                       type="checkbox"
                       className="accent-emerald-500"
@@ -1354,6 +1352,8 @@ export default function AdminPage() {
                         setOpeningHours(copy)
                       }}
                     />
+
+                    <label className="text-xs flex items-center gap-1 whitespace-nowrap">zárva</label>
                   </div>
                 ))}
 

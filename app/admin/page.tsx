@@ -1310,7 +1310,7 @@ async function loadModeration() {
         <h2 className="font-semibold mb-4">Általános nyitvatartás</h2>
         {openingHours.map((d,i)=>(
 
-        <div key={i} className="grid grid-cols-[1fr_2fr_2fr_1fr] gap-2 mb-3 items-center">
+        <div key={i} className="grid grid-cols-[70px_2fr_2fr_1fr] gap-2 mb-3 items-center">
 
         <div className="text-sm">{days[d.weekday]}</div>
 

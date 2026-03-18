@@ -55,57 +55,66 @@ export default function MoviesPage() {
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2" data-cy="movies-grid">
           {movies.map((movie) => (
             <div
-              className="group flex flex-col sm:flex-row w-full overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] transition-all duration-300 ease-out hover:-translate-y-[3.2px] hover:shadow-2xl hover:shadow-cyan-500/10 hover:border-cyan-500/40"
+              className="group flex flex-row w-full overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] transition-all duration-300 ease-out hover:-translate-y-[3px] hover:shadow-2xl hover:shadow-cyan-500/10 hover:border-cyan-500/40"
               data-cy="movie-card"
               data-movie-id={movie.id}
               key={movie.id}
             >
-              <div className="relative w-full sm:w-auto shrink-0 overflow-hidden">
-                <Image
-                  alt={movie.title}
-                  width={200}
-                  height={300}
-                  className="object-cover w-full sm:w-[160px] md:w-[200px] h-[220px] sm:h-auto"
-                  data-cy="movie-poster"
-                  src={movie.poster}
-                />
+              {/* POSTER */}
+              <div className="shrink-0">
+                <div className="relative w-[160px] md:w-[160px] aspect-[2/3]">
+                  <Image
+                    src={movie.poster}
+                    alt={movie.title}
+                    fill
+                    className="object-contain rounded-l-lg"
+                    data-cy="movie-poster"
+                  />
+                </div>
               </div>
 
-              <div className="flex flex-1 flex-col justify-between px-4 py-3" data-cy="movie-info">
+              {/* INFO */}
+              <div
+                className="flex flex-1 flex-col justify-between px-3 py-2 sm:px-4 sm:py-3"
+                data-cy="movie-info"
+              >
                 <div>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-start justify-between gap-2">
                     <h2
-                      className="text-base font-semibold text-[var(--text-main)]"
+                      className="text-sm sm:text-base font-semibold leading-tight text-[var(--text-main)]"
                       data-cy="movie-title"
                     >
                       {movie.title}
                     </h2>
 
-                    <span className="text-sm text-[var(--text-main2)]" data-cy="movie-rating">
+                    <span
+                      className="text-xs sm:text-sm text-[var(--text-main2)] shrink-0"
+                      data-cy="movie-rating"
+                    >
                       ⭐ {movie.review}
                     </span>
                   </div>
 
-                  <p className="mt-1 text-xs text-slate-400">
+                  <p className="mt-1 text-[11px] sm:text-xs text-slate-400">
                     {movie.genre} • {movie.playtime} perc • {movie.language}
                   </p>
 
                   <p
-                    className="mt-2 line-clamp-3 text-sm text-[var(--text-soft)]"
+                    className="mt-2 line-clamp-2 text-xs sm:text-sm text-[var(--text-soft)]"
                     data-cy="movie-director"
                   >
                     Rendező: {movie.director}
                   </p>
 
                   <p
-                    className="mt-2 line-clamp-3 text-sm text-[var(--text-soft)]"
+                    className="mt-1 line-clamp-2 text-xs sm:text-sm text-[var(--text-soft)]"
                     data-cy="movie-actors"
                   >
                     Szereplők: {movie.actors}
                   </p>
 
                   <p
-                    className="mt-2 line-clamp-3 text-sm text-[var(--text-soft)]"
+                    className="mt-2 line-clamp-3 text-xs sm:text-sm text-[var(--text-soft)]"
                     data-cy="movie-description"
                   >
                     {movie.description}
@@ -114,7 +123,7 @@ export default function MoviesPage() {
 
                 <div className="flex justify-end gap-2">
                   <button
-                    className="h-8 mt-3 cursor-pointer rounded bg-[var(--button-bg)] px-4 py-1 text-xs font-semibold text-[var(--text-light)] transition-all duration-200 hover:-translate-y-[0.8px] hover:bg-cyan-500 hover:shadow-lg"
+                    className="mt-2 sm:mt-3 cursor-pointer rounded bg-[var(--button-bg)] px-3 py-1 text-xs font-semibold text-[var(--text-light)] transition hover:bg-cyan-500"
                     data-cy="movie-screenings-button"
                     data-movie-id={movie.id}
                     onClick={async () => {

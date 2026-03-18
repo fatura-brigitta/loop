@@ -63,6 +63,8 @@ export default function MoviesPage() {
               <div className="relative w-full sm:w-auto shrink-0 overflow-hidden">
                 <Image
                   alt={movie.title}
+                  width={200}
+                  height={300}
                   className="object-cover w-full sm:w-[160px] md:w-[200px] h-[220px] sm:h-auto"
                   data-cy="movie-poster"
                   src={movie.poster}
@@ -112,7 +114,7 @@ export default function MoviesPage() {
 
                 <div className="flex justify-end gap-2">
                   <button
-                    className="h-8 cursor-pointer rounded bg-[var(--button-bg)] px-4 py-1 text-xs font-semibold text-[var(--text-light)] transition-all duration-200 hover:-translate-y-[0.8px] hover:bg-cyan-500 hover:shadow-lg"
+                    className="h-8 mt-3 cursor-pointer rounded bg-[var(--button-bg)] px-4 py-1 text-xs font-semibold text-[var(--text-light)] transition-all duration-200 hover:-translate-y-[0.8px] hover:bg-cyan-500 hover:shadow-lg"
                     data-cy="movie-screenings-button"
                     data-movie-id={movie.id}
                     onClick={async () => {

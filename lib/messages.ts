@@ -82,6 +82,7 @@ export const messages = {
     unsupportedInput: "Nem támogatott bemenet!",
     hallResizeBlocked: "Nem csökkenthető a terem mérete, mert léteznek jegyek a megszűnő székekre!",
     invalidHallDataShort: "Érvénytelen terem adatok!",
+    invalidHallSize: "A maximálisan létrehozható teremméret 15x10",
 
     zodError: "Érvénytelen adat!",
     rateLimitError: "Túl sok kérés!",
@@ -171,6 +172,7 @@ export const messages = {
     unsupportedInput: "Unsupported input!",
     hallResizeBlocked: "Hall size cannot be reduced because tickets exist for seats that would be removed!",
     invalidHallDataShort: "Invalid hall data!",
+    invalidHallSize: "Maximum hall size is 15x10",
 
     zodError: "Invalid data!",
     rateLimitError: "Too many requests!",

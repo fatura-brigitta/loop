@@ -228,73 +228,85 @@ export async function PUT(req: Request) {
       const rows = Number(body.row);
       const columns = Number(body.column);
 
-      if (!body.name || rows <= 0 || columns <= 0)
+      const MAX_rows = 15;
+      const MAX_columns = 10;
+      if (!body.name || rows <= 0 || columns <= 0) {
         return jsonError(t.invalidHallData);
+      }
 
-      const result = await prisma.$transaction(async (tx) => {
+      if (rows > MAX_rows || columns > MAX_columns) {
+        return jsonError(t.invalidHallSize);
+      }
 
-        const updatedHall = await tx.hall.update({
-          where: { id: hallId },
-          data: {
-            name: body.name,
-            row: rows,
-            column: columns,
-          },
-        });
+      try {
+        const result = await prisma.$transaction(async (tx) => {
 
-        const existingChairs = await tx.chair.findMany({
-          where: { hall_id: hallId },
-          include: { tickets: true },
-        });
-
-        const keepIds = new Set<string>();
-        const chairsToCreate: { row: number; column: number }[] = [];
-
-        for (let r = 1; r <= rows; r++) {
-          for (let c = 1; c <= columns; c++) {
-
-           const chairMap = new Map(
-            existingChairs.map(c => [`${c.row}-${c.column}`, c])
-          );
-
-          const existing = chairMap.get(`${r}-${c}`);
-
-            if (existing) {
-              keepIds.add(existing.id);
-            } else {
-              chairsToCreate.push({ row: r, column: c });
-            }
-          }
-        }
-
-        const toDelete = existingChairs.filter(ch => !keepIds.has(ch.id));
-
-        if (toDelete.some(ch => ch.tickets.length > 0)) {
-          throw new Error(
-            t.hallResizeBlocked
-          );
-        }
-
-        if (toDelete.length > 0) {
-          await tx.chair.deleteMany({
-            where: { id: { in: toDelete.map(c => c.id) } },
-          });
-        }
-
-        for (const chair of chairsToCreate) {
-          await tx.chair.create({
+          const updatedHall = await tx.hall.update({
+            where: { id: hallId },
             data: {
-              hall_id: hallId,
-              row: chair.row,
-              column: chair.column,
+              name: body.name,
+              row: rows,
+              column: columns,
             },
           });
-        }
 
-        return updatedHall;
-      });
+          const existingChairs = await tx.chair.findMany({
+            where: { hall_id: hallId },
+            include: { tickets: true },
+          });
 
-      return NextResponse.json(result);
+          const chairMap = new Map(
+            existingChairs.map(ch => [`${ch.row}-${ch.column}`, ch])
+          );
+
+          const keepIds = new Set<string>();
+          const chairsToCreate: { row: number; column: number }[] = [];
+
+          for (let r = 1; r <= rows; r++) {
+            for (let c = 1; c <= columns; c++) {
+              const existing = chairMap.get(`${r}-${c}`);
+
+              if (existing) {
+                keepIds.add(existing.id);
+              } else {
+                chairsToCreate.push({ row: r, column: c });
+              }
+            }
+          }
+
+          const toDelete = existingChairs.filter(ch => !keepIds.has(ch.id));
+          if (toDelete.some(ch => ch.tickets.length > 0)) {
+            throw new Error(t.hallResizeBlocked);
+          }
+
+          if (toDelete.length > 0) {
+            await tx.chair.deleteMany({
+              where: { id: { in: toDelete.map(c => c.id) } },
+            });
+          }
+
+          if (chairsToCreate.length > 0) {
+            await tx.chair.createMany({
+              data: chairsToCreate.map(chair => ({
+                hall_id: hallId,
+                row: chair.row,
+                column: chair.column,
+              })),
+            });
+          }
+
+          return updatedHall;
+        });
+
+        return NextResponse.json(result);
+
+      } catch (error) {
+        console.error("HALL UPDATE ERROR:", error);
+
+        return jsonError(
+          error instanceof Error ? error.message : "Unknown error"
+        );
+      }
     }
     
     return jsonError(t.unsupportedPutEntity);
@@ -338,41 +350,59 @@ export async function POST(req: Request) {
     }
 
     if (entity === "halls") {
-      if (!body.name) return jsonError(t.hallNameRequired);
+        if (!body.name) return jsonError(t.hallNameRequired);
 
-      const rows = Number(body.row);
-      const columns = Number(body.column);
+        const rows = Number(body.row);
+        const columns = Number(body.column);
 
-      if (!rows || rows <= 0 || !columns || columns <= 0) {
-        return jsonError(t.positiveRowsColumns);
-      }
+        const MAX_rows = 15;
+        const MAX_columns = 10;
 
-      const createdHall = await prisma.hall.create({
-        data: {
-          name: body.name,
-          row: rows,
-          column: columns,
-        },
-      });
+        if (!rows || rows <= 0 || !columns || columns <= 0) {
+          return jsonError(t.positiveRowsColumns);
+        }
 
-      const chairs = [];
+        if (rows > MAX_rows || columns > MAX_columns) {
+          return jsonError(t.invalidHallSize);
+        }
 
-      for (let r = 1; r <= rows; r++) {
-        for (let c = 1; c <= columns; c++) {
-          chairs.push({
-            hall_id: createdHall.id,
-            row: r,
-            column: c,
+        try {
+          const createdHall = await prisma.hall.create({
+            data: {
+              name: body.name,
+              row: rows,
+              column: columns,
+            },
           });
+
+          const chairs = [];
+
+          for (let r = 1; r <= rows; r++) {
+            for (let c = 1; c <= columns; c++) {
+              chairs.push({
+                hall_id: createdHall.id,
+                row: r,
+                column: c,
+              });
+            }
+          }
+
+          if (chairs.length > 0) {
+            await prisma.chair.createMany({
+              data: chairs,
+            });
+          }
+
+          return NextResponse.json(createdHall, { status: 201 });
+
+        } catch (error) {
+          console.error("HALL CREATE ERROR:", error);
+
+          return jsonError(
+            error instanceof Error ? error.message : "Unknown error"
+          );
         }
       }
-
-      await prisma.chair.createMany({
-        data: chairs,
-      });
-
-      return NextResponse.json(createdHall, { status: 201 });
-    }
 
     if (entity === "screenings") {
       if (!body.movie_id || !body.hall_id || !body.start || !body.screening_type_id)

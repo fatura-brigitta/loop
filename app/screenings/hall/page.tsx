@@ -60,7 +60,7 @@ function SeatGrid({
             }
 
             return (
-              <div className={`h-8 w-8 rounded transition-all duration-150 ${color} ${chair && !chair.state ? "cursor-pointer hover:scale-110" : ""} `}
+              <div className={`h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8 rounded transition-all duration-150 ${color} ${chair && !chair.state ? "cursor-pointer hover:scale-110" : ""} `}
                 data-cy="hall-seat"
                 data-seat-col={c + 1}
                 data-seat-id={chair?.id}
@@ -81,7 +81,7 @@ function SeatGrid({
 function CinemaScreen() {
   return (
     <div className="mb-10 flex w-full flex-col items-center">
-      <div className="h-9 w-[70%] rounded-t-[100%] bg-gradient-to-b from-[var(--text-main)]/80 via-[var(--text-main)]/40 to-transparent blur-[2px]" />
+      <div className="h-6 sm:h-9 w-[85%] sm:w-[70%] rounded-t-[100%] bg-gradient-to-b from-[var(--text-main)]/80 via-[var(--text-main)]/40 to-transparent blur-[2px]" />
     </div>
   );
 }
@@ -269,9 +269,9 @@ export default function HallPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="hall-page">
+    <div className="bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="hall-page">
       {!showLogin && (
-        <div className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="hall-login-required">
+        <div className="flex min-h-screen items-center justify-center text-xs sm:text-sm bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="hall-login-required">
           A terem megtekintéséhez kérjük jelentkezzen be.
         </div>
       )}
@@ -283,14 +283,14 @@ export default function HallPage() {
       )}
 
       {showLogin && !loadingHall && !error && hall && (
-        <div className="mx-auto max-w-6xl px-4 py-8 pb-40 text-center" data-cy="hall-container">
+        <div className={`mx-auto max-w-6xl px-3 sm:px-4 py-6 sm:py-8 text-center ${selectedChairs.length > 0 ? "pb-16" : "pb-8"}`} data-cy="hall-container">
           {screeningInfo && (
-            <div className="mx-auto mb-10 max-w-xl text-center">
-              <div className="text-xl font-semibold text-[var(--text-main2)]">
+            <div className="mx-auto mb-6 sm:mb-10 max-w-xl text-center px-2">
+              <div className="text-base sm:text-lg md:text-xl font-semibold text-[var(--text-main2)]">
                {screeningInfo.movie.title}
               </div>
 
-              <div className="mt-2 flex items-center justify-center gap-3 text-sm text-[var(--text-main)]/60">
+              <div className="mt-2 flex flex-wrap items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm text-[var(--text-main)]/60">
                 <span>{hall?.name}</span>
                 <span className="text-[var(--text-main)]/60">•</span>
                 <span>{screeningInfo.type}</span>
@@ -315,19 +315,19 @@ export default function HallPage() {
           </div>
 
           <div className="mt-10 flex flex-col items-center gap-4 text-sm text-[var(--text-main)]/80" data-cy="hall-seat-legend">
-            <div className="flex items-center gap-8">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-8">
               <div className="flex items-center gap-2">
-                <div className="h-4 w-4 rounded bg-green-500" />
+                <div className="h-3 w-3 sm:h-4 sm:w-4 rounded bg-green-500" />
                 <span>Szabad hely</span>
               </div>
 
               <div className="flex items-center gap-2">
-                <div className="h-4 w-4 rounded bg-cyan-300" />
+                <div className="h-3 w-3 sm:h-4 sm:w-4 rounded bg-cyan-300" />
                 <span>Kiválasztott</span>
               </div>
 
               <div className="flex items-center gap-2">
-                <div className="h-4 w-4 rounded bg-gray-400" />
+                <div className="h-3 w-3 sm:h-4 sm:w-4 rounded bg-gray-400" />
                 <span>Foglalt</span>
               </div>
             </div>
@@ -336,24 +336,24 @@ export default function HallPage() {
       )}
 
       {seatError && (
-        <div className="fixed bottom-28 left-1/2 z-50 -translate-x-1/2 animate-pulse rounded-lg bg-red-600 px-6 py-3 text-[var(--text-main)] shadow-2xl" data-cy="hall-seat-error">
+        <div className="fixed bottom-28 left-1/2 z-50 -translate-x-1/2 animate-pulse rounded-lg bg-red-600 px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm text-[var(--text-main)] shadow-2xl" data-cy="hall-seat-error">
           {seatError}
         </div>
       )}
 
       {successMessage && (
-        <div className="fixed bottom-44 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-6 py-3 text-[var(--text-main)] shadow-2xl" data-cy="hall-success">
+        <div className="fixed bottom-44 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm text-[var(--text-main)] shadow-2xl" data-cy="hall-success">
           {successMessage}
         </div>
       )}
 
       {selectedChairs.length > 0 && (
         <div className="fixed right-0 bottom-0 left-0 z-40 border-t border-[var(--border-color)] bg-[var(--bg-main)] backdrop-blur" data-cy="hall-selected-panel">
-          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 text-[var(--text-main)]">
+          <div className="mx-auto flex flex-col sm:flex-row gap-3 sm:gap-0 max-w-6xl items-center sm:items-center justify-between px-4 sm:px-6 py-3 sm:py-4 text-[var(--text-main)]">
             <div className="flex flex-col text-left">
-              <span className="text-sm text-[var(--text-main)]/60" data-cy="hall-selected-title">Kiválasztott székek</span>
+              <span className="text-xs sm:text-sm text-[var(--text-main)]/60 mt-10" data-cy="hall-selected-title">Kiválasztott székek</span>
 
-              <div className="mt-1 text-sm font-medium" data-cy="hall-selected-seats">
+              <div className="mt-1 text-xs sm:text-sm font-medium" data-cy="hall-selected-seats">
                 {Object.entries(groupedSeats)
                   .sort((a, b) => Number(a[0]) - Number(b[0]))
                   .map(([row, cols]) => {
@@ -370,9 +370,9 @@ export default function HallPage() {
             </div>
 
             <div className="flex flex-col items-end gap-2 text-right">
-              <div className="text-2xl font-bold text-orange-400" data-cy="hall-seat-count">🎟 {selectedChairs.length}</div>
+              <div className="text-lg sm:text-xl md:text-2xl font-bold text-orange-400" data-cy="hall-seat-count">🎟 {selectedChairs.length}</div>
 
-              <button className="cursor-pointer rounded-lg bg-[var(--button-bg)] px-5 py-2 font-semibold text-[var(--text-light)] transition hover:bg-blue-600"
+              <button className="cursor-pointer rounded-lg bg-[var(--button-bg)] px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold text-[var(--text-light)] transition hover:bg-blue-600"
                 data-cy="hall-reserve-button"
                 onClick={reserveSeats}
               >

@@ -244,7 +244,7 @@ export default function AssetsSection({
               >
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div>
-                    <div className="text-lg font-semibold text-[var(--text-main)]">
+                    <div className="text-base sm:text-lg font-semibold text-[var(--text-main)]">
                       {ticket.screenings.movies.title}
                     </div>
 
@@ -262,7 +262,7 @@ export default function AssetsSection({
                   </div>
 
                   <div className="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto">
-                    <div className="text-lg font-bold text-green-400">
+                    <div className="text-base sm:text-lg font-bold text-green-400">
                       {(ticket.price / 100).toFixed(2)} €
                     </div>
 
@@ -295,7 +295,7 @@ export default function AssetsSection({
               className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70"
               data-cy="history-delete-modal"
             >
-              <div className="w-[90%] max-w-[380px] rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 shadow-2xl">
+              <div className="w-[90%] max-w-[380px] rounded-2xl border border-[var(--border-color)] bg-black p-6 shadow-2xl">
                 <h2 className="mb-4 text-xl font-bold text-[var(--text-main)]">Jegy törlése</h2>
 
                 <p className="mb-6 text-[var(--text-main)]/70">
@@ -328,7 +328,7 @@ export default function AssetsSection({
               className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70"
               data-cy="history-delete-all-modal"
             >
-              <div className="w-[90%] max-w-[380px] rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 shadow-2xl">
+              <div className="w-[90%] max-w-[380px] rounded-2xl border border-[var(--border-color)] bg-black p-6 shadow-2xl">
                 <h2 className="mb-4 text-xl font-bold text-[var(--text-main)]">
                   Összes előzmény törlése
                 </h2>

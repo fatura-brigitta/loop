@@ -33,6 +33,14 @@
   --nav-bg: #0f172a;
 }
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 body {
   transition:
     background-color 200ms ease,

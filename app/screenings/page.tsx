@@ -272,231 +272,243 @@ export default function ScreeningsPage() {
       <div className="mx-auto max-w-6xl px-3 md:px-4 py-4" data-cy="screenings-container">
         <h1 className="mb-6 text-2xl font-bold">Műsoron</h1>
 
-        <div className="mb-8 flex flex-wrap items-center gap-4 px-3 py-2 md:px-4">
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide" data-cy="screenings-date-filter">
-            {nextDays.map((d) => (
-              <button
-                className={`flex min-w-[70px] cursor-pointer flex-col items-center rounded-lg border px-4 py-2 ${
+       <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4 px-3 py-2 md:px-4">
+        <div
+          className="flex w-full md:w-auto gap-1 sm:gap-2 md:gap-2 md:overflow-x-auto md:pb-2"
+          data-cy="screenings-date-filter"
+        >
+          {nextDays.map((d) => (
+            <button
+              key={d.iso}
+              onClick={() => setSelectedDate(d.iso)}
+              data-cy={`screenings-date-${d.iso}`}
+              className={`
+                flex flex-col items-center justify-center rounded-lg border transition active:scale-95
+
+                /* 📱 MOBIL */
+                flex-1 px-1 py-1.5 text-[9px]
+
+                /* 📲 TABLET */
+                sm:px-2 sm:py-2 sm:text-xs
+
+                /* 💻 DESKTOP → visszaáll az eredeti */
+                md:flex-none md:min-w-[70px] md:px-3 md:py-2 md:text-sm md:snap-start
+
+                ${
                   selectedDate === d.iso
-                    ? "border-cyan-500 bg-cyan-500 text-[var(--text-main)]"
+                    ? "border-cyan-500 bg-cyan-500 text-white"
                     : "border-[var(--border-color)] bg-[var(--card-bg)] hover:bg-[var(--text-slate-hover)]"
-                }`}
-                data-cy={`screenings-date-${d.iso}`}
-                key={d.iso}
-                onClick={() => setSelectedDate(d.iso)}
-              >
-                <span className="text-xs opacity-80">{d.label}</span>
-                <span className="text-lg font-semibold">{d.date.getDate()}</span>
-              </button>
-            ))}
-          </div>
+                }
+              `}
+            >
+              <span className="opacity-80">
+                {d.label}
+              </span>
+              <span className="font-semibold text-sm md:text-lg">
+                {d.date.getDate()}
+              </span>
+            </button>
+          ))}
+        </div>
 
-          <div className="flex w-full md:w-auto items-center gap-2">
-            <div className="relative" ref={dropdownRef}>
-              <button
-                className="flex w-full md:w-44 cursor-pointer items-center justify-between rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 hover:bg-[var(--text-slate-hover)]"
-                data-cy="screenings-type-dropdown"
-                onClick={() => setDropdownOpen((p) => !p)}
-              >
-                {selectedType === "all" ? "Előadás-típus" : selectedType}
-                <ChevronDown size={16} />
-              </button>
+        <div className="flex w-full md:w-auto items-center gap-2">
 
-              {dropdownOpen && (
+          <div className="relative flex-1 md:flex-none" ref={dropdownRef}>
+            <button
+              className="flex w-full md:w-44 cursor-pointer items-center justify-between rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-3 py-2 text-sm hover:bg-[var(--text-slate-hover)]"
+              onClick={() => setDropdownOpen((p) => !p)}
+            >
+              {selectedType === "all" ? "Előadás-típus" : selectedType}
+              <ChevronDown size={16} />
+            </button>
+
+            {dropdownOpen && (
+              <div className="absolute right-0 z-50 mt-2 w-full overflow-hidden rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)]/95 shadow-xl backdrop-blur-md">
                 <div
-                  className="animate-in fade-in slide-in-from-top-2 absolute right-0 z-50 mt-2 w-full overflow-hidden rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)]/95 shadow-xl backdrop-blur-md duration-200"
-                  data-cy="screenings-type-dropdown-menu"
+                  className="cursor-pointer px-4 py-2 hover:bg-[var(--text-slate-hover)]"
+                  onClick={() => {
+                    setSelectedType("all");
+                    setDropdownOpen(false);
+                  }}
                 >
+                  Mind
+                </div>
+
+                {availableTypes.map((type) => (
                   <div
+                    key={type}
                     className="cursor-pointer px-4 py-2 hover:bg-[var(--text-slate-hover)]"
-                    data-cy="screenings-type-all"
                     onClick={() => {
-                      setSelectedType("all");
+                      setSelectedType(type);
                       setDropdownOpen(false);
                     }}
                   >
-                    Mind
+                    {type}
                   </div>
-
-                  {availableTypes.map((type) => (
-                    <div
-                      className="cursor-pointer px-4 py-2 hover:bg-[var(--text-slate-hover)]"
-                      data-cy={`screenings-type-${type}`}
-                      key={type}
-                      onClick={() => {
-                        setSelectedType(type);
-                        setDropdownOpen(false);
-                      }}
-                    >
-                      {type}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-            <button
-              className="flex cursor-pointer items-center justify-center rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-3 py-2 hover:bg-[var(--text-slate-hover)]"
-              data-cy="screenings-reset-filters"
-              title="Szűrők törlése"
-              onClick={resetFilters}
-            >
-              ↻
-            </button>
+                ))}
+              </div>
+            )}
           </div>
+
+          <button
+            className="flex shrink-0 items-center justify-center rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-3 py-2 hover:bg-[var(--text-slate-hover)]"
+            onClick={resetFilters}
+          >
+            ↻
+          </button>
         </div>
+      </div>
 
         <div className="flex flex-col gap-6" data-cy="screenings-movie-list">
           {filteredGrouped.map((g, index) => (
-  <div
-    key={index}
-    data-cy="screenings-movie-card"
-    data-movie-title={g.movie.title}
-    className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6 rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)] p-3 md:p-4 transition-all duration-300 ease-out hover:-translate-y-[2.5px] hover:shadow-2xl hover:shadow-cyan-500/10 hover:border-cyan-500/40"
-  >
-    {/* BAL OLDAL: POSTER + CONTENT */}
-    <div className="flex gap-4 w-full md:w-auto">
-      
-      {/* POSTER */}
-      <div className="w-[110px] sm:w-[130px] md:w-[180px] shrink-0 flex items-center justify-center">
-        <Image
-          alt={g.movie.title}
-          src={g.movie.poster}
-          width={200}
-          height={300}
-          className="rounded-lg object-cover w-full h-auto"
-          data-cy="screenings-movie-poster"
-        />
-      </div>
+          <div
+            key={index}
+            data-cy="screenings-movie-card"
+            data-movie-title={g.movie.title}
+            className="flex flex-col md:flex-row md:items-stretch gap-4 md:gap-6 rounded-xl border border-[var(--border-color)] bg-[var(--card-bg)] p-3 md:p-4 transition-all duration-300 ease-out hover:-translate-y-[2.5px] hover:shadow-2xl hover:shadow-cyan-500/10 hover:border-cyan-500/40"
+          >
+            <div className="flex gap-4 w-full md:w-auto">
 
-      {/* CONTENT */}
-      <div className="flex flex-1 flex-col justify-center">
-        <h2 className="text-base md:text-xl font-semibold">
-          {g.movie.title}
-        </h2>
+              <div className="w-[110px] sm:w-[130px] md:w-[180px] shrink-0 flex items-center justify-center">
+                <Image
+                  alt={g.movie.title}
+                  src={g.movie.poster}
+                  width={200}
+                  height={300}
+                  className="rounded-lg object-cover w-full h-auto"
+                  data-cy="screenings-movie-poster"
+                />
+              </div>
 
-        <p className="text-xs text-slate-400">
-          {g.movie.genre} • {g.movie.playtime} perc • {g.movie.language}
-        </p>
+              <div className="flex flex-1 flex-col justify-center">
+                <h2 className="text-base md:text-xl font-semibold">
+                  {g.movie.title}
+                </h2>
 
-        <p className="mt-2 md:mt-3 line-clamp-3 text-xs md:text-sm text-[var(--text-soft)]">
-          {g.movie.description}
-        </p>
+                <p className="text-xs text-slate-400">
+                  {g.movie.genre} • {g.movie.playtime} perc • {g.movie.language}
+                </p>
 
-        {/* VETÍTÉSEK */}
-        <div className="mt-3 md:mt-4 flex flex-col gap-3 md:gap-4">
-          {selectedDate === "all"
-            ? Object.entries(groupByDateAndType(g.screenings)).map(([date, types]) => (
-                <div key={date}>
-                  <div className="mb-1 text-xs md:text-sm font-bold text-[var(--text-main2)]">
-                    {getDateLabel(date)}
-                  </div>
+                <p className="mt-2 md:mt-3 line-clamp-3 text-xs md:text-sm text-[var(--text-soft)]">
+                  {g.movie.description}
+                </p>
 
-                  {Object.entries(types).map(([type, screenings]) => (
-                    <div key={type} className="mb-2">
-                      <div className="text-[10px] md:text-xs font-semibold opacity-70 mb-1">
-                        {type}
-                      </div>
+                <div className="mt-3 md:mt-4 flex flex-col gap-3 md:gap-4">
+                  {selectedDate === "all"
+                    ? Object.entries(groupByDateAndType(g.screenings)).map(([date, types]) => (
+                        <div key={date}>
+                          <div className="mb-1 text-xs md:text-sm font-bold text-[var(--text-main2)]">
+                            {getDateLabel(date)}
+                          </div>
 
-                      <div className="flex flex-wrap gap-2">
-                        {screenings.map((s) => (
-                          <button
-                            key={s.id}
-                            onClick={() => openScreening(s.id)}
-                            className="px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm rounded-lg bg-[var(--button-bg)] text-[var(--text-light)] font-semibold transition hover:bg-cyan-500"
-                          >
-                            {new Date(s.start).toLocaleTimeString("hu-HU", {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ))
-            : Object.entries(groupByType(g.screenings)).map(([type, screenings]) => (
-                <div key={type}>
-                  <div className="mb-1 text-xs md:text-sm font-semibold text-[var(--text-main2)]">
-                    {type}
-                  </div>
+                          {Object.entries(types).map(([type, screenings]) => (
+                            <div key={type} className="mb-2">
+                              <div className="text-[10px] md:text-xs font-semibold opacity-70 mb-1">
+                                {type}
+                              </div>
 
-                  <div className="flex flex-wrap gap-2">
-                    {screenings.map((s) => (
-                      <button
-                        key={s.id}
-                        onClick={() => openScreening(s.id)}
-                        className="px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm rounded-lg bg-[var(--button-bg)] text-[var(--text-light)] font-semibold transition hover:bg-cyan-500 hover:shadow-lg"
-                      >
-                        {new Date(s.start).toLocaleTimeString("hu-HU", {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                              <div className="flex flex-wrap gap-2">
+                                {screenings.map((s) => (
+                                  <button
+                                    key={s.id}
+                                    onClick={() => openScreening(s.id)}
+                                    className="px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm rounded-lg bg-[var(--button-bg)] text-[var(--text-light)] font-semibold transition hover:bg-cyan-500"
+                                  >
+                                    {new Date(s.start).toLocaleTimeString("hu-HU", {
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                    })}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ))
+                    : Object.entries(groupByType(g.screenings)).map(([type, screenings]) => (
+                        <div
+              key={type}
+              className="flex items-center gap-3 flex-wrap"
+            >
+              <div className="min-w-[40px] text-xs md:text-sm font-semibold text-[var(--text-main2)]">
+                {type}
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {screenings.map((s) => (
+                  <button
+                    key={s.id}
+                    onClick={() => openScreening(s.id)}
+                    className="px-3 py-1.5 text-xs md:text-sm rounded-lg bg-[var(--button-bg)] text-[var(--text-light)] font-semibold transition hover:bg-cyan-500 cursor-pointer"
+                  >
+                    {new Date(s.start).toLocaleTimeString("hu-HU", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </button>
+                ))}
+              </div>
+            </div>
               ))}
         </div>
       </div>
     </div>
 
-    {/* JOBB OLDAL: TRAILER */}
     {g.movie.trailer && (
-      <div className="w-full md:w-[340px] shrink-0 flex md:items-center">
-        <div
-          className="relative aspect-video w-full overflow-hidden rounded-lg bg-black shadow-md"
-          data-cy="screenings-trailer"
-          onMouseEnter={() => {
-            if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
-            hoverTimer.current = window.setTimeout(() => {
-              setOpenTrailer(g.movie.trailer);
-            }, 1200);
-          }}
-          onMouseLeave={() => {
-            if (hoverTimer.current) {
-              window.clearTimeout(hoverTimer.current);
-              hoverTimer.current = null;
-            }
-          }}
-        >
-          {openTrailer === g.movie.trailer ? (
-            <iframe
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-              className="absolute inset-0 w-full h-full"
-              src={`https://www.youtube.com/embed/${getYoutubeId(
-                g.movie.trailer
-              )}?autoplay=1&mute=1&rel=0&modestbranding=1`}
-            />
-          ) : (
-            <button
-              className="absolute inset-0"
-              onClick={() => setOpenTrailer(g.movie.trailer)}
-            >
-              <Image
-                alt="Trailer"
-                fill
-                sizes="340px"
-                className="object-cover brightness-75 hover:brightness-100 transition"
-                src={`https://img.youtube.com/vi/${getYoutubeId(
-                  g.movie.trailer
-                )}/hqdefault.jpg`}
-              />
+      <div className="w-full md:w-[360px] lg:w-[360px] shrink-0 flex items-center justify-center md:justify-end">
+          <div
+            className="relative aspect-video w-[85%] sm:w-[70%] md:w-full max-w-[360px] overflow-hidden rounded-lg bg-black shadow-md"
+            data-cy="screenings-trailer"
+                  onMouseEnter={() => {
+                    if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
+                    hoverTimer.current = window.setTimeout(() => {
+                      setOpenTrailer(g.movie.trailer);
+                    }, 1200);
+                  }}
+                  onMouseLeave={() => {
+                    if (hoverTimer.current) {
+                      window.clearTimeout(hoverTimer.current);
+                      hoverTimer.current = null;
+                    }
+                  }}
+                >
+                  {openTrailer === g.movie.trailer ? (
+                    <iframe
+                      allow="autoplay; encrypted-media"
+                      allowFullScreen
+                      className="absolute inset-0 w-full h-full cursor-pointer"
+                      src={`https://www.youtube.com/embed/${getYoutubeId(
+                        g.movie.trailer
+                      )}?autoplay=1&mute=1&rel=0&modestbranding=1`}
+                    />
+                  ) : (
+                    <button
+                      className="absolute inset-0 cursor-pointer"
+                      onClick={() => setOpenTrailer(g.movie.trailer)}
+                    >
+                      <Image
+                        alt="Trailer"
+                        fill
+                        sizes="340px"
+                        className="object-cover brightness-75 hover:brightness-100 transition cursor-pointer"
+                        src={`https://img.youtube.com/vi/${getYoutubeId(
+                          g.movie.trailer
+                        )}/hqdefault.jpg`}
+                      />
 
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="flex items-center gap-2 rounded-full bg-[var(--bg-main)]/70 px-4 py-2 md:px-5 md:py-3 text-[var(--text-main)]">
-                  <Play size={18} />
-                  Trailer
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="flex items-center gap-2 rounded-full bg-[var(--bg-main)]/70 px-4 py-2 md:px-5 md:py-3 text-[var(--text-main)]">
+                          <Play size={18} />
+                          Trailer
+                        </div>
+                      </div>
+                    </button>
+                  )}
                 </div>
               </div>
-            </button>
-          )}
-        </div>
-      </div>
-    )}
-  </div>
-))}
+            )}
+          </div>
+        ))}
         </div>
 
         {filteredGrouped.length === 0 &&

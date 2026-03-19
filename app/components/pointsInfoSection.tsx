@@ -43,26 +43,19 @@ export default function PointsInfoSection({ ranks, discounts,}: { ranks: RankTyp
       <div className="mx-auto mt-10 mb-10 max-w-6xl">
         <Reveal>
           <>
-            <div className="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-              {ranks.map((r, i) => {
-              const isLast = i === ranks.length - 1;
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+              {ranks.map((r) => {
+                const discount = discounts.find(
+                  (d) => d.id?.toString() === r.discount_id?.toString()
+                );
 
-              const discount = discounts.find(
-                (d) => d.id?.toString() === r.discount_id?.toString()
-              );
-
-              return (
-                <div
-                  key={r.id}
-                  className={
-                    isLast
-                      ? "col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5 flex justify-center"
-                      : ""
-                  }
-                >
-                  <div className="w-full max-w-[220px]">
+                return (
+                  <div
+                    key={r.id}
+                    className="w-[calc(50%-8px)] sm:w-[calc(33.333%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(20%-20px)]"
+                  >
                     <div className="rounded-xl border border-[--border-color] bg-[var(--card-bg)] p-4 sm:p-5 md:p-6 text-center transition hover:scale-[1.02] sm:hover:scale-[1.04] hover:bg-[var(--text-slate-hover)] cursor-pointer">
-                      
+
                       <div className="relative mx-auto mb-4 h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16">
                         <Image
                           alt={r.name}
@@ -90,12 +83,10 @@ export default function PointsInfoSection({ ranks, discounts,}: { ranks: RankTyp
                           Nincs kedvezmény
                         </div>
                       )}
-
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
             </div>
           </>
         </Reveal>

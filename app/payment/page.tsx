@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { ChevronDown } from "lucide-react";
@@ -188,6 +188,10 @@ export default function PaymentPage() {
     window.location.href = json.url;
   };
 
+  const returnToHall= async () => {
+    redirect('/screenings/hall')
+  }
+
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]">
@@ -336,6 +340,12 @@ export default function PaymentPage() {
           onClick={startPayment}
         >
           {paying ? "Fizetés feldolgozása..." : "Fizetés"}
+        </button>
+        <button
+          className="mt-2 w-full rounded-lg bg-red-500 py-3 font-bold transition hover:bg-red-600 text-[var(--text-light)] disabled:opacity-50 cursor-pointer"
+          onClick={returnToHall}
+        >
+          Mégsem
         </button>
       </div>
     </div>

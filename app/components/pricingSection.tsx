@@ -41,11 +41,11 @@ export default function PricingSection({ pricing }: { pricing: Pricing }){
       <div className="mx-auto mb-10 max-w-6xl">
         <Reveal>
           <>
-            <div className="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
               {screenings.map((s, i) => (
                 <div
                   key={s.type}
-                  className={`rounded-xl border border-[--border-color] bg-[var(--card-bg)] p-4 sm:p-5 md:p-6 text-center transition hover:scale-[1.02] sm:hover:scale-[1.03] hover:bg-[var(--text-slate-hover)] cursor-pointer
+                  className={`w-[calc(50%-8px)] sm:w-[calc(33.333%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(20%-20px)] rounded-xl border border-[--border-color] bg-[var(--card-bg)] p-4 sm:p-5 md:p-6 text-center transition hover:scale-[1.02] sm:hover:scale-[1.03] hover:bg-[var(--text-slate-hover)] cursor-pointer
                     ${i === screenings.length - 1 ? "col-span-2 sm:col-span-3 md:col-span-1 lg:col-span-1 justify-self-center" : ""}
                   `}
                 >
@@ -72,10 +72,10 @@ export default function PricingSection({ pricing }: { pricing: Pricing }){
       <div className="mx-auto mb-20 max-w-6xl">
         <Reveal>
           <>
-            <div className="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
               {tickets.map((t) => (
                 <div
-                  className="rounded-xl border border-[--border-color]  bg-[var(--card-bg)] p-4 sm:p-5 md:p-6 text-center transition hover:scale-[1.02] sm:hover:scale-[1.03] hover:cursor-pointer hover:bg-[var(--text-slate-hover)]"
+                  className="w-[calc(50%-8px)] sm:w-[calc(33.333%-16px)] md:w-[calc(25%-18px)] rounded-xl border border-[--border-color] bg-[var(--card-bg)] p-4 sm:p-5 md:p-6 text-center transition hover:scale-[1.02] sm:hover:scale-[1.03] hover:cursor-pointer hover:bg-[var(--text-slate-hover)]"
                   key={t.type}
                 >
                   <div className="text-sm sm:text-base md:text-lg font-bold font-bold">{t.type}</div>

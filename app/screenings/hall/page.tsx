@@ -349,35 +349,43 @@ export default function HallPage() {
 
       {selectedChairs.length > 0 && (
         <div className="fixed right-0 bottom-0 left-0 z-40 border-t border-[var(--border-color)] bg-[var(--bg-main)] backdrop-blur" data-cy="hall-selected-panel">
-          <div className="mx-auto flex flex-col sm:flex-row gap-3 sm:gap-0 max-w-6xl items-center sm:items-center justify-between px-4 sm:px-6 py-3 sm:py-4 text-[var(--text-main)]">
-            <div className="flex flex-col text-left">
-              <span className="text-xs sm:text-sm text-[var(--text-main)]/60 mt-10" data-cy="hall-selected-title">Kiválasztott székek</span>
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 py-3 sm:py-4">
+            <div className="flex justify-between items-center gap-4">
+              <div className="flex-1 min-w-0 text-left">
+                <span className="text-xs sm:text-sm text-[var(--text-main)]/60">
+                  Kiválasztott székek
+                </span>
 
-              <div className="mt-1 text-xs sm:text-sm font-medium" data-cy="hall-selected-seats">
-                {Object.entries(groupedSeats)
-                  .sort((a, b) => Number(a[0]) - Number(b[0]))
-                  .map(([row, cols]) => {
-                    const seatWord = cols.length === 1 ? "SZÉK" : "SZÉKEK";
+                <div className="mt-1 text-xs sm:text-sm font-medium">
+                  {Object.entries(groupedSeats)
+                    .sort((a, b) => Number(a[0]) - Number(b[0]))
+                    .map(([row, cols]) => {
+                      const seatWord = cols.length === 1 ? "SZÉK" : "SZÉKEK";
 
-                    return (
-                      <div className="text-[var(--text-main2)]" key={row}>
-                        SOR: {row} {seatWord}:{" "}
-                        <span className="text-[var(--text-main2)]">{cols.join(", ")}</span>
-                      </div>
-                    );
-                  })}
+                      return (
+                        <div key={row}>
+                          SOR: {row} {seatWord}:{" "}
+                          <span className="text-[var(--text-main2)]">
+                            {cols.join(", ")}
+                          </span>
+                        </div>
+                      );
+                    })}
+                </div>
               </div>
-            </div>
 
-            <div className="flex flex-col items-end gap-2 text-right">
-              <div className="text-lg sm:text-xl md:text-2xl font-bold text-orange-400" data-cy="hall-seat-count">🎟 {selectedChairs.length}</div>
+              <div className="flex flex-col items-end gap-2 shrink-0">
+                <span className="text-base sm:text-lg font-bold text-orange-400">
+                  🎟 {selectedChairs.length}
+                </span>
+                <button
+                  className="cursor-pointer rounded-lg bg-[var(--button-bg)] px-4 py-2 text-xs sm:text-sm font-semibold text-[var(--text-light)] hover:bg-blue-600 whitespace-nowrap"
+                  onClick={reserveSeats}
+                >
+                  Székek foglalása
+                </button>
 
-              <button className="cursor-pointer rounded-lg bg-[var(--button-bg)] px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold text-[var(--text-light)] transition hover:bg-blue-600"
-                data-cy="hall-reserve-button"
-                onClick={reserveSeats}
-              >
-                Székek foglalása
-              </button>
+              </div>
             </div>
           </div>
         </div>

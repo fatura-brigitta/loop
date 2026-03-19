@@ -212,7 +212,7 @@ export default function PaymentPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="payment-page">
-      <div className="w-full max-w-xl rounded-xl bg-[var(--card-bg)] p-8 shadow-2xl" data-cy="payment-card">
+      <div className="w-full max-w-xl m-6 rounded-xl bg-[var(--card-bg)] p-8 shadow-2xl" data-cy="payment-card">
         <h1 className="mb-6 text-center text-2xl font-bold text-[var(--text-main2)]">Fizetés</h1>
 
         <div className="space-y-3 text-sm">
@@ -342,7 +342,7 @@ export default function PaymentPage() {
           {paying ? "Fizetés feldolgozása..." : "Fizetés"}
         </button>
         <button
-          className="mt-2 w-full rounded-lg bg-red-500 py-3 font-bold transition hover:bg-red-600 text-[var(--text-light)] disabled:opacity-50 cursor-pointer"
+          className="mt-2 w-full rounded-lg bg-red-500 py-3 py-2.5 sm:py-3 text-sm sm:text-base font-bold transition hover:bg-red-600 text-[var(--text-light)] disabled:opacity-50 cursor-pointer"
           onClick={returnToHall}
         >
           Mégsem

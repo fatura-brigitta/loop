@@ -1370,7 +1370,7 @@ export default function AdminPage() {
 
               <section className="p-5 bg-white/5 border border-white/10 rounded-xl">
                 <h2 className="font-semibold mb-4">Speciális napok</h2>
-                <div className="grid grid-cols-2 gap-4 mb-4">
+                <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-4 mb-4 min-w-0">
 
                   <div className="col-span-1">
                     <label className="text-xs text-slate-400">Dátum</label>
@@ -1378,7 +1378,7 @@ export default function AdminPage() {
                       type="date"
                       value={overrideForm.date}
                       onChange={(e) => setOverrideForm({ ...overrideForm, date: e.target.value })}
-                      className="bg-slate-900 border border-white/10 px-3 py-2 rounded w-full"
+                      className="w-full min-w-0 max-w-full appearance-none text-sm bg-slate-900 border border-white/10 px-3 py-2 rounded"
                     />
                   </div>
 
@@ -1389,7 +1389,7 @@ export default function AdminPage() {
                       value={overrideForm.open_time ?? ""}
                       disabled={overrideForm.closed}
                       onChange={(e) => setOverrideForm({ ...overrideForm, open_time: e.target.value })}
-                      className="bg-slate-900 border border-white/10 px-3 py-2 rounded w-full"
+                      className="w-full min-w-0 max-w-full appearance-none text-sm bg-slate-900 border border-white/10 px-3 py-2 rounded"
                     />
                   </div>
 
@@ -1400,7 +1400,7 @@ export default function AdminPage() {
                       value={overrideForm.close_time ?? ""}
                       disabled={overrideForm.closed}
                       onChange={(e) => setOverrideForm({ ...overrideForm, close_time: e.target.value })}
-                      className="bg-slate-900 border border-white/10 px-3 py-2 rounded w-full"
+                      className="w-full min-w-0 max-w-full appearance-none text-sm bg-slate-900 border border-white/10 px-3 py-2 rounded"
                     />
                   </div>
 

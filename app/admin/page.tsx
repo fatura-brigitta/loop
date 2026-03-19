@@ -885,11 +885,11 @@ export default function AdminPage() {
               <div className="mb-3">
                 <label className="block text-sm text-slate-300 mb-1">Nap</label>
                 <input
-  type="date"
-  value={selectedDate}
-  onChange={(e) => setSelectedDate(e.target.value)}
-  className="w-full min-w-0 max-w-full appearance-none px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white text-sm"
-/>
+                  type="date"
+                  value={selectedDate}
+                  onChange={(e) => setSelectedDate(e.target.value)}
+                  className="w-full min-w-0 max-w-full appearance-none px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white text-sm"
+                />
               </div>
 
               <div className="mb-3">
@@ -959,16 +959,14 @@ export default function AdminPage() {
                 <label className="block text-sm text-slate-300 mb-1">
                   Vetítés kezdete
                 </label>
-                <input className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
-                  data-cy="screening-start-input"
-                  max="21:45"
-                  min="10:00"
-                  step="900"
+                <input
                   type="time"
                   value={screeningForm.startTime}
                   onChange={(e) =>
                     setScreeningForm({ ...screeningForm, startTime: e.target.value })
                   }
+                  className="w-full min-w-0 max-w-full appearance-none px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white text-sm"
+                  step="900"
                 />
 
                 <div className="mt-5">

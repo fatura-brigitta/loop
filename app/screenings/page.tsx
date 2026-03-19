@@ -270,9 +270,9 @@ export default function ScreeningsPage() {
       data-cy="screenings-page"
     >
       <div className="mx-auto max-w-6xl px-3 md:px-4 py-4" data-cy="screenings-container">
-        <h1 className="mb-6 text-2xl font-bold">Műsoron</h1>
+        <h1 className="mb-6 text-2xl font-bold px-3">Műsoron</h1>
 
-       <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4 px-3 py-2 md:px-4">
+       <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-2 px-3 md:px-4">
         <div
           className="flex w-full md:w-auto gap-1 sm:gap-2 md:gap-2 md:overflow-x-auto md:pb-2"
           data-cy="screenings-date-filter"
@@ -359,7 +359,7 @@ export default function ScreeningsPage() {
         </div>
       </div>
 
-        <div className="flex flex-col gap-6" data-cy="screenings-movie-list">
+        <div className="flex flex-col gap-6 px-3" data-cy="screenings-movie-list">
           {filteredGrouped.map((g, index) => (
           <div
             key={index}

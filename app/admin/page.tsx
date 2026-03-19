@@ -354,7 +354,7 @@ export default function AdminPage() {
         />
       )}
       <aside
-        className={`fixed z-50 left-0 top-0 h-screen w-64 bg-slate-900 border-r border-white/10 p-6 flex flex-col transform transition-transform duration-300 overflow-y-auto
+        className={`fixed z-50 left-0 top-0 h-screen w-64 bg-slate-900 border-r border-white/10 p-6 transform transition-transform duration-300 flex flex-col h-screen
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
       >
         <div className="flex justify-between items-center mb-6 lg:hidden">
@@ -364,8 +364,7 @@ export default function AdminPage() {
           </button>
         </div>
 
-        <nav className="flex flex-col gap-2 text-sm flex-1">
-
+        <nav className="flex flex-col gap-2 text-sm flex-1 overflow-y-auto pr-2">
           <button className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${tab === "movies" ? "bg-white/10 text-white" : "text-slate-300 hover:text-white "
             }`}
             data-cy="nav-movies"
@@ -432,7 +431,7 @@ export default function AdminPage() {
           </button>
         </nav>
 
-        <div className="border-t border-white/10 pt-4 text-slate-300 text-sm mt-auto">
+        <div className="border-t border-white/10 pt-4 text-slate-300 text-sm">
           <button className="flex items-center gap-2 hover:text-white transition cursor-pointer w-full justify-end" data-cy="admin-logout"
             onClick={() => {
               setSidebarOpen(false);

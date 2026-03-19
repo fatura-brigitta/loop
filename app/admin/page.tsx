@@ -884,12 +884,12 @@ export default function AdminPage() {
 
               <div className="mb-3">
                 <label className="block text-sm text-slate-300 mb-1">Nap</label>
-                <input className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white"
-                  data-cy="screening-day-input"
-                  type="date"
-                  value={selectedDate}
-                  onChange={(e) => setSelectedDate(e.target.value)}
-                />
+                <input
+  type="date"
+  value={selectedDate}
+  onChange={(e) => setSelectedDate(e.target.value)}
+  className="w-full min-w-0 max-w-full appearance-none px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-white text-sm"
+/>
               </div>
 
               <div className="mb-3">

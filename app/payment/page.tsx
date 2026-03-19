@@ -235,7 +235,6 @@ export default function PaymentPage() {
           </div>
 
           <div>
-            <span className="mb-1 block">Székek</span>
             <div className="text-[var(--text-main2)]">
               <div className="space-y-3" data-cy="payment-tickets">
                 {data.seats.map((s, i) => {
@@ -323,7 +322,7 @@ export default function PaymentPage() {
             </div>
           </div>
 
-          <div className="mt-4 flex justify-between border-t border-[var(--border-color)] pt-4 text-lg">
+          <div className="mt-4 flex justify-between border-t border-[var(--border-color)] pt-4 text-base sm:text-lg">
             <span>Összesen</span>
             <span className="font-bold text-green-400" data-cy="payment-total">
               {formatPrice(price ?? data.totalPrice)} €
@@ -331,7 +330,7 @@ export default function PaymentPage() {
           </div>
         </div>
 
-        <button className="mt-6 w-full rounded-lg bg-green-500 py-3 font-bold transition text-[var(--text-light)] hover:bg-green-600 disabled:opacity-50 cursor-pointer"
+        <button className="mt-6 w-full rounded-lg bg-green-500 py-2.5 sm:py-3 text-sm sm:text-base font-bold transition text-[var(--text-light)] hover:bg-green-600 disabled:opacity-50 cursor-pointer"
           data-cy="payment-button"
           disabled={paying}
           onClick={startPayment}

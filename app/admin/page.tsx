@@ -354,7 +354,7 @@ export default function AdminPage() {
         />
       )}
       <aside
-        className={`fixed z-50 left-0 top-0 h-screen w-64 bg-slate-900 border-r border-white/10 p-6 transform transition-transform duration-300 flex flex-col h-screen
+        className={`fixed z-50 left-0 top-0 h-dvh w-64 bg-slate-900 border-r border-white/10 p-6 transform transition-transform duration-300 flex flex-col
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
       >
         <div className="flex justify-between items-center mb-6 lg:hidden">

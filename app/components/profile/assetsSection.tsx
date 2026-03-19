@@ -24,95 +24,93 @@ export default function AssetsSection({
   return (
     <>
       <div className="mx-auto max-w-5xl px-4">
-          <button
-            className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-4 sm:p-6 text-lg sm:text-2xl font-bold text-[var(--text-main2)] shadow-xl transition hover:bg-[var(--text-slate-hover)]"
-            data-cy="profile-coupons-toggle"
-            onClick={() => {
-              setShowCoupons((v: boolean) => !v);
-              setShowTickets(false);
-              setShowHistory(false);
-            }}
-          >
-            <span>Kuponjaim</span>
+        <button
+          className="mb-6 flex w-full cursor-pointer items-center justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-4 sm:p-6 text-lg sm:text-2xl font-bold text-[var(--text-main2)] shadow-xl transition hover:bg-[var(--text-slate-hover)]"
+          data-cy="profile-coupons-toggle"
+          onClick={() => {
+            setShowCoupons((v: boolean) => !v);
+            setShowTickets(false);
+            setShowHistory(false);
+          }}
+        >
+          <span>Kuponjaim</span>
 
-            <span className={`text-xl transition ${showCoupons ? "rotate-180" : ""}`}>▼</span>
-          </button>
+          <span className={`text-xl transition ${showCoupons ? "rotate-180" : ""}`}>▼</span>
+        </button>
 
-          <div
-            className={`transition-all duration-500 ease-in-out ${
-              showCoupons
-                ? "mt-4 mb-4 max-h-[calc(100vh-200px)] overflow-y-auto opacity-100"
-                : "max-h-0 overflow-hidden opacity-0"
+        <div
+          className={`transition-all duration-500 ease-in-out ${showCoupons
+              ? "mt-4 mb-4 max-h-[calc(100vh-200px)] overflow-y-auto opacity-100"
+              : "max-h-0 overflow-hidden opacity-0"
             }`}
-            data-cy="profile-coupons-section"
-          >
-            <div>
-              {coupons.length === 0 && (
-                <div className="mb-6 text-[var(--text-main)]/60">
-                  Még nincs kuponod. Szerezz pontokat jegyvásárlással!
-                </div>
-              )}
+          data-cy="profile-coupons-section"
+        >
+          <div>
+            {coupons.length === 0 && (
+              <div className="mb-6 text-[var(--text-main)]/60">
+                Még nincs kuponod. Szerezz pontokat jegyvásárlással!
+              </div>
+            )}
 
-              <div className="grid gap-6 sm:grid-cols-2">
-                {coupons.map((coupon: any) => (
-                  <div
-                    className={`relative overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-5 shadow-xl ${
-                      coupon.used ? "opacity-40" : ""
+            <div className="grid gap-6 sm:grid-cols-2">
+              {coupons.map((coupon: any) => (
+                <div
+                  className={`relative overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-5 shadow-xl ${coupon.used ? "opacity-40" : ""
                     }`}
-                    data-coupon-id={coupon.id}
-                    data-cy="coupon-card"
-                    key={coupon.id}
-                  >
-                    <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5">
-                      <Image
-                        alt="discount"
-                        className="h-24 w-24 object-contain"
-                        height={112}
-                        src={coupon.discounts.image}
-                        width={112}
-                      />
+                  data-coupon-id={coupon.id}
+                  data-cy="coupon-card"
+                  key={coupon.id}
+                >
+                  <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5">
+                    <Image
+                      alt="discount"
+                      className="h-24 w-24 object-contain"
+                      height={112}
+                      src={coupon.discounts.image}
+                      width={112}
+                    />
 
-                      <div className="flex-1">
-                        <div className="text-xl font-bold text-[var(--text-main)]">
-                          {coupon.discounts.name}
-                        </div>
-
-                        <div className="mt-1 text-sm text-[var(--text-main)]/60">
-                          {coupon.discounts.description}
-                        </div>
-
-                        <div className="absolute top-3 right-3 rounded bg-cyan-500 px-2 py-1 text-xs font-bold text-black">
-                          -{coupon.discounts.percent}%
-                        </div>
-
-                        {coupon.used && (
-                          <div className="mt-2 font-semibold text-red-400">Felhasználva</div>
-                        )}
+                    <div className="flex-1">
+                      <div className="text-xl font-bold text-[var(--text-main)]">
+                        {coupon.discounts.name}
                       </div>
 
-                      {!coupon.used && (
-                        <Image
-                          alt="qr"
-                          className="w-24 sm:w-28 rounded-lg bg-white p-2"
-                          data-coupon-id={coupon.id}
-                          data-cy="coupon-qr"
-                          height={112}
-                          src={`/api/email/qr/${coupon.qr_token}`}
-                          width={112}
-                        />
+                      <div className="mt-1 text-sm text-[var(--text-main)]/60">
+                        {coupon.discounts.description}
+                      </div>
+
+                      <div className="absolute top-3 right-3 rounded bg-cyan-500 px-2 py-1 text-xs font-bold text-black">
+                        -{coupon.discounts.percent}%
+                      </div>
+
+                      {coupon.used && (
+                        <div className="mt-2 font-semibold text-red-400">Felhasználva</div>
                       )}
                     </div>
 
-                    {coupon.used && (
-                      <div className="absolute inset-0 flex items-center justify-center text-4xl font-bold text-red-500/70">
-                        FELHASZNÁLVA
-                      </div>
+                    {!coupon.used && (
+                      <Image
+                        alt="qr"
+                        className="w-24 sm:w-28 rounded-lg bg-white p-2"
+                        data-coupon-id={coupon.id}
+                        data-cy="coupon-qr"
+                        height={112}
+                        src={`/api/email/qr/${coupon.qr_token}`}
+                        width={112}
+                      />
                     )}
                   </div>
-                ))}
-              </div>
+
+                  {coupon.used && (
+                    <div className="absolute inset-0 flex items-center justify-center text-4xl font-bold text-red-500/70">
+                      FELHASZNÁLVA
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
+        </div>
       </div>
 
       <div className="mx-auto max-w-5xl px-4">
@@ -130,11 +128,10 @@ export default function AssetsSection({
         </button>
 
         <div
-          className={`transition-all duration-500 ease-in-out ${
-            showTickets
+          className={`transition-all duration-500 ease-in-out ${showTickets
               ? "mt-4 mb-4 max-h-[calc(100vh-200px)] overflow-y-auto opacity-100"
               : "max-h-0 overflow-hidden opacity-0"
-          }`}
+            }`}
           data-cy="profile-tickets-section"
         >
           <div className="overflow-hidden">
@@ -202,20 +199,18 @@ export default function AssetsSection({
         >
           <span>Vásárlási előzmények</span>
           <span
-            className={`text-xl transition-transform duration-300 ${
-              showHistory ? "rotate-180" : ""
-            }`}
+            className={`text-xl transition-transform duration-300 ${showHistory ? "rotate-180" : ""
+              }`}
           >
             ▼
           </span>
         </button>
 
         <div
-          className={`transition-all duration-500 ease-in-out ${
-            showHistory
+          className={`transition-all duration-500 ease-in-out ${showHistory
               ? "mt-4 max-h-[60vh] overflow-y-auto opacity-100"
               : "max-h-0 overflow-hidden opacity-0"
-          }`}
+            }`}
           data-cy="profile-history-section"
         >
           {history.length > 0 && (

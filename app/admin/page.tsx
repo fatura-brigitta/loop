@@ -1300,7 +1300,7 @@ export default function AdminPage() {
                 <h2 className="font-semibold mb-4">Általános nyitvatartás</h2>
                 {openingHours.map((d, i) => (
 
-                  <div key={i} className="grid grid-cols-[1fr_90px_90px_auto] gap-2 mb-3 items-center">
+                  <div key={i} className="grid grid-cols-[1fr_minmax(0,90px)_minmax(0,90px)_auto] gap-2 mb-3 items-center min-w-0">
 
                     <div className="text-sm">{days[d.weekday]}</div>
 
@@ -1315,7 +1315,7 @@ export default function AdminPage() {
                         setOpeningHours(copy)
 
                       }}
-                      className="w-full bg-slate-900 border border-white/10 px-2 py-1 rounded"
+                      className="w-full min-w-0 max-w-full appearance-none text-sm bg-slate-900 border border-white/10 px-2 py-1 rounded"
                     />
 
                     <input
@@ -1329,7 +1329,7 @@ export default function AdminPage() {
                         setOpeningHours(copy)
 
                       }}
-                      className="w-full bg-slate-900 border border-white/10 px-2 py-1 rounded"
+                      className="w-full min-w-0 max-w-full appearance-none text-sm bg-slate-900 border border-white/10 px-2 py-1 rounded"
                     />
 
                     <label className="text-xs flex items-center gap-1 whitespace-nowrap">

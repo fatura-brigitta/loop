@@ -13,6 +13,7 @@
 - [🚀 Telepítés](#-telepítés)
 - [▶️ Futtatás](#️-futtatás)
 - [📚 API dokumentáció](#-api-dokumentáció)
+- [🧪 Tesztelés](#-tesztelés)
 - [👤 Bejelentkezés és felhasználói rendszer](#-bejelentkezés-és-felhasználói-rendszer)
 - [🎟️ Jegyvásárlási folyamat](#️-jegyvásárlási-folyamat)
 - [💬 Fórum és közösségi funkciók](#-fórum-és-közösségi-funkciók)
@@ -129,6 +130,7 @@ A rendszer megakadályozza, hogy ugyanazt a jegyet többször használják fel.
 | **DaisyUI** | UI komponensek |
 | **bcryptjs** | Jelszavak titkosítása |
 | **QRCode** | QR-kód generálás |
+| **Cypress e2e** | Tesztelés |
 | **.NET MAUI** | Mobil QR-kód szkenner alkalmazás |
 
 ---
@@ -146,6 +148,50 @@ A rendszer több komponensből áll:
 
 A mobilalkalmazás a backend API-n keresztül kommunikál a rendszerrel a jegyek ellenőrzéséhez.
 
+---
+
+# 📚 API dokumentáció
+
+A Swagger felületen az összes API endpoint megtekinthető és kipróbálható.
+
+---
+
+# 🧪 Tesztelés
+
+A rendszer **Cypress end-to-end (E2E) tesztelést** használ frontend és backend oldalon.
+
+A backend:
+
+- több mint **30 tesztelt endpoint**
+- **87 automatikus teszt**
+- kb. **92% lefedettség**
+
+A frontend oldalon a legfontosabb user flow-k tesztelve vannak:
+
+- 🔐 regisztráció (register)
+- 🔑 bejelentkezés (login)
+
+A tesztek valós felhasználói működést szimulálnak (E2E), így teljes folyamatokat ellenőriznek.
+
+---
+
+## 🗄️ Teszt adatbázis
+
+A backend tesztek egy külön adatbázist használnak:
+
+- elkülönül a production DB-től    
+- szabadon módosítható  
+- nem veszélyezteti az éles adatokat  
+
+---
+
+## ▶️ Tesztek futtatása
+
+npm run dev:test
+npx cypress open
+
+---
+
 # 🗄️ Adatbázis inicializálása
 
 A projekt tartalmaz scriptet az adatbázis gyors létrehozásához, feltöltéséhez és exportálásához.
@@ -156,7 +202,4 @@ A scriptek a **MongoDB `mongoimport` és `mongoexport` eszközeit** használják
 
 ## Adatbázis import (feltöltés)
 
-Az adatbázis feltöltéséhez futtasd az alábbi scriptet:
-
-```bash
 import_db.bat

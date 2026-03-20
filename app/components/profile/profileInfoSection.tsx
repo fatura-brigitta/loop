@@ -139,7 +139,7 @@ export default function ProfileInfoSection({
 
               {profileImage && (
                 <button
-                  className="w-fit rounded-lg bg-white/10 px-3 py-1 text-xs text-[var(--text-main)] transition hover:bg-white/20"
+                  className="w-fit rounded-lg bg-white/10 px-3 py-1 text-xs text-[var(--text-main)] transition hover:bg-white/20 cursor-pointer"
                   onClick={resetProfileImage}
                 >
                   Alapértelmezett kép
@@ -189,7 +189,7 @@ export default function ProfileInfoSection({
           <label className="text-sm text-[var(--text-main)]/60">Nem</label>
 
           <select
-            className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] text-sm px-3 py-2 sm:px-4 text-[var(--text-main)]"
+            className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] text-sm px-3 py-2 sm:px-4 text-[var(--text-main)] cursor-pointer"
             value={gender}
             onChange={(e) => setGender(e.target.value)}
           >
@@ -206,7 +206,7 @@ export default function ProfileInfoSection({
             <span>☀️</span>
 
             <button
-              className={`relative h-7 w-14 rounded-full transition ${
+              className={`relative h-7 w-14 cursor-pointer rounded-full transition ${
                 theme === "dark" ? "bg-cyan-500" : "bg-gray-300"
               }`}
               onClick={() => changeTheme(theme === "dark" ? "light" : "dark")}

@@ -283,7 +283,7 @@ export default function ScreeningsPage() {
               onClick={() => setSelectedDate(d.iso)}
               data-cy={`screenings-date-${d.iso}`}
               className={`
-                flex flex-col items-center justify-center rounded-lg border transition active:scale-95
+                flex flex-col items-center justify-center rounded-lg border transition active:scale-95 cursor-pointer
 
                 /* 📱 MOBIL */
                 flex-1 px-1 py-1.5 text-[9px]
@@ -351,7 +351,7 @@ export default function ScreeningsPage() {
           </div>
 
           <button
-            className="flex shrink-0 items-center justify-center rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-3 py-2 hover:bg-[var(--text-slate-hover)]"
+            className="flex shrink-0 items-center justify-center rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-3 py-2 hover:bg-[var(--text-slate-hover)] cursor-pointer"
             onClick={resetFilters}
           >
             ↻

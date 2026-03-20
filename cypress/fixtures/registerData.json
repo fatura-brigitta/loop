@@ -1,0 +1,14 @@
+{
+  "validUser": {
+    "name": "Test User",
+    "email": "test@email.com",
+    "phone": "+36301234567",
+    "password": "12345"
+  },
+  "shortPasswordUser": {
+    "name": "Test User",
+    "email": "test@email.com",
+    "phone": "+36301234567",
+    "password": "123"
+  }
+}

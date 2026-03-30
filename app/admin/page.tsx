@@ -1078,7 +1078,7 @@ export default function AdminPage() {
                       movie_id: screeningForm.movie_id,
                       hall_id: screeningForm.hall_id,
                       screening_type_id: screeningForm.screening_type_id,
-                      start: startDate.toISOString()
+                      start: `${selectedDate}T${screeningForm.startTime}:00`
                     });
 
 

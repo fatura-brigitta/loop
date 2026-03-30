@@ -17,11 +17,10 @@ export async function GET(req: Request) {
       return NextResponse.json({ message: t.missingDate }, { status: 400 });
     }
 
-    const dayStart = new Date(date);
-    dayStart.setHours(OPEN_HOUR, 0, 0, 0);
+    const [year, month, day] = date.split("-").map(Number);
 
-    const dayEnd = new Date(date);
-    dayEnd.setHours(CLOSE_HOUR, 0, 0, 0);
+    const dayStart = new Date(year, month - 1, day, OPEN_HOUR, 0, 0);
+    const dayEnd = new Date(year, month - 1, day, CLOSE_HOUR, 0, 0);
 
     const halls = await prisma.hall.findMany({ orderBy: { name: "asc" } });
 

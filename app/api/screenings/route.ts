@@ -31,11 +31,13 @@ export async function GET(req: Request) {
     const selectedDate = searchParams.get("date");
 
     const timeZone = "Europe/Budapest";
-    const baseDate = selectedDate ? new Date(selectedDate) : new Date();
 
-    const zonedDate = toZonedTime(baseDate, timeZone);
-    const start = startOfDay(zonedDate);
-    const end = endOfDay(zonedDate);
+    const baseDate = selectedDate
+      ? toZonedTime(`${selectedDate}T12:00:00`, timeZone)
+      : toZonedTime(new Date(), timeZone);
+
+    const start = startOfDay(baseDate);
+    const end = endOfDay(baseDate);
 
     const startUtc = fromZonedTime(start, timeZone);
     const endUtc = fromZonedTime(end, timeZone);

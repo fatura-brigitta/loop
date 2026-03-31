@@ -4,6 +4,7 @@ import Timeline from "@/app/components/Timeline";
 import { LogOut, Film, Calendar, MessageSquare, Building2, Menu, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { fromZonedTime } from "date-fns-tz";
 
 type Movie = {
   id: string;
@@ -1069,16 +1070,16 @@ export default function AdminPage() {
                   }
 
                   try {
-                    const [hour, minute] = screeningForm.startTime.split(":").map(Number);
+                    const timeZone = "Europe/Budapest";
 
-                    const startDate = new Date(selectedDate);
-                    startDate.setHours(hour, minute, 0, 0);
+                    const local = `${selectedDate}T${screeningForm.startTime}:00`;
+                    const utcDate = fromZonedTime(local, timeZone);
 
                     await api("screenings", "POST", {
                       movie_id: screeningForm.movie_id,
                       hall_id: screeningForm.hall_id,
                       screening_type_id: screeningForm.screening_type_id,
-                      start: `${selectedDate}T${screeningForm.startTime}:00`
+                      start: utcDate.toISOString()
                     });
 
 

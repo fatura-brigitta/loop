@@ -10,6 +10,8 @@ import { messages } from "@/lib/messages";
 import { rateLimit } from "@/lib/rateLimit";
 import { getClientIp } from "@/lib/getClientIp";
 import { checkOrigin } from "@/lib/checkOrigin";
+import { toZonedTime, fromZonedTime } from "date-fns-tz";
+import { startOfDay, endOfDay } from "date-fns";
 
 import { ZodError } from "zod";
 import { z } from "zod";
@@ -28,19 +30,21 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const selectedDate = searchParams.get("date");
 
-    const date = selectedDate ? new Date(selectedDate) : new Date();
+    const timeZone = "Europe/Budapest";
+    const baseDate = selectedDate ? new Date(selectedDate) : new Date();
 
-    const startOfDay = new Date(date);
-    startOfDay.setHours(0, 0, 0, 0);
+    const zonedDate = toZonedTime(baseDate, timeZone);
+    const start = startOfDay(zonedDate);
+    const end = endOfDay(zonedDate);
 
-    const endOfDay = new Date(date);
-    endOfDay.setHours(23, 59, 59, 999);
+    const startUtc = fromZonedTime(start, timeZone);
+    const endUtc = fromZonedTime(end, timeZone);
 
     const override = await prisma.openingOverride.findFirst({
       where: {
         date: {
-          gte: startOfDay,
-          lte: endOfDay,
+          gte: startUtc,
+          lte: endUtc,
         },
         closed: true,
       },
@@ -53,7 +57,13 @@ export async function GET(req: Request) {
     const movieId = cookieStore.get("selectedMovie")?.value;
 
     const screenings = await prisma.screening.findMany({
-      where: movieId ? { movie_id: movieId } : {},
+      where: {
+        ...(movieId ? { movie_id: movieId } : {}),
+        start: {
+          gte: startUtc,
+          lte: endUtc,
+        },
+      },
       orderBy: { start: "asc" },
       include: {
         screening_types: true

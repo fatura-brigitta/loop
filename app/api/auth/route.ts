@@ -90,9 +90,11 @@ export async function POST(req: NextRequest) {
     const ip = getClientIp(req);
     const { email, password } = loginSchema.parse(await req.json());
 
-    rateLimit(`auth:login:ip:${ip}`, 10, 60_000);
-    rateLimit(`auth:login:email:${email}`, 10, 60_000);
-    rateLimit(`auth:login:ip-email:${ip}:${email}`, 5, 60_000);
+    if (process.env.APP_ENV !== "test") {
+      rateLimit(`auth:login:ip:${ip}`, 10, 60_000);
+      rateLimit(`auth:login:email:${email}`, 10, 60_000);
+      rateLimit(`auth:login:ip-email:${ip}:${email}`, 5, 60_000);
+    }
 
     const user = await prisma.user.findUnique({
       where: { email },

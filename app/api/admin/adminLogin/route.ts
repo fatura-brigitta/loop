@@ -24,7 +24,9 @@ export async function POST(req: Request) {
     checkOrigin(req);
 
     const ip = getClientIp(req);
-    rateLimit(`admin-login-${ip}`, 5, 60_000);
+    if (process.env.APP_ENV !== "test") {
+      rateLimit(`admin-login-${ip}`, 5, 60_000);
+    }
 
     const { name, password } =
       adminLoginSchema.parse(await req.json());

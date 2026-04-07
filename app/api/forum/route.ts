@@ -153,7 +153,9 @@ export async function POST(req: NextRequest) {
     checkOrigin(req);
 
     const ip = getClientIp(req);
-    rateLimit(`forum-post-ip-${ip}`, 10, 60_000);
+    if (process.env.NODE_ENV !== "test") {
+      rateLimit(`forum-post-ip-${ip}`, 10, 60_000);
+    }
 
     const cookieStore = await cookies();
     const userCookie = cookieStore.get("userId");

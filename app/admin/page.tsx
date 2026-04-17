@@ -1079,8 +1079,7 @@ export default function AdminPage() {
                       movie_id: screeningForm.movie_id,
                       hall_id: screeningForm.hall_id,
                       screening_type_id: screeningForm.screening_type_id,
-                      date: selectedDate,           // pl: "2026-03-09"
-                      startTime: screeningForm.startTime, // pl: "10:00"
+                      start: utcDate.toISOString()
                     });
 
 

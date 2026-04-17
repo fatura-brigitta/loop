@@ -405,8 +405,15 @@ export async function POST(req: Request) {
       }
 
     if (entity === "screenings") {
-      if (!body.movie_id || !body.hall_id || !body.start || !body.screening_type_id)
+      if (
+        !body.movie_id ||
+        !body.hall_id ||
+        !body.date ||
+        !body.startTime ||
+        !body.screening_type_id
+      ) {
         return jsonError(t.allFieldsRequired);
+      }
 
       const movie_id = parseId(body.movie_id);
       const hall_id = parseId(body.hall_id);
@@ -416,66 +423,78 @@ export async function POST(req: Request) {
       if (!movie) return jsonError(t.movieNotFound);
       if (!movie.onscreen) return jsonError(t.movieNotScreened);
 
-      const startDate = new Date(body.start);
-      if (isNaN(startDate.getTime())) return jsonError(t.invalidScreeningTime);
+      // 🔥 FONTOS: kézzel rakjuk össze (NEM Date(string))
+      const [year, month, day] = String(body.date).split("-").map(Number);
+      const [hour, minute] = String(body.startTime).split(":").map(Number);
 
-      const hours = await getOpeningHours(startDate)
+      const startDate = new Date(year, month - 1, day, hour, minute, 0, 0);
 
-      if (!hours) {
-        return jsonError(t.cinemaClosedThatDay)
+      if (isNaN(startDate.getTime())) {
+        return jsonError(t.invalidScreeningTime);
       }
 
-      const [openH, openM] = hours.open.split(":").map(Number)
-      const [closeH, closeM] = hours.close.split(":").map(Number)
+      const hours = await getOpeningHours(startDate);
 
-      const open = new Date(startDate)
-      open.setHours(openH, openM, 0, 0)
+      if (!hours) {
+        return jsonError(t.cinemaClosedThatDay);
+      }
 
-      const close = new Date(startDate)
-      close.setHours(closeH, closeM, 0, 0)
+      const [openH, openM] = hours.open.split(":").map(Number);
+      const [closeH, closeM] = hours.close.split(":").map(Number);
+
+      const open = new Date(startDate);
+      open.setHours(openH, openM, 0, 0);
+
+      const close = new Date(startDate);
+      close.setHours(closeH, closeM, 0, 0);
 
       if (close <= open) {
-        close.setDate(close.getDate() + 1)
+        close.setDate(close.getDate() + 1);
       }
 
       const CLEANING_MINUTES = 15;
 
-      const movieEnd = new Date(startDate.getTime() + movie.playtime * 60000);
+      const movieEnd = new Date(
+        startDate.getTime() + movie.playtime * 60000
+      );
 
-      const endDate = new Date(movieEnd.getTime() + CLEANING_MINUTES * 60000);
+      const endDate = new Date(
+        movieEnd.getTime() + CLEANING_MINUTES * 60000
+      );
 
-      if(startDate < open)
+      if (startDate < open) {
         return jsonError(t.cinemaNotOpenYet);
-
-      if(endDate > close)
-        return jsonError(t.screeningEndsAfterClose);
-
-      const created = await prisma.$transaction(async (tx) => {
-
-      const conflict = await tx.screening.findFirst({
-        where: {
-          hall_id,
-          AND: [
-            { start: { lt: endDate } },
-            { end: { gt: startDate } },
-          ],
-        },
-      });
-
-      if (conflict) {
-        throw new Error(t.screeningConflict);
       }
 
-      return await tx.screening.create({
-        data: {
-          movie_id,
-          hall_id,
-          screening_type_id,
-          start: startDate,
-          end: endDate,
-        },
+      if (endDate > close) {
+        return jsonError(t.screeningEndsAfterClose);
+      }
+
+      const created = await prisma.$transaction(async (tx) => {
+        const conflict = await tx.screening.findFirst({
+          where: {
+            hall_id,
+            AND: [
+              { start: { lt: endDate } },
+              { end: { gt: startDate } },
+            ],
+          },
+        });
+
+        if (conflict) {
+          throw new Error(t.screeningConflict);
+        }
+
+        return await tx.screening.create({
+          data: {
+            movie_id,
+            hall_id,
+            screening_type_id,
+            start: startDate,
+            end: endDate,
+          },
+        });
       });
-    });
 
       return NextResponse.json(created, { status: 201 });
     }

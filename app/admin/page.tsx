@@ -997,8 +997,10 @@ export default function AdminPage() {
                   if (!movie || !screeningForm.startTime) return null;
 
                   const [hour, minute] = screeningForm.startTime.split(":").map(Number);
-                  const start = new Date(selectedDate);
-                  start.setHours(hour, minute, 0, 0);
+                  const timeZone = "Europe/Budapest";
+
+                  const local = `${selectedDate}T${screeningForm.startTime}:00`;
+                  const start = fromZonedTime(local, timeZone);
 
                   const CLEANING = 15;
                   const end = new Date(start.getTime() + (movie.playtime + CLEANING) * 60000);
@@ -1014,11 +1016,8 @@ export default function AdminPage() {
                   const [openH, openM] = opening.open.split(":").map(Number);
                   const [closeH, closeM] = opening.close.split(":").map(Number);
 
-                  const open = new Date(selectedDate);
-                  open.setHours(openH, openM, 0, 0);
-
-                  const close = new Date(selectedDate);
-                  close.setHours(closeH, closeM, 0, 0);
+                  const open = fromZonedTime(`${selectedDate}T${opening.open}:00`, timeZone);
+                  const close = fromZonedTime(`${selectedDate}T${opening.close}:00`, timeZone);
 
                   if (close <= open) {
                     close.setDate(close.getDate() + 1);
@@ -1110,7 +1109,7 @@ export default function AdminPage() {
                   .filter(s => {
 
                     if (selectedDate) {
-                      const d = new Date(s.start).toISOString().slice(0, 10);
+                      const d = new Date(s.start).toLocaleDateString("sv-SE");
                       if (d !== selectedDate) return false;
                     }
 

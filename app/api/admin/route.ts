@@ -4,6 +4,7 @@ import { ObjectId } from "bson";
 import { getOpeningHours } from "@/lib/openingHours";
 import { getLang } from "@/lib/lang";
 import { messages} from "@/lib/messages";
+import { fromZonedTime } from "date-fns-tz";
 
 type Entity =
   | "movies"
@@ -428,11 +429,17 @@ export async function POST(req: Request) {
       const [openH, openM] = hours.open.split(":").map(Number)
       const [closeH, closeM] = hours.close.split(":").map(Number)
 
-      const open = new Date(startDate)
-      open.setHours(openH, openM, 0, 0)
+      const timeZone = "Europe/Budapest";
 
-      const close = new Date(startDate)
-      close.setHours(closeH, closeM, 0, 0)
+      const open = fromZonedTime(
+        `${startDate.toISOString().slice(0, 10)}T${hours.open}:00`,
+        timeZone
+      );
+
+      const close = fromZonedTime(
+        `${startDate.toISOString().slice(0, 10)}T${hours.close}:00`,
+        timeZone
+      );
 
       if (close <= open) {
         close.setDate(close.getDate() + 1)

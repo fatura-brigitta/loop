@@ -17,7 +17,7 @@ type DiscountType = {
   percent: number;
 };
 
-export default function PointsInfoSection({ ranks, discounts,}: { ranks: RankType[]; discounts: DiscountType[];}) {
+export default function PointsInfoSection({ ranks, discounts, }: { ranks: RankType[]; discounts: DiscountType[]; }) {
   if (!ranks?.length) return null;
   return (
     <section className="bg-[--bg-soft2] py-10 sm:py-14 md:py-18 px-4">

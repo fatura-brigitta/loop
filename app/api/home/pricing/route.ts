@@ -8,7 +8,6 @@ export async function GET() {
   const t = messages[lang];
 
   try {
-
     const screeningTypes = await prisma.screening_type.findMany({
       orderBy: { percent: "asc" },
     });

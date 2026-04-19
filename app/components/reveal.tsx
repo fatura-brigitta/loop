@@ -27,7 +27,6 @@ export default function Reveal({
         rootMargin: "0px 0px -20% 0px",
       },
     );
-
     observer.observe(el);
     return () => observer.disconnect();
   }, []);

@@ -6,7 +6,6 @@ import ProfileInfoSection from "@/app/components/profile/profileInfoSection";
 import RankSection from "@/app/components/profile/rankSection";
 
 export default function ProfilePage() {
-
   const [user, setUser] = useState<any>(null);
 
   const [rankData, setRankData] = useState<any>(null);
@@ -24,13 +23,9 @@ export default function ProfilePage() {
   const [phone, setPhone] = useState("");
 
   const [gender, setGender] = useState("RATHER_NOT_SAY");
-
   const [theme, setTheme] = useState("dark");
-
   const [profileImage, setProfileImage] = useState("");
-
   const [isDragging, setIsDragging] = useState(false);
-
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const [imageError, setImageError] = useState("");
@@ -105,7 +100,6 @@ export default function ProfilePage() {
     const stored = sessionStorage.getItem("rankUp");
 
     if (stored) {
-
       const rank = JSON.parse(stored);
 
       queueMicrotask(() => {
@@ -118,7 +112,6 @@ export default function ProfilePage() {
     const load = async () => {
       await loadUser()
     }
-
     load()
   }, [])
 
@@ -269,149 +262,139 @@ export default function ProfilePage() {
   };
 
   const deleteTicket = async (id: string) => {
-    const res = await fetch("/api/ticket/delete",{
-    method:"DELETE",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({ticketId:id})
+    const res = await fetch("/api/ticket/delete", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ticketId: id })
     })
+    if (res.ok) {
+      setHistory(prev => prev.filter(t => t.id !== id))
 
-    if(res.ok){
+      setHistoryMessage("Jegy törölve")
 
-    setHistory(prev => prev.filter(t=>t.id !== id))
-
-    setHistoryMessage("Jegy törölve")
-
-    setTimeout(()=>{
-    setHistoryMessage("")
-    },3000)
-
+      setTimeout(() => {
+        setHistoryMessage("")
+      }, 3000)
     }
-
     setDeleteTicketId(null)
-
   }
 
   const deleteAllHistory = async () => {
-
-    const res = await fetch("/api/ticket/delete-all",{
-    method:"DELETE"
+    const res = await fetch("/api/ticket/delete-all", {
+      method: "DELETE"
     })
 
-    if(res.ok){
+    if (res.ok) {
+      setHistory([])
 
-    setHistory([])
+      setHistoryMessage("Előzmények törölve")
 
-    setHistoryMessage("Előzmények törölve")
-
-    setTimeout(()=>{
-    setHistoryMessage("")
-    },3000)
-
+      setTimeout(() => {
+        setHistoryMessage("")
+      }, 3000)
     }
-
     setConfirmDeleteAll(false)
-
   }
 
   return (
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] px-4 sm:px-6 lg:px-8 py-6">
       <div className="mx-auto w-full max-w-6xl space-y-6">
-      {rankUp && (
-        <div
-          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm"
-          data-cy="rank-up-modal"
-        >
-          <div className="flex flex-col items-center gap-6 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-main)] p-6 sm:p-10 shadow-2xl animate-[rankPop_0.45s_ease]">
+        {rankUp && (
+          <div
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm"
+            data-cy="rank-up-modal"
+          >
+            <div className="flex flex-col items-center gap-6 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-main)] p-6 sm:p-10 shadow-2xl animate-[rankPop_0.45s_ease]">
 
-            <div className="text-sm tracking-[0.3em] text-[var(--text-main)]/60">
-              RANG LÉPÉS
+              <div className="text-sm tracking-[0.3em] text-[var(--text-main)]/60">
+                RANG LÉPÉS
+              </div>
+
+              <img
+                className="h-28 w-28 sm:h-40 sm:w-40 object-contain animate-[glowPulse_2s_ease-in-out_infinite]"
+                src={rankUp.image}
+              />
+
+              <div className="text-2xl sm:text-4xl font-extrabold text-[var(--text-main2)]">
+                {rankUp.name}
+              </div>
+
+              <div className="text-sm text-[var(--text-main)]/70">
+                Gratulálunk! Új kuponokat oldottál fel.
+              </div>
+
+              <button
+                className="mt-2 cursor-pointer rounded-lg bg-cyan-600 px-6 py-2 font-semibold text-[var(--text-main)] transition hover:bg-cyan-400"
+                onClick={() => setRankUp(null)}
+              >
+                Folytatás
+              </button>
+
             </div>
-
-            <img
-              className="h-28 w-28 sm:h-40 sm:w-40 object-contain animate-[glowPulse_2s_ease-in-out_infinite]"
-              src={rankUp.image}
-            />
-
-            <div className="text-2xl sm:text-4xl font-extrabold text-[var(--text-main2)]">
-              {rankUp.name}
-            </div>
-
-            <div className="text-sm text-[var(--text-main)]/70">
-              Gratulálunk! Új kuponokat oldottál fel.
-            </div>
-
-            <button
-              className="mt-2 cursor-pointer rounded-lg bg-cyan-600 px-6 py-2 font-semibold text-[var(--text-main)] transition hover:bg-cyan-400"
-              onClick={() => setRankUp(null)}
-            >
-              Folytatás
-            </button>
-
           </div>
+        )}
+        <div className="">
+          <RankSection pointsNeeded={pointsNeeded} rankData={rankData} warning={warning} />
+
+          <ProfileInfoSection
+            changePassword={changePassword}
+            changeTheme={changeTheme}
+            consent={consent}
+            fileInputRef={fileInputRef}
+            gender={gender}
+            handlePickFile={handlePickFile}
+            imageError={imageError}
+            imageMessage={imageMessage}
+            isDragging={isDragging}
+            isGoogleUser={isGoogleUser}
+            newName={newName}
+            newPassword={newPassword}
+            newPassword2={newPassword2}
+            oldPassword={oldPassword}
+            passwordError={passwordError}
+            passwordMessage={passwordMessage}
+            phone={phone}
+            profileError={profileError}
+            profileImage={profileImage}
+            profileMessage={profileMessage}
+            resetProfileImage={resetProfileImage}
+            setConsent={setConsent}
+            setGender={setGender}
+            setIsDragging={setIsDragging}
+            setNewName={setNewName}
+            setNewPassword={setNewPassword}
+            setNewPassword2={setNewPassword2}
+            setOldPassword={setOldPassword}
+            setPasswordError={setPasswordError}
+            setPasswordMessage={setPasswordMessage}
+            setPhone={setPhone}
+            setProfileError={setProfileError}
+            setProfileMessage={setProfileMessage}
+            theme={theme}
+            user={user}
+          />
+
+          <AssetsSection
+            confirmDeleteAll={confirmDeleteAll}
+            coupons={coupons}
+            deleteAllHistory={deleteAllHistory}
+            deleteTicket={deleteTicket}
+            deleteTicketId={deleteTicketId}
+            history={history}
+            historyMessage={historyMessage}
+            setConfirmDeleteAll={setConfirmDeleteAll}
+            setDeleteTicketId={setDeleteTicketId}
+            setHistoryMessage={setHistoryMessage}
+            setShowCoupons={setShowCoupons}
+            setShowHistory={setShowHistory}
+            setShowTickets={setShowTickets}
+            showCoupons={showCoupons}
+            showHistory={showHistory}
+            showTickets={showTickets}
+            tickets={tickets}
+          />
         </div>
-      )}
-      <div className="">
-        <RankSection pointsNeeded={pointsNeeded} rankData={rankData} warning={warning} />
-
-        <ProfileInfoSection
-          changePassword={changePassword}
-          changeTheme={changeTheme}
-          consent={consent}
-          fileInputRef={fileInputRef}
-          gender={gender}
-          handlePickFile={handlePickFile}
-          imageError={imageError}
-          imageMessage={imageMessage}
-          isDragging={isDragging}
-          isGoogleUser={isGoogleUser}
-          newName={newName}
-          newPassword={newPassword}
-          newPassword2={newPassword2}
-          oldPassword={oldPassword}
-          passwordError={passwordError}
-          passwordMessage={passwordMessage}
-          phone={phone}
-          profileError={profileError}
-          profileImage={profileImage}
-          profileMessage={profileMessage}
-          resetProfileImage={resetProfileImage}
-          setConsent={setConsent}
-          setGender={setGender}
-          setIsDragging={setIsDragging}
-          setNewName={setNewName}
-          setNewPassword={setNewPassword}
-          setNewPassword2={setNewPassword2}
-          setOldPassword={setOldPassword}
-          setPasswordError={setPasswordError}
-          setPasswordMessage={setPasswordMessage}
-          setPhone={setPhone}
-          setProfileError={setProfileError}
-          setProfileMessage={setProfileMessage}
-          theme={theme}
-          user={user}
-        />
-
-        <AssetsSection
-          confirmDeleteAll={confirmDeleteAll}
-          coupons={coupons}
-          deleteAllHistory={deleteAllHistory}
-          deleteTicket={deleteTicket}
-          deleteTicketId={deleteTicketId}
-          history={history}
-          historyMessage={historyMessage}
-          setConfirmDeleteAll={setConfirmDeleteAll}
-          setDeleteTicketId={setDeleteTicketId}
-          setHistoryMessage={setHistoryMessage}
-          setShowCoupons={setShowCoupons}
-          setShowHistory={setShowHistory}
-          setShowTickets={setShowTickets}
-          showCoupons={showCoupons}
-          showHistory={showHistory}
-          showTickets={showTickets}
-          tickets={tickets}
-        />
       </div>
-    </div>
     </div>
   );
 }

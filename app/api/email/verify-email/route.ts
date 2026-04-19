@@ -12,12 +12,10 @@ import { checkOrigin } from "@/lib/checkOrigin";
 import { ZodError } from "zod";
 
 export async function POST(req: NextRequest) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     checkOrigin(req);
 
     const ip = getClientIp(req);
@@ -28,7 +26,6 @@ export async function POST(req: NextRequest) {
     rateLimit(`verify-ip-email-${ip}-${email}`, 5, 60_000);
 
     await prisma.$transaction(async (tx) => {
-
       const user = await tx.user.findUnique({
         where: { email },
       });
@@ -60,7 +57,6 @@ export async function POST(req: NextRequest) {
           email_code_exp: null,
         },
       });
-
     });
 
     return NextResponse.json(
@@ -69,7 +65,6 @@ export async function POST(req: NextRequest) {
     );
 
   } catch (err: any) {
-
     if (err instanceof ZodError) {
       return NextResponse.json(
         { message: t.invalidData },

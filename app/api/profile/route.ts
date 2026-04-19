@@ -22,7 +22,6 @@ export async function GET() {
   const t = messages[lang];
 
   try {
-
     const cookieStore = await cookies();
     const userId = cookieStore.get("userId")?.value;
 
@@ -57,7 +56,6 @@ export async function GET() {
     });
 
     if (correctRank && correctRank.id !== user.rank_id) {
-
       const oldRank = user.ranks;
 
       await prisma.user.update({
@@ -83,7 +81,6 @@ export async function GET() {
           }
         });
       }
-
       user.ranks = correctRank;
     }
 
@@ -100,7 +97,6 @@ export async function GET() {
     const days = Math.floor(diffDays);
 
     if (days >= 30) {
-
       if (user.ranks?.name === "VIP") {
         console.log("VIP user → no downgrade");
       }
@@ -110,7 +106,6 @@ export async function GET() {
       }
 
       else {
-
         const lowerRank = await prisma.rank.findFirst({
           where: {
             point_limit: {
@@ -123,7 +118,6 @@ export async function GET() {
         });
 
         if (lowerRank && lowerRank.id !== user.rank_id) {
-
           await prisma.user.update({
             where: { id: user.id },
             data: {
@@ -146,7 +140,6 @@ export async function GET() {
               }
             }
           });
-
           user.ranks = lowerRank;
           user.points = lowerRank.point_limit;
         }
@@ -173,7 +166,6 @@ export async function GET() {
     let progress = 100;
 
     if (nextRank) {
-
       const currentRankLimit = user.ranks?.point_limit || 0;
       const needed = nextRank.point_limit - currentRankLimit;
       const current = user.points - currentRankLimit;
@@ -205,7 +197,6 @@ export async function GET() {
     );
 
   } catch (err) {
-
     console.error("PROFILE GET ERROR:", err);
 
     return NextResponse.json(
@@ -216,12 +207,10 @@ export async function GET() {
 }
 
 export async function PATCH(req: Request) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     checkOrigin(req);
 
     const ip = getClientIp(req);
@@ -283,7 +272,6 @@ export async function PATCH(req: Request) {
     );
 
   } catch (err: any) {
-
     if (err instanceof ZodError) {
       return NextResponse.json(
         { message: t.invalidData },
@@ -304,7 +292,6 @@ export async function PATCH(req: Request) {
         { status: 403 }
       );
     }
-
     console.error("PROFILE PATCH ERROR:", err);
 
     return NextResponse.json(
@@ -315,12 +302,10 @@ export async function PATCH(req: Request) {
 }
 
 export async function PUT(req: Request) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     checkOrigin(req);
 
     const ip = getClientIp(req);
@@ -351,7 +336,6 @@ export async function PUT(req: Request) {
     }
 
     if (user.password_hash) {
-
       if (!oldPassword) {
         return NextResponse.json(
           { message: t.missingOldPassword },
@@ -382,7 +366,6 @@ export async function PUT(req: Request) {
     );
 
   } catch (err: any) {
-
     if (err instanceof ZodError) {
       return NextResponse.json(
         { message: t.invalidData },
@@ -403,7 +386,6 @@ export async function PUT(req: Request) {
         { status: 403 }
       );
     }
-
     console.error("PROFILE PASSWORD ERROR:", err);
 
     return NextResponse.json(
@@ -414,12 +396,10 @@ export async function PUT(req: Request) {
 }
 
 export async function POST() {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     const cookieStore = await cookies();
     const userId = cookieStore.get("userId")?.value;
 
@@ -429,7 +409,6 @@ export async function POST() {
         { status: 401 }
       );
     }
-
     const now = new Date();
 
     const activeTickets = await prisma.ticket.findMany({
@@ -487,7 +466,6 @@ export async function POST() {
     );
 
   } catch (err) {
-
     console.error("PROFILE TICKETS ERROR:", err);
 
     return NextResponse.json(

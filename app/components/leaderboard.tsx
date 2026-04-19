@@ -10,8 +10,7 @@ type User = {
   profile_image: string;
 };
 
-export default function Leaderboard({users}:{users:User[]}) {
-
+export default function Leaderboard({ users }: { users: User[] }) {
   if (users.length < 3) return null;
 
   const first = users[0];

@@ -36,7 +36,6 @@ export default function MoviesPage() {
         setShowLogin(false);
       }
     };
-
     load();
   }, []);
 
@@ -60,7 +59,6 @@ export default function MoviesPage() {
               data-movie-id={movie.id}
               key={movie.id}
             >
-              {/* POSTER */}
               <div className="shrink-0">
                 <div className="relative w-[160px] md:w-[160px] aspect-[2/3]">
                   <Image
@@ -73,7 +71,6 @@ export default function MoviesPage() {
                 </div>
               </div>
 
-              {/* INFO */}
               <div
                 className="flex flex-1 flex-col justify-between px-3 py-2 sm:px-4 sm:py-3"
                 data-cy="movie-info"

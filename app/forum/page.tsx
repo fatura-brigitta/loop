@@ -56,8 +56,7 @@ export default function ForumPage() {
   const [replyText, setReplyText] = useState("");
   const currentMovie = movies.find((m) => m.id === selectedMovie);
   const [visibleCount, setVisibleCount] = useState(5);
-  const [repliesState, setRepliesState] = useState< Record<string, "closed" | "preview" | "open">>({});
-  
+  const [repliesState, setRepliesState] = useState<Record<string, "closed" | "preview" | "open">>({});
 
   useEffect(() => {
     const loadUser = async () => {
@@ -145,15 +144,15 @@ export default function ForumPage() {
       prev.map((c) =>
         c.id === tempId
           ? {
-              id: real.id ?? c.id,
-              user_name: name,
-              profile_image: profileImage,
-              comment: real.comment ?? c.comment,
-              review: typeof real.review === "number" ? real.review : c.review,
-              likes: typeof real.likes === "number" ? real.likes : 0,
-              dislikes: typeof real.dislikes === "number" ? real.dislikes : 0,
-              myVote: null,
-            }
+            id: real.id ?? c.id,
+            user_name: name,
+            profile_image: profileImage,
+            comment: real.comment ?? c.comment,
+            review: typeof real.review === "number" ? real.review : c.review,
+            likes: typeof real.likes === "number" ? real.likes : 0,
+            dislikes: typeof real.dislikes === "number" ? real.dislikes : 0,
+            myVote: null,
+          }
           : c,
       ),
     );
@@ -181,15 +180,15 @@ export default function ForumPage() {
       prev.map((c) =>
         c.id === forumId
           ? {
-              ...c,
-              replies: [
-                ...(c.replies ?? []),
-                {
-                  ...created,
-                  profile_image: created.profile_image || "/profile/default.png"
-                }
-              ],
-            }
+            ...c,
+            replies: [
+              ...(c.replies ?? []),
+              {
+                ...created,
+                profile_image: created.profile_image || "/profile/default.png"
+              }
+            ],
+          }
           : c
       ),
     );
@@ -319,10 +318,9 @@ export default function ForumPage() {
             <div className="relative">
               <div className="film-scroll flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth px-4 sm:px-6 py-4" data-cy="forum-movie-list">
                 {movies.map((movie) => (
-                  <div className={`min-w-[90px] sm:min-w-[150px] cursor-pointer transition duration-300 ${
-                      selectedMovie === movie.id
-                        ? "scale-105"
-                        : "opacity-70 hover:scale-105 hover:opacity-100"
+                  <div className={`min-w-[90px] sm:min-w-[150px] cursor-pointer transition duration-300 ${selectedMovie === movie.id
+                    ? "scale-105"
+                    : "opacity-70 hover:scale-105 hover:opacity-100"
                     } `}
                     data-cy="forum-movie-card"
                     data-movie-id={movie.id}
@@ -374,7 +372,6 @@ export default function ForumPage() {
                       src={profileImageUrl(profileImage, 80)}
                       width={42}
                     />
-
                     <div className="text-sm sm:text-base font-medium text-[var(--text-main2)]">
                       {name}
                     </div>
@@ -398,7 +395,6 @@ export default function ForumPage() {
                     <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
                       <StarRating10 value={newReview} onChange={(v) => setNewReview(v)} />
                     </div>
-
                     <button
                       className="w-full sm:w-auto cursor-pointer rounded-lg bg-[var(--text-main2)] px-4 py-2 text-xs sm:text-sm font-semibold text-[var(--text-light)] hover:bg-cyan-400"
                       data-cy="forum-comment-submit"
@@ -414,7 +410,7 @@ export default function ForumPage() {
                 {comments.length === 0 && (
                   <div className="text-slate-400">Még nincs hozzászólás ehhez a filmhez.</div>
                 )}
-
+                
                 {shownComments.map((c) => (
                   <div className="flex gap-3 sm:gap-4 rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-3 sm:p-4 md:p-5"
                     data-comment-id={c.id}
@@ -446,10 +442,9 @@ export default function ForumPage() {
                         </div>
 
                         <div className="flex shrink-0 items-center gap-2">
-                          <button className={`inline-flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-1.5 text-xs sm:text-sm transition ${
-                              c.myVote === "LIKE"
-                                ? "border-green-800/70 bg-green-800/10 text-green-800"
-                                : "border-[var(--border-color)] bg-[var(--bg-main)]/40 text-[var(--text-soft)] hover:border-green-800/60 hover:text-green-800"
+                          <button className={`inline-flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-1.5 text-xs sm:text-sm transition ${c.myVote === "LIKE"
+                            ? "border-green-800/70 bg-green-800/10 text-green-800"
+                            : "border-[var(--border-color)] bg-[var(--bg-main)]/40 text-[var(--text-soft)] hover:border-green-800/60 hover:text-green-800"
                             }`}
                             data-cy="forum-like"
                             title="Like"
@@ -459,10 +454,9 @@ export default function ForumPage() {
                             <span className="tabular-nums">{c.likes ?? 0}</span>
                           </button>
 
-                          <button className={`inline-flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-1.5 text-xs sm:text-sm transition ${
-                              c.myVote === "DISLIKE"
-                                ? "border-red-800/70 bg-red-800/10 text-red-800"
-                                : "border-[var(--border-color)] bg-[var(--bg-main)]/40 text-[var(--text-soft)] hover:border-red-800/60 hover:text-red-800"
+                          <button className={`inline-flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-1.5 text-xs sm:text-sm transition ${c.myVote === "DISLIKE"
+                            ? "border-red-800/70 bg-red-800/10 text-red-800"
+                            : "border-[var(--border-color)] bg-[var(--bg-main)]/40 text-[var(--text-soft)] hover:border-red-800/60 hover:text-red-800"
                             }`}
                             data-cy="forum-dislike"
                             title="Dislike"
@@ -504,12 +498,12 @@ export default function ForumPage() {
                       {replyOpenFor === c.id && (
                         <div className="mt-4 flex gap-3 rounded-xl border border-[var(--border-color)] bg-[var(--bg-main)]/40 p-3">
                           <Image
-                              alt="profil"
-                              className="h-8 w-8 rounded-full border border-[var(--border-color)] object-cover"
-                              height={40}
-                              src={profileImageUrl(profileImage, 80)}
-                              width={40}
-                            />
+                            alt="profil"
+                            className="h-8 w-8 rounded-full border border-[var(--border-color)] object-cover"
+                            height={40}
+                            src={profileImageUrl(profileImage, 80)}
+                            width={40}
+                          />
 
                           <div className="flex-1">
                             <input className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--bg-main)] px-3 py-2 text-sm text-[var(--text-main)] outline-none focus:border-cyan-400"
@@ -578,7 +572,7 @@ export default function ForumPage() {
                               </div>
                             ))}
                           </div>
-                      )}
+                        )}
                     </div>
                   </div>
                 ))}
@@ -636,9 +630,8 @@ export default function ForumPage() {
             return (
               <button
                 aria-label={`Értékelés: ${i} csillag`}
-                className={`relative p-0.5 transition ${
-                  disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"
-                }`}
+                className={`relative p-0.5 transition ${disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"
+                  }`}
                 disabled={disabled}
                 key={i}
                 type="button"

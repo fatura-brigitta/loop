@@ -25,6 +25,5 @@ export async function GET() {
       created_at: "desc"
     }
   });
-
   return NextResponse.json(coupons);
 }

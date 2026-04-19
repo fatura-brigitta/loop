@@ -2,7 +2,6 @@
 @plugin "daisyui";
 
 :root {
-
   --bg-main: #dde1e5;
   --card-bg: #ffffff;
   --text-main: #0f172a;
@@ -18,7 +17,6 @@
 }
 
 .dark {
-
   --bg-main: #060b14;
   --card-bg: rgba(255,255,255,0.05);
   --text-main: #f1f5f9;
@@ -52,12 +50,12 @@ html {
 }
 
 @keyframes rankFadeIn {
-from {
-opacity: 0;
-}
-to {
-opacity: 1;
-}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes heroZoom {
@@ -79,7 +77,6 @@ opacity: 1;
     transform: translateY(0);
   }
 }
-
 
 @keyframes rankPop {
   0% {

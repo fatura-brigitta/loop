@@ -19,10 +19,10 @@ export default function RootLayout({
   return (
     <html lang="hu" suppressHydrationWarning>
       <body className="flex min-h-screen flex-col bg-[var(--bg-main)] text-[var(--text-main)] transition-colors duration-300 overflow-x-hidden">
-        <ScrollReset/>
-        <SessionGuard/>
-      <Script id="theme-loader" strategy="beforeInteractive">
-      {`
+        <ScrollReset />
+        <SessionGuard />
+        <Script id="theme-loader" strategy="beforeInteractive">
+          {`
         const savedTheme = localStorage.getItem("theme");
 
         if (!savedTheme) {
@@ -31,7 +31,7 @@ export default function RootLayout({
           document.documentElement.classList.add("dark");
         }
       `}
-      </Script>
+        </Script>
         <NavbarWrapper />
 
         <main className="flex-1">

@@ -27,7 +27,6 @@ export async function GET(
   }
 
   try {
-
     const ticket = await prisma.ticket.findFirst({
       where: { qr_token: token },
       include: {

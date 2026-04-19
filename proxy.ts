@@ -40,7 +40,6 @@ export function proxy(req: NextRequest) {
 }
 
 export function middleware(req: NextRequest) {
-
   const res = NextResponse.next();
 
   res.headers.set("X-Frame-Options", "DENY");

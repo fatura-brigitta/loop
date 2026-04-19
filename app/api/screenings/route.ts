@@ -21,12 +21,10 @@ const screeningSchema = z.object({
 });
 
 export async function GET(req: Request) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     const { searchParams } = new URL(req.url);
     const selectedDate = searchParams.get("date");
 
@@ -106,11 +104,9 @@ export async function GET(req: Request) {
       maxAge: 0,
       path: "/",
     });
-
     return res;
 
   } catch (err) {
-
     console.error("SCREENINGS ERROR:", err);
 
     return NextResponse.json(
@@ -121,12 +117,10 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     checkOrigin(req);
 
     const ip = getClientIp(req);
@@ -145,11 +139,9 @@ export async function POST(req: Request) {
       sameSite: "lax",
       path: "/",
     });
-
     return res;
 
   } catch (err: any) {
-
     if (err instanceof ZodError) {
       return NextResponse.json(
         { message: t.invalidId },
@@ -170,7 +162,6 @@ export async function POST(req: Request) {
         { status: 403 }
       );
     }
-
     console.error("SELECT SCREENING ERROR:", err);
 
     return NextResponse.json(
@@ -181,12 +172,10 @@ export async function POST(req: Request) {
 }
 
 export async function PUT(req: Request) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     checkOrigin(req);
 
     const ip = getClientIp(req);

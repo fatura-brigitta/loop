@@ -44,7 +44,6 @@ export default function Navbar() {
           setLoading(false);
           return;
         }
-
         const data = await profileRes.json();
 
         setUser({
@@ -63,10 +62,8 @@ export default function Navbar() {
       } catch {
         setUser(null);
       }
-
       setLoading(false);
     };
-
     loadUser();
   }, [pathname]);
 
@@ -123,17 +120,15 @@ export default function Navbar() {
   };
 
   const navLinkClass = (active: boolean) =>
-    `relative pb-1 transition cursor-pointer ${
-      active
-        ? "text-[var(--text-main2)] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-full after:bg-[var(--text-main2)]"
-        : "text-[var(--text-soft)] hover:text-[var(--text-main2)]"
+    `relative pb-1 transition cursor-pointer ${active
+      ? "text-[var(--text-main2)] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-full after:bg-[var(--text-main2)]"
+      : "text-[var(--text-soft)] hover:text-[var(--text-main2)]"
     }`;
 
   const mobileLinkClass = (active: boolean) =>
-    `flex items-center gap-3 px-4 py-3 rounded-lg transition ${
-      active
-        ? "bg-[var(--text-main2)]/10 text-[var(--text-main2)]"
-        : "text-[var(--text-soft)] hover:text-[var(--text-main2)] hover:bg-[var(--border-color)]/30"
+    `flex items-center gap-3 px-4 py-3 rounded-lg transition ${active
+      ? "bg-[var(--text-main2)]/10 text-[var(--text-main2)]"
+      : "text-[var(--text-soft)] hover:text-[var(--text-main2)] hover:bg-[var(--border-color)]/30"
     }`;
 
   return (
@@ -226,9 +221,8 @@ export default function Navbar() {
       </header>
 
       <aside
-        className={`fixed inset-y-0 right-0 z-[100] flex w-[200px] flex-col border-l border-[var(--border-color)] bg-[var(--nav-bg)] p-6 shadow-xl transition-transform duration-300 md:hidden ${
-          menuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed inset-y-0 right-0 z-[100] flex w-[200px] flex-col border-l border-[var(--border-color)] bg-[var(--nav-bg)] p-6 shadow-xl transition-transform duration-300 md:hidden ${menuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <div className="mb-6 flex items-center justify-between border-b border-[var(--border-color)] pb-4">
           <span className="text-lg font-bold text-[var(--text-main2)]">Menü</span>

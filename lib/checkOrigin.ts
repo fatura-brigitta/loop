@@ -9,14 +9,12 @@ function normalizeOrigin(value?: string | null) {
 }
 
 export function checkOrigin(req: Request) {
-
   const url = new URL(req.url);
   const isAdminLogin = url.pathname === "/api/admin/adminLogin";
 
   const origin = req.headers.get("origin") || req.headers.get("referer");
 
   if (!origin) {
-
     if (isAdminLogin) {
       return;
     }
@@ -39,7 +37,6 @@ export function checkOrigin(req: Request) {
     if (isAdminLogin) {
       return;
     }
-
     throw new Error("CSRF");
   }
 }

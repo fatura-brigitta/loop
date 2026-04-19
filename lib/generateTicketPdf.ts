@@ -5,7 +5,6 @@ import fs from "fs";
 import path from "path";
 
 export async function generateTicketsPdf(tickets: any[]): Promise<Buffer> {
-
   const pdfDoc = await PDFDocument.create();
   pdfDoc.registerFontkit(fontkit);
 
@@ -15,7 +14,6 @@ export async function generateTicketsPdf(tickets: any[]): Promise<Buffer> {
   const font = await pdfDoc.embedFont(fontBytes);
 
   for (const t of tickets) {
-
     const page = pdfDoc.addPage([400, 600]);
     const { width, height } = page.getSize();
 
@@ -120,7 +118,6 @@ export async function generateTicketsPdf(tickets: any[]): Promise<Buffer> {
     });
 
   }
-
   const pdfBytes = await pdfDoc.save();
 
   return Buffer.from(pdfBytes);

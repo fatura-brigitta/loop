@@ -24,14 +24,6 @@ export default function LoginPage() {
     return () => clearTimeout(t);
   }, [error]);
 
-  // useEffect(() => {
-  //   document.body.style.overflow = "hidden";
-
-  //   return () => {
-  //     document.body.style.overflow = "";
-  //   };
-  // }, []);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -103,7 +95,6 @@ export default function LoginPage() {
 
             <div>
               <label className="text-sm text-[var(--text-main)]/60">Jelszó</label>
-
               <div className="relative mt-2">
                 <input
                   className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] px-4 py-2 pr-11 text-[var(--text-main)] transition outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
@@ -153,6 +144,7 @@ export default function LoginPage() {
               <LogIn size={18} />
               {loading ? "Bejelentkezés..." : "Bejelentkezés"}
             </button>
+
             <div className="mt-6 flex flex-col gap-3 sm:gap-4">
               <button
                 className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-lg border border-[var(--border-color)] bg-white px-4 py-3 text-sm sm:text-base font-semibold text-black hover:bg-gray-100"
@@ -163,6 +155,7 @@ export default function LoginPage() {
                 <img alt="Google" height={22} src="/google.svg" width={22} />
                 Bejelentkezés Google fiókkal
               </button>
+
               <button
                 className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-lg bg-[#1877F2] px-4 py-3 text-sm sm:text-base font-semibold text-[var(--text-light)] hover:bg-[#166fe5]"
                 data-cy="login-facebook"

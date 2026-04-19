@@ -15,12 +15,10 @@ import { adminLoginSchema } from "@/lib/validators";
 import { ZodError } from "zod";
 
 export async function POST(req: Request) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     checkOrigin(req);
 
     const ip = getClientIp(req);
@@ -87,7 +85,6 @@ export async function POST(req: Request) {
         { status: 403 }
       );
     }
-
     console.error("ADMIN LOGIN ERROR:", err);
 
     return NextResponse.json(

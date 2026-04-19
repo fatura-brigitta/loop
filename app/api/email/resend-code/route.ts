@@ -15,12 +15,10 @@ import { checkOrigin } from "@/lib/checkOrigin";
 import { ZodError } from "zod";
 
 export async function POST(req: NextRequest) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     checkOrigin(req);
 
     const ip = getClientIp(req);
@@ -74,7 +72,6 @@ export async function POST(req: NextRequest) {
     );
 
   } catch (err: any) {
-
     if (err instanceof ZodError) {
       return NextResponse.json(
         { message: t.invalidData },

@@ -17,12 +17,10 @@ import { paymentCreateSchema, paymentPriceSchema } from "@/lib/validators";
 import { ZodError } from "zod";
 
 async function handleCreate(req: NextRequest) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     checkOrigin(req);
 
     const ip = getClientIp(req);
@@ -70,11 +68,9 @@ async function handleCreate(req: NextRequest) {
       sameSite: "lax",
       path: "/",
     });
-
     return res;
 
   } catch (err: any) {
-
     if (err instanceof ZodError)
       return NextResponse.json({ message: t.invalidData }, { status: 400 });
 
@@ -94,12 +90,10 @@ async function handleCreate(req: NextRequest) {
 }
 
 async function handleSession() {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     const cookieStore = await cookies();
     const paymentId = cookieStore.get("paymentSessionId")?.value;
     const userId = cookieStore.get("userId")?.value;
@@ -165,9 +159,7 @@ async function handleSession() {
       },
       { headers: { "Cache-Control": "no-store" } }
     );
-
   } catch (err) {
-
     console.error("PAYMENT SESSION ERROR:", err);
 
     return NextResponse.json(
@@ -178,12 +170,10 @@ async function handleSession() {
 }
 
 async function handlePrice(req: NextRequest) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     checkOrigin(req);
 
     const ip = getClientIp(req);
@@ -221,7 +211,6 @@ async function handlePrice(req: NextRequest) {
     let totalPrice = 0;
 
     for (const typeName of ticketTypes) {
-
       const type = await prisma.ticket_type.findFirst({
         where: { type: typeName },
       });
@@ -232,7 +221,6 @@ async function handlePrice(req: NextRequest) {
         session.screenings.screening_types!.percent,
         type.percent
       );
-
       totalPrice += price;
     }
 
@@ -242,7 +230,6 @@ async function handlePrice(req: NextRequest) {
     );
 
   } catch (err: any) {
-
     if (err instanceof ZodError)
       return NextResponse.json({ message: t.invalidData }, { status: 400 });
 
@@ -262,12 +249,10 @@ async function handlePrice(req: NextRequest) {
 }
 
 async function handleConfirm(req: NextRequest) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     checkOrigin(req);
 
     const ip = getClientIp(req);
@@ -329,7 +314,6 @@ async function handleConfirm(req: NextRequest) {
         throw new Error("SEAT_TAKEN");
 
       for (let i = 0; i < chairIds.length; i++) {
-
         const chairId = chairIds[i];
         const typeName = ticketTypes[i];
 
@@ -460,7 +444,6 @@ async function handleConfirm(req: NextRequest) {
     return res;
 
   } catch (err: any) {
-
     if (err.message === "SEAT_TAKEN")
       return NextResponse.json(
         { message: t.seatTaken },

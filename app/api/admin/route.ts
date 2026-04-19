@@ -82,7 +82,6 @@ export async function GET(req: Request) {
       const words = await prisma.badWord.findMany({
         orderBy:{word:"asc"}
       });
-
       return NextResponse.json(words);
     }
 
@@ -135,8 +134,6 @@ export async function GET(req: Request) {
         type:"post"
       }));
 
-
-      
       const flaggedReplies = replies
       .filter(r =>
         bad.some(w =>
@@ -220,7 +217,6 @@ export async function PUT(req: Request) {
           description: opt(body.description),
         },
       });
-
       return NextResponse.json(updated);
     }
 
@@ -295,10 +291,8 @@ export async function PUT(req: Request) {
               })),
             });
           }
-
           return updatedHall;
         });
-
         return NextResponse.json(result);
 
       } catch (error) {
@@ -393,7 +387,6 @@ export async function POST(req: Request) {
               data: chairs,
             });
           }
-
           return NextResponse.json(createdHall, { status: 201 });
 
         } catch (error) {
@@ -444,7 +437,6 @@ export async function POST(req: Request) {
       if (close <= open) {
         close.setDate(close.getDate() + 1)
       }
-
       const CLEANING_MINUTES = 15;
 
       const movieEnd = new Date(startDate.getTime() + movie.playtime * 60000);
@@ -506,7 +498,6 @@ export async function POST(req: Request) {
     }
 
     if (entity === "opening_hours") {
-
       const created = await prisma.openingHours.upsert({
         where: { weekday: body.weekday },
         update: {
@@ -575,7 +566,6 @@ export async function DELETE(req: Request) {
     }
 
     if(entity === "flagged_comments"){
-
       if(body.type === "reply"){
         await prisma.forumReply.delete({
           where:{id}

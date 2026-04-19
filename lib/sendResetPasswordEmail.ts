@@ -1,7 +1,6 @@
 import nodemailer from "nodemailer";
 
 export async function sendResetPasswordEmail(email: string, token: string) {
-
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,

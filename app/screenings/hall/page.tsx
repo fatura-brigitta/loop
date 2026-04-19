@@ -120,7 +120,6 @@ export default function HallPage() {
         setShowLogin(false);
       }
     };
-
     loadUser();
   }, []);
 
@@ -143,7 +142,7 @@ export default function HallPage() {
           try {
             const body = await res.json();
             if (body?.message) msg = body.message;
-          } catch {}
+          } catch { }
           setError(msg);
           setLoadingHall(false);
           return;
@@ -165,7 +164,6 @@ export default function HallPage() {
       } catch {
         setError("Hálózati hiba a terem betöltése során!");
       }
-
       setLoadingHall(false);
     };
 
@@ -212,7 +210,6 @@ export default function HallPage() {
         showSeatError("Maximum 10 széket foglalhatsz egyszerre.");
         return prev;
       }
-
       return [...prev, chair.id];
     });
   };
@@ -287,7 +284,7 @@ export default function HallPage() {
           {screeningInfo && (
             <div className="mx-auto mb-6 sm:mb-10 max-w-xl text-center px-2">
               <div className="text-base sm:text-lg md:text-xl font-semibold text-[var(--text-main2)]">
-               {screeningInfo.movie.title}
+                {screeningInfo.movie.title}
               </div>
 
               <div className="mt-2 flex flex-wrap items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm text-[var(--text-main)]/60">
@@ -301,7 +298,6 @@ export default function HallPage() {
               </div>
             </div>
           )}
-
           <CinemaScreen />
 
           <div data-cy="hall-seat-grid">
@@ -384,7 +380,6 @@ export default function HallPage() {
                 >
                   Székek foglalása
                 </button>
-
               </div>
             </div>
           </div>

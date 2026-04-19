@@ -3,7 +3,6 @@
 import Image from "next/image";
 
 export default function RankSection({ rankData, warning, pointsNeeded }: any) {
-
   if (!rankData?.rank) return null;
 
   return (

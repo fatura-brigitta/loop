@@ -11,7 +11,7 @@ type PaymentData = {
   hallName: string;
   start: string;
   screeningType: string;
-  ticketType: string; 
+  ticketType: string;
   seats: { row: number; column: number }[];
   totalPrice: number;
 };
@@ -73,7 +73,6 @@ export default function PaymentPage() {
         setLoading(false);
       }
     };
-
     load();
   }, []);
 
@@ -104,10 +103,8 @@ export default function PaymentPage() {
         const json = await res.json();
         if (res.ok) prices[i] = json.totalPrice;
       }
-
       setSeatPrices(prices);
     };
-
     loadSeatPrices();
   }, [data]);
 
@@ -145,34 +142,7 @@ export default function PaymentPage() {
     return 0;
   };
 
-  // const simulatePayment = async () => {
-  //   if (!data) return;
-
-  //   setPaying(true);
-
-  //   await new Promise((resolve) => setTimeout(resolve, 2000));
-
-  //   const res = await fetch("/api/payment?action=confirm", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       ticketTypes: Object.values(ticketTypes),
-  //     }),
-  //   });
-
-  //   if (!res.ok) {
-  //     setError("Fizetés sikertelen");
-  //     setPaying(false);
-  //     return;
-  //   }
-
-  //   router.push("/profile");
-  // };
-
   const startPayment = async () => {
-
     const res = await fetch("/api/payment/checkout", {
       method: "POST",
       headers: {
@@ -188,7 +158,7 @@ export default function PaymentPage() {
     window.location.href = json.url;
   };
 
-  const returnToHall= async () => {
+  const returnToHall = async () => {
     redirect('/screenings/hall')
   }
 
@@ -298,7 +268,6 @@ export default function PaymentPage() {
                                       ...ticketTypes,
                                       [i]: option,
                                     };
-
                                     setTicketTypes(updated);
                                     setOpenDropdown(null);
 

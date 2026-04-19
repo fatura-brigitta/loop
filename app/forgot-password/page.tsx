@@ -12,8 +12,8 @@ export default function ForgotPasswordPage() {
   const submit = async () => {
     setError("");
     if (!emailRegex.test(email)) {
-        setError("Érvénytelen email formátum!");
-        return;
+      setError("Érvénytelen email formátum!");
+      return;
     }
 
     const res = await fetch("/api/password/forgot-password", {
@@ -28,14 +28,12 @@ export default function ForgotPasswordPage() {
       setError("Hiba történt.");
       return;
     }
-
     setSent(true);
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4 py-12 bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="forgot-password-page">
       <div className="w-full mx-auto max-w-md rounded-xl bg-[var(--card-bg)] p-6 sm:p-8 shadow-2xl" data-cy="forgot-password-form">
-
         <h1 className="text-xl sm:text-2xl font-bold text-[var(--text-main2)] text-center mb-6">
           Elfelejtett jelszó
         </h1>

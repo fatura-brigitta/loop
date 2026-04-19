@@ -9,7 +9,6 @@ export async function DELETE(req: Request) {
   const t = messages[lang];
 
   try {
-
     const cookieStore = await cookies();
     const userId = cookieStore.get("userId")?.value;
 
@@ -42,11 +41,9 @@ export async function DELETE(req: Request) {
         { status: 404 }
       );
     }
-
     return NextResponse.json({ ok: true });
 
   } catch (error) {
-
     console.error("DELETE TICKET ERROR:", error);
 
     return NextResponse.json(

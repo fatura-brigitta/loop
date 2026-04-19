@@ -11,7 +11,6 @@ type TicketEmailData = {
 };
 
 export async function sendTicketEmail(data: TicketEmailData) {
-
   const { to, name, tickets } = data;
 
   const formatPrice = (cents: number) => {

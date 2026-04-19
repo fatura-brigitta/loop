@@ -14,6 +14,5 @@ export async function PUT(req: NextRequest) {
       consent
     }
   });
-
   return NextResponse.json({ ok: true });
 }

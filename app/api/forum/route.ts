@@ -29,12 +29,10 @@ const getProfileImage = (src?: string | null) => {
 };
 
 export async function GET(req: NextRequest) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     const { searchParams } = new URL(req.url);
     const movieId = searchParams.get("movie");
 
@@ -92,7 +90,6 @@ export async function GET(req: NextRequest) {
     const replyMap = new Map<string, any[]>();
 
     for (const r of replies) {
-
       const u = replyUserMap.get(r.user_id);
 
       const formatted = {
@@ -111,7 +108,6 @@ export async function GET(req: NextRequest) {
     }
 
     const formatted = posts.map((p) => {
-
       const user = users.find(u => u.id === p.user_id);
 
       return {
@@ -133,7 +129,6 @@ export async function GET(req: NextRequest) {
     );
 
   } catch (err) {
-
     console.error("FORUM GET ERROR:", err);
 
     return NextResponse.json(
@@ -144,12 +139,10 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     checkOrigin(req);
 
     const ip = getClientIp(req);
@@ -187,7 +180,6 @@ export async function POST(req: NextRequest) {
     );
 
   } catch (err: any) {
-
     if (err instanceof ZodError) {
       return NextResponse.json(
         { message: t.invalidData },

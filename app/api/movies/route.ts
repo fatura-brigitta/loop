@@ -18,12 +18,10 @@ const movieSelectSchema = z.object({
 });
 
 export async function GET(req: Request) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     const ip = getClientIp(req);
     rateLimit(`movies-${ip}`, 60, 60_000);
 
@@ -51,7 +49,6 @@ export async function GET(req: Request) {
     );
 
   } catch (err) {
-
     console.error("MOVIES ERROR:", err);
 
     return NextResponse.json(
@@ -62,12 +59,10 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     checkOrigin(req);
 
     const ip = getClientIp(req);
@@ -87,11 +82,9 @@ export async function POST(req: Request) {
       sameSite: "lax",
       secure: process.env.NODE_ENV === "production",
     });
-
     return res;
 
   } catch (err: any) {
-
     if (err instanceof ZodError) {
       return NextResponse.json(
         { message: t.missingMovieId },
@@ -112,7 +105,6 @@ export async function POST(req: Request) {
         { status: 403 }
       );
     }
-
     console.error("SET MOVIE ERROR:", err);
 
     return NextResponse.json(
@@ -123,12 +115,10 @@ export async function POST(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     checkOrigin(req);
 
     const ip = getClientIp(req);
@@ -144,11 +134,9 @@ export async function DELETE(req: Request) {
       maxAge: 0,
       secure: process.env.NODE_ENV === "production",
     });
-
     return res;
 
   } catch (err) {
-
     console.error("CLEAR MOVIE ERROR:", err);
 
     return NextResponse.json(

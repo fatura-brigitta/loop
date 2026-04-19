@@ -13,12 +13,10 @@ export async function GET(
   req: NextRequest,
   context: { params: Promise<{ token: string }> }
 ) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     const ip = getClientIp(req);
     rateLimit(`qr-${ip}`, 60, 60_000);
 
@@ -51,7 +49,6 @@ export async function GET(
     });
 
   } catch (err) {
-
     console.error("QR GENERATION ERROR:", err);
 
     return NextResponse.json(

@@ -1,5 +1,4 @@
 export function profileImageUrl(id?: string | null, size = 96) {
-
   if (!id || id === "null" || id === "undefined" || id === "") {
     return "/profile/default.png";
   }
@@ -17,6 +16,5 @@ export function profileImageUrl(id?: string | null, size = 96) {
   if (!cloud) {
     return "/profile/default.png";
   }
-
   return `https://res.cloudinary.com/${cloud}/image/upload/c_fill,w_${size},h_${size},q_auto,f_auto/${id}`;
 }

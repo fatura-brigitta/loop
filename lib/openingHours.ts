@@ -21,7 +21,6 @@ export async function getOpeningHours(
   })
 
   if (override) {
-
     if (override.closed) return null
 
     if (!override.open_time || !override.close_time) {

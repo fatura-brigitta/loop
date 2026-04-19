@@ -150,11 +150,10 @@ export default function VerifyEmailPage() {
         </div>
 
         <button
-          className={`mt-2 w-full rounded-lg py-3 text-sm sm:text-base font-semibold transition active:scale-[0.98] ${
-            canResend
+          className={`mt-2 w-full rounded-lg py-3 text-sm sm:text-base font-semibold transition active:scale-[0.98] ${canResend
               ? "bg-orange-500 text-[var(--text-main)] hover:bg-orange-400"
               : "cursor-not-allowed bg-gray-600 text-gray-300"
-          }`}
+            }`}
           data-cy="verify-email-resend-button"
           disabled={!canResend}
           onClick={resend}

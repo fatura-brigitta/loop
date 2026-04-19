@@ -17,9 +17,8 @@ type Pricing = {
   basePrice: number;
 };
 
-export default function PricingSection({ pricing }: { pricing: Pricing }){
-
-  if(!pricing) return null
+export default function PricingSection({ pricing }: { pricing: Pricing }) {
+  if (!pricing) return null
 
   const screenings = pricing.screeningTypes
   const tickets = pricing.ticketTypes

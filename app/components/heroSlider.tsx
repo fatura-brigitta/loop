@@ -41,7 +41,6 @@ export default function HeroSlider() {
         console.error("HeroSlider load error:", e);
       }
     };
-
     load();
   }, []);
 
@@ -125,15 +124,13 @@ export default function HeroSlider() {
       onTouchEnd={handleTouchEnd}
       onTouchStart={handleTouchStart}
     >
-
       <div className="absolute inset-0">
         {movies.map((m, i) => (
           <div
-            className={`absolute inset-0 bg-cover bg-top bg-no-repeat transition-[opacity,transform] duration-[1200ms] ease-out ${
-              i === index
+            className={`absolute inset-0 bg-cover bg-top bg-no-repeat transition-[opacity,transform] duration-[1200ms] ease-out ${i === index
                 ? "opacity-100 scale-105 animate-heroZoom"
                 : "opacity-0 scale-100"
-            }`}
+              }`}
             key={m.id}
             style={{
               backgroundImage: `url(${m.backdrop || m.poster})`,
@@ -160,7 +157,6 @@ export default function HeroSlider() {
 
       <div className="relative z-10 flex h-full items-center justify-center text-center">
         <div className="max-w-xl sm:max-w-2xl md:max-w-4xl px-4 sm:px-6">
-
           <h1
             className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold text-[var(--text-white)] drop-shadow-[0_0_30px_rgba(0,0,0,0.8)] animate-heroText"
             key={movie.id}
@@ -182,16 +178,14 @@ export default function HeroSlider() {
           >
             Jegyvásárlás
           </button>
-
         </div>
       </div>
 
       <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-3">
         {movies.map((_, i) => (
           <div
-            className={`h-2 w-2 sm:h-3 sm:w-3 cursor-pointer rounded-full transition-all duration-300 ${
-              i === index ? "scale-125 bg-white" : "bg-white/40"
-            }`}
+            className={`h-2 w-2 sm:h-3 sm:w-3 cursor-pointer rounded-full transition-all duration-300 ${i === index ? "scale-125 bg-white" : "bg-white/40"
+              }`}
             key={i}
             onClick={() => setIndex(i)}
           />

@@ -4,17 +4,13 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function PaymentSuccessPage() {
-
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-
     const confirmPayment = async () => {
-
       try {
-
         const res = await fetch("/api/payment?action=session", {
           credentials: "include",
           cache: "no-store",
@@ -51,18 +47,14 @@ export default function PaymentSuccessPage() {
         if (data.rankUp) {
           sessionStorage.setItem("rankUp", JSON.stringify(data.rankUp));
         }
-
         router.push("/profile");
 
       } catch {
         setError("Fizetési hiba történt");
         setLoading(false);
       }
-
     };
-
     confirmPayment();
-
   }, [router]);
 
   if (loading) {
@@ -80,6 +72,5 @@ export default function PaymentSuccessPage() {
       </div>
     );
   }
-
   return null;
 }

@@ -15,7 +15,6 @@ const normalizeProfileImage = (val: unknown) => {
 };
 
 export async function GET() {
-
   const users = await prisma.user.findMany({
     where: { consent: true },
     orderBy: { points: "desc" },
@@ -28,5 +27,4 @@ export async function GET() {
   });
 
   return NextResponse.json(users);
-
 }

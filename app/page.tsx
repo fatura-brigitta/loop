@@ -43,7 +43,6 @@ export default function HomePage() {
       setLeaderboard(await leaderboardRes.json())
       setPricing(await pricingRes.json())
     };
-
     load();
   }, []);
 

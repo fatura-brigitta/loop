@@ -27,7 +27,6 @@ export default function RegisterPage() {
   const [profileImageBase64, setProfileImageBase64] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-
   const previewSrc = useMemo(() => {
     return profileImageBase64 || "/profile/default.png";
   }, [profileImageBase64]);
@@ -97,7 +96,6 @@ export default function RegisterPage() {
       setError(validationError);
       return;
     }
-
     setLoading(true);
 
     try {
@@ -137,23 +135,6 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]" data-cy="register-page">
-      {/* <header className="sticky top-0 z-50 h-14 border-b border-[var(--border-color)] bg-[var(--bg-main)]/90 backdrop-blur">
-        <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
-          <Link className="flex items-center gap-2" href="/">
-            <Image alt="Logo" height={28} src="/favicon.ico" width={28} />
-            <span className="text-lg font-extrabold tracking-wide text-[var(--text-main2)]">Loop</span>
-          </Link>
-
-          <nav className="flex items-center gap-5 text-sm">
-            <Link
-              className="ml-2 rounded-full bg-blue-500 px-4 py-2 text-[var(--text-main)] shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:brightness-110"
-              href="/login"
-            >
-              Bejelentkezés
-            </Link>
-          </nav>
-        </div>
-      </header> */}
 
       <div className="flex items-center justify-center px-4 py-12 sm:py-20">
         <div className="w-full max-w-md rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] p-6 sm:p-8 shadow-2xl">
@@ -176,11 +157,10 @@ export default function RegisterPage() {
                 </div>
 
                 <div
-                  className={`w-full sm:flex-1 rounded-xl border border-dashed px-4 py-4 text-sm transition ${
-                    isDragging
-                      ? "border-cyan-400 bg-cyan-500/10"
-                      : "border-[var(--border-color)] bg-[var(--card-bg)]"
-                  }`}
+                  className={`w-full sm:flex-1 rounded-xl border border-dashed px-4 py-4 text-sm transition ${isDragging
+                    ? "border-cyan-400 bg-cyan-500/10"
+                    : "border-[var(--border-color)] bg-[var(--card-bg)]"
+                    }`}
                   onDragLeave={() => setIsDragging(false)}
                   onDragOver={(e) => {
                     e.preventDefault();
@@ -279,14 +259,13 @@ export default function RegisterPage() {
                   { value: "RATHER_NOT_SAY", label: "Inkább nem adom meg" },
                 ].map((opt) => (
                   <label
-                    className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-2 transition ${
-                      gender === opt.value
-                        ? "border-cyan-400 bg-cyan-500/10"
-                        : "border-[var(--border-color)] bg-[var(--card-bg)] hover:bg-[var(--card-bg)]"
-                    }`}
+                    className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-2 transition ${gender === opt.value
+                      ? "border-cyan-400 bg-cyan-500/10"
+                      : "border-[var(--border-color)] bg-[var(--card-bg)] hover:bg-[var(--card-bg)]"
+                      }`}
                     key={opt.value}
                   >
-                    <input checked={gender === (opt.value as Gender)} 
+                    <input checked={gender === (opt.value as Gender)}
                       className="h-4 w-4"
                       data-cy={`register-gender-${opt.value}`}
                       name="gender"
@@ -345,7 +324,7 @@ export default function RegisterPage() {
               disabled={loading}
               type="submit"
             >
-              <UserPlus className="cursor-pointer"  size={18}/>
+              <UserPlus className="cursor-pointer" size={18} />
               {loading ? "Fiók létrehozása..." : "Regisztráció"}
             </button>
           </form>

@@ -47,8 +47,7 @@ export default function Timeline({
   opening,
   onPickStart,
 }: Props) {
-
-    console.log("Timeline opening:", opening)
+  console.log("Timeline opening:", opening)
 
   if (!opening) {
     return (
@@ -75,7 +74,6 @@ export default function Timeline({
   }
 
   function handleClick(e: React.MouseEvent<HTMLDivElement>) {
-
     if (!movie) return;
 
     const rect = e.currentTarget.getBoundingClientRect();
@@ -99,14 +97,11 @@ export default function Timeline({
 
   return (
     <div className="overflow-x-auto border border-white/10 rounded-lg">
-
       <div
         className="relative h-24 bg-slate-950"
         style={{ width }}
         onClick={handleClick}
       >
-
-        {/* TIME LABELS */}
         {Array.from({ length: Math.ceil(totalMinutes / 60) + 1 }).map((_, i) => {
 
           const min = openMin + i * 60;
@@ -123,9 +118,7 @@ export default function Timeline({
           );
         })}
 
-        {/* SCREENINGS */}
         {screenings.map((s) => {
-
           const leftMin = minutesFromOpen(s.start);
 
           const durMin =
@@ -152,7 +145,6 @@ export default function Timeline({
         })}
 
       </div>
-
     </div>
   );
 }

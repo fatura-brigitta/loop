@@ -9,6 +9,5 @@ export function getClientIp(req: Request) {
   if (realIp) {
     return realIp.trim();
   }
-
   return "unknown";
 }

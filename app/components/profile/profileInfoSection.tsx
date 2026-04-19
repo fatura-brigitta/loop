@@ -76,7 +76,6 @@ export default function ProfileInfoSection({
         <h1 className="mb-8 text-xl sm:text-2xl md:text-3xl font-bold text-[var(--text-main2)]">Profil adatok</h1>
 
         <div className="mb-8 flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6">
-
           <div className="relative h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 overflow-hidden rounded-full border border-white/20">
             <Image
               alt="Profilkép"
@@ -90,11 +89,10 @@ export default function ProfileInfoSection({
           </div>
 
           <div
-            className={`w-full sm:flex-1 rounded-xl border border-dashed px-4 py-3 text-sm transition ${
-              isDragging
+            className={`w-full sm:flex-1 rounded-xl border border-dashed px-4 py-3 text-sm transition ${isDragging
                 ? "border-cyan-400 bg-cyan-500/10"
                 : "border-[var(--border-color)] bg-[var(--card-bg)]"
-            }`}
+              }`}
             onDragEnter={(e) => {
               e.preventDefault();
               setIsDragging(true);
@@ -151,13 +149,11 @@ export default function ProfileInfoSection({
 
         <div className="mt-2 mb-5 h-5 text-sm">
           {imageError && <div className="text-red-400">{imageError}</div>}
-
           {imageMessage && <div className="text-green-400">{imageMessage}</div>}
         </div>
 
         <div className="mb-4 sm:mb-6">
           <label className="text-sm text-[var(--text-main)]/60">Email</label>
-
           <input
             className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] text-sm px-3 py-2 sm:px-4 text-[var(--text-main)] opacity-70"
             disabled
@@ -167,7 +163,6 @@ export default function ProfileInfoSection({
 
         <div className="mb-6">
           <label className="text-sm text-[var(--text-main)]/60">Név</label>
-
           <input
             className="mt-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] text-sm px-3 py-2 sm:px-4 text-[var(--text-main)]"
             value={newName}
@@ -206,18 +201,15 @@ export default function ProfileInfoSection({
             <span>☀️</span>
 
             <button
-              className={`relative h-7 w-14 cursor-pointer rounded-full transition ${
-                theme === "dark" ? "bg-cyan-500" : "bg-gray-300"
-              }`}
+              className={`relative h-7 w-14 cursor-pointer rounded-full transition ${theme === "dark" ? "bg-cyan-500" : "bg-gray-300"
+                }`}
               onClick={() => changeTheme(theme === "dark" ? "light" : "dark")}
             >
               <span
-                className={`absolute top-1 h-5 w-5 rounded-full bg-white transition ${
-                  theme === "dark" ? "left-8" : "left-1"
-                }`}
+                className={`absolute top-1 h-5 w-5 rounded-full bg-white transition ${theme === "dark" ? "left-8" : "left-1"
+                  }`}
               />
             </button>
-
             <span>🌙</span>
           </div>
         </div>
@@ -296,7 +288,6 @@ export default function ProfileInfoSection({
 
         <div className="mt-6 h-6 text-center text-sm">
           {passwordError && <div className="text-red-400">{passwordError}</div>}
-
           {passwordMessage && <div className="text-green-400">{passwordMessage}</div>}
         </div>
       </div>

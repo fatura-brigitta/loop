@@ -1,7 +1,6 @@
 import prisma from "@/lib/prisma";
 
 export async function updateUserRank(userId: string, newPoints: number) {
-
   const ranks = await prisma.rank.findMany({
     orderBy: {
       point_limit: "asc"

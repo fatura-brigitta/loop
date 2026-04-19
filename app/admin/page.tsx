@@ -42,7 +42,6 @@ type Screening = {
   screening_types?: ScreeningType;
 };
 
-
 type ScreeningType = {
   id: string;
   type: string;
@@ -64,7 +63,6 @@ type OpeningOverride = {
   close_time: string | null
   closed: boolean
 }
-
 
 type Tab =
   | "movies"
@@ -107,7 +105,6 @@ export default function AdminPage() {
   const [openingHours, setOpeningHours] = useState<OpeningHours[]>([])
   const [openingOverrides, setOpeningOverrides] = useState<OpeningOverride[]>([])
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
 
   const [err, setErr] = useState<string>("");
 
@@ -196,7 +193,6 @@ export default function AdminPage() {
     startTime: "",
   });
 
-
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().slice(0, 10)
   );
@@ -211,7 +207,6 @@ export default function AdminPage() {
   const [dayHallScreenings, setDayHallScreenings] = useState<Screening[]>([]);
 
   async function loadScheduleDay() {
-
     if (!selectedDate) return;
 
     try {
@@ -238,7 +233,6 @@ export default function AdminPage() {
     }
 
     try {
-
       const res = await fetch(`/api/admin/adminSchedule?date=${selectedDate}`);
       const data = await res.json();
 
@@ -251,14 +245,12 @@ export default function AdminPage() {
     } catch {
       setDayHallScreenings([]);
     }
-
   }
 
   useEffect(() => {
     loadScheduleDay();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDate, screeningForm.hall_id, tab]);
-
 
   const handleLogout = async () => {
     await fetch("/api/admin/adminLogout", { method: "POST" });
@@ -327,7 +319,6 @@ export default function AdminPage() {
   useEffect(() => {
 
     if (openingHours.length === 0) {
-
       setOpeningHours(
         Array.from({ length: 7 }).map((_, i) => ({
           weekday: i,
@@ -336,9 +327,7 @@ export default function AdminPage() {
           closed: false
         }))
       )
-
     }
-
   }, [openingHours])
 
   const localToISO = (local: string) => {
@@ -404,8 +393,8 @@ export default function AdminPage() {
 
 
           <button className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${tab === "bad_words"
-              ? "bg-white/10 text-white"
-              : "text-slate-300 hover:text-white"
+            ? "bg-white/10 text-white"
+            : "text-slate-300 hover:text-white"
             }`}
             data-cy="nav-forum"
             onClick={() => {
@@ -419,8 +408,8 @@ export default function AdminPage() {
 
           <button
             className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer ${tab === "opening_hours"
-                ? "bg-white/10 text-white"
-                : "text-slate-300 hover:text-white"
+              ? "bg-white/10 text-white"
+              : "text-slate-300 hover:text-white"
               }`}
             onClick={() => {
               handleTabChange("opening_hours");
@@ -486,7 +475,6 @@ export default function AdminPage() {
               </h2>
 
               <div className="grid grid-cols-2 gap-4">
-
                 <div className="space-y-3">
                   <div>
                     <label className="block text-sm text-slate-300 mb-1">Cím</label>
@@ -525,7 +513,6 @@ export default function AdminPage() {
                 </div>
 
                 <div className="space-y-3">
-
                   <div>
                     <label className="block text-sm text-slate-300 mb-1">Műfaj</label>
                     <input className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-white/10 outline-none" data-cy="movie-genre-input"
@@ -721,7 +708,6 @@ export default function AdminPage() {
 
         {tab === "halls" && (
           <div className="mt-6 grid grid-cols-1 xl:grid-cols-3 gap-6">
-
             <section
               className="lg:col-span-1 p-5 rounded-xl bg-white/5 border border-white/10"
               data-cy="hall-form"
@@ -866,11 +852,9 @@ export default function AdminPage() {
                       >
                         Törlés
                       </button>
-
                     </div>
                   </div>
                 ))}
-
               </div>
             </section>
           </div>
@@ -878,9 +862,7 @@ export default function AdminPage() {
 
         {tab === "screenings" && (
           <div className="mt-6 grid grid-cols-1 xl:grid-cols-3 gap-6">
-
             <section className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10" data-cy="screening-form">
-
               <h2 className="font-semibold mb-4">Vetítés létrehozása</h2>
 
               <div className="mb-3">
@@ -1051,13 +1033,11 @@ export default function AdminPage() {
                     </div>
                   );
                 })()}
-
               </div>
 
               <button className="w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
                 data-cy="screening-create"
                 onClick={async () => {
-
                   if (
                     !screeningForm.movie_id ||
                     !screeningForm.hall_id ||
@@ -1081,7 +1061,6 @@ export default function AdminPage() {
                       start: utcDate.toISOString()
                     });
 
-
                     setScreeningForm({
                       movie_id: "",
                       hall_id: "",
@@ -1100,7 +1079,6 @@ export default function AdminPage() {
             </section>
 
             <section className="lg:col-span-1 p-5 rounded-xl bg-white/5 border border-white/10" data-cy="screening-list">
-
               <h2 className="font-semibold mb-4">Vetítések</h2>
 
               <div className="space-y-2 max-h-[520px] overflow-y-auto overflow-x-auto pr-2">
@@ -1120,7 +1098,6 @@ export default function AdminPage() {
                     return true;
                   })
                   .map((s) => {
-
                     const start = new Date(s.start);
 
                     return (
@@ -1165,34 +1142,26 @@ export default function AdminPage() {
 
         {tab === "bad_words" && (
           <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-
             <section className="p-5 rounded-xl bg-white/5 border border-white/10 flex flex-col" data-cy="flagged-comments">
-
               <h2 className="font-semibold mb-4">Problémás kommentek</h2>
 
               <div className="space-y-2 max-h-[520px] overflow-y-auto overflow-x-auto pr-2 custom-scroll">
-
                 {flaggedComments.map(c => {
-
                   let text = escapeHtml(c.comment);
 
                   badWordsText.split(",").forEach(w => {
-
                     const word = w.trim();
                     if (!word) return;
 
                     const regex = new RegExp(`(${word})`, "gi");
                     text = text.replace(regex, "<mark>$1</mark>");
-
                   });
 
                   return (
-
                     <div
                       className="flex items-start justify-between p-3 rounded-lg bg-slate-900/40 border border-white/10"
                       key={c.id}
                     >
-
                       <div className="text-sm">
 
                         <div className="text-xs text-slate-400 mb-1">
@@ -1218,36 +1187,27 @@ export default function AdminPage() {
                               type: c.type
                             })
                           });
-
                           await loadModeration();
-
                         }}
                       >
                         Törlés
                       </button>
-
                     </div>
-
                   );
-
                 })}
-
               </div>
             </section>
 
             <section className="p-5 rounded-xl bg-white/5 border border-white/10" data-cy="bad-words-panel">
-
               <div
                 className="flex items-center justify-between cursor-pointer mb-4"
                 onClick={() => setShowBadWords(!showBadWords)}
               >
-
                 <h2 className="font-semibold">Tiltott szavak</h2>
 
                 <span className={`transition ${showBadWords ? "rotate-180" : ""}`}>
                   ▼
                 </span>
-
               </div>
 
               {showBadWords && (
@@ -1279,9 +1239,7 @@ export default function AdminPage() {
                         },
                         body: JSON.stringify({ words })
                       });
-
                       await loadModeration();
-
                     }}
                   >
                     Mentés
@@ -1296,14 +1254,10 @@ export default function AdminPage() {
           <>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
               <section className="p-5 bg-white/5 border border-white/10 rounded-xl self-start">
-
                 <h2 className="font-semibold mb-4">Általános nyitvatartás</h2>
                 {openingHours.map((d, i) => (
-
                   <div key={i} className="grid grid-cols-[1fr_minmax(0,90px)_minmax(0,90px)_auto] gap-2 mb-3 items-center min-w-0">
-
                     <div className="text-sm">{days[d.weekday]}</div>
-
                     <input
                       type="time"
                       value={d.open_time}
@@ -1333,7 +1287,6 @@ export default function AdminPage() {
                     />
 
                     <label className="text-xs flex items-center gap-1 whitespace-nowrap">
-
                       <input
                         type="checkbox"
                         className="accent-emerald-500"
@@ -1365,13 +1318,11 @@ export default function AdminPage() {
                 >
                   Heti nyitvatartás mentése
                 </button>
-
               </section>
 
               <section className="p-5 bg-white/5 border border-white/10 rounded-xl">
                 <h2 className="font-semibold mb-4">Speciális napok</h2>
                 <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-4 mb-4 min-w-0">
-
                   <div className="col-span-1">
                     <label className="text-xs text-slate-400">Dátum</label>
                     <input
@@ -1414,7 +1365,6 @@ export default function AdminPage() {
                     <span className="text-sm">zárva</span>
                   </div>
 
-
                 </div>
                 <button
                   className="w-full mt-4 w-full px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500/30 transition cursor-pointer"
@@ -1448,19 +1398,15 @@ export default function AdminPage() {
 
                 <div className="mt-10 space-y-2 max-h-[520px] overflow-y-auto overflow-x-auto pr-2 custom-scroll">
                   {openingOverrides.map(o => (
-
                     <div
                       key={o.id}
                       className="flex items-center justify-between p-3 border border-white/10 rounded-lg mb-2 bg-slate-900/40"
                     >
-
                       <div>
-
                         {o.date.slice(0, 10)} — {o.closed
                           ? <span className="text-red-400 font-semibold">ZÁRVA</span>
                           : <span className="text-emerald-400">{o.open_time} - {o.close_time}</span>
                         }
-
                       </div>
 
                       <button
@@ -1472,13 +1418,9 @@ export default function AdminPage() {
 
                         }}
                       >
-
                         Törlés
-
                       </button>
-
                     </div>
-
                   ))}
                 </div>
               </section>

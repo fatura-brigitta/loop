@@ -17,12 +17,10 @@ import { ZodError } from "zod";
 type Vote = "LIKE" | "DISLIKE";
 
 export async function POST(req: NextRequest) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     checkOrigin(req);
 
     const ip = getClientIp(req);
@@ -38,11 +36,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { post_id, type } =
-      forumVoteSchema.parse(await req.json());
+    const { post_id, type } =  forumVoteSchema.parse(await req.json());
 
     const result = await prisma.$transaction(async (tx) => {
-
       const existing = await tx.forumVote.findUnique({
         where: {
           user_id_forum_id: {
@@ -66,7 +62,6 @@ export async function POST(req: NextRequest) {
         });
 
       } else if (existing.type === type) {
-
         await tx.forumVote.delete({
           where: {
             user_id_forum_id: {
@@ -79,7 +74,6 @@ export async function POST(req: NextRequest) {
         myVote = null;
 
       } else {
-
         await tx.forumVote.update({
           where: {
             user_id_forum_id: {
@@ -89,7 +83,6 @@ export async function POST(req: NextRequest) {
           },
           data: { type },
         });
-
       }
 
       const likes = await tx.forumVote.count({
@@ -119,7 +112,6 @@ export async function POST(req: NextRequest) {
     );
 
   } catch (err: any) {
-
     if (err instanceof ZodError) {
       return NextResponse.json(
         { message: t.invalidData },

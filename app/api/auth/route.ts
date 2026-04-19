@@ -257,7 +257,6 @@ export async function PUT(req: NextRequest) {
         uploadedImageUrl = upload.secure_url;
 
       } catch (err) {
-
         console.error("CLOUDINARY UPLOAD ERROR:", err);
 
         return NextResponse.json(
@@ -266,7 +265,6 @@ export async function PUT(req: NextRequest) {
         );
       }
     }
-
     const phone = parsePhoneNumberFromString(phone_number);
 
     if (!phone || !phone.isValid()) {
@@ -306,7 +304,6 @@ export async function PUT(req: NextRequest) {
           email_verified: false,
         },
       });
-
       const code = generate4DigitCode();
 
       await tx.user.update({
@@ -407,7 +404,6 @@ export async function DELETE(req: NextRequest) {
     return res;
 
   } catch (err: any) {
-
     if (err.message === "CSRF") {
       return NextResponse.json(
         { message: t.csrfError },

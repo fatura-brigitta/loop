@@ -4,7 +4,6 @@ import { cookies } from "next/headers";
 import cloudinary from "@/lib/cloudinary";
 
 export async function PUT(req: NextRequest) {
-
   const cookieStore = await cookies();
   const userId = cookieStore.get("userId")?.value;
 
@@ -16,7 +15,6 @@ export async function PUT(req: NextRequest) {
   const base64 = body.profile_image;
 
   if (!base64) {
-
     await prisma.user.update({
       where: { id: userId },
       data: { profile_image: null }
@@ -50,5 +48,4 @@ export async function PUT(req: NextRequest) {
     ok: true,
     url: upload.public_id
   });
-
 }

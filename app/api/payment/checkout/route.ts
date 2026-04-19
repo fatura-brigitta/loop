@@ -14,12 +14,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 });
 
 export async function POST(req: NextRequest) {
-
   const lang = await getLang();
   const t = messages[lang];
 
   try {
-
     const body = await req.json();
     const ticketTypes = body.ticketTypes ?? [];
 
@@ -81,11 +79,9 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-
     let totalPrice = 0;
 
     for (const typeName of ticketTypes) {
-
       const type = await prisma.ticket_type.findFirst({
         where: { type: typeName }
       });
@@ -124,7 +120,6 @@ export async function POST(req: NextRequest) {
     });
 
   } catch (err) {
-
     console.error("STRIPE CHECKOUT ERROR:", err);
 
     const lang = await getLang();
@@ -134,7 +129,5 @@ export async function POST(req: NextRequest) {
       { message: t.stripeError },
       { status: 500 }
     );
-
   }
-
 }

@@ -46,7 +46,6 @@ export default function ResetPasswordPage() {
       setError(json.message || "Hiba történt");
       return;
     }
-
     setOk(true);
 
     setTimeout(() => {

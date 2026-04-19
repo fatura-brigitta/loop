@@ -42,9 +42,7 @@ export default function AdminLoginPage() {
 
   return (
     <div className="min-h-screen bg-[#060b14] text-white flex items-center justify-center px-4" data-cy="admin-login-page">
-
       <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl" data-cy="admin-login-card">
-
         <h1 className="mb-8 text-center text-3xl font-bold text-cyan-300">
           Admin Bejelentkezés
         </h1>
@@ -105,7 +103,6 @@ export default function AdminLoginPage() {
             <LogIn size={18} />
             {loading ? "Bejelentkezés folyamatban..." : "Bejelentkezés"}
           </button>
-
         </form>
       </div>
     </div>

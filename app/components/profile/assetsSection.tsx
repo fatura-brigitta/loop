@@ -40,8 +40,8 @@ export default function AssetsSection({
 
         <div
           className={`transition-all duration-500 ease-in-out ${showCoupons
-              ? "mt-4 mb-4 max-h-[calc(100vh-200px)] overflow-y-auto opacity-100"
-              : "max-h-0 overflow-hidden opacity-0"
+            ? "mt-4 mb-4 max-h-[calc(100vh-200px)] overflow-y-auto opacity-100"
+            : "max-h-0 overflow-hidden opacity-0"
             }`}
           data-cy="profile-coupons-section"
         >
@@ -69,7 +69,6 @@ export default function AssetsSection({
                       src={coupon.discounts.image}
                       width={112}
                     />
-
                     <div className="flex-1">
                       <div className="text-xl font-bold text-[var(--text-main)]">
                         {coupon.discounts.name}
@@ -129,8 +128,8 @@ export default function AssetsSection({
 
         <div
           className={`transition-all duration-500 ease-in-out ${showTickets
-              ? "mt-4 mb-4 max-h-[calc(100vh-200px)] overflow-y-auto opacity-100"
-              : "max-h-0 overflow-hidden opacity-0"
+            ? "mt-4 mb-4 max-h-[calc(100vh-200px)] overflow-y-auto opacity-100"
+            : "max-h-0 overflow-hidden opacity-0"
             }`}
           data-cy="profile-tickets-section"
         >
@@ -148,8 +147,6 @@ export default function AssetsSection({
                   key={ticket.id}
                 >
                   <div className="grid grid-cols-[1fr_auto] gap-4 items-center">
-
-                    {/* LEFT */}
                     <div>
                       <h3 className="text-base sm:text-lg font-bold text-[var(--text-main2)]">
                         {ticket.screenings.movies.title}
@@ -171,7 +168,6 @@ export default function AssetsSection({
                       </div>
                     </div>
 
-                    {/* RIGHT */}
                     <div className="flex justify-end">
                       <img
                         alt="qr"
@@ -208,8 +204,8 @@ export default function AssetsSection({
 
         <div
           className={`transition-all duration-500 ease-in-out ${showHistory
-              ? "mt-4 max-h-[60vh] overflow-y-auto opacity-100"
-              : "max-h-0 overflow-hidden opacity-0"
+            ? "mt-4 max-h-[60vh] overflow-y-auto opacity-100"
+            : "max-h-0 overflow-hidden opacity-0"
             }`}
           data-cy="profile-history-section"
         >

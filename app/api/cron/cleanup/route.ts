@@ -4,7 +4,6 @@ import prisma from "@/lib/prisma";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-
   const limitDate = new Date();
   limitDate.setDate(limitDate.getDate() - 30);
 
@@ -46,5 +45,4 @@ export async function GET() {
     message: "Cleanup completed",
     ...result
   });
-
 }

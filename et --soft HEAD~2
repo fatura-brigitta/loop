@@ -1,0 +1,197 @@
+[33m722ac37[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m remove env secrets and add gitignore
+[33ma11d609[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m utc fails3
+[33mc3044e4[m utc fails2
+[33mace9c59[m Revert "utc fails"
+[33mafe4144[m utc fails
+[33mbb61d09[m test fix
+[33m137654b[m timezone fix try
+[33mbd177dd[m timezone fix
+[33mbbebed4[m utc date fix
+[33m371a745[m fix
+[33m47b21ab[m readme
+[33m3dff9bc[m register fixture
+[33mdbf9367[m movies responsive 2
+[33m4825e45[m screenings responsive
+[33m703049d[m screenings try
+[33mab3854c[m admin fix try 4
+[33mab07741[m try admin 3
+[33m36bd6c4[m admin fix try2
+[33m89fb6da[m admin date fix try
+[33m102aaac[m payment fix
+[33m4bb59a1[m admin try
+[33mf5c3fa6[m admin responsive fix
+[33mb9640b1[m main page responsive fix
+[33m7615789[m try
+[33m5fc137e[m payment responsive
+[33m5f11fff[m hall responsive
+[33me3fe503[m hall responsive start
+[33m8440efb[m forum responsive
+[33m5849759[m movies responsive
+[33m9d379c3[m movies button
+[33m6e9898f[m eredeti
+[33m92d089e[m Try
+[33m090f785[m TryHard4
+[33m2b04652[m TyHard3
+[33m0d95854[m TryHard2
+[33mc860e39[m TryHard
+[33me130a02[m Mobil nézet próba
+[33m462a2b4[m try2
+[33m4458d51[m ticket token delete
+[33mce69914[m fr try
+[33m4e54386[m movies responsive start
+[33m40fadca[m main page responsive
+[33m3fb6341[m facebook
+[33m94d7e58[m profile and minor responsive
+[33mc2b0de1[m e2e cypress backend tests
+[33m8214fab[m responsive login, register
+[33ma42e3fd[m profile data fix
+[33m4b22a77[m admin responsive
+[33me89995e[m responsive admin try
+[33m5885d6d[m admin fixes
+[33mf751853[m dropdown fix
+[33m0e856a6[m hover and dropdown fixes
+[33mec65b73[m coupons fix
+[33m4e397d9[m pricing section fix
+[33m385b2b1[m small fixes
+[33m77cf33a[m profile as component
+[33m4879998[m designs
+[33m2e7d312[m facebook fix
+[33m207b118[m api token scan modify
+[33m9616a5e[m ticket scan
+[33mbec2199[m forum profile done
+[33m00e9190[m forum fix
+[33m16ced40[m scrollbar
+[33m623f4ef[m new movies at midnight
+[33ma29dd37[m register image upload
+[33m0040043[m maui origin fix
+[33m0343663[m profile image and bug fixes
+[33ma3324da[m profile pic
+[33m3fd1026[m profile picture fix
+[33m7bdc635[m api security
+[33m343d044[m backend errors lib
+[33m4948f32[m cron unverified user delete
+[33m8bf3789[m fix
+[33m8849a5b[m cron test
+[33mc3e5119[m data
+[33m562e17b[m cron fix
+[33m72b87e6[m cron delete ticket, screenings
+[33mfeb49ce[m swagger fixing
+[33me95207b[m coupons fix
+[33m21f0ef8[m email verification code fix
+[33m107e266[m Merge branch 'master' of https://github.com/fatura-brigitta/loop
+[33mada1b0f[m header error messages
+[33m95b5700[m admin fix
+[33m94b816f[m admin fix
+[33m8bc9bc8[m transaction fixes
+[33m3c33202[m swagger
+[33mcb341eb[m swagger vercel rebuild
+[33m68ec9b8[m swagger vercel
+[33m522cfa9[m fix
+[33m3f38a0d[m swagger done
+[33m1798c2d[m fix2
+[33macea27e[m fix
+[33m5192e69[m swagger
+[33m76c9024[m nyitvatartás
+[33mf87c320[m color update
+[33m452ac16[m backend routes
+[33m0669ae8[m rank points
+[33m1c9e5a6[m admin fix
+[33m8c00f44[m light theme end
+[33mdacb0d5[m light theme start
+[33m4746694[m email amount fix
+[33mc745c6b[m payment optimalization
+[33md571362[m fix
+[33m1c1d6fe[m fix
+[33m642cb2b[m timeline
+[33m8ec495e[m Components fix
+[33m197cf8e[m fix
+[33m51a27eb[m a
+[33m2fd009e[m data-cy
+[33m554bba9[m Pages as Components
+[33m030be5c[m "real" payment
+[33mf3ac792[m home page
+[33m8251f4b[m comments
+[33m3591fee[m consent leaderboard
+[33md0fc12c[m coupons
+[33m25919a3[m qr scan
+[33mac77131[m payment fix
+[33m5968883[m forumadmin javitas
+[33m19d0239[m footer fix
+[33m5c5aa66[m footer
+[33mef30087[m facebook, google sign in style
+[33mae343c0[m terms of service
+[33mcb19581[m vercel proba 3
+[33me6a66f2[m fix
+[33md153a73[m vercel proba2
+[33m397bd61[m vercel proba
+[33m5e05b3d[m prisma
+[33m6438483[m facebook sign in
+[33m7d1a897[m navbar
+[33md330f48[m forum admin
+[33m81522d0[m pdf email
+[33ma61c5ad[m prisma
+[33md746dd2[m rank fix
+[33mfc6f01d[m ranks
+[33m06c7e3b[m profile modify
+[33m103150d[m remove env file and update gitignore
+[33mfeb83a1[m remove env secrets
+[33m6d1e6d0[m google login
+[33m2e871f0[m footer
+[33md875009[m forum vegleges
+[33m39affed[m loadin screen
+[33m3894a83[m home page
+[33m1a50bfc[m slider
+[33m7187642[m tickets email
+[33m884aace[m enter send form
+[33mb896dd3[m login redirect
+[33mc22e82c[m forum javitas
+[33m98a49b3[m Merge branch 'master' of https://github.com/fatura-brigitta/loop
+[33m336b17b[m forum likoleas/valaszok
+[33m0de2b0e[m home slider
+[33m513e7c9[m coupons
+[33m747525d[m ranks
+[33ma45bba4[m fórum
+[33m5591ddb[m forum page start
+[33mcd1288c[m fix
+[33m90eed99[m Navbar component
+[33me427e0c[m radio button
+[33m04a9f8e[m drag and drop
+[33m16ccf0f[m date fix
+[33me97042b[m profile picture
+[33m95f91af[m admin vetites nezet
+[33m8f69782[m admin hall edit
+[33mb10c739[m filters
+[33mc795efa[m screenings fixing
+[33maa9ce9c[m profile fix
+[33m6bd3943[m password reset
+[33m6c770da[m admin validálások/idő
+[33m8b86ffb[m magyarosítás
+[33m8c8dead[m admin szekek
+[33m78e832f[m admin login
+[33meaa0056[m qr
+[33medb0cdd[m admin
+[33mb1c0f65[m email
+[33mc9dc641[m api folder modified
+[33m989221b[m own cinema email
+[33m4554fcc[m email ticket
+[33mf2e0cf4[m Merge branch 'master' of https://github.com/fatura-brigitta/loop
+[33mb54a15c[m ticket purchase done
+[33m74c76d2[m teszt
+[33mcc9cf06[m fix
+[33mf97cde4[m profile-data modification
+[33m1a22a8d[m seats modified
+[33me19042e[m movie halls
+[33mb1e64a3[m screenings refresh
+[33m33a1c21[m trailer
+[33m8fd7527[m movies page fix
+[33m490b6b4[m session
+[33m23477fb[m vercel
+[33m29dcde4[m random
+[33m4008f25[m movies, screenings navigation
+[33mbaa6d6a[m movies
+[33m09d9a92[m admin
+[33mdded8a7[m jsonok javítva
+[33mdfba532[m jsonok es bat
+[33m953caa8[m prisma schema kész
+[33m0f44568[m alapstruktúra kész
+[33m50fd5fc[m Initial commit
